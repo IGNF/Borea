@@ -1,5 +1,5 @@
 import numpy as np
-from Pink_Lady.code.Shot import Shot
+import code.Shot as shot
 
 
 class Worksite:
@@ -29,7 +29,7 @@ class Worksite:
         name_cam : str
             name of the camera
         """
-        self.shots.append(Shot(name_shot=name_shot, 
+        self.shots.append(shot.Shot(name_shot=name_shot, 
                                pos_shot=pos_shot, 
                                ori_shot=ori_shot, 
                                name_cam=name_cam))

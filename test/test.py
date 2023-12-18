@@ -1,7 +1,7 @@
 import numpy as np
 
-from PinkLady.Shot import Shot
-from PinkLady.Worksite import Worksite
+from Pink_Lady.code.Shot import Shot
+from Pink_Lady.code.Worksite import Worksite
 
 
 

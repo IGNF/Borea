@@ -1,5 +1,5 @@
 import numpy as np
-from PinkLady.Shot import Shot
+from Pink_Lady.code.Shot import Shot
 
 
 class Worksite:

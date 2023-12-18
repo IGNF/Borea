@@ -6,7 +6,7 @@ First step: reading and writing an .OPK file and set up the associated tests
 
 ## UML diagram
 
-'''
+'''mermaide
 classDiagram
 Worksite .. Shot
 Worksite : Worksite()

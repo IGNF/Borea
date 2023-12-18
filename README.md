@@ -4,12 +4,3 @@ Pink Lady is a photogrammetric conversion and acquisition program in .OPK format
 
 First step: reading and writing an .OPK file and set up the associated tests
 
-## UML diagram
-
-'''mermaide
-classDiagram
-Worksite .. Shot
-Worksite : Worksite()
-Worksite : add_shot()
-Shot : shot()
-'''

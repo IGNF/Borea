@@ -4,14 +4,6 @@ code package
 Submodules
 ----------
 
-code.PinkLady module
---------------------
-
-.. automodule:: code.PinkLady
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 code.Reader module
 ------------------
 

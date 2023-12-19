@@ -5,12 +5,10 @@ import code.Shot as shot
 class Worksite:
     def __init__(self, name: str) -> None:
         """
-        class definition
+        Class definition of Worksite
 
-        name : str
-            name of the worksite
-        shots: list
-            Shots list of the worksite, list<Shot>
+        :param str name : Name of the worksite.
+        :param list shots: Shots list of the worksite, list<Shot>.
         """
         self.name = name
         self.shots =  []
@@ -20,14 +18,10 @@ class Worksite:
         """
         Add Shot to the attribut Shots
 
-        name_shot : str
-            Name of the shot
-        pos_shot : numpy.array
-            array of coordinate position [X, Y, Z]
-        ori_shot : numpy.array
-            array of orientation of the shot [Omega, Phi, Kappa]
-        name_cam : str
-            name of the camera
+        :param str name_shot : Name of the shot.
+        :param numpy.array pos_shot : Array of coordinate position [X, Y, Z].
+        :param numpy.array ori_shot : Array of orientation of the shot [Omega, Phi, Kappa].
+        :param str name_cam : Name of the camera.
         """
         self.shots.append(shot.Shot(name_shot=name_shot, 
                                pos_shot=pos_shot, 

@@ -3,12 +3,10 @@ import code.Worksite as ws
 
 def to_opk(path:str, work:ws)-> None:
     """
-    write function, to save a photogrammetric site in .opk format
-
-    path : str
-        path of registration file
-    work : ws
-        The site to be recorded
+    Write function, to save a photogrammetric site in .opk format
+    
+    :param str path : Path of registration file.
+    :param Worksite work : The site to be recorded.
     """
     path = path + work.name + ".opk"
 

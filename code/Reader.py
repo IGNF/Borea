@@ -6,10 +6,11 @@ def from_file(file:str, skip:int=None) ->ws:
     """
     Photogrammetric site file reading function
 
-    file : str
-        path to the worksite
-    skip : int
-        number of lines to be skipped before reading the file
+    :param str file : Path to the worksite.
+    :param int skip : Number of lines to be skipped before reading the file.
+
+    :returns: The worksite
+    :type: Worksite
     """
     ext = file.split(".")[-1]
     if ext == "opk":
@@ -24,10 +25,11 @@ def from_opk(file:str, skip:int=1) -> ws:
     """
     Reads an opk file to transform it into a Workside object
 
-    file : str
-        path of the file .opk
-    skip : int
-        number of lines to be skipped before reading the file
+    :param str file : Path to the worksite.
+    :param int skip : Number of lines to be skipped before reading the file.
+
+    :returns: The worksite
+    :type: Worksite
     """
     #job name retrieval
     name_work = file.split('/')[-1]

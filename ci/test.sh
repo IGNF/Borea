@@ -1,1 +1,1 @@
-python3 -m pytest -s ./test
+python3 -m pytest -s ./test -v

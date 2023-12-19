@@ -2,6 +2,21 @@ import numpy as np
 
 import code.Worksite as ws
 
+def from_file(file:str, skip:int=1) ->ws:
+    """
+    Photogrammetric site file reading function
+
+    file : str
+        path to the worksite
+    skip : int
+        number of lines to be skipped before reading the file
+    """
+    ext = file.split(".")[-1]
+    if ext == "opk":
+        return from_opk(file,skip)
+    else:
+         print("Input file not taken into account")
+
 
 def from_opk(file:str, skip:int=1) -> ws:
     """

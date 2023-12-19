@@ -6,7 +6,7 @@ import code.Reader as r
 import code.Writer as w
 
 """
-def setup_module(module):
+def setup_module(module): # run before the first test
     try:  # Clean folder test if exists
         shutil.rmtree("test/tmp")
     except FileNotFoundError:

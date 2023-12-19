@@ -2,7 +2,7 @@ import numpy as np
 
 import code.Worksite as ws
 
-def from_file(file:str, skip:int=1) ->ws:
+def from_file(file:str, skip:int=None) ->ws:
     """
     Photogrammetric site file reading function
 
@@ -13,6 +13,8 @@ def from_file(file:str, skip:int=1) ->ws:
     """
     ext = file.split(".")[-1]
     if ext == "opk":
+        if skip == None:
+            skip = 1
         return from_opk(file,skip)
     else:
          print("Input file not taken into account")

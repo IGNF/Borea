@@ -1,0 +1,21 @@
+name: unitary_test
+
+on:
+  pull_resquest:
+    branchs: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v3
+
+    - name: Run tests with pytest
+      run: python3 -m pytest -s ./test -v
+      with:
+        environment-file: environment.yml

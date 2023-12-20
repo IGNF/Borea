@@ -1,5 +1,5 @@
 import numpy as np
-import code.Worksite as ws
+import code.worksite as ws
 
 def to_opk(path:str, work:ws)-> None:
     """

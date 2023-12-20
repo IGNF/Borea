@@ -1,5 +1,5 @@
 import numpy as np
-import code.Shot as shot
+import code.shot as shot
 
 
 class Worksite:

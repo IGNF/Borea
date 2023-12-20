@@ -1,6 +1,6 @@
 import numpy as np
 
-import code.Worksite as ws
+import code.worksite as ws
 
 def from_file(file:str, skip:int=None) ->ws:
     """

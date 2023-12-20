@@ -1,6 +1,6 @@
+import os
 import numpy as np
 import shutil as shutil
-
 import code.worksite as ws
 import code.reader as r
 import code.writer as w
@@ -9,13 +9,15 @@ import code.writer as w
 def setup_module(module): # run before the first test
     try:  # Clean folder test if exists
         shutil.rmtree("test/tmp")
+        os.mkdir("test/tmp")
     except FileNotFoundError:
         pass
 
-        
+     
 def teardown_module(module):  # run after the last test
     try:  # Clean folder test if exists
         shutil.rmtree("test/tmp")
+        os.mkdir("test/tmp")
     except FileNotFoundError:
         pass
 

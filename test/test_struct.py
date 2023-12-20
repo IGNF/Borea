@@ -5,7 +5,7 @@ import code.Worksite as ws
 import code.Reader as r
 import code.Writer as w
 
-"""
+
 def setup_module(module): # run before the first test
     try:  # Clean folder test if exists
         shutil.rmtree("test/tmp")
@@ -75,7 +75,7 @@ def test_writer():
     assert obj2.shots[0].ori_shot[1] == 2
     assert obj2.shots[0].ori_shot[2] == 1
     assert obj2.shots[0].name_cam == "test_cam"
-"""
+
 
 def test_reader_file():
     obj = r.from_file("test/data/Sommets_hEllips_test.opk")

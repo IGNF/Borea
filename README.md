@@ -1,8 +1,6 @@
-# Welcome to Pink Lady
+# Welcome to Pink Lady !!!
 
 Pink Lady is a photogrammetric conversion and acquisition program in .OPK format. Open-source with a few tools, such as calculation of the position in the image (l,c) of a terrain point (X,Y,Z).
-
-First step: reading and writing an .OPK file and set up the associated tests
 
 ### Commit Message Header
 
@@ -13,3 +11,8 @@ First step: reading and writing an .OPK file and set up the associated tests
   │
   └─⫸ Commit Type: build|docs|fix|refactor|test
 ```
+
+### Functionality
+
+1. Reading and writing an OPK file
+2. Reading a camera file (XML and txt)

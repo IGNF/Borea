@@ -1,9 +1,9 @@
 import numpy as np
 import shutil as shutil
 
-import code.Worksite as ws
-import code.Reader as r
-import code.Writer as w
+import code.worksite as ws
+import code.reader as r
+import code.writer as w
 
 
 def setup_module(module): # run before the first test

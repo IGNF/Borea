@@ -1,9 +1,17 @@
+"""
+Acquisition data class module
+"""
 import numpy as np
 
+
 class Shot:
-    def __init__(self, name_shot:str, pos_shot:np.array, ori_shot:np.array, name_cam:str) -> None:
+    """
+    Acquisition data class
+    """
+    def __init__(self, name_shot: str,
+                 pos_shot: np.array, ori_shot: np.array, name_cam: str) -> None:
         """
-        class definition
+        Shot class definition
 
         :param str name_shot : Name of the shot.
         :param numpy.array pos_shot : Array of coordinate position [X, Y, Z].
@@ -14,4 +22,3 @@ class Shot:
         self.pos_shot = pos_shot
         self.ori_shot = ori_shot
         self.name_cam = name_cam
-    

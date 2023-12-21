@@ -12,6 +12,10 @@ Pink Lady is a photogrammetric conversion and acquisition program in .OPK format
   └─⫸ Commit Type: build|docs|fix|refactor|test|clean|lint
 ```
 
+### HTML documentation
+
+Html documentation in docs/_build/html/index.hmlt
+
 ### Functionality
 
 1. Reading and writing an OPK file

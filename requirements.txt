@@ -3,4 +3,5 @@ pylint==0.3.3
 pytest==7.43
 pytest-shutil==1.7.0
 flake8==6.1.0
-sphinx==7.2.6
+sphinx
+furo

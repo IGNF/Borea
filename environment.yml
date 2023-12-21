@@ -1,10 +1,6 @@
 name: pink_lady
 dependencies:
   - python
-  - pytest
-  - pytest-shutil
-  - pylint
-  - flake8
   - numpy
   - pip
   - pip:

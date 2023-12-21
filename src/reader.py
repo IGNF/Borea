@@ -2,18 +2,19 @@
 Photogrammetry site file reader module
 """
 import numpy as np
-import code.worksite as ws
+from src.worksite import Worksite
 
 
-def from_file(file: str, skip: int = None) -> ws:
+def from_file(file: str, skip: int = None) -> Worksite:
     """
     Photogrammetric site file reading function
 
-    :param str file : Path to the worksite.
-    :param int skip : Number of lines to be skipped before reading the file.
+    Args:
+        file (str): Path to the worksite.
+        skip (int): Number of lines to be skipped before reading the file, Default=None.
 
-    :returns: The worksite
-    :type: Worksite
+    Returns:
+        Worksite: The worksite
     """
     ext = file.split(".")[-1]
     if ext == "opk":
@@ -25,22 +26,23 @@ def from_file(file: str, skip: int = None) -> ws:
     return work
 
 
-def from_opk(file: str, skip: int = 1) -> ws:
+def from_opk(file: str, skip: int = 1) -> Worksite:
     """
     Reads an opk file to transform it into a Workside object
 
-    :param str file : Path to the worksite.
-    :param int skip : Number of lines to be skipped before reading the file.
+    Args:
+        file (str): Path to the worksite.
+        skip (int): Number of lines to be skipped before reading the file, Default=None.
 
-    :returns: The worksite
-    :type: Worksite
+    Returns:
+        Worksite: The worksite
     """
     # Job name retrieval
     name_work = file.split('/')[-1]
     name_work = name_work.split('.')[0]
 
     # Create worksite
-    work = ws.Worksite(name_work)
+    work = Worksite(name_work)
 
     try:
         with open(file, 'r', encoding="utf-8") as file_opk:

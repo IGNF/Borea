@@ -1,9 +1,10 @@
 import os
 import numpy as np
 import shutil as shutil
-import code.worksite as ws
-import code.reader as r
-import code.writer as w
+
+from src.worksite import Worksite
+from src.reader import from_file, from_opk
+from src.writer import to_opk
 
 
 def setup_module(module): # run before the first test
@@ -23,13 +24,13 @@ def teardown_module(module):  # run after the last test
 
 
 def test_worksite():
-    obj = ws.Worksite(name = "Test")
+    obj = Worksite(name = "Test")
     assert obj.name == "Test"
     assert obj.shots == []
 
 
 def test_addshot():
-    obj = ws.Worksite(name = "Test")
+    obj = Worksite(name = "Test")
     obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
     assert obj.shots[0].name_shot == "test_shot"
     assert obj.shots[0].pos_shot[0] == 1
@@ -42,7 +43,7 @@ def test_addshot():
 
 
 def test_reader():
-    obj = r.from_opk("test/data/Sommets_hEllips_test.opk")
+    obj = from_opk("test/data/Sommets_hEllips_test.opk")
     assert obj.name == "Sommets_hEllips_test"
     assert obj.shots[0].name_shot == "22FD2405Ax00001_21104"
     assert obj.shots[0].pos_shot[0] == 546166.732
@@ -64,10 +65,10 @@ def test_reader():
 
 
 def test_writer():
-    obj = ws.Worksite(name = "Test")
+    obj = Worksite(name = "Test")
     obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
-    w.to_opk("test/tmp/", obj)
-    obj2 = r.from_opk("test/tmp/Test.opk")
+    to_opk("test/tmp/", obj)
+    obj2 = from_opk("test/tmp/Test.opk")
     assert obj2.name == "Test"
     assert obj2.shots[0].name_shot == "test_shot"
     assert obj2.shots[0].pos_shot[0] == 1
@@ -80,7 +81,7 @@ def test_writer():
 
 
 def test_reader_file():
-    obj = r.from_file("test/data/Sommets_hEllips_test.opk")
+    obj = from_file("test/data/Sommets_hEllips_test.opk")
     assert obj.name == "Sommets_hEllips_test"
     assert obj.shots[0].name_shot == "22FD2405Ax00001_21104"
     assert obj.shots[0].pos_shot[0] == 546166.732

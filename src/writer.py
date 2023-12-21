@@ -1,15 +1,16 @@
 """
 Photogrammetry site file reader module
 """
-import code.worksite as ws
+from src.worksite import Worksite
 
 
-def to_opk(path: str, work: ws) -> None:
+def to_opk(path: str, work: Worksite) -> None:
     """
     Write function, to save a photogrammetric site in .opk format
 
-    :param str path : Path of registration file.
-    :param Worksite work : The site to be recorded.
+    Args:
+        path (str): Path of registration file.
+        work (Worksite): The site to be recorded.
     """
     path = path + work.name + ".opk"
 

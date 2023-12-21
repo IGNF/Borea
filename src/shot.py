@@ -13,10 +13,11 @@ class Shot:
         """
         Shot class definition
 
-        :param str name_shot : Name of the shot.
-        :param numpy.array pos_shot : Array of coordinate position [X, Y, Z].
-        :param numpy.array ori_shot : Array of orientation of the shot [Omega, Phi, Kappa].
-        :param str name_cam : Name of the camera.
+        Args:
+            name_shot (str): Name of the shot.
+            pos_shot (numpy.array): Array of coordinate position [X, Y, Z].
+            ori_shot (numpy.array): Array of orientation of the shot [Omega, Phi, Kappa].
+            name_cam (str): Name of the camera.
         """
         self.name_shot = name_shot
         self.pos_shot = pos_shot

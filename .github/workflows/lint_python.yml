@@ -25,11 +25,11 @@ jobs:
 
     - name: Analysing the code with pylint
       run: |
-        pylint pink_lady.py code/reader.py code/shot.py code/worksite.py code/writer.py
+        pylint pink_lady.py src/reader.py src/shot.py src/worksite.py src/writer.py
 
       continue-on-error: true
 
     - name: Analysing the code with flake8
       run: |
-        flake8  --max-line-length 100 pink_lady.py code/reader.py code/shot.py code/worksite.py code/writer.py
+        flake8  --max-line-length 100 pink_lady.py src/reader.py src/shot.py src/worksite.py src/writer.py
 

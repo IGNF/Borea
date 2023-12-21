@@ -3,8 +3,8 @@ pink lady launch module
 """
 import argparse
 
-from code.reader import from_file
-from code.writer import to_opk
+from src.reader import from_file
+from src.writer import to_opk
 
 parser = argparse.ArgumentParser(description='photogrammetric site conversion'
                                  + ' and manipulation software')

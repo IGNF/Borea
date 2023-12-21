@@ -1,7 +1,7 @@
 name: unitary_test
 
 on:
-  pull_resquest:
+  push:
     branchs: [main]
 
 jobs:

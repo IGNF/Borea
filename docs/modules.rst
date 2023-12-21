@@ -1,8 +1,7 @@
-Pink_Lady
-=========
+src
+===
 
 .. toctree::
    :maxdepth: 4
 
-   code
-   pink_lady
+   src

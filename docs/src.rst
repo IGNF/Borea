@@ -1,37 +1,37 @@
-code package
-============
+src package
+===========
 
 Submodules
 ----------
 
-code.reader module
-------------------
+src.reader module
+-----------------
 
-.. automodule:: code.reader
+.. automodule:: src.reader
    :members:
    :undoc-members:
    :show-inheritance:
 
-code.shot module
-----------------
+src.shot module
+---------------
 
-.. automodule:: code.shot
+.. automodule:: src.shot
    :members:
    :undoc-members:
    :show-inheritance:
 
-code.worksite module
---------------------
+src.worksite module
+-------------------
 
-.. automodule:: code.worksite
+.. automodule:: src.worksite
    :members:
    :undoc-members:
    :show-inheritance:
 
-code.writer module
-------------------
+src.writer module
+-----------------
 
-.. automodule:: code.writer
+.. automodule:: src.writer
    :members:
    :undoc-members:
    :show-inheritance:
@@ -39,7 +39,7 @@ code.writer module
 Module contents
 ---------------
 
-.. automodule:: code
+.. automodule:: src
    :members:
    :undoc-members:
    :show-inheritance:

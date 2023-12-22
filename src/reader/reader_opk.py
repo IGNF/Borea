@@ -16,7 +16,7 @@ def read(file: str, skip: int) -> Worksite:
     Returns:
         Worksite: The worksite
     """
-    if skip == None:
+    if skip is None:
         skip = 1
 
     # Job name retrieval

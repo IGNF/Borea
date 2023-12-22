@@ -1,9 +1,7 @@
 """
 Photogrammetry site file reader module
 """
-import os
 import importlib
-import numpy as np
 from src.worksite import Worksite
 
 
@@ -18,8 +16,8 @@ def reader_orientation(file: str, skip: int = None) -> Worksite:
     Returns:
         Worksite: The worksite
     """
-    # Todo : Attention multiple file management orientation
-    # Todo : Attention management of files with the same extension but different formats
+    # Attention multiple file management orientation
+    # Attention management of files with the same extension but different formats
     ext = file.split(".")[-1]
     try:
         my_module = importlib.import_module("src.reader.reader_" + ext.lower())
@@ -28,4 +26,3 @@ def reader_orientation(file: str, skip: int = None) -> Worksite:
         raise ValueError(f"{ext} file is not taken into account !!!") from e
 
     return work
-

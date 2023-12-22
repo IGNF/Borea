@@ -35,3 +35,9 @@ class Worksite:
                                pos_shot=pos_shot,
                                ori_shot=ori_shot,
                                name_cam=name_cam))
+
+    def add_camera(self):
+        """
+        Add data camera in the Worksite
+        """
+        return 0

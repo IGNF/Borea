@@ -3,7 +3,7 @@ Script test to read file
 """
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.orientation.reader_opk import read as read_opk
-from src.reader.camera.reader_camera import reader_camera, camera_txt, camera_xml
+from src.reader.camera.reader_camera import read_camera, camera_txt, camera_xml
 from src.datastruct.worksite import Worksite
 
 
@@ -71,7 +71,7 @@ def test_read_camera_txt():
 
 def test_read_camera():
     work = Worksite("Test")
-    reader_camera(["test/data/s07_UC_Eagle_M3_120.xml", "test/data/Camera.txt"], work)
+    read_camera(["test/data/s07_UC_Eagle_M3_120.xml", "test/data/Camera.txt"], work)
     assert work.cameras[0].name_camera == "UCE-M3-f120-s07"
     assert work.cameras[0].ppax == 13230.00
     assert work.cameras[0].ppay == 8502.00

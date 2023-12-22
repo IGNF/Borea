@@ -7,4 +7,3 @@ sphinx
 furo
 importlib
 dataclasses
-lxml

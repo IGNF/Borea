@@ -1,33 +1,34 @@
-import os
 import numpy as np
-import shutil as shutil
 
-from src.worksite import Worksite
-from src.reader.manage_reader import reader_orientation
-from src.reader.reader_opk import read
-from src.writer.writer import to_opk
-
-
-def setup_module(module): # run before the first test
-    try:  # Clean folder test if exists
-        shutil.rmtree("test/tmp")
-        os.mkdir("test/tmp")
-    except FileNotFoundError:
-        pass
-
-     
-def teardown_module(module):  # run after the last test
-    try:  # Clean folder test if exists
-        shutil.rmtree("test/tmp")
-        os.mkdir("test/tmp")
-    except FileNotFoundError:
-        pass
+from src.datastruct.worksite import Worksite
+from src.datastruct.shot import Shot
+from src.datastruct.camera import Camera
 
 
 def test_worksite():
     obj = Worksite(name = "Test")
     assert obj.name == "Test"
     assert obj.shots == []
+
+
+def test_shot():
+    obj = Shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
+    assert obj.name_shot == "test_shot"
+    assert obj.pos_shot[0] == 1
+    assert obj.pos_shot[1] == 2
+    assert obj.pos_shot[2] == 3
+    assert obj.ori_shot[0] == 3
+    assert obj.ori_shot[1] == 2
+    assert obj.ori_shot[2] == 1
+    assert obj.name_cam == "test_cam"
+
+
+def test_camera():
+    obj = Camera("test_cam", 13210.00, 8502.00, 30975.00)
+    assert obj.name_camera == "test_cam"
+    assert obj.ppax == 13210.00
+    assert obj.ppay == 8502.00
+    assert obj.focal == 30975.00
 
 
 def test_addshot():
@@ -43,61 +44,10 @@ def test_addshot():
     assert obj.shots[0].name_cam == "test_cam"
 
 
-def test_reader():
-    obj = read("test/data/Sommets_hEllips_test.opk", None)
-    assert obj.name == "Sommets_hEllips_test"
-    assert obj.shots[0].name_shot == "22FD2405Ax00001_21104"
-    assert obj.shots[0].pos_shot[0] == 546166.732
-    assert obj.shots[0].pos_shot[1] == 6504508.606
-    assert obj.shots[0].pos_shot[2] == 2081.626
-    assert obj.shots[0].ori_shot[0] == -0.2015
-    assert obj.shots[0].ori_shot[1] == -0.1173
-    assert obj.shots[0].ori_shot[2] == 61.0088
-    assert obj.shots[0].name_cam == "UCE-M3-f120-s06"
-    assert obj.shots[-1].name_shot == "22FD2405Ax00002_21121"
-    assert obj.shots[-1].pos_shot[0] == 547789.766
-    assert obj.shots[-1].pos_shot[1] == 6503011.873
-    assert obj.shots[-1].pos_shot[2] == 2080.564
-    assert obj.shots[-1].ori_shot[0] == 0.1471
-    assert obj.shots[-1].ori_shot[1] == 0.0971
-    assert obj.shots[-1].ori_shot[2] == -118.1551
-    assert obj.shots[-1].name_cam == "UCE-M3-f120-s06"
-    assert len(obj.shots) == 8
-
-
-def test_writer():
+def test_addcam():
     obj = Worksite(name = "Test")
-    obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
-    to_opk("test/tmp/", obj)
-    obj2 = read("test/tmp/Test.opk", None)
-    assert obj2.name == "Test"
-    assert obj2.shots[0].name_shot == "test_shot"
-    assert obj2.shots[0].pos_shot[0] == 1
-    assert obj2.shots[0].pos_shot[1] == 2
-    assert obj2.shots[0].pos_shot[2] == 3
-    assert obj2.shots[0].ori_shot[0] == 3
-    assert obj2.shots[0].ori_shot[1] == 2
-    assert obj2.shots[0].ori_shot[2] == 1
-    assert obj2.shots[0].name_cam == "test_cam"
-
-
-def test_reader_file():
-    obj = reader_orientation("test/data/Sommets_hEllips_test.opk")
-    assert obj.name == "Sommets_hEllips_test"
-    assert obj.shots[0].name_shot == "22FD2405Ax00001_21104"
-    assert obj.shots[0].pos_shot[0] == 546166.732
-    assert obj.shots[0].pos_shot[1] == 6504508.606
-    assert obj.shots[0].pos_shot[2] == 2081.626
-    assert obj.shots[0].ori_shot[0] == -0.2015
-    assert obj.shots[0].ori_shot[1] == -0.1173
-    assert obj.shots[0].ori_shot[2] == 61.0088
-    assert obj.shots[0].name_cam == "UCE-M3-f120-s06"
-    assert obj.shots[-1].name_shot == "22FD2405Ax00002_21121"
-    assert obj.shots[-1].pos_shot[0] == 547789.766
-    assert obj.shots[-1].pos_shot[1] == 6503011.873
-    assert obj.shots[-1].pos_shot[2] == 2080.564
-    assert obj.shots[-1].ori_shot[0] == 0.1471
-    assert obj.shots[-1].ori_shot[1] == 0.0971
-    assert obj.shots[-1].ori_shot[2] == -118.1551
-    assert obj.shots[-1].name_cam == "UCE-M3-f120-s06"
-    assert len(obj.shots) == 8
+    obj.add_camera("test_cam", 13210.00, 8502.00, 30975.00)
+    assert obj.cameras[0].name_camera == "test_cam"
+    assert obj.cameras[0].ppax== 13210.00
+    assert obj.cameras[0].ppay == 8502.00
+    assert obj.cameras[0].focal == 30975.00

@@ -2,7 +2,7 @@
 Photogrammetry site file reader module
 """
 import importlib
-from src.worksite import Worksite
+from src.datastruct.worksite import Worksite
 
 
 def reader_orientation(file: str, skip: int = None) -> Worksite:

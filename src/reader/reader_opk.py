@@ -2,7 +2,7 @@
 A script to read opk file
 """
 import numpy as np
-from src.worksite import Worksite
+from src.datastruct.worksite import Worksite
 
 
 def read(file: str, skip: int) -> Worksite:

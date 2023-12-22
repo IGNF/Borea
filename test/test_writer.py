@@ -21,14 +21,14 @@ def setup_module(module): # run before the first test
         pass
     os.makedirs(OUTPUT, exist_ok=True)
 
-"""    
+   
 def teardown_module(module):  # run after the last test
     try:  # Clean folder test if exists
         shutil.rmtree(OUTPUT)
         os.mkdir(OUTPUT)
     except FileNotFoundError:
         pass
-"""
+
 
 def test_writer():
     obj = Worksite(name = FILENAME)

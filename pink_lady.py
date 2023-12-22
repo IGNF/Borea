@@ -3,8 +3,8 @@ pink lady launch module
 """
 import argparse
 
-from src.reader import from_file
-from src.writer import to_opk
+from src.reader.manage_reader import reader_orientation
+from src.writer.writer import to_opk
 
 parser = argparse.ArgumentParser(description='photogrammetric site conversion'
                                  + ' and manipulation software')
@@ -25,7 +25,7 @@ args = parser.parse_args()
 
 
 if args.filepath[0] != "":
-    work = from_file(args.filepath[0], args.skip)
+    work = reader_orientation(args.filepath[0], args.skip)
     print("File reading done")
 else:
     print("The access road to the photogrammetric site is missing")

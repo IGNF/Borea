@@ -3,8 +3,9 @@ import numpy as np
 import shutil as shutil
 
 from src.worksite import Worksite
-from src.reader import from_file, from_opk
-from src.writer import to_opk
+from src.reader.manage_reader import reader_orientation
+from src.reader.reader_opk import read
+from src.writer.writer import to_opk
 
 
 def setup_module(module): # run before the first test
@@ -43,7 +44,7 @@ def test_addshot():
 
 
 def test_reader():
-    obj = from_opk("test/data/Sommets_hEllips_test.opk")
+    obj = read("test/data/Sommets_hEllips_test.opk", None)
     assert obj.name == "Sommets_hEllips_test"
     assert obj.shots[0].name_shot == "22FD2405Ax00001_21104"
     assert obj.shots[0].pos_shot[0] == 546166.732
@@ -68,7 +69,7 @@ def test_writer():
     obj = Worksite(name = "Test")
     obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
     to_opk("test/tmp/", obj)
-    obj2 = from_opk("test/tmp/Test.opk")
+    obj2 = read("test/tmp/Test.opk", None)
     assert obj2.name == "Test"
     assert obj2.shots[0].name_shot == "test_shot"
     assert obj2.shots[0].pos_shot[0] == 1
@@ -81,7 +82,7 @@ def test_writer():
 
 
 def test_reader_file():
-    obj = from_file("test/data/Sommets_hEllips_test.opk")
+    obj = reader_orientation("test/data/Sommets_hEllips_test.opk")
     assert obj.name == "Sommets_hEllips_test"
     assert obj.shots[0].name_shot == "22FD2405Ax00001_21104"
     assert obj.shots[0].pos_shot[0] == 546166.732

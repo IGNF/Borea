@@ -19,4 +19,8 @@ Html documentation in docs/_build/html/index.hmlt
 ### Functionality
 
 1. Reading and writing an OPK file
-2. Reading a camera file (XML and txt)
+2. Restructuring of read files to allow the addition of read files without modifying functions
+    Structure file in reader folder: 
+      - name : reader_ext.py
+      - function : def reader(file: str) -> Worksite:
+3. Reading a camera file (XML and txt)

@@ -1,10 +1,10 @@
 """
 Photogrammetry site file reader module
 """
-from src.worksite import Worksite
+from src.datastruct.worksite import Worksite
 
 
-def to_opk(path: str, work: Worksite) -> None:
+def write(path: str, work: Worksite) -> None:
     """
     Write function, to save a photogrammetric site in .opk format
 

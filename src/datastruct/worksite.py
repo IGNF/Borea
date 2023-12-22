@@ -2,7 +2,8 @@
 Worksite data class module
 """
 import numpy as np
-from src.shot import Shot
+from src.datastruct.shot import Shot
+from src.datastruct.camera import Camera
 
 
 class Worksite:
@@ -15,10 +16,10 @@ class Worksite:
 
         Args:
             name (str): Name of the worksite.
-            shots (list): Shots list of the worksite, list<Shot>.
         """
         self.name = name
         self.shots = []
+        self.cameras = []
 
     def add_shot(self, name_shot: str, pos_shot: np.array,
                  ori_shot: np.array, name_cam: str) -> None:
@@ -36,8 +37,18 @@ class Worksite:
                                ori_shot=ori_shot,
                                name_cam=name_cam))
 
-    def add_camera(self):
+    def add_camera(self, name_camera:str, ppax: float,
+                   ppay: float, focal: float) -> None:
         """
         Add data camera in the Worksite
+
+        Args:
+            name_camera (str): Name of the camera.
+            ppax (float): Center of distortion in x.
+            ppay (float): Center of distortion in y.
+            focal (float): Focal of the camera.
         """
-        return 0
+        self.cameras.append(Camera(name_camera=name_camera,
+                                   ppax=ppax,
+                                   ppay=ppay,
+                                   focal=focal))

@@ -1,0 +1,9 @@
+numpy==1.26.2
+pylint==0.3.3
+pytest==7.43
+pytest-shutil==1.7.0
+flake8==6.1.0
+sphinx
+furo
+importlib
+dataclasses

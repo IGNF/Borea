@@ -1,7 +1,6 @@
 name: pink_lady
 dependencies:
   - python
-  - numpy
   - pip
   - pip:
     - -r requirements.txt

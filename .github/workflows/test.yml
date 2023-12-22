@@ -1,9 +1,8 @@
 name: unitary_test
 
 on:
-  pull_request:
-    branches: 
-      - main
+  push:
+    branches: [main]
 
 jobs:
   test:
@@ -24,4 +23,6 @@ jobs:
     - name: Run tests with pytest
       with:
         environment-file: environment.yml
-      run: python3 -m pytest -s ./test -v
+      run: |
+        source pink_lady/bin/activate
+        python3 -m pytest -s ./test -v

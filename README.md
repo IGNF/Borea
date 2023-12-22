@@ -22,5 +22,5 @@ Html documentation in docs/_build/html/index.hmlt
 2. Restructuring of read files to allow the addition of read files without modifying functions
     Structure file in reader folder: 
       - name : reader_ext.py
-      - function : def reader(file: str) -> Worksite:
+      - function : def read(file: str) -> Worksite:
 3. Reading a camera file (XML and txt)

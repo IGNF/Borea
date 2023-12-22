@@ -37,7 +37,7 @@ class Worksite:
                                ori_shot=ori_shot,
                                name_cam=name_cam))
 
-    def add_camera(self, name_camera:str, ppax: float,
+    def add_camera(self, name_camera: str, ppax: float,
                    ppay: float, focal: float) -> None:
         """
         Add data camera in the Worksite

@@ -22,7 +22,6 @@ jobs:
         pip install pytest pytest-shutil
 
     - name: Run tests with pytest
-      uses: actions/checkout@v4
       with:
         environment-file: environment.yml
       run: python3 -m pytest -s ./test -v

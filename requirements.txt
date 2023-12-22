@@ -5,3 +5,4 @@ pytest-shutil==1.7.0
 flake8==6.1.0
 sphinx
 furo
+importlib

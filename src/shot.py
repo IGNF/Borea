@@ -4,6 +4,7 @@ Acquisition data class module
 from dataclasses import dataclass
 import numpy as np
 
+
 @dataclass
 class Shot:
     """
@@ -15,7 +16,7 @@ class Shot:
         ori_shot (numpy.array): Array of orientation of the shot [Omega, Phi, Kappa].
         name_cam (str): Name of the camera.
     """
-    name_shot : str
-    pos_shot : np.array
-    ori_shot : np.array
-    name_cam : str
+    name_shot: str
+    pos_shot: np.array
+    ori_shot: np.array
+    name_cam: str

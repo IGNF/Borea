@@ -14,23 +14,19 @@ OUTPUT = "./test/tmp"
 FILENAME = "Test"
 
 
-def setup_module(module): # run before the first test
-    try:  # Clean folder test if exists
-        shutil.rmtree(OUTPUT)
-    except FileNotFoundError:
-        pass
+def setup_module(): # run before the first test
     os.makedirs(OUTPUT, exist_ok=True)
 
    
-def teardown_module(module):  # run after the last test
+def teardown_module():  # run after the last test
     try:  # Clean folder test if exists
         shutil.rmtree(OUTPUT)
-        os.mkdir(OUTPUT)
     except FileNotFoundError:
         pass
 
 
 def test_writer():
+    setup_module()
     obj = Worksite(name = FILENAME)
     obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
     write(OUTPUT, obj)
@@ -44,3 +40,4 @@ def test_writer():
     assert obj2.shots[0].ori_shot[1] == 2
     assert obj2.shots[0].ori_shot[2] == 1
     assert obj2.shots[0].name_cam == "test_cam"
+    teardown_module()

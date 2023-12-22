@@ -10,7 +10,7 @@ from src.writer.writer_opk import write
 from src.reader.orientation.reader_opk import read as read_opk
 
 
-OUTPUT = "test/tmp"
+OUTPUT = "./test/tmp"
 FILENAME = "Test"
 
 

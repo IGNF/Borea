@@ -26,11 +26,11 @@ jobs:
 
     - name: Analysing the code with pylint
       run: |
-        pylint pink_lady.py src/reader/manage_reader.py src/reader/reader_opk.py src/shot.py src/worksite.py src/writer/writer.py
+        pylint pink_lady.py src/reader/camera/reader_camera.py src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py src/datastruct/shot.py src/datastruct/worksite.py src/datastruct/camera.py src/writer/writer_opk.py
 
       continue-on-error: true
 
     - name: Analysing the code with flake8
       run: |
-        flake8  --max-line-length 100 pink_lady.py src/reader/manage_reader.py src/reader/reader_opk.py src/shot.py src/worksite.py src/writer/writer.py
+        flake8  --max-line-length 100 pink_lady.py src/reader/camera/reader_camera.py src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py src/datastruct/shot.py src/datastruct/worksite.py src/datastruct/camera.py src/writer/writer_opk.py
 

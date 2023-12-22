@@ -1,3 +1,6 @@
+"""
+Script test to write file
+"""
 import os
 import numpy as np
 import shutil as shutil

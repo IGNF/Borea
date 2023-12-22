@@ -1,3 +1,6 @@
+"""
+Script test to read file
+"""
 from src.reader.manage_reader import reader_orientation
 from src.reader.reader_opk import read as read_opk
 

@@ -1,3 +1,6 @@
+"""
+Script test for function classes
+"""
 import numpy as np
 
 from src.datastruct.worksite import Worksite
@@ -48,6 +51,6 @@ def test_addcam():
     obj = Worksite(name = "Test")
     obj.add_camera("test_cam", 13210.00, 8502.00, 30975.00)
     assert obj.cameras[0].name_camera == "test_cam"
-    assert obj.cameras[0].ppax== 13210.00
+    assert obj.cameras[0].ppax == 13210.00
     assert obj.cameras[0].ppay == 8502.00
     assert obj.cameras[0].focal == 30975.00

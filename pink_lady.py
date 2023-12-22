@@ -3,7 +3,7 @@ pink lady launch module
 """
 import argparse
 import importlib
-from src.reader.manage_reader import reader_orientation
+from src.reader.orientation.manage_reader import reader_orientation
 from src.writer.writer_opk import to_opk
 
 parser = argparse.ArgumentParser(description='photogrammetric site conversion'

@@ -40,6 +40,7 @@ def read(file: str, skip: int) -> Worksite:
                                    float(item_shot[5]),
                                    float(item_shot[6])], dtype=float),
                               item_shot[7])
+            file_opk.close()
     except FileNotFoundError as e:
         raise ValueError("The path to the .opk file is incorrect !!!") from e
 

@@ -1,8 +1,10 @@
 """
 Script test to read file
 """
-from src.reader.manage_reader import reader_orientation
-from src.reader.reader_opk import read as read_opk
+from src.reader.orientation.manage_reader import reader_orientation
+from src.reader.orientation.reader_opk import read as read_opk
+from src.reader.camera.reader_camera import reader_camera, camera_txt, camera_xml
+from src.datastruct.worksite import Worksite
 
 
 def test_reader_opk():
@@ -47,3 +49,34 @@ def test_reader_file():
     assert obj.shots[-1].ori_shot[2] == -118.1551
     assert obj.shots[-1].name_cam == "UCE-M3-f120-s06"
     assert len(obj.shots) == 8
+
+
+def test_read_camera_xml():
+    work = Worksite("Test")
+    camera_xml("test/data/s07_UC_Eagle_M3_120.xml", work)
+    assert work.cameras[0].name_camera == "UCE-M3-f120-s07"
+    assert work.cameras[0].ppax == 13230.00
+    assert work.cameras[0].ppay == 8502.00
+    assert work.cameras[0].focal == 30975.00
+
+
+def test_read_camera_txt():
+    work = Worksite("Test")
+    camera_txt("test/data/Camera.txt", work)
+    assert work.cameras[0].name_camera == "UCE-M3-f120-s06"
+    assert work.cameras[0].ppax == 13210.00
+    assert work.cameras[0].ppay == 8502.00
+    assert work.cameras[0].focal == 30975.00
+
+
+def test_read_camera():
+    work = Worksite("Test")
+    reader_camera(["test/data/s07_UC_Eagle_M3_120.xml", "test/data/Camera.txt"], work)
+    assert work.cameras[0].name_camera == "UCE-M3-f120-s07"
+    assert work.cameras[0].ppax == 13230.00
+    assert work.cameras[0].ppay == 8502.00
+    assert work.cameras[0].focal == 30975.00
+    assert work.cameras[1].name_camera == "UCE-M3-f120-s06"
+    assert work.cameras[1].ppax == 13210.00
+    assert work.cameras[1].ppay == 8502.00
+    assert work.cameras[1].focal == 30975.00

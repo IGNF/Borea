@@ -2,7 +2,7 @@
 A script to read opk file
 """
 import numpy as np
-from src.worksite import Worksite
+from src.datastruct.worksite import Worksite
 
 
 def read(file: str, skip: int) -> Worksite:
@@ -40,6 +40,7 @@ def read(file: str, skip: int) -> Worksite:
                                    float(item_shot[5]),
                                    float(item_shot[6])], dtype=float),
                               item_shot[7])
+            file_opk.close()
     except FileNotFoundError as e:
         raise ValueError("The path to the .opk file is incorrect !!!") from e
 

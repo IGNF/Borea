@@ -1,6 +1,7 @@
 """
 Photogrammetry site file reader module
 """
+import os
 from src.datastruct.worksite import Worksite
 
 
@@ -12,7 +13,7 @@ def write(path: str, work: Worksite) -> None:
         path (str): Path of registration file.
         work (Worksite): The site to be recorded.
     """
-    path = path + work.name + ".opk"
+    path = os.path.join(path, f"{work.name}.opk")
 
     try:
         with open(path, "w", encoding="utf-8") as file:

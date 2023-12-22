@@ -1,10 +1,11 @@
 """
 Script to read camera file txt or xml
 """
+import xml.etree.ElementTree as ET
 from src.datastruct.worksite import Worksite
 
 
-def reader_camera(files: list, work: Worksite) -> None:
+def read_camera(files: list, work: Worksite) -> None:
     """
     Manage file in list files to read
 
@@ -28,7 +29,12 @@ def camera_xml(file: str, work: Worksite) -> None:
         files (list): path list of files cameras
         work (Worksite): Worksite which needs camera data
     """
-    pass
+    projet = ET.parse(file).getroot()
+    focal = projet.find("focal").find("pt3d")
+    work.add_camera(projet.find("name").text.strip(),
+                    float(focal.find("x").text.strip()),
+                    float(focal.find("y").text.strip()),
+                    float(focal.find("z").text.strip()))
 
 
 def camera_txt(file: str, work: Worksite) -> None:
@@ -47,4 +53,3 @@ def camera_txt(file: str, work: Worksite) -> None:
         # Add to worksite
         work.add_camera(name_cam, float(o_info[2]), float(o_info[5]), float(o_info[8]))
         file_cam.close()
-    

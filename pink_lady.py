@@ -4,7 +4,7 @@ pink lady launch module
 import argparse
 import importlib
 from src.reader.orientation.manage_reader import reader_orientation
-from src.writer.writer_opk import to_opk
+from src.reader.camera.reader_camera import read_camera
 
 parser = argparse.ArgumentParser(description='photogrammetric site conversion'
                                  + ' and manipulation software')
@@ -18,7 +18,7 @@ parser.add_argument('-w', '--writer',
                     type=str, choices=['opk'],
                     help='Worksite output file format')
 parser.add_argument('-pr', '--pathreturn',
-                    type=str, default="test/tmp/", nargs=1,
+                    type=str, default="", nargs=1,
                     help='Conversion path ex:"test/tmp/"')
 parser.add_argument('-c', '--camera',
                     type=list, default=[], nargs='*',
@@ -34,12 +34,13 @@ else:
     print("The access road to the photogrammetric site is missing")
 
 # Reading camera file
-
-
+if args.camera != []:
+    read_camera(args.camera, work)
 
 # Writing data
-try:
-    my_module = importlib.import_module("src.reader.reader_" + args.writer.lower())
-    work = my_module.write(args.pathreturn, work)
-except ModuleNotFoundError as e:
-    raise ValueError(f"{args.writer} file is not taken into account !!!") from e
+if args.pathreturn != "":
+    try:
+        my_module = importlib.import_module("src.reader.reader_" + args.writer.lower())
+        work = my_module.write(args.pathreturn, work)
+    except ModuleNotFoundError as e:
+        raise ValueError(f"{args.writer} file is not taken into account !!!") from e

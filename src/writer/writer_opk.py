@@ -5,18 +5,18 @@ import os
 from src.datastruct.worksite import Worksite
 
 
-def write(path: str, work: Worksite) -> None:
+def write(path_opk: str, work: Worksite) -> None:
     """
     Write function, to save a photogrammetric site in .opk format
 
     Args:
-        path (str): Path of registration file.
+        path_opk (str): Path of registration file .opk.
         work (Worksite): The site to be recorded.
     """
-    path = os.path.join(path, f"{work.name}.opk")
+    path_opk = os.path.join(path_opk, f"{work.name}.opk")
 
     try:
-        with open(path, "w", encoding="utf-8") as file:
+        with open(path_opk, "w", encoding="utf-8") as file:
             file.write("NOM X   Y   Z   O   P   K   CAMERA")
             for shot in work.shots:
                 file.write("\n")
@@ -30,4 +30,4 @@ def write(path: str, work: Worksite) -> None:
                            shot.name_cam)
             file.close()
     except FileNotFoundError as e:
-        raise ValueError("The path doesn't exist !!!") from e
+        raise ValueError("The path doesn't exist !!!", e) from e

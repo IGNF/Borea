@@ -4,7 +4,8 @@ pink lady launch module
 import argparse
 import importlib
 from src.reader.orientation.manage_reader import reader_orientation
-from src.reader.camera.reader_camera import read_camera
+from src.reader.reader_camera import read_camera
+from src.reader.reader_copoints import read_copoints
 
 parser = argparse.ArgumentParser(description='photogrammetric site conversion'
                                  + ' and manipulation software')
@@ -16,13 +17,16 @@ parser.add_argument('-skip', '--skip',
                     help='Number of lines to be skipped before reading the file')
 parser.add_argument('-w', '--writer',
                     type=str, default='',
-                    help='Worksite output file format')
+                    help='Worksite output file format ex:opk')
 parser.add_argument('-pr', '--pathreturn',
                     type=str, default='test/tmp/', nargs=1,
-                    help='Conversion path ex:"test/tmp/"')
+                    help='Conversion path ex:test/tmp/')
 parser.add_argument('-c', '--camera',
                     type=str, default='', nargs='*',
-                    help='Files paths of cameras')
+                    help='Files paths of cameras (xml or txt)')
+parser.add_argument('-cp', '--connecting_points',
+                    type=str, default='', nargs='*',
+                    help='Files paths of connecting points (.mes)')
 
 args = parser.parse_args()
 
@@ -37,6 +41,11 @@ else:
 if args.camera != '':
     read_camera(args.camera, work)
     print("Camera file reading done")
+
+# Reading connecting point
+if args.connecting_points != '':
+    read_copoints(args.connecting_points, work)
+    print("Connecting point reading done")
 
 # Writing data
 if args.writer != '':

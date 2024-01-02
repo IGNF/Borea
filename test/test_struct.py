@@ -11,7 +11,8 @@ from src.datastruct.camera import Camera
 def test_worksite():
     obj = Worksite(name = "Test")
     assert obj.name == "Test"
-    assert obj.shots == []
+    assert obj.shots == {}
+    assert obj.cameras == {}
 
 
 def test_shot():
@@ -37,20 +38,20 @@ def test_camera():
 def test_addshot():
     obj = Worksite(name = "Test")
     obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
-    assert obj.shots[0].name_shot == "test_shot"
-    assert obj.shots[0].pos_shot[0] == 1
-    assert obj.shots[0].pos_shot[1] == 2
-    assert obj.shots[0].pos_shot[2] == 3
-    assert obj.shots[0].ori_shot[0] == 3
-    assert obj.shots[0].ori_shot[1] == 2
-    assert obj.shots[0].ori_shot[2] == 1
-    assert obj.shots[0].name_cam == "test_cam"
+    assert obj.shots["test_shot"].name_shot == "test_shot"
+    assert obj.shots["test_shot"].pos_shot[0] == 1
+    assert obj.shots["test_shot"].pos_shot[1] == 2
+    assert obj.shots["test_shot"].pos_shot[2] == 3
+    assert obj.shots["test_shot"].ori_shot[0] == 3
+    assert obj.shots["test_shot"].ori_shot[1] == 2
+    assert obj.shots["test_shot"].ori_shot[2] == 1
+    assert obj.shots["test_shot"].name_cam == "test_cam"
 
 
 def test_addcam():
     obj = Worksite(name = "Test")
     obj.add_camera("test_cam", 13210.00, 8502.00, 30975.00)
-    assert obj.cameras[0].name_camera == "test_cam"
-    assert obj.cameras[0].ppax == 13210.00
-    assert obj.cameras[0].ppay == 8502.00
-    assert obj.cameras[0].focal == 30975.00
+    assert obj.cameras["test_cam"].name_camera == "test_cam"
+    assert obj.cameras["test_cam"].ppax == 13210.00
+    assert obj.cameras["test_cam"].ppay == 8502.00
+    assert obj.cameras["test_cam"].focal == 30975.00

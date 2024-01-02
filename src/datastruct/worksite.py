@@ -18,8 +18,8 @@ class Worksite:
             name (str): Name of the worksite.
         """
         self.name = name
-        self.shots = []
-        self.cameras = []
+        self.shots = {}
+        self.cameras = {}
 
     def add_shot(self, name_shot: str, pos_shot: np.array,
                  ori_shot: np.array, name_cam: str) -> None:
@@ -32,10 +32,10 @@ class Worksite:
             ori_shot (numpy.array): Array of orientation of the shot [Omega, Phi, Kappa].
             name_cam (str): Name of the camera.
         """
-        self.shots.append(Shot(name_shot=name_shot,
-                               pos_shot=pos_shot,
-                               ori_shot=ori_shot,
-                               name_cam=name_cam))
+        self.shots[name_shot] = Shot(name_shot=name_shot,
+                                     pos_shot=pos_shot,
+                                     ori_shot=ori_shot,
+                                     name_cam=name_cam)
 
     def add_camera(self, name_camera: str, ppax: float,
                    ppay: float, focal: float) -> None:
@@ -48,7 +48,7 @@ class Worksite:
             ppay (float): Center of distortion in y.
             focal (float): Focal of the camera.
         """
-        self.cameras.append(Camera(name_camera=name_camera,
-                                   ppax=ppax,
-                                   ppay=ppay,
-                                   focal=focal))
+        self.cameras[name_camera] = Camera(name_camera=name_camera,
+                                           ppax=ppax,
+                                           ppay=ppay,
+                                           focal=focal)

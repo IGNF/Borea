@@ -2,6 +2,7 @@
 Photogrammetry site file reader module
 """
 import os
+import numpy as np
 from src.datastruct.worksite import Worksite
 
 
@@ -18,7 +19,9 @@ def write(path_opk: str, work: Worksite) -> None:
     try:
         with open(path_opk, "w", encoding="utf-8") as file:
             file.write("NOM X   Y   Z   O   P   K   CAMERA")
-            for shot in work.shots:
+            keys = np.sort(list(work.shots))
+            for k in keys:
+                shot = work.shots[k]
                 file.write("\n")
                 file.write(shot.name_shot + "   " +
                            str(shot.pos_shot[0]) + "   " +

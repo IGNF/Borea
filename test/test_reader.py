@@ -4,6 +4,7 @@ Script test to read file
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.orientation.reader_opk import read as read_opk
 from src.reader.reader_camera import read_camera, camera_txt, camera_xml
+from src.reader.reader_copoints import read_copoints
 from src.datastruct.worksite import Worksite
 
 
@@ -80,3 +81,18 @@ def test_read_camera():
     assert work.cameras["UCE-M3-f120-s06"].ppax == 13210.00
     assert work.cameras["UCE-M3-f120-s06"].ppay == 8502.00
     assert work.cameras["UCE-M3-f120-s06"].focal == 30975.00
+
+
+def test_read_copoints():
+    work = reader_orientation("test/data/23FD1305_alt_test.opk")
+    read_copoints(["test/data/all_liaisons.mes"], work)
+    assert work.copoints["MES_0"] == ["23FD1305x00001_00003", "23FD1305x00001_00004"]
+    assert work.copoints["MES_1"] == ["23FD1305x00001_00003", "23FD1305x00001_00004", "23FD1305x00001_00005", "23FD1305x00001_00006", "23FD1305x00002_00051", "23FD1305x00002_00052", "23FD1305x00002_00053"]
+    assert work.copoints["MES_2"] == ["23FD1305x00001_00003", "23FD1305x00001_00005", "23FD1305x00001_00006", "23FD1305x00002_00051", "23FD1305x00002_00052", "23FD1305x00002_00053"]
+    assert work.shots["23FD1305x00001_00003"].copoints["MES_0"] == [4763.57, 16960.5]
+    assert work.shots["23FD1305x00001_00003"].copoints["MES_1"] == [6818.89, 16625.93]
+    assert work.shots["23FD1305x00001_00003"].copoints["MES_2"] == [6165.08, 16873.72]
+    assert work.shots["23FD1305x00001_00004"].copoints["MES_0"] == [4813.98, 12509.25]
+    assert work.shots["23FD1305x00001_00004"].copoints["MES_1"] == [6869.3, 12187.65]
+    assert work.shots["23FD1305x00002_00053"].copoints["MES_1"] == [8270.79, 4265.72]
+    assert work.shots["23FD1305x00002_00053"].copoints["MES_2"] == [8908.58, 4012.49]

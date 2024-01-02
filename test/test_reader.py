@@ -3,7 +3,7 @@ Script test to read file
 """
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.orientation.reader_opk import read as read_opk
-from src.reader.camera.reader_camera import read_camera, camera_txt, camera_xml
+from src.reader.reader_camera import read_camera, camera_txt, camera_xml
 from src.datastruct.worksite import Worksite
 
 

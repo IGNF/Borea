@@ -1,10 +1,12 @@
 """
 Script test to read file
 """
+import numpy as np
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.orientation.reader_opk import read as read_opk
 from src.reader.reader_camera import read_camera, camera_txt, camera_xml
 from src.reader.reader_copoints import read_copoints
+from src.reader.reader_gcp import read_gcp
 from src.datastruct.worksite import Worksite
 
 INPUT_OPK = "test/data/23FD1305_alt_test.OPK"
@@ -12,7 +14,7 @@ INPUT_CAM_TXT = "test/data/Camera.txt"
 INPUT_CAM_XML = "test/data/s07_UC_Eagle_M3_120.xml"
 INPUT_LIAISONS = "test/data/liaisons_test.mes"
 INPUT_TERRAIN = "test/data/terrain_test.mes"
-INPUT_GCP = "test/data/GCP_test.opk"
+INPUT_GCP = "test/data/GCP_test.app"
 
 def test_reader_opk():
     obj = read_opk(INPUT_OPK, None)
@@ -102,3 +104,18 @@ def test_read_copoints():
     assert work.shots["23FD1305x00054_05680"].copoints["MES_145570"] == [436.4, 6604.65]
     assert work.shots["23FD1305x00062_07727"].copoints["MES_264192"] == [4009.15, 5334.46]
     assert work.shots["23FD1305x00062_07727"].copoints["MES_264193"] == [1956.18, 5550.03]
+
+
+def test_read_gcp():
+    work_gcp = reader_orientation(INPUT_OPK)
+    read_gcp([INPUT_GCP], work_gcp)
+    assert list(work_gcp.gcp) == ['"1003"','"1005"','"1006"']
+    assert work_gcp.gcp['"1003"'].name_gcp == '"1003"'
+    assert work_gcp.gcp['"1003"'].code == 13
+    assert (work_gcp.gcp['"1003"'].coor == np.array([815601.510, 6283629.280, 54.960])).all()
+    assert work_gcp.gcp['"1005"'].name_gcp == '"1005"'
+    assert work_gcp.gcp['"1005"'].code == 3
+    assert (work_gcp.gcp['"1005"'].coor == np.array([833670.940, 6281965.400, 52.630])).all()
+    assert work_gcp.gcp['"1006"'].name_gcp == '"1006"'
+    assert work_gcp.gcp['"1006"'].code == 13
+    assert (work_gcp.gcp['"1006"'].coor == np.array([838561.350, 6284600.330, 62.470])).all()

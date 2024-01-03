@@ -4,13 +4,13 @@ Script to read connecting point mes
 from src.datastruct.worksite import Worksite
 
 
-def read_copoints(files: list, work: Worksite):
+def read_copoints(files: list, work: Worksite) -> None:
     """
     Read all files of connecting points
 
     Agrs:
         files (list): path list of files connecting points
-        work (Worksite): Worksite which needs camera data
+        work (Worksite): Worksite which needs connecting points
     """
     for file in files:
         with open(file, 'r', encoding="utf-8") as file_copoints:

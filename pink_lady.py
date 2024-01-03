@@ -6,6 +6,7 @@ import importlib
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.reader_camera import read_camera
 from src.reader.reader_copoints import read_copoints
+from src.reader.reader_gcp import read_gcp
 
 parser = argparse.ArgumentParser(description='photogrammetric site conversion'
                                  + ' and manipulation software')
@@ -27,6 +28,9 @@ parser.add_argument('-c', '--camera',
 parser.add_argument('-cp', '--connecting_points',
                     type=str, default='', nargs='*',
                     help='Files paths of connecting points (.mes)')
+parser.add_argument('-gcp', '--gcp',
+                    type=str, default='', nargs='*',
+                    help='Files paths of GCP (.app)')
 
 args = parser.parse_args()
 
@@ -46,6 +50,11 @@ if args.camera != '':
 if args.connecting_points != '':
     read_copoints(args.connecting_points, work)
     print("Connecting point reading done")
+
+# Reading GCP
+if args.gcp != '':
+    read_gcp(args.connecting_points, work)
+    print("GCP reading done")
 
 # Writing data
 if args.writer != '':

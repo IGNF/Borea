@@ -19,3 +19,5 @@ def read_gcp(files: list, work: Worksite) -> None:
                 if gcp != '\n':
                     name_gcp, code_gcp, x, y, z = gcp.split()
                     work.add_gcp(name_gcp, int(code_gcp), np.array([float(x), float(y), float(z)]))
+            file_gcp.close()
+    work.check_gcp = True

@@ -18,3 +18,5 @@ def read_copoints(files: list, work: Worksite) -> None:
                 if copoint != '\n':
                     name_point, name_shot, x, y = copoint.split()
                     work.add_copoint(name_point, name_shot, float(x), float(y))
+            file_copoints.close()
+    work.check_cop = True

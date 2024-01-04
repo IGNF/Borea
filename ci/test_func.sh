@@ -1,0 +1,1 @@
+python3 -m pytest -s ./test/test_func.py -v

@@ -86,6 +86,22 @@ def test_gcp():
 def test_add_gcp():
     obj = Worksite(name = "Test")
     obj.add_gcp('"1003"', 13, np.array([1,2,3]))
-    assert obj.gcp['"1003"'].name_gcp == '"1003"'
-    assert obj.gcp['"1003"'].code == 13
-    assert (obj.gcp['"1003"'].coor == np.array([1,2,3])).all()
+    assert obj.gcps['"1003"'].name_gcp == '"1003"'
+    assert obj.gcps['"1003"'].code == 13
+    assert (obj.gcps['"1003"'].coor == np.array([1,2,3])).all()
+
+
+def test_calculate_coor_img_gcp():
+    work = Worksite("test")
+    work.add_shot("shot_test", np.array([3,3,3]), np.array([1,1,1]), 'cam_test')
+    work.shots['shot_test'].mat_rot = np.array([[1,2,3],
+                                           [3,1,2],
+                                           [1,1,1]])
+    work.add_camera('cam_test', 5, 5, 10)
+    work.add_copoint('gcp_test', 'shot_test', 20, 30)
+    work.check_cop = True
+    work.add_gcp('gcp_test', 3, np.array([1,1,1]))
+    work.check_gcp = True
+    work.calculate_coor_img_gcp()
+    assert (work.shots['shot_test'].gcps['gcp_test'] == np.array([-15.0,-15.0])).all()
+    

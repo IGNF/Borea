@@ -44,3 +44,4 @@ Html documentation in docs/_build/html/index.hmlt
 3. Reading a camera file (XML and txt)
 4. Reading connecting point (mes)
 5. Reading ground control point (app)
+6. Calculation of the image coordinates of gcp by the image function

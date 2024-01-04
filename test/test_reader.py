@@ -1,60 +1,68 @@
 """
 Script test to read file
 """
+import numpy as np
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.orientation.reader_opk import read as read_opk
 from src.reader.reader_camera import read_camera, camera_txt, camera_xml
 from src.reader.reader_copoints import read_copoints
+from src.reader.reader_gcp import read_gcp
 from src.datastruct.worksite import Worksite
 
+INPUT_OPK = "test/data/23FD1305_alt_test.OPK"
+INPUT_CAM_TXT = "test/data/Camera.txt"
+INPUT_CAM_XML = "test/data/s07_UC_Eagle_M3_120.xml"
+INPUT_LIAISONS = "test/data/liaisons_test.mes"
+INPUT_TERRAIN = "test/data/terrain_test.mes"
+INPUT_GCP = "test/data/GCP_test.app"
 
 def test_reader_opk():
-    obj = read_opk("test/data/23FD1305_alt_test.opk", None)
+    obj = read_opk(INPUT_OPK, None)
     assert obj.name == "23FD1305_alt_test"
-    assert obj.shots["23FD1305x00001_00003"].name_shot == "23FD1305x00001_00003"
-    assert obj.shots["23FD1305x00001_00003"].pos_shot[0] == 798744.352
-    assert obj.shots["23FD1305x00001_00003"].pos_shot[1] == 6262815.867
-    assert obj.shots["23FD1305x00001_00003"].pos_shot[2] == 1778.451
-    assert obj.shots["23FD1305x00001_00003"].ori_shot[0] == 0.157339710405
-    assert obj.shots["23FD1305x00001_00003"].ori_shot[1] == 0.010129647126
-    assert obj.shots["23FD1305x00001_00003"].ori_shot[2] == -179.310680057325
-    assert obj.shots["23FD1305x00001_00003"].name_cam == "UCE-M3-f120-s06"
-    assert obj.shots["23FD1305x00002_00053"].name_shot == "23FD1305x00002_00053"
-    assert obj.shots["23FD1305x00002_00053"].pos_shot[0] == 799387.667
-    assert obj.shots["23FD1305x00002_00053"].pos_shot[1] == 6263051.508
-    assert obj.shots["23FD1305x00002_00053"].pos_shot[2] == 1784.760
-    assert obj.shots["23FD1305x00002_00053"].ori_shot[0] == -0.146630494647
-    assert obj.shots["23FD1305x00002_00053"].ori_shot[1] == -0.031919390293
-    assert obj.shots["23FD1305x00002_00053"].ori_shot[2] == -0.209336104979
-    assert obj.shots["23FD1305x00002_00053"].name_cam == "UCE-M3-f120-s06"
+    assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
+    assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925
+    assert obj.shots["23FD1305x00026_01306"].pos_shot[1] == 6283986.148
+    assert obj.shots["23FD1305x00026_01306"].pos_shot[2] == 1771.280
+    assert obj.shots["23FD1305x00026_01306"].ori_shot[0] == -0.245070686036
+    assert obj.shots["23FD1305x00026_01306"].ori_shot[1] == -0.069409621323
+    assert obj.shots["23FD1305x00026_01306"].ori_shot[2] == 0.836320989726
+    assert obj.shots["23FD1305x00026_01306"].name_cam == "UCE-M3-f120-s06"
+    assert obj.shots["23FD1305x00062_07728"].name_shot == "23FD1305x00062_07728"
+    assert obj.shots["23FD1305x00062_07728"].pos_shot[0] == 838160.083
+    assert obj.shots["23FD1305x00062_07728"].pos_shot[1] == 6284788.913
+    assert obj.shots["23FD1305x00062_07728"].pos_shot[2] == 1766.066
+    assert obj.shots["23FD1305x00062_07728"].ori_shot[0] == -0.179920958782
+    assert obj.shots["23FD1305x00062_07728"].ori_shot[1] == 0.099806773228
+    assert obj.shots["23FD1305x00062_07728"].ori_shot[2] == 0.453083308756
+    assert obj.shots["23FD1305x00062_07728"].name_cam == "UCE-M3-f120-s06"
     assert len(obj.shots) == 7
 
 
 def test_reader_file():
-    obj = reader_orientation("test/data/23FD1305_alt_test.opk")
+    obj = reader_orientation(INPUT_OPK)
     assert obj.name == "23FD1305_alt_test"
-    assert obj.shots["23FD1305x00001_00003"].name_shot == "23FD1305x00001_00003"
-    assert obj.shots["23FD1305x00001_00003"].pos_shot[0] == 798744.352
-    assert obj.shots["23FD1305x00001_00003"].pos_shot[1] == 6262815.867
-    assert obj.shots["23FD1305x00001_00003"].pos_shot[2] == 1778.451
-    assert obj.shots["23FD1305x00001_00003"].ori_shot[0] == 0.157339710405
-    assert obj.shots["23FD1305x00001_00003"].ori_shot[1] == 0.010129647126
-    assert obj.shots["23FD1305x00001_00003"].ori_shot[2] == -179.310680057325
-    assert obj.shots["23FD1305x00001_00003"].name_cam == "UCE-M3-f120-s06"
-    assert obj.shots["23FD1305x00002_00053"].name_shot == "23FD1305x00002_00053"
-    assert obj.shots["23FD1305x00002_00053"].pos_shot[0] == 799387.667
-    assert obj.shots["23FD1305x00002_00053"].pos_shot[1] == 6263051.508
-    assert obj.shots["23FD1305x00002_00053"].pos_shot[2] == 1784.760
-    assert obj.shots["23FD1305x00002_00053"].ori_shot[0] == -0.146630494647
-    assert obj.shots["23FD1305x00002_00053"].ori_shot[1] == -0.031919390293
-    assert obj.shots["23FD1305x00002_00053"].ori_shot[2] == -0.209336104979
-    assert obj.shots["23FD1305x00002_00053"].name_cam == "UCE-M3-f120-s06"
+    assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
+    assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925
+    assert obj.shots["23FD1305x00026_01306"].pos_shot[1] == 6283986.148
+    assert obj.shots["23FD1305x00026_01306"].pos_shot[2] == 1771.280
+    assert obj.shots["23FD1305x00026_01306"].ori_shot[0] == -0.245070686036
+    assert obj.shots["23FD1305x00026_01306"].ori_shot[1] == -0.069409621323
+    assert obj.shots["23FD1305x00026_01306"].ori_shot[2] == 0.836320989726
+    assert obj.shots["23FD1305x00026_01306"].name_cam == "UCE-M3-f120-s06"
+    assert obj.shots["23FD1305x00062_07728"].name_shot == "23FD1305x00062_07728"
+    assert obj.shots["23FD1305x00062_07728"].pos_shot[0] == 838160.083
+    assert obj.shots["23FD1305x00062_07728"].pos_shot[1] == 6284788.913
+    assert obj.shots["23FD1305x00062_07728"].pos_shot[2] == 1766.066
+    assert obj.shots["23FD1305x00062_07728"].ori_shot[0] == -0.179920958782
+    assert obj.shots["23FD1305x00062_07728"].ori_shot[1] == 0.099806773228
+    assert obj.shots["23FD1305x00062_07728"].ori_shot[2] == 0.453083308756
+    assert obj.shots["23FD1305x00062_07728"].name_cam == "UCE-M3-f120-s06"
     assert len(obj.shots) == 7
 
 
 def test_read_camera_xml():
     work = Worksite("Test")
-    camera_xml("test/data/s07_UC_Eagle_M3_120.xml", work)
+    camera_xml(INPUT_CAM_XML, work)
     assert work.cameras["UCE-M3-f120-s07"].name_camera == "UCE-M3-f120-s07"
     assert work.cameras["UCE-M3-f120-s07"].ppax == 13230.00
     assert work.cameras["UCE-M3-f120-s07"].ppay == 8502.00
@@ -63,7 +71,7 @@ def test_read_camera_xml():
 
 def test_read_camera_txt():
     work = Worksite("Test")
-    camera_txt("test/data/Camera.txt", work)
+    camera_txt(INPUT_CAM_TXT, work)
     assert work.cameras["UCE-M3-f120-s06"].name_camera == "UCE-M3-f120-s06"
     assert work.cameras["UCE-M3-f120-s06"].ppax == 13210.00
     assert work.cameras["UCE-M3-f120-s06"].ppay == 8502.00
@@ -72,7 +80,7 @@ def test_read_camera_txt():
 
 def test_read_camera():
     work = Worksite("Test")
-    read_camera(["test/data/s07_UC_Eagle_M3_120.xml", "test/data/Camera.txt"], work)
+    read_camera([INPUT_CAM_XML, INPUT_CAM_TXT], work)
     assert work.cameras["UCE-M3-f120-s07"].name_camera == "UCE-M3-f120-s07"
     assert work.cameras["UCE-M3-f120-s07"].ppax == 13230.00
     assert work.cameras["UCE-M3-f120-s07"].ppay == 8502.00
@@ -84,15 +92,30 @@ def test_read_camera():
 
 
 def test_read_copoints():
-    work = reader_orientation("test/data/23FD1305_alt_test.opk")
-    read_copoints(["test/data/all_liaisons.mes"], work)
-    assert work.copoints["MES_0"] == ["23FD1305x00001_00003", "23FD1305x00001_00004"]
-    assert work.copoints["MES_1"] == ["23FD1305x00001_00003", "23FD1305x00001_00004", "23FD1305x00001_00005", "23FD1305x00001_00006", "23FD1305x00002_00051", "23FD1305x00002_00052", "23FD1305x00002_00053"]
-    assert work.copoints["MES_2"] == ["23FD1305x00001_00003", "23FD1305x00001_00005", "23FD1305x00001_00006", "23FD1305x00002_00051", "23FD1305x00002_00052", "23FD1305x00002_00053"]
-    assert work.shots["23FD1305x00001_00003"].copoints["MES_0"] == [4763.57, 16960.5]
-    assert work.shots["23FD1305x00001_00003"].copoints["MES_1"] == [6818.89, 16625.93]
-    assert work.shots["23FD1305x00001_00003"].copoints["MES_2"] == [6165.08, 16873.72]
-    assert work.shots["23FD1305x00001_00004"].copoints["MES_0"] == [4813.98, 12509.25]
-    assert work.shots["23FD1305x00001_00004"].copoints["MES_1"] == [6869.3, 12187.65]
-    assert work.shots["23FD1305x00002_00053"].copoints["MES_1"] == [8270.79, 4265.72]
-    assert work.shots["23FD1305x00002_00053"].copoints["MES_2"] == [8908.58, 4012.49]
+    work = reader_orientation(INPUT_OPK)
+    read_copoints([INPUT_LIAISONS], work)
+    assert work.copoints["MES_674214"] == ["23FD1305x00026_01306", "23FD1305x00026_01307", "23FD1305x00026_01308"]
+    assert work.copoints["MES_674219"] == ["23FD1305x00026_01306", "23FD1305x00026_01307", "23FD1305x00026_01308"]
+    assert work.copoints["MES_264193"] == ["23FD1305x00062_07727", "23FD1305x00062_07728"]
+    assert work.shots["23FD1305x00026_01306"].copoints["MES_674214"] == [3885.75, 14969.14]
+    assert work.shots["23FD1305x00026_01306"].copoints["MES_674219"] == [3896.99, 13858.47]
+    assert work.shots["23FD1305x00026_01306"].copoints["MES_674216"] == [6033.01, 16208.41]
+    assert work.shots["23FD1305x00054_05680"].copoints["MES_145568"] == [559.85, 7656.41]
+    assert work.shots["23FD1305x00054_05680"].copoints["MES_145570"] == [436.4, 6604.65]
+    assert work.shots["23FD1305x00062_07727"].copoints["MES_264192"] == [4009.15, 5334.46]
+    assert work.shots["23FD1305x00062_07727"].copoints["MES_264193"] == [1956.18, 5550.03]
+
+
+def test_read_gcp():
+    work_gcp = reader_orientation(INPUT_OPK)
+    read_gcp([INPUT_GCP], work_gcp)
+    assert list(work_gcp.gcp) == ['"1003"','"1005"','"1006"']
+    assert work_gcp.gcp['"1003"'].name_gcp == '"1003"'
+    assert work_gcp.gcp['"1003"'].code == 13
+    assert (work_gcp.gcp['"1003"'].coor == np.array([815601.510, 6283629.280, 54.960])).all()
+    assert work_gcp.gcp['"1005"'].name_gcp == '"1005"'
+    assert work_gcp.gcp['"1005"'].code == 3
+    assert (work_gcp.gcp['"1005"'].coor == np.array([833670.940, 6281965.400, 52.630])).all()
+    assert work_gcp.gcp['"1006"'].name_gcp == '"1006"'
+    assert work_gcp.gcp['"1006"'].code == 13
+    assert (work_gcp.gcp['"1006"'].coor == np.array([838561.350, 6284600.330, 62.470])).all()

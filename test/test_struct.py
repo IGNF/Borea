@@ -6,6 +6,7 @@ import numpy as np
 from src.datastruct.worksite import Worksite
 from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
+from src.datastruct.gcp import GCP
 
 
 def test_worksite():
@@ -73,3 +74,18 @@ def test_add_copoint():
     assert obj.shots["t1"].copoints["p1"] == [70, 10]
     assert obj.shots["t2"].copoints["p0"] == [40, 40]
     assert obj.shots["t3"].copoints["p1"] == [50, 90]
+
+
+def test_gcp():
+    obj = GCP('"1003"', 3, np.array([1,2,3]))
+    assert obj.name_gcp == '"1003"'
+    assert obj.code == 3
+    assert (obj.coor == np.array([1,2,3])).all()
+
+
+def test_add_gcp():
+    obj = Worksite(name = "Test")
+    obj.add_gcp('"1003"', 13, np.array([1,2,3]))
+    assert obj.gcp['"1003"'].name_gcp == '"1003"'
+    assert obj.gcp['"1003"'].code == 13
+    assert (obj.gcp['"1003"'].coor == np.array([1,2,3])).all()

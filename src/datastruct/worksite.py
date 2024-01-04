@@ -5,6 +5,7 @@ import sys
 import numpy as np
 from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
+from src.datastruct.gcp import GCP
 
 
 class Worksite:
@@ -22,6 +23,7 @@ class Worksite:
         self.shots = {}
         self.cameras = {}
         self.copoints = {}
+        self.gcp = {}
 
     def add_shot(self, name_shot: str, pos_shot: np.array,
                  ori_shot: np.array, name_cam: str) -> None:
@@ -86,3 +88,16 @@ class Worksite:
             print(":--------------------------:")
 
         self.copoints[name_point].append(name_shot)
+
+    def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np.array) -> None:
+        """
+        Add GCP in the Worksite
+
+        Args:
+        name_gcp (str): Name of the gcp.
+        code_gcp (int): ign code to differentiate between support points (1, 2, 3)
+                    and control points (11, 12, 13)
+                    1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.
+        coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].
+        """
+        self.gcp[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)

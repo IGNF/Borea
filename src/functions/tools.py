@@ -20,9 +20,9 @@ def func_img(point: np, shot: Shot, cam: Camera) -> np:
         np.array: The image coordinate [c,l]
     """
     diff_p = point - shot.pos_shot
-    num_x = shot.mat_rot[0,:] @ (diff_p)
-    num_y = shot.mat_rot[1,:] @ (diff_p)
-    dem = shot.mat_rot[2,:] @ (diff_p)
-    c = cam.ppax - cam.focal * (num_x/dem)
-    l = cam.ppay - cam.focal * (num_y/dem)
-    return np.array([c,l])
+    num_x = shot.mat_rot[0, :] @ (diff_p)
+    num_y = shot.mat_rot[1, :] @ (diff_p)
+    dem = shot.mat_rot[2, :] @ (diff_p)
+    x_col = cam.ppax - cam.focal * (num_x/dem)
+    y_lig = cam.ppay - cam.focal * (num_y/dem)
+    return np.array([x_col, y_lig])

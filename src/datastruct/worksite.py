@@ -6,6 +6,7 @@ import numpy as np
 from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
 from src.datastruct.gcp import GCP
+from src.functions.tools import func_img
 
 
 class Worksite:
@@ -23,7 +24,9 @@ class Worksite:
         self.shots = {}
         self.cameras = {}
         self.copoints = {}
-        self.gcp = {}
+        self.check_cop = False
+        self.gcps = {}
+        self.check_gcp = False
 
     def add_shot(self, name_shot: str, pos_shot: np.array,
                  ori_shot: np.array, name_cam: str) -> None:
@@ -100,4 +103,24 @@ class Worksite:
                     1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.
         coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].
         """
-        self.gcp[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
+        self.gcps[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
+
+    def calculate_coor_img_gcp(self) -> None:
+        """
+        Calculates the position of gcps in the images they appear in
+        """
+        if self.check_gcp:
+            if self.check_cop:
+                for name_gcp in list(self.gcps):
+                    try:
+                        list_shots = self.copoints[name_gcp]
+                        gcp = self.gcps[name_gcp]
+                        for name_shot in list_shots:
+                            shot = self.shots[name_shot]
+                            cam = self.cameras[shot.name_cam]
+                            coor_img = func_img(gcp.coor, shot, cam)
+                            self.shots[name_shot].gcps[name_gcp] = coor_img
+                    except KeyError:
+                        self.shots[name_shot].gcps = {}
+                        print("The calculation of the gcps image coordinates could not be done.")
+                        print("Point(s) is/are not known on an image.")

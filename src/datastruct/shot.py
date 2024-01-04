@@ -21,6 +21,7 @@ class Shot:
     ori_shot: np.array
     name_cam: str
     copoints: dict = field(default_factory=dict)
+    gcps: dict = field(default_factory=dict)
     mat_rot: np.array = field(init=False)
 
     def __post_init__(self) -> np.array:

@@ -1,6 +1,7 @@
 """
 pink lady launch module
 """
+import sys
 import argparse
 import importlib
 from src.reader.orientation.manage_reader import reader_orientation
@@ -40,6 +41,7 @@ if args.filepath[0] != '':
     print("Orientation file reading done")
 else:
     print("The access road to the photogrammetric site is missing")
+    sys.exit()
 
 # Reading camera file
 if args.camera != '':
@@ -51,10 +53,15 @@ if args.connecting_points != '':
     read_copoints(args.connecting_points, work)
     print("Connecting point reading done")
 
+# Calculate ground coordinate of conneting point by intersection
+
 # Reading GCP
 if args.gcp != '':
     read_gcp(args.connecting_points, work)
     print("GCP reading done")
+
+# Calculate image coordinate of GCP if they exist
+work.calculate_coor_img_gcp()
 
 # Writing data
 if args.writer != '':

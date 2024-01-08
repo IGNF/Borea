@@ -18,14 +18,14 @@ class Shot:
         name_cam (str): Name of the camera.
     """
     name_shot: str
-    pos_shot: np.array
-    ori_shot: np.array
+    pos_shot: np
+    ori_shot: np
     name_cam: str
     copoints: dict = field(default_factory=dict)
     gcps: dict = field(default_factory=dict)
-    mat_rot: np.array = field(init=False)
+    mat_rot: np = field(init=False)
 
-    def __post_init__(self) -> np.array:
+    def __post_init__(self) -> None:
         """
         Build the rotation matrix with omega phi kappa
         """

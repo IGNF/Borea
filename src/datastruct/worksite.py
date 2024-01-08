@@ -27,8 +27,8 @@ class Worksite:
         self.gcps = {}
         self.check_gcp = False
 
-    def add_shot(self, name_shot: str, pos_shot: np.array,
-                 ori_shot: np.array, name_cam: str) -> None:
+    def add_shot(self, name_shot: str, pos_shot: np,
+                 ori_shot: np, name_cam: str) -> None:
         """
         Add Shot to the attribut Shots
 
@@ -91,7 +91,7 @@ class Worksite:
 
         self.copoints[name_point].append(name_shot)
 
-    def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np.array) -> None:
+    def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np) -> None:
         """
         Add GCP in the Worksite
 

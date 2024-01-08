@@ -91,6 +91,16 @@ def test_add_gcp():
     assert (obj.gcps['"1003"'].coor == np.array([1,2,3])).all()
 
 
+def test_world_to_image():
+    shot = Shot("test", np.array([3,3,3]), np.array([1,1,1]), 'cam_test')
+    shot.mat_rot = np.array([[1,2,3],
+                             [3,1,2],
+                             [1,1,1]])
+    cam = Camera('test_cam', 5, 5, 10)
+    coor = shot.world_to_image(np.array([1,1,1]), cam)
+    assert (coor == np.array([-15.0, -15.0])).all()
+
+
 def test_calculate_coor_img_gcp():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([3,3,3]), np.array([1,1,1]), 'cam_test')

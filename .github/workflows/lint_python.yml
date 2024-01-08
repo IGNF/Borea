@@ -26,9 +26,9 @@ jobs:
 
     - name: Analysing the code with pylint
       run: |
-        pylint pink_lady.py src/functions/tools.py src/reader/reader_camera.py src/reader/reader_copoints.py src/reader/reader_gcp.py src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/worksite.py src/datastruct/camera.py src/writer/writer_opk.py
+        pylint pink_lady.py src/reader/reader_camera.py src/reader/reader_copoints.py src/reader/reader_gcp.py src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/worksite.py src/datastruct/camera.py src/writer/writer_opk.py
 
     - name: Analysing the code with flake8
       run: |
-        flake8  --max-line-length 100 pink_lady.py src/functions/tools.py src/reader/reader_camera.py src/reader/reader_copoints.py src/reader/reader_gcp.py src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/worksite.py src/datastruct/camera.py src/writer/writer_opk.py
+        flake8  --max-line-length 100 pink_lady.py src/reader/reader_camera.py src/reader/reader_copoints.py src/reader/reader_gcp.py src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/worksite.py src/datastruct/camera.py src/writer/writer_opk.py
 

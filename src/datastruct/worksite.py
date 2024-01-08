@@ -6,7 +6,6 @@ import numpy as np
 from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
 from src.datastruct.gcp import GCP
-from src.functions.tools import func_img
 
 
 class Worksite:
@@ -118,7 +117,7 @@ class Worksite:
                         for name_shot in list_shots:
                             shot = self.shots[name_shot]
                             cam = self.cameras[shot.name_cam]
-                            coor_img = func_img(gcp.coor, shot, cam)
+                            coor_img = shot.world_to_image(gcp.coor, cam)
                             self.shots[name_shot].gcps[name_gcp] = coor_img
                     except KeyError:
                         self.shots[name_shot].gcps = {}

@@ -14,7 +14,7 @@ class Shot:
     Args:
         name_shot (str): Name of the shot.
         pos_shot (numpy.array): Array of coordinate position [X, Y, Z].
-        ori_shot (numpy.array): Array of orientation of the shot [Omega, Phi, Kappa].
+        ori_shot (numpy.array): Array of orientation of the shot [Omega, Phi, Kappa] in degree.
         name_cam (str): Name of the camera.
     """
     name_shot: str

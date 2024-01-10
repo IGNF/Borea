@@ -16,9 +16,6 @@ def read(file: str, skip: int) -> Worksite:
     Returns:
         Worksite: The worksite
     """
-    if skip is None:
-        skip = 1
-
     # Job name retrieval
     name_work = file.split('/')[-1]
     name_work = name_work.split('.')[0]
@@ -42,6 +39,6 @@ def read(file: str, skip: int) -> Worksite:
                               item_shot[7])
             file_opk.close()
     except FileNotFoundError as e:
-        raise ValueError("The path to the .opk file is incorrect !!!") from e
+        raise FileNotFoundError(f"The path {file} is incorrect !!!") from e
 
     return work

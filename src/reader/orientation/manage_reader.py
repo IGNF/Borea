@@ -5,7 +5,7 @@ import importlib
 from src.datastruct.worksite import Worksite
 
 
-def reader_orientation(file: str, skip: int = None) -> Worksite:
+def reader_orientation(file: str, skip: int) -> Worksite:
     """
     Photogrammetric site file reading function
 
@@ -23,6 +23,6 @@ def reader_orientation(file: str, skip: int = None) -> Worksite:
         my_module = importlib.import_module("src.reader.orientation.reader_" + ext.lower())
         work = my_module.read(file, skip)
     except ModuleNotFoundError as e:
-        raise ValueError(f"{ext} file is not taken into account !!!") from e
+        raise ModuleNotFoundError(f"{ext} file is not taken into account !!!") from e
 
     return work

@@ -30,7 +30,7 @@ def test_writer():
     obj = Worksite(name = FILENAME)
     obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
     write(OUTPUT, obj)
-    obj2 = read_opk(os.path.join(OUTPUT,f"{FILENAME}.opk"), None)
+    obj2 = read_opk(os.path.join(OUTPUT,f"{FILENAME}.opk"), 1)
     assert obj2.name == "Test"
     assert obj2.shots["test_shot"].name_shot == "test_shot"
     assert obj2.shots["test_shot"].pos_shot[0] == 1

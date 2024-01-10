@@ -1,0 +1,6 @@
+{
+"EPSG:4339": {
+    "geoc": "EPSG:4340", 
+    "geog": "EPSG:4176",
+    "comment": "Projection of Australian Antartic"}
+}

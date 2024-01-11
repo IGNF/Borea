@@ -1,5 +1,5 @@
 """
-Script test to write file
+Script test for module writer
 """
 import os
 import numpy as np

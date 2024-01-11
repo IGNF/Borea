@@ -104,25 +104,24 @@ def test_world_to_image():
     proj = ProjEngine("EPSG:2154", {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084'})
     projeucli = EuclideanProj(814975.925, 6283986.148, proj)
     actual = shot.world_to_image(point_terrain, cam, projeucli)
-    assert abs(actual[0] - 24042.25) < 7000
-    assert abs(actual[1] - 14781.17) < 7000
+    print(abs(actual[0] - 24042.25), abs(actual[1] - 14781.17))
+    assert abs(actual[0] - 24042.25) < 600
+    assert abs(actual[1] - 14781.17) < 600
 
 
 def test_calculate_coor_img_gcp():
     work = Worksite("test")
-    work.add_shot("shot_test", np.array([3,3,3]), np.array([1,1,1]), 'cam_test')
-    work.shots['shot_test'].mat_rot = np.array([[1,2,3],
-                                           [3,1,2],
-                                           [1,1,1]])
+    work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test')
     work.set_proj("EPSG:2154")
-    work.add_camera('cam_test', 5, 5, 10)
-    work.add_copoint('gcp_test', 'shot_test', 20, 30)
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
+    work.add_copoint('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.check_cop = True
-    work.add_gcp('gcp_test', 3, np.array([1,1,1]))
+    work.add_gcp('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.check_gcp = True
     work.calculate_coor_img_gcp()
-    assert round(work.shots['shot_test'].gcps['gcp_test'][0]) == 19
-    assert round(work.shots['shot_test'].gcps['gcp_test'][1]) == 23
+    print(abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25), abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17))
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 600
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 600
 
 
 def test_barycentre():
@@ -144,6 +143,7 @@ def test_image_to_world():
     proj = ProjEngine("EPSG:2154", {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084'})
     projeucli = EuclideanProj(814975.925, 6283986.148, proj)
     actual = shot.image_to_world(point_image[0],point_image[1],cam,projeucli)
+    print(abs(actual[0] - 815601.510), abs(actual[1] - 6283629.280))
     assert abs(actual[0] - 815601.510) < 1000
     assert abs(actual[1] - 6283629.280) < 1000
     assert actual[2] == 0

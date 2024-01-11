@@ -92,7 +92,7 @@ def test_add_gcp():
     assert (obj.gcps['"1003"'].coor == np.array([1,2,3])).all()
 
 
-def test_calculate_coor_img_gcp():
+def test_calculate_coor_img_gcp_1():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test')
     work.set_proj("EPSG:2154")
@@ -105,6 +105,23 @@ def test_calculate_coor_img_gcp():
     print(abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25), abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17))
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 600
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 600
+    assert len(work.shots['shot_test'].gcps) == 1
+
+
+def test_calculate_coor_img_gcp_2():
+    work = Worksite("test")
+    work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test')
+    work.set_proj("EPSG:2154")
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
+    work.add_copoint('gcp_test', 'shot_test', 24042.25, 14781.17)
+    work.check_cop = True
+    work.add_gcp('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
+    work.add_gcp('gcp_test_test', 3, np.array([0,0,0]))
+    work.check_gcp = True
+    work.calculate_coor_img_gcp()
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 600
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 600
+    assert len(work.shots['shot_test'].gcps) == 1
 
 
 def test_barycentre():

@@ -17,7 +17,7 @@ INPUT_TERRAIN = "test/data/terrain_test.mes"
 INPUT_GCP = "test/data/GCP_test.app"
 
 def test_reader_opk():
-    obj = read_opk(INPUT_OPK, None)
+    obj = read_opk(INPUT_OPK, 1)
     assert obj.name == "23FD1305_alt_test"
     assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
     assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925
@@ -39,7 +39,7 @@ def test_reader_opk():
 
 
 def test_reader_file():
-    obj = reader_orientation(INPUT_OPK)
+    obj = reader_orientation(INPUT_OPK, 1)
     assert obj.name == "23FD1305_alt_test"
     assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
     assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925
@@ -92,7 +92,7 @@ def test_read_camera():
 
 
 def test_read_copoints():
-    work = reader_orientation(INPUT_OPK)
+    work = reader_orientation(INPUT_OPK, 1)
     read_copoints([INPUT_LIAISONS], work)
     assert work.copoints["MES_674214"] == ["23FD1305x00026_01306", "23FD1305x00026_01307", "23FD1305x00026_01308"]
     assert work.copoints["MES_674219"] == ["23FD1305x00026_01306", "23FD1305x00026_01307", "23FD1305x00026_01308"]
@@ -107,7 +107,7 @@ def test_read_copoints():
 
 
 def test_read_gcp():
-    work_gcp = reader_orientation(INPUT_OPK)
+    work_gcp = reader_orientation(INPUT_OPK, 1)
     read_gcp([INPUT_GCP], work_gcp)
     assert list(work_gcp.gcps) == ['"1003"','"1005"','"1006"']
     assert work_gcp.gcps['"1003"'].name_gcp == '"1003"'

@@ -2,13 +2,16 @@
 Worksite data class module
 """
 import sys
+import json
 import numpy as np
 from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
 from src.datastruct.gcp import GCP
-from src.functions.tools import func_img
+from src.geodesy.proj_engine import ProjEngine
+from src.geodesy.euclidean_proj import EuclideanProj
 
 
+# pylint: disable-next=too-many-instance-attributes
 class Worksite:
     """
     Worksite class
@@ -27,9 +30,11 @@ class Worksite:
         self.check_cop = False
         self.gcps = {}
         self.check_gcp = False
+        self.proj = None
+        self.projeucli = None
 
-    def add_shot(self, name_shot: str, pos_shot: np.array,
-                 ori_shot: np.array, name_cam: str) -> None:
+    def add_shot(self, name_shot: str, pos_shot: np,
+                 ori_shot: np, name_cam: str) -> None:
         """
         Add Shot to the attribut Shots
 
@@ -43,6 +48,52 @@ class Worksite:
                                      pos_shot=pos_shot,
                                      ori_shot=ori_shot,
                                      name_cam=name_cam)
+
+    def set_proj(self, epsg: str, file_epsg: str = None) -> None:
+        """
+        Setup a projection system to the worksite.
+
+        Args:
+            epsg (str): Code epsg of the porjection ex: "EPSG:2154".
+            file_epsg (str): Path to the json which list projection
+        """
+        if file_epsg is None:
+            self.set_projection(epsg)
+        else:
+            try:
+                with open(file_epsg, 'r', encoding="utf-8") as json_file:
+                    projection_list = json.load(json_file)
+                    json_file.close()
+                try:
+                    dict_epsg = projection_list[epsg]
+                    self.proj = ProjEngine(epsg, dict_epsg)
+                    coor_barycentre = self.calculate_barycentre()
+                    self.projeucli = EuclideanProj(coor_barycentre[0],
+                                                   coor_barycentre[1],
+                                                   self.proj)
+                except KeyError:
+                    self.set_projection(epsg)
+            except FileNotFoundError as e:
+                raise FileNotFoundError(f"The path {file_epsg} is incorrect !!!") from e
+
+    def set_projection(self, epsg: str = "EPSG:2154") -> None:
+        """
+        Setup a projection system to the worksite.
+
+        Args:
+            epsg (str): Code epsg of the porjection ex: "EPSG:2154".
+        """
+        path_data = "./src/data/projection_list.json"
+        with open(path_data, 'r', encoding="utf-8") as json_file:
+            projection_list = json.load(json_file)
+            json_file.close()
+        try:
+            dict_epsg = projection_list[epsg]
+            self.proj = ProjEngine(epsg, dict_epsg)
+            coor_barycentre = self.calculate_barycentre()
+            self.projeucli = EuclideanProj(coor_barycentre[0], coor_barycentre[1], self.proj)
+        except KeyError:
+            self.proj = ProjEngine(epsg)
 
     def add_camera(self, name_camera: str, ppax: float,
                    ppay: float, focal: float) -> None:
@@ -92,7 +143,7 @@ class Worksite:
 
         self.copoints[name_point].append(name_shot)
 
-    def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np.array) -> None:
+    def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np) -> None:
         """
         Add GCP in the Worksite
 
@@ -118,9 +169,21 @@ class Worksite:
                         for name_shot in list_shots:
                             shot = self.shots[name_shot]
                             cam = self.cameras[shot.name_cam]
-                            coor_img = func_img(gcp.coor, shot, cam)
+                            coor_img = shot.world_to_image(gcp.coor, cam, self.projeucli)
                             self.shots[name_shot].gcps[name_gcp] = coor_img
                     except KeyError:
                         self.shots[name_shot].gcps = {}
                         print("The calculation of the gcps image coordinates could not be done.")
                         print("Point(s) is/are not known on an image.")
+
+    def calculate_barycentre(self) -> np.array:
+        """
+        Calculate barycentre of the worksite
+        """
+        size = len(self.shots)
+        pos = np.zeros((size, 3))
+        i = 0
+        for shot in self.shots.values():
+            pos[i, :] = shot.pos_shot
+            i += 1
+        return np.mean(pos, axis=0)

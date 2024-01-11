@@ -13,10 +13,13 @@ def read_copoints(files: list, work: Worksite) -> None:
         work (Worksite): Worksite which needs connecting points
     """
     for file in files:
-        with open(file, 'r', encoding="utf-8") as file_copoints:
-            for copoint in file_copoints.readlines():
-                if copoint != '\n':
-                    name_point, name_shot, x, y = copoint.split()
-                    work.add_copoint(name_point, name_shot, float(x), float(y))
-            file_copoints.close()
+        try:
+            with open(file, 'r', encoding="utf-8") as file_copoints:
+                for copoint in file_copoints.readlines():
+                    if copoint != '\n':
+                        name_point, name_shot, x, y = copoint.split()
+                        work.add_copoint(name_point, name_shot, float(x), float(y))
+                file_copoints.close()
+        except FileNotFoundError as e:
+            raise FileNotFoundError(f"The path {file} is incorrect !!!") from e
     work.check_cop = True

@@ -172,9 +172,7 @@ class Worksite:
                             coor_img = shot.world_to_image(gcp.coor, cam, self.projeucli)
                             self.shots[name_shot].gcps[name_gcp] = coor_img
                     except KeyError:
-                        self.shots[name_shot].gcps = {}
-                        print("The calculation of the gcps image coordinates could not be done.")
-                        print("Point(s) is/are not known on an image.")
+                        continue
 
     def calculate_barycentre(self) -> np.array:
         """

@@ -49,3 +49,4 @@ Html documentation in docs/_build/html/index.hmlt
 5. Reading ground control point (app)
 6. Add projection and function to change of projection
 7. Calculation of the image coordinates of gcp by the image function
+8. Calculation of the ground coordinates of connecting point by intersection

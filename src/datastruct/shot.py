@@ -59,7 +59,8 @@ class Shot:
         pos_eucli = projeucli.world_to_euclidean(self.pos_shot[0],
                                                  self.pos_shot[1],
                                                  self.pos_shot[2])
-        p_bundle = projeucli.rot_to_euclidean_local @ (p_eucli - pos_eucli)
+        mat_eucli = projeucli.mat_to_mat_eucli(self.pos_shot[0], self.pos_shot[1], self.mat_rot)
+        p_bundle = mat_eucli @ (p_eucli - pos_eucli)
         x_shot = p_bundle[0] * cam.focal / p_bundle[2]
         y_shot = p_bundle[1] * cam.focal / p_bundle[2]
         z_shot = p_bundle[2]
@@ -82,9 +83,7 @@ class Shot:
             np.array: Cartographique coordinate [x,y,z]
         """
         x_bundle, y_bundle, z_bundle = self.image_to_bundle(col, line, cam)
-        pos_eucli = np.squeeze(proj.world_to_euclidean(self.pos_shot[0],
-                                                       self.pos_shot[1],
-                                                       self.pos_shot[2]).T)
+        pos_eucli = proj.world_to_euclidean(self.pos_shot[0], self.pos_shot[1], self.pos_shot[2])
         p_local = proj.rot_to_euclidean_local @ np.array([x_bundle, y_bundle, z_bundle])
         p_local = p_local + pos_eucli
         lamb = (0 - pos_eucli[2])/(p_local[2] - pos_eucli[2])

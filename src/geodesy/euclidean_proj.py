@@ -61,6 +61,27 @@ class EuclideanProj:
         rot_to_euclidean_local[2, 2] = sp
         return rot_to_euclidean_local
 
+    def mat_to_mat_eucli(self, x: float, y: float, mat: np.array) -> np.array:
+        """
+        Transform the rotation matrix (World system) into rotation matrix (Euclidian systeme)
+
+        Args:
+            x (float): x coordinate of the point
+            y (float): y coordinate of the point
+            mat (np.array): rotation matrix (World system)
+
+        Returns:
+            np.array: rotation matrix
+        """
+
+        # *-1 on two last line
+        mat = mat*np.array([1, -1, -1]).reshape(-1, 1)
+
+        # We are in the projection system, we pass into the local tangeant system
+        matecef_to_rtl = self.mat_rot_euclidean_local(x, y)
+        mat_eucli = mat @ matecef_to_rtl @ self.rot_to_euclidean_local.T
+        return mat_eucli
+
     def world_to_euclidean(self, x: float, y: float, z: float) -> np.array:
         """
         Transform a point from the world coordinate reference system into
@@ -78,12 +99,11 @@ class EuclideanProj:
         central_geoc = self.proj_engine.tf.carto_to_geoc(self.x_central,
                                                          self.y_central,
                                                          self.z_central)
-        dr = np.vstack([x_geoc-central_geoc[0], y_geoc-central_geoc[1], z_geoc-central_geoc[2]])
+        dr = np.array([x_geoc-central_geoc[0], y_geoc-central_geoc[1], z_geoc-central_geoc[2]])
         point_eucli = (self.rot_to_euclidean_local @ dr) + np.array([self.x_central,
                                                                      self.y_central,
-                                                                     self.z_central]).reshape(-1,
-                                                                                              1)
-        point_eucli = np.squeeze(point_eucli.T)
+                                                                     self.z_central])
+
         return np.array([point_eucli[0], point_eucli[1], point_eucli[2]])
 
     def euclidean_to_world(self, x: float, y: float, z: float) -> np.array:

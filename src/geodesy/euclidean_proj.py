@@ -131,7 +131,7 @@ class EuclideanProj:
             z_eucli (Union[np.array, float]): y coordinate of the point
 
         Returns:
-            np.array: x, y, z in the world coordinate reference system, dim = [[],[],[]]
+            np.array: x, y, z in the world coordinate reference system.
         """
         if isinstance(x, np.ndarray):
             dim = np.shape(x)

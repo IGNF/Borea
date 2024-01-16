@@ -149,11 +149,11 @@ class Worksite:
         Add GCP in the Worksite.
 
         Args:
-        name_gcp (str): Name of the gcp.
-        code_gcp (int): ign code to differentiate between support points (1, 2, 3)
-                    and control points (11, 12, 13)
-                    1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.
-        coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].
+            name_gcp (str): Name of the gcp.
+            code_gcp (int): IGN code to differentiate between support points (1, 2, 3)
+                            and control points (11, 12, 13)
+                            1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.
+            coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].
         """
         self.gcps[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
 

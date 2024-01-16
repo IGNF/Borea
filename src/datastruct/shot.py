@@ -80,6 +80,7 @@ class Shot:
             l (float): Line coordinates of image point(s).
             cam (Camera): Objet cam which correspond to the shot.
             proj (EuclideanProj): Euclidean projection of the worksite.
+            z (float): La position z du point par défault = 0.
 
         Returns:
             np.array: Cartographique coordinate [x,y,z]

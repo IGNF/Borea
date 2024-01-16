@@ -35,7 +35,8 @@ Then add the parameters:
 Some settings are optional, depending on what you want to do with Pink Lady.
 Only the first -f parameter is mandatory
 
-Html documentation for functions in docs/_build/html/index.hmlt
+Html documentation python in docs/_build/html/index.hmlt
+Markdown documentation function in docs/functions
 
 ### Functionality
 

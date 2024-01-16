@@ -52,6 +52,10 @@ Markdown documentation function in docs/functions
 7. Calculation of the image coordinates of gcp by the image function
 8. Calculation of the ground coordinates of connecting point by intersection
 
+### Utilisation
+
+------------- A REMPLIR ---------------- (descriptif du pink_lady.py) 
+
 ### Image function
 
 To use the image function, you need :
@@ -61,12 +65,16 @@ To use the image function, you need :
 ```
 {
 "EPSG:2154": {
-"geoc": "EPSG:4964", 
-"geog": "EPSG:7084",
-"geoid": ["fr_ign_RAF20"],
-"comment": "Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93"}
+  "geoc": "EPSG:4964", 
+  "geog": "EPSG:7084",
+  "geoid": ["fr_ign_RAF20"],
+  "comment": "Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93"}
 }
 ```
 The important tags are : the first is the epsg code ("EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection ("geoc") with its epsg code at the site location. The geographic projection ("geog") with its epsg code at the site location, and the geoid ("geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the usr/share/proj folder, which is native to pyproj, or in the env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj folder if you're using a special environment. You don't have to add the last "comment" tag.
 
 ### Ground coordinates by intersection
+
+
+
+![logo ign](docs/logo/IGN_logo_2012.svg =50x) ![logo fr](docs/logo/Republique_Francaise_Logo.png =50x)

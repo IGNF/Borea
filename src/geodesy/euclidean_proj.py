@@ -3,7 +3,9 @@ A module for manipulating an euclidean projection.
 """
 import math as m
 import numpy as np
+from typing import Union
 from src.geodesy.proj_engine import ProjEngine
+from src.utils.conversion import check_array_transfo, change_dim
 
 
 class EuclideanProj:
@@ -82,49 +84,70 @@ class EuclideanProj:
         mat_eucli = mat @ matecef_to_rtl @ self.rot_to_euclidean_local.T
         return mat_eucli
 
-    def world_to_euclidean(self, x: float, y: float, z: float) -> np.array:
+    def world_to_euclidean(self, x: Union[np.array, float],
+                           y: Union[np.array, float], z: Union[np.array, float]) -> np.array:
         """
         Transform a point from the world coordinate reference system into
-        the Euclidean coordinate reference system
+        the Euclidean coordinate reference system.
 
         Args:
-            x (float): x coordinate of the point
-            y (float): y coordinate of the point
-            z (float): z coordinate of the point
+            x (Union[np.array, float]): x coordinate of the point
+            y (Union[np.array, float]): y coordinate of the point
+            z (Union[np.array, float]): z coordinate of the point
 
         Returns:
-            Tuple[any, any, any]: x, y, z in the Euclidean coordinate reference system
+            np.array: x, y, z in the Euclidean coordinate reference system, dim = [[],[],[]]
         """
+        if isinstance(x, np.ndarray):
+            dim = np.shape(x)
+        else:
+            dim = ()
+
+        x, y, z = check_array_transfo(x, y, z)
+
         x_geoc, y_geoc, z_geoc = self.proj_engine.tf.carto_to_geoc(x, y, z)
         central_geoc = self.proj_engine.tf.carto_to_geoc(self.x_central,
                                                          self.y_central,
                                                          self.z_central)
-        dr = np.array([x_geoc-central_geoc[0], y_geoc-central_geoc[1], z_geoc-central_geoc[2]])
-        point_eucli = (self.rot_to_euclidean_local @ dr) + np.array([self.x_central,
-                                                                     self.y_central,
-                                                                     self.z_central])
+        dr = np.vstack([x_geoc-central_geoc[0], y_geoc-central_geoc[1], z_geoc-central_geoc[2]])
+        point_eucli = (self.rot_to_euclidean_local @ dr) + np.array([[self.x_central,
+                                                                      self.y_central,
+                                                                      self.z_central]]).T
+        x_r, y_r, z_r = check_array_transfo(point_eucli[0], point_eucli[1], point_eucli[2])
+        x_r = change_dim(x_r, dim)
+        y_r = change_dim(y_r, dim)
+        z_r = change_dim(z_r, dim)
+        return np.array([x_r, y_r, z_r])
 
-        return np.array([point_eucli[0], point_eucli[1], point_eucli[2]])
-
-    def euclidean_to_world(self, x: float, y: float, z: float) -> np.array:
+    def euclidean_to_world(self, x: Union[np.array, float],
+                           y: Union[np.array, float], z: Union[np.array, float]) -> np.array:
         """
         Transform a point from the Euclidean coordinate reference system into
         the world coordinate reference system.
 
         Args:
-            x_eucli (float): x coordinate of the point
-            y_eucli (float): y coordinate of the point
-            z_eucli (float): y coordinate of the point
+            x_eucli (Union[np.array, float]): x coordinate of the point
+            y_eucli (Union[np.array, float]): y coordinate of the point
+            z_eucli (Union[np.array, float]): y coordinate of the point
 
         Returns:
-            Tuple[any, any, any]: x, y, z in the world coordinate reference system
+            np.array: x, y, z in the world coordinate reference system, dim = [[],[],[]]
         """
+        if isinstance(x, np.ndarray):
+            dim = np.shape(x)
+        else:
+            dim = ()
+
         central_geoc = self.proj_engine.tf.carto_to_geoc(self.x_central,
                                                          self.y_central,
                                                          self.z_central)
-        dr = np.array([x - self.x_central, y - self.y_central, z - self.z_central])
-        point_geoc = (self.rot_to_euclidean_local.T @ dr) + np.array([central_geoc[0],
-                                                                      central_geoc[1],
-                                                                      central_geoc[2]])
-        tub = self.proj_engine.tf.geoc_to_carto(point_geoc[0], point_geoc[1], point_geoc[2])
-        return np.array(tub)
+        dr = np.vstack([x - self.x_central, y - self.y_central, z - self.z_central])
+        point_geoc = (self.rot_to_euclidean_local.T @ dr) + np.array([[central_geoc[0],
+                                                                       central_geoc[1],
+                                                                       central_geoc[2]]]).T
+        x_gc, y_gc, z_gc = check_array_transfo(point_geoc[0,:], point_geoc[1,:], point_geoc[2,:])
+        tup = self.proj_engine.tf.geoc_to_carto(x_gc, y_gc, z_gc)
+        x_r = change_dim(tup[0], dim)
+        y_r = change_dim(tup[1], dim)
+        z_r = change_dim(tup[2], dim)
+        return np.array([x_r, y_r, z_r])

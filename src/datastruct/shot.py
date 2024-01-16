@@ -42,7 +42,7 @@ class Shot:
         rz = np.array([[np.cos(self.ori_shot[2]*np.pi/180), -np.sin(self.ori_shot[2]*np.pi/180), 0],
                        [np.sin(self.ori_shot[2]*np.pi/180), np.cos(self.ori_shot[2]*np.pi/180), 0],
                        [0, 0, 1]])
-        return rx @ ry @ rz
+        return (rx @ ry @ rz).T
 
     def world_to_image(self, point: np, cam: Camera, projeucli: EuclideanProj) -> np:
         """
@@ -55,10 +55,11 @@ class Shot:
         Returns:
             np.array: The image coordinate [c,l]
         """
+        z_alti = self.tranform_vertical(projeucli)
         p_eucli = projeucli.world_to_euclidean(point[0], point[1], point[2])
         pos_eucli = projeucli.world_to_euclidean(self.pos_shot[0],
                                                  self.pos_shot[1],
-                                                 self.pos_shot[2])
+                                                 z_alti)
         mat_eucli = projeucli.mat_to_mat_eucli(self.pos_shot[0], self.pos_shot[1], self.mat_rot)
         p_bundle = mat_eucli @ (p_eucli - pos_eucli)
         x_shot = p_bundle[0] * cam.focal / p_bundle[2]
@@ -69,7 +70,8 @@ class Shot:
         y_lig = cam.ppay + y_shot
         return np.array([x_col, y_lig])
 
-    def image_to_world(self, col: float, line: float, cam: Camera, proj: EuclideanProj) -> np.array:
+    def image_to_world(self, col: float, line: float, cam: Camera,
+                       proj: EuclideanProj, z: float = 0) -> np.array:
         """
         Calculate x and y cartographique coordinate with z = 0.
 
@@ -86,11 +88,11 @@ class Shot:
         pos_eucli = proj.world_to_euclidean(self.pos_shot[0], self.pos_shot[1], self.pos_shot[2])
         p_local = proj.rot_to_euclidean_local @ np.array([x_bundle, y_bundle, z_bundle])
         p_local = p_local + pos_eucli
-        lamb = (0 - pos_eucli[2])/(p_local[2] - pos_eucli[2])
+        lamb = (z - pos_eucli[2])/(p_local[2] - pos_eucli[2])
         x_local = pos_eucli[0] + (p_local[0] - pos_eucli[0]) * lamb
         y_local = pos_eucli[1] + (p_local[1] - pos_eucli[1]) * lamb
-        x_world, y_world, _ = proj.euclidean_to_world(x_local, y_local, 0)
-        return np.array([x_world, y_world, 0])
+        x_world, y_world, z_world = proj.euclidean_to_world(x_local, y_local, z)
+        return np.array([x_world, y_world, z_world])
 
     def image_to_bundle(self, col: float, line: float, cam: Camera) -> tuple:
         """
@@ -112,3 +114,25 @@ class Shot:
         y_bundle = y_shot / cam.focal * z_shot
         z_bundle = z_shot
         return x_bundle, y_bundle, z_bundle
+    
+    def tranform_vertical(self, projeucli: EuclideanProj) -> float:
+        """
+        Get new z position for the acquisition.
+        It is an elevation z
+
+        Args:
+            projeucli (EuclideanProj): Eucliean system
+
+        Returns:
+            float: new z elevation
+        """
+        coor_geog = projeucli.proj_engine.tf.carto_to_geog(self.pos_shot[0],
+                                                           self.pos_shot[1],
+                                                           self.pos_shot[2])
+        new_z = projeucli.proj_engine.tf.geog_to_geoid(coor_geog[0],
+                                                       coor_geog[1],
+                                                       coor_geog[2])[2]
+        if new_z == np.inf:
+            raise ValueError("out geoid")
+        else:
+            return new_z

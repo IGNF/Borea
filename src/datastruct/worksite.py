@@ -30,6 +30,7 @@ class Worksite:
         self.check_cop = False
         self.gcps = {}
         self.check_gcp = False
+        self.cop_ground = {}
         self.proj = None
         self.projeucli = None
 
@@ -145,7 +146,7 @@ class Worksite:
 
     def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np) -> None:
         """
-        Add GCP in the Worksite
+        Add GCP in the Worksite.
 
         Args:
         name_gcp (str): Name of the gcp.
@@ -156,23 +157,28 @@ class Worksite:
         """
         self.gcps[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
 
-    def calculate_coor_img_gcp(self) -> None:
+    def calculate_world_to_image_gcp(self, lcode: list) -> None:
         """
-        Calculates the position of gcps in the images they appear in
+        Calculates the position of gcps which corresponds to the data code
+        in the images they appear in.
+
+        Args:
+            code (list): gcp code
         """
         if self.check_gcp:
             if self.check_cop:
                 for name_gcp in list(self.gcps):
-                    try:
-                        list_shots = self.copoints[name_gcp]
-                        gcp = self.gcps[name_gcp]
-                        for name_shot in list_shots:
-                            shot = self.shots[name_shot]
-                            cam = self.cameras[shot.name_cam]
-                            coor_img = shot.world_to_image(gcp.coor, cam, self.projeucli)
-                            self.shots[name_shot].gcps[name_gcp] = coor_img
-                    except KeyError:
-                        continue
+                    if self.gcps[name_gcp].code in lcode:
+                        try:
+                            list_shots = self.copoints[name_gcp]
+                            gcp = self.gcps[name_gcp]
+                            for name_shot in list_shots:
+                                shot = self.shots[name_shot]
+                                cam = self.cameras[shot.name_cam]
+                                coor_img = shot.world_to_image(gcp.coor, cam, self.projeucli)
+                                self.shots[name_shot].gcps[name_gcp] = coor_img
+                        except KeyError:
+                            continue
 
     def calculate_barycentre(self) -> np.array:
         """
@@ -185,3 +191,94 @@ class Worksite:
             pos[i, :] = shot.pos_shot
             i += 1
         return np.mean(pos, axis=0)
+
+    def calculate_image_world_copoints(self) -> None:
+        """
+        Calculates the ground position of connecting point by intersection with
+        the most distance between two shots
+        """
+        if self.check_cop:
+            for name_cop in list(self.copoints): # Loop on copoints
+                shot1 = ""
+                shot2 = ""
+                dist = 0
+                list_shot1 = self.copoints[name_cop]
+                list_shot2 = list_shot1.copy()
+                _ = list_shot1.pop(-1)
+                for name_shot1 in list_shot1: # Double loop on shots of copoint
+                    _ = list_shot2.pop(0)
+                    for name_shot2 in list_shot2:
+                        pos_shot1 = self.shots[name_shot1].pos_shot
+                        pos_shot2 = self.shots[name_shot2].pos_shot
+                        new_dist = np.sqrt(np.sum((pos_shot1 - pos_shot2)**2))
+                        if new_dist > dist:
+                            dist = new_dist
+                            shot1 = name_shot1
+                            shot2 = name_shot2
+                coor = self.eucli_intersection_2p(name_cop, self.shots[shot1], self.shots[shot2])
+                coor = self.projeucli.euclidean_to_world(coor[0], coor[1], coor[2])
+                self.cop_ground[name_cop] = coor
+
+    # pylint: disable-next=too-many-locals
+    def eucli_intersection_2p(self, name_copoint: str, shot1: Shot, shot2: Shot) -> np.array:
+        """
+        Calculates the euclidien position of a point from two shots
+
+        Args:
+            name_copoint (str): name of copoint to calcule coordinate
+            shot1 (Shot): Frist shot
+            shot2 (Shot): Second shot
+
+        Returns:
+            np.array: Euclidien coordinate of the copoint
+        """
+        p_img1 = shot1.copoints[name_copoint]
+        p_img2 = shot2.copoints[name_copoint]
+        cam1 = self.cameras[shot1.name_cam]
+        cam2 = self.cameras[shot2.name_cam]
+        pos_eucli1 = self.projeucli.world_to_euclidean(shot1.pos_shot[0],
+                                                       shot1.pos_shot[1],
+                                                       shot1.pos_shot[2])
+        pos_eucli2 = self.projeucli.world_to_euclidean(shot2.pos_shot[0],
+                                                       shot2.pos_shot[1],
+                                                       shot2.pos_shot[2])
+        mat_eucli1 = self.projeucli.mat_to_mat_eucli(shot1.pos_shot[0],
+                                                     shot1.pos_shot[1],
+                                                     shot1.mat_rot).T
+        mat_eucli2 = self.projeucli.mat_to_mat_eucli(shot2.pos_shot[0],
+                                                     shot2.pos_shot[1],
+                                                     shot2.mat_rot).T
+        base = pos_eucli1 - pos_eucli2
+        vect1 = mat_eucli1 @ np.array([p_img1[0] - cam1.ppax,
+                                       p_img1[1] - cam1.ppay,
+                                       -cam1.focal])
+        vect2 = mat_eucli2 @ np.array([p_img2[0] - cam2.ppax,
+                                       p_img2[1] - cam2.ppay,
+                                       -cam2.focal])
+        norme_v1 = vect1 @ vect1
+        norme_v2 = vect2 @ vect2
+        v1_v2 = vect1 @ vect2
+        b_v1 = base @ vect1
+        b_v2 = base @ vect2
+        p1_eucli = pos_eucli1 + ((b_v2*v1_v2 - b_v1*norme_v1)/(v1_v2**2 - norme_v1*norme_v2))*vect1
+        p2_eucli = pos_eucli2 + ((b_v2*norme_v1 - b_v1*v1_v2)/(v1_v2**2 - norme_v1*norme_v2))*vect2
+        return 0.5 * (p1_eucli + p2_eucli)
+    
+    """
+    def calculate_coor_ground_copoints2(self) -> None:
+        ""
+        Calculates the ground position of connecting point by least-squares method
+        ""
+        if self.check_cop:
+            # Initinialisation of parameter
+            init_param = {}
+            for shot in self.shots.values(): # Loop on shots
+                cop_param = {}
+                for cop in list(shot.copoints): # Loop on copoints of the shot
+                    x,y,z = shot.image_to_world(shot.copoints[0],
+                                                shot.copoints[1],
+                                                self.cameras[shot.name_cam],
+                                                self.projeucli)
+                    cop_param[cop] = self.projeucli.world_to_euclidean(x,y,z)
+                init_param[shot] = cop_param
+    """

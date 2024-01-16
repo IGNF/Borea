@@ -42,6 +42,20 @@ class ProjEngine:
         # pylint: disable-next=unpacking-non-sequence
         (x_geog, y_geog) = self.tf.carto_to_geog(x_carto, y_carto)
         return -np.array(self.proj.get_factors(x_geog, y_geog).meridian_convergence)
+    
+    def get_scale_factor(self, x_carto: Union[np.array, List[float], float],
+                         y_carto: Union[np.array, List[float], float]) -> np.array:
+        """
+            Compute scale factor.
+            Values are extracted from pyproj.
+
+            :param x_carto: x cartographic coordinates
+            :param y_carto: y cartographic coordinates
+
+            :return: scale factor and meridian convergence
+        """
+        x_geog, y_geog = self.tf.carto_to_geog(x_carto, y_carto)
+        return np.array(self.proj.get_factors(x_geog, y_geog).meridional_scale) - 1
 
 
 @dataclass
@@ -63,3 +77,12 @@ class Transform():
         self.carto_to_geoc = pyproj.Transformer.from_crs(self.pe.crs, self.pe.crs_geoc).transform
         # Transform geocentric coordinates to cartographic coordinates
         self.geoc_to_carto = pyproj.Transformer.from_crs(self.pe.crs_geoc, self.pe.crs).transform
+
+        try:
+            # Transform geographic coordinates to geoide coordinates
+            geoid_list = [geoid+'.tif' for geoid in self.pe.projection_list['geoid']]
+            self.geog_to_geoid = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
+                                                                  f"+grids={','.join(geoid_list)} "
+                                                                  "+multiplier=1").transform
+        except pyproj.exceptions.ProjError as e:
+            raise pyproj.exceptions.ProjError(f"{geoid_list} The name of geotif is incorrect or does not exist in usr/share/proj !!!{e}") from e

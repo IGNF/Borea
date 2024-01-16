@@ -5,7 +5,7 @@ import numpy as np
 from src.utils.conversion import check_array_transfo, change_dim
 
 
-def test_check_array_transfo1():
+def test_check_array_transfo_floatfloat():
     x = 1.0
     y = 1.0
     z = 1.0
@@ -15,7 +15,7 @@ def test_check_array_transfo1():
     assert type(actual[2]) == float
 
 
-def test_check_array_transfo2():
+def test_check_array_transfo_arrayarray():
     x = np.array([1.0,1.0])
     y = np.array([1.0,1.0])
     z = np.array([1.0,1.0])
@@ -25,7 +25,7 @@ def test_check_array_transfo2():
     assert isinstance(actual[0], np.ndarray)
 
 
-def test_check_array_transfo3():
+def test_check_array_transfo_arrayfloatdim1():
     x = np.array([1.0])
     y = np.array([1.0])
     z = np.array([1.0])
@@ -35,7 +35,7 @@ def test_check_array_transfo3():
     assert type(actual[2]) == float
 
 
-def test_check_array_transfo4():
+def test_check_array_transfo_arrayfloatdim2():
     x = np.array([[1.0]])
     y = np.array([[1.0]])
     z = np.array([[1.0]])
@@ -45,7 +45,7 @@ def test_check_array_transfo4():
     assert type(actual[2]) == float
 
 
-def test_check_array_transfo5():
+def test_check_array_transfo_arrayarraydim12():
     x = np.array([[1.0,1.0]])
     y = np.array([[1.0,1.0]])
     z = np.array([[1.0,1.0]])
@@ -55,7 +55,7 @@ def test_check_array_transfo5():
     assert (actual[2] == np.array([1.0,1.0])).all()
 
 
-def test_check_array_transfo6():
+def test_check_array_transfo_arrayarraydim22():
     x = np.array([[1.0],[1.0]])
     y = np.array([[1.0],[1.0]])
     z = np.array([[1.0],[1.0]])
@@ -65,56 +65,56 @@ def test_check_array_transfo6():
     assert (actual[2] == np.array([1.0,1.0])).all()
 
 
-def test_change_dim1():
+def test_change_dim_floatfloat():
     x = 0
     dim = ()
     actual = change_dim(x, dim)
     assert actual == 0
 
 
-def test_change_dim2():
+def test_change_dim_array12array21():
     x = np.array([[0,0]])
     dim = (2,1)
     actual = change_dim(x, dim)
     assert np.shape(actual) == (2,1)
 
 
-def test_change_dim3():
+def test_change_dim_floatarray1():
     x = 0
     dim = (1,)
     actual = change_dim(x, dim)
     assert np.shape(actual) == (1,)
 
 
-def test_change_dim4():
+def test_change_dim_array1float():
     x = np.array([1.0])
     dim = ()
     actual = change_dim(x, dim)
     assert np.shape(actual) == ()
 
 
-def test_change_dim5():
+def test_change_dim_array1array1():
     x = np.array([1.0])
     dim = (1,)
     actual = change_dim(x, dim)
     assert np.shape(actual) == (1,)
 
 
-def test_change_dim6():
+def test_change_dim_floatarray11():
     x = 0
     dim = (1,1)
     actual = change_dim(x, dim)
     assert np.shape(actual) == (1,1)
 
 
-def test_change_dim7():
+def test_change_dim_array2array12():
     x = np.array([0,0])
     dim = (1,2)
     actual = change_dim(x, dim)
     assert np.shape(actual) == (1,2)
 
 
-def test_change_dim8():
+def test_change_dim_array2array21():
     x = np.array([0,0])
     dim = (2,1)
     actual = change_dim(x, dim)

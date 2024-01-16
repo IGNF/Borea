@@ -2,5 +2,6 @@
 "EPSG:2154": {
     "geoc": "EPSG:4964", 
     "geog": "EPSG:7084",
+    "geoid": ["fr_ign_RAF20"],
     "comment": "Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93"}
 }

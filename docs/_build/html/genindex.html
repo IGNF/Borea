@@ -155,7 +155,17 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="src.html">src package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.utils.html">src.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.writer.html">src.writer package</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -194,13 +204,69 @@
           
 <section class="genindex-section">
   <h1 id="index">Index</h1>
-  <div class="genindex-jumpbox"><a href="#A"><strong>A</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#W"><strong>W</strong></a></div>
+  <div class="genindex-jumpbox"><a href="#A"><strong>A</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#W"><strong>W</strong></a></div>
 </section>
 <section id="A" class="genindex-section">
   <h2>A</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="src.html#src.worksite.Worksite.add_shot">add_shot() (src.worksite.Worksite method)</a>
+        <li><a href="src.datastruct.html#src.datastruct.worksite.Worksite.add_camera">add_camera() (src.datastruct.worksite.Worksite method)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.worksite.Worksite.add_copoint">add_copoint() (src.datastruct.worksite.Worksite method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.datastruct.html#src.datastruct.worksite.Worksite.add_gcp">add_gcp() (src.datastruct.worksite.Worksite method)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.worksite.Worksite.add_shot">add_shot() (src.datastruct.worksite.Worksite method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="C" class="genindex-section">
+  <h2>C</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.datastruct.html#src.datastruct.worksite.Worksite.calculate_barycentre">calculate_barycentre() (src.datastruct.worksite.Worksite method)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.worksite.Worksite.calculate_image_world_copoints">calculate_image_world_copoints() (src.datastruct.worksite.Worksite method)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.worksite.Worksite.calculate_world_to_image_gcp">calculate_world_to_image_gcp() (src.datastruct.worksite.Worksite method)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.camera.Camera">Camera (class in src.datastruct.camera)</a>
+</li>
+        <li><a href="src.reader.html#src.reader.reader_camera.camera_txt">camera_txt() (in module src.reader.reader_camera)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.reader.html#src.reader.reader_camera.camera_xml">camera_xml() (in module src.reader.reader_camera)</a>
+</li>
+        <li><a href="src.utils.html#src.utils.conversion.change_dim">change_dim() (in module src.utils.conversion)</a>
+</li>
+        <li><a href="src.utils.html#src.utils.conversion.check_array_transfo">check_array_transfo() (in module src.utils.conversion)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.gcp.GCP.code">code (src.datastruct.gcp.GCP attribute)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.gcp.GCP.coor">coor (src.datastruct.gcp.GCP attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="E" class="genindex-section">
+  <h2>E</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine.epsg">epsg (src.geodesy.proj_engine.ProjEngine attribute)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.worksite.Worksite.eucli_intersection_2p">eucli_intersection_2p() (src.datastruct.worksite.Worksite method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj.euclidean_to_world">euclidean_to_world() (src.geodesy.euclidean_proj.EuclideanProj method)</a>
+</li>
+        <li><a href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj">EuclideanProj (class in src.geodesy.euclidean_proj)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -210,11 +276,37 @@
   <h2>F</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="src.html#src.reader.from_file">from_file() (in module src.reader)</a>
+        <li><a href="src.datastruct.html#src.datastruct.camera.Camera.focal">focal (src.datastruct.camera.Camera attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="G" class="genindex-section">
+  <h2>G</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.datastruct.html#src.datastruct.gcp.GCP">GCP (class in src.datastruct.gcp)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="src.html#src.reader.from_opk">from_opk() (in module src.reader)</a>
+        <li><a href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine.get_meridian_convergence">get_meridian_convergence() (src.geodesy.proj_engine.ProjEngine method)</a>
+</li>
+        <li><a href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine.get_scale_factor">get_scale_factor() (src.geodesy.proj_engine.ProjEngine method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="I" class="genindex-section">
+  <h2>I</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.datastruct.html#src.datastruct.shot.Shot.image_to_bundle">image_to_bundle() (src.datastruct.shot.Shot method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.datastruct.html#src.datastruct.shot.Shot.image_to_world">image_to_world() (src.datastruct.shot.Shot method)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -224,21 +316,109 @@
   <h2>M</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj.mat_rot_euclidean_local">mat_rot_euclidean_local() (src.geodesy.euclidean_proj.EuclideanProj method)</a>
+</li>
+        <li><a href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj.mat_to_mat_eucli">mat_to_mat_eucli() (src.geodesy.euclidean_proj.EuclideanProj method)</a>
+</li>
         <li>
     module
 
         <ul>
           <li><a href="src.html#module-src">src</a>
 </li>
-          <li><a href="src.html#module-src.reader">src.reader</a>
+          <li><a href="src.datastruct.html#module-src.datastruct">src.datastruct</a>
 </li>
-          <li><a href="src.html#module-src.shot">src.shot</a>
+          <li><a href="src.datastruct.html#module-src.datastruct.camera">src.datastruct.camera</a>
 </li>
-          <li><a href="src.html#module-src.worksite">src.worksite</a>
+          <li><a href="src.datastruct.html#module-src.datastruct.gcp">src.datastruct.gcp</a>
 </li>
-          <li><a href="src.html#module-src.writer">src.writer</a>
+          <li><a href="src.datastruct.html#module-src.datastruct.shot">src.datastruct.shot</a>
+</li>
+          <li><a href="src.datastruct.html#module-src.datastruct.worksite">src.datastruct.worksite</a>
+</li>
+          <li><a href="src.geodesy.html#module-src.geodesy">src.geodesy</a>
+</li>
+          <li><a href="src.geodesy.html#module-src.geodesy.euclidean_proj">src.geodesy.euclidean_proj</a>
+</li>
+          <li><a href="src.geodesy.html#module-src.geodesy.proj_engine">src.geodesy.proj_engine</a>
+</li>
+          <li><a href="src.reader.html#module-src.reader">src.reader</a>
+</li>
+          <li><a href="src.reader.orientation.html#module-src.reader.orientation">src.reader.orientation</a>
+</li>
+          <li><a href="src.reader.orientation.html#module-src.reader.orientation.manage_reader">src.reader.orientation.manage_reader</a>
+</li>
+          <li><a href="src.reader.orientation.html#module-src.reader.orientation.reader_opk">src.reader.orientation.reader_opk</a>
+</li>
+          <li><a href="src.reader.html#module-src.reader.reader_camera">src.reader.reader_camera</a>
+</li>
+          <li><a href="src.reader.html#module-src.reader.reader_copoints">src.reader.reader_copoints</a>
+</li>
+          <li><a href="src.reader.html#module-src.reader.reader_gcp">src.reader.reader_gcp</a>
+</li>
+          <li><a href="src.utils.html#module-src.utils">src.utils</a>
+</li>
+          <li><a href="src.utils.html#module-src.utils.conversion">src.utils.conversion</a>
+</li>
+          <li><a href="src.writer.html#module-src.writer">src.writer</a>
+</li>
+          <li><a href="src.writer.html#module-src.writer.writer_opk">src.writer.writer_opk</a>
 </li>
         </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="N" class="genindex-section">
+  <h2>N</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.datastruct.html#src.datastruct.camera.Camera.name_camera">name_camera (src.datastruct.camera.Camera attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.datastruct.html#src.datastruct.gcp.GCP.name_gcp">name_gcp (src.datastruct.gcp.GCP attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="P" class="genindex-section">
+  <h2>P</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.geodesy.html#src.geodesy.proj_engine.Transform.pe">pe (src.geodesy.proj_engine.Transform attribute)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.camera.Camera.ppax">ppax (src.datastruct.camera.Camera attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.datastruct.html#src.datastruct.camera.Camera.ppay">ppay (src.datastruct.camera.Camera attribute)</a>
+</li>
+        <li><a href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine.projection_list">projection_list (src.geodesy.proj_engine.ProjEngine attribute)</a>
+</li>
+        <li><a href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine">ProjEngine (class in src.geodesy.proj_engine)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="R" class="genindex-section">
+  <h2>R</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.reader.orientation.html#src.reader.orientation.reader_opk.read">read() (in module src.reader.orientation.reader_opk)</a>
+</li>
+        <li><a href="src.reader.html#src.reader.reader_camera.read_camera">read_camera() (in module src.reader.reader_camera)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.reader.html#src.reader.reader_copoints.read_copoints">read_copoints() (in module src.reader.reader_copoints)</a>
+</li>
+        <li><a href="src.reader.html#src.reader.reader_gcp.read_gcp">read_gcp() (in module src.reader.reader_gcp)</a>
+</li>
+        <li><a href="src.reader.orientation.html#src.reader.orientation.manage_reader.reader_orientation">reader_orientation() (in module src.reader.orientation.manage_reader)</a>
+</li>
     </ul></td>
   </tr></table>
 </section>
@@ -247,7 +427,13 @@
   <h2>S</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="src.html#src.shot.Shot">Shot (class in src.shot)</a>
+        <li><a href="src.datastruct.html#src.datastruct.worksite.Worksite.set_proj">set_proj() (src.datastruct.worksite.Worksite method)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.worksite.Worksite.set_projection">set_projection() (src.datastruct.worksite.Worksite method)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.shot.Shot.set_rot_shot">set_rot_shot() (src.datastruct.shot.Shot method)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.shot.Shot">Shot (class in src.datastruct.shot)</a>
 </li>
         <li>
     src
@@ -257,33 +443,138 @@
 </li>
         </ul></li>
         <li>
-    src.reader
+    src.datastruct
 
         <ul>
-          <li><a href="src.html#module-src.reader">module</a>
+          <li><a href="src.datastruct.html#module-src.datastruct">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.datastruct.camera
+
+        <ul>
+          <li><a href="src.datastruct.html#module-src.datastruct.camera">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.datastruct.gcp
+
+        <ul>
+          <li><a href="src.datastruct.html#module-src.datastruct.gcp">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.datastruct.shot
+
+        <ul>
+          <li><a href="src.datastruct.html#module-src.datastruct.shot">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.datastruct.worksite
+
+        <ul>
+          <li><a href="src.datastruct.html#module-src.datastruct.worksite">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.geodesy
+
+        <ul>
+          <li><a href="src.geodesy.html#module-src.geodesy">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.geodesy.euclidean_proj
+
+        <ul>
+          <li><a href="src.geodesy.html#module-src.geodesy.euclidean_proj">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.geodesy.proj_engine
+
+        <ul>
+          <li><a href="src.geodesy.html#module-src.geodesy.proj_engine">module</a>
 </li>
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li>
-    src.shot
+    src.reader
 
         <ul>
-          <li><a href="src.html#module-src.shot">module</a>
+          <li><a href="src.reader.html#module-src.reader">module</a>
 </li>
         </ul></li>
         <li>
-    src.worksite
+    src.reader.orientation
 
         <ul>
-          <li><a href="src.html#module-src.worksite">module</a>
+          <li><a href="src.reader.orientation.html#module-src.reader.orientation">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.reader.orientation.manage_reader
+
+        <ul>
+          <li><a href="src.reader.orientation.html#module-src.reader.orientation.manage_reader">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.reader.orientation.reader_opk
+
+        <ul>
+          <li><a href="src.reader.orientation.html#module-src.reader.orientation.reader_opk">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.reader.reader_camera
+
+        <ul>
+          <li><a href="src.reader.html#module-src.reader.reader_camera">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.reader.reader_copoints
+
+        <ul>
+          <li><a href="src.reader.html#module-src.reader.reader_copoints">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.reader.reader_gcp
+
+        <ul>
+          <li><a href="src.reader.html#module-src.reader.reader_gcp">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.utils
+
+        <ul>
+          <li><a href="src.utils.html#module-src.utils">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.utils.conversion
+
+        <ul>
+          <li><a href="src.utils.html#module-src.utils.conversion">module</a>
 </li>
         </ul></li>
         <li>
     src.writer
 
         <ul>
-          <li><a href="src.html#module-src.writer">module</a>
+          <li><a href="src.writer.html#module-src.writer">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.writer.writer_opk
+
+        <ul>
+          <li><a href="src.writer.html#module-src.writer.writer_opk">module</a>
 </li>
         </ul></li>
     </ul></td>
@@ -294,7 +585,11 @@
   <h2>T</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="src.html#src.writer.to_opk">to_opk() (in module src.writer)</a>
+        <li><a href="src.datastruct.html#src.datastruct.shot.Shot.tranform_vertical">tranform_vertical() (src.datastruct.shot.Shot method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.geodesy.html#src.geodesy.proj_engine.Transform">Transform (class in src.geodesy.proj_engine)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -304,7 +599,15 @@
   <h2>W</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="src.html#src.worksite.Worksite">Worksite (class in src.worksite)</a>
+        <li><a href="src.datastruct.html#src.datastruct.worksite.Worksite">Worksite (class in src.datastruct.worksite)</a>
+</li>
+        <li><a href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj.world_to_euclidean">world_to_euclidean() (src.geodesy.euclidean_proj.EuclideanProj method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.datastruct.html#src.datastruct.shot.Shot.world_to_image">world_to_image() (src.datastruct.shot.Shot method)</a>
+</li>
+        <li><a href="src.writer.html#src.writer.writer_opk.write">write() (in module src.writer.writer_opk)</a>
 </li>
     </ul></td>
   </tr></table>

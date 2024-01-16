@@ -1,40 +1,17 @@
 src package
 ===========
 
-Submodules
-----------
+Subpackages
+-----------
 
-src.reader module
------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: src.reader
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-src.shot module
----------------
-
-.. automodule:: src.shot
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-src.worksite module
--------------------
-
-.. automodule:: src.worksite
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-src.writer module
------------------
-
-.. automodule:: src.writer
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   src.datastruct
+   src.geodesy
+   src.reader
+   src.utils
+   src.writer
 
 Module contents
 ---------------

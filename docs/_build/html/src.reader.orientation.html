@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src" href="modules.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src.utils package" href="src.utils.html" /><link rel="prev" title="src.reader package" href="src.reader.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>Pink_Lady 1.0.0 documentation</title>
+        <title>src.reader.orientation package - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">Pink_Lady 1.0.0 documentation</div></a>
+      <a href="index.html"><div class="brand">Pink_Lady 1.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -143,7 +143,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
   <span class="sidebar-brand-text">Pink_Lady 1.0.0 documentation</span>
@@ -155,13 +155,13 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">src</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="src.html">src package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a></li>
+<li class="toctree-l3 current has-children"><a class="reference internal" href="src.reader.html">src.reader package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">src.reader.orientation package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.utils.html">src.utils package</a></li>
@@ -198,31 +198,68 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="welcome-to-pink-lady-s-documentation">
-<h1>Welcome to Pink_Lady’s documentation!<a class="headerlink" href="#welcome-to-pink-lady-s-documentation" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">src</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="src.html">src package</a></li>
-</ul>
-</li>
-</ul>
-</div>
+          <section id="src-reader-orientation-package">
+<h1>src.reader.orientation package<a class="headerlink" href="#src-reader-orientation-package" title="Link to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">#</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<section id="module-src.reader.orientation.manage_reader">
+<span id="src-reader-orientation-manage-reader-module"></span><h2>src.reader.orientation.manage_reader module<a class="headerlink" href="#module-src.reader.orientation.manage_reader" title="Link to this heading">#</a></h2>
+<p>Photogrammetry site file reader module</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.reader.orientation.manage_reader.reader_orientation">
+<span class="sig-prename descclassname"><span class="pre">src.reader.orientation.manage_reader.</span></span><span class="sig-name descname"><span class="pre">reader_orientation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite"><span class="pre">Worksite</span></a></span></span><a class="reference internal" href="_modules/src/reader/orientation/manage_reader.html#reader_orientation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.orientation.manage_reader.reader_orientation" title="Link to this definition">#</a></dt>
+<dd><p>Photogrammetric site file reading function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>str</em>) – Path to the worksite.</p></li>
+<li><p><strong>skip</strong> (<em>int</em>) – Number of lines to be skipped before reading the file, Default=None.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The worksite</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite">Worksite</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.reader.orientation.reader_opk">
+<span id="src-reader-orientation-reader-opk-module"></span><h2>src.reader.orientation.reader_opk module<a class="headerlink" href="#module-src.reader.orientation.reader_opk" title="Link to this heading">#</a></h2>
+<p>A script to read opk file</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.reader.orientation.reader_opk.read">
+<span class="sig-prename descclassname"><span class="pre">src.reader.orientation.reader_opk.</span></span><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite"><span class="pre">Worksite</span></a></span></span><a class="reference internal" href="_modules/src/reader/orientation/reader_opk.html#read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.orientation.reader_opk.read" title="Link to this definition">#</a></dt>
+<dd><p>Reads an opk file to transform it into a Workside object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<em>str</em>) – Path to the worksite.</p></li>
+<li><p><strong>skip</strong> (<em>int</em>) – Number of lines to be skipped before reading the file, Default=None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The worksite</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite">Worksite</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.reader.orientation">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.reader.orientation" title="Link to this heading">#</a></h2>
+</section>
 </section>
 
         </article>
@@ -230,16 +267,26 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="modules.html">
+          <a class="next-page" href="src.utils.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">src</div>
+                <div class="title">src.utils package</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          
+          <a class="prev-page" href="src.reader.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">src.reader package</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -258,8 +305,36 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">src.reader.orientation package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.reader.orientation.manage_reader">src.reader.orientation.manage_reader module</a><ul>
+<li><a class="reference internal" href="#src.reader.orientation.manage_reader.reader_orientation"><code class="docutils literal notranslate"><span class="pre">reader_orientation()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.reader.orientation.reader_opk">src.reader.orientation.reader_opk module</a><ul>
+<li><a class="reference internal" href="#src.reader.orientation.reader_opk.read"><code class="docutils literal notranslate"><span class="pre">read()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.reader.orientation">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

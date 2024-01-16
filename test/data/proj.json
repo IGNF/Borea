@@ -2,5 +2,6 @@
 "EPSG:4339": {
     "geoc": "EPSG:4340", 
     "geog": "EPSG:4176",
+    "geoid": ["au_ga_AGQG_20201120"],
     "comment": "Projection of Australian Antartic"}
 }

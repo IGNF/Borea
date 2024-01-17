@@ -50,16 +50,17 @@ class Worksite:
                                      ori_shot=ori_shot,
                                      name_cam=name_cam)
 
-    def set_proj(self, epsg: str, file_epsg: str = None) -> None:
+    def set_proj(self, epsg: str, file_epsg: str = None, path_geotiff: str = None) -> None:
         """
         Setup a projection system to the worksite.
 
         Args:
             epsg (str): Code epsg of the porjection ex: "EPSG:2154".
-            file_epsg (str): Path to the json which list projection
+            file_epsg (str): Path to the json which list projection.
+            path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.
         """
         if file_epsg is None:
-            self.set_projection(epsg)
+            self.set_projection(epsg, path_geotiff)
         else:
             try:
                 with open(file_epsg, 'r', encoding="utf-8") as json_file:
@@ -67,22 +68,23 @@ class Worksite:
                     json_file.close()
                 try:
                     dict_epsg = projection_list[epsg]
-                    self.proj = ProjEngine(epsg, dict_epsg)
+                    self.proj = ProjEngine(epsg, dict_epsg, path_geotiff)
                     coor_barycentre = self.calculate_barycentre()
                     self.projeucli = EuclideanProj(coor_barycentre[0],
                                                    coor_barycentre[1],
                                                    self.proj)
                 except KeyError:
-                    self.set_projection(epsg)
+                    self.set_projection(epsg, path_geotiff)
             except FileNotFoundError as e:
                 raise FileNotFoundError(f"The path {file_epsg} is incorrect !!!") from e
 
-    def set_projection(self, epsg: str = "EPSG:2154") -> None:
+    def set_projection(self, epsg: str = "EPSG:2154", path_geotiff: str = None) -> None:
         """
         Setup a projection system to the worksite.
 
         Args:
             epsg (str): Code epsg of the porjection ex: "EPSG:2154".
+            path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.
         """
         path_data = "./src/data/projection_list.json"
         with open(path_data, 'r', encoding="utf-8") as json_file:
@@ -90,7 +92,7 @@ class Worksite:
             json_file.close()
         try:
             dict_epsg = projection_list[epsg]
-            self.proj = ProjEngine(epsg, dict_epsg)
+            self.proj = ProjEngine(epsg, dict_epsg, path_geotiff)
             coor_barycentre = self.calculate_barycentre()
             self.projeucli = EuclideanProj(coor_barycentre[0], coor_barycentre[1], self.proj)
         except KeyError:
@@ -163,7 +165,7 @@ class Worksite:
         in the images they appear in.
 
         Args:
-            code (list): gcp code
+            lcode (list): gcp code.
         """
         if self.check_gcp and self.check_cop:
             for name_gcp in list(self.gcps):

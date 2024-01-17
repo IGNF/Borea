@@ -1,6 +1,7 @@
 """
 Module for manipulating a cartographic system.
 """
+from os import path
 from typing import Union, List
 from dataclasses import dataclass
 import pyproj
@@ -8,15 +9,19 @@ import numpy as np
 
 
 @dataclass
+# pylint: disable-next=too-many-instance-attributes
 class ProjEngine:
     """
     This class provides functions for using a cartographic system.
 
     Args:
         epsg (str): Code epsg of the porjection ex: "EPSG:2154".
+        projection_list (dict): Dictionnary of the projection json.
+        path_geotiff (str): Path to the forlder of GeoTIFF.
     """
     epsg: str
     projection_list: dict = None
+    path_geotiff: str = None
 
     def __post_init__(self) -> None:
         if self.projection_list is not None:
@@ -79,12 +84,27 @@ class Transform():
         # Transform geocentric coordinates to cartographic coordinates
         self.geoc_to_carto = pyproj.Transformer.from_crs(self.pe.crs_geoc, self.pe.crs).transform
 
+        if 'geoid' in self.pe.projection_list:
+            self.tf_ellipsoid()
+
+    def tf_ellipsoid(self) -> None:
+        """
+        Create attribute transform, to transform geographic coordinates to geoide coordinates
+        """
+        if self.pe.path_geotiff is not None:
+            ptiff = self.pe.path_geotiff
+            geoid_list = [ptiff + geoid + '.tif' for geoid in self.pe.projection_list['geoid']]
+            if not path.exists(geoid_list[0]):
+                geoid_list = [geoid+'.tif' for geoid in self.pe.projection_list['geoid']]
+        else:
+            geoid_list = [geoid+'.tif' for geoid in self.pe.projection_list['geoid']]
+
         try:
             # Transform geographic coordinates to geoide coordinates
-            geoid_list = [geoid+'.tif' for geoid in self.pe.projection_list['geoid']]
             self.geog_to_geoid = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
                                                                   f"+grids={','.join(geoid_list)} "
                                                                   "+multiplier=1").transform
         except pyproj.exceptions.ProjError as e:
             raise pyproj.exceptions.ProjError(f"{geoid_list} The name of geotif is incorrect or "
-                                              "does not exist in usr/share/proj !!!{e}") from e
+                                              "does not exist in folder or "
+                                              "in usr/share/proj !!!{e}") from e

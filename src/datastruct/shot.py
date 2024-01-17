@@ -131,9 +131,13 @@ class Shot:
         coor_geog = projeucli.proj_engine.tf.carto_to_geog(self.pos_shot[0],
                                                            self.pos_shot[1],
                                                            self.pos_shot[2])
-        new_z = projeucli.proj_engine.tf.geog_to_geoid(coor_geog[0],
-                                                       coor_geog[1],
-                                                       coor_geog[2])[2]
+        try:
+            new_z = projeucli.proj_engine.tf.geog_to_geoid(coor_geog[0],
+                                                           coor_geog[1],
+                                                           coor_geog[2])[2]
+        except AttributeError as e:
+            raise AttributeError("missing 'geoid' tag in projection.json or path to geotiff") from e
+
         if new_z == np.inf:
             raise ValueError("out geoid")
         return new_z

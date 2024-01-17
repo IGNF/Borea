@@ -87,6 +87,4 @@ The important tags are : the first is the epsg code ("EPSG:2154") of the site's 
 
 ### Ground coordinates by intersection
 
-
-
 ![logo ign](docs/logo/IGN_logo_2012.svg =50x) ![logo fr](docs/logo/Republique_Francaise_Logo.png =50x)

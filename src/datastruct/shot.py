@@ -70,6 +70,7 @@ class Shot:
         y_lig = cam.ppay + y_shot
         return np.array([x_col, y_lig])
 
+    # pylint: disable-next=too-many-locals too-many-arguments
     def image_to_world(self, col: float, line: float, cam: Camera,
                        proj: EuclideanProj, z: float = 0) -> np.array:
         """
@@ -115,7 +116,7 @@ class Shot:
         y_bundle = y_shot / cam.focal * z_shot
         z_bundle = z_shot
         return x_bundle, y_bundle, z_bundle
-    
+
     def tranform_vertical(self, projeucli: EuclideanProj) -> float:
         """
         Get new z position for the acquisition.
@@ -135,5 +136,4 @@ class Shot:
                                                        coor_geog[2])[2]
         if new_z == np.inf:
             raise ValueError("out geoid")
-        else:
-            return new_z
+        return new_z

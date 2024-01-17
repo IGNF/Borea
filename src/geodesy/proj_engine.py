@@ -42,7 +42,7 @@ class ProjEngine:
         # pylint: disable-next=unpacking-non-sequence
         (x_geog, y_geog) = self.tf.carto_to_geog(x_carto, y_carto)
         return -np.array(self.proj.get_factors(x_geog, y_geog).meridian_convergence)
-    
+
     def get_scale_factor(self, x_carto: Union[np.array, List[float], float],
                          y_carto: Union[np.array, List[float], float]) -> np.array:
         """
@@ -54,6 +54,7 @@ class ProjEngine:
 
             :return: scale factor and meridian convergence
         """
+        # pylint: disable-next=unpacking-non-sequence
         x_geog, y_geog = self.tf.carto_to_geog(x_carto, y_carto)
         return np.array(self.proj.get_factors(x_geog, y_geog).meridional_scale) - 1
 
@@ -85,4 +86,5 @@ class Transform():
                                                                   f"+grids={','.join(geoid_list)} "
                                                                   "+multiplier=1").transform
         except pyproj.exceptions.ProjError as e:
-            raise pyproj.exceptions.ProjError(f"{geoid_list} The name of geotif is incorrect or does not exist in usr/share/proj !!!{e}") from e
+            raise pyproj.exceptions.ProjError(f"{geoid_list} The name of geotif is incorrect or "
+                                              "does not exist in usr/share/proj !!!{e}") from e

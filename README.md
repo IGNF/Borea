@@ -54,7 +54,19 @@ Markdown documentation function in docs/functions
 
 ### Utilisation
 
-------------- A REMPLIR ---------------- (descriptif du pink_lady.py) 
+Creation of a worksite object from a worksite file (.opk) to be read by reader_orientation(pathfile, skip). Skip is an int that specifies the number of lines to skip at the beginning of the file.
+
+Once the object has been created, you can add other data to it:
+
+* The camera with read_camera([filepath], worksite), this function only reads txt and xml files referencing camera data, and can take several camera files if there are several.
+
+* Link points with read_copoints([filepath], worksite). Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files.
+
+* Field points (GCPs) with read_gcp([pathfile], worksite). Adds control and support terrain points in .app file format, can read multiple files.
+
+* Can calculate the position of terrain points in images with worksite.calculate_world_to_image_gcp([n]) with n the code of the points whose position is to be calculated. The result can be found in worksite.shots['name_shot'].gcps['name_gcp'] for each image and each gcps (more on this in the next section).
+
+* Can write worksite object as .opk
 
 ### Image function
 

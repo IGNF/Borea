@@ -76,7 +76,7 @@ if args.gcp is not None:
     print("GCP reading done")
 
 # Calculate image coordinate of GCP if they exist
-work.calculate_coor_img_gcp()
+work.calculate_world_to_image_gcp([3])
 
 # Writing data
 if args.writer is not None:

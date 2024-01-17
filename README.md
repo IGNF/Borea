@@ -35,7 +35,8 @@ Then add the parameters:
 Some settings are optional, depending on what you want to do with Pink Lady.
 Only the first -f parameter is mandatory
 
-Html documentation for functions in docs/_build/html/index.hmlt
+Html documentation python in docs/_build/html/index.hmlt
+Markdown documentation function in docs/functions
 
 ### Functionality
 
@@ -51,6 +52,22 @@ Html documentation for functions in docs/_build/html/index.hmlt
 7. Calculation of the image coordinates of gcp by the image function
 8. Calculation of the ground coordinates of connecting point by intersection
 
+### Utilisation
+
+Creation of a worksite object from a worksite file (.opk) to be read by reader_orientation(pathfile, skip). Skip is an int that specifies the number of lines to skip at the beginning of the file.
+
+Once the object has been created, you can add other data to it:
+
+* The camera with read_camera([filepath], worksite), this function only reads txt and xml files referencing camera data, and can take several camera files if there are several.
+
+* Link points with read_copoints([filepath], worksite). Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files.
+
+* Field points (GCPs) with read_gcp([pathfile], worksite). Adds control and support terrain points in .app file format, can read multiple files.
+
+* Can calculate the position of terrain points in images with worksite.calculate_world_to_image_gcp([n]) with n the code of the points whose position is to be calculated. The result can be found in worksite.shots['name_shot'].gcps['name_gcp'] for each image and each gcps (more on this in the next section).
+
+* Can write worksite object as .opk
+
 ### Image function
 
 To use the image function, you need :
@@ -60,12 +77,14 @@ To use the image function, you need :
 ```
 {
 "EPSG:2154": {
-"geoc": "EPSG:4964", 
-"geog": "EPSG:7084",
-"geoid": ["fr_ign_RAF20"],
-"comment": "Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93"}
+  "geoc": "EPSG:4964", 
+  "geog": "EPSG:7084",
+  "geoid": ["fr_ign_RAF20"],
+  "comment": "Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93"}
 }
 ```
 The important tags are : the first is the epsg code ("EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection ("geoc") with its epsg code at the site location. The geographic projection ("geog") with its epsg code at the site location, and the geoid ("geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the usr/share/proj folder, which is native to pyproj, or in the env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj folder if you're using a special environment. You don't have to add the last "comment" tag.
 
 ### Ground coordinates by intersection
+
+![logo ign](docs/logo/IGN_logo_2012.svg =50x) ![logo fr](docs/logo/Republique_Francaise_Logo.png =50x)

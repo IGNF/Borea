@@ -64,7 +64,7 @@ def change_dim(x: Union[np.array, float],
     Args:
         x (Union[np.array, float]): valeur to change dim
         dim (tuble): the dimension to have
-    
+
     Returns:
         Union[np.array, float]: x with the new dimension
     """

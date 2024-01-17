@@ -149,11 +149,11 @@ class Worksite:
         Add GCP in the Worksite.
 
         Args:
-        name_gcp (str): Name of the gcp.
-        code_gcp (int): ign code to differentiate between support points (1, 2, 3)
-                    and control points (11, 12, 13)
-                    1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.
-        coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].
+            name_gcp (str): Name of the gcp.
+            code_gcp (int): IGN code to differentiate between support points (1, 2, 3)
+                            and control points (11, 12, 13)
+                            1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.
+            coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].
         """
         self.gcps[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
 
@@ -165,20 +165,19 @@ class Worksite:
         Args:
             code (list): gcp code
         """
-        if self.check_gcp:
-            if self.check_cop:
-                for name_gcp in list(self.gcps):
-                    if self.gcps[name_gcp].code in lcode:
-                        try:
-                            list_shots = self.copoints[name_gcp]
-                            gcp = self.gcps[name_gcp]
-                            for name_shot in list_shots:
-                                shot = self.shots[name_shot]
-                                cam = self.cameras[shot.name_cam]
-                                coor_img = shot.world_to_image(gcp.coor, cam, self.projeucli)
-                                self.shots[name_shot].gcps[name_gcp] = coor_img
-                        except KeyError:
-                            continue
+        if self.check_gcp and self.check_cop:
+            for name_gcp in list(self.gcps):
+                if self.gcps[name_gcp].code in lcode:
+                    try:
+                        list_shots = self.copoints[name_gcp]
+                        gcp = self.gcps[name_gcp]
+                        for name_shot in list_shots:
+                            shot = self.shots[name_shot]
+                            cam = self.cameras[shot.name_cam]
+                            coor_img = shot.world_to_image(gcp.coor, cam, self.projeucli)
+                            self.shots[name_shot].gcps[name_gcp] = coor_img
+                    except KeyError:
+                        continue
 
     def calculate_barycentre(self) -> np.array:
         """
@@ -198,14 +197,14 @@ class Worksite:
         the most distance between two shots
         """
         if self.check_cop:
-            for name_cop in list(self.copoints): # Loop on copoints
+            for name_cop in list(self.copoints):  # Loop on copoints
                 shot1 = ""
                 shot2 = ""
                 dist = 0
                 list_shot1 = self.copoints[name_cop]
                 list_shot2 = list_shot1.copy()
                 _ = list_shot1.pop(-1)
-                for name_shot1 in list_shot1: # Double loop on shots of copoint
+                for name_shot1 in list_shot1:  # Double loop on shots of copoint
                     _ = list_shot2.pop(0)
                     for name_shot2 in list_shot2:
                         pos_shot1 = self.shots[name_shot1].pos_shot
@@ -263,7 +262,8 @@ class Worksite:
         p1_eucli = pos_eucli1 + ((b_v2*v1_v2 - b_v1*norme_v1)/(v1_v2**2 - norme_v1*norme_v2))*vect1
         p2_eucli = pos_eucli2 + ((b_v2*norme_v1 - b_v1*v1_v2)/(v1_v2**2 - norme_v1*norme_v2))*vect2
         return 0.5 * (p1_eucli + p2_eucli)
-    
+
+    # pylint: disable-next=pointless-string-statement
     """
     def calculate_coor_ground_copoints2(self) -> None:
         ""

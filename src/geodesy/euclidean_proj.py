@@ -1,9 +1,9 @@
 """
 A module for manipulating an euclidean projection.
 """
+from typing import Union
 import math as m
 import numpy as np
-from typing import Union
 from src.geodesy.proj_engine import ProjEngine
 from src.utils.conversion import check_array_transfo, change_dim
 
@@ -131,7 +131,7 @@ class EuclideanProj:
             z_eucli (Union[np.array, float]): y coordinate of the point
 
         Returns:
-            np.array: x, y, z in the world coordinate reference system, dim = [[],[],[]]
+            np.array: x, y, z in the world coordinate reference system.
         """
         if isinstance(x, np.ndarray):
             dim = np.shape(x)
@@ -145,7 +145,7 @@ class EuclideanProj:
         point_geoc = (self.rot_to_euclidean_local.T @ dr) + np.array([[central_geoc[0],
                                                                        central_geoc[1],
                                                                        central_geoc[2]]]).T
-        x_gc, y_gc, z_gc = check_array_transfo(point_geoc[0,:], point_geoc[1,:], point_geoc[2,:])
+        x_gc, y_gc, z_gc = check_array_transfo(point_geoc[0, :], point_geoc[1, :], point_geoc[2, :])
         tup = self.proj_engine.tf.geoc_to_carto(x_gc, y_gc, z_gc)
         x_r = change_dim(tup[0], dim)
         y_r = change_dim(tup[1], dim)

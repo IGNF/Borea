@@ -23,8 +23,8 @@ def test_set_proj_Lambertbase():
     work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
     work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
     work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
-    work.set_proj("EPSG:2154")
-    assert work.proj.projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
+    work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
+    assert work.proj.projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
     assert work.projeucli.x_central == 1
     assert work.projeucli.y_central == 2
 
@@ -35,7 +35,7 @@ def test_set_proj_withjsonandepsg():
     work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
     work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
     work.set_proj("EPSG:4339", "test/data/proj.json")
-    assert work.proj.projection_list == {"geoc": "EPSG:4340", "geog": "EPSG:4176", "geoid": ["au_ga_AGQG_20201120"], "comment": "Projection of Australian Antartic"}
+    assert work.proj.projection_list == {"geoc": "EPSG:4340", "geog": "EPSG:4176", "comment": "Projection of Australian Antartic"}
     assert work.projeucli.x_central == 1
     assert work.projeucli.y_central == 2
 
@@ -95,7 +95,7 @@ def test_add_gcp():
 def test_calculate_world_to_image_gcp_base():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test')
-    work.set_proj("EPSG:2154")
+    work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
     work.add_copoint('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.check_cop = True
@@ -110,7 +110,7 @@ def test_calculate_world_to_image_gcp_base():
 def test_calculate_world_to_image_gcp_addpointunknow():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test')
-    work.set_proj("EPSG:2154")
+    work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
     work.add_copoint('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.check_cop = True
@@ -126,7 +126,7 @@ def test_calculate_world_to_image_gcp_addpointunknow():
 def test_calculate_world_to_image_gcp_testcode():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test')
-    work.set_proj("EPSG:2154")
+    work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
     work.add_copoint('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.add_copoint('gcp_test_test', 'shot_test', 24042.25, 14781.17)
@@ -157,7 +157,7 @@ def test_calculate_image_world_copoints():
     work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test")
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test")
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test")
-    work.set_proj("EPSG:2154")
+    work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
     work.add_copoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_copoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
@@ -174,7 +174,7 @@ def test_eucli_intersection_2p():
     work = Worksite("Test")
     work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test")
     work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test")
-    work.set_proj("EPSG:2154")
+    work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
     work.add_copoint('"1003"',"shot1",24042.25,14781.17)
     work.add_copoint('"1003"',"shot2",24120.2,10329.3)

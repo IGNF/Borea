@@ -59,4 +59,97 @@ y_lig = cam.ppay + y_shot
 
 * Returns x_col and y_lig in an array (2,).
 
-![logo ign](../logo/IGN_logo_2012.svg =50x) ![logo fr](../logo/Republique_Francaise_Logo.png =50x)
+### Example User
+
+Example for one point:
+```
+import numpy as np
+from src.datastruct.shot import Shot
+from src.datastruct.camera import Camera
+from src.geodesy.proj_engine import ProjEngine
+from src.geodesy.euclidean_proj import EuclideanProj
+
+point_terrain = np.array([815601.510, 6283629.280, 54.960])
+
+shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam")
+
+cam = Camera("test_cam", 13210.00, 8502.00, 30975.00)
+
+proj = ProjEngine("EPSG:2154", {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"]}, "./test/data/")
+
+projeucli = EuclideanProj(814975.925, 6283986.148, proj)
+
+point_image = shot.world_to_image(point_terrain, cam, projeucli)
+```
+
+Example for multi-point in worksite step by step:
+```
+from src.datastruct.worksite import Worksite
+
+# Create worksite with just a name
+work = Worksite("test")
+
+# add one or multiples shots
+work.add_shot("shot_test1", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test')
+work.add_shot("shot_test2", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test')
+
+# Setup projection
+work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
+
+# Add camera information
+work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
+
+# add connecting points
+work.add_copoint('gcp_test1', 'shot_test1', 0, 0)
+work.add_copoint('gcp_test2', 'shot_test1', 0, 0)
+work.add_copoint('gcp_test3', 'shot_test2', 0, 0)
+work.check_cop = True
+
+# add gcps points
+work.add_gcp('gcp_test1', 13, np.array([815601.510, 6283629.280, 54.960]))
+work.add_gcp('gcp_test2', 3, np.array([815601.510, 6283629.280, 54.960]))
+work.add_gcp('gcp_test3', 13, np.array([815601.510, 6283629.280, 54.960]))
+work.check_gcp = True
+
+# Calculate coordinate image gcp for gcp with code 13
+work.calculate_world_to_image_gcp([13])
+
+point_gcp1 = work.shots["shot_test1"].gcps["gcp_test1"]
+point_gcp2 = work.shots["shot_test1"].gcps["gcp_test2"]
+point_gcp3 = work.shots["shot_test2"].gcps["gcp_test3"]
+```
+
+Example with file
+```
+from src.reader.orientation.manage_reader import reader_orientation
+from src.reader.reader_camera import read_camera
+from src.reader.reader_copoints import read_copoints
+from src.reader.reader_gcp import read_gcp
+
+path_opk = "Worksite_FR_2024.OPK"
+path_camera = ["Camera.txt"]
+path_copoints = ["liaison.mes", "terrain.mes"]
+path_gcps = ["GCP.app"]
+writer = "opk"
+pathreturn = "tmp/"
+
+# Readind data and create objet worksite
+work = reader_orientation(path_opk, 1)
+
+# Add a projection to the worksite
+work.set_proj("EPSG:2154", "projection_epsg.json", "./data_geotiff/")
+
+# Reading camera file
+read_camera(path_camera, work)
+
+# Reading connecting point
+read_copoints(path_copoints, work)
+
+# Reading GCP
+read_gcp(path_gcps, work)
+
+# Calculate image coordinate of GCP if they exist
+work.calculate_world_to_image_gcp([3])
+```
+
+![logo ign](../logo/logo_ign.png) ![logo fr](../logo/Republique_Francaise_Logo.png)

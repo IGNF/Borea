@@ -20,7 +20,8 @@ The ProjEngine object is defined by a string giving the ESPG code of the site's 
  * "geog" returns the EPSG code of the geographic projection on the building site.
  * "geoid" returns a list of GeoTIFF names for the site.
 
- These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj.
+These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj or you can give in argument the path to the GeoTIFF forlder.
+
 The data in the "geoid" tag is not used in this function and is therefore not mandatory.
 
 ## Calculation step
@@ -71,4 +72,4 @@ y_local = pos_eucli[1] + (p_local[1] - pos_eucli[1]) * lamb
 
 * Returns the point as an array (3,).
 
-![logo ign](../logo/IGN_logo_2012.svg =50x) ![logo fr](../logo/Republique_Francaise_Logo.png =50x)
+![logo ign](../logo/logo_ign.png) ![logo fr](../logo/Republique_Francaise_Logo.png)

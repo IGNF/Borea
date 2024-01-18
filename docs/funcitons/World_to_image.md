@@ -59,7 +59,7 @@ y_lig = cam.ppay + y_shot
 
 * Returns x_col and y_lig in an array (2,).
 
-### Example User
+### Example to use
 
 Example for one point:
 ```
@@ -69,16 +69,22 @@ from src.datastruct.camera import Camera
 from src.geodesy.proj_engine import ProjEngine
 from src.geodesy.euclidean_proj import EuclideanProj
 
+# Point to calculate coordinate 
 point_terrain = np.array([815601.510, 6283629.280, 54.960])
 
+# Shot where we want to calculate its image coordinate
 shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam")
 
+# Camera of the shot
 cam = Camera("test_cam", 13210.00, 8502.00, 30975.00)
 
+# Projection of the worksite
 proj = ProjEngine("EPSG:2154", {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"]}, "./test/data/")
 
+# Euclidean projection of the worksite with position of shot is the barycenter of the system
 projeucli = EuclideanProj(814975.925, 6283986.148, proj)
 
+# The calculation
 point_image = shot.world_to_image(point_terrain, cam, projeucli)
 ```
 

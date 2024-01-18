@@ -72,4 +72,33 @@ y_local = pos_eucli[1] + (p_local[1] - pos_eucli[1]) * lamb
 
 * Returns the point as an array (3,).
 
+### Example to use
+
+Example for one point 
+```
+import numpy as np
+from src.datastruct.shot import Shot
+from src.datastruct.camera import Camera
+from src.geodesy.proj_engine import ProjEngine
+from src.geodesy.euclidean_proj import EuclideanProj
+
+# Point to calculate coordinate 
+point_image = np.array([24042.25, 14781.17])
+
+# Shot where there is the point
+shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam")
+
+# Camera of the shot
+cam = Camera("test_cam", 13210.00, 8502.00, 30975.00)
+
+# Projection of the worksite
+proj = ProjEngine("EPSG:2154", {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"]}, "./test/data/")
+
+# Euclidean projection of the worksite with position of shot is the barycenter of the system
+projeucli = EuclideanProj(814975.925, 6283986.148, proj)
+
+# The calculation
+actual = shot.image_to_world(point_image[0],point_image[1],cam,projeucli,54.960)
+```
+
 ![logo ign](../logo/logo_ign.png) ![logo fr](../logo/Republique_Francaise_Logo.png)

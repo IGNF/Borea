@@ -59,7 +59,7 @@ y_lig = cam.ppay + y_shot
 
 * Returns x_col and y_lig in an array (2,).
 
-### Example to use
+## Example to use
 
 Example for one point:
 ```
@@ -95,7 +95,7 @@ from src.datastruct.worksite import Worksite
 # Create worksite with just a name
 work = Worksite("test")
 
-# add one or multiples shots
+# Add one or multiples shots
 work.add_shot("shot_test1", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test')
 work.add_shot("shot_test2", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test')
 
@@ -105,13 +105,13 @@ work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
 # Add camera information
 work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
 
-# add connecting points
+# Add connecting points
 work.add_copoint('gcp_test1', 'shot_test1', 0, 0)
 work.add_copoint('gcp_test2', 'shot_test1', 0, 0)
 work.add_copoint('gcp_test3', 'shot_test2', 0, 0)
 work.check_cop = True
 
-# add gcps points
+# Add gcps points
 work.add_gcp('gcp_test1', 13, np.array([815601.510, 6283629.280, 54.960]))
 work.add_gcp('gcp_test2', 3, np.array([815601.510, 6283629.280, 54.960]))
 work.add_gcp('gcp_test3', 13, np.array([815601.510, 6283629.280, 54.960]))

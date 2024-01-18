@@ -26,8 +26,6 @@ The data in the "geoid" tag is not used in this function and is therefore not ma
 
 ## Calculation step
 
-### From image frame to beam frame
-
 * Creation of 3d vector in image frame minus perceptual center.
 ```
 x_shot = col - cam.ppax
@@ -48,9 +46,16 @@ y_bundle = y_shot / cam.focal * z_shot
 z_bundle = z_shot
 ```
 
+* Recover z altimeter from acquisition and rotation matrix from Euclidean to local projection
+```
+z_alti = self.tranform_vertical(projeucli)
+pos_eucli = projeucli.world_to_euclidean(self.pos_shot[0], self.pos_shot[1], z_alti)
+mat_eucli = projeucli.mat_to_mat_eucli(self.pos_shot[0], self.pos_shot[1], self.mat_rot)
+```
+
 * Transition to the Euclidean reference frame.
 ```
-p_local = proj.rot_to_euclidean_local @ np.array([x_bundle, y_bundle, z_bundle])
+p_local = mat_eucli.T @ np.array([x_bundle, y_bundle, z_bundle])
 ```
 With proj.rot_to_euclidean_local the rotation matrix of the Euclidean frame of reference set up from the site's barycentre.
 
@@ -72,7 +77,7 @@ y_local = pos_eucli[1] + (p_local[1] - pos_eucli[1]) * lamb
 
 * Returns the point as an array (3,).
 
-### Example to use
+## Example to use
 
 Example for one point 
 ```

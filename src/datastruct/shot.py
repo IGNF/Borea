@@ -95,7 +95,7 @@ class Shot:
         lamb = (z - pos_eucli[2])/(p_local[2] - pos_eucli[2])
         x_local = pos_eucli[0] + (p_local[0] - pos_eucli[0]) * lamb
         y_local = pos_eucli[1] + (p_local[1] - pos_eucli[1]) * lamb
-        x_world, y_world, z_world = projeucli.euclidean_to_world(x_local, y_local, z)
+        x_world, y_world, _ = projeucli.euclidean_to_world(x_local, y_local, z)
         return np.array([x_world, y_world, z])
 
     def image_to_bundle(self, col: float, line: float, cam: Camera) -> tuple:

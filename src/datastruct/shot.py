@@ -72,7 +72,7 @@ class Shot:
 
     # pylint: disable-next=too-many-locals too-many-arguments
     def image_to_world(self, col: float, line: float, cam: Camera,
-                       proj: EuclideanProj, z: float = 0) -> np.array:
+                       projeucli: EuclideanProj, z: float = 0) -> np.array:
         """
         Calculate x and y cartographique coordinate with z = 0.
 
@@ -87,14 +87,16 @@ class Shot:
             np.array: Cartographique coordinate [x,y,z]
         """
         x_bundle, y_bundle, z_bundle = self.image_to_bundle(col, line, cam)
-        pos_eucli = proj.world_to_euclidean(self.pos_shot[0], self.pos_shot[1], self.pos_shot[2])
-        p_local = proj.rot_to_euclidean_local @ np.array([x_bundle, y_bundle, z_bundle])
+        z_alti = self.tranform_vertical(projeucli)
+        pos_eucli = projeucli.world_to_euclidean(self.pos_shot[0], self.pos_shot[1], z_alti)
+        mat_eucli = projeucli.mat_to_mat_eucli(self.pos_shot[0], self.pos_shot[1], self.mat_rot)
+        p_local = mat_eucli.T @ np.array([x_bundle, y_bundle, z_bundle])
         p_local = p_local + pos_eucli
         lamb = (z - pos_eucli[2])/(p_local[2] - pos_eucli[2])
         x_local = pos_eucli[0] + (p_local[0] - pos_eucli[0]) * lamb
         y_local = pos_eucli[1] + (p_local[1] - pos_eucli[1]) * lamb
-        x_world, y_world, z_world = proj.euclidean_to_world(x_local, y_local, z)
-        return np.array([x_world, y_world, z_world])
+        x_world, y_world, z_world = projeucli.euclidean_to_world(x_local, y_local, z)
+        return np.array([x_world, y_world, z])
 
     def image_to_bundle(self, col: float, line: float, cam: Camera) -> tuple:
         """

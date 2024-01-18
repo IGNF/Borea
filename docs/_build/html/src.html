@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="src" href="modules.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src.datastruct package" href="src.datastruct.html" /><link rel="prev" title="src" href="modules.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>src package - Pink_Lady 1.0.0 documentation</title>
@@ -157,7 +157,17 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">src</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">src package</a></li>
+<li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">src package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.utils.html">src.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.writer.html">src.writer package</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -196,108 +206,140 @@
         <article role="main">
           <section id="src-package">
 <h1>src package<a class="headerlink" href="#src-package" title="Link to this heading">#</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
-</section>
-<section id="module-src.reader">
-<span id="src-reader-module"></span><h2>src.reader module<a class="headerlink" href="#module-src.reader" title="Link to this heading">#</a></h2>
-<p>Photogrammetry site file reader module</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.reader.from_file">
-<span class="sig-prename descclassname"><span class="pre">src.reader.</span></span><span class="sig-name descname"><span class="pre">from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.worksite.Worksite" title="src.worksite.Worksite"><span class="pre">Worksite</span></a></span></span><a class="reference internal" href="_modules/src/reader.html#from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.from_file" title="Link to this definition">#</a></dt>
-<dd><p>Photogrammetric site file reading function</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<em>str</em>) – Path to the worksite.</p></li>
-<li><p><strong>skip</strong> (<em>int</em>) – Number of lines to be skipped before reading the file, Default=None.</p></li>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.datastruct.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.datastruct.html#module-src.datastruct.camera">src.datastruct.camera module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera"><code class="docutils literal notranslate"><span class="pre">Camera</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera.focal"><code class="docutils literal notranslate"><span class="pre">Camera.focal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera.name_camera"><code class="docutils literal notranslate"><span class="pre">Camera.name_camera</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera.ppax"><code class="docutils literal notranslate"><span class="pre">Camera.ppax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera.ppay"><code class="docutils literal notranslate"><span class="pre">Camera.ppay</span></code></a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The worksite</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#src.worksite.Worksite" title="src.worksite.Worksite">Worksite</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.reader.from_opk">
-<span class="sig-prename descclassname"><span class="pre">src.reader.</span></span><span class="sig-name descname"><span class="pre">from_opk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.worksite.Worksite" title="src.worksite.Worksite"><span class="pre">Worksite</span></a></span></span><a class="reference internal" href="_modules/src/reader.html#from_opk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.from_opk" title="Link to this definition">#</a></dt>
-<dd><p>Reads an opk file to transform it into a Workside object</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<em>str</em>) – Path to the worksite.</p></li>
-<li><p><strong>skip</strong> (<em>int</em>) – Number of lines to be skipped before reading the file, Default=None.</p></li>
+</li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The worksite</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#src.worksite.Worksite" title="src.worksite.Worksite">Worksite</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-src.shot">
-<span id="src-shot-module"></span><h2>src.shot module<a class="headerlink" href="#module-src.shot" title="Link to this heading">#</a></h2>
-<p>Acquisition data class module</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.shot.Shot">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.shot.</span></span><span class="sig-name descname"><span class="pre">Shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ori_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/shot.html#Shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.shot.Shot" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Acquisition data class</p>
-</dd></dl>
-
-</section>
-<section id="module-src.worksite">
-<span id="src-worksite-module"></span><h2>src.worksite module<a class="headerlink" href="#module-src.worksite" title="Link to this heading">#</a></h2>
-<p>Worksite data class module</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.worksite.Worksite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.worksite.</span></span><span class="sig-name descname"><span class="pre">Worksite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/worksite.html#Worksite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.Worksite" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Worksite class</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.worksite.Worksite.add_shot">
-<span class="sig-name descname"><span class="pre">add_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ori_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/worksite.html#Worksite.add_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.Worksite.add_shot" title="Link to this definition">#</a></dt>
-<dd><p>Add Shot to the attribut Shots</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name_shot</strong> (<em>str</em>) – Name of the shot.</p></li>
-<li><p><strong>pos_shot</strong> (<em>numpy.array</em>) – Array of coordinate position [X, Y, Z].</p></li>
-<li><p><strong>ori_shot</strong> (<em>numpy.array</em>) – Array of orientation of the shot [Omega, Phi, Kappa].</p></li>
-<li><p><strong>name_cam</strong> (<em>str</em>) – Name of the camera.</p></li>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.datastruct.html#module-src.datastruct.gcp">src.datastruct.gcp module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.datastruct.html#src.datastruct.gcp.GCP"><code class="docutils literal notranslate"><span class="pre">GCP</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.gcp.GCP.code"><code class="docutils literal notranslate"><span class="pre">GCP.code</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.gcp.GCP.coor"><code class="docutils literal notranslate"><span class="pre">GCP.coor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.gcp.GCP.name_gcp"><code class="docutils literal notranslate"><span class="pre">GCP.name_gcp</span></code></a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-src.writer">
-<span id="src-writer-module"></span><h2>src.writer module<a class="headerlink" href="#module-src.writer" title="Link to this heading">#</a></h2>
-<p>Photogrammetry site file reader module</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.writer.to_opk">
-<span class="sig-prename descclassname"><span class="pre">src.writer.</span></span><span class="sig-name descname"><span class="pre">to_opk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.worksite.Worksite" title="src.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/writer.html#to_opk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.writer.to_opk" title="Link to this definition">#</a></dt>
-<dd><p>Write function, to save a photogrammetric site in .opk format</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – Path of registration file.</p></li>
-<li><p><strong>work</strong> (<a class="reference internal" href="#src.worksite.Worksite" title="src.worksite.Worksite"><em>Worksite</em></a>) – The site to be recorded.</p></li>
+</li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.datastruct.html#module-src.datastruct.shot">src.datastruct.shot module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot"><code class="docutils literal notranslate"><span class="pre">Shot</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot.image_to_bundle"><code class="docutils literal notranslate"><span class="pre">Shot.image_to_bundle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot.image_to_world"><code class="docutils literal notranslate"><span class="pre">Shot.image_to_world()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot.set_rot_shot"><code class="docutils literal notranslate"><span class="pre">Shot.set_rot_shot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot.tranform_vertical"><code class="docutils literal notranslate"><span class="pre">Shot.tranform_vertical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot.world_to_image"><code class="docutils literal notranslate"><span class="pre">Shot.world_to_image()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.datastruct.html#module-src.datastruct.worksite">src.datastruct.worksite module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite"><code class="docutils literal notranslate"><span class="pre">Worksite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite.add_camera"><code class="docutils literal notranslate"><span class="pre">Worksite.add_camera()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite.add_copoint"><code class="docutils literal notranslate"><span class="pre">Worksite.add_copoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite.add_gcp"><code class="docutils literal notranslate"><span class="pre">Worksite.add_gcp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite.add_shot"><code class="docutils literal notranslate"><span class="pre">Worksite.add_shot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite.calculate_barycentre"><code class="docutils literal notranslate"><span class="pre">Worksite.calculate_barycentre()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite.calculate_image_world_copoints"><code class="docutils literal notranslate"><span class="pre">Worksite.calculate_image_world_copoints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite.calculate_world_to_image_gcp"><code class="docutils literal notranslate"><span class="pre">Worksite.calculate_world_to_image_gcp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite.eucli_intersection_2p"><code class="docutils literal notranslate"><span class="pre">Worksite.eucli_intersection_2p()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite.set_proj"><code class="docutils literal notranslate"><span class="pre">Worksite.set_proj()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite.set_projection"><code class="docutils literal notranslate"><span class="pre">Worksite.set_projection()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.datastruct.html#module-src.datastruct">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.geodesy.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.geodesy.html#module-src.geodesy.euclidean_proj">src.geodesy.euclidean_proj module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj"><code class="docutils literal notranslate"><span class="pre">EuclideanProj</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj.euclidean_to_world"><code class="docutils literal notranslate"><span class="pre">EuclideanProj.euclidean_to_world()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj.mat_rot_euclidean_local"><code class="docutils literal notranslate"><span class="pre">EuclideanProj.mat_rot_euclidean_local()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj.mat_to_mat_eucli"><code class="docutils literal notranslate"><span class="pre">EuclideanProj.mat_to_mat_eucli()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj.world_to_euclidean"><code class="docutils literal notranslate"><span class="pre">EuclideanProj.world_to_euclidean()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.geodesy.html#module-src.geodesy.proj_engine">src.geodesy.proj_engine module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine"><code class="docutils literal notranslate"><span class="pre">ProjEngine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine.epsg"><code class="docutils literal notranslate"><span class="pre">ProjEngine.epsg</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine.get_meridian_convergence"><code class="docutils literal notranslate"><span class="pre">ProjEngine.get_meridian_convergence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine.get_scale_factor"><code class="docutils literal notranslate"><span class="pre">ProjEngine.get_scale_factor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine.projection_list"><code class="docutils literal notranslate"><span class="pre">ProjEngine.projection_list</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.geodesy.html#src.geodesy.proj_engine.Transform"><code class="docutils literal notranslate"><span class="pre">Transform</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.geodesy.html#src.geodesy.proj_engine.Transform.pe"><code class="docutils literal notranslate"><span class="pre">Transform.pe</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.geodesy.html#module-src.geodesy">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.reader.html">src.reader package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.reader.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html#module-src.reader.orientation.manage_reader">src.reader.orientation.manage_reader module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html#module-src.reader.orientation.reader_opk">src.reader.orientation.reader_opk module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html#module-src.reader.orientation">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.reader.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.reader.html#module-src.reader.reader_camera">src.reader.reader_camera module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.reader.html#src.reader.reader_camera.camera_txt"><code class="docutils literal notranslate"><span class="pre">camera_txt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.reader.html#src.reader.reader_camera.camera_xml"><code class="docutils literal notranslate"><span class="pre">camera_xml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.reader.html#src.reader.reader_camera.read_camera"><code class="docutils literal notranslate"><span class="pre">read_camera()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.reader.html#module-src.reader.reader_copoints">src.reader.reader_copoints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.reader.html#src.reader.reader_copoints.read_copoints"><code class="docutils literal notranslate"><span class="pre">read_copoints()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.reader.html#module-src.reader.reader_gcp">src.reader.reader_gcp module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.reader.html#src.reader.reader_gcp.read_gcp"><code class="docutils literal notranslate"><span class="pre">read_gcp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.reader.html#module-src.reader">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.utils.html">src.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.utils.html#module-src.utils.conversion">src.utils.conversion module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.utils.html#src.utils.conversion.change_dim"><code class="docutils literal notranslate"><span class="pre">change_dim()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.utils.html#src.utils.conversion.check_array_transfo"><code class="docutils literal notranslate"><span class="pre">check_array_transfo()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.utils.html#module-src.utils">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.writer.html">src.writer package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.writer.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.writer.html#module-src.writer.writer_opk">src.writer.writer_opk module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.writer.html#src.writer.writer_opk.write"><code class="docutils literal notranslate"><span class="pre">write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.writer.html#module-src.writer">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 <section id="module-src">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src" title="Link to this heading">#</a></h2>
@@ -309,7 +351,15 @@
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="src.datastruct.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">src.datastruct package</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           <a class="prev-page" href="modules.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
@@ -352,27 +402,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">src package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-src.reader">src.reader module</a><ul>
-<li><a class="reference internal" href="#src.reader.from_file"><code class="docutils literal notranslate"><span class="pre">from_file()</span></code></a></li>
-<li><a class="reference internal" href="#src.reader.from_opk"><code class="docutils literal notranslate"><span class="pre">from_opk()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.shot">src.shot module</a><ul>
-<li><a class="reference internal" href="#src.shot.Shot"><code class="docutils literal notranslate"><span class="pre">Shot</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.worksite">src.worksite module</a><ul>
-<li><a class="reference internal" href="#src.worksite.Worksite"><code class="docutils literal notranslate"><span class="pre">Worksite</span></code></a><ul>
-<li><a class="reference internal" href="#src.worksite.Worksite.add_shot"><code class="docutils literal notranslate"><span class="pre">Worksite.add_shot()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.writer">src.writer module</a><ul>
-<li><a class="reference internal" href="#src.writer.to_opk"><code class="docutils literal notranslate"><span class="pre">to_opk()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#module-src">Module contents</a></li>
 </ul>
 </li>

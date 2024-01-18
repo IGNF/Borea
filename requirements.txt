@@ -7,3 +7,5 @@ sphinx
 furo
 importlib
 dataclasses
+jsons
+pyproj

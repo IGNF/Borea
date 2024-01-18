@@ -29,12 +29,15 @@ def camera_xml(file: str, work: Worksite) -> None:
         files (list): path list of files cameras
         work (Worksite): Worksite which needs camera data
     """
-    projet = ET.parse(file).getroot()
-    focal = projet.find("focal").find("pt3d")
-    work.add_camera(projet.find("name").text.strip(),
-                    float(focal.find("x").text.strip()),
-                    float(focal.find("y").text.strip()),
-                    float(focal.find("z").text.strip()))
+    try:
+        projet = ET.parse(file).getroot()
+        focal = projet.find("focal").find("pt3d")
+        work.add_camera(projet.find("name").text.strip(),
+                        float(focal.find("x").text.strip()),
+                        float(focal.find("y").text.strip()),
+                        float(focal.find("z").text.strip()))
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"The path {file} is incorrect !!!") from e
 
 
 def camera_txt(file: str, work: Worksite) -> None:
@@ -45,11 +48,14 @@ def camera_txt(file: str, work: Worksite) -> None:
         files (list): path list of files cameras
         work (Worksite): Worksite which needs camera data
     """
-    with open(file, 'r', encoding="utf-8") as file_cam:
-        # Recover the info line and take name camera
-        name_cam, o_info = file_cam.readlines()[0].split(" / ")
-        # Take information ppa focal
-        o_info = o_info.split(" : ")[-1].split(" ")
-        # Add to worksite
-        work.add_camera(name_cam, float(o_info[2]), float(o_info[5]), float(o_info[8]))
-        file_cam.close()
+    try:
+        with open(file, 'r', encoding="utf-8") as file_cam:
+            # Recover the info line and take name camera
+            name_cam, o_info = file_cam.readlines()[0].split(" / ")
+            # Take information ppa focal
+            o_info = o_info.split(" : ")[-1].split(" ")
+            # Add to worksite
+            work.add_camera(name_cam, float(o_info[2]), float(o_info[5]), float(o_info[8]))
+            file_cam.close()
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"The path {file} is incorrect !!!") from e

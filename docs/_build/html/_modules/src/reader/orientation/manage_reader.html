@@ -1,14 +1,14 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="../../">
+<html class="no-js" lang="en" data-content_root="../../../../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.reader - Pink_Lady 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+        <title>src.reader.orientation.manage_reader - Pink_Lady 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
     
     
 
@@ -122,7 +122,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Pink_Lady 1.0.0 documentation</div></a>
+      <a href="../../../../index.html"><div class="brand">Pink_Lady 1.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -142,12 +142,12 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
   
   
   <span class="sidebar-brand-text">Pink_Lady 1.0.0 documentation</span>
   
-</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+</a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
@@ -155,8 +155,18 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../src.html">src package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../src.datastruct.html">src.datastruct package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../src.geodesy.html">src.geodesy package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.reader.orientation.html">src.reader.orientation package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../src.utils.html">src.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../src.writer.html">src.writer package</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -192,17 +202,17 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.reader</h1><div class="highlight"><pre>
+          <h1>Source code for src.reader.orientation.manage_reader</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Photogrammetry site file reader module</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">src.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">from</span> <span class="nn">src.datastruct.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
 
 
-<div class="viewcode-block" id="from_file">
-<a class="viewcode-back" href="../../src.html#src.reader.from_file">[docs]</a>
-<span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Worksite</span><span class="p">:</span>
+<div class="viewcode-block" id="reader_orientation">
+<a class="viewcode-back" href="../../../../src.reader.orientation.html#src.reader.orientation.manage_reader.reader_orientation">[docs]</a>
+<span class="k">def</span> <span class="nf">reader_orientation</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">skip</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Worksite</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Photogrammetric site file reading function</span>
 
@@ -213,53 +223,14 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        Worksite: The worksite</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Attention multiple file management orientation</span>
+    <span class="c1"># Attention management of files with the same extension but different formats</span>
     <span class="n">ext</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;opk&quot;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">skip</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">skip</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">work</span> <span class="o">=</span> <span class="n">from_opk</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">skip</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input file not taken into account&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">work</span></div>
-
-
-
-<div class="viewcode-block" id="from_opk">
-<a class="viewcode-back" href="../../src.html#src.reader.from_opk">[docs]</a>
-<span class="k">def</span> <span class="nf">from_opk</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Worksite</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Reads an opk file to transform it into a Workside object</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        file (str): Path to the worksite.</span>
-<span class="sd">        skip (int): Number of lines to be skipped before reading the file, Default=None.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Worksite: The worksite</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Job name retrieval</span>
-    <span class="n">name_work</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">name_work</span> <span class="o">=</span> <span class="n">name_work</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="c1"># Create worksite</span>
-    <span class="n">work</span> <span class="o">=</span> <span class="n">Worksite</span><span class="p">(</span><span class="n">name_work</span><span class="p">)</span>
-
     <span class="k">try</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_opk</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">item_opk</span> <span class="ow">in</span> <span class="n">file_opk</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[</span><span class="n">skip</span><span class="p">:]:</span>
-                <span class="n">item_shot</span> <span class="o">=</span> <span class="n">item_opk</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-                <span class="n">work</span><span class="o">.</span><span class="n">add_shot</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                              <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-                                   <span class="nb">float</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
-                                   <span class="nb">float</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
-                                   <span class="nb">float</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="mi">3</span><span class="p">])],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span>
-                              <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-                                   <span class="nb">float</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>
-                                   <span class="nb">float</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="mi">5</span><span class="p">]),</span>
-                                   <span class="nb">float</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="mi">6</span><span class="p">])],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span>
-                              <span class="n">item_shot</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
-    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The path to the .opk file is incorrect !!!&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+        <span class="n">my_module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s2">&quot;src.reader.orientation.reader_&quot;</span> <span class="o">+</span> <span class="n">ext</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">work</span> <span class="o">=</span> <span class="n">my_module</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">skip</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ModuleNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ModuleNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2"> file is not taken into account !!!&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
 
     <span class="k">return</span> <span class="n">work</span></div>
 
@@ -295,9 +266,9 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=8d563738"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
+</div><script src="../../../../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
     </body>
 </html>

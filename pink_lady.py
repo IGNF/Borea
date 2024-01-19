@@ -35,6 +35,9 @@ parser.add_argument('-pr', '--pathreturn',
 parser.add_argument('-c', '--camera',
                     type=str, default=None, nargs='*',
                     help='Files paths of cameras (xml or txt)')
+parser.add_argument('-wh', '--widthxheight',
+                    type=int, default=None, nargs=2,
+                    help='Width and height of the camera')
 parser.add_argument('-cp', '--connecting_points',
                     type=str, default=None, nargs='*',
                     help='Files paths of connecting points (.mes)')
@@ -59,6 +62,11 @@ work.set_proj(args.epsg[0], args.pathepsg[0], args.pathgeotiff[0])
 if args.camera is not None:
     read_camera(args.camera, work)
     print("Camera file reading done")
+
+# Add shape of image
+if args.widthxheight is not None:
+    for cam in work.cameras.values:
+        cam.add_dim_image(args.widthxheight[0], args.widthxheight[1])
 
 # Reading connecting point
 if args.connecting_points is not None:

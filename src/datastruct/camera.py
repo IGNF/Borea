@@ -19,3 +19,16 @@ class Camera:
     ppax: float
     ppay: float
     focal: float
+    width: float = None
+    height: float = None
+
+    def add_dim_image(self, width: float, height: float) -> None:
+        """
+        Add shape of image, width height
+
+        Args:
+            width (float): Width of the image
+            height (float): Height of the image
+        """
+        self.width = width
+        self.height = height

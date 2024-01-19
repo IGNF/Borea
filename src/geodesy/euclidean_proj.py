@@ -44,7 +44,7 @@ class EuclideanProj:
         lon, lat = self.proj_engine.tf.carto_to_geog(x, y)
         gamma = self.proj_engine.get_meridian_convergence(x, y)
 
-        # Matrice de passage en coordonnees cartesiennes locales
+        # Matrix for switching to local cartesian coordinates
         sl = m.sin(lon * m.pi/180)
         sp = m.sin(lat * m.pi/180)
         sg = m.sin(gamma * m.pi/180)
@@ -65,7 +65,7 @@ class EuclideanProj:
 
     def mat_to_mat_eucli(self, x: float, y: float, mat: np.array) -> np.array:
         """
-        Transform the rotation matrix (World system) into rotation matrix (Euclidian systeme)
+        Transform the rotation matrix (World system) into rotation matrix (Euclidian systeme).
 
         Args:
             x (float): x coordinate of the point
@@ -76,7 +76,7 @@ class EuclideanProj:
             np.array: rotation matrix
         """
 
-        # *-1 on two last line
+        # *-1 on two last lines
         mat = mat*np.array([1, -1, -1]).reshape(-1, 1)
 
         # We are in the projection system, we pass into the local tangeant system
@@ -133,10 +133,9 @@ class EuclideanProj:
         point_eucli = (self.rot_to_euclidean_local @ dr) + np.array([[self.x_central,
                                                                       self.y_central,
                                                                       self.z_central]]).T
-        x_r, y_r, z_r = check_array_transfo(point_eucli[0], point_eucli[1], point_eucli[2])
-        x_r = change_dim(x_r, dim)
-        y_r = change_dim(y_r, dim)
-        z_r = change_dim(z_r, dim)
+        x_r = change_dim(point_eucli[0], dim)
+        y_r = change_dim(point_eucli[1], dim)
+        z_r = change_dim(point_eucli[2], dim)
         return np.array([x_r, y_r, z_r])
 
     def euclidean_to_world(self, x: Union[np.array, float],

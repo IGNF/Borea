@@ -1,9 +1,11 @@
 """
 Acquisition data class module
 """
+from typing import Union
 import numpy as np
 from src.datastruct.camera import Camera
 from src.geodesy.euclidean_proj import EuclideanProj
+from src.utils.conversion import change_dim
 
 
 # pylint: disable-next=too-many-instance-attributes
@@ -20,11 +22,13 @@ class Shot:
     def __init__(self, name_shot: str, pos_shot: np, ori_shot: np, name_cam: str) -> None:
         self.name_shot = name_shot
         self.pos_shot = pos_shot
+        self.pos_shot_eucli = None
         self.ori_shot = ori_shot
         self.name_cam = name_cam
         self.copoints = {}
         self.gcps = {}
         self.mat_rot = self.set_rot_shot()
+        self.mat_rot_eucli = None
         self.f_sys = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
         self.f_sys_inv = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
 
@@ -44,67 +48,87 @@ class Shot:
                        [0, 0, 1]])
         return (rx @ ry @ rz).T
 
-    def world_to_image(self, point: np, cam: Camera, projeucli: EuclideanProj) -> np:
+    # pylint: disable-next=too-many-arguments too-many-locals
+    def world_to_image(self, x_world: Union[np.array, float],
+                       y_world: Union[np.array, float],
+                       z_world: Union[np.array, float],
+                       cam: Camera, projeucli: EuclideanProj) -> np:
         """
         Calculates the c,l coordinates of a terrain point in an image
 
         Args:
-            point (np.array): the coordinateof ground point [x, y, z]
+            x_world (Union[np.array, float]): the coordinate x of ground point
+            y_world (Union[np.array, float]): the coordinate y of ground point
+            z_world (Union[np.array, float]): the coordinate z of ground point
             cam (Camera): the camera used
+            projeucli (EuclideanProj): Euclidean projection of the worksite
 
         Returns:
-            np.array: The image coordinate [c,l]
+            Union[np.array, float]: The image coordinate [c,l]
         """
+        if isinstance(x_world, np.ndarray):
+            dim = np.shape(x_world)
+        else:
+            dim = ()
+
         z_alti = self.tranform_vertical(projeucli)
-        p_eucli = projeucli.world_to_euclidean(point[0], point[1], point[2])
+        p_eucli = projeucli.world_to_euclidean(x_world, y_world, z_world)
         pos_eucli = projeucli.world_to_euclidean(self.pos_shot[0],
                                                  self.pos_shot[1],
                                                  z_alti)
         mat_eucli = projeucli.mat_to_mat_eucli(self.pos_shot[0], self.pos_shot[1], self.mat_rot)
-        p_bundle = mat_eucli @ (p_eucli - pos_eucli)
+        p_bundle = mat_eucli @ np.vstack([p_eucli[0] - pos_eucli[0],
+                                          p_eucli[1] - pos_eucli[1],
+                                          p_eucli[2] - pos_eucli[2]])
         x_shot = p_bundle[0] * cam.focal / p_bundle[2]
         y_shot = p_bundle[1] * cam.focal / p_bundle[2]
         z_shot = p_bundle[2]
         x_shot, y_shot, z_shot = self.f_sys(x_shot, y_shot, z_shot)
         x_col = cam.ppax + x_shot
         y_lig = cam.ppay + y_shot
-        return np.array([x_col, y_lig])
+        return np.array([change_dim(x_col,dim), change_dim(y_lig,dim)])
 
     # pylint: disable-next=too-many-locals too-many-arguments
-    def image_to_world(self, col: float, line: float, cam: Camera,
-                       projeucli: EuclideanProj, z: float = 0) -> np.array:
+    def image_to_world(self, col: Union[np.array, float], line: Union[np.array, float], cam: Camera,
+                       projeucli: EuclideanProj, z: Union[np.array, float] = 0) -> np.array:
         """
         Calculate x and y cartographique coordinate with z = 0.
 
         Args:
-            c (float): Column coordinates of image point(s).
-            l (float): Line coordinates of image point(s).
+            col (Union[np.array, float]): Column coordinates of image point(s).
+            line (Union[np.array, float]): Line coordinates of image point(s).
             cam (Camera): Objet cam which correspond to the shot.
             proj (EuclideanProj): Euclidean projection of the worksite.
-            z (float): La position z du point par défault = 0.
+            z (Union[np.array, float]): La position z du point par défault = 0.
 
         Returns:
-            np.array: Cartographique coordinate [x,y,z]
+            np: Cartographique coordinate [x,y,z]
         """
+        if isinstance(col, np.ndarray):
+            dim = np.shape(col)
+        else:
+            dim = ()
+
         x_bundle, y_bundle, z_bundle = self.image_to_bundle(col, line, cam)
         z_alti = self.tranform_vertical(projeucli)
         pos_eucli = projeucli.world_to_euclidean(self.pos_shot[0], self.pos_shot[1], z_alti)
         mat_eucli = projeucli.mat_to_mat_eucli(self.pos_shot[0], self.pos_shot[1], self.mat_rot)
-        p_local = mat_eucli.T @ np.array([x_bundle, y_bundle, z_bundle])
-        p_local = p_local + pos_eucli
+        p_local = mat_eucli.T @ np.vstack([x_bundle, y_bundle, z_bundle])
+        p_local = p_local + pos_eucli.reshape((3,1))
         lamb = (z - pos_eucli[2])/(p_local[2] - pos_eucli[2])
         x_local = pos_eucli[0] + (p_local[0] - pos_eucli[0]) * lamb
         y_local = pos_eucli[1] + (p_local[1] - pos_eucli[1]) * lamb
         x_world, y_world, _ = projeucli.euclidean_to_world(x_local, y_local, z)
-        return np.array([x_world, y_world, z])
+        return np.array([change_dim(x_world, dim), change_dim(y_world, dim), z])
 
-    def image_to_bundle(self, col: float, line: float, cam: Camera) -> tuple:
+    def image_to_bundle(self, col: Union[np.array, float],
+                        line: Union[np.array, float], cam: Camera) -> np:
         """
         Convert coordinate image col line to coordinate bundle
 
         Args:
-            c (float): Column coordinates of image point(s).
-            l (float): Line coordinates of image point(s).
+            col (Union[np.array, float]): Column coordinates of image point(s).
+            line (Union[np.array, float]): Line coordinates of image point(s).
             cam (Camera): Objet cam which correspond to the shot.
 
         Returns:
@@ -112,12 +136,12 @@ class Shot:
         """
         x_shot = col - cam.ppax
         y_shot = line - cam.ppay
-        z_shot = cam.focal
+        z_shot = np.full_like(x_shot, cam.focal)
         x_shot, y_shot, z_shot = self.f_sys_inv(x_shot, y_shot, z_shot)
         x_bundle = x_shot / cam.focal * z_shot
         y_bundle = y_shot / cam.focal * z_shot
         z_bundle = z_shot
-        return x_bundle, y_bundle, z_bundle
+        return np.array([x_bundle, y_bundle, z_bundle])
 
     def tranform_vertical(self, projeucli: EuclideanProj) -> float:
         """

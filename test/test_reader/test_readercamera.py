@@ -14,6 +14,8 @@ def test_read_camera_xml():
     assert work.cameras["UCE-M3-f120-s07"].ppax == 13230.00
     assert work.cameras["UCE-M3-f120-s07"].ppay == 8502.00
     assert work.cameras["UCE-M3-f120-s07"].focal == 30975.00
+    assert work.cameras["UCE-M3-f120-s07"].width == 26460.00
+    assert work.cameras["UCE-M3-f120-s07"].height == 17004.00
 
 
 def test_read_camera_txt():

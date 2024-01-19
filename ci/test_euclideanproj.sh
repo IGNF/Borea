@@ -1,1 +1,1 @@
-python3 -m pytest -s ./test/test_euclideanproj.py -v
+python3 -m pytest -s ./test/test_geodesy/test_euclideanproj.py -v

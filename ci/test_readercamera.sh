@@ -1,1 +1,1 @@
-python3 -m pytest -s ./test/test_readercamera.py -v
+python3 -m pytest -s ./test/test_reader/test_readercamera.py -v

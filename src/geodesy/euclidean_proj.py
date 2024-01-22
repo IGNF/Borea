@@ -45,6 +45,7 @@ class EuclideanProj:
         gamma = self.proj_engine.get_meridian_convergence(x, y)
 
         # Matrix for switching to local cartesian coordinates
+        # Matrix for switching to local cartesian coordinates
         sl = m.sin(lon * m.pi/180)
         sp = m.sin(lat * m.pi/180)
         sg = m.sin(gamma * m.pi/180)

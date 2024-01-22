@@ -2,6 +2,7 @@
 Acquisition data class module
 """
 from typing import Union
+from typing import Union
 import numpy as np
 from scipy.spatial.transform import Rotation
 from src.datastruct.camera import Camera
@@ -23,6 +24,7 @@ class Shot:
     def __init__(self, name_shot: str, pos_shot: np, ori_shot: np, name_cam: str) -> None:
         self.name_shot = name_shot
         self.pos_shot = pos_shot
+        self.pos_shot_eucli = None
         self.pos_shot_eucli = None
         self.ori_shot = ori_shot
         self.ori_shot_eucli = None
@@ -145,6 +147,15 @@ class Shot:
         p_bundle = self.mat_rot_eucli @ np.vstack([p_eucli[0] - pos_eucli[0],
                                                    p_eucli[1] - pos_eucli[1],
                                                    p_eucli[2] - pos_eucli[2]])
+        z_alti = self.tranform_vertical(projeucli)
+        p_eucli = projeucli.world_to_euclidean(x_world, y_world, z_world)
+        pos_eucli = projeucli.world_to_euclidean(self.pos_shot[0],
+                                                 self.pos_shot[1],
+                                                 z_alti)
+        mat_eucli = projeucli.mat_to_mat_eucli(self.pos_shot[0], self.pos_shot[1], self.mat_rot)
+        p_bundle = mat_eucli @ np.vstack([p_eucli[0] - pos_eucli[0],
+                                          p_eucli[1] - pos_eucli[1],
+                                          p_eucli[2] - pos_eucli[2]])
         x_shot = p_bundle[0] * cam.focal / p_bundle[2]
         y_shot = p_bundle[1] * cam.focal / p_bundle[2]
         z_shot = p_bundle[2]

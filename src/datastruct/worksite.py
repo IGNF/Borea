@@ -73,6 +73,7 @@ class Worksite:
                     self.projeucli = EuclideanProj(coor_barycentre[0],
                                                    coor_barycentre[1],
                                                    self.proj)
+                    self.set_param_eucli_shots()
                 except KeyError:
                     self.set_projection(epsg, path_geotiff)
             except FileNotFoundError as e:
@@ -95,8 +96,16 @@ class Worksite:
             self.proj = ProjEngine(epsg, dict_epsg, path_geotiff)
             coor_barycentre = self.calculate_barycentre()
             self.projeucli = EuclideanProj(coor_barycentre[0], coor_barycentre[1], self.proj)
+            self.set_param_eucli_shots()
         except KeyError:
             self.proj = ProjEngine(epsg)
+
+    def set_param_eucli_shots(self) -> None:
+        """
+        Setting up Euclidean parameters pos_shot_eucli, ori_shot_eucli, mat_rot_eucli by shot.
+        """
+        for shot in self.shots.values():
+            shot.set_param_eucli_shot(self.projeucli)
 
     def add_camera(self, name_camera: str, ppax: float,
                    ppay: float, focal: float) -> None:
@@ -237,32 +246,23 @@ class Worksite:
         p_img2 = shot2.copoints[name_copoint]
         cam1 = self.cameras[shot1.name_cam]
         cam2 = self.cameras[shot2.name_cam]
-        pos_eucli1 = self.projeucli.world_to_euclidean(shot1.pos_shot[0],
-                                                       shot1.pos_shot[1],
-                                                       shot1.pos_shot[2])
-        pos_eucli2 = self.projeucli.world_to_euclidean(shot2.pos_shot[0],
-                                                       shot2.pos_shot[1],
-                                                       shot2.pos_shot[2])
-        mat_eucli1 = self.projeucli.mat_to_mat_eucli(shot1.pos_shot[0],
-                                                     shot1.pos_shot[1],
-                                                     shot1.mat_rot).T
-        mat_eucli2 = self.projeucli.mat_to_mat_eucli(shot2.pos_shot[0],
-                                                     shot2.pos_shot[1],
-                                                     shot2.mat_rot).T
-        base = pos_eucli1 - pos_eucli2
-        vect1 = mat_eucli1 @ np.array([p_img1[0] - cam1.ppax,
-                                       p_img1[1] - cam1.ppay,
-                                       -cam1.focal])
-        vect2 = mat_eucli2 @ np.array([p_img2[0] - cam2.ppax,
-                                       p_img2[1] - cam2.ppay,
-                                       -cam2.focal])
+        base = shot1.pos_shot_eucli - shot2.pos_shot_eucli
+        vect1 = shot1.mat_rot_eucli.T @ np.array([p_img1[0] - cam1.ppax,
+                                                  p_img1[1] - cam1.ppay,
+                                                  -cam1.focal])
+        vect2 = shot2.mat_rot_eucli.T @ np.array([p_img2[0] - cam2.ppax,
+                                                  p_img2[1] - cam2.ppay,
+                                                  -cam2.focal])
         norme_v1 = vect1 @ vect1
         norme_v2 = vect2 @ vect2
         v1_v2 = vect1 @ vect2
         b_v1 = base @ vect1
         b_v2 = base @ vect2
-        p1_eucli = pos_eucli1 + ((b_v2*v1_v2 - b_v1*norme_v1)/(v1_v2**2 - norme_v1*norme_v2))*vect1
-        p2_eucli = pos_eucli2 + ((b_v2*norme_v1 - b_v1*v1_v2)/(v1_v2**2 - norme_v1*norme_v2))*vect2
+        num1 = b_v2*v1_v2 - b_v1*norme_v1
+        num2 = b_v2*norme_v1 - b_v1*v1_v2
+        denum = v1_v2**2 - norme_v1*norme_v2
+        p1_eucli = shot1.pos_shot_eucli + ((num1)/(denum))*vect1
+        p2_eucli = shot2.pos_shot_eucli + ((num2)/(denum))*vect2
         return 0.5 * (p1_eucli + p2_eucli)
 
     # pylint: disable-next=pointless-string-statement

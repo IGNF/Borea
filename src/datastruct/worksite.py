@@ -185,7 +185,8 @@ class Worksite:
                         for name_shot in list_shots:
                             shot = self.shots[name_shot]
                             cam = self.cameras[shot.name_cam]
-                            coor_img = shot.world_to_image(gcp.coor, cam, self.projeucli)
+                            coor_img = shot.world_to_image(gcp.coor[0], gcp.coor[1], gcp.coor[2],
+                                                           cam, self.projeucli)
                             self.shots[name_shot].gcps[name_gcp] = coor_img
                     except KeyError:
                         continue

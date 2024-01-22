@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pylint flake8 numpy importlib dataclasses pyproj
+        pip install pylint flake8 numpy importlib dataclasses pyproj scipy
 
     - name: Analysing the code with pylint
       run: |

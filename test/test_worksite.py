@@ -20,13 +20,13 @@ def test_add_shot():
 
 def test_set_proj_Lambertbase():
     work = Worksite(name = "Test")
-    work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
-    work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
-    work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
+    work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam")
+    work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam")
+    work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam")
     work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
     assert work.proj.projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
-    assert work.projeucli.x_central == 1
-    assert work.projeucli.y_central == 2
+    assert round(work.projeucli.x_central, 3) == 814975.925
+    assert round(work.projeucli.y_central, 3) == 6283986.148
 
 
 def test_set_proj_withjsonandepsg():

@@ -84,6 +84,26 @@ class EuclideanProj:
         mat_eucli = mat @ matecef_to_rtl @ self.rot_to_euclidean_local.T
         return mat_eucli
 
+    def mat_eucli_to_mat(self, x: float, y: float, mat_eucli: np.array) -> np.array:
+        """
+        Transform the rotation matrix (Euclidean system) into rotation matrix (World system)
+
+        Args:
+            x (float): x coordinate of the point
+            y (float): y coordinate of the point
+            mat_eucli (np.array): rotation matrix (Euclidean system)
+
+        Returns:
+            np.array: Rotation matrix (World system)
+        """
+
+        matecef_to_rtl = self.mat_rot_euclidean_local(x, y)
+        mat = mat_eucli @ self.rot_to_euclidean_local @ matecef_to_rtl.T
+
+        # *-1 on last two lines
+        mat = mat * np.array([1, -1, -1]).reshape(-1, 1)
+        return mat
+
     def world_to_euclidean(self, x: Union[np.array, float],
                            y: Union[np.array, float], z: Union[np.array, float]) -> np.array:
         """

@@ -2,7 +2,6 @@
 Acquisition data class module
 """
 from typing import Union
-from typing import Union
 import numpy as np
 from scipy.spatial.transform import Rotation
 from src.datastruct.camera import Camera
@@ -24,7 +23,6 @@ class Shot:
     def __init__(self, name_shot: str, pos_shot: np, ori_shot: np, name_cam: str) -> None:
         self.name_shot = name_shot
         self.pos_shot = pos_shot
-        self.pos_shot_eucli = None
         self.pos_shot_eucli = None
         self.ori_shot = ori_shot
         self.ori_shot_eucli = None
@@ -66,7 +64,7 @@ class Shot:
         shot.gcps = {}
         shot.mat_rot = projeucli.mat_eucli_to_mat(shot.pos_shot[0], shot.pos_shot[1], mat_ori_eucli)
         shot.mat_rot_eucli = mat_ori_eucli
-        shot.ori_shot = -Rotation.from_matrix(mat_ori_eucli).as_euler("xyz", degrees=True)
+        shot.ori_shot = -Rotation.from_matrix(shot.mat_rot).as_euler("xyz", degrees=True)
         shot.z_alti = shot.tranform_vertical(projeucli)
         shot.z_alti_eucli = projeucli.world_to_euclidean(shot.pos_shot[0],
                                                          shot.pos_shot[1],
@@ -142,27 +140,18 @@ class Shot:
             dim = ()
 
         p_eucli = projeucli.world_to_euclidean(x_world, y_world, z_world)
-        pos_eucli = self.pos_shot_eucli
+        pos_eucli = np.copy(self.pos_shot_eucli)
         pos_eucli[2] = self.z_alti_eucli
         p_bundle = self.mat_rot_eucli @ np.vstack([p_eucli[0] - pos_eucli[0],
                                                    p_eucli[1] - pos_eucli[1],
                                                    p_eucli[2] - pos_eucli[2]])
-        z_alti = self.tranform_vertical(projeucli)
-        p_eucli = projeucli.world_to_euclidean(x_world, y_world, z_world)
-        pos_eucli = projeucli.world_to_euclidean(self.pos_shot[0],
-                                                 self.pos_shot[1],
-                                                 z_alti)
-        mat_eucli = projeucli.mat_to_mat_eucli(self.pos_shot[0], self.pos_shot[1], self.mat_rot)
-        p_bundle = mat_eucli @ np.vstack([p_eucli[0] - pos_eucli[0],
-                                          p_eucli[1] - pos_eucli[1],
-                                          p_eucli[2] - pos_eucli[2]])
         x_shot = p_bundle[0] * cam.focal / p_bundle[2]
         y_shot = p_bundle[1] * cam.focal / p_bundle[2]
         z_shot = p_bundle[2]
         x_shot, y_shot, z_shot = self.f_sys(x_shot, y_shot, z_shot)
         x_col = cam.ppax + x_shot
         y_lig = cam.ppay + y_shot
-        return np.array([change_dim(x_col,dim), change_dim(y_lig,dim)])
+        return np.array([change_dim(x_col, dim), change_dim(y_lig, dim)])
 
     # pylint: disable-next=too-many-locals too-many-arguments
     def image_to_world(self, col: Union[np.array, float], line: Union[np.array, float], cam: Camera,
@@ -182,17 +171,17 @@ class Shot:
         """
         if self.z_alti_eucli is None:
             raise AttributeError("missing 'geoid' tag in projection.json or path to geotiff")
-        
+
         if isinstance(col, np.ndarray):
             dim = np.shape(col)
         else:
             dim = ()
 
         x_bundle, y_bundle, z_bundle = self.image_to_bundle(col, line, cam)
-        pos_eucli = self.pos_shot_eucli
+        pos_eucli = np.copy(self.pos_shot_eucli)
         pos_eucli[2] = self.z_alti_eucli
         p_local = self.mat_rot_eucli.T @ np.vstack([x_bundle, y_bundle, z_bundle])
-        p_local = p_local + pos_eucli.reshape((3,1))
+        p_local = p_local + pos_eucli.reshape((3, 1))
         lamb = (z - pos_eucli[2])/(p_local[2] - pos_eucli[2])
         x_local = pos_eucli[0] + (p_local[0] - pos_eucli[0]) * lamb
         y_local = pos_eucli[1] + (p_local[1] - pos_eucli[1]) * lamb

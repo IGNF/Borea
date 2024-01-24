@@ -9,6 +9,7 @@ from src.datastruct.camera import Camera
 from src.datastruct.gcp import GCP
 from src.geodesy.proj_engine import ProjEngine
 from src.geodesy.euclidean_proj import EuclideanProj
+from src.orientation.shot_pos import space_resection
 
 
 # pylint: disable-next=too-many-instance-attributes
@@ -177,11 +178,10 @@ class Worksite:
             lcode (list): gcp code.
         """
         if self.check_gcp and self.check_cop:
-            for name_gcp in list(self.gcps):
-                if self.gcps[name_gcp].code in lcode:
+            for name_gcp, gcp in self.gcps.items():
+                if gcp.code in lcode:
                     try:
                         list_shots = self.copoints[name_gcp]
-                        gcp = self.gcps[name_gcp]
                         for name_shot in list_shots:
                             shot = self.shots[name_shot]
                             cam = self.cameras[shot.name_cam]
@@ -209,11 +209,11 @@ class Worksite:
         the most distance between two shots
         """
         if self.check_cop:
-            for name_cop in list(self.copoints):  # Loop on copoints
+            for name_cop, item_cop in self.copoints.items():  # Loop on copoints
                 shot1 = ""
                 shot2 = ""
                 dist = 0
-                list_shot1 = self.copoints[name_cop]
+                list_shot1 = item_cop
                 list_shot2 = list_shot1.copy()
                 _ = list_shot1.pop(-1)
                 for name_shot1 in list_shot1:  # Double loop on shots of copoint
@@ -285,3 +285,16 @@ class Worksite:
                     cop_param[cop] = self.projeucli.world_to_euclidean(x,y,z)
                 init_param[shot] = cop_param
     """
+
+    def shootings_position(self, add_pixel: tuple = (0, 0)) -> None:
+        """
+        Recalculates the shot's 6 external orientation parameters,
+        the 3 angles omega, phi, kappa and its position x, y, z.
+        For all shot with a variation pixel
+
+        Args:
+            add_pixel (tuple): factor (column, line) added on observable point.
+        """
+        for key_shot, item_shot in self.shots.items():
+            cam = self.cameras[item_shot.name_cam]
+            self.shots[key_shot] = space_resection(item_shot, cam, self.projeucli, add_pixel)

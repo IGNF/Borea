@@ -9,6 +9,7 @@ Subpackages
 
    src.datastruct
    src.geodesy
+   src.orientation
    src.reader
    src.utils
    src.writer

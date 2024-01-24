@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src.utils package" href="src.utils.html" /><link rel="prev" title="src.reader package" href="src.reader.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src.reader package" href="src.reader.html" /><link rel="prev" title="src.geodesy package" href="src.geodesy.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.reader.orientation package - Pink_Lady 1.0.0 documentation</title>
+        <title>src.orientation package - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -160,9 +160,9 @@
 <li class="toctree-l2 current has-children"><a class="reference internal" href="src.html">src package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="src.orientation.html">src.orientation package</a></li>
-<li class="toctree-l3 current has-children"><a class="reference internal" href="src.reader.html">src.reader package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">src.reader.orientation package</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">src.orientation package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.utils.html">src.utils package</a></li>
@@ -205,61 +205,81 @@
           </label>
         </div>
         <article role="main">
-          <section id="src-reader-orientation-package">
-<h1>src.reader.orientation package<a class="headerlink" href="#src-reader-orientation-package" title="Link to this heading">#</a></h1>
+          <section id="src-orientation-package">
+<h1>src.orientation package<a class="headerlink" href="#src-orientation-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="module-src.reader.orientation.manage_reader">
-<span id="src-reader-orientation-manage-reader-module"></span><h2>src.reader.orientation.manage_reader module<a class="headerlink" href="#module-src.reader.orientation.manage_reader" title="Link to this heading">#</a></h2>
-<p>Photogrammetry site file reader module.</p>
+<section id="module-src.orientation.shot_pos">
+<span id="src-orientation-shot-pos-module"></span><h2>src.orientation.shot_pos module<a class="headerlink" href="#module-src.orientation.shot_pos" title="Link to this heading">#</a></h2>
+<p>Module for recalculate shooting position</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="src.reader.orientation.manage_reader.reader_orientation">
-<span class="sig-prename descclassname"><span class="pre">src.reader.orientation.manage_reader.</span></span><span class="sig-name descname"><span class="pre">reader_orientation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite"><span class="pre">Worksite</span></a></span></span><a class="reference internal" href="_modules/src/reader/orientation/manage_reader.html#reader_orientation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.orientation.manage_reader.reader_orientation" title="Link to this definition">#</a></dt>
-<dd><p>Photogrammetric site file reading function.</p>
+<dt class="sig sig-object py" id="src.orientation.shot_pos.mat_obs_axia">
+<span class="sig-prename descclassname"><span class="pre">src.orientation.shot_pos.</span></span><span class="sig-name descname"><span class="pre">mat_obs_axia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imc_adjust</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/src/orientation/shot_pos.html#mat_obs_axia"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.orientation.shot_pos.mat_obs_axia" title="Link to this definition">#</a></dt>
+<dd><p>Setting up the mat_a matrix to solve the system by axiator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<em>str</em>) – Path to the worksite.</p></li>
-<li><p><strong>skip</strong> (<em>int</em>) – Number of lines to be skipped before reading the file, Default=None.</p></li>
+<li><p><strong>x_eucli</strong> (<em>np.array</em>) – Coordinate x euclidean.</p></li>
+<li><p><strong>y_eucli</strong> (<em>np.array</em>) – Coordinate y euclidean.</p></li>
+<li><p><strong>z_eucli</strong> (<em>np.array</em>) – Coordinate z euclidean.</p></li>
+<li><p><strong>imc_adjust</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><em>Shot</em></a>) – adjusted shot.</p></li>
+<li><p><strong>cam</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><em>Camera</em></a>) – Camera of shot.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The worksite.</p>
+<dd class="field-even"><p>Matrix A.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite">Worksite</a></p>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.orientation.shot_pos.seed_20_point">
+<span class="sig-prename descclassname"><span class="pre">src.orientation.shot_pos.</span></span><span class="sig-name descname"><span class="pre">seed_20_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/orientation/shot_pos.html#seed_20_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.orientation.shot_pos.seed_20_point" title="Link to this definition">#</a></dt>
+<dd><p>Positioning of 20 points on an image by percentage position on width and height.
+The z-world position is given by fixed values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cam</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><em>Camera</em></a>) – Camera of the shot.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of 3 elements (position column obs, position line obs, z world).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.orientation.shot_pos.space_resection">
+<span class="sig-prename descclassname"><span class="pre">src.orientation.shot_pos.</span></span><span class="sig-name descname"><span class="pre">space_resection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">projeucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj" title="src.geodesy.euclidean_proj.EuclideanProj"><span class="pre">EuclideanProj</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_pixel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></span><a class="reference internal" href="_modules/src/orientation/shot_pos.html#space_resection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.orientation.shot_pos.space_resection" title="Link to this definition">#</a></dt>
+<dd><p>Recalculates the shot’s 6 external orientation parameters,
+the 3 angles omega, phi, kappa and its position x, y, z.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shot</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><em>Shot</em></a>) – Shot to recalculte externa parameters.</p></li>
+<li><p><strong>cam</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><em>Camera</em></a>) – Camera of the shot.</p></li>
+<li><p><strong>projeucli</strong> (<a class="reference internal" href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj" title="src.geodesy.euclidean_proj.EuclideanProj"><em>EuclideanProj</em></a>) – Euclidiean projection system of the worksite.</p></li>
+<li><p><strong>add_pixel</strong> (<em>tuble</em>) – Pixel to be added to change marker.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Adjusted shot</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot">Shot</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 </section>
-<section id="module-src.reader.orientation.reader_opk">
-<span id="src-reader-orientation-reader-opk-module"></span><h2>src.reader.orientation.reader_opk module<a class="headerlink" href="#module-src.reader.orientation.reader_opk" title="Link to this heading">#</a></h2>
-<p>A script to read opk file.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.reader.orientation.reader_opk.read">
-<span class="sig-prename descclassname"><span class="pre">src.reader.orientation.reader_opk.</span></span><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite"><span class="pre">Worksite</span></a></span></span><a class="reference internal" href="_modules/src/reader/orientation/reader_opk.html#read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.orientation.reader_opk.read" title="Link to this definition">#</a></dt>
-<dd><p>Reads an opk file to transform it into a Workside object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<em>str</em>) – Path to the worksite.</p></li>
-<li><p><strong>skip</strong> (<em>int</em>) – Number of lines to be skipped before reading the file, Default=None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The worksite.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite">Worksite</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-src.reader.orientation">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.reader.orientation" title="Link to this heading">#</a></h2>
+<section id="module-src.orientation">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.orientation" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -268,23 +288,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="src.utils.html">
+          <a class="next-page" href="src.reader.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">src.utils package</div>
+                <div class="title">src.reader package</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="src.reader.html">
+          <a class="prev-page" href="src.geodesy.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">src.reader package</div>
+                <div class="title">src.geodesy package</div>
                 
               </div>
             </a>
@@ -318,17 +338,15 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">src.reader.orientation package</a><ul>
+<li><a class="reference internal" href="#">src.orientation package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-src.reader.orientation.manage_reader">src.reader.orientation.manage_reader module</a><ul>
-<li><a class="reference internal" href="#src.reader.orientation.manage_reader.reader_orientation"><code class="docutils literal notranslate"><span class="pre">reader_orientation()</span></code></a></li>
+<li><a class="reference internal" href="#module-src.orientation.shot_pos">src.orientation.shot_pos module</a><ul>
+<li><a class="reference internal" href="#src.orientation.shot_pos.mat_obs_axia"><code class="docutils literal notranslate"><span class="pre">mat_obs_axia()</span></code></a></li>
+<li><a class="reference internal" href="#src.orientation.shot_pos.seed_20_point"><code class="docutils literal notranslate"><span class="pre">seed_20_point()</span></code></a></li>
+<li><a class="reference internal" href="#src.orientation.shot_pos.space_resection"><code class="docutils literal notranslate"><span class="pre">space_resection()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-src.reader.orientation.reader_opk">src.reader.orientation.reader_opk module</a><ul>
-<li><a class="reference internal" href="#src.reader.orientation.reader_opk.read"><code class="docutils literal notranslate"><span class="pre">read()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.reader.orientation">Module contents</a></li>
+<li><a class="reference internal" href="#module-src.orientation">Module contents</a></li>
 </ul>
 </li>
 </ul>

@@ -160,6 +160,7 @@
 <li class="toctree-l2 current has-children"><a class="reference internal" href="src.html">src package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.orientation.html">src.orientation package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
@@ -215,16 +216,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="src.utils.conversion.change_dim">
 <span class="sig-prename descclassname"><span class="pre">src.utils.conversion.</span></span><span class="sig-name descname"><span class="pre">change_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></span><a class="reference internal" href="_modules/src/utils/conversion.html#change_dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.utils.conversion.change_dim" title="Link to this definition">#</a></dt>
-<dd><p>Change dimension of x to the dim given</p>
+<dd><p>Change dimension of x to the dim given.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>np.array</em><em>, </em><em>float</em><em>]</em>) – valeur to change dim</p></li>
-<li><p><strong>dim</strong> (<em>tuble</em>) – the dimension to have</p></li>
+<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>np.array</em><em>, </em><em>float</em><em>]</em>) – Values to change dim.</p></li>
+<li><p><strong>dim</strong> (<em>tuble</em>) – The dimension to have.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>x with the new dimension</p>
+<dd class="field-even"><p>x with the new dimension.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Union[np.array, float]</p>
@@ -237,17 +238,17 @@
 <span class="sig-prename descclassname"><span class="pre">src.utils.conversion.</span></span><span class="sig-name descname"><span class="pre">check_array_transfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/utils/conversion.html#check_array_transfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.utils.conversion.check_array_transfo" title="Link to this definition">#</a></dt>
 <dd><p>Checks the dimension of vectors if dim = 1 outputs the element in a variable.
 x,y,z are in the same dimension and they must be vectors if array
-possible dimension if array : (1,), (n,), (n,1) or (1,n)</p>
+possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>np.array</em><em>, </em><em>float</em><em>]</em>) – vector x</p></li>
-<li><p><strong>y</strong> (<em>Union</em><em>[</em><em>np.array</em><em>, </em><em>float</em><em>]</em>) – vector y</p></li>
-<li><p><strong>z</strong> (<em>Union</em><em>[</em><em>np.array</em><em>, </em><em>float</em><em>]</em>) – vector z</p></li>
+<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>np.array</em><em>, </em><em>float</em><em>]</em>) – Vector x.</p></li>
+<li><p><strong>y</strong> (<em>Union</em><em>[</em><em>np.array</em><em>, </em><em>float</em><em>]</em>) – Vector y.</p></li>
+<li><p><strong>z</strong> (<em>Union</em><em>[</em><em>np.array</em><em>, </em><em>float</em><em>]</em>) – Vector z.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>x, y, z</p>
+<dd class="field-even"><p>x, y, z.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tuple</p>

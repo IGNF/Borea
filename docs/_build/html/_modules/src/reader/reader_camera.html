@@ -159,6 +159,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.datastruct.html">src.datastruct package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.geodesy.html">src.geodesy package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.orientation.html">src.orientation package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
@@ -204,7 +205,7 @@
         <article role="main">
           <h1>Source code for src.reader.reader_camera</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Script to read camera file txt or xml</span>
+<span class="sd">Script to read camera file txt or xml.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
 <span class="kn">from</span> <span class="nn">src.datastruct.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
@@ -214,11 +215,11 @@
 <a class="viewcode-back" href="../../../src.reader.html#src.reader.reader_camera.read_camera">[docs]</a>
 <span class="k">def</span> <span class="nf">read_camera</span><span class="p">(</span><span class="n">files</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">work</span><span class="p">:</span> <span class="n">Worksite</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Manage file in list files to read</span>
+<span class="sd">    Manage file in list files to read.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        files (list): path list of files cameras</span>
-<span class="sd">        work (Worksite): Worksite which needs camera data</span>
+<span class="sd">        files (list): Path list of files cameras.</span>
+<span class="sd">        work (Worksite): Worksite which needs camera data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
         <span class="n">ext</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -233,21 +234,36 @@
 <a class="viewcode-back" href="../../../src.reader.html#src.reader.reader_camera.camera_xml">[docs]</a>
 <span class="k">def</span> <span class="nf">camera_xml</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">work</span><span class="p">:</span> <span class="n">Worksite</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Read xml file camera</span>
+<span class="sd">    Read xml file camera.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        files (list): path list of files cameras</span>
-<span class="sd">        work (Worksite): Worksite which needs camera data</span>
+<span class="sd">        files (list): Path list of files cameras.</span>
+<span class="sd">        work (Worksite): Worksite which needs camera data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">projet</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The path </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2"> is incorrect !!!&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+    <span class="k">try</span><span class="p">:</span>
         <span class="n">focal</span> <span class="o">=</span> <span class="n">projet</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;focal&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;pt3d&quot;</span><span class="p">)</span>
-        <span class="n">work</span><span class="o">.</span><span class="n">add_camera</span><span class="p">(</span><span class="n">projet</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+        <span class="n">name_cam</span> <span class="o">=</span> <span class="n">projet</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">work</span><span class="o">.</span><span class="n">add_camera</span><span class="p">(</span><span class="n">name_cam</span><span class="p">,</span>
                         <span class="nb">float</span><span class="p">(</span><span class="n">focal</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()),</span>
                         <span class="nb">float</span><span class="p">(</span><span class="n">focal</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()),</span>
                         <span class="nb">float</span><span class="p">(</span><span class="n">focal</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
-    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The path </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2"> is incorrect !!!&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span></div>
+    <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;Your camera.xml is badly parameterized, must include a &lt;name&gt; tag&quot;</span>
+                             <span class="s2">&quot; for the camera name, a &lt;focal&gt; tag, which includes a &lt;pt3d&gt; tag&quot;</span>
+                             <span class="s2">&quot; which includes 3 &lt;x&gt;, &lt;y&gt;, &lt;z&gt; tags&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">dim_image</span> <span class="o">=</span> <span class="n">projet</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;usefull-frame&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;rect&quot;</span><span class="p">)</span>
+        <span class="n">work</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">name_cam</span><span class="p">]</span><span class="o">.</span><span class="n">add_dim_image</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">dim_image</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()),</span>
+                                             <span class="nb">float</span><span class="p">(</span><span class="n">dim_image</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&quot;image size not present in xml, tree tag: &quot;</span>
+              <span class="s2">&quot;&lt;usefull-frame&gt;&lt;rect&gt;&lt;w&gt;..&lt;/w&gt;&lt;h&gt;..&lt;/h&gt;&lt;/rect&gt;&lt;/usefull-frame&gt;&quot;</span><span class="p">)</span></div>
 
 
 
@@ -255,11 +271,11 @@
 <a class="viewcode-back" href="../../../src.reader.html#src.reader.reader_camera.camera_txt">[docs]</a>
 <span class="k">def</span> <span class="nf">camera_txt</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">work</span><span class="p">:</span> <span class="n">Worksite</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Read txt file camera</span>
+<span class="sd">    Read txt file camera.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        files (list): path list of files cameras</span>
-<span class="sd">        work (Worksite): Worksite which needs camera data</span>
+<span class="sd">        files (list): Path list of files cameras.</span>
+<span class="sd">        work (Worksite): Worksite which needs camera data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_cam</span><span class="p">:</span>

@@ -17,7 +17,6 @@ def test_space_resection():
     projeucli = EuclideanProj(814975.925, 6283986.148, proj)
     shot.set_param_eucli_shot(projeucli)
     actual_shot = space_resection(shot, cam, projeucli)
-    print(abs(actual_shot.pos_shot[0] - 814975.925), abs(actual_shot.pos_shot[1] - 6283986.148), abs(actual_shot.pos_shot[2] - 1771.280))
     assert abs(actual_shot.pos_shot[0] - 814975.925) < 0.02
     assert abs(actual_shot.pos_shot[1] - 6283986.148) < 0.02
     assert abs(actual_shot.pos_shot[2] - 1771.280) < 0.02

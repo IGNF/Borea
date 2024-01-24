@@ -212,9 +212,9 @@ def test_shootings_position():
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
     work.cameras['cam_test'].add_dim_image(26460.00, 17004.00)
     work.shootings_position()
-    assert abs(work.shots["23FD1305x00026_01306"].pos_shooting[0] - 814975.925) < 1000
-    assert abs(work.shots["23FD1305x00026_01306"].pos_shooting[1] - 6283986.148) < 1000
-    assert abs(work.shots["23FD1305x00026_01306"].pos_shooting[2] - 1771.280) < 1000
-    assert abs(work.shots["23FD1305x00026_01307"].pos_shooting[0] - 814977.593) < 1000
-    assert abs(work.shots["23FD1305x00026_01307"].pos_shooting[1] - 6283733.183) < 1000
-    assert abs(work.shots["23FD1305x00026_01307"].pos_shooting[2] - 1771.519) < 1000
+    assert abs(work.shots["23FD1305x00026_01306"].pos_shot[0] - 814975.925) < 5
+    assert abs(work.shots["23FD1305x00026_01306"].pos_shot[1] - 6283986.148) < 5
+    assert abs(work.shots["23FD1305x00026_01306"].pos_shot[2] - 1771.280) < 5
+    assert abs(work.shots["23FD1305x00026_01307"].pos_shot[0] - 814977.593) < 5
+    assert abs(work.shots["23FD1305x00026_01307"].pos_shot[1] - 6283733.183) < 5
+    assert abs(work.shots["23FD1305x00026_01307"].pos_shot[2] - 1771.519) < 5

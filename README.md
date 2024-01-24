@@ -30,6 +30,7 @@ Then add the parameters:
 | -w | Worksite output file format ex:opk | None |
 | -pr | Conversion path ex:test/tmp/ | 'test/tmp/' |
 | -c | Files paths of cameras (.xml or .txt) | None |
+| -wh | Width and height of the camera | None |
 | -cp | Files paths of connecting points (.mes) | None |
 | -gcp | Files paths of ground control point (.app) | None |
 

@@ -36,6 +36,12 @@ def test_from_shot_eucli():
     assert shot.pos_shot[0] == round(shot_eucli.pos_shot[0],3)
     assert shot.pos_shot[1] == round(shot_eucli.pos_shot[1],3)
     assert shot.pos_shot[2] == round(shot_eucli.pos_shot[2],3)
+    assert round(shot.ori_shot[0],3) == round(shot_eucli.ori_shot[0],3)
+    assert round(shot.ori_shot[1],3) == round(shot_eucli.ori_shot[1],3)
+    assert round(shot.ori_shot[2],3) == round(shot_eucli.ori_shot[2],3)
+    assert round(shot.ori_shot_eucli[0],3) == round(shot_eucli.ori_shot_eucli[0],3)
+    assert round(shot.ori_shot_eucli[1],3) == round(shot_eucli.ori_shot_eucli[1],3)
+    assert round(shot.ori_shot_eucli[2],3) == round(shot_eucli.ori_shot_eucli[2],3)
 
 
 def test_world_to_image():
@@ -45,7 +51,7 @@ def test_world_to_image():
     proj = ProjEngine("EPSG:2154", {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"]}, "./test/data/")
     projeucli = EuclideanProj(814975.925, 6283986.148, proj)
     shot.set_param_eucli_shot(projeucli)
-    actual = shot.world_to_image(point_terrain, cam, projeucli)
+    actual = shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, projeucli)
     assert abs(actual[0] - 24042.25) < 5
     assert abs(actual[1] - 14781.17) < 5
 
@@ -58,7 +64,7 @@ def test_world_to_image_withoutgeoid():
     projeucli = EuclideanProj(814975.925, 6283986.148, proj)
     shot.set_param_eucli_shot(projeucli)
     with pytest.raises(AttributeError) as e_info:
-        shot.world_to_image(point_terrain, cam, projeucli)
+        shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, projeucli)
 
 
 def test_image_to_world():

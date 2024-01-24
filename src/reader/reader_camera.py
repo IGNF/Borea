@@ -31,13 +31,28 @@ def camera_xml(file: str, work: Worksite) -> None:
     """
     try:
         projet = ET.parse(file).getroot()
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"The path {file} is incorrect !!!") from e
+
+    try:
         focal = projet.find("focal").find("pt3d")
-        work.add_camera(projet.find("name").text.strip(),
+        name_cam = projet.find("name").text.strip()
+        work.add_camera(name_cam,
                         float(focal.find("x").text.strip()),
                         float(focal.find("y").text.strip()),
                         float(focal.find("z").text.strip()))
-    except FileNotFoundError as e:
-        raise FileNotFoundError(f"The path {file} is incorrect !!!") from e
+    except AttributeError as e:
+        raise AttributeError("Your camera.xml is badly parameterized, must include a <name> tag"
+                             " for the camera name, a <focal> tag, which includes a <pt3d> tag"
+                             " which includes 3 <x>, <y>, <z> tags") from e
+
+    try:
+        dim_image = projet.find("usefull-frame").find("rect")
+        work.cameras[name_cam].add_dim_image(float(dim_image.find("w").text.strip()),
+                                             float(dim_image.find("h").text.strip()))
+    except AttributeError as e:
+        print(e, "image size not present in xml, tree tag: "
+              "<usefull-frame><rect><w>..</w><h>..</h></rect></usefull-frame>")
 
 
 def camera_txt(file: str, work: Worksite) -> None:

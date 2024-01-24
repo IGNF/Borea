@@ -51,7 +51,9 @@ def camera_xml(file: str, work: Worksite) -> None:
         work.cameras[name_cam].add_dim_image(float(dim_image.find("w").text.strip()),
                                              float(dim_image.find("h").text.strip()))
     except AttributeError as e:
-        pass
+        print(e, "image size not present in xml, tree tag: "
+              "<usefull-frame><rect><w>..</w><h>..</h></rect></usefull-frame>")
+
 
 def camera_txt(file: str, work: Worksite) -> None:
     """

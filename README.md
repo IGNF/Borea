@@ -54,6 +54,7 @@ Markdown documentation function in docs/functions
 7. Calculation of the image coordinates of gcp by the image function
 8. Calculation of the ground coordinates of connecting point with a z estimate
 9. Calculation of the ground coordinates of connecting point by intersection
+10. Calculation of 6 externa parameters of shot with space_resection
 
 ### Utilisation
 
@@ -102,6 +103,9 @@ read_gcp(path_gcps, work)
 
 # Calculate image coordinate of GCP if they exist
 work.calculate_world_to_image_gcp([3])
+
+# Calculate shooting position with a factor pixel, to change projection for example
+work.shootings_position(add_pixel = (0,0))
 
 # Writing data
 manager_reader(writer, pathreturn, work)

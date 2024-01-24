@@ -36,6 +36,12 @@ def test_from_shot_eucli():
     assert shot.pos_shot[0] == round(shot_eucli.pos_shot[0],3)
     assert shot.pos_shot[1] == round(shot_eucli.pos_shot[1],3)
     assert shot.pos_shot[2] == round(shot_eucli.pos_shot[2],3)
+    assert round(shot.ori_shot[0],3) == round(shot_eucli.ori_shot[0],3)
+    assert round(shot.ori_shot[1],3) == round(shot_eucli.ori_shot[1],3)
+    assert round(shot.ori_shot[2],3) == round(shot_eucli.ori_shot[2],3)
+    assert round(shot.ori_shot_eucli[0],3) == round(shot_eucli.ori_shot_eucli[0],3)
+    assert round(shot.ori_shot_eucli[1],3) == round(shot_eucli.ori_shot_eucli[1],3)
+    assert round(shot.ori_shot_eucli[2],3) == round(shot_eucli.ori_shot_eucli[2],3)
 
 
 def test_world_to_image():

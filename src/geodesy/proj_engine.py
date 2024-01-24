@@ -34,15 +34,15 @@ class ProjEngine:
     def get_meridian_convergence(self, x_carto: Union[np.array, List[float], float],
                                  y_carto: Union[np.array, List[float], float]) -> float:
         """
-            Compute meridian convergence.
-            Values are extracted from pyproj.
+        Compute meridian convergence.
+        Values are extracted from pyproj.
 
-            Args:
-                x_carto (np.array, List[float], float): x cartographic coordinates.
-                y_carto (np.array, List[float], float): y cartographic coordinates.
+        Args:
+            x_carto (np.array, List[float], float): x cartographic coordinates.
+            y_carto (np.array, List[float], float): y cartographic coordinates.
 
-            Returns:
-                np.array : meridian convergence in degree
+        Returns:
+            np.array : Meridian convergence in degree.
         """
         # pylint: disable-next=unpacking-non-sequence
         (x_geog, y_geog) = self.tf.carto_to_geog(x_carto, y_carto)
@@ -51,13 +51,15 @@ class ProjEngine:
     def get_scale_factor(self, x_carto: Union[np.array, List[float], float],
                          y_carto: Union[np.array, List[float], float]) -> np.array:
         """
-            Compute scale factor.
-            Values are extracted from pyproj.
+        Compute scale factor.
+        Values are extracted from pyproj.
 
-            :param x_carto: x cartographic coordinates
-            :param y_carto: y cartographic coordinates
+        Args:
+            x_carto (Union[np.array, List[float], float]): x cartographic coordinates.
+            y_carto (Union[np.array, List[float], float]): y cartographic coordinates.
 
-            :return: scale factor and meridian convergence
+        Returns:
+            np.array: Scale factor and meridian convergence.
         """
         # pylint: disable-next=unpacking-non-sequence
         x_geog, y_geog = self.tf.carto_to_geog(x_carto, y_carto)
@@ -72,32 +74,30 @@ class Transform():
     Args:
         pe (ProjEngin): Tranformation for the ProjEgine.
     """
-    pe: ProjEngine
-
-    def __post_init__(self) -> None:
+    def __init__(self, pe: ProjEngine) -> None:
         # Transform cartographic coordinates to geographic coordinates
-        self.carto_to_geog = pyproj.Transformer.from_crs(self.pe.crs, self.pe.crs_geog).transform
+        self.carto_to_geog = pyproj.Transformer.from_crs(pe.crs, pe.crs_geog).transform
         # Transform geographic coordinates to cartographic coordinates
-        self.geog_to_carto = pyproj.Transformer.from_crs(self.pe.crs_geog, self.pe.crs).transform
+        self.geog_to_carto = pyproj.Transformer.from_crs(pe.crs_geog, pe.crs).transform
         # Transform cartographic coordinates to geocentric coordinates
-        self.carto_to_geoc = pyproj.Transformer.from_crs(self.pe.crs, self.pe.crs_geoc).transform
+        self.carto_to_geoc = pyproj.Transformer.from_crs(pe.crs, pe.crs_geoc).transform
         # Transform geocentric coordinates to cartographic coordinates
-        self.geoc_to_carto = pyproj.Transformer.from_crs(self.pe.crs_geoc, self.pe.crs).transform
+        self.geoc_to_carto = pyproj.Transformer.from_crs(pe.crs_geoc, pe.crs).transform
 
-        if 'geoid' in self.pe.projection_list:
-            self.tf_ellipsoid()
+        if 'geoid' in pe.projection_list:
+            self.tf_geoid(pe)
 
-    def tf_ellipsoid(self) -> None:
+    def tf_geoid(self, pe: ProjEngine) -> None:
         """
         Create attribute transform, to transform geographic coordinates to geoide coordinates
         """
-        if self.pe.path_geotiff is not None:
-            ptiff = self.pe.path_geotiff
-            geoid_list = [ptiff + geoid + '.tif' for geoid in self.pe.projection_list['geoid']]
+        if pe.path_geotiff is not None:
+            ptiff = pe.path_geotiff
+            geoid_list = [ptiff + geoid + '.tif' for geoid in pe.projection_list['geoid']]
             if not path.exists(geoid_list[0]):
-                geoid_list = [geoid+'.tif' for geoid in self.pe.projection_list['geoid']]
+                geoid_list = [geoid+'.tif' for geoid in pe.projection_list['geoid']]
         else:
-            geoid_list = [geoid+'.tif' for geoid in self.pe.projection_list['geoid']]
+            geoid_list = [geoid+'.tif' for geoid in pe.projection_list['geoid']]
 
         try:
             # Transform geographic coordinates to geoide coordinates

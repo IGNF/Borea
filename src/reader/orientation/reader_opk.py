@@ -1,5 +1,5 @@
 """
-A script to read opk file
+A script to read opk file.
 """
 import numpy as np
 from src.datastruct.worksite import Worksite
@@ -7,14 +7,14 @@ from src.datastruct.worksite import Worksite
 
 def read(file: str, skip: int) -> Worksite:
     """
-    Reads an opk file to transform it into a Workside object
+    Reads an opk file to transform it into a Workside object.
 
     Args:
         file (str): Path to the worksite.
         skip (int): Number of lines to be skipped before reading the file, Default=None.
 
     Returns:
-        Worksite: The worksite
+        Worksite: The worksite.
     """
     # Job name retrieval
     name_work = file.split('/')[-1]

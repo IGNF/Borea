@@ -1,5 +1,5 @@
 """
-Acquisition data class module
+Acquisition data class module.
 """
 from typing import Union
 import numpy as np
@@ -12,7 +12,7 @@ from src.utils.conversion import change_dim
 # pylint: disable-next=too-many-instance-attributes
 class Shot:
     """
-    Shot class definition
+    Shot class definition.
 
     Args:
         name_shot (str): Name of the shot.
@@ -20,7 +20,8 @@ class Shot:
         ori_shot (numpy.array): Array of orientation of the shot [Omega, Phi, Kappa] in degree.
         name_cam (str): Name of the camera.
     """
-    def __init__(self, name_shot: str, pos_shot: np, ori_shot: np, name_cam: str) -> None:
+    def __init__(self, name_shot: str, pos_shot: np.array,
+                 ori_shot: np.array, name_cam: str) -> None:
         self.name_shot = name_shot
         self.pos_shot = pos_shot
         self.pos_shot_eucli = None
@@ -38,21 +39,21 @@ class Shot:
 
     @classmethod
     # pylint: disable-next=too-many-arguments
-    def from_param_euclidean(cls, name_shot: str, pos_eucli: np,
-                             mat_ori_eucli: np, name_cam: str,
+    def from_param_euclidean(cls, name_shot: str, pos_eucli: np.array,
+                             mat_ori_eucli: np.array, name_cam: str,
                              projeucli: EuclideanProj) -> None:
         """
-        Construction of a shot object using the Euclidean position
+        Construction of a shot object using the Euclidean position.
 
         Args:
-            name_shot (str): Name of the shot
-            pos_eucli (np): Euclidean position of the shot
-            mat_ori_eucli (np): Euclidean rotation matrix of the shot
-            name_cam (str): Name of the camera
-            projeucli (EuclideanProj): Euclidean projection of the worksite
+            name_shot (str): Name of the shot.
+            pos_eucli (np.array): Euclidean position of the shot.
+            mat_ori_eucli (np.array): Euclidean rotation matrix of the shot.
+            name_cam (str): Name of the camera.
+            projeucli (EuclideanProj): Euclidean projection of the worksite.
 
         Returns:
-            Shot: The shot
+            Shot: The shot.
         """
         shot = cls(name_shot, np.array([0, 0, 0]), np.array([0, 0, 0]), name_cam)
         shot.pos_shot_eucli = pos_eucli
@@ -74,9 +75,12 @@ class Shot:
 
         return shot
 
-    def set_rot_shot(self) -> np:
+    def set_rot_shot(self) -> np.array:
         """
-        Build the rotation matrix with omega phi kappa
+        Build the rotation matrix with omega phi kappa.
+
+        Returns:
+            np.array: The rotation matrix.
         """
         rx = np.array([[1, 0, 0],
                        [0, np.cos(self.ori_shot[0]*np.pi/180), -np.sin(self.ori_shot[0]*np.pi/180)],
@@ -95,7 +99,7 @@ class Shot:
         Setting up Euclidean parameters pos_shot_eucli, ori_shot_eucli, mat_rot_eucli.
 
         Args:
-            projeucli (EuclideanProj): Euclidean projection
+            projeucli (EuclideanProj): Euclidean projection.
         """
         self.pos_shot_eucli = projeucli.world_to_euclidean(self.pos_shot[0],
                                                            self.pos_shot[1],
@@ -117,22 +121,22 @@ class Shot:
     def world_to_image(self, x_world: Union[np.array, float],
                        y_world: Union[np.array, float],
                        z_world: Union[np.array, float],
-                       cam: Camera, projeucli: EuclideanProj) -> np:
+                       cam: Camera, projeucli: EuclideanProj) -> np.array:
         """
-        Calculates the c,l coordinates of a terrain point in an image
+        Calculates the c,l coordinates of a terrain point in an image.
 
         Args:
-            x_world (Union[np.array, float]): the coordinate x of ground point
-            y_world (Union[np.array, float]): the coordinate y of ground point
-            z_world (Union[np.array, float]): the coordinate z of ground point
-            cam (Camera): the camera used
-            projeucli (EuclideanProj): Euclidean projection of the worksite
+            x_world (Union[np.array, float]): the coordinate x of ground point.
+            y_world (Union[np.array, float]): the coordinate y of ground point.
+            z_world (Union[np.array, float]): the coordinate z of ground point.
+            cam (Camera): the camera used.
+            projeucli (EuclideanProj): Euclidean projection of the worksite.
 
         Returns:
-            Union[np.array, float]: The image coordinate [c,l]
+            np.array: The image coordinate [c,l].
         """
         if self.z_alti_eucli is None:
-            raise AttributeError("missing 'geoid' tag in projection.json or path to geotiff")
+            raise AttributeError("Missing 'geoid' tag in projection.json or path to geotiff.")
 
         if isinstance(x_world, np.ndarray):
             dim = np.shape(x_world)
@@ -167,10 +171,10 @@ class Shot:
             z (Union[np.array, float]): La position z du point par défault = 0.
 
         Returns:
-            np: Cartographique coordinate [x,y,z]
+            np.array: Cartographique coordinate [x,y,z].
         """
         if self.z_alti_eucli is None:
-            raise AttributeError("missing 'geoid' tag in projection.json or path to geotiff")
+            raise AttributeError("Missing 'geoid' tag in projection.json or path to geotiff.")
 
         if isinstance(col, np.ndarray):
             dim = np.shape(col)
@@ -189,9 +193,9 @@ class Shot:
         return np.array([change_dim(x_world, dim), change_dim(y_world, dim), z])
 
     def image_to_bundle(self, col: Union[np.array, float],
-                        line: Union[np.array, float], cam: Camera) -> np:
+                        line: Union[np.array, float], cam: Camera) -> np.array:
         """
-        Convert coordinate image col line to coordinate bundle
+        Convert coordinate image col line to coordinate bundle.
 
         Args:
             col (Union[np.array, float]): Column coordinates of image point(s).
@@ -199,7 +203,7 @@ class Shot:
             cam (Camera): Objet cam which correspond to the shot.
 
         Returns:
-            np.array: Cartographique coordinate [x,y,z]
+            np.array: Cartographique coordinate [x,y,z].
         """
         x_shot = col - cam.ppax
         y_shot = line - cam.ppay
@@ -213,13 +217,13 @@ class Shot:
     def tranform_vertical(self, projeucli: EuclideanProj) -> float:
         """
         Get new z position for the acquisition.
-        It is an elevation z
+        It is a height z (altitude z).
 
         Args:
-            projeucli (EuclideanProj): Eucliean system
+            projeucli (EuclideanProj): Eucliean system.
 
         Returns:
-            float: new z elevation
+            float: New height z.
         """
         coor_geog = projeucli.proj_engine.tf.carto_to_geog(self.pos_shot[0],
                                                            self.pos_shot[1],

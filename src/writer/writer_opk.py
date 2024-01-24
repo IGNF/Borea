@@ -1,5 +1,5 @@
 """
-Photogrammetry site file reader module
+Photogrammetry site file reader module.
 """
 import os
 import numpy as np
@@ -8,7 +8,7 @@ from src.datastruct.worksite import Worksite
 
 def write(path_opk: str, work: Worksite) -> None:
     """
-    Write function, to save a photogrammetric site in .opk format
+    Write function, to save a photogrammetric site in .opk format.
 
     Args:
         path_opk (str): Path of registration file .opk.

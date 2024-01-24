@@ -13,9 +13,9 @@ class EuclideanProj:
     This class represents a Euclidean projection system.
 
     Args:
-        x_central (float): x coordinate of the central point of the Euclidean system
-        y_central (float): y coordinate of the central point of the Euclidean system
-        proj_engine (ProjEngine): kernel of geodesy calculation
+        x_central (float): x coordinate of the central point of the Euclidean system.
+        y_central (float): y coordinate of the central point of the Euclidean system.
+        proj_engine (ProjEngine): Kernel of geodesy calculation.
 
     .. note::
         A Euclidean system is a local Euclidean reference system in which
@@ -35,8 +35,8 @@ class EuclideanProj:
         the Euclidean system centred on a point.
 
         Args:
-            x (float): x coordinate of the central point of the Euclidean system
-            y (float): y coordinate of the central point of the Euclidean system
+            x (float): x coordinate of the central point of the Euclidean system.
+            y (float): y coordinate of the central point of the Euclidean system.
 
         Returns:
             np.array: transition matrix
@@ -44,7 +44,6 @@ class EuclideanProj:
         lon, lat = self.proj_engine.tf.carto_to_geog(x, y)
         gamma = self.proj_engine.get_meridian_convergence(x, y)
 
-        # Matrix for switching to local cartesian coordinates
         # Matrix for switching to local cartesian coordinates
         sl = m.sin(lon * m.pi/180)
         sp = m.sin(lat * m.pi/180)
@@ -69,12 +68,12 @@ class EuclideanProj:
         Transform the rotation matrix (World system) into rotation matrix (Euclidian systeme).
 
         Args:
-            x (float): x coordinate of the point
-            y (float): y coordinate of the point
-            mat (np.array): rotation matrix (World system)
+            x (float): x coordinate of the point.
+            y (float): y coordinate of the point.
+            mat (np.array): Rotation matrix (World system).
 
         Returns:
-            np.array: rotation matrix
+            np.array: Euclidean rotation matrix.
         """
 
         # *-1 on two last lines
@@ -87,15 +86,15 @@ class EuclideanProj:
 
     def mat_eucli_to_mat(self, x: float, y: float, mat_eucli: np.array) -> np.array:
         """
-        Transform the rotation matrix (Euclidean system) into rotation matrix (World system)
+        Transform the rotation matrix (Euclidean system) into rotation matrix (World system).
 
         Args:
-            x (float): x coordinate of the point
-            y (float): y coordinate of the point
-            mat_eucli (np.array): rotation matrix (Euclidean system)
+            x (float): x coordinate of the point.
+            y (float): y coordinate of the point.
+            mat_eucli (np.array): Rotation matrix (Euclidean system).
 
         Returns:
-            np.array: Rotation matrix (World system)
+            np.array: Rotation matrix (World system).
         """
 
         matecef_to_rtl = self.mat_rot_euclidean_local(x, y)
@@ -112,12 +111,12 @@ class EuclideanProj:
         the Euclidean coordinate reference system.
 
         Args:
-            x (Union[np.array, float]): x coordinate of the point
-            y (Union[np.array, float]): y coordinate of the point
-            z (Union[np.array, float]): z coordinate of the point
+            x (Union[np.array, float]): x coordinate of the point.
+            y (Union[np.array, float]): y coordinate of the point.
+            z (Union[np.array, float]): z coordinate of the point.
 
         Returns:
-            np.array: x, y, z in the Euclidean coordinate reference system, dim = [[],[],[]]
+            np.array: x, y, z in the Euclidean coordinate reference system.
         """
         if isinstance(x, np.ndarray):
             dim = np.shape(x)
@@ -146,9 +145,9 @@ class EuclideanProj:
         the world coordinate reference system.
 
         Args:
-            x_eucli (Union[np.array, float]): x coordinate of the point
-            y_eucli (Union[np.array, float]): y coordinate of the point
-            z_eucli (Union[np.array, float]): y coordinate of the point
+            x_eucli (Union[np.array, float]): x coordinate of the point.
+            y_eucli (Union[np.array, float]): y coordinate of the point.
+            z_eucli (Union[np.array, float]): y coordinate of the point.
 
         Returns:
             np.array: x, y, z in the world coordinate reference system.

@@ -125,6 +125,7 @@ This library requires different projection data to transform coordinates from te
 ```
 The important tags are : the first is the epsg code ("EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection ("geoc") with its epsg code at the site location. The geographic projection ("geog") with its epsg code at the site location, and the geoid ("geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the usr/share/proj folder, which is native to pyproj, or in the env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
 
-More informations on functions in docs/function/
+More informations on functions in docs/function/  
+Diagram of code structure Pink Lady in docs/diagram/
 
 ![logo ign](docs/logo/logo_ign.png) ![logo fr](docs/logo/Republique_Francaise_Logo.png)

@@ -81,19 +81,20 @@ def space_resection(shot: Shot, cam: Camera, projeucli: EuclideanProj,
     return shot_adjust
 
 
-def mat_obs_axia(x_eucli: np, y_eucli: np, z_eucli: np, imc_adjust: Shot, cam: Camera) -> np:
+def mat_obs_axia(x_eucli: np.array, y_eucli: np.array, z_eucli: np.array,
+                 imc_adjust: Shot, cam: Camera) -> np.array:
     """
     Setting up the mat_a matrix to solve the system by axiator.
 
-    Args:imc_new_adjust
-        x_eucli (np.array): Coordinate x euclidean
-        y_eucli (np.array): Coordinate y euclidean
-        z_eucli (np.array): Coordinate z euclidean
-        imc_adjust (Shot): adjusted shot
-        cam (Camera): Camera of shot
+    Args:
+        x_eucli (np.array): Coordinate x euclidean.
+        y_eucli (np.array): Coordinate y euclidean.
+        z_eucli (np.array): Coordinate z euclidean.
+        imc_adjust (Shot): adjusted shot.
+        cam (Camera): Camera of shot.
 
     Returns:
-        np.array: Matrix A
+        np.array: Matrix A.
     """
     vect_a = np.vstack([x_eucli - imc_adjust.pos_shot_eucli[0],
                         y_eucli - imc_adjust.pos_shot_eucli[1],
@@ -131,10 +132,10 @@ def seed_20_point(cam: Camera) -> tuple:
     The z-world position is given by fixed values.
 
     Args:
-        cam (Camera): Camera of the shot
+        cam (Camera): Camera of the shot.
 
     Returns:
-        np.array: tubple of 3 elements (position colomun obs, position line obs, z world)
+        np.array: Tuple of 3 elements (position column obs, position line obs, z world).
     """
     pourcent_x = np.array([6.25, 12.5, 18.75, 25, 31.25, 37.5, 37.5, 43.75, 50, 56.25,
                            62.5, 62.5, 68.75, 68.75, 75, 81.25, 87.5, 87.5, 93.75, 93.75]) / 100

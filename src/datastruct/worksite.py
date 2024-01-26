@@ -1,5 +1,5 @@
 """
-Worksite data class module
+Worksite data class module.
 """
 import sys
 import json
@@ -15,11 +15,11 @@ from src.orientation.shot_pos import space_resection
 # pylint: disable-next=too-many-instance-attributes
 class Worksite:
     """
-    Worksite class
+    Worksite class.
     """
     def __init__(self, name: str) -> None:
         """
-        Class definition of Worksite
+        Class definition of Worksite.
 
         Args:
             name (str): Name of the worksite.
@@ -35,10 +35,10 @@ class Worksite:
         self.proj = None
         self.projeucli = None
 
-    def add_shot(self, name_shot: str, pos_shot: np,
-                 ori_shot: np, name_cam: str) -> None:
+    def add_shot(self, name_shot: str, pos_shot: np.array,
+                 ori_shot: np.array, name_cam: str) -> None:
         """
-        Add Shot to the attribut Shots
+        Add Shot to the attribut Shots.
 
         Args:
             name_shot (str): Name of the shot.
@@ -61,7 +61,7 @@ class Worksite:
             path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.
         """
         if file_epsg is None:
-            self.set_projection(epsg, path_geotiff)
+            self.known_projection(epsg, path_geotiff)
         else:
             try:
                 with open(file_epsg, 'r', encoding="utf-8") as json_file:
@@ -76,11 +76,11 @@ class Worksite:
                                                    self.proj)
                     self.set_param_eucli_shots()
                 except KeyError:
-                    self.set_projection(epsg, path_geotiff)
+                    self.known_projection(epsg, path_geotiff)
             except FileNotFoundError as e:
                 raise FileNotFoundError(f"The path {file_epsg} is incorrect !!!") from e
 
-    def set_projection(self, epsg: str = "EPSG:2154", path_geotiff: str = None) -> None:
+    def known_projection(self, epsg: str = "EPSG:2154", path_geotiff: str = None) -> None:
         """
         Setup a projection system to the worksite.
 
@@ -111,7 +111,7 @@ class Worksite:
     def add_camera(self, name_camera: str, ppax: float,
                    ppay: float, focal: float) -> None:
         """
-        Add data camera in the Worksite
+        Add data camera in the Worksite.
 
         Args:
             name_camera (str): Name of the camera.
@@ -126,19 +126,19 @@ class Worksite:
 
     def add_copoint(self, name_point: str, name_shot: str, x: float, y: float) -> None:
         """
-        Add linking point between acquisition in two part
-        One in self.copoints a dict with name_point the key and list of acquisition the result
+        Add linking point between acquisition in two part.
+        One in self.copoints a dict with name_point the key and list of acquisition the result.
         And One in self.shot[name_shot].copoints a dict whit
-        name_point the key and list of coordinate x (column) y (line) the result in list
+        name_point the key and list of coordinate x (column) y (line) the result in list.
 
         Agrs:
-            name_point (str): Name of the connecting point
-            name_shot (str): Name of the acquisition
-            x (float): pixel position of the point in column
-            y (float): pixel position of the point in line
+            name_point (str): Name of the connecting point.
+            name_shot (str): Name of the acquisition.
+            x (float): Pixel position of the point in column.
+            y (float): Pixel position of the point in line.
         """
         if name_shot not in self.shots:
-            print(f"The shot {name_shot} doesn't exist in list of shots")
+            print(f"The shot {name_shot} doesn't exist in list of shots.")
             sys.exit()
 
         if name_point not in self.copoints:
@@ -148,15 +148,15 @@ class Worksite:
             self.shots[name_shot].copoints[name_point] = [x, y]
         else:
             print("\n :--------------------------:")
-            print("Warning : connecting point duplicate")
+            print("Warning : connecting point duplicate.")
             print(f"The point {name_point} already exists in the shot {name_shot}.")
             print("Keep first point with coordinates " +
-                  f"{self.shots[name_shot].copoints[name_point]}")
+                  f"{self.shots[name_shot].copoints[name_point]}.")
             print(":--------------------------:")
 
         self.copoints[name_point].append(name_shot)
 
-    def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np) -> None:
+    def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np.array) -> None:
         """
         Add GCP in the Worksite.
 
@@ -193,7 +193,10 @@ class Worksite:
 
     def calculate_barycentre(self) -> np.array:
         """
-        Calculate barycentre of the worksite
+        Calculate barycentre of the worksite.
+
+        Returns:
+            np.array: The barycentre [X, Y, Z].
         """
         size = len(self.shots)
         pos = np.zeros((size, 3))
@@ -206,7 +209,7 @@ class Worksite:
     def calculate_image_world_copoints(self) -> None:
         """
         Calculates the ground position of connecting point by intersection with
-        the most distance between two shots
+        the most distance between two shots.
         """
         if self.check_cop:
             for name_cop, item_cop in self.copoints.items():  # Loop on copoints
@@ -233,15 +236,15 @@ class Worksite:
     # pylint: disable-next=too-many-locals
     def eucli_intersection_2p(self, name_copoint: str, shot1: Shot, shot2: Shot) -> np.array:
         """
-        Calculates the euclidien position of a point from two shots
+        Calculates the euclidien position of a point from two shots.
 
         Args:
-            name_copoint (str): name of copoint to calcule coordinate
-            shot1 (Shot): Frist shot
-            shot2 (Shot): Second shot
+            name_copoint (str): Name of copoint to calcule coordinate.
+            shot1 (Shot): Frist shot.
+            shot2 (Shot): Second shot.
 
         Returns:
-            np.array: Euclidien coordinate of the copoint
+            np.array: Euclidien coordinate of the copoint.
         """
         p_img1 = shot1.copoints[name_copoint]
         p_img2 = shot2.copoints[name_copoint]
@@ -290,10 +293,10 @@ class Worksite:
         """
         Recalculates the shot's 6 external orientation parameters,
         the 3 angles omega, phi, kappa and its position x, y, z.
-        For all shot with a variation pixel
+        For all shot with a variation pixel.
 
         Args:
-            add_pixel (tuple): factor (column, line) added on observable point.
+            add_pixel (tuple): Factor (column, line) added on observable point.
         """
         for key_shot, item_shot in self.shots.items():
             cam = self.cameras[item_shot.name_cam]

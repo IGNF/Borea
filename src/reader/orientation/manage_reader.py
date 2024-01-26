@@ -1,5 +1,5 @@
 """
-Photogrammetry site file reader module
+Photogrammetry site file reader module.
 """
 import importlib
 from src.datastruct.worksite import Worksite
@@ -7,14 +7,14 @@ from src.datastruct.worksite import Worksite
 
 def reader_orientation(file: str, skip: int) -> Worksite:
     """
-    Photogrammetric site file reading function
+    Photogrammetric site file reading function.
 
     Args:
         file (str): Path to the worksite.
         skip (int): Number of lines to be skipped before reading the file, Default=None.
 
     Returns:
-        Worksite: The worksite
+        Worksite: The worksite.
     """
     # Attention multiple file management orientation
     # Attention management of files with the same extension but different formats

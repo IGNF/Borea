@@ -1,5 +1,5 @@
 """
-Script to read camera file txt or xml
+Script to read camera file txt or xml.
 """
 import xml.etree.ElementTree as ET
 from src.datastruct.worksite import Worksite
@@ -7,11 +7,11 @@ from src.datastruct.worksite import Worksite
 
 def read_camera(files: list, work: Worksite) -> None:
     """
-    Manage file in list files to read
+    Manage file in list files to read.
 
     Args:
-        files (list): path list of files cameras
-        work (Worksite): Worksite which needs camera data
+        files (list): Path list of files cameras.
+        work (Worksite): Worksite which needs camera data.
     """
     for file in files:
         ext = file.split('.')[-1].lower()
@@ -23,11 +23,11 @@ def read_camera(files: list, work: Worksite) -> None:
 
 def camera_xml(file: str, work: Worksite) -> None:
     """
-    Read xml file camera
+    Read xml file camera.
 
     Args:
-        files (list): path list of files cameras
-        work (Worksite): Worksite which needs camera data
+        files (list): Path list of files cameras.
+        work (Worksite): Worksite which needs camera data.
     """
     try:
         projet = ET.parse(file).getroot()
@@ -57,11 +57,11 @@ def camera_xml(file: str, work: Worksite) -> None:
 
 def camera_txt(file: str, work: Worksite) -> None:
     """
-    Read txt file camera
+    Read txt file camera.
 
     Args:
-        files (list): path list of files cameras
-        work (Worksite): Worksite which needs camera data
+        files (list): Path list of files cameras.
+        work (Worksite): Worksite which needs camera data.
     """
     try:
         with open(file, 'r', encoding="utf-8") as file_cam:

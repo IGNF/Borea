@@ -1,5 +1,5 @@
 """
-Script to read GCP app
+Script to read GCP app.
 """
 import numpy as np
 from src.datastruct.worksite import Worksite
@@ -7,11 +7,11 @@ from src.datastruct.worksite import Worksite
 
 def read_gcp(files: list, work: Worksite) -> None:
     """
-    Read all files gcp
+    Read all files gcp.
 
     Agrs:
-        files (list): path list of files gcp
-        work (Worksite): Worksite which needs gcp
+        files (list): Path list of files gcp.
+        work (Worksite): Worksite which needs gcp.
     """
     for file in files:
         try:

@@ -1,17 +1,18 @@
 """
-Photogrammetry site file writer module
+Photogrammetry site file writer module.
 """
 import importlib
 from src.datastruct.worksite import Worksite
 
 
-def manager_reader(writer: str, pathreturn: str, work: Worksite) -> None:
+def manager_writer(writer: str, pathreturn: str, work: Worksite) -> None:
     """
-    Photogrammetric site file writing function
+    Photogrammetric site file writing function.
 
     Args:
-        writer (str): output file format
-        pathreturn (str): Path to save the project
+        writer (str): Output file format.
+        pathreturn (str): Path to save the project.
+        work (Worksite): The site to be recorded.
     """
     try:
         my_module = importlib.import_module("src.writer.writer_" + writer.lower())

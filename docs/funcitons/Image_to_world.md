@@ -1,4 +1,4 @@
-# Documentation for the function image_to_world in shot
+# Documentation for the function image_to_world in src/datastruct/shot
 
 Function for calculating the ground coordinates of an image point, starting from a given z.
 It is built into the shot object to calculate the coordinates of the point in the field, based on the desired acquisition.

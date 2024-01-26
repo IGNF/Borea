@@ -11,15 +11,15 @@ def check_array_transfo(x: Union[np.array, float],
     """
     Checks the dimension of vectors if dim = 1 outputs the element in a variable.
     x,y,z are in the same dimension and they must be vectors if array
-    possible dimension if array : (1,), (n,), (n,1) or (1,n)
+    possible dimension if array : (1,), (n,), (n,1) or (1,n).
 
     Args:
-        x (Union[np.array, float]): vector x
-        y (Union[np.array, float]): vector y
-        z (Union[np.array, float]): vector z
+        x (Union[np.array, float]): Vector x.
+        y (Union[np.array, float]): Vector y.
+        z (Union[np.array, float]): Vector z.
 
     Returns:
-        tuple: x, y, z
+        tuple: x, y, z.
     """
     if isinstance(x, np.ndarray):  # look if is an array
         t = np.shape(x)
@@ -59,14 +59,14 @@ def check_array_transfo(x: Union[np.array, float],
 def change_dim(x: Union[np.array, float],
                dim: tuple) -> Union[np.array, float]:
     """
-    Change dimension of x to the dim given
+    Change dimension of x to the dim given.
 
     Args:
-        x (Union[np.array, float]): valeur to change dim
-        dim (tuble): the dimension to have
+        x (Union[np.array, float]): Values to change dim.
+        dim (tuble): The dimension to have.
 
     Returns:
-        Union[np.array, float]: x with the new dimension
+        Union[np.array, float]: x with the new dimension.
     """
     if isinstance(x, np.ndarray):
         if np.shape(x) != dim:

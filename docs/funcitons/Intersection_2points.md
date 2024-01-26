@@ -1,4 +1,4 @@
-# Documentation for the function eucli_intersection_2p in worksite
+# Documentation for the function eucli_intersection_2p in src/datastruct/worksite
 
 Function to calculate the Euclidean coordinates of a point, visible on two acquisitions. Function built in worksite to calculate from 2 acquisitions.
 

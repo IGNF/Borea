@@ -159,6 +159,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.datastruct.html">src.datastruct package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.geodesy.html">src.geodesy package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.orientation.html">src.orientation package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
@@ -206,9 +207,9 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">A module for manipulating an euclidean projection.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 <span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">m</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">src.geodesy.proj_engine</span> <span class="kn">import</span> <span class="n">ProjEngine</span>
 <span class="kn">from</span> <span class="nn">src.utils.conversion</span> <span class="kn">import</span> <span class="n">check_array_transfo</span><span class="p">,</span> <span class="n">change_dim</span>
 
@@ -220,9 +221,9 @@
 <span class="sd">    This class represents a Euclidean projection system.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        x_central (float): x coordinate of the central point of the Euclidean system</span>
-<span class="sd">        y_central (float): y coordinate of the central point of the Euclidean system</span>
-<span class="sd">        proj_engine (ProjEngine): kernel of geodesy calculation</span>
+<span class="sd">        x_central (float): x coordinate of the central point of the Euclidean system.</span>
+<span class="sd">        y_central (float): y coordinate of the central point of the Euclidean system.</span>
+<span class="sd">        proj_engine (ProjEngine): Kernel of geodesy calculation.</span>
 
 <span class="sd">    .. note::</span>
 <span class="sd">        A Euclidean system is a local Euclidean reference system in which</span>
@@ -244,8 +245,8 @@
 <span class="sd">        the Euclidean system centred on a point.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            x (float): x coordinate of the central point of the Euclidean system</span>
-<span class="sd">            y (float): y coordinate of the central point of the Euclidean system</span>
+<span class="sd">            x (float): x coordinate of the central point of the Euclidean system.</span>
+<span class="sd">            y (float): y coordinate of the central point of the Euclidean system.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            np.array: transition matrix</span>
@@ -253,7 +254,7 @@
         <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">proj_engine</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">carto_to_geog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">gamma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">proj_engine</span><span class="o">.</span><span class="n">get_meridian_convergence</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
-        <span class="c1"># Matrice de passage en coordonnees cartesiennes locales</span>
+        <span class="c1"># Matrix for switching to local cartesian coordinates</span>
         <span class="n">sl</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lon</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">)</span>
         <span class="n">sp</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">)</span>
         <span class="n">sg</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">)</span>
@@ -277,24 +278,47 @@
 <a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj.mat_to_mat_eucli">[docs]</a>
     <span class="k">def</span> <span class="nf">mat_to_mat_eucli</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Transform the rotation matrix (World system) into rotation matrix (Euclidian systeme)</span>
+<span class="sd">        Transform the rotation matrix (World system) into rotation matrix (Euclidian systeme).</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            x (float): x coordinate of the point</span>
-<span class="sd">            y (float): y coordinate of the point</span>
-<span class="sd">            mat (np.array): rotation matrix (World system)</span>
+<span class="sd">            x (float): x coordinate of the point.</span>
+<span class="sd">            y (float): y coordinate of the point.</span>
+<span class="sd">            mat (np.array): Rotation matrix (World system).</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            np.array: rotation matrix</span>
+<span class="sd">            np.array: Euclidean rotation matrix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c1"># *-1 on two last line</span>
+        <span class="c1"># *-1 on two last lines</span>
         <span class="n">mat</span> <span class="o">=</span> <span class="n">mat</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
         <span class="c1"># We are in the projection system, we pass into the local tangeant system</span>
         <span class="n">matecef_to_rtl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mat_rot_euclidean_local</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">mat_eucli</span> <span class="o">=</span> <span class="n">mat</span> <span class="o">@</span> <span class="n">matecef_to_rtl</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">rot_to_euclidean_local</span><span class="o">.</span><span class="n">T</span>
         <span class="k">return</span> <span class="n">mat_eucli</span></div>
+
+
+<div class="viewcode-block" id="EuclideanProj.mat_eucli_to_mat">
+<a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj.mat_eucli_to_mat">[docs]</a>
+    <span class="k">def</span> <span class="nf">mat_eucli_to_mat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mat_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transform the rotation matrix (Euclidean system) into rotation matrix (World system).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (float): x coordinate of the point.</span>
+<span class="sd">            y (float): y coordinate of the point.</span>
+<span class="sd">            mat_eucli (np.array): Rotation matrix (Euclidean system).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.array: Rotation matrix (World system).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">matecef_to_rtl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mat_rot_euclidean_local</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">mat</span> <span class="o">=</span> <span class="n">mat_eucli</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">rot_to_euclidean_local</span> <span class="o">@</span> <span class="n">matecef_to_rtl</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="c1"># *-1 on last two lines</span>
+        <span class="n">mat</span> <span class="o">=</span> <span class="n">mat</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mat</span></div>
 
 
 <div class="viewcode-block" id="EuclideanProj.world_to_euclidean">
@@ -306,12 +330,12 @@
 <span class="sd">        the Euclidean coordinate reference system.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            x (Union[np.array, float]): x coordinate of the point</span>
-<span class="sd">            y (Union[np.array, float]): y coordinate of the point</span>
-<span class="sd">            z (Union[np.array, float]): z coordinate of the point</span>
+<span class="sd">            x (Union[np.array, float]): x coordinate of the point.</span>
+<span class="sd">            y (Union[np.array, float]): y coordinate of the point.</span>
+<span class="sd">            z (Union[np.array, float]): z coordinate of the point.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            np.array: x, y, z in the Euclidean coordinate reference system, dim = [[],[],[]]</span>
+<span class="sd">            np.array: x, y, z in the Euclidean coordinate reference system.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -328,10 +352,9 @@
         <span class="n">point_eucli</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rot_to_euclidean_local</span> <span class="o">@</span> <span class="n">dr</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">x_central</span><span class="p">,</span>
                                                                       <span class="bp">self</span><span class="o">.</span><span class="n">y_central</span><span class="p">,</span>
                                                                       <span class="bp">self</span><span class="o">.</span><span class="n">z_central</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">x_r</span><span class="p">,</span> <span class="n">y_r</span><span class="p">,</span> <span class="n">z_r</span> <span class="o">=</span> <span class="n">check_array_transfo</span><span class="p">(</span><span class="n">point_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">point_eucli</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">x_r</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">x_r</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-        <span class="n">y_r</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">y_r</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-        <span class="n">z_r</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">z_r</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+        <span class="n">x_r</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">point_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dim</span><span class="p">)</span>
+        <span class="n">y_r</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">point_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dim</span><span class="p">)</span>
+        <span class="n">z_r</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">point_eucli</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">dim</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_r</span><span class="p">,</span> <span class="n">y_r</span><span class="p">,</span> <span class="n">z_r</span><span class="p">])</span></div>
 
 
@@ -344,9 +367,9 @@
 <span class="sd">        the world coordinate reference system.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            x_eucli (Union[np.array, float]): x coordinate of the point</span>
-<span class="sd">            y_eucli (Union[np.array, float]): y coordinate of the point</span>
-<span class="sd">            z_eucli (Union[np.array, float]): y coordinate of the point</span>
+<span class="sd">            x_eucli (Union[np.array, float]): x coordinate of the point.</span>
+<span class="sd">            y_eucli (Union[np.array, float]): y coordinate of the point.</span>
+<span class="sd">            z_eucli (Union[np.array, float]): y coordinate of the point.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            np.array: x, y, z in the world coordinate reference system.</span>
@@ -363,7 +386,7 @@
         <span class="n">point_geoc</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rot_to_euclidean_local</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">dr</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">central_geoc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                                                                        <span class="n">central_geoc</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                                                                        <span class="n">central_geoc</span><span class="p">[</span><span class="mi">2</span><span class="p">]]])</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">x_gc</span><span class="p">,</span> <span class="n">y_gc</span><span class="p">,</span> <span class="n">z_gc</span> <span class="o">=</span> <span class="n">check_array_transfo</span><span class="p">(</span><span class="n">point_geoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span> <span class="n">point_geoc</span><span class="p">[</span><span class="mi">1</span><span class="p">,:],</span> <span class="n">point_geoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,:])</span>
+        <span class="n">x_gc</span><span class="p">,</span> <span class="n">y_gc</span><span class="p">,</span> <span class="n">z_gc</span> <span class="o">=</span> <span class="n">check_array_transfo</span><span class="p">(</span><span class="n">point_geoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">point_geoc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">point_geoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:])</span>
         <span class="n">tup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">proj_engine</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">geoc_to_carto</span><span class="p">(</span><span class="n">x_gc</span><span class="p">,</span> <span class="n">y_gc</span><span class="p">,</span> <span class="n">z_gc</span><span class="p">)</span>
         <span class="n">x_r</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dim</span><span class="p">)</span>
         <span class="n">y_r</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dim</span><span class="p">)</span>

@@ -7,7 +7,7 @@ from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.reader_camera import read_camera
 from src.reader.reader_copoints import read_copoints
 from src.reader.reader_gcp import read_gcp
-from src.writer.manage_writer import manager_reader
+from src.writer.manage_writer import manager_writer
 
 parser = argparse.ArgumentParser(description='photogrammetric site conversion'
                                  + ' and manipulation software')
@@ -85,4 +85,4 @@ work.calculate_world_to_image_gcp([3])
 
 # Writing data
 if args.writer is not None:
-    manager_reader(args.writer, args.pathreturn, work)
+    manager_writer(args.writer, args.pathreturn, work)

@@ -1,5 +1,5 @@
 """
-Camera data class module
+Camera data class module.
 """
 from dataclasses import dataclass
 
@@ -7,7 +7,7 @@ from dataclasses import dataclass
 @dataclass
 class Camera:
     """
-    Shot class definition
+    Shot class definition.
 
     Args:
         name_camera (str): Name of the camera.
@@ -24,11 +24,11 @@ class Camera:
 
     def add_dim_image(self, width: float, height: float) -> None:
         """
-        Add shape of image, width height
+        Add shape of image, width height.
 
         Args:
-            width (float): Width of the image
-            height (float): Height of the image
+            width (float): Width of the image.
+            height (float): Height of the image.
         """
         self.width = width
         self.height = height

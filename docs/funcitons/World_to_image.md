@@ -1,4 +1,4 @@
-# Documentation for the function world_to_image in shot
+# Documentation for the function world_to_image in src/datastruct/shot
 
 Function for calculating the image coordinates of a point, starting from a terrain point.
 It is built into the shot object to calculate the coordinates of the point in the desired acquisition.

@@ -19,8 +19,8 @@ parser.add_argument('-skip', '--skip',
                     help='Number of lines to be skipped before reading the file (Nb arg 1).')
 parser.add_argument('-epsg', '--epsg',
                     type=str, default="EPSG:2154",
-                    help='EPSG codifier number of the reference system used ex: "EPSG:2154".'
-                    ' (Nb arg 1)')
+                    help='EPSG codifier number of the reference system used ex: "EPSG:2154"'
+                    ' (Nb arg 1).')
 parser.add_argument('-pepsg', '--pathepsg',
                     type=str, default=None,
                     help='Path to the json file which list the code epsg, you use (Nb arg 1).')

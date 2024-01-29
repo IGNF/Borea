@@ -89,3 +89,17 @@ def test_image_to_world_withoutgeoid():
     shot.set_param_eucli_shot(projeucli)
     with pytest.raises(AttributeError) as e_info:
         actual = shot.image_to_world(point_image[0],point_image[1],cam,projeucli,54.960)
+
+
+def test_image_to_world_multipoint():
+    c = np.array([24042.25, 24042.25])
+    l = np.array([14781.17, 14781.17])
+    shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam")
+    cam = Camera("test_cam", 13210.00, 8502.00, 30975.00)
+    proj = ProjEngine("EPSG:2154", {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"]}, "./test/data/")
+    projeucli = EuclideanProj(814975.925, 6283986.148, proj)
+    shot.set_param_eucli_shot(projeucli)
+    actual = shot.image_to_world(c,l,cam,projeucli)
+    assert abs(actual[0,0] - 815601.510) < 50
+    assert abs(actual[1,0] - 6283629.280) < 50
+    assert np.all(actual[2] == np.array([0,0]))

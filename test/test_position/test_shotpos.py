@@ -6,7 +6,7 @@ from src.datastruct.camera import Camera
 from src.datastruct.shot import Shot
 from src.geodesy.euclidean_proj import EuclideanProj
 from src.geodesy.proj_engine import ProjEngine
-from src.orientation.shot_pos import space_resection
+from src.position.shot_pos import space_resection
 
 
 def test_space_resection():

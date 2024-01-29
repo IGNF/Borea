@@ -43,10 +43,14 @@ Markdown documentation function in docs/functions
 ### Functionality
 
 1. Reading and writing an OPK file
-2. Restructuring of read files to allow the addition of read files without modifying functions
-    Structure file in reader folder: 
-      - name : reader_ext.py
+2. Restructuring of read files to allow the addition of read files without modifying functions.  
+Same thing with write files.
+    - Structure file in reader folder:
+      - name : reader_{ext}.py
       - function : def read(file: str) -> Worksite:
+    - Structure file in writer folder: 
+      - name : writer_{ext}.py
+      - function : def write(path_folder: str, work: Worksite) -> converted file:
 3. Reading a camera file (XML and txt)
 4. Reading connecting point (mes)
 5. Reading ground control point (app)

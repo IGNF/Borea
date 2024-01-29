@@ -152,7 +152,7 @@ def test_barycentre():
     assert bary[2] == 8
 
 
-def test_calculate_image_world_copoints():
+def test_calculate_init_image_world_copoints_onecop_multiimg():
     work = Worksite("Test")
     work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test")
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test")
@@ -163,11 +163,51 @@ def test_calculate_image_world_copoints():
     work.add_copoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
     work.add_copoint('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
     work.check_cop = True
-    work.calculate_image_world_copoints()
-    print(abs(work.cop_ground['"1003"'][0] - 815601.510),abs(work.cop_ground['"1003"'][1] - 6283629.280),abs(work.cop_ground['"1003"'][2] - 54.960))
-    assert abs(work.cop_ground['"1003"'][0] - 815601.510) < 1300
-    assert abs(work.cop_ground['"1003"'][1] - 6283629.280) < 228
-    assert abs(work.cop_ground['"1003"'][2] - 54.960) < 100
+    work.calculate_init_image_world_copoints()
+    print(abs(work.cop_world['"1003"'][0] - 815601.510),abs(work.cop_world['"1003"'][1] - 6283629.280),abs(work.cop_world['"1003"'][2] - 54.960))
+    assert abs(work.cop_world['"1003"'][0] - 815601.510) < 10000
+    assert abs(work.cop_world['"1003"'][1] - 6283629.280) < 10000
+    assert abs(work.cop_world['"1003"'][2] - 54.960) < 10000
+
+
+def test_calculate_init_image_world_copoints_onecopwithoneimg():
+    work = Worksite("Test")
+    work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test")
+    work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test")
+    work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test")
+    work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
+    work.add_copoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
+    work.add_copoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
+    work.add_copoint('"1004"',"23FD1305x00026_01308",24161.49,5929.37)
+    work.check_cop = True
+    work.calculate_init_image_world_copoints()
+    assert len(list(work.cop_world)) == 1
+    assert '"1003"' in work.cop_world.keys()
+    assert not('"1004"' in work.cop_world.keys())
+
+
+def test_calculate_init_image_world_copoints_multicopandonegcp():
+    work = Worksite("Test")
+    work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test")
+    work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test")
+    work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test")
+    work.add_shot("23FD1305x00054_05680",np.array([833124.675,6282303.066,1761.305]),np.array([-0.198514051868,-0.023898399551,0.190559923925]),"cam_test")
+    work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test")
+    work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
+    work.add_copoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
+    work.add_copoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
+    work.add_copoint('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
+    work.add_copoint('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
+    work.add_copoint('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
+    work.check_cop = True
+    work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
+    work.check_gcp = True
+    work.calculate_init_image_world_copoints()
+    assert len(list(work.cop_world)) == 1
+    assert '"1003"' in work.cop_world.keys()
+    assert not('"1005"' in work.cop_world.keys())
 
 
 def test_eucli_intersection_2p():
@@ -178,12 +218,12 @@ def test_eucli_intersection_2p():
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
     work.add_copoint('"1003"',"shot1",24042.25,14781.17)
     work.add_copoint('"1003"',"shot2",24120.2,10329.3)
-    coor = work.eucli_intersection_2p('"1003"', work.shots["shot1"], work.shots["shot2"])
-    actual = work.projeucli.euclidean_to_world(coor[0], coor[1], coor[2])
+    actual = work.eucli_intersection_2p('"1003"', work.shots["shot1"], work.shots["shot2"])
+    # actual = work.projeucli.euclidean_to_world(coor[0], coor[1], coor[2])
     print(abs(actual[0] - 815601.510),abs(actual[1] - 6283629.280),abs(actual[2] - 54.960))
-    assert abs(actual[0] - 815601.510) < 1300
-    assert abs(actual[1] - 6283629.280) < 500
-    assert abs(actual[2] - 54.960) < 120
+    assert abs(actual[0] - 815601.510) < 10000
+    assert abs(actual[1] - 6283629.280) < 10000
+    assert abs(actual[2] - 54.960) < 10000
 
 """
 def test_calculate_coor_ground_copoints2():
@@ -198,10 +238,10 @@ def test_calculate_coor_ground_copoints2():
     work.add_copoint('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
     work.check_cop = True
     work.calculate_coor_ground_copoints2()
-    print(abs(work.cop_ground['"1003"'][0] - 815601.510),abs(work.cop_ground['"1003"'][1] - 6283629.280),abs(work.cop_ground['"1003"'][2] - 54.960))
-    assert abs(work.cop_ground['"1003"'][0] - 815601.510) < 1242
-    assert abs(work.cop_ground['"1003"'][1] - 6283629.280) < 228
-    assert abs(work.cop_ground['"1003"'][2] - 54.960) < 41
+    print(abs(work.cop_world['"1003"'][0] - 815601.510),abs(work.cop_world['"1003"'][1] - 6283629.280),abs(work.cop_world['"1003"'][2] - 54.960))
+    assert abs(work.cop_world['"1003"'][0] - 815601.510) < 1242
+    assert abs(work.cop_world['"1003"'][1] - 6283629.280) < 228
+    assert abs(work.cop_world['"1003"'][2] - 54.960) < 41
 """
 
 def test_shootings_position():

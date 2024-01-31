@@ -1,16 +1,19 @@
 """
 Module for calculate copoints position
 """
-import numpy as np
+# import numpy as np
 from src.datastruct.worksite import Worksite
 
 
+# pylint: disable-next=unused-argument
 def copoints_position(work: Worksite) -> None:
     """
     Calculates the field position of connection points using the least squares.
 
     Args:
         work (Worksite): The site on which you want to calculate the position of the copoints.
+    """
+    # pylint: disable-next=pointless-string-statement
     """
     #Initialization of world coordinate copoints
     work.calculate_init_image_world_copoints()
@@ -26,7 +29,7 @@ def copoints_position(work: Worksite) -> None:
             for name_shot in work.copoints[name_cop]:
                 shot = work.shots[name_shot]
                 cam = work.cameras[shot.name_cam]
-                c_shot, l_shot = shot.world_to_image(coor_cop[0], coor_cop[1], coor_cop[2], 
+                c_shot, l_shot = shot.world_to_image(coor_cop[0], coor_cop[1], coor_cop[2],
                                                      cam, work.projeucli)
                 coor_eucli = work.projeucli.world_to_euclidean(coor_cop[0],
                                                                coor_cop[1],
@@ -40,12 +43,13 @@ def copoints_position(work: Worksite) -> None:
                 mat_v[1::2, 1] = 1
                 mat_v[1::2, 2] = -vect_u[1] / vect_u[2]
 
-                coord_i += [np.repeat(2 * pd_mes_pnt['index_mes'].to_numpy(), 6) + np.tile([0, 0, 0, 1, 1, 1], len(c_shot))]
-                coord_j += [np.repeat(3 * pd_mes_pnt['index_pnt'].to_numpy(), 6) + np.tile([0, 1, 2, 0, 1, 2], len(c_shot))]
-                data += [((np.tile(np.repeat(cam.focal / vect_u[2], 2), (3, 1)).T * mat_v @ shot.mat_rot_eucli).flatten())]
+                coord_i += [np.repeat(2 * pd_mes_pnt['index_mes'].to_numpy(), 6) +
+                            np.tile([0, 0, 0, 1, 1, 1], len(c_shot))]
+                coord_j += [np.repeat(3 * pd_mes_pnt['index_pnt'].to_numpy(), 6) +
+                            np.tile([0, 1, 2, 0, 1, 2], len(c_shot))]
+                data += [((np.tile(np.repeat(cam.focal / vect_u[2], 2), (3, 1)).T *
+                        mat_v @ shot.mat_rot_eucli).flatten())]
                 v_res[2 * pd_mes_pnt['index_mes'].to_numpy()] = pd_mes_pnt["c"].to_numpy() - c_shot
-                v_res[2 * pd_mes_pnt['index_mes'].to_numpy() + 1] = pd_mes_pnt["l"].to_numpy() - l_shot
-
-
-
-
+                v_res[2 * pd_mes_pnt['index_mes'].to_numpy() + 1] = pd_mes_pnt["l"].to_numpy() -
+                l_shot
+"""

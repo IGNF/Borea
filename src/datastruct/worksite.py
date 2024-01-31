@@ -213,7 +213,7 @@ class Worksite:
         """
         if self.check_cop:
             for name_cop, item_cop in self.copoints.items():  # Loop on copoints
-                if len(item_cop) == 1 or name_cop in self.gcps.keys():
+                if len(item_cop) == 1 or name_cop in list(self.gcps):
                     continue
                 shot1 = ""
                 shot2 = ""

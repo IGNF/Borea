@@ -9,8 +9,19 @@ Pink Lady is a photogrammetric conversion and acquisition program in .OPK format
   │            │
   │            └─⫸ Summary in present tense. Not capitalized. No period at the end.
   │
-  └─⫸ Commit Type: build|docs|fix|refactor|test|clean|lint
+  └─⫸ Commit Type: build|ci|docs|feat|fix|refactor|test
 ```
+Must be one of the following:
+
+  * build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+  * ci: Changes to our CI configuration files and scripts (examples: CircleCi, SauceLabs)
+  * docs: Documentation only changes
+  * feat: A new feature
+  * fix: A bug fix
+  * refactor: A code change that neither fixes a bug nor adds a feature
+  * test: Adding missing tests or correcting existing tests
+
+Based on: https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit
 
 ### HTML documentation
 
@@ -43,10 +54,14 @@ Markdown documentation function in docs/functions
 ### Functionality
 
 1. Reading and writing an OPK file
-2. Restructuring of read files to allow the addition of read files without modifying functions
-    Structure file in reader folder: 
-      - name : reader_ext.py
+2. Restructuring of read files to allow the addition of read files without modifying functions.  
+Same thing with write files.
+    - Structure file in reader folder:
+      - name : reader_{ext}.py
       - function : def read(file: str) -> Worksite:
+    - Structure file in writer folder: 
+      - name : writer_{ext}.py
+      - function : def write(path_folder: str, work: Worksite) -> converted file:
 3. Reading a camera file (XML and txt)
 4. Reading connecting point (mes)
 5. Reading ground control point (app)

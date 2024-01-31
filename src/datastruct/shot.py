@@ -178,6 +178,8 @@ class Shot:
 
         if isinstance(col, np.ndarray):
             dim = np.shape(col)
+            if np.all(z == 0):
+                z = np.full_like(col, 0)
         else:
             dim = ()
 

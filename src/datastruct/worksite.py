@@ -9,7 +9,7 @@ from src.datastruct.camera import Camera
 from src.datastruct.gcp import GCP
 from src.geodesy.proj_engine import ProjEngine
 from src.geodesy.euclidean_proj import EuclideanProj
-from src.orientation.shot_pos import space_resection
+from src.position.shot_pos import space_resection
 
 
 # pylint: disable-next=too-many-instance-attributes
@@ -31,7 +31,7 @@ class Worksite:
         self.check_cop = False
         self.gcps = {}
         self.check_gcp = False
-        self.cop_ground = {}
+        self.cop_world = {}
         self.proj = None
         self.projeucli = None
 
@@ -206,17 +206,19 @@ class Worksite:
             i += 1
         return np.mean(pos, axis=0)
 
-    def calculate_image_world_copoints(self) -> None:
+    def calculate_init_image_world_copoints(self) -> None:
         """
         Calculates the ground position of connecting point by intersection with
         the most distance between two shots.
         """
         if self.check_cop:
             for name_cop, item_cop in self.copoints.items():  # Loop on copoints
+                if len(item_cop) == 1 or name_cop in list(self.gcps):
+                    continue
                 shot1 = ""
                 shot2 = ""
                 dist = 0
-                list_shot1 = item_cop
+                list_shot1 = item_cop.copy()
                 list_shot2 = list_shot1.copy()
                 _ = list_shot1.pop(-1)
                 for name_shot1 in list_shot1:  # Double loop on shots of copoint
@@ -231,7 +233,7 @@ class Worksite:
                             shot2 = name_shot2
                 coor = self.eucli_intersection_2p(name_cop, self.shots[shot1], self.shots[shot2])
                 coor = self.projeucli.euclidean_to_world(coor[0], coor[1], coor[2])
-                self.cop_ground[name_cop] = coor
+                self.cop_world[name_cop] = coor
 
     # pylint: disable-next=too-many-locals
     def eucli_intersection_2p(self, name_copoint: str, shot1: Shot, shot2: Shot) -> np.array:
@@ -250,24 +252,20 @@ class Worksite:
         p_img2 = shot2.copoints[name_copoint]
         cam1 = self.cameras[shot1.name_cam]
         cam2 = self.cameras[shot2.name_cam]
-        base = shot1.pos_shot_eucli - shot2.pos_shot_eucli
-        vect1 = shot1.mat_rot_eucli.T @ np.array([p_img1[0] - cam1.ppax,
-                                                  p_img1[1] - cam1.ppay,
-                                                  -cam1.focal])
-        vect2 = shot2.mat_rot_eucli.T @ np.array([p_img2[0] - cam2.ppax,
-                                                  p_img2[1] - cam2.ppay,
-                                                  -cam2.focal])
+        base = shot1.pos_shot - shot2.pos_shot
+        vect1 = shot1.mat_rot.T @ shot1.image_to_bundle(p_img1[0], p_img1[1], cam1)
+        vect2 = shot2.mat_rot.T @ shot2.image_to_bundle(p_img2[0], p_img2[1], cam2)
         norme_v1 = vect1 @ vect1
         norme_v2 = vect2 @ vect2
         v1_v2 = vect1 @ vect2
         b_v1 = base @ vect1
         b_v2 = base @ vect2
-        num1 = b_v2*v1_v2 - b_v1*norme_v1
+        num1 = b_v2*v1_v2 - b_v1*norme_v2
         num2 = b_v2*norme_v1 - b_v1*v1_v2
         denum = v1_v2**2 - norme_v1*norme_v2
-        p1_eucli = shot1.pos_shot_eucli + ((num1)/(denum))*vect1
-        p2_eucli = shot2.pos_shot_eucli + ((num2)/(denum))*vect2
-        return 0.5 * (p1_eucli + p2_eucli)
+        p1_world = shot1.pos_shot + ((num1)/(denum))*vect1
+        p2_world = shot2.pos_shot + ((num2)/(denum))*vect2
+        return (p1_world + p2_world) / 2
 
     # pylint: disable-next=pointless-string-statement
     """

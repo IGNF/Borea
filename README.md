@@ -9,8 +9,19 @@ Pink Lady is a photogrammetric conversion and acquisition program in .OPK format
   │            │
   │            └─⫸ Summary in present tense. Not capitalized. No period at the end.
   │
-  └─⫸ Commit Type: build|docs|fix|refactor|test|clean|lint
+  └─⫸ Commit Type: build|ci|docs|feat|fix|refactor|test
 ```
+Must be one of the following:
+
+  * build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+  * ci: Changes to our CI configuration files and scripts (examples: CircleCi, SauceLabs)
+  * docs: Documentation only changes
+  * feat: A new feature
+  * fix: A bug fix
+  * refactor: A code change that neither fixes a bug nor adds a feature
+  * test: Adding missing tests or correcting existing tests
+
+Based on: https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit
 
 ### HTML documentation
 

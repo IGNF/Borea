@@ -5,11 +5,11 @@ import numpy as np
 from scipy.spatial.transform import Rotation
 from src.datastruct.camera import Camera
 from src.datastruct.shot import Shot
-from src.geodesy.euclidean_proj import EuclideanProj
+from src.geodesy.proj_engine import ProjEngine
 
 
 # pylint: disable-next=too-many-locals
-def space_resection(shot: Shot, cam: Camera, projeucli: EuclideanProj,
+def space_resection(shot: Shot, cam: Camera, proj: ProjEngine,
                     add_pixel: tuple = (0, 0)) -> Shot:
     """
     Recalculates the shot's 6 external orientation parameters,
@@ -28,10 +28,10 @@ def space_resection(shot: Shot, cam: Camera, projeucli: EuclideanProj,
     c_obs, l_obs, z_world = seed_20_point(cam)
 
     # Calculate world position
-    x_world, y_world, _ = shot.image_to_world(c_obs, l_obs, cam, projeucli, z_world)
+    x_world, y_world, _ = shot.image_to_world(c_obs, l_obs, cam, z_world)
 
     # Calculate euclidean position
-    x_eucli, y_eucli, z_eucli = projeucli.world_to_euclidean(x_world, y_world, z_world)
+    x_eucli, y_eucli, z_eucli = shot.projeucli.world_to_euclidean(x_world, y_world, z_world)
 
     # Add factor
     c_obs += add_pixel[0]
@@ -39,7 +39,7 @@ def space_resection(shot: Shot, cam: Camera, projeucli: EuclideanProj,
 
     # Initialization of adjusted shot
     shot_adjust = Shot(shot.name_shot, shot.pos_shot, shot.ori_shot, shot.name_cam)
-    shot_adjust.set_param_eucli_shot(projeucli)
+    shot_adjust.set_param_eucli_shot(proj)
 
     bool_iter = True
     count_iter = 0
@@ -50,7 +50,7 @@ def space_resection(shot: Shot, cam: Camera, projeucli: EuclideanProj,
         mat_a = mat_obs_axia(x_eucli, y_eucli, z_eucli, shot_adjust, cam)
 
         # Calculate position column and line with new shot f(x0)
-        c_f0, l_f0 = shot_adjust.world_to_image(x_world, y_world, z_world, cam, projeucli)
+        c_f0, l_f0 = shot_adjust.world_to_image(x_world, y_world, z_world, cam)
 
         # Calculate residual vector B
         v_res = np.c_[c_obs - c_f0, l_obs - l_f0].reshape(2 * len(x_eucli), 1)
@@ -66,7 +66,7 @@ def space_resection(shot: Shot, cam: Camera, projeucli: EuclideanProj,
 
         # Creation of new shot with new parameter
         imc_new_adjust = Shot.from_param_euclidean(shot_adjust.name_shot, new_pos_eucli,
-                                                   new_mat_eucli, shot_adjust.name_cam, projeucli)
+                                                   new_mat_eucli, shot_adjust.name_cam, proj)
 
         # Look difference to know if you want to stop the calculation
         diff_coord = np.array([imc_new_adjust.pos_shot]) - np.array([shot_adjust.pos_shot])

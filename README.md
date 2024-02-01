@@ -31,19 +31,22 @@ Call the function in a terminal located in the directory of the pink_lady.py fil
 
 Then add the parameters:
 
-| Symbol | Details | Default |
-| :----: | :------ | :-----: |
-| -f | File path of the workfile | |
-| -skip | Number of lines to be skipped before reading the file | 1 |
-| -epsg | EPSG codifier number of the reference system used ex: "EPSG:2154" | "EPSG:2154" |
-| -pepsg | Path to the json file which list the code epsg, you use | None |
-| -ptif | Path to the folder which contains GeoTIFF | None |
-| -w | Worksite output file format ex:opk | None |
-| -pr | Conversion path ex:test/tmp/ | 'test/tmp/' |
-| -c | Files paths of cameras (.xml or .txt) | None |
-| -wh | Width and height of the camera | None |
-| -cp | Files paths of connecting points (.mes) | None |
-| -gcp | Files paths of ground control point (.app) | None |
+| Symbol | Details | Default | Mandatory |
+| :----: | :------ | :-----: | :-------: |
+| -f | File path of the workfile | | V |
+| -s | Number of lines to be skipped before reading the file | 1 | X |
+| -e | EPSG codifier number of the reference system used e.g. "2154" | "2154" | X |
+| -p | Path to the json file which list the code epsg, you use | None | X |
+| -y | Path to the folder which contains GeoTIFF | None | X |
+| -o | Worksite output file format ex:opk | None | X |
+| -r | Conversion path ex:test/tmp/ | 'test/tmp/' | X |
+| -c | Files paths of cameras (.xml or .txt) | None | X |
+| -w | Width of the image | None | X |
+| -a | Height of the image | None | X |
+| -l | Files paths of connecting points (.mes) | None | X |
+| -t | Files paths of ground points image (.mes) | None | X |
+| -g | Files paths of ground control point (.app) | None | X |
+| -d | Type of gcp to control. | None | X |
 
 Some settings are optional, depending on what you want to do with Pink Lady.
 Only the first -f parameter is mandatory

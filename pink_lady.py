@@ -6,6 +6,7 @@ import argparse
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.reader_camera import read_camera
 from src.reader.reader_copoints import read_copoints
+from src.reader.reader_gipoints import read_gipoints
 from src.reader.reader_gcp import read_gcp
 from src.writer.manage_writer import manager_writer
 
@@ -39,8 +40,8 @@ parser.add_argument('-c', '--camera',
 parser.add_argument('-w', '--width',
                     type=int, default=None,
                     help='Width and height of the camera.')
-parser.add_argument('-h', '--height',
-                    type=int, default=None,
+parser.add_argument('-a', '--height',
+                    type=float, default=None,
                     help='Width and height of the camera.')
 parser.add_argument('-l', '--connecting_points',
                     type=str, default=None, nargs='*',
@@ -51,6 +52,9 @@ parser.add_argument('-t', '--ground_points',
 parser.add_argument('-g', '--gcp',
                     type=str, default=None, nargs='*',
                     help='Files paths of GCP (.app).')
+parser.add_argument('-d', '--control_type',
+                    type=int, default=None, nargs='*',
+                    help='Type of gcp to control.')
 
 args = parser.parse_args()
 
@@ -81,6 +85,11 @@ if args.connecting_points is not None:
     read_copoints(args.connecting_points, work)
     print("Connecting point reading done.")
 
+# Reading ground point image
+if args.ground_points is not None:
+    read_gipoints(args.ground_points, work)
+    print("Connecting point reading done.")
+
 # Calculate ground coordinate of conneting point by intersection
 
 # Reading GCP
@@ -89,7 +98,7 @@ if args.gcp is not None:
     print("GCP reading done.")
 
 # Calculate image coordinate of GCP if they exist
-work.calculate_world_to_image_gcp([3])
+work.calculate_world_to_image_gcp(args.control_type)
 
 # Writing data
 if args.writer is not None:

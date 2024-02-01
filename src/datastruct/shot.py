@@ -5,6 +5,7 @@ from typing import Union
 import numpy as np
 from scipy.spatial.transform import Rotation
 from src.datastruct.camera import Camera
+from src.geodesy.proj_engine import ProjEngine
 from src.geodesy.euclidean_proj import EuclideanProj
 from src.utils.conversion import change_dim
 
@@ -35,6 +36,7 @@ class Shot:
         self.mat_rot_eucli = None
         self.z_alti = None
         self.z_alti_eucli = None
+        self.projeucli = None
         self.f_sys = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
         self.f_sys_inv = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
 
@@ -42,7 +44,7 @@ class Shot:
     # pylint: disable-next=too-many-arguments
     def from_param_euclidean(cls, name_shot: str, pos_eucli: np.array,
                              mat_ori_eucli: np.array, name_cam: str,
-                             projeucli: EuclideanProj) -> None:
+                             proj: ProjEngine) -> None:
         """
         Construction of a shot object using the Euclidean position.
 
@@ -51,27 +53,29 @@ class Shot:
             pos_eucli (np.array): Euclidean position of the shot.
             mat_ori_eucli (np.array): Euclidean rotation matrix of the shot.
             name_cam (str): Name of the camera.
-            projeucli (EuclideanProj): Euclidean projection of the worksite.
+            proj (ProjEngine): Projection of the worksite.
 
         Returns:
             Shot: The shot.
         """
         shot = cls(name_shot, np.array([0, 0, 0]), np.array([0, 0, 0]), name_cam)
         shot.pos_shot_eucli = pos_eucli
+        shot.projeucli = EuclideanProj(pos_eucli[0], pos_eucli[1], proj)
         shot.ori_shot_eucli = -Rotation.from_matrix(mat_ori_eucli).as_euler("xyz", degrees=True)
-        shot.pos_shot = projeucli.euclidean_to_world(shot.pos_shot_eucli[0],
-                                                     shot.pos_shot_eucli[1],
-                                                     shot.pos_shot_eucli[2])
+        shot.pos_shot = shot.projeucli.euclidean_to_world(shot.pos_shot_eucli[0],
+                                                          shot.pos_shot_eucli[1],
+                                                          shot.pos_shot_eucli[2])
         shot.copoints = {}
         shot.gcps = {}
         shot.gipoints = {}
-        shot.mat_rot = projeucli.mat_eucli_to_mat(shot.pos_shot[0], shot.pos_shot[1], mat_ori_eucli)
+        shot.mat_rot = shot.projeucli.mat_eucli_to_mat(shot.pos_shot[0], shot.pos_shot[1],
+                                                       mat_ori_eucli)
         shot.mat_rot_eucli = mat_ori_eucli
         shot.ori_shot = -Rotation.from_matrix(shot.mat_rot).as_euler("xyz", degrees=True)
-        shot.z_alti = shot.tranform_vertical(projeucli)
-        shot.z_alti_eucli = projeucli.world_to_euclidean(shot.pos_shot[0],
-                                                         shot.pos_shot[1],
-                                                         shot.z_alti)[2]
+        shot.z_alti = shot.tranform_vertical()
+        shot.z_alti_eucli = shot.projeucli.world_to_euclidean(shot.pos_shot[0],
+                                                              shot.pos_shot[1],
+                                                              shot.z_alti)[2]
         shot.f_sys = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
         shot.f_sys_inv = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
 
@@ -96,34 +100,35 @@ class Shot:
                        [0, 0, 1]])
         return (rx @ ry @ rz).T
 
-    def set_param_eucli_shot(self, projeucli: EuclideanProj) -> None:
+    def set_param_eucli_shot(self, proj: ProjEngine) -> None:
         """
-        Setting up Euclidean parameters pos_shot_eucli, ori_shot_eucli, mat_rot_eucli.
+        Setting up Euclidean parameters projeucli, pos_shot_eucli, ori_shot_eucli, mat_rot_eucli.
 
         Args:
-            projeucli (EuclideanProj): Euclidean projection.
+            proj (ProjEngine): Projection of the worksite.
         """
-        self.pos_shot_eucli = projeucli.world_to_euclidean(self.pos_shot[0],
-                                                           self.pos_shot[1],
-                                                           self.pos_shot[2])
-        self.mat_rot_eucli = projeucli.mat_to_mat_eucli(self.pos_shot[0],
-                                                        self.pos_shot[1],
-                                                        self.mat_rot)
+        self.projeucli = EuclideanProj(self.pos_shot[0], self.pos_shot[1], proj)
+        self.pos_shot_eucli = self.projeucli.world_to_euclidean(self.pos_shot[0],
+                                                                self.pos_shot[1],
+                                                                self.pos_shot[2])
+        self.mat_rot_eucli = self.projeucli.mat_to_mat_eucli(self.pos_shot[0],
+                                                             self.pos_shot[1],
+                                                             self.mat_rot)
         self.ori_shot_eucli = -Rotation.from_matrix(self.mat_rot_eucli).as_euler('xyz',
                                                                                  degrees=True)
-        self.z_alti = self.tranform_vertical(projeucli)
+        self.z_alti = self.tranform_vertical()
         if self.z_alti is None:
             self.z_alti_eucli = None
         else:
-            self.z_alti_eucli = projeucli.world_to_euclidean(self.pos_shot[0],
-                                                             self.pos_shot[1],
-                                                             self.z_alti)[2]
+            self.z_alti_eucli = self.projeucli.world_to_euclidean(self.pos_shot[0],
+                                                                  self.pos_shot[1],
+                                                                  self.z_alti)[2]
 
     # pylint: disable-next=too-many-arguments too-many-locals
     def world_to_image(self, x_world: Union[np.array, float],
                        y_world: Union[np.array, float],
                        z_world: Union[np.array, float],
-                       cam: Camera, projeucli: EuclideanProj) -> np.array:
+                       cam: Camera) -> np.array:
         """
         Calculates the c,l coordinates of a terrain point in an image.
 
@@ -132,7 +137,6 @@ class Shot:
             y_world (Union[np.array, float]): the coordinate y of ground point.
             z_world (Union[np.array, float]): the coordinate z of ground point.
             cam (Camera): the camera used.
-            projeucli (EuclideanProj): Euclidean projection of the worksite.
 
         Returns:
             np.array: The image coordinate [c,l].
@@ -145,7 +149,7 @@ class Shot:
         else:
             dim = ()
 
-        p_eucli = projeucli.world_to_euclidean(x_world, y_world, z_world)
+        p_eucli = self.projeucli.world_to_euclidean(x_world, y_world, z_world)
         pos_eucli = np.copy(self.pos_shot_eucli)
         pos_eucli[2] = self.z_alti_eucli
         p_bundle = self.mat_rot_eucli @ np.vstack([p_eucli[0] - pos_eucli[0],
@@ -161,7 +165,7 @@ class Shot:
 
     # pylint: disable-next=too-many-locals too-many-arguments
     def image_to_world(self, col: Union[np.array, float], line: Union[np.array, float], cam: Camera,
-                       projeucli: EuclideanProj, z: Union[np.array, float] = 0) -> np.array:
+                       z: Union[np.array, float] = 0) -> np.array:
         """
         Calculate x and y cartographique coordinate with z = 0.
 
@@ -169,7 +173,6 @@ class Shot:
             col (Union[np.array, float]): Column coordinates of image point(s).
             line (Union[np.array, float]): Line coordinates of image point(s).
             cam (Camera): Objet cam which correspond to the shot.
-            proj (EuclideanProj): Euclidean projection of the worksite.
             z (Union[np.array, float]): La position z du point par défault = 0.
 
         Returns:
@@ -193,7 +196,7 @@ class Shot:
         lamb = (z - pos_eucli[2])/(p_local[2] - pos_eucli[2])
         x_local = pos_eucli[0] + (p_local[0] - pos_eucli[0]) * lamb
         y_local = pos_eucli[1] + (p_local[1] - pos_eucli[1]) * lamb
-        x_world, y_world, _ = projeucli.euclidean_to_world(x_local, y_local, z)
+        x_world, y_world, _ = self.projeucli.euclidean_to_world(x_local, y_local, z)
         return np.array([change_dim(x_world, dim), change_dim(y_world, dim), z])
 
     def image_to_bundle(self, col: Union[np.array, float],
@@ -218,7 +221,7 @@ class Shot:
         z_bundle = z_shot
         return np.array([x_bundle, y_bundle, z_bundle])
 
-    def tranform_vertical(self, projeucli: EuclideanProj) -> float:
+    def tranform_vertical(self) -> float:
         """
         Get new z position for the acquisition.
         It is a height z (altitude z).
@@ -229,13 +232,13 @@ class Shot:
         Returns:
             float: New height z.
         """
-        coor_geog = projeucli.proj_engine.tf.carto_to_geog(self.pos_shot[0],
-                                                           self.pos_shot[1],
-                                                           self.pos_shot[2])
+        coor_geog = self.projeucli.proj_engine.tf.carto_to_geog(self.pos_shot[0],
+                                                                self.pos_shot[1],
+                                                                self.pos_shot[2])
         try:
-            new_z = projeucli.proj_engine.tf.geog_to_geoid(coor_geog[0],
-                                                           coor_geog[1],
-                                                           coor_geog[2])[2]
+            new_z = self.projeucli.proj_engine.tf.geog_to_geoid(coor_geog[0],
+                                                                coor_geog[1],
+                                                                coor_geog[2])[2]
         except AttributeError:
             new_z = None
 

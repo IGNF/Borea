@@ -9,7 +9,6 @@ from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
 from src.datastruct.gcp import GCP
 from src.geodesy.proj_engine import ProjEngine
-from src.geodesy.euclidean_proj import EuclideanProj
 from src.position.shot_pos import space_resection
 
 
@@ -81,10 +80,6 @@ class Worksite:
                 try:
                     dict_epsg = projection_list[epsg]
                     self.proj = ProjEngine(epsg, dict_epsg, path_geotiff)
-                    coor_barycentre = self.calculate_barycentre()
-                    self.projeucli = EuclideanProj(coor_barycentre[0],
-                                                   coor_barycentre[1],
-                                                   self.proj)
                     self.set_param_eucli_shots()
                 except KeyError:
                     self.known_projection(epsg, path_geotiff)
@@ -106,8 +101,6 @@ class Worksite:
         try:
             dict_epsg = projection_list[epsg]
             self.proj = ProjEngine(epsg, dict_epsg, path_geotiff)
-            coor_barycentre = self.calculate_barycentre()
-            self.projeucli = EuclideanProj(coor_barycentre[0], coor_barycentre[1], self.proj)
             self.set_param_eucli_shots()
         except KeyError:
             self.proj = ProjEngine(epsg)
@@ -117,7 +110,7 @@ class Worksite:
         Setting up Euclidean parameters pos_shot_eucli, ori_shot_eucli, mat_rot_eucli by shot.
         """
         for shot in self.shots.values():
-            shot.set_param_eucli_shot(self.projeucli)
+            shot.set_param_eucli_shot(self.proj)
 
     def add_camera(self, name_camera: str, ppax: float,
                    ppay: float, focal: float) -> None:
@@ -220,16 +213,20 @@ class Worksite:
         Args:
             lcode (list): gcp code.
         """
+        check_lcode = False
+        if lcode is None:
+            check_lcode = True
+            lcode = []
         if self.check_gcp and self.check_gip:
             for name_gcp, gcp in self.gcps.items():
-                if gcp.code in lcode:
+                if gcp.code in lcode or check_lcode:
                     try:
                         list_shots = self.gipoints[name_gcp]
                         for name_shot in list_shots:
                             shot = self.shots[name_shot]
                             cam = self.cameras[shot.name_cam]
                             coor_img = shot.world_to_image(gcp.coor[0], gcp.coor[1], gcp.coor[2],
-                                                           cam, self.projeucli)
+                                                           cam)
                             self.shots[name_shot].gcps[name_gcp] = coor_img
                     except KeyError:
                         continue
@@ -275,7 +272,6 @@ class Worksite:
                             shot1 = name_shot1
                             shot2 = name_shot2
                 coor = self.eucli_intersection_2p(name_cop, self.shots[shot1], self.shots[shot2])
-                coor = self.projeucli.euclidean_to_world(coor[0], coor[1], coor[2])
                 self.cop_world[name_cop] = coor
 
     # pylint: disable-next=too-many-locals
@@ -341,4 +337,4 @@ class Worksite:
         """
         for key_shot, item_shot in self.shots.items():
             cam = self.cameras[item_shot.name_cam]
-            self.shots[key_shot] = space_resection(item_shot, cam, self.projeucli, add_pixel)
+            self.shots[key_shot] = space_resection(item_shot, cam, self.proj, add_pixel)

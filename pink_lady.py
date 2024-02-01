@@ -12,42 +12,45 @@ from src.writer.manage_writer import manager_writer
 parser = argparse.ArgumentParser(description='Photogrammetric site conversion'
                                              ' and manipulation software.')
 parser.add_argument('-f', '--filepath',
-                    type=str, default=None,
-                    help='File path of the workfile (Nb arg 1).')
-parser.add_argument('-skip', '--skip',
+                    type=str, help='File path of the workfile.')
+parser.add_argument('-s', '--skip',
                     type=int, default=1,
-                    help='Number of lines to be skipped before reading the file (Nb arg 1).')
-parser.add_argument('-epsg', '--epsg',
-                    type=str, default="EPSG:2154",
-                    help='EPSG codifier number of the reference system used ex: "EPSG:2154"'
-                    ' (Nb arg 1).')
-parser.add_argument('-pepsg', '--pathepsg',
+                    help='Number of lines to be skipped before reading the file.')
+parser.add_argument('-e', '--epsg',
+                    type=str, default="2154",
+                    help='EPSG codifier number of the reference system used e.g. "2154".')
+parser.add_argument('-p', '--pathepsg',
                     type=str, default=None,
-                    help='Path to the json file which list the code epsg, you use (Nb arg 1).')
-parser.add_argument('-ptif', '--pathgeotiff',
+                    help='Path to the json file which list the code epsg, you use.')
+parser.add_argument('-y', '--pathgeotiff',
                     type=str, default=None,
-                    help='Path to the folder which contains GeoTIFF ex:./test/data/ or '
-                         'they must be in usr/share/proj or '
-                         'env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj'
-                         ' (Nb arg 1).')
-parser.add_argument('-w', '--writer',
+                    help='Path to the folder which contains pyproj GeoTIFF of the geoid '
+                         'e.g../test/data/ or they must be in usr/share/proj or '
+                         'env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj.')
+parser.add_argument('-o', '--writer',
                     type=str, default=None,
-                    help='Worksite output file format ex:opk (Nb arg 1).')
-parser.add_argument('-pr', '--pathreturn',
-                    type=str, default='test/tmp/',
-                    help='Conversion path ex:test/tmp/ (Nb arg 1).')
+                    help='Worksite output file format e.g. opk.')
+parser.add_argument('-r', '--pathreturn',
+                    type=str, default='./',
+                    help='Conversion path e.g. test/tmp/.')
 parser.add_argument('-c', '--camera',
                     type=str, default=None, nargs='*',
-                    help='Files paths of cameras (xml or txt) (Nb args [*]).')
-parser.add_argument('-wh', '--widthxheight',
-                    type=int, default=None, nargs=2,
-                    help='Width and height of the camera (Nb args [width, height]).')
-parser.add_argument('-cp', '--connecting_points',
+                    help='Files paths of cameras (xml or txt).')
+parser.add_argument('-w', '--width',
+                    type=int, default=None,
+                    help='Width and height of the camera.')
+parser.add_argument('-h', '--height',
+                    type=int, default=None,
+                    help='Width and height of the camera.')
+parser.add_argument('-l', '--connecting_points',
                     type=str, default=None, nargs='*',
-                    help='Files paths of connecting points (.mes) (Nb args [*]).')
-parser.add_argument('-gcp', '--gcp',
+                    help='Files paths of connecting points (.mes).')
+parser.add_argument('-t', '--ground_points',
                     type=str, default=None, nargs='*',
-                    help='Files paths of GCP (.app) (Nb args [*]).')
+                    help='Files paths of ground points in images (.mes).')
+parser.add_argument('-g', '--gcp',
+                    type=str, default=None, nargs='*',
+                    help='Files paths of GCP (.app).')
 
 args = parser.parse_args()
 
@@ -69,9 +72,9 @@ if args.camera is not None:
     print("Camera file reading done.")
 
 # Add shape of image
-if args.widthxheight is not None:
+if args.width is not None and args.height is not None:
     for cam in work.cameras.values():
-        cam.add_dim_image(args.widthxheight[0], args.widthxheight[1])
+        cam.add_dim_image(args.width, args.height)
 
 # Reading connecting point
 if args.connecting_points is not None:

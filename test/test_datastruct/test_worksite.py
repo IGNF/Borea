@@ -27,8 +27,8 @@ def test_set_proj_Lambertbase():
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam")
     work.set_proj("2154", "test/data/proj.json", "./test/data/")
     assert work.proj.projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
-    assert round(work.projeucli.x_central, 3) == 814975.925
-    assert round(work.projeucli.y_central, 3) == 6283986.148
+    assert round(work.shots["t1"].projeucli.x_central, 3) == 814975.925
+    assert round(work.shots["t1"].projeucli.y_central, 3) == 6283986.148
 
 
 def test_set_proj_Lambertbase_withEPSG():
@@ -38,8 +38,8 @@ def test_set_proj_Lambertbase_withEPSG():
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam")
     work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
     assert work.proj.projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
-    assert round(work.projeucli.x_central, 3) == 814975.925
-    assert round(work.projeucli.y_central, 3) == 6283986.148
+    assert round(work.shots["t1"].projeucli.x_central, 3) == 814975.925
+    assert round(work.shots["t1"].projeucli.y_central, 3) == 6283986.148
 
 
 def test_set_proj_withjsonandepsg():
@@ -49,8 +49,8 @@ def test_set_proj_withjsonandepsg():
     work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
     work.set_proj("4339", "test/data/proj.json")
     assert work.proj.projection_list == {"geoc": "EPSG:4340", "geog": "EPSG:4176", "comment": "Projection of Australian Antartic"}
-    assert work.projeucli.x_central == 1
-    assert work.projeucli.y_central == 2
+    assert work.shots["t1"].projeucli.x_central == 1
+    assert work.shots["t1"].projeucli.y_central == 2
 
 
 def test_set_proj_epsgnojson():
@@ -186,6 +186,23 @@ def test_calculate_world_to_image_gcp_testcode():
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 5
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 5
     assert len(work.shots['shot_test'].gcps) == 1
+
+
+def test_calculate_world_to_image_gcp_testcodeNone():
+    work = Worksite("test")
+    work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test')
+    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
+    work.add_gipoint('gcp_test', 'shot_test', 24042.25, 14781.17)
+    work.add_gipoint('gcp_test_test', 'shot_test', 24042.25, 14781.17)
+    work.check_gip = True
+    work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
+    work.add_gcp('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
+    work.check_gcp = True
+    work.calculate_world_to_image_gcp(None)
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 5
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 5
+    assert len(work.shots['shot_test'].gcps) == 2
 
 
 def test_barycentre():

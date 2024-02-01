@@ -78,6 +78,10 @@ def space_resection(shot: Shot, cam: Camera, projeucli: EuclideanProj,
         # Replace adjusted place
         shot_adjust = imc_new_adjust
 
+    shot_adjust.copoints = shot.copoints
+    shot_adjust.gipoints = shot.gipoints
+    shot_adjust.gcps = shot.gcps
+
     return shot_adjust
 
 

@@ -29,6 +29,7 @@ class Shot:
         self.ori_shot_eucli = None
         self.name_cam = name_cam
         self.copoints = {}
+        self.gipoints = {}
         self.gcps = {}
         self.mat_rot = self.set_rot_shot()
         self.mat_rot_eucli = None
@@ -63,6 +64,7 @@ class Shot:
                                                      shot.pos_shot_eucli[2])
         shot.copoints = {}
         shot.gcps = {}
+        shot.gipoints = {}
         shot.mat_rot = projeucli.mat_eucli_to_mat(shot.pos_shot[0], shot.pos_shot[1], mat_ori_eucli)
         shot.mat_rot_eucli = mat_ori_eucli
         shot.ori_shot = -Rotation.from_matrix(shot.mat_rot).as_euler("xyz", degrees=True)

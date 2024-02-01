@@ -4,6 +4,7 @@ Worksite data class module.
 import sys
 import json
 import numpy as np
+from pyproj import CRS, exceptions
 from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
 from src.datastruct.gcp import GCP
@@ -29,6 +30,8 @@ class Worksite:
         self.cameras = {}
         self.copoints = {}
         self.check_cop = False
+        self.gipoints = {}
+        self.check_gip = False
         self.gcps = {}
         self.check_gcp = False
         self.cop_world = {}
@@ -60,6 +63,14 @@ class Worksite:
             file_epsg (str): Path to the json which list projection.
             path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.
         """
+        try:  # Check if the epsg exist
+            if epsg[0:5] != "EPSG:":
+                epsg = "EPSG:" + epsg
+            crs = CRS.from_string(epsg)
+            del crs
+        except exceptions.CRSError as e_info:
+            raise exceptions.CRSError(f"Your {epsg} doesn't exist") from e_info
+
         if file_epsg is None:
             self.known_projection(epsg, path_geotiff)
         else:
@@ -156,6 +167,38 @@ class Worksite:
 
         self.copoints[name_point].append(name_shot)
 
+    def add_gipoint(self, name_point: str, name_shot: str, x: float, y: float) -> None:
+        """
+        Add linking point between acquisition in two part.
+        One in self.gipoints a dict with name_point the key and list of acquisition the result.
+        And One in self.shot[name_shot].gipoints a dict whit
+        name_point the key and list of coordinate x (column) y (line) the result in list.
+
+        Agrs:
+            name_point (str): Name of the connecting point.
+            name_shot (str): Name of the acquisition.
+            x (float): Pixel position of the point in column.
+            y (float): Pixel position of the point in line.
+        """
+        if name_shot not in self.shots:
+            print(f"The shot {name_shot} doesn't exist in list of shots.")
+            sys.exit()
+
+        if name_point not in self.gipoints:
+            self.gipoints[name_point] = []
+
+        if name_point not in self.shots[name_shot].gipoints:
+            self.shots[name_shot].gipoints[name_point] = [x, y]
+        else:
+            print("\n :--------------------------:")
+            print("Warning : connecting point duplicate.")
+            print(f"The point {name_point} already exists in the shot {name_shot}.")
+            print("Keep first point with coordinates " +
+                  f"{self.shots[name_shot].gipoints[name_point]}.")
+            print(":--------------------------:")
+
+        self.gipoints[name_point].append(name_shot)
+
     def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np.array) -> None:
         """
         Add GCP in the Worksite.
@@ -177,11 +220,11 @@ class Worksite:
         Args:
             lcode (list): gcp code.
         """
-        if self.check_gcp and self.check_cop:
+        if self.check_gcp and self.check_gip:
             for name_gcp, gcp in self.gcps.items():
                 if gcp.code in lcode:
                     try:
-                        list_shots = self.copoints[name_gcp]
+                        list_shots = self.gipoints[name_gcp]
                         for name_shot in list_shots:
                             shot = self.shots[name_shot]
                             cam = self.cameras[shot.name_cam]
@@ -213,7 +256,7 @@ class Worksite:
         """
         if self.check_cop:
             for name_cop, item_cop in self.copoints.items():  # Loop on copoints
-                if len(item_cop) == 1 or name_cop in list(self.gcps):
+                if len(item_cop) == 1:
                     continue
                 shot1 = ""
                 shot2 = ""

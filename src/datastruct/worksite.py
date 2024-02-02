@@ -34,6 +34,7 @@ class Worksite:
         self.gcps = {}
         self.check_gcp = False
         self.cop_world = {}
+        self.gip_world = {}
         self.proj = None
         self.projeucli = None
 
@@ -173,9 +174,10 @@ class Worksite:
             x (float): Pixel position of the point in column.
             y (float): Pixel position of the point in line.
         """
-        if name_shot not in self.shots:
-            print(f"The shot {name_shot} doesn't exist in list of shots.")
-            sys.exit()
+        try:
+            self.shots[name_shot]
+        except KeyError as e_info:
+            raise ValueError(f"The shot {name_shot} doesn't exist in list of shots.") from e_info
 
         if name_point not in self.gipoints:
             self.gipoints[name_point] = []
@@ -213,13 +215,9 @@ class Worksite:
         Args:
             lcode (list): gcp code.
         """
-        check_lcode = False
-        if lcode is None:
-            check_lcode = True
-            lcode = []
         if self.check_gcp and self.check_gip:
             for name_gcp, gcp in self.gcps.items():
-                if gcp.code in lcode or check_lcode:
+                if gcp.code in lcode or lcode == []:
                     try:
                         list_shots = self.gipoints[name_gcp]
                         for name_shot in list_shots:
@@ -246,19 +244,44 @@ class Worksite:
             i += 1
         return np.mean(pos, axis=0)
 
-    def calculate_init_image_world_copoints(self) -> None:
+    # pylint: disable-next=too-many-locals too-many-branches
+    def calculate_init_image_world(self, type_point: str = "copoint",
+                                   control_type: list = None) -> None:
         """
         Calculates the ground position of connecting point by intersection with
-        the most distance between two shots.
+        the most distance between two shots or ground image point.
+
+        Args:
+            type_point (str): "copoint" or "gipoint" depending on what you want to calculate.
+            control_type (list): type controle for gcp.
         """
-        if self.check_cop:
-            for name_cop, item_cop in self.copoints.items():  # Loop on copoints
-                if len(item_cop) == 1:
+        if control_type is None:
+            control_type = []
+
+        check = False
+        if type_point == "copoint":
+            points = self.copoints
+            check = self.check_cop
+            check_gcp = False
+
+        else:
+            if type_point == "gipoint":
+                points = self.gipoints
+                check = self.check_gip
+                check_gcp = True
+
+        if check:
+            for name_p, item_p in points.items():  # Loop on points
+                if check_gcp:
+                    if control_type != []:
+                        if self.gcps[name_p].code not in control_type:
+                            continue
+                if len(item_p) == 1:
                     continue
                 shot1 = ""
                 shot2 = ""
                 dist = 0
-                list_shot1 = item_cop.copy()
+                list_shot1 = item_p.copy()
                 list_shot2 = list_shot1.copy()
                 _ = list_shot1.pop(-1)
                 for name_shot1 in list_shot1:  # Double loop on shots of copoint
@@ -271,24 +294,34 @@ class Worksite:
                             dist = new_dist
                             shot1 = name_shot1
                             shot2 = name_shot2
-                coor = self.eucli_intersection_2p(name_cop, self.shots[shot1], self.shots[shot2])
-                self.cop_world[name_cop] = coor
+                coor = self.eucli_intersection_2p(name_p, self.shots[shot1], self.shots[shot2])
+                if type_point == "copoint":
+                    self.cop_world[name_p] = coor
+                if type_point == "gipoint":
+                    self.gip_world[name_p] = coor
+        else:
+            print(f"There isn't {type_point} or bad spelling copoint / gipoint.")
 
     # pylint: disable-next=too-many-locals
-    def eucli_intersection_2p(self, name_copoint: str, shot1: Shot, shot2: Shot) -> np.array:
+    def eucli_intersection_2p(self, name_point: str, shot1: Shot, shot2: Shot) -> np.array:
         """
         Calculates the euclidien position of a point from two shots.
 
         Args:
-            name_copoint (str): Name of copoint to calcule coordinate.
+            name_point (str): Name of copoint to calcule coordinate.
             shot1 (Shot): Frist shot.
             shot2 (Shot): Second shot.
 
         Returns:
             np.array: Euclidien coordinate of the copoint.
         """
-        p_img1 = shot1.copoints[name_copoint]
-        p_img2 = shot2.copoints[name_copoint]
+        if name_point in list(shot1.copoints):
+            p_img1 = shot1.copoints[name_point]
+            p_img2 = shot2.copoints[name_point]
+        else:
+            p_img1 = shot1.gipoints[name_point]
+            p_img2 = shot2.gipoints[name_point]
+
         cam1 = self.cameras[shot1.name_cam]
         cam2 = self.cameras[shot2.name_cam]
         base = shot1.pos_shot - shot2.pos_shot

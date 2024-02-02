@@ -53,7 +53,7 @@ parser.add_argument('-g', '--gcp',
                     type=str, default=None, nargs='*',
                     help='Files paths of GCP (.app).')
 parser.add_argument('-d', '--control_type',
-                    type=int, default=None, nargs='*',
+                    type=int, default=[], nargs='*',
                     help='Type of gcp to control.')
 
 args = parser.parse_args()
@@ -62,18 +62,19 @@ args = parser.parse_args()
 if args.filepath is not None:
     work = reader_orientation(args.filepath, args.skip)
     print("Orientation file reading done.")
+    print(f"Number of image: {len(work.shots)}")
 else:
     print("The access road to the photogrammetric site is missing.")
     sys.exit()
 
 # Add a projection to the worksite
 work.set_proj(args.epsg, args.pathepsg, args.pathgeotiff)
-print("Projection set-up.")
+print(f"Projection set-up with EPSG:{args.epsg}.")
 
 # Reading camera file
 if args.camera is not None:
     read_camera(args.camera, work)
-    print("Camera file reading done.")
+    print(f"Camera file reading done. {len(args.camera)} read")
 
 # Add shape of image
 if args.width is not None and args.height is not None:
@@ -84,11 +85,21 @@ if args.width is not None and args.height is not None:
 if args.connecting_points is not None:
     read_copoints(args.connecting_points, work)
     print("Connecting point reading done.")
+    COUNT = 0
+    for i, k in work.copoints.items():
+        COUNT += len(k)
+    print(f"Number of connecting points: {len(work.copoints)}")
+    print(f"Number of image with connecting point.s: {COUNT}")
 
 # Reading ground point image
 if args.ground_points is not None:
     read_gipoints(args.ground_points, work)
     print("Connecting point reading done.")
+    COUNT = 0
+    for i, k in work.gipoints.items():
+        COUNT += len(k)
+    print(f"Number of ground points of image: {len(work.gipoints)}")
+    print(f"Number of image with ground point.s: {COUNT}")
 
 # Calculate ground coordinate of conneting point by intersection
 
@@ -96,6 +107,7 @@ if args.ground_points is not None:
 if args.gcp is not None:
     read_gcp(args.gcp, work)
     print("GCP reading done.")
+    print(f"Number of gcp: {len(work.gcps)}")
 
 # Calculate image coordinate of GCP if they exist
 work.calculate_world_to_image_gcp(args.control_type)

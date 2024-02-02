@@ -38,15 +38,15 @@ Then add the parameters:
 | -e | EPSG codifier number of the reference system used e.g. "2154" | "2154" | X |
 | -p | Path to the json file which list the code epsg, you use | None | X |
 | -y | Path to the folder which contains GeoTIFF | None | X |
-| -o | Worksite output file format ex:opk | None | X |
-| -r | Conversion path ex:test/tmp/ | 'test/tmp/' | X |
+| -o | Worksite output file format e.g. opk | None | X |
+| -r | Conversion path e.g. "./" | './' | X |
 | -c | Files paths of cameras (.xml or .txt) | None | X |
 | -w | Width of the image | None | X |
 | -a | Height of the image | None | X |
 | -l | Files paths of connecting points (.mes) | None | X |
 | -t | Files paths of ground points image (.mes) | None | X |
 | -g | Files paths of ground control point (.app) | None | X |
-| -d | Type of gcp to control. | None | X |
+| -d | Type of gcp to control. | [] | X |
 
 Some settings are optional, depending on what you want to do with Pink Lady.
 Only the first -f parameter is mandatory

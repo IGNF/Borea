@@ -37,12 +37,6 @@ parser.add_argument('-r', '--pathreturn',
 parser.add_argument('-c', '--camera',
                     type=str, default=None, nargs='*',
                     help='Files paths of cameras (xml or txt).')
-parser.add_argument('-w', '--width',
-                    type=int, default=None,
-                    help='Width and height of the camera.')
-parser.add_argument('-a', '--height',
-                    type=float, default=None,
-                    help='Width and height of the camera.')
 parser.add_argument('-l', '--connecting_points',
                     type=str, default=None, nargs='*',
                     help='Files paths of connecting points (.mes).')
@@ -75,11 +69,6 @@ print(f"Projection set-up with EPSG:{args.epsg}.")
 if args.camera is not None:
     read_camera(args.camera, work)
     print(f"Camera file reading done. {len(args.camera)} read")
-
-# Add shape of image
-if args.width is not None and args.height is not None:
-    for cam in work.cameras.values():
-        cam.add_dim_image(args.width, args.height)
 
 # Reading connecting point
 if args.connecting_points is not None:

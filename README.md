@@ -41,8 +41,6 @@ Then add the parameters:
 | -o | Worksite output file format e.g. opk | None | X |
 | -r | Conversion path e.g. "./" | './' | X |
 | -c | Files paths of cameras (.xml or .txt) | None | X |
-| -w | Width of the image | None | X |
-| -a | Height of the image | None | X |
 | -l | Files paths of connecting points (.mes) | None | X |
 | -t | Files paths of ground points image (.mes) | None | X |
 | -g | Files paths of ground control point (.app) | None | X |
@@ -128,6 +126,21 @@ work.shootings_position(add_pixel = (0,0))
 # Writing data
 manager_reader(writer, pathreturn, work)
 ```
+
+### Camera file format
+
+The camera file is a txt file, containing 6 pieces of information about the camera : its name, ppax, ppay, focal and image size, width and height in pixels.
+Ppax and ppay are the main points of image deformation in x and y directions.
+Each line of the file corresponds to a piece of information, starting with the type = info.
+```
+name = UCE-M3-f120-s06
+ppax = 13210.00
+ppay = 8502.00
+focal = 30975.00
+width = 26460.00
+height = 17004.00
+```
+An example file can be found in ./test/data/Camera1.txt.
 
 ### File projection JSON
 

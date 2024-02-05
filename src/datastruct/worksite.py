@@ -113,8 +113,9 @@ class Worksite:
         for shot in self.shots.values():
             shot.set_param_eucli_shot(self.proj)
 
-    def add_camera(self, name_camera: str, ppax: float,
-                   ppay: float, focal: float) -> None:
+    # pylint: disable-next=too-many-arguments
+    def add_camera(self, name_camera: str, ppax: float, ppay: float,
+                   focal: float, width: float, height: float) -> None:
         """
         Add data camera in the Worksite.
 
@@ -123,11 +124,15 @@ class Worksite:
             ppax (float): Center of distortion in x.
             ppay (float): Center of distortion in y.
             focal (float): Focal of the camera.
+            width (float): Width of the image camera.
+            height (float): Height of the image camera.
         """
         self.cameras[name_camera] = Camera(name_camera=name_camera,
                                            ppax=ppax,
                                            ppay=ppay,
-                                           focal=focal)
+                                           focal=focal,
+                                           width=width,
+                                           height=height)
 
     def add_copoint(self, name_point: str, name_shot: str, x: float, y: float) -> None:
         """

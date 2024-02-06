@@ -10,3 +10,4 @@ dataclasses
 jsons
 pyproj
 scipy
+gdal

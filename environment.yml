@@ -2,5 +2,6 @@ name: pink_lady
 dependencies:
   - python
   - pip
+  - gdal
   - pip:
     - -r requirements.txt

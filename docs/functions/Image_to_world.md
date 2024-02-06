@@ -27,51 +27,80 @@ The data in the "geoid" tag is not used in this function and is therefore not ma
 ## Calculation step
 
 * Creation of 3d vector in image frame minus perceptual center.
-```
-x_shot = col - cam.ppax
-y_shot = line - cam.ppay
-z_shot = cam.focal
-```
+$$
+x_{shot} = col - ppax
+$$
+$$
+y_{shot} = line - ppay
+$$
+$$
+z_{shot} = focal
+$$
 
 * Application of inverse systematizations if available (inverse distortion correction function).
-```
-x_shot, y_shot, z_shot = self.f_sys_inv(x_shot, y_shot, z_shot)
-```
-if there is no distortion or it has already been corrected f_sys_inv() is an identity function.
+$$
+x_{shot}, y_{shot}, z_{shot} = f_{sys inv}(x_{shot}, y_{shot}, z_{shot})
+$$
+if there is no distortion or it has already been corrected $f_{sys inv}()$ is an identity function.
 
 * Passage through the beam marker.
-```
-x_bundle = x_shot / cam.focal * z_shot
-y_bundle = y_shot / cam.focal * z_shot
-z_bundle = z_shot
-```
-
-* Recover z altimeter from acquisition and rotation matrix from Euclidean to local projection
-```
-z_alti = self.tranform_vertical(projeucli)
-pos_eucli = projeucli.world_to_euclidean(self.pos_shot[0], self.pos_shot[1], z_alti)
-mat_eucli = projeucli.mat_to_mat_eucli(self.pos_shot[0], self.pos_shot[1], self.mat_rot)
-```
+$$
+x_{bundle} = x_{shot} / focal * z_{shot}
+$$
+$$
+y_{bundle} = y_{shot} / focal * z_{shot}
+$$
+$$
+z_{bundle} = z_{shot}
+$$
 
 * Transition to the Euclidean reference frame.
-```
-p_local = mat_eucli.T @ np.array([x_bundle, y_bundle, z_bundle])
-```
+$$
+\left(\begin{array}{cc} 
+x_{local}\\
+y_{local}\\
+z_{local}
+\end{array}\right) = rot_{eucli}^T * 
+\left(\begin{array}{cc} 
+x_{bundle}\\
+y_{bundle}\\
+z_{bundle}
+\end{array}\right)
+$$
 With proj.rot_to_euclidean_local the rotation matrix of the Euclidean frame of reference set up from the site's barycentre.
 
-* Converting the acquisition position to the Euclidean reference frame. With projeucli's world_to_eucliean() function.
+* Converting the acquisition position to the Euclidean reference frame. With projeucli's world_to_eucliean() function. Warning: $z_{posShot}$ must be de-corrected for linear alteration and must be of the same unit as the others (altitude or height).
 
 * Addition of local point acquisition.
-```
-p_local = p_local + pos_eucli
-```
+$$
+\left(\begin{array}{cc} 
+x_{local}\\
+y_{local}\\
+z_{local}
+\end{array}\right) = 
+\left(\begin{array}{cc} 
+x_{local}\\
+y_{local}\\
+z_{local}
+\end{array}\right) + 
+\left(\begin{array}{cc} 
+x_{posEucli}\\
+y_{posEucli}\\
+z_{posEucli}
+\end{array}\right)
+$$
+
 
 * Create lambda to convert local point into Euclidean point.
-```
-lamb = (z - pos_eucli[2])/(p_local[2] - pos_eucli[2])
-x_local = pos_eucli[0] + (p_local[0] - pos_eucli[0]) * lamb
-y_local = pos_eucli[1] + (p_local[1] - pos_eucli[1]) * lamb
-```
+$$
+lamb = (z - z_{posEucli})/(z_{local} - z_{posEucli})
+$$
+$$
+x_{local} = x_{posEucli} + (x_{local} - x_{posEucli}) * lamb
+$$
+$$
+y_{local} = y_{posEucli} + (y_{local} - y_{posEucli}) * lamb
+$$
 
 * Convert Euclidean point to terrain point, using proj's euclidean_to_world(x, y, z) function.
 

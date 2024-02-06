@@ -13,67 +13,107 @@ The Shot object is an object for an acquisition that defines it, with a name, po
 ## Calculation step
 
 ### Data recovery
+Recover point position in images
+$$
+p_{img1} = \left(\begin{array}{cc} 
+c_{img1}\\
+l_{img1}
+\end{array}\right)
+$$
+$$
+p_{img2} = \left(\begin{array}{cc} 
+c_{img2}\\
+l_{img2}
+\end{array}\right)
+$$
+Recover camera for each image
+$$
+cam_1 = \left(\begin{array}{cc} 
+ppa_{x1} & ppa_{y1} & focal_1
+\end{array}\right)
+$$
+$$
+cam_2 = \left(\begin{array}{cc} 
+ppa_{x2} & ppa_{y2} & focal_2
+\end{array}\right)
+$$
 
-```
-# Recover point position in images
-p_img1 = shot1.copoints[name_copoint]
-p_img2 = shot2.copoints[name_copoint]
-
-# Recover camera for each image
-cam1 = self.cameras[shot1.name_cam]
-cam2 = self.cameras[shot2.name_cam]
-```
 
 ### Converting image data to Euclidean projection
 
 * Conversion of acquisition positions in the Euclidean reference frame
-```
-pos_eucli1 = self.projeucli.world_to_euclidean(shot1.pos_shot[0],shot1.pos_shot[1],shot1.pos_shot[2])
-pos_eucli2 = self.projeucli.world_to_euclidean(shot2.pos_shot[0],shot2.pos_shot[1],shot2.pos_shot[2])
-```
+$$
+pos_{eucli1} = \left(\begin{array}{cc} 
+x_{posEucli1}\\y_{posEucli1}\\z_{posEucli1}
+\end{array}\right) = 
+f_{worldToEuclidean}(x_{posShot1},y_{posShot1},z_{posShot1})
+$$
+$$
+pos_{eucli2} = \left(\begin{array}{cc} 
+x_{posEucli2}\\y_{posEucli2}\\z_{posEucli2}
+\end{array}\right) = 
+f_{worldToEuclidean}(x_{posShot2},y_{posShot2},z_{posShot2})
+$$
 
-* Calculates image-to-Euclidean reference frame change matrices for each shot
-```
-mat_eucli1 = self.projeucli.mat_to_mat_eucli(shot1.pos_shot[0],shot1.pos_shot[1],shot1.mat_rot).T
-mat_eucli2 = self.projeucli.mat_to_mat_eucli(shot2.pos_shot[0],shot2.pos_shot[1],shot2.mat_rot).T
-```
+* Calculates image-to-Euclidean reference frame change matrices for each shot (rot is the rotation matrix)
+$$
+rot_{eucli1} = 
+f_{matToMatEucli}(x_{posShot1},y_{posShot1},rot_{shot1})
+$$
+$$
+rot_{eucli2} = 
+f_{matToMatEucli}(x_{posShot2},y_{posShot2},rot_{shot2})
+$$
 
 ### Euclidean position calculation
 
 * Base calculation
-```
-base = pos_eucli1 - pos_eucli2
-```
+$$
+base = pos_{eucli1} - pos_{eucli2}
+$$
 
 * Calculates the vectors of each beam by acquisition
-```
-vect1 = mat_eucli1 @ np.array([p_img1[0] - cam1.ppax,
-                               p_img1[1] - cam1.ppay,
-                               -cam1.focal])
-vect2 = mat_eucli2 @ np.array([p_img2[0] - cam2.ppax,
-                               p_img2[1] - cam2.ppay,
-                               -cam2.focal])
-```
+$$
+vect_1 = rot_{eucli1} * \left(\begin{array}{cc} 
+c_{img1} - ppa_{x1}\\l_{img1} - ppa_{y1}\\-focal_1
+\end{array}\right)
+$$
+$$
+vect_2 = rot_{eucli2} * \left(\begin{array}{cc} 
+c_{img2} - ppa_{x2}\\l_{img2} - ppa_{y2}\\-focal_2
+\end{array}\right)
+$$
 
 * Calculates products scalar product
-```
-norme_v1 = vect1 @ vect1
-norme_v2 = vect2 @ vect2
-v1_v2 = vect1 @ vect2
-b_v1 = base @ vect1
-b_v2 = base @ vect2
-```
+$$
+norme_{v1} = vect_1 * vect_1
+$$
+$$
+norme_{v2} = vect_2 * vect_2
+$$
+$$
+v_1v_2 = vect_1 * vect_2
+$$
+$$
+bv_1 = base * vect_1
+$$
+$$
+bv_2 = base * vect_2
+$$
 
 * Calculates the position of the point on the beam
-```
-p1_eucli = pos_eucli1 + ((b_v2*v1_v2 - b_v1*norme_v1)/(v1_v2**2 - norme_v1*norme_v2))*vect1
-p2_eucli = pos_eucli2 + ((b_v2*norme_v1 - b_v1*v1_v2)/(v1_v2**2 - norme_v1*norme_v2))*vect2
-```
+$$
+p_{eucli1} = pos_{eucli1} + \frac{bv_2*v_1v_2 - bv_1*norme_{v1}}{v_1v_2^2 - norme_{v1}*norme_{v2}} * vect_1
+$$
+$$
+p_{eucli2} = pos_{eucli2} + \frac{bv_2*norme_{v1} - bv_1*v_1v_2}{v_1v_2^2 - norme_{v1}*norme_{v2}} * vect_2
+$$
+
 
 * Return the average position between the two points
-```
-return 0.5 * (p1_eucli + p2_eucli)
-```
+$$
+p_{world} = 0.5 * (p_{eucli1} + p_{eucli2})
+$$
 
 ##  Example to use
 ```

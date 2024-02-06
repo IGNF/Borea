@@ -26,7 +26,7 @@ The add_pixel object is a tuple of dimension 2, used to add a number of pixels i
 ```
 c_obs, l_obs, z_world = seed_20_point(cam)
 ```
-Function to give the position of 20 points in the image at a fixed world height. The positions of the points are fixed and set by percentages for any image size. They will be the `l_obs` observation data.  
+Function to give the position of 20 points in the image at a fixed world height. The positions of the points are fixed and set by percentages for any image size. They will be the $c_{obs}$ and $l_{obs}$ observation data.  
 Distribution of the 20 points in the image with z given.
 ```
                                widht
@@ -61,7 +61,7 @@ l_obs += add_pixel[1]
 ```
 Enables data format conversion when different from 0
 
-* Initialization of a new acquisition that will be modified, represents `x0`
+* Initialization of a new acquisition that will be modified, represents $x0$
 ```
 shot_adjust = Shot(shot.name_shot, shot.pos_shot, shot.ori_shot, shot.name_cam)
 shot_adjust.set_param_eucli_shot(projeucli)
@@ -75,36 +75,38 @@ while bool_iter:
     count_iter += 1
 ```
 
-* Setting up the `mat_A` matrix
+* Setting up the $mat_A$ matrix
 ```
 mat_a = mat_obs_axia(x_eucli, y_eucli, z_eucli, shot_adjust, cam)
 ```
-The matrix `mat_A` depends on the function used and the number of data items. It is defined as `df/dx|x0`, each column representing a derivative of `f(x)` with respect to a parameter of x0, and the number of rows the number of data.
-The image formula used is: `m = F - (K.T @ F @ U) / (K.T @ U)`  
+The matrix $mat_A$ depends on the function used and the number of data items. It is defined as $\frac{df}{dx}|_{x0}$, each column representing a derivative of $f(x)$ with respect to a parameter of x0, and the number of rows the number of data.
+The image formula used is: $m = F - (K^T * F * U) / (K^T * U)$  
 with:
-* `F` the focal
-* `A = M - S`
-* `U = R @ A`
-* `K` the unit vector `[0,0,1]`
-* `M` the vector `[X, Y, Z]` of the Euclidean position of the terrain point
-* `S` is the shot's position in the Euclidean reference frame
-* `R` the rotation matrix in the Euclidean reference frame
-* `m` the vector `[x, y]`
+* $F$ the focal
+* $A = M - S$
+* $U = R @ A$
+* $K$ the unit vector $\left(\begin{array}{cc}0&0&1\end{array}\right)$
+* $M$ the vector $\left(\begin{array}{cc}X&Y&Z\end{array}\right)$ of the Euclidean position of the terrain point
+* $S$ is the shot's position in the Euclidean reference frame
+* $R$ the rotation matrix in the Euclidean reference frame
+* $m$ the vector $\left(\begin{array}{cc}x&y\end{array}\right)$
 
-`x0` is `X, Y, Z` the shot position and `oX, oY, oZ` which defines its rotation matrix. We take the definition of `R = e^(omega*theta)` defined by a vector `omega = [X, Y, Z]` and an angle `theta = o`.  
+$x0$ is $X$, $Y$, $Z$ the shot position and $oX$, $oY$, $oZ$ which defines its rotation matrix. We take the definition of $R = e^(omega*theta)$ defined by a vector $omega = \left(\begin{array}{cc}X&Y&Z\end{array}\right)$ and an angle $theta = o$.  
 The derivative of the function is therefore equal to :  
-`dm = (V/u3) @ dF + (p/u3**2) @ V @ R @ (dS-dM) + (p/u3**2) @ V @ R @ axia_A @ dO`  
-with `V = [[u3 0 -u1],[0 u3 -u2]]`, `U = [u1 u2 u3]` and `axia_A` is the axiator of the matrix `A`.
-```
-    mat_A = [ dfx1/dX  dfx1/dY  dfx1/dZ  dfx1/doX  dfx1/d0Y  dfx1/doZ ]
-            [ dfx2/dX  dfx2/dY  dfx2/dZ  dfx2/doX  dfx2/d0Y  dfx2/doZ ]
-            [   ...      ...      ...      ...        ...       ...   ]
-            [ dfxn/dX  dfxn/dY  dfxn/dZ  dfxn/doX  dfxn/d0Y  dfxn/doZ ]
-            [ dfy1/dX  dfy1/dY  dfy1/dZ  dfy1/doX  dfy1/d0Y  dfy1/doZ ]
-            [ dfy2/dX  dfy2/dY  dfy2/dZ  dfy2/doX  dfy2/d0Y  dfy2/doZ ]
-            [   ...      ...      ...      ...        ...       ...   ]
-            [ dfyn/dX  dfyn/dY  dfyn/dZ  dfyn/doX  dfyn/d0Y  dfyn/doZ ]
-```
+$dm = (V/u3) * dF + (\frac{p}{u3²}) * V * R * (dS-dM) + (\frac{p}{u3²}) * V * R * axia_A * dO$  
+with $V = \left(\begin{array}{cc} u3 & 0 & -u1\\0 & u3 & -u2 \end{array}\right)$, $U = \left(\begin{array}{cc}u1&u2&u3\end{array}\right)$ and $axia_A$ is the axiator of the matrix $A$.
+$$
+mat_A = \left(\begin{array}{cc} 
+\frac{dfx1}{dX} & \frac{dfx1}{dY} & \frac{dfx1}{dZ} & \frac{dfx1}{doX} & \frac{dfx1}{doY} & \frac{dfx1}{doZ}\\
+\frac{dfx2}{dX} & \frac{dfx2}{dY} & \frac{dfx2}{dZ} & \frac{dfx2}{doX} & \frac{dfx2}{doY} & \frac{dfx2}{doZ}\\
+  ...   &   ...   &   ...   &   ...    &    ...   &    ...  \\
+\frac{dfxn}{dX} & \frac{dfxn}{dY} & \frac{dfxn}{dZ} & \frac{dfxn}{doX} & \frac{dfxn}{doY} & \frac{dfxn}{doZ}\\
+\frac{dfy1}{dX} & \frac{dfy1}{dY} & \frac{dfy1}{dZ} & \frac{dfy1}{doX} & \frac{dfy1}{doY} & \frac{dfy1}{doZ}\\
+\frac{dfy2}{dX} & \frac{dfy2}{dY} & \frac{dfy2}{dZ} & \frac{dfy2}{doX} & \frac{dfy2}{doY} & \frac{dfy2}{doZ}\\
+  ...   &   ...   &   ...   &   ...    &    ...   &    ...  \\
+\frac{dfyn}{dX} & \frac{dfyn}{dY} & \frac{dfyn}{dZ} & \frac{dfyn}{doX} & \frac{dfyn}{doY} & \frac{dfyn}{doZ}
+\end{array}\right)
+$$
 There are as many lines in mat_a as there are points*2.  
 This gives the function :
 
@@ -154,22 +156,22 @@ def mat_obs_axia(x_eucli: np.array, y_eucli: np.array, z_eucli: np.array,
     return mat_a
 ```
 
-* Setting up calculated data `f(x0)`
+* Setting up calculated data $f(x0)$
 ```
 c_f0, l_f0 = shot_adjust.world_to_image(x_world, y_world, z_world, cam, projeucli)
 ```
 
-* Setting the residual vector `l_obs - f(x0)`
+* Setting the residual vector $l_{obs} - f(x0)$
 ```
 v_res = np.c_[c_obs - c_f0, l_obs - l_f0].reshape(2 * len(x_eucli), 1)
 ```
 
-* Vector calculation `dx = (mat_A.T @ mat_A)^(-1) @ mat_A.T @ B`
+* Vector calculation $dx = (mat_A^T * mat_A)^{-1} * mat_A^T * B$
 ```
 dx = np.squeeze(np.linalg.lstsq(mat_a, v_res, rcond=None)[0])
 ```
 
-* Calculation of new parameter `x = x0 + dx`
+* Calculation of new parameter $x = x0 + dx$
 ```
 new_pos_eucli = np.array([shot_adjust.pos_shot[0] + dx[0],
                           shot_adjust.pos_shot[1] + dx[1],

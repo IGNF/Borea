@@ -7,6 +7,9 @@ import numpy as np
 from src.datastruct.worksite import Worksite
 
 
+PATH_DEM = "./test/data/MNT_France_25m_h_crop.tif"
+
+
 def test_add_shot():
     obj = Worksite(name = "Test")
     obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
@@ -149,9 +152,11 @@ def test_calculate_world_to_image_gcp_base():
     work.check_gip = True
     work.add_gcp('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.check_gcp = True
+    work.add_dem(PATH_DEM, "height")
+    work.type_z = "al"
     work.calculate_world_to_image_gcp([3])
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 5
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 5
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
     assert len(work.shots['shot_test'].gcps) == 1
 
 
@@ -165,9 +170,11 @@ def test_calculate_world_to_image_gcp_addpointunknow():
     work.add_gcp('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.add_gcp('gcp_test_test', 3, np.array([0,0,0]))
     work.check_gcp = True
+    work.add_dem(PATH_DEM, "height")
+    work.type_z = "al"
     work.calculate_world_to_image_gcp([3])
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 5
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 5
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
     assert len(work.shots['shot_test'].gcps) == 1
 
 
@@ -182,9 +189,11 @@ def test_calculate_world_to_image_gcp_testcode():
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
     work.add_gcp('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.check_gcp = True
+    work.add_dem(PATH_DEM, "height")
+    work.type_z = "al"
     work.calculate_world_to_image_gcp([13])
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 5
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 5
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
     assert len(work.shots['shot_test'].gcps) == 1
 
 
@@ -199,9 +208,11 @@ def test_calculate_world_to_image_gcp_testcodeNone():
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
     work.add_gcp('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.check_gcp = True
+    work.add_dem(PATH_DEM, "height")
+    work.type_z = "al"
     work.calculate_world_to_image_gcp([])
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 5
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 5
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
+    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
     assert len(work.shots['shot_test'].gcps) == 2
 
 
@@ -356,6 +367,8 @@ def test_shootings_position():
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test")
     work.set_proj("2154", "test/data/proj.json", "./test/data/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+    work.add_dem(PATH_DEM, "height")
+    work.type_z = "al"
     work.shootings_position()
     assert abs(work.shots["23FD1305x00026_01306"].pos_shot[0] - 814975.925) < 5
     assert abs(work.shots["23FD1305x00026_01306"].pos_shot[1] - 6283986.148) < 5
@@ -363,3 +376,14 @@ def test_shootings_position():
     assert abs(work.shots["23FD1305x00026_01307"].pos_shot[0] - 814977.593) < 5
     assert abs(work.shots["23FD1305x00026_01307"].pos_shot[1] - 6283733.183) < 5
     assert abs(work.shots["23FD1305x00026_01307"].pos_shot[2] - 1771.519) < 5
+
+
+def test_add_dem():
+    work = Worksite("Test")
+    work.add_dem(PATH_DEM, "height")
+    assert work.dem.type_dem == "height"
+    assert work.dem.order == 1
+    assert work.dem.keep_in_memory == False
+    assert hasattr(work.dem, 'img')
+    assert hasattr(work.dem, 'rb')
+    assert hasattr(work.dem, 'gt')

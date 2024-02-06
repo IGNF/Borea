@@ -25,39 +25,44 @@ These GeoTIFFs represent the geoid grid on the site. They can be found on the PR
 
 ### Conversion of terrain data into a Euclidean reference frame (local tangent)
 
-* Recovery of the acquisition altitude (z_alti) without alteration by pyproj (thanks to GeoTIFF).
-
-* Convert terrain data into Euclidean reference frame, point [x, y, z] and acquisition position [x_pos, y_pos, z_alti], replacing z_pos with z_alti. With projeucli's world_to_eucliean() function.
+* Convert the z of the data to the same unit (altitude, height), de-correct the z of the linear alteration acquisition if corrected
 
 * Conversion from cartographic -> image to Euclidean -> image rotation matrix. With projeucli's mat_to_mat_eucli function.
 
 ### From Euclidean frame of reference to image frame of reference
 
 * Calculation of the vector between the acquisition position and the terrain point and change of reference frame.
-```
-p_bundle = mat_eucli @ (p_eucli – pos_eucli)
-```
+$$
+p_{bundle} = \left(\begin{array}{cc}x_{bundle}\\y_{bundle}\\z_{bundle}\end{array}\right) = rot_{eucli} * (p_{eucli} – pos_{eucli})
+$$
 
 * Change from 3d to 2d point in the image frame.
-```
-x_shot = p_bundle[0] * cam.focal / p_bundle[2]
-y_shot = p_bundle[1] * cam.focal / p_bundle[2]
-z_shot = p_bundle[2]
-```
+$$
+x_{shot} = x_{bundle} * focal / z_{bundle}
+$$
+$$
+y_{shot} = y_{bundle} * focal / z_{bundle}
+$$
+$$
+z_{shot} = z_{bundle}
+$$
+
 
 * Application of systematizations, if any (distortion correction function).
-```
-x_shot, y_shot, z_shot = self.f_sys(x_shot, y_shot, z_shot)
-```
+$$
+x_{shot}, y_{shot}, z_{shot} = f_{sys}(x_{shot}, y_{shot}, z_{shot})
+$$
 if there is no distortion or it has already been corrected f_sys() is an identity function.
 
 * From vector to image point.
-```
-x_col = cam.ppax + x_shot
-y_lig = cam.ppay + y_shot
-```
+$$
+x_{col} = ppax + x_{shot}
+$$
+$$
+y_{line} = ppay + y_{shot}
+$$
 
-* Returns x_col and y_lig in an array (2,).
+* Returns $x_{col}$ and $y_{line}$ in an array (2,).
 
 ## Example to use
 
@@ -106,10 +111,10 @@ work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
 work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
 
 # Add connecting points
-work.add_copoint('gcp_test1', 'shot_test1', 0, 0)
-work.add_copoint('gcp_test2', 'shot_test1', 0, 0)
-work.add_copoint('gcp_test3', 'shot_test2', 0, 0)
-work.check_cop = True
+work.add_gipoint('gcp_test1', 'shot_test1', 0, 0)
+work.add_gipoint('gcp_test2', 'shot_test1', 0, 0)
+work.add_gipoint('gcp_test3', 'shot_test2', 0, 0)
+work.check_gip = True
 
 # Add gcps points
 work.add_gcp('gcp_test1', 13, np.array([815601.510, 6283629.280, 54.960]))
@@ -134,7 +139,7 @@ from src.reader.reader_gcp import read_gcp
 
 path_opk = "Worksite_FR_2024.OPK"
 path_camera = ["Camera.txt"]
-path_copoints = ["liaison.mes", "terrain.mes"]
+path_gipoints = ["terrain.mes"]
 path_gcps = ["GCP.app"]
 writer = "opk"
 pathreturn = "tmp/"
@@ -149,7 +154,7 @@ work.set_proj("EPSG:2154", "projection_epsg.json", "./data_geotiff/")
 read_camera(path_camera, work)
 
 # Reading connecting point
-read_copoints(path_copoints, work)
+read_gipoints(path_gipoints, work)
 
 # Reading GCP
 read_gcp(path_gcps, work)

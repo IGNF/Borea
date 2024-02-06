@@ -38,6 +38,7 @@ class Worksite:
         self.gip_world = {}
         self.proj = None
         self.dem = None
+        self.type_z = None
 
     def add_shot(self, name_shot: str, pos_shot: np.array,
                  ori_shot: np.array, name_cam: str) -> None:
@@ -212,15 +213,19 @@ class Worksite:
             coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].
         """
         self.gcps[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
-    
-    def add_dem(self, path_dem: str) -> None:
+
+    def add_dem(self, path_dem: str, type_dem: str) -> None:
         """
         Add class DEM to the worksite.
 
         Args:
             path_dem (str): Path to the dem.
+            type (str): Type of the dem "altitude" or "height".
         """
-        self.dem = Dem(path_dem)
+        if type_dem not in ["altitude", "height"]:
+            raise ValueError(f"The dem's type {type_dem} isn't correct ('altitude' or 'height')")
+
+        self.dem = Dem(path_dem, type_dem)
 
     def calculate_world_to_image_gcp(self, lcode: list) -> None:
         """
@@ -239,7 +244,7 @@ class Worksite:
                             shot = self.shots[name_shot]
                             cam = self.cameras[shot.name_cam]
                             coor_img = shot.world_to_image(gcp.coor[0], gcp.coor[1], gcp.coor[2],
-                                                           cam)
+                                                           cam, self.dem, self.type_z)
                             self.shots[name_shot].gcps[name_gcp] = coor_img
                     except KeyError:
                         continue
@@ -385,4 +390,5 @@ class Worksite:
         """
         for key_shot, item_shot in self.shots.items():
             cam = self.cameras[item_shot.name_cam]
-            self.shots[key_shot] = space_resection(item_shot, cam, self.proj, add_pixel)
+            self.shots[key_shot] = space_resection(item_shot, cam, self.proj,
+                                                   self.dem, self.type_z, add_pixel)

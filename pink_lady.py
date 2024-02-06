@@ -49,6 +49,9 @@ parser.add_argument('-g', '--gcp',
 parser.add_argument('-d', '--control_type',
                     type=int, default=[], nargs='*',
                     help='Type of gcp to control.')
+parser.add_argument('-m', '--dem',
+                    type=str, default=None,
+                    help='DEM of the worksite.')
 
 args = parser.parse_args()
 

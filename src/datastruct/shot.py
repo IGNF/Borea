@@ -7,6 +7,7 @@ from scipy.spatial.transform import Rotation
 from src.datastruct.camera import Camera
 from src.geodesy.proj_engine import ProjEngine
 from src.geodesy.euclidean_proj import EuclideanProj
+from src.altimetry.dem import Dem
 from src.utils.conversion import change_dim
 
 
@@ -34,8 +35,6 @@ class Shot:
         self.gcps = {}
         self.mat_rot = self.set_rot_shot()
         self.mat_rot_eucli = None
-        self.z_alti = None
-        self.z_alti_eucli = None
         self.projeucli = None
         self.f_sys = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
         self.f_sys_inv = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
@@ -72,10 +71,7 @@ class Shot:
                                                        mat_ori_eucli)
         shot.mat_rot_eucli = mat_ori_eucli
         shot.ori_shot = -Rotation.from_matrix(shot.mat_rot).as_euler("xyz", degrees=True)
-        shot.z_alti = shot.tranform_vertical()
-        shot.z_alti_eucli = shot.projeucli.world_to_euclidean(shot.pos_shot[0],
-                                                              shot.pos_shot[1],
-                                                              shot.z_alti)[2]
+
         shot.f_sys = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
         shot.f_sys_inv = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
 
@@ -116,19 +112,12 @@ class Shot:
                                                              self.mat_rot)
         self.ori_shot_eucli = -Rotation.from_matrix(self.mat_rot_eucli).as_euler('xyz',
                                                                                  degrees=True)
-        self.z_alti = self.tranform_vertical()
-        if self.z_alti is None:
-            self.z_alti_eucli = None
-        else:
-            self.z_alti_eucli = self.projeucli.world_to_euclidean(self.pos_shot[0],
-                                                                  self.pos_shot[1],
-                                                                  self.z_alti)[2]
 
     # pylint: disable-next=too-many-arguments too-many-locals
     def world_to_image(self, x_world: Union[np.array, float],
                        y_world: Union[np.array, float],
                        z_world: Union[np.array, float],
-                       cam: Camera) -> np.array:
+                       cam: Camera, dem: Dem, type_z: str = "a") -> np.array:
         """
         Calculates the c,l coordinates of a terrain point in an image.
 
@@ -137,12 +126,17 @@ class Shot:
             y_world (Union[np.array, float]): the coordinate y of ground point.
             z_world (Union[np.array, float]): the coordinate z of ground point.
             cam (Camera): the camera used.
+            dem (Dem): Dem of the worksite.
+            type_z (str): type of z, default = "a".
+                          "h" height
+                          "a" altitude / elevation
+                          "al" altitude with linear alteration
 
         Returns:
             np.array: The image coordinate [c,l].
         """
-        if self.z_alti_eucli is None:
-            raise AttributeError("Missing 'geoid' tag in projection.json or path to geotiff.")
+        if type_z == "al" and dem is None:
+            raise ValueError("Missing dem.")
 
         if isinstance(x_world, np.ndarray):
             dim = np.shape(x_world)
@@ -151,7 +145,7 @@ class Shot:
 
         p_eucli = self.projeucli.world_to_euclidean(x_world, y_world, z_world)
         pos_eucli = np.copy(self.pos_shot_eucli)
-        pos_eucli[2] = self.z_alti_eucli
+        pos_eucli[2] = self.get_z_with_type(cam, dem, type_z)
         p_bundle = self.mat_rot_eucli @ np.vstack([p_eucli[0] - pos_eucli[0],
                                                    p_eucli[1] - pos_eucli[1],
                                                    p_eucli[2] - pos_eucli[2]])
@@ -165,22 +159,74 @@ class Shot:
 
     # pylint: disable-next=too-many-locals too-many-arguments
     def image_to_world(self, col: Union[np.array, float], line: Union[np.array, float], cam: Camera,
-                       z: Union[np.array, float] = 0) -> np.array:
+                       dem: Dem, type_z: str) -> np.array:
         """
-        Calculate x and y cartographique coordinate with z = 0.
+        Calculate x and y cartographique coordinate with z.
 
         Args:
             col (Union[np.array, float]): Column coordinates of image point(s).
             line (Union[np.array, float]): Line coordinates of image point(s).
             cam (Camera): Objet cam which correspond to the shot.
+            dem (Dem): Dem of the worksite.
+            type_z (str): type of z, default = "a".
+                          "h" height
+                          "a" altitude / elevation
+                          "al" altitude with linear alteration
+
+        Returns:
+            np.array: Cartographique coordinate [x,y,z].
+        """
+        if dem is None:
+            raise ValueError("Missing dem.")
+
+        if isinstance(col, np.ndarray):
+            dim = np.shape(col)
+        else:
+            dim = ()
+
+        z_world = np.full_like(col, dem.get(self.pos_shot[0], self.pos_shot[1]))
+        x_world, y_world, _ = self.image_z_to_world(col, line, cam, dem, type_z, z_world)
+        precision_reached = False
+        nbr_iter = 0
+        iter_max = 10
+        while not precision_reached and nbr_iter < iter_max:
+            z_world = dem.get(x_world, y_world)
+            x_new_world, y_new_world, z_new_world = self.image_z_to_world(col, line, cam,
+                                                                          dem, type_z, z_world)
+            x_diff = (x_new_world - x_world) ** 2
+            y_diff = (y_new_world - y_world) ** 2
+            z_diff = (z_new_world - z_world) ** 2
+            dist2 = x_diff + y_diff + z_diff
+            precision_reached = np.any(dist2 < 0.01**2)
+            x_world, y_world, z_world = x_new_world, y_new_world, z_new_world
+            nbr_iter += 1
+
+        x_world = change_dim(x_world, dim)
+        y_world = change_dim(y_world, dim)
+        z_world = change_dim(z_world, dim)
+        return np.array([x_world, y_world, z_world])
+
+    # pylint: disable-next=too-many-locals too-many-arguments
+    def image_z_to_world(self, col: Union[np.array, float], line: Union[np.array, float],
+                         cam: Camera, dem: Dem, type_z: str,
+                         z: Union[np.array, float] = 0) -> np.array:
+        """
+        Calculate x and y cartographique coordinate with z.
+
+        Args:
+            col (Union[np.array, float]): Column coordinates of image point(s).
+            line (Union[np.array, float]): Line coordinates of image point(s).
+            cam (Camera): Objet cam which correspond to the shot.
+            dem (Dem): Dem of the worksite.
+            type_z (str): type of z, default = "a".
+                          "h" height
+                          "a" altitude / elevation
+                          "al" altitude with linear alteration
             z (Union[np.array, float]): La position z du point par défault = 0.
 
         Returns:
             np.array: Cartographique coordinate [x,y,z].
         """
-        if self.z_alti_eucli is None:
-            raise AttributeError("Missing 'geoid' tag in projection.json or path to geotiff.")
-
         if isinstance(col, np.ndarray):
             dim = np.shape(col)
             if np.all(z == 0):
@@ -190,7 +236,7 @@ class Shot:
 
         x_bundle, y_bundle, z_bundle = self.image_to_bundle(col, line, cam)
         pos_eucli = np.copy(self.pos_shot_eucli)
-        pos_eucli[2] = self.z_alti_eucli
+        pos_eucli[2] = self.get_z_with_type(cam, dem, type_z)
         p_local = self.mat_rot_eucli.T @ np.vstack([x_bundle, y_bundle, z_bundle])
         p_local = p_local + pos_eucli.reshape((3, 1))
         lamb = (z - pos_eucli[2])/(p_local[2] - pos_eucli[2])
@@ -245,3 +291,29 @@ class Shot:
         if new_z == np.inf:
             raise ValueError("out geoid")
         return new_z
+
+    def get_z_with_type(self, cam: Camera, dem: Dem, type_z: str):
+        """
+        Transforms acquisition z into type.
+        For the specific case of a z at altitude with linear weathering.
+        To de-correct the z.
+
+        Args:
+            cam (Camera): The camera of the shot.
+            dem (Dem): Dem of the worksite.
+            type_z (str): Type of z.
+
+        Returns:
+            float: The right z for the type of data.
+        """
+        z_eucli = self.pos_shot_eucli[2]
+        if type_z == "al":
+            if dem.type_dem == "height":
+                z = self.tranform_vertical()
+
+            scale_factor = self.projeucli.proj_engine.get_scale_factor(self.pos_shot[0],
+                                                                       self.pos_shot[1])
+            z_nadir = self.image_to_world(cam.ppax, cam.ppay, cam, dem, "p")[2]
+            z = (z + z_nadir * scale_factor) / (1 + scale_factor)
+            z_eucli = self.projeucli.world_to_euclidean(self.pos_shot[0], self.pos_shot[1], z)[2]
+        return z_eucli

@@ -25,4 +25,5 @@ def reader_orientation(file: str, skip: int) -> Worksite:
     except ModuleNotFoundError as e:
         raise ModuleNotFoundError(f"{ext} file is not taken into account !!!") from e
 
+    work.type_z = "al"
     return work

@@ -10,6 +10,7 @@ from src.datastruct.camera import Camera
 from src.datastruct.gcp import GCP
 from src.geodesy.proj_engine import ProjEngine
 from src.position.shot_pos import space_resection
+from src.altimetry.dem import Dem
 
 
 # pylint: disable-next=too-many-instance-attributes
@@ -36,7 +37,7 @@ class Worksite:
         self.cop_world = {}
         self.gip_world = {}
         self.proj = None
-        self.projeucli = None
+        self.dem = None
 
     def add_shot(self, name_shot: str, pos_shot: np.array,
                  ori_shot: np.array, name_cam: str) -> None:
@@ -211,6 +212,15 @@ class Worksite:
             coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].
         """
         self.gcps[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
+    
+    def add_dem(self, path_dem: str) -> None:
+        """
+        Add class DEM to the worksite.
+
+        Args:
+            path_dem (str): Path to the dem.
+        """
+        self.dem = Dem(path_dem)
 
     def calculate_world_to_image_gcp(self, lcode: list) -> None:
         """

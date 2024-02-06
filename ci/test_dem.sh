@@ -1,0 +1,1 @@
+python3 -m pytest -s ./test/test_altimetry/test_dem.py -v

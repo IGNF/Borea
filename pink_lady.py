@@ -9,6 +9,7 @@ from src.reader.reader_copoints import read_copoints
 from src.reader.reader_gipoints import read_gipoints
 from src.reader.reader_gcp import read_gcp
 from src.writer.manage_writer import manager_writer
+from src.stat.statistics import Stat
 
 parser = argparse.ArgumentParser(description='Photogrammetric site conversion'
                                              ' and manipulation software.')
@@ -52,6 +53,9 @@ parser.add_argument('-d', '--control_type',
 parser.add_argument('-m', '--dem',
                     type=str, default=None,
                     help='DEM of the worksite.')
+parser.add_argument('-a', '--type_dem',
+                    type=str, default=None,
+                    help='Type of Dem "altitude" or "height".')
 
 args = parser.parse_args()
 
@@ -93,16 +97,30 @@ if args.ground_points is not None:
     print(f"Number of ground points of image: {len(work.gipoints)}")
     print(f"Number of image with ground point.s: {COUNT}")
 
-# Calculate ground coordinate of conneting point by intersection
-
 # Reading GCP
 if args.gcp is not None:
     read_gcp(args.gcp, work)
     print("GCP reading done.")
     print(f"Number of gcp: {len(work.gcps)}")
 
+# Add Dem
+
+if args.dem is not None:
+    work.add_dem(args.dem, args.type_dem)
+    print("Add dem to the worksite done.")
+else:
+    print("Not Dem in the worksite.")
+
+# Calculate ground coordinate of conneting point by intersection
+
 # Calculate image coordinate of GCP if they exist
 work.calculate_world_to_image_gcp(args.control_type)
+
+# Statistics
+stat = Stat(work, args.pathreturn, args.control_type)
+stat.main_stat_and_save()
+print("Statistics on control point, if there are,")
+print(f" in {args.pathreturn}Stat_{work.name}.txt .")
 
 # Writing data
 if args.writer is not None:

@@ -5,9 +5,9 @@ from typing import Union
 import numpy as np
 
 
-def check_array_transfo(x: Union[np.array, float],
-                        y: Union[np.array, float],
-                        z: Union[np.array, float] = None) -> tuple:
+def check_array_transfo(x: Union[np.ndarray, float],
+                        y: Union[np.ndarray, float],
+                        z: Union[np.ndarray, float] = None) -> tuple:
     """
     Checks the dimension of vectors if dim = 1 outputs the element in a variable.
     x,y,z are in the same dimension and they must be vectors if array
@@ -56,8 +56,8 @@ def check_array_transfo(x: Union[np.array, float],
     return x, y, z
 
 
-def change_dim(x: Union[np.array, float],
-               dim: tuple) -> Union[np.array, float]:
+def change_dim(x: Union[np.ndarray, float],
+               dim: tuple) -> Union[np.ndarray, float]:
     """
     Change dimension of x to the dim given.
 

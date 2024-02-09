@@ -29,7 +29,7 @@ class EuclideanProj:
         self.proj_engine = proj_engine
         self.rot_to_euclidean_local = self.mat_rot_euclidean_local(self.x_central, self.y_central)
 
-    def mat_rot_euclidean_local(self, x: float, y: float) -> np.array:
+    def mat_rot_euclidean_local(self, x: float, y: float) -> np.ndarray:
         """
         Compute the transition matrix between the world system and
         the Euclidean system centred on a point.
@@ -63,7 +63,7 @@ class EuclideanProj:
         rot_to_euclidean_local[2, 2] = sp
         return rot_to_euclidean_local
 
-    def mat_to_mat_eucli(self, x: float, y: float, mat: np.array) -> np.array:
+    def mat_to_mat_eucli(self, x: float, y: float, mat: np.ndarray) -> np.ndarray:
         """
         Transform the rotation matrix (World system) into rotation matrix (Euclidian systeme).
 
@@ -84,7 +84,7 @@ class EuclideanProj:
         mat_eucli = mat @ matecef_to_rtl @ self.rot_to_euclidean_local.T
         return mat_eucli
 
-    def mat_eucli_to_mat(self, x: float, y: float, mat_eucli: np.array) -> np.array:
+    def mat_eucli_to_mat(self, x: float, y: float, mat_eucli: np.ndarray) -> np.ndarray:
         """
         Transform the rotation matrix (Euclidean system) into rotation matrix (World system).
 
@@ -104,8 +104,8 @@ class EuclideanProj:
         mat = mat * np.array([1, -1, -1]).reshape(-1, 1)
         return mat
 
-    def world_to_euclidean(self, x: Union[np.array, float],
-                           y: Union[np.array, float], z: Union[np.array, float]) -> np.array:
+    def world_to_euclidean(self, x: Union[np.ndarray, float],
+                           y: Union[np.ndarray, float], z: Union[np.ndarray, float]) -> np.ndarray:
         """
         Transform a point from the world coordinate reference system into
         the Euclidean coordinate reference system.
@@ -138,8 +138,8 @@ class EuclideanProj:
         z_r = change_dim(point_eucli[2], dim)
         return np.array([x_r, y_r, z_r])
 
-    def euclidean_to_world(self, x: Union[np.array, float],
-                           y: Union[np.array, float], z: Union[np.array, float]) -> np.array:
+    def euclidean_to_world(self, x: Union[np.ndarray, float],
+                           y: Union[np.ndarray, float], z: Union[np.ndarray, float]) -> np.ndarray:
         """
         Transform a point from the Euclidean coordinate reference system into
         the world coordinate reference system.

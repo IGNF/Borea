@@ -31,8 +31,8 @@ class ProjEngine:
             self.proj = pyproj.Proj(self.crs)
             self.tf = Transform(self)
 
-    def get_meridian_convergence(self, x_carto: Union[np.array, List[float], float],
-                                 y_carto: Union[np.array, List[float], float]) -> float:
+    def get_meridian_convergence(self, x_carto: Union[np.ndarray, List[float], float],
+                                 y_carto: Union[np.ndarray, List[float], float]) -> np.ndarray:
         """
         Compute meridian convergence.
         Values are extracted from pyproj.
@@ -48,8 +48,8 @@ class ProjEngine:
         (x_geog, y_geog) = self.tf.carto_to_geog(x_carto, y_carto)
         return -np.array(self.proj.get_factors(x_geog, y_geog).meridian_convergence)
 
-    def get_scale_factor(self, x_carto: Union[np.array, List[float], float],
-                         y_carto: Union[np.array, List[float], float]) -> np.array:
+    def get_scale_factor(self, x_carto: Union[np.ndarray, List[float], float],
+                         y_carto: Union[np.ndarray, List[float], float]) -> np.ndarray:
         """
         Compute scale factor.
         Values are extracted from pyproj.

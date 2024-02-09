@@ -19,4 +19,4 @@ class GCP:
     """
     name_gcp: str
     code: int
-    coor: np.array
+    coor: np.ndarray

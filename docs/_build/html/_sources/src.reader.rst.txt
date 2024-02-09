@@ -36,6 +36,14 @@ src.reader.reader\_gcp module
    :undoc-members:
    :show-inheritance:
 
+src.reader.reader\_gipoints module
+----------------------------------
+
+.. automodule:: src.reader.reader_gipoints
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

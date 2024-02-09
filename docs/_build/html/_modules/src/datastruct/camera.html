@@ -157,13 +157,15 @@
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.altimetry.html">src.altimetry package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.datastruct.html">src.datastruct package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.geodesy.html">src.geodesy package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../src.orientation.html">src.orientation package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.position.html">src.position package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.stat.html">src.stat package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.utils.html">src.utils package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.writer.html">src.writer package</a></li>
 </ul>
@@ -227,22 +229,8 @@
     <span class="n">ppax</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">ppay</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">focal</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
-
-<div class="viewcode-block" id="Camera.add_dim_image">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.camera.Camera.add_dim_image">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_dim_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add shape of image, width height.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            width (float): Width of the image.</span>
-<span class="sd">            height (float): Height of the image.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span></div>
-</div>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span></div>
 
 </pre></div>
         </article>

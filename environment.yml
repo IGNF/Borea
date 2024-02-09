@@ -1,7 +1,16 @@
 name: pink_lady
 dependencies:
   - python
-  - pip
   - gdal
-  - pip:
-    - -r requirements.txt
+  - numpy
+  - pylint
+  - pytest
+  - pytest-shutil
+  - flake8
+  - sphinx
+  - furo
+  - importlib
+  - dataclasses
+  - jsons
+  - pyproj
+  - scipy

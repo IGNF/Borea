@@ -19,7 +19,7 @@ Why Pink Lady? Pink Lady is a B-17 owned by IGN France, originally used in the a
 
 ## Installation
 
-You need to retrieve the repository on this machine with ```git clone <link html>```.  
+You need to retrieve the repository on this machine with ```git clone <link html>``` or with ssh key.  
 Then, in an environment or on this machine, install the dependencies with pip or conda/mamba.
 Pull the git repository on your computer and install the environment. By ```conda``` or ```mamba``` with ```environment.yml``` or ```pip``` with ```requirements.txt```.
 

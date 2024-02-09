@@ -96,8 +96,8 @@ def space_resection(shot: Shot, cam: Camera, proj: ProjEngine, dem: Dem, type_z_
     return shot_adjust
 
 
-def mat_obs_axia(x_eucli: np.array, y_eucli: np.array, z_eucli: np.array,
-                 imc_adjust: Shot, cam: Camera) -> np.array:
+def mat_obs_axia(x_eucli: np.ndarray, y_eucli: np.ndarray, z_eucli: np.ndarray,
+                 imc_adjust: Shot, cam: Camera) -> np.ndarray:
     """
     Setting up the mat_a matrix to solve the system by axiator.
 

@@ -41,15 +41,15 @@ class Worksite:
         self.type_z_data = None
         self.type_z_shot = None
 
-    def add_shot(self, name_shot: str, pos_shot: np.array,
-                 ori_shot: np.array, name_cam: str) -> None:
+    def add_shot(self, name_shot: str, pos_shot: np.ndarray,
+                 ori_shot: np.ndarray, name_cam: str) -> None:
         """
         Add Shot to the attribut Shots.
 
         Args:
             name_shot (str): Name of the shot.
-            pos_shot (numpy.array): Array of coordinate position [X, Y, Z].
-            ori_shot (numpy.array): Array of orientation of the shot [Omega, Phi, Kappa].
+            pos_shot (np.array): Array of coordinate position [X, Y, Z].
+            ori_shot (np.array): Array of orientation of the shot [Omega, Phi, Kappa].
             name_cam (str): Name of the camera.
         """
         self.shots[name_shot] = Shot(name_shot=name_shot,
@@ -202,7 +202,7 @@ class Worksite:
 
         self.gipoints[name_point].append(name_shot)
 
-    def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np.array) -> None:
+    def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np.ndarray) -> None:
         """
         Add GCP in the Worksite.
 
@@ -256,7 +256,7 @@ class Worksite:
                     except KeyError:
                         continue
 
-    def calculate_barycentre(self) -> np.array:
+    def calculate_barycentre(self) -> np.ndarray:
         """
         Calculate barycentre of the worksite.
 
@@ -330,7 +330,7 @@ class Worksite:
             print(f"There isn't {type_point} or bad spelling copoint / gipoint.")
 
     # pylint: disable-next=too-many-locals
-    def eucli_intersection_2p(self, name_point: str, shot1: Shot, shot2: Shot) -> np.array:
+    def eucli_intersection_2p(self, name_point: str, shot1: Shot, shot2: Shot) -> np.ndarray:
         """
         Calculates the euclidien position of a point from two shots.
 

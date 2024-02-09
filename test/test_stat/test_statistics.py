@@ -30,7 +30,8 @@ def test_stat_world_to_image():
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
     work.check_gcp = True
     work.add_dem(PATH_DEM, "height")
-    work.type_z = "al"
+    work.type_z_shot = "al"
+    work.type_z_data = "h"
     work.calculate_world_to_image_gcp([13])
     stat = Stat(work, "./", [13])
     stat.stat_world_to_image()
@@ -266,7 +267,8 @@ def test_main():
     work.check_gip = True
     work.check_gcp = True
     work.add_dem(PATH_DEM, "height")
-    work.type_z = "al"
+    work.type_z_shot = "al"
+    work.type_z_data = "h"
     work.calculate_world_to_image_gcp([])
     work.calculate_init_image_world("gipoint")
     stat = Stat(work, OUTPUT, [])

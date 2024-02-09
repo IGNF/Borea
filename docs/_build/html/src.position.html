@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src.reader package" href="src.reader.html" /><link rel="prev" title="src.geodesy package" href="src.geodesy.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.orientation package - Pink_Lady 1.0.0 documentation</title>
+        <title>src.position package - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -158,13 +158,15 @@
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">src</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="src.html">src package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="src.altimetry.html">src.altimetry package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">src.orientation package</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">src.position package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="src.stat.html">src.stat package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.utils.html">src.utils package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.writer.html">src.writer package</a></li>
 </ul>
@@ -205,17 +207,32 @@
           </label>
         </div>
         <article role="main">
-          <section id="src-orientation-package">
-<h1>src.orientation package<a class="headerlink" href="#src-orientation-package" title="Link to this heading">#</a></h1>
+          <section id="src-position-package">
+<h1>src.position package<a class="headerlink" href="#src-position-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="module-src.orientation.shot_pos">
-<span id="src-orientation-shot-pos-module"></span><h2>src.orientation.shot_pos module<a class="headerlink" href="#module-src.orientation.shot_pos" title="Link to this heading">#</a></h2>
+<section id="module-src.position.copoints_pos">
+<span id="src-position-copoints-pos-module"></span><h2>src.position.copoints_pos module<a class="headerlink" href="#module-src.position.copoints_pos" title="Link to this heading">#</a></h2>
+<p>Module for calculate copoints position</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.position.copoints_pos.copoints_position">
+<span class="sig-prename descclassname"><span class="pre">src.position.copoints_pos.</span></span><span class="sig-name descname"><span class="pre">copoints_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/position/copoints_pos.html#copoints_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.position.copoints_pos.copoints_position" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the field position of connection points using the least squares.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>work</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite"><em>Worksite</em></a>) – The site on which you want to calculate the position of the copoints.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.position.shot_pos">
+<span id="src-position-shot-pos-module"></span><h2>src.position.shot_pos module<a class="headerlink" href="#module-src.position.shot_pos" title="Link to this heading">#</a></h2>
 <p>Module for recalculate shooting position</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="src.orientation.shot_pos.mat_obs_axia">
-<span class="sig-prename descclassname"><span class="pre">src.orientation.shot_pos.</span></span><span class="sig-name descname"><span class="pre">mat_obs_axia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imc_adjust</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/src/orientation/shot_pos.html#mat_obs_axia"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.orientation.shot_pos.mat_obs_axia" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.position.shot_pos.mat_obs_axia">
+<span class="sig-prename descclassname"><span class="pre">src.position.shot_pos.</span></span><span class="sig-name descname"><span class="pre">mat_obs_axia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imc_adjust</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/position/shot_pos.html#mat_obs_axia"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.position.shot_pos.mat_obs_axia" title="Link to this definition">#</a></dt>
 <dd><p>Setting up the mat_a matrix to solve the system by axiator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -237,8 +254,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="src.orientation.shot_pos.seed_20_point">
-<span class="sig-prename descclassname"><span class="pre">src.orientation.shot_pos.</span></span><span class="sig-name descname"><span class="pre">seed_20_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/orientation/shot_pos.html#seed_20_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.orientation.shot_pos.seed_20_point" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.position.shot_pos.seed_20_point">
+<span class="sig-prename descclassname"><span class="pre">src.position.shot_pos.</span></span><span class="sig-name descname"><span class="pre">seed_20_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/position/shot_pos.html#seed_20_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.position.shot_pos.seed_20_point" title="Link to this definition">#</a></dt>
 <dd><p>Positioning of 20 points on an image by percentage position on width and height.
 The z-world position is given by fixed values.</p>
 <dl class="field-list simple">
@@ -255,8 +272,8 @@ The z-world position is given by fixed values.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="src.orientation.shot_pos.space_resection">
-<span class="sig-prename descclassname"><span class="pre">src.orientation.shot_pos.</span></span><span class="sig-name descname"><span class="pre">space_resection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">projeucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj" title="src.geodesy.euclidean_proj.EuclideanProj"><span class="pre">EuclideanProj</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_pixel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></span><a class="reference internal" href="_modules/src/orientation/shot_pos.html#space_resection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.orientation.shot_pos.space_resection" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.position.shot_pos.space_resection">
+<span class="sig-prename descclassname"><span class="pre">src.position.shot_pos.</span></span><span class="sig-name descname"><span class="pre">space_resection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">proj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine" title="src.geodesy.proj_engine.ProjEngine"><span class="pre">ProjEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dem</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.altimetry.html#src.altimetry.dem.Dem" title="src.altimetry.dem.Dem"><span class="pre">Dem</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_z_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_z_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_pixel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></span><a class="reference internal" href="_modules/src/position/shot_pos.html#space_resection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.position.shot_pos.space_resection" title="Link to this definition">#</a></dt>
 <dd><p>Recalculates the shot’s 6 external orientation parameters,
 the 3 angles omega, phi, kappa and its position x, y, z.</p>
 <dl class="field-list simple">
@@ -265,6 +282,15 @@ the 3 angles omega, phi, kappa and its position x, y, z.</p>
 <li><p><strong>shot</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><em>Shot</em></a>) – Shot to recalculte externa parameters.</p></li>
 <li><p><strong>cam</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><em>Camera</em></a>) – Camera of the shot.</p></li>
 <li><p><strong>projeucli</strong> (<a class="reference internal" href="src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj" title="src.geodesy.euclidean_proj.EuclideanProj"><em>EuclideanProj</em></a>) – Euclidiean projection system of the worksite.</p></li>
+<li><p><strong>dem</strong> (<a class="reference internal" href="src.altimetry.html#src.altimetry.dem.Dem" title="src.altimetry.dem.Dem"><em>Dem</em></a>) – Dem of the worksite.</p></li>
+<li><p><strong>type_z_data</strong> (<em>str</em>) – z’s type of data”.
+“h” height
+“a” altitude / elevation</p></li>
+<li><p><strong>type_z_shot</strong> (<em>str</em>) – z’s type of shot”.
+“h” height
+“hl” height with linear alteration
+“a” altitude / elevation
+“al” altitude with linear alteration</p></li>
 <li><p><strong>add_pixel</strong> (<em>tuble</em>) – Pixel to be added to change marker.</p></li>
 </ul>
 </dd>
@@ -278,8 +304,8 @@ the 3 angles omega, phi, kappa and its position x, y, z.</p>
 </dd></dl>
 
 </section>
-<section id="module-src.orientation">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.orientation" title="Link to this heading">#</a></h2>
+<section id="module-src.position">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.position" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -338,15 +364,19 @@ the 3 angles omega, phi, kappa and its position x, y, z.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">src.orientation package</a><ul>
+<li><a class="reference internal" href="#">src.position package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-src.orientation.shot_pos">src.orientation.shot_pos module</a><ul>
-<li><a class="reference internal" href="#src.orientation.shot_pos.mat_obs_axia"><code class="docutils literal notranslate"><span class="pre">mat_obs_axia()</span></code></a></li>
-<li><a class="reference internal" href="#src.orientation.shot_pos.seed_20_point"><code class="docutils literal notranslate"><span class="pre">seed_20_point()</span></code></a></li>
-<li><a class="reference internal" href="#src.orientation.shot_pos.space_resection"><code class="docutils literal notranslate"><span class="pre">space_resection()</span></code></a></li>
+<li><a class="reference internal" href="#module-src.position.copoints_pos">src.position.copoints_pos module</a><ul>
+<li><a class="reference internal" href="#src.position.copoints_pos.copoints_position"><code class="docutils literal notranslate"><span class="pre">copoints_position()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-src.orientation">Module contents</a></li>
+<li><a class="reference internal" href="#module-src.position.shot_pos">src.position.shot_pos module</a><ul>
+<li><a class="reference internal" href="#src.position.shot_pos.mat_obs_axia"><code class="docutils literal notranslate"><span class="pre">mat_obs_axia()</span></code></a></li>
+<li><a class="reference internal" href="#src.position.shot_pos.seed_20_point"><code class="docutils literal notranslate"><span class="pre">seed_20_point()</span></code></a></li>
+<li><a class="reference internal" href="#src.position.shot_pos.space_resection"><code class="docutils literal notranslate"><span class="pre">space_resection()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.position">Module contents</a></li>
 </ul>
 </li>
 </ul>

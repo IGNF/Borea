@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.orientation.shot_pos - Pink_Lady 1.0.0 documentation</title>
+        <title>src.position.shot_pos - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -157,13 +157,15 @@
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.altimetry.html">src.altimetry package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.datastruct.html">src.datastruct package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.geodesy.html">src.geodesy package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../src.orientation.html">src.orientation package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.position.html">src.position package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.stat.html">src.stat package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.utils.html">src.utils package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.writer.html">src.writer package</a></li>
 </ul>
@@ -203,7 +205,7 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.orientation.shot_pos</h1><div class="highlight"><pre>
+          <h1>Source code for src.position.shot_pos</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Module for recalculate shooting position</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -211,14 +213,15 @@
 <span class="kn">from</span> <span class="nn">scipy.spatial.transform</span> <span class="kn">import</span> <span class="n">Rotation</span>
 <span class="kn">from</span> <span class="nn">src.datastruct.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span> <span class="nn">src.datastruct.shot</span> <span class="kn">import</span> <span class="n">Shot</span>
-<span class="kn">from</span> <span class="nn">src.geodesy.euclidean_proj</span> <span class="kn">import</span> <span class="n">EuclideanProj</span>
+<span class="kn">from</span> <span class="nn">src.geodesy.proj_engine</span> <span class="kn">import</span> <span class="n">ProjEngine</span>
+<span class="kn">from</span> <span class="nn">src.altimetry.dem</span> <span class="kn">import</span> <span class="n">Dem</span>
 
 
-<span class="c1"># pylint: disable-next=too-many-locals</span>
+<span class="c1"># pylint: disable-next=too-many-locals too-many-arguments</span>
 <div class="viewcode-block" id="space_resection">
-<a class="viewcode-back" href="../../../src.orientation.html#src.orientation.shot_pos.space_resection">[docs]</a>
-<span class="k">def</span> <span class="nf">space_resection</span><span class="p">(</span><span class="n">shot</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">projeucli</span><span class="p">:</span> <span class="n">EuclideanProj</span><span class="p">,</span>
-                    <span class="n">add_pixel</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Shot</span><span class="p">:</span>
+<a class="viewcode-back" href="../../../src.position.html#src.position.shot_pos.space_resection">[docs]</a>
+<span class="k">def</span> <span class="nf">space_resection</span><span class="p">(</span><span class="n">shot</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">proj</span><span class="p">:</span> <span class="n">ProjEngine</span><span class="p">,</span> <span class="n">dem</span><span class="p">:</span> <span class="n">Dem</span><span class="p">,</span> <span class="n">type_z_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                    <span class="n">type_z_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">add_pixel</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Shot</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Recalculates the shot&#39;s 6 external orientation parameters,</span>
 <span class="sd">    the 3 angles omega, phi, kappa and its position x, y, z.</span>
@@ -227,6 +230,15 @@
 <span class="sd">        shot (Shot): Shot to recalculte externa parameters.</span>
 <span class="sd">        cam (Camera): Camera of the shot.</span>
 <span class="sd">        projeucli (EuclideanProj): Euclidiean projection system of the worksite.</span>
+<span class="sd">        dem (Dem): Dem of the worksite.</span>
+<span class="sd">        type_z_data (str): z&#39;s type of data&quot;.</span>
+<span class="sd">                      &quot;h&quot; height</span>
+<span class="sd">                      &quot;a&quot; altitude / elevation</span>
+<span class="sd">        type_z_shot (str): z&#39;s type of shot&quot;.</span>
+<span class="sd">                      &quot;h&quot; height</span>
+<span class="sd">                      &quot;hl&quot; height with linear alteration</span>
+<span class="sd">                      &quot;a&quot; altitude / elevation</span>
+<span class="sd">                      &quot;al&quot; altitude with linear alteration</span>
 <span class="sd">        add_pixel (tuble): Pixel to be added to change marker.</span>
 
 <span class="sd">    Returns:</span>
@@ -236,10 +248,10 @@
     <span class="n">c_obs</span><span class="p">,</span> <span class="n">l_obs</span><span class="p">,</span> <span class="n">z_world</span> <span class="o">=</span> <span class="n">seed_20_point</span><span class="p">(</span><span class="n">cam</span><span class="p">)</span>
 
     <span class="c1"># Calculate world position</span>
-    <span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">image_to_world</span><span class="p">(</span><span class="n">c_obs</span><span class="p">,</span> <span class="n">l_obs</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span> <span class="n">projeucli</span><span class="p">,</span> <span class="n">z_world</span><span class="p">)</span>
+    <span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">image_z_to_world</span><span class="p">(</span><span class="n">c_obs</span><span class="p">,</span> <span class="n">l_obs</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span> <span class="n">dem</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">,</span> <span class="n">z_world</span><span class="p">)</span>
 
     <span class="c1"># Calculate euclidean position</span>
-    <span class="n">x_eucli</span><span class="p">,</span> <span class="n">y_eucli</span><span class="p">,</span> <span class="n">z_eucli</span> <span class="o">=</span> <span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_euclidean</span><span class="p">(</span><span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span><span class="p">)</span>
+    <span class="n">x_eucli</span><span class="p">,</span> <span class="n">y_eucli</span><span class="p">,</span> <span class="n">z_eucli</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_euclidean</span><span class="p">(</span><span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span><span class="p">)</span>
 
     <span class="c1"># Add factor</span>
     <span class="n">c_obs</span> <span class="o">+=</span> <span class="n">add_pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -247,7 +259,7 @@
 
     <span class="c1"># Initialization of adjusted shot</span>
     <span class="n">shot_adjust</span> <span class="o">=</span> <span class="n">Shot</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">name_shot</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">ori_shot</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">)</span>
-    <span class="n">shot_adjust</span><span class="o">.</span><span class="n">set_param_eucli_shot</span><span class="p">(</span><span class="n">projeucli</span><span class="p">)</span>
+    <span class="n">shot_adjust</span><span class="o">.</span><span class="n">set_param_eucli_shot</span><span class="p">(</span><span class="n">proj</span><span class="p">)</span>
 
     <span class="n">bool_iter</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">count_iter</span> <span class="o">=</span> <span class="mi">0</span>
@@ -258,7 +270,8 @@
         <span class="n">mat_a</span> <span class="o">=</span> <span class="n">mat_obs_axia</span><span class="p">(</span><span class="n">x_eucli</span><span class="p">,</span> <span class="n">y_eucli</span><span class="p">,</span> <span class="n">z_eucli</span><span class="p">,</span> <span class="n">shot_adjust</span><span class="p">,</span> <span class="n">cam</span><span class="p">)</span>
 
         <span class="c1"># Calculate position column and line with new shot f(x0)</span>
-        <span class="n">c_f0</span><span class="p">,</span> <span class="n">l_f0</span> <span class="o">=</span> <span class="n">shot_adjust</span><span class="o">.</span><span class="n">world_to_image</span><span class="p">(</span><span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span> <span class="n">projeucli</span><span class="p">)</span>
+        <span class="n">c_f0</span><span class="p">,</span> <span class="n">l_f0</span> <span class="o">=</span> <span class="n">shot_adjust</span><span class="o">.</span><span class="n">world_to_image</span><span class="p">(</span><span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span> <span class="n">dem</span><span class="p">,</span>
+                                                <span class="n">type_z_data</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">)</span>
 
         <span class="c1"># Calculate residual vector B</span>
         <span class="n">v_res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">c_obs</span> <span class="o">-</span> <span class="n">c_f0</span><span class="p">,</span> <span class="n">l_obs</span> <span class="o">-</span> <span class="n">l_f0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_eucli</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
@@ -274,7 +287,7 @@
 
         <span class="c1"># Creation of new shot with new parameter</span>
         <span class="n">imc_new_adjust</span> <span class="o">=</span> <span class="n">Shot</span><span class="o">.</span><span class="n">from_param_euclidean</span><span class="p">(</span><span class="n">shot_adjust</span><span class="o">.</span><span class="n">name_shot</span><span class="p">,</span> <span class="n">new_pos_eucli</span><span class="p">,</span>
-                                                   <span class="n">new_mat_eucli</span><span class="p">,</span> <span class="n">shot_adjust</span><span class="o">.</span><span class="n">name_cam</span><span class="p">,</span> <span class="n">projeucli</span><span class="p">)</span>
+                                                   <span class="n">new_mat_eucli</span><span class="p">,</span> <span class="n">shot_adjust</span><span class="o">.</span><span class="n">name_cam</span><span class="p">,</span> <span class="n">proj</span><span class="p">)</span>
 
         <span class="c1"># Look difference to know if you want to stop the calculation</span>
         <span class="n">diff_coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">imc_new_adjust</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">shot_adjust</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">])</span>
@@ -286,14 +299,18 @@
         <span class="c1"># Replace adjusted place</span>
         <span class="n">shot_adjust</span> <span class="o">=</span> <span class="n">imc_new_adjust</span>
 
+    <span class="n">shot_adjust</span><span class="o">.</span><span class="n">copoints</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">copoints</span>
+    <span class="n">shot_adjust</span><span class="o">.</span><span class="n">gipoints</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">gipoints</span>
+    <span class="n">shot_adjust</span><span class="o">.</span><span class="n">gcps</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">gcps</span>
+
     <span class="k">return</span> <span class="n">shot_adjust</span></div>
 
 
 
 <div class="viewcode-block" id="mat_obs_axia">
-<a class="viewcode-back" href="../../../src.orientation.html#src.orientation.shot_pos.mat_obs_axia">[docs]</a>
-<span class="k">def</span> <span class="nf">mat_obs_axia</span><span class="p">(</span><span class="n">x_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">y_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">z_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
-                 <span class="n">imc_adjust</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<a class="viewcode-back" href="../../../src.position.html#src.position.shot_pos.mat_obs_axia">[docs]</a>
+<span class="k">def</span> <span class="nf">mat_obs_axia</span><span class="p">(</span><span class="n">x_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">z_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                 <span class="n">imc_adjust</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Setting up the mat_a matrix to solve the system by axiator.</span>
 
@@ -339,7 +356,7 @@
 
 
 <div class="viewcode-block" id="seed_20_point">
-<a class="viewcode-back" href="../../../src.orientation.html#src.orientation.shot_pos.seed_20_point">[docs]</a>
+<a class="viewcode-back" href="../../../src.position.html#src.position.shot_pos.seed_20_point">[docs]</a>
 <span class="k">def</span> <span class="nf">seed_20_point</span><span class="p">(</span><span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Positioning of 20 points on an image by percentage position on width and height.</span>

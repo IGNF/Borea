@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src.writer package" href="src.writer.html" /><link rel="prev" title="src.stat package" href="src.stat.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src.utils package" href="src.utils.html" /><link rel="prev" title="src.reader.orientation package" href="src.reader.orientation.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.utils package - Pink_Lady 1.0.0 documentation</title>
+        <title>src.stat package - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -166,8 +166,8 @@
 <li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="src.stat.html">src.stat package</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">src.utils package</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">src.stat package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.utils.html">src.utils package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.writer.html">src.writer package</a></li>
 </ul>
 </li>
@@ -207,60 +207,88 @@
           </label>
         </div>
         <article role="main">
-          <section id="src-utils-package">
-<h1>src.utils package<a class="headerlink" href="#src-utils-package" title="Link to this heading">#</a></h1>
+          <section id="src-stat-package">
+<h1>src.stat package<a class="headerlink" href="#src-stat-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="module-src.utils.conversion">
-<span id="src-utils-conversion-module"></span><h2>src.utils.conversion module<a class="headerlink" href="#module-src.utils.conversion" title="Link to this heading">#</a></h2>
-<p>A script combining various data conversion and format verification functions.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.utils.conversion.change_dim">
-<span class="sig-prename descclassname"><span class="pre">src.utils.conversion.</span></span><span class="sig-name descname"><span class="pre">change_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></span><a class="reference internal" href="_modules/src/utils/conversion.html#change_dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.utils.conversion.change_dim" title="Link to this definition">#</a></dt>
-<dd><p>Change dimension of x to the dim given.</p>
+<section id="module-src.stat.statistics">
+<span id="src-stat-statistics-module"></span><h2>src.stat.statistics module<a class="headerlink" href="#module-src.stat.statistics" title="Link to this heading">#</a></h2>
+<p>Module for statistics</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.stat.statistics.Stat">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.stat.statistics.</span></span><span class="sig-name descname"><span class="pre">Stat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite"><span class="pre">Worksite</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathoutput</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/stat/statistics.html#Stat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.stat.statistics.Stat" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Calculates site statistics.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stat.statistics.Stat.main_stat_and_save">
+<span class="sig-name descname"><span class="pre">main_stat_and_save</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/stat/statistics.html#Stat.main_stat_and_save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.stat.statistics.Stat.main_stat_and_save" title="Link to this definition">#</a></dt>
+<dd><p>Calculates and saves all site statistics.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stat.statistics.Stat.main_stat_image_to_world">
+<span class="sig-name descname"><span class="pre">main_stat_image_to_world</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/stat/statistics.html#Stat.main_stat_image_to_world"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.stat.statistics.Stat.main_stat_image_to_world" title="Link to this definition">#</a></dt>
+<dd><p>Calculates residual and statistics on control point for image to world function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stat.statistics.Stat.main_stat_world_to_image">
+<span class="sig-name descname"><span class="pre">main_stat_world_to_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/stat/statistics.html#Stat.main_stat_world_to_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.stat.statistics.Stat.main_stat_world_to_image" title="Link to this definition">#</a></dt>
+<dd><p>Calculates residual and statistics on control point for world to image function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stat.statistics.Stat.save_stat_txt">
+<span class="sig-name descname"><span class="pre">save_stat_txt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/stat/statistics.html#Stat.save_stat_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.stat.statistics.Stat.save_stat_txt" title="Link to this definition">#</a></dt>
+<dd><p>Save calculation statistics in a .txt file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stat.statistics.Stat.stat_image_to_world">
+<span class="sig-name descname"><span class="pre">stat_image_to_world</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/stat/statistics.html#Stat.stat_image_to_world"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.stat.statistics.Stat.stat_image_to_world" title="Link to this definition">#</a></dt>
+<dd><p>Calculates residual of controle point for image to world.
+residual = ground control point - calculated ground control point</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stat.statistics.Stat.stat_list">
+<span class="sig-name descname"><span class="pre">stat_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/src/stat/statistics.html#Stat.stat_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.stat.statistics.Stat.stat_list" title="Link to this definition">#</a></dt>
+<dd><p>Calculates statistics on residual data.
+Min, Max, Median, Mean, Var, Sigma arithmetic and absolute</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>np.array</em><em>, </em><em>float</em><em>]</em>) – Values to change dim.</p></li>
-<li><p><strong>dim</strong> (<em>tuble</em>) – The dimension to have.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>x with the new dimension.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Union[np.array, float]</p>
+<dd class="field-odd"><p><strong>data_list</strong> (<em>list</em>) – List of data</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="src.utils.conversion.check_array_transfo">
-<span class="sig-prename descclassname"><span class="pre">src.utils.conversion.</span></span><span class="sig-name descname"><span class="pre">check_array_transfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/utils/conversion.html#check_array_transfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.utils.conversion.check_array_transfo" title="Link to this definition">#</a></dt>
-<dd><p>Checks the dimension of vectors if dim = 1 outputs the element in a variable.
-x,y,z are in the same dimension and they must be vectors if array
-possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stat.statistics.Stat.stat_world_to_image">
+<span class="sig-name descname"><span class="pre">stat_world_to_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/stat/statistics.html#Stat.stat_world_to_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.stat.statistics.Stat.stat_world_to_image" title="Link to this definition">#</a></dt>
+<dd><p>Calculates residual of controle point for world to image.
+residual = image’s ground point - calculated image’s ground point</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stat.statistics.Stat.write_stat">
+<span class="sig-name descname"><span class="pre">write_stat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TextIOWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/stat/statistics.html#Stat.write_stat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.stat.statistics.Stat.write_stat" title="Link to this definition">#</a></dt>
+<dd><p>Write dictionary data statistics of the stat_list function on a file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>np.array</em><em>, </em><em>float</em><em>]</em>) – Vector x.</p></li>
-<li><p><strong>y</strong> (<em>Union</em><em>[</em><em>np.array</em><em>, </em><em>float</em><em>]</em>) – Vector y.</p></li>
-<li><p><strong>z</strong> (<em>Union</em><em>[</em><em>np.array</em><em>, </em><em>float</em><em>]</em>) – Vector z.</p></li>
+<li><p><strong>file</strong> (<em>io.TextIOWrapper</em>) – File to write on.</p></li>
+<li><p><strong>data</strong> (<em>dict</em>) – Dictionary on data statistics to stat_list.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>x, y, z.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
 </dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
-<section id="module-src.utils">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.utils" title="Link to this heading">#</a></h2>
+<section id="module-src.stat">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.stat" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -269,23 +297,23 @@ possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="src.writer.html">
+          <a class="next-page" href="src.utils.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">src.writer package</div>
+                <div class="title">src.utils package</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="src.stat.html">
+          <a class="prev-page" href="src.reader.orientation.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">src.stat package</div>
+                <div class="title">src.reader.orientation package</div>
                 
               </div>
             </a>
@@ -319,14 +347,23 @@ possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">src.utils package</a><ul>
+<li><a class="reference internal" href="#">src.stat package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-src.utils.conversion">src.utils.conversion module</a><ul>
-<li><a class="reference internal" href="#src.utils.conversion.change_dim"><code class="docutils literal notranslate"><span class="pre">change_dim()</span></code></a></li>
-<li><a class="reference internal" href="#src.utils.conversion.check_array_transfo"><code class="docutils literal notranslate"><span class="pre">check_array_transfo()</span></code></a></li>
+<li><a class="reference internal" href="#module-src.stat.statistics">src.stat.statistics module</a><ul>
+<li><a class="reference internal" href="#src.stat.statistics.Stat"><code class="docutils literal notranslate"><span class="pre">Stat</span></code></a><ul>
+<li><a class="reference internal" href="#src.stat.statistics.Stat.main_stat_and_save"><code class="docutils literal notranslate"><span class="pre">Stat.main_stat_and_save()</span></code></a></li>
+<li><a class="reference internal" href="#src.stat.statistics.Stat.main_stat_image_to_world"><code class="docutils literal notranslate"><span class="pre">Stat.main_stat_image_to_world()</span></code></a></li>
+<li><a class="reference internal" href="#src.stat.statistics.Stat.main_stat_world_to_image"><code class="docutils literal notranslate"><span class="pre">Stat.main_stat_world_to_image()</span></code></a></li>
+<li><a class="reference internal" href="#src.stat.statistics.Stat.save_stat_txt"><code class="docutils literal notranslate"><span class="pre">Stat.save_stat_txt()</span></code></a></li>
+<li><a class="reference internal" href="#src.stat.statistics.Stat.stat_image_to_world"><code class="docutils literal notranslate"><span class="pre">Stat.stat_image_to_world()</span></code></a></li>
+<li><a class="reference internal" href="#src.stat.statistics.Stat.stat_list"><code class="docutils literal notranslate"><span class="pre">Stat.stat_list()</span></code></a></li>
+<li><a class="reference internal" href="#src.stat.statistics.Stat.stat_world_to_image"><code class="docutils literal notranslate"><span class="pre">Stat.stat_world_to_image()</span></code></a></li>
+<li><a class="reference internal" href="#src.stat.statistics.Stat.write_stat"><code class="docutils literal notranslate"><span class="pre">Stat.write_stat()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-src.utils">Module contents</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.stat">Module contents</a></li>
 </ul>
 </li>
 </ul>

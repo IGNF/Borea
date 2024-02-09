@@ -157,13 +157,15 @@
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.altimetry.html">src.altimetry package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.datastruct.html">src.datastruct package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.geodesy.html">src.geodesy package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../src.orientation.html">src.orientation package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.position.html">src.position package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.stat.html">src.stat package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.utils.html">src.utils package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.writer.html">src.writer package</a></li>
 </ul>
@@ -210,12 +212,13 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyproj</span> <span class="kn">import</span> <span class="n">CRS</span><span class="p">,</span> <span class="n">exceptions</span>
 <span class="kn">from</span> <span class="nn">src.datastruct.shot</span> <span class="kn">import</span> <span class="n">Shot</span>
 <span class="kn">from</span> <span class="nn">src.datastruct.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span> <span class="nn">src.datastruct.gcp</span> <span class="kn">import</span> <span class="n">GCP</span>
 <span class="kn">from</span> <span class="nn">src.geodesy.proj_engine</span> <span class="kn">import</span> <span class="n">ProjEngine</span>
-<span class="kn">from</span> <span class="nn">src.geodesy.euclidean_proj</span> <span class="kn">import</span> <span class="n">EuclideanProj</span>
-<span class="kn">from</span> <span class="nn">src.orientation.shot_pos</span> <span class="kn">import</span> <span class="n">space_resection</span>
+<span class="kn">from</span> <span class="nn">src.position.shot_pos</span> <span class="kn">import</span> <span class="n">space_resection</span>
+<span class="kn">from</span> <span class="nn">src.altimetry.dem</span> <span class="kn">import</span> <span class="n">Dem</span>
 
 
 <span class="c1"># pylint: disable-next=too-many-instance-attributes</span>
@@ -237,23 +240,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">copoints</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_cop</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gipoints</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_gip</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gcps</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_gcp</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cop_ground</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cop_world</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gip_world</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">proj</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dem</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="Worksite.add_shot">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.worksite.Worksite.add_shot">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
-                 <span class="n">ori_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">name_cam</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                 <span class="n">ori_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">name_cam</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add Shot to the attribut Shots.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            name_shot (str): Name of the shot.</span>
-<span class="sd">            pos_shot (numpy.array): Array of coordinate position [X, Y, Z].</span>
-<span class="sd">            ori_shot (numpy.array): Array of orientation of the shot [Omega, Phi, Kappa].</span>
+<span class="sd">            pos_shot (np.array): Array of coordinate position [X, Y, Z].</span>
+<span class="sd">            ori_shot (np.array): Array of orientation of the shot [Omega, Phi, Kappa].</span>
 <span class="sd">            name_cam (str): Name of the camera.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span> <span class="o">=</span> <span class="n">Shot</span><span class="p">(</span><span class="n">name_shot</span><span class="o">=</span><span class="n">name_shot</span><span class="p">,</span>
@@ -273,6 +281,14 @@
 <span class="sd">            file_epsg (str): Path to the json which list projection.</span>
 <span class="sd">            path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>  <span class="c1"># Check if the epsg exist</span>
+            <span class="k">if</span> <span class="n">epsg</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;EPSG:&quot;</span><span class="p">:</span>
+                <span class="n">epsg</span> <span class="o">=</span> <span class="s2">&quot;EPSG:&quot;</span> <span class="o">+</span> <span class="n">epsg</span>
+            <span class="n">crs</span> <span class="o">=</span> <span class="n">CRS</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">epsg</span><span class="p">)</span>
+            <span class="k">del</span> <span class="n">crs</span>
+        <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">CRSError</span> <span class="k">as</span> <span class="n">e_info</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">CRSError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your </span><span class="si">{</span><span class="n">epsg</span><span class="si">}</span><span class="s2"> doesn&#39;t exist&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e_info</span>
+
         <span class="k">if</span> <span class="n">file_epsg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">known_projection</span><span class="p">(</span><span class="n">epsg</span><span class="p">,</span> <span class="n">path_geotiff</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -283,10 +299,6 @@
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">dict_epsg</span> <span class="o">=</span> <span class="n">projection_list</span><span class="p">[</span><span class="n">epsg</span><span class="p">]</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">proj</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">(</span><span class="n">epsg</span><span class="p">,</span> <span class="n">dict_epsg</span><span class="p">,</span> <span class="n">path_geotiff</span><span class="p">)</span>
-                    <span class="n">coor_barycentre</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_barycentre</span><span class="p">()</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span> <span class="o">=</span> <span class="n">EuclideanProj</span><span class="p">(</span><span class="n">coor_barycentre</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                                   <span class="n">coor_barycentre</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                                   <span class="bp">self</span><span class="o">.</span><span class="n">proj</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">set_param_eucli_shots</span><span class="p">()</span>
                 <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">known_projection</span><span class="p">(</span><span class="n">epsg</span><span class="p">,</span> <span class="n">path_geotiff</span><span class="p">)</span>
@@ -311,8 +323,6 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">dict_epsg</span> <span class="o">=</span> <span class="n">projection_list</span><span class="p">[</span><span class="n">epsg</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proj</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">(</span><span class="n">epsg</span><span class="p">,</span> <span class="n">dict_epsg</span><span class="p">,</span> <span class="n">path_geotiff</span><span class="p">)</span>
-            <span class="n">coor_barycentre</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_barycentre</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span> <span class="o">=</span> <span class="n">EuclideanProj</span><span class="p">(</span><span class="n">coor_barycentre</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coor_barycentre</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">proj</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_param_eucli_shots</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proj</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">(</span><span class="n">epsg</span><span class="p">)</span></div>
@@ -325,13 +335,14 @@
 <span class="sd">        Setting up Euclidean parameters pos_shot_eucli, ori_shot_eucli, mat_rot_eucli by shot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">shot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">shot</span><span class="o">.</span><span class="n">set_param_eucli_shot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="p">)</span></div>
+            <span class="n">shot</span><span class="o">.</span><span class="n">set_param_eucli_shot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proj</span><span class="p">)</span></div>
 
 
+    <span class="c1"># pylint: disable-next=too-many-arguments</span>
 <div class="viewcode-block" id="Worksite.add_camera">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.worksite.Worksite.add_camera">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_camera</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ppax</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                   <span class="n">ppay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">focal</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_camera</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ppax</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ppay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                   <span class="n">focal</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add data camera in the Worksite.</span>
 
@@ -340,11 +351,15 @@
 <span class="sd">            ppax (float): Center of distortion in x.</span>
 <span class="sd">            ppay (float): Center of distortion in y.</span>
 <span class="sd">            focal (float): Focal of the camera.</span>
+<span class="sd">            width (float): Width of the image camera.</span>
+<span class="sd">            height (float): Height of the image camera.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">name_camera</span><span class="p">]</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="n">name_camera</span><span class="o">=</span><span class="n">name_camera</span><span class="p">,</span>
                                            <span class="n">ppax</span><span class="o">=</span><span class="n">ppax</span><span class="p">,</span>
                                            <span class="n">ppay</span><span class="o">=</span><span class="n">ppay</span><span class="p">,</span>
-                                           <span class="n">focal</span><span class="o">=</span><span class="n">focal</span><span class="p">)</span></div>
+                                           <span class="n">focal</span><span class="o">=</span><span class="n">focal</span><span class="p">,</span>
+                                           <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+                                           <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Worksite.add_copoint">
@@ -382,9 +397,45 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">copoints</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_shot</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="Worksite.add_gipoint">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.worksite.Worksite.add_gipoint">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_gipoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add linking point between acquisition in two part.</span>
+<span class="sd">        One in self.gipoints a dict with name_point the key and list of acquisition the result.</span>
+<span class="sd">        And One in self.shot[name_shot].gipoints a dict whit</span>
+<span class="sd">        name_point the key and list of coordinate x (column) y (line) the result in list.</span>
+
+<span class="sd">        Agrs:</span>
+<span class="sd">            name_point (str): Name of the connecting point.</span>
+<span class="sd">            name_shot (str): Name of the acquisition.</span>
+<span class="sd">            x (float): Pixel position of the point in column.</span>
+<span class="sd">            y (float): Pixel position of the point in line.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e_info</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The shot </span><span class="si">{</span><span class="n">name_shot</span><span class="si">}</span><span class="s2"> doesn&#39;t exist in list of shots.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e_info</span>
+
+        <span class="k">if</span> <span class="n">name_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gipoints</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gipoints</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="n">name_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">gipoints</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">gipoints</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> :--------------------------:&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning : connecting point duplicate.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The point </span><span class="si">{</span><span class="n">name_point</span><span class="si">}</span><span class="s2"> already exists in the shot </span><span class="si">{</span><span class="n">name_shot</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Keep first point with coordinates &quot;</span> <span class="o">+</span>
+                  <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">gipoints</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;:--------------------------:&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">gipoints</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_shot</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="Worksite.add_gcp">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.worksite.Worksite.add_gcp">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_gcp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_gcp</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">code_gcp</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">coor_gcp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_gcp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_gcp</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">code_gcp</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">coor_gcp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add GCP in the Worksite.</span>
 
@@ -398,6 +449,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">gcps</span><span class="p">[</span><span class="n">name_gcp</span><span class="p">]</span> <span class="o">=</span> <span class="n">GCP</span><span class="p">(</span><span class="n">name_gcp</span><span class="p">,</span> <span class="n">code_gcp</span><span class="p">,</span> <span class="n">coor_gcp</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="Worksite.add_dem">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.worksite.Worksite.add_dem">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_dem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_dem</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_dem</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add class DEM to the worksite.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path_dem (str): Path to the dem.</span>
+<span class="sd">            type (str): Type of the dem &quot;altitude&quot; or &quot;height&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">type_dem</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;altitude&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The dem&#39;s type </span><span class="si">{</span><span class="n">type_dem</span><span class="si">}</span><span class="s2"> isn&#39;t correct (&#39;altitude&#39; or &#39;height&#39;)&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">type_dem</span> <span class="o">==</span> <span class="s2">&quot;altitude&quot;</span><span class="p">:</span>
+            <span class="n">type_dem</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">type_dem</span> <span class="o">=</span> <span class="s2">&quot;h&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dem</span> <span class="o">=</span> <span class="n">Dem</span><span class="p">(</span><span class="n">path_dem</span><span class="p">,</span> <span class="n">type_dem</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="Worksite.calculate_world_to_image_gcp">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.worksite.Worksite.calculate_world_to_image_gcp">[docs]</a>
     <span class="k">def</span> <span class="nf">calculate_world_to_image_gcp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lcode</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -408,16 +480,17 @@
 <span class="sd">        Args:</span>
 <span class="sd">            lcode (list): gcp code.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_gcp</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_cop</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_gcp</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_gip</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">name_gcp</span><span class="p">,</span> <span class="n">gcp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcps</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">gcp</span><span class="o">.</span><span class="n">code</span> <span class="ow">in</span> <span class="n">lcode</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">gcp</span><span class="o">.</span><span class="n">code</span> <span class="ow">in</span> <span class="n">lcode</span> <span class="ow">or</span> <span class="n">lcode</span> <span class="o">==</span> <span class="p">[]:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">list_shots</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copoints</span><span class="p">[</span><span class="n">name_gcp</span><span class="p">]</span>
+                        <span class="n">list_shots</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gipoints</span><span class="p">[</span><span class="n">name_gcp</span><span class="p">]</span>
                         <span class="k">for</span> <span class="n">name_shot</span> <span class="ow">in</span> <span class="n">list_shots</span><span class="p">:</span>
                             <span class="n">shot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span>
                             <span class="n">cam</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
                             <span class="n">coor_img</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">world_to_image</span><span class="p">(</span><span class="n">gcp</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">gcp</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">gcp</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-                                                           <span class="n">cam</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="p">)</span>
+                                                           <span class="n">cam</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dem</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span><span class="p">,</span>
+                                                           <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">)</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">gcps</span><span class="p">[</span><span class="n">name_gcp</span><span class="p">]</span> <span class="o">=</span> <span class="n">coor_img</span>
                     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                         <span class="k">continue</span></div>
@@ -425,7 +498,7 @@
 
 <div class="viewcode-block" id="Worksite.calculate_barycentre">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.worksite.Worksite.calculate_barycentre">[docs]</a>
-    <span class="k">def</span> <span class="nf">calculate_barycentre</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">calculate_barycentre</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate barycentre of the worksite.</span>
 
@@ -441,19 +514,46 @@
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Worksite.calculate_image_world_copoints">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.worksite.Worksite.calculate_image_world_copoints">[docs]</a>
-    <span class="k">def</span> <span class="nf">calculate_image_world_copoints</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># pylint: disable-next=too-many-locals too-many-branches</span>
+<div class="viewcode-block" id="Worksite.calculate_init_image_world">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.worksite.Worksite.calculate_init_image_world">[docs]</a>
+    <span class="k">def</span> <span class="nf">calculate_init_image_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;copoint&quot;</span><span class="p">,</span>
+                                   <span class="n">control_type</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates the ground position of connecting point by intersection with</span>
-<span class="sd">        the most distance between two shots.</span>
+<span class="sd">        the most distance between two shots or ground image point.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            type_point (str): &quot;copoint&quot; or &quot;gipoint&quot; depending on what you want to calculate.</span>
+<span class="sd">            control_type (list): type controle for gcp.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_cop</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">name_cop</span><span class="p">,</span> <span class="n">item_cop</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">copoints</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># Loop on copoints</span>
+        <span class="k">if</span> <span class="n">control_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">control_type</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">check</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s2">&quot;copoint&quot;</span><span class="p">:</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copoints</span>
+            <span class="n">check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_cop</span>
+            <span class="n">check_gcp</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s2">&quot;gipoint&quot;</span><span class="p">:</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gipoints</span>
+                <span class="n">check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_gip</span>
+                <span class="n">check_gcp</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">check</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name_p</span><span class="p">,</span> <span class="n">item_p</span> <span class="ow">in</span> <span class="n">points</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># Loop on points</span>
+                <span class="k">if</span> <span class="n">check_gcp</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">control_type</span> <span class="o">!=</span> <span class="p">[]:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcps</span><span class="p">[</span><span class="n">name_p</span><span class="p">]</span><span class="o">.</span><span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">control_type</span><span class="p">:</span>
+                            <span class="k">continue</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">continue</span>
                 <span class="n">shot1</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
                 <span class="n">shot2</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
                 <span class="n">dist</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="n">list_shot1</span> <span class="o">=</span> <span class="n">item_cop</span>
+                <span class="n">list_shot1</span> <span class="o">=</span> <span class="n">item_p</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
                 <span class="n">list_shot2</span> <span class="o">=</span> <span class="n">list_shot1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
                 <span class="n">_</span> <span class="o">=</span> <span class="n">list_shot1</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">name_shot1</span> <span class="ow">in</span> <span class="n">list_shot1</span><span class="p">:</span>  <span class="c1"># Double loop on shots of copoint</span>
@@ -466,48 +566,53 @@
                             <span class="n">dist</span> <span class="o">=</span> <span class="n">new_dist</span>
                             <span class="n">shot1</span> <span class="o">=</span> <span class="n">name_shot1</span>
                             <span class="n">shot2</span> <span class="o">=</span> <span class="n">name_shot2</span>
-                <span class="n">coor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eucli_intersection_2p</span><span class="p">(</span><span class="n">name_cop</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">shot1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">shot2</span><span class="p">])</span>
-                <span class="n">coor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">euclidean_to_world</span><span class="p">(</span><span class="n">coor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coor</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">coor</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cop_ground</span><span class="p">[</span><span class="n">name_cop</span><span class="p">]</span> <span class="o">=</span> <span class="n">coor</span></div>
+                <span class="n">coor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eucli_intersection_2p</span><span class="p">(</span><span class="n">name_p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">shot1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">shot2</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s2">&quot;copoint&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cop_world</span><span class="p">[</span><span class="n">name_p</span><span class="p">]</span> <span class="o">=</span> <span class="n">coor</span>
+                <span class="k">if</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s2">&quot;gipoint&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">gip_world</span><span class="p">[</span><span class="n">name_p</span><span class="p">]</span> <span class="o">=</span> <span class="n">coor</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There isn&#39;t </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> or bad spelling copoint / gipoint.&quot;</span><span class="p">)</span></div>
 
 
     <span class="c1"># pylint: disable-next=too-many-locals</span>
 <div class="viewcode-block" id="Worksite.eucli_intersection_2p">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.worksite.Worksite.eucli_intersection_2p">[docs]</a>
-    <span class="k">def</span> <span class="nf">eucli_intersection_2p</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_copoint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">shot1</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">shot2</span><span class="p">:</span> <span class="n">Shot</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">eucli_intersection_2p</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">shot1</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">shot2</span><span class="p">:</span> <span class="n">Shot</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates the euclidien position of a point from two shots.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            name_copoint (str): Name of copoint to calcule coordinate.</span>
+<span class="sd">            name_point (str): Name of copoint to calcule coordinate.</span>
 <span class="sd">            shot1 (Shot): Frist shot.</span>
 <span class="sd">            shot2 (Shot): Second shot.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            np.array: Euclidien coordinate of the copoint.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">p_img1</span> <span class="o">=</span> <span class="n">shot1</span><span class="o">.</span><span class="n">copoints</span><span class="p">[</span><span class="n">name_copoint</span><span class="p">]</span>
-        <span class="n">p_img2</span> <span class="o">=</span> <span class="n">shot2</span><span class="o">.</span><span class="n">copoints</span><span class="p">[</span><span class="n">name_copoint</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">name_point</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">shot1</span><span class="o">.</span><span class="n">copoints</span><span class="p">):</span>
+            <span class="n">p_img1</span> <span class="o">=</span> <span class="n">shot1</span><span class="o">.</span><span class="n">copoints</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span>
+            <span class="n">p_img2</span> <span class="o">=</span> <span class="n">shot2</span><span class="o">.</span><span class="n">copoints</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p_img1</span> <span class="o">=</span> <span class="n">shot1</span><span class="o">.</span><span class="n">gipoints</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span>
+            <span class="n">p_img2</span> <span class="o">=</span> <span class="n">shot2</span><span class="o">.</span><span class="n">gipoints</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span>
+
         <span class="n">cam1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">shot1</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
         <span class="n">cam2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">shot2</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
-        <span class="n">base</span> <span class="o">=</span> <span class="n">shot1</span><span class="o">.</span><span class="n">pos_shot_eucli</span> <span class="o">-</span> <span class="n">shot2</span><span class="o">.</span><span class="n">pos_shot_eucli</span>
-        <span class="n">vect1</span> <span class="o">=</span> <span class="n">shot1</span><span class="o">.</span><span class="n">mat_rot_eucli</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p_img1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cam1</span><span class="o">.</span><span class="n">ppax</span><span class="p">,</span>
-                                                  <span class="n">p_img1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">cam1</span><span class="o">.</span><span class="n">ppay</span><span class="p">,</span>
-                                                  <span class="o">-</span><span class="n">cam1</span><span class="o">.</span><span class="n">focal</span><span class="p">])</span>
-        <span class="n">vect2</span> <span class="o">=</span> <span class="n">shot2</span><span class="o">.</span><span class="n">mat_rot_eucli</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p_img2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cam2</span><span class="o">.</span><span class="n">ppax</span><span class="p">,</span>
-                                                  <span class="n">p_img2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">cam2</span><span class="o">.</span><span class="n">ppay</span><span class="p">,</span>
-                                                  <span class="o">-</span><span class="n">cam2</span><span class="o">.</span><span class="n">focal</span><span class="p">])</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">shot1</span><span class="o">.</span><span class="n">pos_shot</span> <span class="o">-</span> <span class="n">shot2</span><span class="o">.</span><span class="n">pos_shot</span>
+        <span class="n">vect1</span> <span class="o">=</span> <span class="n">shot1</span><span class="o">.</span><span class="n">mat_rot</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">shot1</span><span class="o">.</span><span class="n">image_to_bundle</span><span class="p">(</span><span class="n">p_img1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p_img1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cam1</span><span class="p">)</span>
+        <span class="n">vect2</span> <span class="o">=</span> <span class="n">shot2</span><span class="o">.</span><span class="n">mat_rot</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">shot2</span><span class="o">.</span><span class="n">image_to_bundle</span><span class="p">(</span><span class="n">p_img2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p_img2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cam2</span><span class="p">)</span>
         <span class="n">norme_v1</span> <span class="o">=</span> <span class="n">vect1</span> <span class="o">@</span> <span class="n">vect1</span>
         <span class="n">norme_v2</span> <span class="o">=</span> <span class="n">vect2</span> <span class="o">@</span> <span class="n">vect2</span>
         <span class="n">v1_v2</span> <span class="o">=</span> <span class="n">vect1</span> <span class="o">@</span> <span class="n">vect2</span>
         <span class="n">b_v1</span> <span class="o">=</span> <span class="n">base</span> <span class="o">@</span> <span class="n">vect1</span>
         <span class="n">b_v2</span> <span class="o">=</span> <span class="n">base</span> <span class="o">@</span> <span class="n">vect2</span>
-        <span class="n">num1</span> <span class="o">=</span> <span class="n">b_v2</span><span class="o">*</span><span class="n">v1_v2</span> <span class="o">-</span> <span class="n">b_v1</span><span class="o">*</span><span class="n">norme_v1</span>
+        <span class="n">num1</span> <span class="o">=</span> <span class="n">b_v2</span><span class="o">*</span><span class="n">v1_v2</span> <span class="o">-</span> <span class="n">b_v1</span><span class="o">*</span><span class="n">norme_v2</span>
         <span class="n">num2</span> <span class="o">=</span> <span class="n">b_v2</span><span class="o">*</span><span class="n">norme_v1</span> <span class="o">-</span> <span class="n">b_v1</span><span class="o">*</span><span class="n">v1_v2</span>
         <span class="n">denum</span> <span class="o">=</span> <span class="n">v1_v2</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">norme_v1</span><span class="o">*</span><span class="n">norme_v2</span>
-        <span class="n">p1_eucli</span> <span class="o">=</span> <span class="n">shot1</span><span class="o">.</span><span class="n">pos_shot_eucli</span> <span class="o">+</span> <span class="p">((</span><span class="n">num1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">denum</span><span class="p">))</span><span class="o">*</span><span class="n">vect1</span>
-        <span class="n">p2_eucli</span> <span class="o">=</span> <span class="n">shot2</span><span class="o">.</span><span class="n">pos_shot_eucli</span> <span class="o">+</span> <span class="p">((</span><span class="n">num2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">denum</span><span class="p">))</span><span class="o">*</span><span class="n">vect2</span>
-        <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">p1_eucli</span> <span class="o">+</span> <span class="n">p2_eucli</span><span class="p">)</span></div>
+        <span class="n">p1_world</span> <span class="o">=</span> <span class="n">shot1</span><span class="o">.</span><span class="n">pos_shot</span> <span class="o">+</span> <span class="p">((</span><span class="n">num1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">denum</span><span class="p">))</span><span class="o">*</span><span class="n">vect1</span>
+        <span class="n">p2_world</span> <span class="o">=</span> <span class="n">shot2</span><span class="o">.</span><span class="n">pos_shot</span> <span class="o">+</span> <span class="p">((</span><span class="n">num2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">denum</span><span class="p">))</span><span class="o">*</span><span class="n">vect2</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">p1_world</span> <span class="o">+</span> <span class="n">p2_world</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span></div>
 
 
     <span class="c1"># pylint: disable-next=pointless-string-statement</span>
@@ -543,7 +648,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">key_shot</span><span class="p">,</span> <span class="n">item_shot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">cam</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">item_shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">key_shot</span><span class="p">]</span> <span class="o">=</span> <span class="n">space_resection</span><span class="p">(</span><span class="n">item_shot</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="p">,</span> <span class="n">add_pixel</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">key_shot</span><span class="p">]</span> <span class="o">=</span> <span class="n">space_resection</span><span class="p">(</span><span class="n">item_shot</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proj</span><span class="p">,</span>
+                                                   <span class="bp">self</span><span class="o">.</span><span class="n">dem</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span><span class="p">,</span>
+                                                   <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">,</span> <span class="n">add_pixel</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

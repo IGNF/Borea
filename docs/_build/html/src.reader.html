@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src.reader.orientation package" href="src.reader.orientation.html" /><link rel="prev" title="src.orientation package" href="src.orientation.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src.reader.orientation package" href="src.reader.orientation.html" /><link rel="prev" title="src.position package" href="src.position.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>src.reader package - Pink_Lady 1.0.0 documentation</title>
@@ -158,13 +158,15 @@
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">src</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="src.html">src package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="src.altimetry.html">src.altimetry package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="src.orientation.html">src.orientation package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.position.html">src.position package</a></li>
 <li class="toctree-l3 current has-children current-page"><a class="current reference internal" href="#">src.reader package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="src.stat.html">src.stat package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.utils.html">src.utils package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.writer.html">src.writer package</a></li>
 </ul>
@@ -248,20 +250,6 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="src.reader.reader_camera.camera_xml">
-<span class="sig-prename descclassname"><span class="pre">src.reader.reader_camera.</span></span><span class="sig-name descname"><span class="pre">camera_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/reader/reader_camera.html#camera_xml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.reader_camera.camera_xml" title="Link to this definition">#</a></dt>
-<dd><p>Read xml file camera.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>files</strong> (<em>list</em>) – Path list of files cameras.</p></li>
-<li><p><strong>work</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite"><em>Worksite</em></a>) – Worksite which needs camera data.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="src.reader.reader_camera.read_camera">
 <span class="sig-prename descclassname"><span class="pre">src.reader.reader_camera.</span></span><span class="sig-name descname"><span class="pre">read_camera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/reader/reader_camera.html#read_camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.reader_camera.read_camera" title="Link to this definition">#</a></dt>
 <dd><p>Manage file in list files to read.</p>
@@ -306,6 +294,21 @@ work (Worksite): Worksite which needs gcp.</p>
 </dd></dl>
 
 </section>
+<section id="module-src.reader.reader_gipoints">
+<span id="src-reader-reader-gipoints-module"></span><h2>src.reader.reader_gipoints module<a class="headerlink" href="#module-src.reader.reader_gipoints" title="Link to this heading">#</a></h2>
+<p>Script to read ground points in image .mes.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.reader.reader_gipoints.read_gipoints">
+<span class="sig-prename descclassname"><span class="pre">src.reader.reader_gipoints.</span></span><span class="sig-name descname"><span class="pre">read_gipoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.worksite.Worksite" title="src.datastruct.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/reader/reader_gipoints.html#read_gipoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.reader_gipoints.read_gipoints" title="Link to this definition">#</a></dt>
+<dd><p>Read all files of connecting points.</p>
+<dl class="simple">
+<dt>Agrs:</dt><dd><p>files (list): Path list of files connecting points.
+work (Worksite): Worksite which needs connecting points.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-src.reader">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.reader" title="Link to this heading">#</a></h2>
 </section>
@@ -325,14 +328,14 @@ work (Worksite): Worksite which needs gcp.</p>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="src.orientation.html">
+          <a class="prev-page" href="src.position.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">src.orientation package</div>
+                <div class="title">src.position package</div>
                 
               </div>
             </a>
@@ -371,7 +374,6 @@ work (Worksite): Worksite which needs gcp.</p>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-src.reader.reader_camera">src.reader.reader_camera module</a><ul>
 <li><a class="reference internal" href="#src.reader.reader_camera.camera_txt"><code class="docutils literal notranslate"><span class="pre">camera_txt()</span></code></a></li>
-<li><a class="reference internal" href="#src.reader.reader_camera.camera_xml"><code class="docutils literal notranslate"><span class="pre">camera_xml()</span></code></a></li>
 <li><a class="reference internal" href="#src.reader.reader_camera.read_camera"><code class="docutils literal notranslate"><span class="pre">read_camera()</span></code></a></li>
 </ul>
 </li>
@@ -381,6 +383,10 @@ work (Worksite): Worksite which needs gcp.</p>
 </li>
 <li><a class="reference internal" href="#module-src.reader.reader_gcp">src.reader.reader_gcp module</a><ul>
 <li><a class="reference internal" href="#src.reader.reader_gcp.read_gcp"><code class="docutils literal notranslate"><span class="pre">read_gcp()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.reader.reader_gipoints">src.reader.reader_gipoints module</a><ul>
+<li><a class="reference internal" href="#src.reader.reader_gipoints.read_gipoints"><code class="docutils literal notranslate"><span class="pre">read_gipoints()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-src.reader">Module contents</a></li>

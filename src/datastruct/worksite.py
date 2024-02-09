@@ -38,7 +38,8 @@ class Worksite:
         self.gip_world = {}
         self.proj = None
         self.dem = None
-        self.type_z = None
+        self.type_z_data = None
+        self.type_z_shot = None
 
     def add_shot(self, name_shot: str, pos_shot: np.array,
                  ori_shot: np.array, name_cam: str) -> None:
@@ -225,6 +226,11 @@ class Worksite:
         if type_dem not in ["altitude", "height"]:
             raise ValueError(f"The dem's type {type_dem} isn't correct ('altitude' or 'height')")
 
+        if type_dem == "altitude":
+            type_dem = "a"
+        else:
+            type_dem = "h"
+
         self.dem = Dem(path_dem, type_dem)
 
     def calculate_world_to_image_gcp(self, lcode: list) -> None:
@@ -244,7 +250,8 @@ class Worksite:
                             shot = self.shots[name_shot]
                             cam = self.cameras[shot.name_cam]
                             coor_img = shot.world_to_image(gcp.coor[0], gcp.coor[1], gcp.coor[2],
-                                                           cam, self.dem, self.type_z)
+                                                           cam, self.dem, self.type_z_data,
+                                                           self.type_z_shot)
                             self.shots[name_shot].gcps[name_gcp] = coor_img
                     except KeyError:
                         continue
@@ -391,4 +398,5 @@ class Worksite:
         for key_shot, item_shot in self.shots.items():
             cam = self.cameras[item_shot.name_cam]
             self.shots[key_shot] = space_resection(item_shot, cam, self.proj,
-                                                   self.dem, self.type_z, add_pixel)
+                                                   self.dem, self.type_z_data,
+                                                   self.type_z_shot, add_pixel)

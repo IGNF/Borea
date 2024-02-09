@@ -18,8 +18,12 @@ jobs:
     
     - name: Install environment
       run: |
+        sudo apt-get update
+        sudo apt-get install gdal-bin libgdal-dev
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        export CPLUS_INCLUDE_PATH=/usr/include/gdal
+        export C_INCLUDE_PATH=/usr/include/gdal
+        pip install pytest numpy importlib dataclasses pyproj scipy jsons wheel GDAL==3.4.1
 
     - name: Run tests with pytest
       run: python3 -m pytest -s ./test -v

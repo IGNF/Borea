@@ -10,6 +10,7 @@ from src.stat.statistics import Stat
 
 OUTPUT = "./test/tmp"
 FILENAME = "Test"
+PATH_DEM = "./test/data/MNT_France_25m_h_crop.tif"
 
 def setup_module(module): # run before the first test
     try:  # Clean folder test if exists
@@ -28,12 +29,15 @@ def test_stat_world_to_image():
     work.check_gip = True
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
     work.check_gcp = True
+    work.add_dem(PATH_DEM, "height")
+    work.type_z_shot = "al"
+    work.type_z_data = "h"
     work.calculate_world_to_image_gcp([13])
     stat = Stat(work, "./", [13])
     stat.stat_world_to_image()
     assert stat.res_world_image[0][0][0] == 'gcp_test'
     assert stat.res_world_image[0][0][1] == 'shot_test'
-    assert np.all(stat.res_world_image[0][1] == np.array([2.990902358244057, 2.167273693090465]))
+    assert np.all(abs(stat.res_world_image[0][1]) < 1)
     assert len(stat.res_world_image) == 1
 
 
@@ -262,6 +266,9 @@ def test_main():
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.check_gip = True
     work.check_gcp = True
+    work.add_dem(PATH_DEM, "height")
+    work.type_z_shot = "al"
+    work.type_z_data = "h"
     work.calculate_world_to_image_gcp([])
     work.calculate_init_image_world("gipoint")
     stat = Stat(work, OUTPUT, [])

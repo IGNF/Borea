@@ -45,6 +45,7 @@ Then add the parameters:
 | -t | Files paths of ground points image (.mes) | None | X |
 | -g | Files paths of ground control point (.app) | None | X |
 | -d | Type of gcp to control. | [] | X |
+| -m | DEM of the worksite. | None | X |
 
 Some settings are optional, depending on what you want to do with Pink Lady.
 Only the first -f parameter is mandatory
@@ -71,6 +72,42 @@ Same thing with write files.
 8. Calculation of the ground coordinates of connecting point with a z estimate
 9. Calculation of the ground coordinates of connecting point by intersection
 10. Calculation of 6 externa parameters of shot with space_resection
+
+### Installation
+
+You need to retrieve the repository on this machine with ```git clone <link html>```.  
+Then, in an environment or on this machine, install the dependencies with pip or conda/mamba.
+
+#### Conda/Mamba
+```
+conda env create -f environment.yaml
+```
+```
+mamba env create -f environment.yaml
+```
+
+#### Pip
+```
+pip install -r requirements.txt
+```
+
+You may experience errors when installing GDAL with pip.  
+If you are working in an environment where GDAL is already installed on your machine. You need to retrieve the version of your gdal on your machine with ```ogrinfo --version``` then use the same version for ```pip install GDAL=<version>```.  
+If GDAL does not exist, install libgdal-dev with sudo.
+```
+sudo apt-get install libgdal-dev
+```
+You’ll also need to export a couple of environment variables for the compiler.
+```
+export CPLUS_INCLUDE_PATH=/usr/include/gdal
+export C_INCLUDE_PATH=/usr/include/gdal
+```
+Now you can use pip to install the Python GDAL bindings ```ogrinfo --version```.
+```
+pip install GDAL==<GDAL VERSION FROM OGRINFO>
+```
+
+You can find more information on https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html .
 
 ### Utilisation
 

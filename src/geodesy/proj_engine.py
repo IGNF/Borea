@@ -104,6 +104,10 @@ class Transform():
             self.geog_to_geoid = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
                                                                   f"+grids={','.join(geoid_list)} "
                                                                   "+multiplier=1").transform
+            # Transform geoide coordinates to geographic coordinates
+            self.geoid_to_geog = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
+                                                                  f"+grids={','.join(geoid_list)} "
+                                                                  "+multiplier=-1").transform
         except pyproj.exceptions.ProjError as e:
             raise pyproj.exceptions.ProjError(f"{geoid_list} The name of geotif is incorrect or "
                                               "does not exist in folder or "

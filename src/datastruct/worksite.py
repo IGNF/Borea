@@ -366,26 +366,6 @@ class Worksite:
         p2_world = shot2.pos_shot + ((num2)/(denum))*vect2
         return (p1_world + p2_world) / 2
 
-    # pylint: disable-next=pointless-string-statement
-    """
-    def calculate_coor_ground_copoints2(self) -> None:
-        ""
-        Calculates the ground position of connecting point by least-squares method
-        ""
-        if self.check_cop:
-            # Initinialisation of parameter
-            init_param = {}
-            for shot in self.shots.values(): # Loop on shots
-                cop_param = {}
-                for cop in list(shot.copoints): # Loop on copoints of the shot
-                    x,y,z = shot.image_to_world(shot.copoints[0],
-                                                shot.copoints[1],
-                                                self.cameras[shot.name_cam],
-                                                self.projeucli)
-                    cop_param[cop] = self.projeucli.world_to_euclidean(x,y,z)
-                init_param[shot] = cop_param
-    """
-
     def shootings_position(self, add_pixel: tuple = (0, 0)) -> None:
         """
         Recalculates the shot's 6 external orientation parameters,

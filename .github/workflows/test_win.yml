@@ -1,0 +1,31 @@
+name: unitary_test_windows
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v4
+    
+    - name: Install environment
+      uses: mamba-org/setup-micromamba@v1.4.3
+      with:
+        environment-file: environment.yml
+        environment-name: pink_lady
+        cache-environment: true
+        cache-downloads: true
+        init-shell: bash
+
+    - name: Run tests with pytest
+      shell: bash -el {0}
+      run: |
+        python -m pytest -s ./test -v

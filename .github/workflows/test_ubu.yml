@@ -1,4 +1,4 @@
-name: unitary_test
+name: unitary_test_ubuntu
 
 on:
   push:

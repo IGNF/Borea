@@ -1,4 +1,11 @@
+# Folder for test
 test/tmp/
+
+# Data for test workflows
+package-lock.json
+package.json
+node_modules/
+test.js
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

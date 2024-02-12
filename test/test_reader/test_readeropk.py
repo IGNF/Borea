@@ -4,7 +4,7 @@ Script test for module reader_opk
 import numpy as np
 from src.reader.orientation.reader_opk import read as read_opk
 
-INPUT_OPK = "test/data/23FD1305_alt_test.OPK"
+INPUT_OPK = "./test/data/23FD1305_alt_test.OPK"
 
 def test_reader_opk():
     obj = read_opk(INPUT_OPK, 1)

@@ -1,16 +1,18 @@
 name: pink_lady
+channels:
+ - conda-forge
 dependencies:
-  - python
+  - python==3.10.*
   - gdal
   - numpy
   - pylint
   - pytest
-  - pytest-shutil
+  - conda-forge:pytest-shutil
   - flake8
   - sphinx
-  - furo
-  - importlib
+  - conda-forge:furo
+  - conda-forge:importlib-resources
   - dataclasses
-  - jsons
+  - conda-forge:jsons
   - pyproj
   - scipy

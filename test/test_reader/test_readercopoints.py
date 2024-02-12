@@ -4,8 +4,8 @@ Script test for module reader_copoints
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.reader_copoints import read_copoints
 
-INPUT_OPK = "test/data/23FD1305_alt_test.OPK"
-INPUT_LIAISONS = "test/data/liaisons_test.mes"
+INPUT_OPK = "./test/data/23FD1305_alt_test.OPK"
+INPUT_LIAISONS = "./test/data/liaisons_test.mes"
 
 def test_read_copoints():
     work = reader_orientation(INPUT_OPK, 1)

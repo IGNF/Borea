@@ -1,28 +1,23 @@
 """
 A script to read opk file.
 """
+import platform
 import numpy as np
 from src.datastruct.worksite import Worksite
 
 
-def read(file: str, skip: int) -> Worksite:
+def read(file: str, skip: int, work: Worksite) -> Worksite:
     """
     Reads an opk file to transform it into a Workside object.
 
     Args:
         file (str): Path to the worksite.
-        skip (int): Number of lines to be skipped before reading the file, Default=None.
+        skip (int): Number of lines to be skipped before reading the file.
+        work (Worksite): Worksite to add shot
 
     Returns:
         Worksite: The worksite.
     """
-    # Job name retrieval
-    name_work = file.split('/')[-1]
-    name_work = name_work.split('.')[0]
-
-    # Create worksite
-    work = Worksite(name_work)
-
     try:
         with open(file, 'r', encoding="utf-8") as file_opk:
             for item_opk in file_opk.readlines()[skip:]:
@@ -39,6 +34,9 @@ def read(file: str, skip: int) -> Worksite:
                               item_shot[7])
             file_opk.close()
     except FileNotFoundError as e:
-        raise FileNotFoundError(f"The path {file} is incorrect !!!") from e
+        raise FileNotFoundError(f"The path {file} is incorrect !!!"
+                                f"Your os is {platform.system()}."
+                                "For Windows path is \\,"
+                                " for Linux and MacOS (Darwin) is / .") from e
 
     return work

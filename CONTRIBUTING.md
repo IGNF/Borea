@@ -27,7 +27,7 @@ Restructuring of read files to allow the addition of read files without modifyin
 Same thing with write files.
 - Structure file in reader folder:
     - name : reader_{ext}.py
-    - function : def read(file: str, skip: int, work: Worksite) -> Worksite:
+    - function : def read(file: str, line: list, header: list, work: Worksite) -> Worksite:
 - Structure file in writer folder: 
     - name : writer_{ext}.py
     - function : def write(path_folder: str, work: Worksite) -> converted file:

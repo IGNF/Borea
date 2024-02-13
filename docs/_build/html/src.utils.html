@@ -212,6 +212,27 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
+<section id="module-src.utils.check_header">
+<span id="src-utils-check-header-module"></span><h2>src.utils.check_header module<a class="headerlink" href="#module-src.utils.check_header" title="Link to this heading">#</a></h2>
+<p>A script for verification header str in manage reader.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.utils.check_header.check_header_file">
+<span class="sig-prename descclassname"><span class="pre">src.utils.check_header.</span></span><span class="sig-name descname"><span class="pre">check_header_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/utils/check_header.html#check_header_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.utils.check_header.check_header_file" title="Link to this definition">#</a></dt>
+<dd><p>Check if the header of the file is good</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>header</strong> (<em>list</em>) – List of column type file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>header without type, type of z, type of angle</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-src.utils.conversion">
 <span id="src-utils-conversion-module"></span><h2>src.utils.conversion module<a class="headerlink" href="#module-src.utils.conversion" title="Link to this heading">#</a></h2>
 <p>A script combining various data conversion and format verification functions.</p>
@@ -321,6 +342,10 @@ possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
             <ul>
 <li><a class="reference internal" href="#">src.utils package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.utils.check_header">src.utils.check_header module</a><ul>
+<li><a class="reference internal" href="#src.utils.check_header.check_header_file"><code class="docutils literal notranslate"><span class="pre">check_header_file()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-src.utils.conversion">src.utils.conversion module</a><ul>
 <li><a class="reference internal" href="#src.utils.conversion.change_dim"><code class="docutils literal notranslate"><span class="pre">change_dim()</span></code></a></li>
 <li><a class="reference internal" href="#src.utils.conversion.check_array_transfo"><code class="docutils literal notranslate"><span class="pre">check_array_transfo()</span></code></a></li>

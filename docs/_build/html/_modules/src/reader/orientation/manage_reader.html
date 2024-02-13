@@ -211,17 +211,20 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">importlib</span>
 <span class="kn">from</span> <span class="nn">src.datastruct.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
+<span class="kn">from</span> <span class="nn">src.utils.check_header</span> <span class="kn">import</span> <span class="n">check_header_file</span>
 
 
 <div class="viewcode-block" id="reader_orientation">
 <a class="viewcode-back" href="../../../../src.reader.orientation.html#src.reader.orientation.manage_reader.reader_orientation">[docs]</a>
-<span class="k">def</span> <span class="nf">reader_orientation</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">skip</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Worksite</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">reader_orientation</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line_take</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">header</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Worksite</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Photogrammetric site file reading function.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        file (str): Path to the worksite.</span>
-<span class="sd">        skip (int): Number of lines to be skipped before reading the file, Default=None.</span>
+<span class="sd">        line_take (list): Interval of lines taken into account, [i, j] if i or j is None = :.</span>
+<span class="sd">                          e.g. [1, None] = [1:]</span>
+<span class="sd">        header (list): List of column type file.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Worksite: The worksite.</span>
@@ -234,14 +237,17 @@
 
     <span class="n">name_work</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">splitpath</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
 
+    <span class="n">header</span><span class="p">,</span> <span class="n">type_z</span><span class="p">,</span> <span class="n">type_angle</span> <span class="o">=</span> <span class="n">check_header_file</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+
     <span class="n">work</span> <span class="o">=</span> <span class="n">Worksite</span><span class="p">(</span><span class="n">name_work</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">my_module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s2">&quot;src.reader.orientation.reader_&quot;</span> <span class="o">+</span> <span class="n">ext</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-        <span class="n">work</span> <span class="o">=</span> <span class="n">my_module</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">skip</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
+        <span class="n">work</span> <span class="o">=</span> <span class="n">my_module</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">line_take</span><span class="p">,</span> <span class="n">header</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">ModuleNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ModuleNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2"> file is not taken into account !!!&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
 
-    <span class="n">work</span><span class="o">.</span><span class="n">type_z</span> <span class="o">=</span> <span class="s2">&quot;al&quot;</span>
+    <span class="n">work</span><span class="o">.</span><span class="n">type_z_shot</span> <span class="o">=</span> <span class="n">type_z</span>
+    <span class="n">work</span><span class="o">.</span><span class="n">type_angle</span> <span class="o">=</span> <span class="n">type_angle</span>
     <span class="k">return</span> <span class="n">work</span></div>
 
 </pre></div>

@@ -6,13 +6,15 @@ import numpy as np
 from src.datastruct.worksite import Worksite
 
 
-def read(file: str, skip: int, work: Worksite) -> Worksite:
+def read(file: str, lines: int, header: list,  work: Worksite) -> Worksite:
     """
     Reads an opk file to transform it into a Workside object.
 
     Args:
         file (str): Path to the worksite.
-        skip (int): Number of lines to be skipped before reading the file.
+        lines (list): Interval of lines taken into account, [i, j] if i or j is None = :.
+                          e.g. [1, None] = [1:]
+        header (list): List of column type file.
         work (Worksite): Worksite to add shot
 
     Returns:
@@ -20,18 +22,18 @@ def read(file: str, skip: int, work: Worksite) -> Worksite:
     """
     try:
         with open(file, 'r', encoding="utf-8") as file_opk:
-            for item_opk in file_opk.readlines()[skip:]:
+            for item_opk in file_opk.readlines()[lines[0]:lines[1]]:
                 item_shot = item_opk.split()
-                work.add_shot(item_shot[0],
+                work.add_shot(item_shot[header.index("N")],
                               np.array([
-                                   float(item_shot[1]),
-                                   float(item_shot[2]),
-                                   float(item_shot[3])], dtype=float),
+                                   float(item_shot[header.index("X")]),
+                                   float(item_shot[header.index("Y")]),
+                                   float(item_shot[header.index("Z")])], dtype=float),
                               np.array([
-                                   float(item_shot[4]),
-                                   float(item_shot[5]),
-                                   float(item_shot[6])], dtype=float),
-                              item_shot[7])
+                                   float(item_shot[header.index("O")]),
+                                   float(item_shot[header.index("P")]),
+                                   float(item_shot[header.index("K")])], dtype=float),
+                              item_shot[header.index("C")])
             file_opk.close()
     except FileNotFoundError as e:
         raise FileNotFoundError(f"The path {file} is incorrect !!!"

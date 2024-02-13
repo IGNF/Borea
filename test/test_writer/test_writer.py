@@ -6,7 +6,7 @@ import numpy as np
 import shutil as shutil
 from src.datastruct.worksite import Worksite
 from src.writer.writer_opk import write
-from src.reader.orientation.reader_opk import read as read_opk
+from src.reader.orientation.manage_reader import reader_orientation
 
 
 OUTPUT = "./test/tmp"
@@ -25,7 +25,7 @@ def test_writer():
     obj = Worksite(name = FILENAME)
     obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
     write(OUTPUT, obj)
-    obj2 = read_opk(f"{OUTPUT}/{FILENAME}.opk", 1)
+    obj2 = reader_orientation(f"{OUTPUT}/{FILENAME}.opk", 1)
     assert obj2.name == "Test"
     assert obj2.shots["test_shot"].name_shot == "test_shot"
     assert obj2.shots["test_shot"].pos_shot[0] == 1

@@ -462,15 +462,10 @@
 <span class="sd">            path_dem (str): Path to the dem.</span>
 <span class="sd">            type (str): Type of the dem &quot;altitude&quot; or &quot;height&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">type_dem</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;altitude&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">type_dem</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;altitude&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The dem&#39;s type </span><span class="si">{</span><span class="n">type_dem</span><span class="si">}</span><span class="s2"> isn&#39;t correct (&#39;altitude&#39; or &#39;height&#39;)&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">type_dem</span> <span class="o">==</span> <span class="s2">&quot;altitude&quot;</span><span class="p">:</span>
-            <span class="n">type_dem</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">type_dem</span> <span class="o">=</span> <span class="s2">&quot;h&quot;</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">dem</span> <span class="o">=</span> <span class="n">Dem</span><span class="p">(</span><span class="n">path_dem</span><span class="p">,</span> <span class="n">type_dem</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dem</span> <span class="o">=</span> <span class="n">Dem</span><span class="p">(</span><span class="n">path_dem</span><span class="p">,</span> <span class="n">type_dem</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="Worksite.calculate_world_to_image_gcp">

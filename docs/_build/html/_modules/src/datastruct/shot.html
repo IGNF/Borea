@@ -348,7 +348,7 @@
                        <span class="n">y_world</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
                        <span class="n">z_world</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
                        <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">dem</span><span class="p">:</span> <span class="n">Dem</span><span class="p">,</span>
-                       <span class="n">type_z_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                       <span class="n">type_z_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates the c,l coordinates of a terrain point in an image.</span>
 
@@ -361,7 +361,7 @@
 <span class="sd">            type_z_data (str): type of z of data.</span>
 <span class="sd">                               &quot;h&quot; height</span>
 <span class="sd">                               &quot;a&quot; altitude</span>
-<span class="sd">            type_z_shot (str): type of z of worksite, default = &quot;a&quot;.</span>
+<span class="sd">            type_z_shot (str): type of z of worksite.</span>
 <span class="sd">                               &quot;h&quot; height</span>
 <span class="sd">                               &quot;hl&quot; height with linear alteration</span>
 <span class="sd">                               &quot;a&quot; altitude / elevation</span>
@@ -370,8 +370,8 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            np.array: The image coordinate [c,l].</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">type_z_shot</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;al&quot;</span><span class="p">,</span> <span class="s2">&quot;hl&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">dem</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing dem.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">type_z_data</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">type_z_shot</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dem</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing dem, because type z data != type z shot.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x_world</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x_world</span><span class="p">)</span>
@@ -422,7 +422,7 @@
 <span class="sd">            np.array: Cartographique coordinate [x,y,z].</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">dem</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing dem.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing dem&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
@@ -544,7 +544,9 @@
                                                                 <span class="n">coor_geog</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                                                                 <span class="n">coor_geog</span><span class="p">[</span><span class="mi">2</span><span class="p">])[</span><span class="mi">2</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">new_z</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: the geoid has not been entered, the z transformation from altitude &quot;</span>
+                  <span class="s2">&quot;to height has not been performed, return z altitude&quot;</span><span class="p">)</span>
+            <span class="n">new_z</span> <span class="o">=</span> <span class="n">z</span>
 
         <span class="k">if</span> <span class="n">new_z</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;out geoid&quot;</span><span class="p">)</span>
@@ -575,7 +577,9 @@
                                                                 <span class="n">coor_geog</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                                                                 <span class="n">coor_geog</span><span class="p">[</span><span class="mi">2</span><span class="p">])[</span><span class="mi">2</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">new_z</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: the geoid has not been entered, the z transformation from height &quot;</span>
+                  <span class="s2">&quot;to altitude has not been performed, return z height&quot;</span><span class="p">)</span>
+            <span class="n">new_z</span> <span class="o">=</span> <span class="n">z</span>
 
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">new_z</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;out geoid&quot;</span><span class="p">)</span>

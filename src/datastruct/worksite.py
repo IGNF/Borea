@@ -226,15 +226,10 @@ class Worksite:
             path_dem (str): Path to the dem.
             type (str): Type of the dem "altitude" or "height".
         """
-        if type_dem not in ["altitude", "height"]:
+        if type_dem not in ["altitude", "height", "a", "h"]:
             raise ValueError(f"The dem's type {type_dem} isn't correct ('altitude' or 'height')")
 
-        if type_dem == "altitude":
-            type_dem = "a"
-        else:
-            type_dem = "h"
-
-        self.dem = Dem(path_dem, type_dem)
+        self.dem = Dem(path_dem, type_dem[0])
 
     def calculate_world_to_image_gcp(self, lcode: list) -> None:
         """

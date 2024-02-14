@@ -222,6 +222,9 @@ def test_stat_list_image2():
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.check_gip = True
     work.check_gcp = True
+    work.type_z_data = "h"
+    work.type_z_shot = "al"
+    work.add_dem(PATH_DEM,"h")
     work.calculate_world_to_image_gcp([])
     stat = Stat(work, "./", [])
     stat.stat_world_to_image()

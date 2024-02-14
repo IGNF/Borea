@@ -79,6 +79,36 @@ def test_world_to_image_withoutgeoid():
         shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, dem, DATA_TYPE_Z, SHOT_TYPE_Z)
 
 
+def test_world_to_image_sametypea():
+    point_terrain = np.array([815601.510, 6283629.280, 54.960])
+    shot = SHOT
+    cam = CAM
+    proj = ProjEngine(EPSG, DICT_PROJ_WITHOUT_G)
+    dem = None
+    shot.set_param_eucli_shot(proj)
+    shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, dem, 'a', 'a')
+
+
+def test_world_to_image_sametypewithl():
+    point_terrain = np.array([815601.510, 6283629.280, 54.960])
+    shot = SHOT
+    cam = CAM
+    proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    dem = None
+    shot.set_param_eucli_shot(proj)
+    shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, dem, 'al', 'hl')
+
+
+def test_world_to_image_sametypewithoutl():
+    point_terrain = np.array([815601.510, 6283629.280, 54.960])
+    shot = SHOT
+    cam = CAM
+    proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    dem = None
+    shot.set_param_eucli_shot(proj)
+    shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, dem, 'h', 'a')
+
+
 def test_image_to_world():
     point_image = np.array([24042.25, 14781.17])
     shot = SHOT
@@ -93,11 +123,21 @@ def test_image_to_world():
     assert abs(actual[2] - 54.960) < 3
 
 
-def test_image_to_world_withoutdem():
+def test_image_to_world_sametype_withoutgeoid():
     point_image = np.array([24042.25, 14781.17])
     shot = SHOT
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITHOUT_G)
+    dem = Dem(PATH_DEM,DATA_TYPE_Z)
+    shot.set_param_eucli_shot(proj)
+    actual = shot.image_to_world(point_image[0], point_image[1], cam, dem, DATA_TYPE_Z, DATA_TYPE_Z)
+
+
+def test_image_to_world_withoutdem():
+    point_image = np.array([24042.25, 14781.17])
+    shot = SHOT
+    cam = CAM
+    proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     dem = None
     shot.set_param_eucli_shot(proj)
     with pytest.raises(ValueError) as e_info:

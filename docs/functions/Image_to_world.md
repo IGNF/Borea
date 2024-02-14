@@ -8,13 +8,17 @@ It is built into the shot object to calculate the coordinates of the point in th
 1. col: column coordinates of the point in the image in float format.
 2. lig: line coordinates of the point in the image in float format.
 3. cam: a Camera object.
-4. proj: a EuclideanProj object.
-5. z : The z position of the approximate default point = 0.
+4. dem: Dem of the worksite
+5. type_z_data: type of z you want in output 'a' for altitude, 'h' for height 
+6. type_z_shot: type of z there are in shot's position 'a', 'al', 'h', 'hl' -> 'l' it's with linear alteration. 
 
 The Camera object is the camera used for acquisition, defined by a name, its ppax, ppay and focal.
 
-The EuclidieanProj object, defined by two coordinates x and y, which are the barycentre of the construction site, and a ProjEngine object.
+The dem allows a first estimate z terrain, and converts the data they have linear alteration.
 
+type_z_data and type_z_shot are used to make the right conversions between different data so that calculations are made in the same system.
+
+recall :  
 The ProjEngine object is defined by a string giving the ESPG code of the site's map projection, e.g. "EPSG:2154", followed by a dictionary found in src.data.projection_list.json, which contains 3 important tags:
  * "geoc" returns the EPSG code of the geocentric projection on site.
  * "geog" returns the EPSG code of the geographic projection on the building site.
@@ -22,7 +26,7 @@ The ProjEngine object is defined by a string giving the ESPG code of the site's 
 
 These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj or you can give in argument the path to the GeoTIFF forlder.
 
-The data in the "geoid" tag is not used in this function and is therefore not mandatory.
+
 
 ## Calculation step
 
@@ -120,19 +124,34 @@ from src.geodesy.euclidean_proj import EuclideanProj
 point_image = np.array([24042.25, 14781.17])
 
 # Shot where there is the point
-shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam")
+# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle)
+# unit_angle = "d" for degrees and "r" for radian.
+shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", "d")
 
 # Camera of the shot
-cam = Camera("test_cam", 13210.00, 8502.00, 30975.00)
+# Camera(name_cam, ppax, ppay, focal, width, height)
+# ppax and ppay image center in pixel with distortion
+cam = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
 
 # Projection of the worksite
+# ProjEngine(epsg, proj_json, folder_geoid)
+# the geoid is mandatory if type_z_data and type_z_shot[0] are different
 proj = ProjEngine("EPSG:2154", {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"]}, "./test/data/")
 
-# Euclidean projection of the worksite with position of shot is the barycenter of the system
-projeucli = EuclideanProj(814975.925, 6283986.148, proj)
+# Calcule euclidean projection of the shot
+shot.set_param_eucli_shot(proj)
+
+# Add dem
+# Dem(path_dem, type_dem)
+# type_dem = 'h' for height or 'a' for altitude
+# The dem is mandatory for the function image to world
+dem = Dem('MNT_France_25m_h_crop.tif','h')
 
 # The calculation
-actual = shot.image_to_world(point_image[0],point_image[1],cam,projeucli,54.960)
+# image_to_world(column, line, camera, dem, type_z_data, type_z_shot)
+# type_z_data = type of z you want in output 'a' or 'h'
+# type_z_shot = z's type of position shot 'a' 'al' 'h' 'hl' -> l with linear alteration 
+actual = shot.image_to_world(point_image[0],point_image[1],cam,dem,'a','a')
 ```
 
 ![logo ign](../logo/logo_ign.png) ![logo fr](../logo/Republique_Francaise_Logo.png)

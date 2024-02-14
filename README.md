@@ -93,6 +93,7 @@ python3 pink_lady.py -w test/data/23FD1305_alt_test.OPK -i N X Y Zal Od Pd Kd C 
 ```
 
 #### Detail for the header of file -i
+`header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
 Type is:
 | Symbol | Details |
 | :----: | :------ |
@@ -118,7 +119,7 @@ Add unit for Z and angle:
 
 ### Python scripte use
 
-Creation of a worksite object from a worksite file (.opk) to be read by `reader_orientation(pathfile, skip)`. `skip` is an int that specifies the number of lines to skip at the beginning of the file.
+Creation of a worksite object from a worksite file (.opk) to be read by `reader_orientation(pathfile, [first_line, last_line], header)`. `[first_line, last_line]` is an list of int that specifies the number of lines you want to read. `first_line` allows you to skip the file header, which must not be taken into account when reading the file, as specified in the `header` variable. If `first_line = None` skips everything up to `last_line`, if `lastline = None` skips everything from `first_line` to the end, and if both are None skips the entire file. And `header` described in the section above, is a list of str e.g. `['N', 'X', 'Y', 'Zal', 'Od', 'Pd', 'Kd', 'C']`
 
 Once the object has been created, you can add other data to it:
 
@@ -126,11 +127,15 @@ Once the object has been created, you can add other data to it:
 
 * Link points with `read_copoints([filepath], worksite)`. Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files.
 
-* Link points with `read_gipoints([filepath], worksite)`. Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files.
+* Link points with `read_gipoints([filepath], worksite)`. Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files. In addition, the z data type 'h' for height and 'a' for altitude must be added to worksite `worksite.type_z_data = 'a'`. 
 
-* Field points (GCPs) with `read_gcp([pathfile], worksite)`. Adds control and support terrain points in .app file format, can read multiple files.
+* Field points (GCPs) with `read_gcp([pathfile], worksite)`. Adds control and support terrain points in .app file format, can read multiple files. In addition, the z data type 'h' for height and 'a' for altitude must be added to worksite `worksite.type_z_data = 'a'`. 
+
+* Add Dem to your worksite `work.add_dem(path_dem, type_dem)`, It converts z data between gcp and acquisition position if these are not in the same unit (one in altitude and one in height). `type_dem` is the unit of the dem 'altitude', 'a' or 'height', 'h'.
 
 * Can calculate the position of terrain points in images with `worksite.calculate_world_to_image_gcp([n])` with n the code of the points whose position is to be calculated. The result can be found in `worksite.shots['name_shot'].gcps['name_gcp']` for each image and each gcps (more on this in the next section).
+
+* You can calculate some control point statistics to see how accurate your site is `stat = Stat(work, pathreturn, control_type)` to init the object and run for all stat with `stat.main_stat_and_save()`. Make stat on function image to world and world to image, if there are data. And save result on *pathreturn/Stat_{Name_worksite}.txt*.
 
 * Can write worksite object as .opk
 
@@ -146,6 +151,15 @@ from src.writer.manage_writer import manager_reader
 # path to photogrammetric site file
 path_opk = "Worksite_FR_2024.OPK"
 
+# line taken and header
+line_taken = [1, None]
+header = ['N', 'X', 'Y', 'Zal', 'Od', 'Pd', 'Kd', 'C']
+
+# info in epsg and epsg data
+epsg = "EPSG:2154"
+proj_json = "projection_epsg.json"
+folder_geoid = "./data_geotiff/"
+
 # path(s) to camera's file
 path_camera = ["Camera.txt"]
 
@@ -155,11 +169,14 @@ path_copoints = ["liaison.mes"]
 # path(s) to image ground control points file
 path_gipoints = ["terrain.mes"]
 
-# path(s) to ground control points file
+# path(s) to ground control points file with unit of z and code of control point
 path_gcps = ["GCP.app"]
+type_z_data = 'h'
+type_control = [13]
 
-# path to dem file
+# path to dem file and unit of the dem
 path_dem = "dem.tif"
+type_dem = "h"
 
 # type of output file
 writer = "opk"
@@ -170,10 +187,10 @@ pathreturn = "./"
 ################# Function ###################
 
 # Readind data and create objet worksite
-work = reader_orientation(path_opk, 1)
+work = reader_orientation(path_opk, line_taken, header)
 
 # Add a projection to the worksite
-work.set_proj("EPSG:2154", "projection_epsg.json", "./data_geotiff/")
+work.set_proj(epsg, proj_json, folder_geoid)
 
 # Reading camera file
 read_camera(path_camera, work)
@@ -186,15 +203,19 @@ read_gipoints(path_gipoints, work)
 
 # Reading GCP
 read_gcp(path_gcps, work)
+work.type_z_data = type_z_data
 
 # Add Dem to the worksite
-work.add_dem(path_dem)
+work.add_dem(path_dem, type_dem)
 
-# Calculate image coordinate of GCP if they exist
-work.calculate_world_to_image_gcp([3])
+# Calculate image coordinate of GCP if they exist for 2 type
+work.calculate_world_to_image_gcp([3,13])
 
 # Calculate shooting position with a factor pixel, to change projection for example
 work.shootings_position(add_pixel = (0,0))
+
+stat = Stat(work, pathreturn, type_control)
+stat.main_stat_and_save()
 
 # Writing data
 manager_reader(writer, pathreturn, work)
@@ -214,7 +235,7 @@ focal = 30975.00
 width = 26460.00
 height = 17004.00
 ```
-An example file can be found in ./test/data/Camera1.txt.
+An example file can be found in *./test/data/Camera1.txt*.
 
 ### File projection JSON format
 
@@ -228,7 +249,7 @@ This library requires different projection data to transform coordinates from te
   "comment": "Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93"}
 }
 ```
-The important tags are : the first is the epsg code ("EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection ("geoc") with its epsg code at the site location. The geographic projection ("geog") with its epsg code at the site location, and the geoid ("geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the usr/share/proj folder, which is native to pyproj, or in the env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
+The important tags are : the first is the epsg code ("EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection ("geoc") with its epsg code at the site location. The geographic projection ("geog") with its epsg code at the site location, and the geoid ("geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the *usr/share/proj* folder, which is native to pyproj, or in the *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj* folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
 
 
 ![logo ign](docs/logo/logo_ign.png) ![logo fr](docs/logo/Republique_Francaise_Logo.png)

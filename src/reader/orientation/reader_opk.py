@@ -25,6 +25,10 @@ def read(file: str, lines: int, header: list, unit_angle: str, work: Worksite) -
         with open(file, 'r', encoding="utf-8") as file_opk:
             for item_opk in file_opk.readlines()[lines[0]:lines[1]]:
                 item_shot = item_opk.split()
+                if len(item_shot) != len(header):
+                    raise ValueError(f"The number of columns in your file {len(item_shot)}"
+                                     " is different from the number of columns in your input"
+                                     f" format {len(header)}.")
                 work.add_shot(item_shot[header.index("N")],
                               np.array([
                                    float(item_shot[header.index("X")]),

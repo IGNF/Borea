@@ -66,28 +66,55 @@ The parameters are:
 
 | Symbol | Details | Default | Mandatory |
 | :----: | :------ | :-----: | :-------: |
-| -f | File path of the workfile | | V |
-| -s | Number of lines to be skipped before reading the file | 1 | X |
+| -w | File path of the workfile | | V |
+| -i | Type of each column in the site file. e.g. N X Y Zal Od Pd Kd C |  | V |
+| -f | Line number to start file playback. Does not take file header into account. | None | X |
+| -z | Line number to end file playback. If not set, all lines below -l will be read. | None | X |
 | -e | EPSG codifier number of the reference system used e.g. "2154" | "2154" | X |
 | -p | Path to the json file which list the code epsg, you use | None | X |
 | -y | Path to the folder which contains GeoTIFF | None | X |
-| -o | Worksite output file format e.g. opk | None | X |
-| -r | Conversion path e.g. "./" | "./" | X |
 | -c | Files paths of cameras (.xml or .txt) | None | X |
 | -l | Files paths of connecting points (.mes) | None | X |
-| -t | Files paths of ground points image (.mes) | None | X |
+| -t | Files paths of ground image points (.mes) | None | X |
 | -g | Files paths of ground control point (.app) | None | X |
 | -d | Type of gcp to control. | [] | X |
+| --fg | Format of GCP and ground image points "altitude" or "height". | None | X, unless gcp and gip is given |
 | -m | DEM of the worksite. | None | X |
-| -a | Type of Dem "altitude" or "height". | None | X, unless dem is given |
+| --fm | Format of Dem "altitude" or "height". | None | X, unless dem is given |
+| -o | Worksite output file format e.g. opk | None | X |
+| -r | Conversion path e.g. "./" | "./" | X |
 
 Some settings are optional, depending on what you want to do with Pink Lady.
-Only the first -f parameter is mandatory
+Only -w and -i parameters is mandatory.
 
 E.G.
 ```
-python3 pink_lady.py -f test/data/23FD1305_alt_test.OPK -e EPSG:2154 -w opk -c test/data/Camera.txt -w 26460 -a 17004 -l test/data/liaisons_test.mes -t test/data/terrain_test.mes -gcp test/data/GCP_test.app -m test/data/fr_ign_RAF20_test.tif
+python3 pink_lady.py -w test/data/23FD1305_alt_test.OPK -i N X Y Zal Od Pd Kd C -e EPSG:2154 -c test/data/Camera.txt -l test/data/liaisons_test.mes -t test/data/terrain_test.mes -gcp test/data/GCP_test.app --fg height -m test/data/fr_ign_RAF20_test.tif --fm height -o opk
 ```
+
+#### Detail for the header of file -i
+Type is:
+| Symbol | Details |
+| :----: | :------ |
+| S | to ignore the column |
+| N | name of shot |
+| X | coordinate x of the shot position |
+| Y | coordinate y of the shot position |
+| Z | coordinate z of the shot position |
+| O | omega rotation angle |
+| P | phi rotation angle |
+| K | kappa rotation angle |
+| C | name of the camera |
+
+Add unit for Z and angle:
+| Symbol | Details |
+| :----: | :------ |
+| h | height for Z |
+| hl | height with linear alteration for Z |
+| a | altitude for Z |
+| al | altitude with linear alteration for Z |
+| d | degrees for O P K |
+| r | radian for O P K |
 
 ### Python scripte use
 

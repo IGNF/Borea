@@ -41,8 +41,9 @@ class Worksite:
         self.type_z_data = None
         self.type_z_shot = None
 
+    # pylint: disable-next=too-many-arguments
     def add_shot(self, name_shot: str, pos_shot: np.ndarray,
-                 ori_shot: np.ndarray, name_cam: str) -> None:
+                 ori_shot: np.ndarray, name_cam: str, unit_angle: str) -> None:
         """
         Add Shot to the attribut Shots.
 
@@ -51,11 +52,13 @@ class Worksite:
             pos_shot (np.array): Array of coordinate position [X, Y, Z].
             ori_shot (np.array): Array of orientation of the shot [Omega, Phi, Kappa].
             name_cam (str): Name of the camera.
+            unit_angle (str): unit of angle 'd' degrees, 'r' radian.
         """
         self.shots[name_shot] = Shot(name_shot=name_shot,
                                      pos_shot=pos_shot,
                                      ori_shot=ori_shot,
-                                     name_cam=name_cam)
+                                     name_cam=name_cam,
+                                     unit_angle=unit_angle)
 
     def set_proj(self, epsg: str, file_epsg: str = None, path_geotiff: str = None) -> None:
         """

@@ -21,14 +21,17 @@ class Shot:
         pos_shot (numpy.array): Array of coordinate position [X, Y, Z].
         ori_shot (numpy.array): Array of orientation of the shot [Omega, Phi, Kappa] in degree.
         name_cam (str): Name of the camera.
+        unit_angle (str): unit of angle 'd' degrees, 'r' radian.
     """
+    # pylint: disable-next=too-many-arguments
     def __init__(self, name_shot: str, pos_shot: np.ndarray,
-                 ori_shot: np.ndarray, name_cam: str) -> None:
+                 ori_shot: np.ndarray, name_cam: str, unit_angle: str) -> None:
         self.name_shot = name_shot
         self.pos_shot = pos_shot
         self.pos_shot_eucli = None
         self.ori_shot = ori_shot
         self.ori_shot_eucli = None
+        self.unit_angle = unit_angle
         self.name_cam = name_cam
         self.copoints = {}
         self.gipoints = {}
@@ -43,7 +46,7 @@ class Shot:
     # pylint: disable-next=too-many-arguments
     def from_param_euclidean(cls, name_shot: str, pos_eucli: np.ndarray,
                              mat_ori_eucli: np.ndarray, name_cam: str,
-                             proj: ProjEngine) -> None:
+                             unit_angle: str, proj: ProjEngine) -> None:
         """
         Construction of a shot object using the Euclidean position.
 
@@ -57,10 +60,11 @@ class Shot:
         Returns:
             Shot: The shot.
         """
-        shot = cls(name_shot, np.array([0, 0, 0]), np.array([0, 0, 0]), name_cam)
+        shot = cls(name_shot, np.array([0, 0, 0]), np.array([0, 0, 0]), name_cam, unit_angle)
         shot.pos_shot_eucli = pos_eucli
         shot.projeucli = EuclideanProj(pos_eucli[0], pos_eucli[1], proj)
-        shot.ori_shot_eucli = -Rotation.from_matrix(mat_ori_eucli).as_euler("xyz", degrees=True)
+        unitori = shot.unit_angle == "d"
+        shot.ori_shot_eucli = -Rotation.from_matrix(mat_ori_eucli).as_euler("xyz", degrees=unitori)
         shot.pos_shot = shot.projeucli.euclidean_to_world(shot.pos_shot_eucli[0],
                                                           shot.pos_shot_eucli[1],
                                                           shot.pos_shot_eucli[2])
@@ -70,7 +74,7 @@ class Shot:
         shot.mat_rot = shot.projeucli.mat_eucli_to_mat(shot.pos_shot[0], shot.pos_shot[1],
                                                        mat_ori_eucli)
         shot.mat_rot_eucli = mat_ori_eucli
-        shot.ori_shot = -Rotation.from_matrix(shot.mat_rot).as_euler("xyz", degrees=True)
+        shot.ori_shot = -Rotation.from_matrix(shot.mat_rot).as_euler("xyz", degrees=unitori)
 
         shot.f_sys = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
         shot.f_sys_inv = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
@@ -84,15 +88,19 @@ class Shot:
         Returns:
             np.array: The rotation matrix.
         """
+        if self.unit_angle == "d":
+            ori_shot = np.copy(self.ori_shot)*np.pi/180
+        else:
+            ori_shot = self.ori_shot
+
         rx = np.array([[1, 0, 0],
-                       [0, np.cos(self.ori_shot[0]*np.pi/180), -np.sin(self.ori_shot[0]*np.pi/180)],
-                       [0, np.sin(self.ori_shot[0]*np.pi/180), np.cos(self.ori_shot[0]*np.pi/180)]])
-        ry = np.array([[np.cos(self.ori_shot[1]*np.pi/180), 0, np.sin(self.ori_shot[1]*np.pi/180)],
+                       [0, np.cos(ori_shot[0]), -np.sin(ori_shot[0])],
+                       [0, np.sin(ori_shot[0]), np.cos(ori_shot[0])]])
+        ry = np.array([[np.cos(ori_shot[1]), 0, np.sin(ori_shot[1])],
                        [0, 1, 0],
-                       [-np.sin(self.ori_shot[1]*np.pi/180), 0,
-                        np.cos(self.ori_shot[1]*np.pi/180)]])
-        rz = np.array([[np.cos(self.ori_shot[2]*np.pi/180), -np.sin(self.ori_shot[2]*np.pi/180), 0],
-                       [np.sin(self.ori_shot[2]*np.pi/180), np.cos(self.ori_shot[2]*np.pi/180), 0],
+                       [-np.sin(ori_shot[1]), 0, np.cos(ori_shot[1])]])
+        rz = np.array([[np.cos(ori_shot[2]), -np.sin(ori_shot[2]), 0],
+                       [np.sin(ori_shot[2]), np.cos(ori_shot[2]), 0],
                        [0, 0, 1]])
         return (rx @ ry @ rz).T
 
@@ -110,8 +118,9 @@ class Shot:
         self.mat_rot_eucli = self.projeucli.mat_to_mat_eucli(self.pos_shot[0],
                                                              self.pos_shot[1],
                                                              self.mat_rot)
+        unitori = self.unit_angle == "d"
         self.ori_shot_eucli = -Rotation.from_matrix(self.mat_rot_eucli).as_euler('xyz',
-                                                                                 degrees=True)
+                                                                                 degrees=unitori)
 
     # pylint: disable-next=too-many-arguments too-many-locals
     def world_to_image(self, x_world: Union[np.ndarray, float],

@@ -7,9 +7,11 @@ from src.reader.reader_gcp import read_gcp
 
 INPUT_OPK = "./test/data/23FD1305_alt_test.OPK"
 INPUT_GCP = "./test/data/GCP_test.app"
+LINE = [1, None]
+HEADER = ['N','X','Y','Zal','Od','Pd','Kd','C']
 
 def test_read_gcp():
-    work_gcp = reader_orientation(INPUT_OPK, 1)
+    work_gcp = reader_orientation(INPUT_OPK, LINE, HEADER)
     read_gcp([INPUT_GCP], work_gcp)
     assert list(work_gcp.gcps) == ['"1003"','"1005"','"1006"']
     assert work_gcp.gcps['"1003"'].name_gcp == '"1003"'

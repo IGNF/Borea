@@ -9,7 +9,7 @@ from src.geodesy.proj_engine import ProjEngine
 from src.geodesy.euclidean_proj import EuclideanProj
 from src.altimetry.dem import Dem
 
-SHOT = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam")
+SHOT = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'd')
 CAM = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
 EPSG = "EPSG:2154"
 DICT_PROJ_WITH_G = {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"]}
@@ -42,7 +42,7 @@ def test_from_shot_eucli():
     shot = SHOT
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     shot.set_param_eucli_shot(proj)
-    shot_eucli = Shot.from_param_euclidean("test_shot", shot.pos_shot_eucli, shot.mat_rot_eucli, "test_cam", proj)
+    shot_eucli = Shot.from_param_euclidean("test_shot", shot.pos_shot_eucli, shot.mat_rot_eucli, "test_cam", "d", proj)
     assert shot.name_shot == shot_eucli.name_shot
     assert shot.pos_shot[0] == round(shot_eucli.pos_shot[0],3)
     assert shot.pos_shot[1] == round(shot_eucli.pos_shot[1],3)

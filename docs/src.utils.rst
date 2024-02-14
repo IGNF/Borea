@@ -4,6 +4,14 @@ src.utils package
 Submodules
 ----------
 
+src.utils.check\_header module
+------------------------------
+
+.. automodule:: src.utils.check_header
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 src.utils.conversion module
 ---------------------------
 

@@ -48,7 +48,7 @@ def space_resection(shot: Shot, cam: Camera, proj: ProjEngine, dem: Dem, type_z_
     l_obs += add_pixel[1]
 
     # Initialization of adjusted shot
-    shot_adjust = Shot(shot.name_shot, shot.pos_shot, shot.ori_shot, shot.name_cam)
+    shot_adjust = Shot(shot.name_shot, shot.pos_shot, shot.ori_shot, shot.name_cam, shot.unit_angle)
     shot_adjust.set_param_eucli_shot(proj)
 
     bool_iter = True
@@ -77,7 +77,8 @@ def space_resection(shot: Shot, cam: Camera, proj: ProjEngine, dem: Dem, type_z_
 
         # Creation of new shot with new parameter
         imc_new_adjust = Shot.from_param_euclidean(shot_adjust.name_shot, new_pos_eucli,
-                                                   new_mat_eucli, shot_adjust.name_cam, proj)
+                                                   new_mat_eucli, shot_adjust.name_cam,
+                                                   shot_adjust.unit_angle, proj)
 
         # Look difference to know if you want to stop the calculation
         diff_coord = np.array([imc_new_adjust.pos_shot]) - np.array([shot_adjust.pos_shot])

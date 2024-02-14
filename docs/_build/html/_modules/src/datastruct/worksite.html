@@ -251,10 +251,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span> <span class="o">=</span> <span class="kc">None</span>
 
+    <span class="c1"># pylint: disable-next=too-many-arguments</span>
 <div class="viewcode-block" id="Worksite.add_shot">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.worksite.Worksite.add_shot">[docs]</a>
     <span class="k">def</span> <span class="nf">add_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-                 <span class="n">ori_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">name_cam</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                 <span class="n">ori_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">name_cam</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add Shot to the attribut Shots.</span>
 
@@ -263,11 +264,13 @@
 <span class="sd">            pos_shot (np.array): Array of coordinate position [X, Y, Z].</span>
 <span class="sd">            ori_shot (np.array): Array of orientation of the shot [Omega, Phi, Kappa].</span>
 <span class="sd">            name_cam (str): Name of the camera.</span>
+<span class="sd">            unit_angle (str): unit of angle &#39;d&#39; degrees, &#39;r&#39; radian.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span> <span class="o">=</span> <span class="n">Shot</span><span class="p">(</span><span class="n">name_shot</span><span class="o">=</span><span class="n">name_shot</span><span class="p">,</span>
                                      <span class="n">pos_shot</span><span class="o">=</span><span class="n">pos_shot</span><span class="p">,</span>
                                      <span class="n">ori_shot</span><span class="o">=</span><span class="n">ori_shot</span><span class="p">,</span>
-                                     <span class="n">name_cam</span><span class="o">=</span><span class="n">name_cam</span><span class="p">)</span></div>
+                                     <span class="n">name_cam</span><span class="o">=</span><span class="n">name_cam</span><span class="p">,</span>
+                                     <span class="n">unit_angle</span><span class="o">=</span><span class="n">unit_angle</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Worksite.set_proj">

@@ -124,18 +124,19 @@ from src.datastruct.worksite import Worksite
 work = Worksite("Test")
 
 # Add two shots
-work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test")
-work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test")
+work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","d")
+work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","d")
 
 # Setup projection
 work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
 
 # Add camera information
-work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
+work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
 
 # Add connecting points in each shot
 work.add_copoint('"1003"',"shot1",24042.25,14781.17)
 work.add_copoint('"1003"',"shot2",24120.2,10329.3)
+work.check_cop = True
 
 # Calculate eucliean coordinate of intersection
 coor = work.eucli_intersection_2p('"1003"', work.shots["shot1"], work.shots["shot2"])

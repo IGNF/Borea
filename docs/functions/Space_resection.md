@@ -216,21 +216,19 @@ from src.geodesy.proj_engine import ProjEngine
 from src.orientation.shot_pos import space_resection
 
 # Create Shot
-shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam")
+shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", "d")
 
 # Create Camera and add dimension of image
-cam = Camera("test_cam", 13210.00, 8502.00, 30975.00)
-cam.add_dim_image(26460.00, 17004.00)
+cam = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
 
 # Create projection of worksite
 proj = ProjEngine("EPSG:2154", {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"]}, "./test/data/")
-projeucli = EuclideanProj(814975.925, 6283986.148, proj)
 
 # Setup euclidean parameter of shot
-shot.set_param_eucli_shot(projeucli)
+shot.set_param_eucli_shot(proj)
 
 # Recalculate 6 externa parameter of the shot
-adjusted _shot= space_resection(shot, cam, projeucli)
+adjusted _shot = space_resection(shot, cam, projeucli)
 ```
 
 Example for a worksite:
@@ -242,15 +240,14 @@ from src.datastruct.worksite import Worksite
 work = Worksite("Test")
 
 # Add 2 shots
-work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test")
-work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test")
+work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","d")
+work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","d")
 
 # Setup projection of the worksite
 work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
 
 # Add camera and dimension of image
-work.add_camera('cam_test', 13210.00, 8502.00, 30975.00)
-work.cameras['cam_test'].add_dim_image(26460.00, 17004.00)
+work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
 
 # Recalculate 6 externa parameters of all shots
 work.shootings_position()
@@ -263,18 +260,45 @@ from src.reader.reader_camera import read_camera
 from src.reader.reader_copoints import read_copoints
 from src.reader.reader_gcp import read_gcp
 
+############# Data ###############
+
+# path to photogrammetric site file
 path_opk = "Worksite_FR_2024.OPK"
+
+# line taken and header
+line_taken = [1, None]
+header = ['N', 'X', 'Y', 'Zal', 'Od', 'Pd', 'Kd', 'C']
+
+# info in epsg and epsg data
+epsg = "EPSG:2154"
+proj_json = "projection_epsg.json"
+folder_geoid = "./data_geotiff/"
+
+# path(s) to camera's file
 path_camera = ["Camera.txt"]
-path_copoints = ["liaison.mes", "terrain.mes"]
+
+# path(s) to connecting points file
+path_copoints = ["liaison.mes"]
+
+# path(s) to image ground control points file
+path_gipoints = ["terrain.mes"]
+
+# path(s) to ground control points file with unit of z and code of control point
 path_gcps = ["GCP.app"]
-writer = "opk"
-pathreturn = "tmp/"
+type_z_data = 'h'
+type_control = [13]
+
+# path to dem file and unit of the dem
+path_dem = "dem.tif"
+type_dem = "h"
+
+################# Function ###################
 
 # Readind data and create objet worksite
-work = reader_orientation(path_opk, 1)
+work = reader_orientation(path_opk, line_taken, header)
 
 # Add a projection to the worksite
-work.set_proj("EPSG:2154", "projection_epsg.json", "./data_geotiff/")
+work.set_proj(epsg, proj_json, folder_geoid)
 
 # Reading camera file
 read_camera(path_camera, work)
@@ -284,6 +308,10 @@ read_copoints(path_copoints, work)
 
 # Reading GCP
 read_gcp(path_gcps, work)
+work.type_z_data = type_z_data
+
+# Add Dem to the worksite
+work.add_dem(path_dem, type_dem)
 
 # Recalculate 6 externa parameters of all shots
 work.shootings_position()

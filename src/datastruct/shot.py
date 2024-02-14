@@ -127,7 +127,7 @@ class Shot:
                        y_world: Union[np.ndarray, float],
                        z_world: Union[np.ndarray, float],
                        cam: Camera, dem: Dem,
-                       type_z_data: str, type_z_shot: str = "a") -> np.ndarray:
+                       type_z_data: str, type_z_shot: str) -> np.ndarray:
         """
         Calculates the c,l coordinates of a terrain point in an image.
 
@@ -140,7 +140,7 @@ class Shot:
             type_z_data (str): type of z of data.
                                "h" height
                                "a" altitude
-            type_z_shot (str): type of z of worksite, default = "a".
+            type_z_shot (str): type of z of worksite.
                                "h" height
                                "hl" height with linear alteration
                                "a" altitude / elevation
@@ -149,8 +149,8 @@ class Shot:
         Returns:
             np.array: The image coordinate [c,l].
         """
-        if type_z_shot in ["al", "hl"] and dem is None:
-            raise ValueError("Missing dem.")
+        if len(type_z_data) != len(type_z_shot) and dem is None:
+            raise ValueError("Missing dem, because type z data != type z shot.")
 
         if isinstance(x_world, np.ndarray):
             dim = np.shape(x_world)
@@ -198,7 +198,7 @@ class Shot:
             np.array: Cartographique coordinate [x,y,z].
         """
         if dem is None:
-            raise ValueError("Missing dem.")
+            raise ValueError("Missing dem")
 
         if isinstance(col, np.ndarray):
             dim = np.shape(col)
@@ -311,7 +311,9 @@ class Shot:
                                                                 coor_geog[1],
                                                                 coor_geog[2])[2]
         except AttributeError:
-            new_z = None
+            print("Warning: the geoid has not been entered, the z transformation from altitude "
+                  "to height has not been performed, return z altitude")
+            new_z = z
 
         if new_z == np.inf:
             raise ValueError("out geoid")
@@ -339,7 +341,9 @@ class Shot:
                                                                 coor_geog[1],
                                                                 coor_geog[2])[2]
         except AttributeError:
-            new_z = None
+            print("Warning: the geoid has not been entered, the z transformation from height "
+                  "to altitude has not been performed, return z height")
+            new_z = z
 
         if np.all(new_z == np.inf):
             raise ValueError("out geoid")

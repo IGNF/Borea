@@ -6,7 +6,7 @@ import numpy as np
 from src.datastruct.worksite import Worksite
 
 
-def read(file: str, lines: int, header: list,  work: Worksite) -> Worksite:
+def read(file: str, lines: int, header: list, unit_angle: str, work: Worksite) -> Worksite:
     """
     Reads an opk file to transform it into a Workside object.
 
@@ -15,6 +15,7 @@ def read(file: str, lines: int, header: list,  work: Worksite) -> Worksite:
         lines (list): Interval of lines taken into account, [i, j] if i or j is None = :.
                           e.g. [1, None] = [1:]
         header (list): List of column type file.
+        unit_angle (str): unit of angle 'd' degrees, 'r' radian.
         work (Worksite): Worksite to add shot
 
     Returns:
@@ -33,7 +34,8 @@ def read(file: str, lines: int, header: list,  work: Worksite) -> Worksite:
                                    float(item_shot[header.index("O")]),
                                    float(item_shot[header.index("P")]),
                                    float(item_shot[header.index("K")])], dtype=float),
-                              item_shot[header.index("C")])
+                              item_shot[header.index("C")],
+                              unit_angle)
             file_opk.close()
     except FileNotFoundError as e:
         raise FileNotFoundError(f"The path {file} is incorrect !!!"

@@ -32,7 +32,7 @@ def reader_orientation(file: str, line_take: list, header: list) -> Worksite:
     work = Worksite(name_work)
     try:
         my_module = importlib.import_module("src.reader.orientation.reader_" + ext.lower())
-        work = my_module.read(file, line_take, header, work)
+        work = my_module.read(file, line_take, header, type_angle, work)
     except ModuleNotFoundError as e:
         raise ModuleNotFoundError(f"{ext} file is not taken into account !!!") from e
 

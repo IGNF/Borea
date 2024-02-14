@@ -10,10 +10,11 @@ INPUT_OPK_UBU = "./test/data/23FD1305_alt_test.OPK"
 INPUT_OPK_WIN = ".\\test\\data\\23FD1305_alt_test.OPK"
 LINE = [1, None]
 HEADER = ['N','X','Y','Z','O','P','K','C']
+UNIT_ANGLE = 'd'
 
 def test_reader_opk_ubupath():
     work = Worksite("23FD1305_alt_test")
-    obj = read_opk(INPUT_OPK_UBU, LINE, HEADER, work)
+    obj = read_opk(INPUT_OPK_UBU, LINE, HEADER, UNIT_ANGLE, work)
     assert obj.name == "23FD1305_alt_test"
     assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
     assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925
@@ -38,9 +39,9 @@ def test_reader_opk_winpath():
     work = Worksite("23FD1305_alt_test")
     if platform.system() in ['Linux','Darwin']:
         with pytest.raises(FileNotFoundError) as e_info:
-            obj = read_opk(INPUT_OPK_WIN, LINE, HEADER, work)
+            obj = read_opk(INPUT_OPK_WIN, LINE, HEADER, UNIT_ANGLE, work)
     else:
-        obj = read_opk(INPUT_OPK_WIN, LINE, HEADER, work)
+        obj = read_opk(INPUT_OPK_WIN, LINE, HEADER, UNIT_ANGLE, work)
         assert obj.name == "23FD1305_alt_test"
         assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
         assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925

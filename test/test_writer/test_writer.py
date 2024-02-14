@@ -25,7 +25,7 @@ def setup_module(module): # run before the first test
 
 def test_writer():
     obj = Worksite(name = FILENAME)
-    obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam")
+    obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam", "d")
     write(OUTPUT, obj)
     obj2 = reader_orientation(f"{OUTPUT}/{FILENAME}.opk", LINE, HEADER)
     assert obj2.name == "Test"

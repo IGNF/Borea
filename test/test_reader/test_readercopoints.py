@@ -6,7 +6,7 @@ from src.reader.reader_copoints import read_copoints
 
 INPUT_OPK = "./test/data/23FD1305_alt_test.OPK"
 INPUT_LIAISONS = "./test/data/liaisons_test.mes"
-LINE = [1, None]
+LINE = [2, None]
 HEADER = ['N','X','Y','Zal','Od','Pd','Kd','C']
 
 def test_read_copoints():

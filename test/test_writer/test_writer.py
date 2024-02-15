@@ -11,7 +11,7 @@ from src.reader.orientation.manage_reader import reader_orientation
 
 OUTPUT = "./test/tmp"
 FILENAME = "Test"
-LINE = [1, None]
+LINE = [2, None]
 HEADER = ['N','X','Y','Zal','Od','Pd','Kd','C']
 
 

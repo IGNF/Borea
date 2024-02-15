@@ -99,7 +99,7 @@ else:
 
 # Add a projection to the worksite
 work.set_proj(args.epsg, args.pathepsg, args.pathgeotiff)
-print(f"Projection set-up with EPSG:{args.epsg}.")
+print(f"Projection set-up with {args.epsg if args.epsg[0:5]=='EPSG:' else 'EPSG:' + args.epsg}.")
 
 # Reading camera file
 if args.camera is not None:

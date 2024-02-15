@@ -89,7 +89,7 @@ Only -w and -i parameters is mandatory.
 
 E.G.
 ```
-python3 pink_lady.py -w test/data/23FD1305_alt_test.OPK -i N X Y Zal Od Pd Kd C -e EPSG:2154 -c test/data/Camera.txt -l test/data/liaisons_test.mes -t test/data/terrain_test.mes -gcp test/data/GCP_test.app --fg height -m test/data/fr_ign_RAF20_test.tif --fm height -o opk
+python3 pink_lady.py -w test/data/23FD1305_alt_test.OPK -i N X Y Zal Od Pd Kd C -f 1 -e EPSG:2154 -p test/data/proj.json -y test/data/ -c test/data/Camera.txt -l test/data/liaisons_test.mes -t test/data/terrain_test.mes -g test/data/GCP_test.app --fg height -m test/data/MNT_France_25m_h_crop.tif --fm height -o opk
 ```
 
 #### Detail for the header of file -i

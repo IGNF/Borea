@@ -7,7 +7,7 @@ from src.reader.reader_gcp import read_gcp
 
 INPUT_OPK = "./test/data/23FD1305_alt_test.OPK"
 INPUT_GCP = "./test/data/GCP_test.app"
-LINE = [1, None]
+LINE = [2, None]
 HEADER = ['N','X','Y','Zal','Od','Pd','Kd','C']
 
 def test_read_gcp():

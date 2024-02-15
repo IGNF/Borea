@@ -16,11 +16,11 @@ def test_init_dem():
 
 def test_dem_get_one():
     dem = Dem(PATH_DEM, "height")
-    z = dem.get(792863, 6336461)
-    assert z == 199.791
+    z = dem.get(800000, 6280000)
+    assert z == 49.533
 
 
 def test_dem_get_multi():
     dem = Dem(PATH_DEM, "height")
-    z = dem.get(np.array([792863,792863,792863]), np.array([6336461,6336461,6336461]))
-    assert (z == np.array([199.791,199.791,199.791])).all
+    z = dem.get(np.array([800000,800000,800000]), np.array([6280000,6280000,6280000]))
+    assert (z == np.array([49.533,49.533,49.533])).all

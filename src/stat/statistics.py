@@ -66,15 +66,18 @@ class Stat:
         residual = image's ground point - calculated image's ground point
         """
         for name_gcp, l_shot in self.work.gipoints.items():
-            if self.work.gcps[name_gcp].code in self.type_point or self.type_point == []:
-                for shot in l_shot:
-                    try:
-                        img_coor = self.work.shots[shot].gipoints[name_gcp]
-                        img_coor_calculated = self.work.shots[shot].gcps[name_gcp]
-                        l_data = [[name_gcp, shot], img_coor - img_coor_calculated]
-                        self.res_world_image.append(l_data)
-                    except KeyError:
-                        continue
+            try:
+                if self.work.gcps[name_gcp].code in self.type_point or self.type_point == []:
+                    for shot in l_shot:
+                        try:
+                            img_coor = self.work.shots[shot].gipoints[name_gcp]
+                            img_coor_calculated = self.work.shots[shot].gcps[name_gcp]
+                            l_data = [[name_gcp, shot], img_coor - img_coor_calculated]
+                            self.res_world_image.append(l_data)
+                        except KeyError:
+                            continue
+            except KeyError:
+                continue
         if not self.res_world_image:
             self.check_stat_wi = False
 
@@ -84,14 +87,17 @@ class Stat:
         residual = ground control point - calculated ground control point
         """
         for name_gcp in list(self.work.gipoints):
-            if self.work.gcps[name_gcp].code in self.type_point or self.type_point == []:
-                try:
-                    gcp_coor = self.work.gcps[name_gcp].coor
-                    gcp_coor_calculated = self.work.gip_world[name_gcp]
-                    l_data = [[name_gcp], gcp_coor - gcp_coor_calculated]
-                    self.res_image_world.append(l_data)
-                except KeyError:
-                    continue
+            try:
+                if self.work.gcps[name_gcp].code in self.type_point or self.type_point == []:
+                    try:
+                        gcp_coor = self.work.gcps[name_gcp].coor
+                        gcp_coor_calculated = self.work.gip_world[name_gcp]
+                        l_data = [[name_gcp], gcp_coor - gcp_coor_calculated]
+                        self.res_image_world.append(l_data)
+                    except KeyError:
+                        continue
+            except KeyError:
+                continue
         if not self.res_image_world:
             self.check_stat_iw = False
 

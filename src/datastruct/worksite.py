@@ -1,7 +1,9 @@
 """
 Worksite data class module.
 """
+import os
 import sys
+import platform
 import json
 import numpy as np
 from pyproj import CRS, exceptions
@@ -101,7 +103,10 @@ class Worksite:
             epsg (str): Code epsg of the porjection ex: "EPSG:2154".
             path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.
         """
-        path_data = "./src/data/projection_list.json"
+        if platform.system() in ["Linux", "Darwin"]:
+            path_data = os.path.dirname(__file__) + "/../data/projection_list.json"
+        else:
+            path_data = os.path.dirname(__file__) + "\\..\\data\\projection_list.json"
         with open(path_data, 'r', encoding="utf-8") as json_file:
             projection_list = json.load(json_file)
             json_file.close()
@@ -252,6 +257,8 @@ class Worksite:
                                                            self.type_z_shot)
                             self.shots[name_shot].gcps[name_gcp] = coor_img
                     except KeyError:
+                        print(f"Warning: id point {name_gcp} is present "
+                              "in gcp but not in image control points.")
                         continue
 
     def calculate_barycentre(self) -> np.ndarray:
@@ -289,11 +296,10 @@ class Worksite:
             check = self.check_cop
             check_gcp = False
 
-        else:
-            if type_point == "gipoint":
-                points = self.gipoints
-                check = self.check_gip
-                check_gcp = True
+        if type_point == "gipoint":
+            points = self.gipoints
+            check = self.check_gip
+            check_gcp = True
 
         if check:
             for name_p, item_p in points.items():  # Loop on points

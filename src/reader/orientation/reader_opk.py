@@ -6,7 +6,7 @@ import numpy as np
 from src.datastruct.worksite import Worksite
 
 
-def read(file: str, lines: int, header: list, unit_angle: str, work: Worksite) -> Worksite:
+def read(file: str, lines: list, header: list, unit_angle: str, work: Worksite) -> Worksite:
     """
     Reads an opk file to transform it into a Workside object.
 
@@ -21,9 +21,14 @@ def read(file: str, lines: int, header: list, unit_angle: str, work: Worksite) -
     Returns:
         Worksite: The worksite.
     """
+    lf, ll = lines
+    if lf is not None:
+        lf -= 1
+    if ll is not None:
+        ll -= 1
     try:
         with open(file, 'r', encoding="utf-8") as file_opk:
-            for item_opk in file_opk.readlines()[lines[0]:lines[1]]:
+            for item_opk in file_opk.readlines()[lf:ll]:
                 item_shot = item_opk.split()
                 if len(item_shot) != len(header):
                     raise ValueError(f"The number of columns in your file {len(item_shot)}"
@@ -42,8 +47,8 @@ def read(file: str, lines: int, header: list, unit_angle: str, work: Worksite) -
                               unit_angle)
             file_opk.close()
     except FileNotFoundError as e:
-        raise FileNotFoundError(f"The path {file} is incorrect !!!"
-                                f"Your os is {platform.system()}."
+        raise FileNotFoundError(f"The path {file} is incorrect !!! "
+                                f"or your os is {platform.system()}."
                                 "For Windows path is \\,"
                                 " for Linux and MacOS (Darwin) is / .") from e
 

@@ -14,8 +14,8 @@ CAM = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
 EPSG = "EPSG:2154"
 DICT_PROJ_WITH_G = {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}
 DICT_PROJ_WITHOUT_G = {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084'}
-PATH_GEOID = "./test/data/"
-PATH_DEM = "./test/data/MNT_France_25m_h_crop.tif"
+PATH_GEOID = "./dataset/"
+PATH_DEM = "./dataset/MNT_France_25m_h_crop.tif"
 DATA_TYPE_Z = "h"
 SHOT_TYPE_Z = "al"
 

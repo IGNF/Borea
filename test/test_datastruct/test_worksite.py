@@ -7,7 +7,7 @@ import numpy as np
 from src.datastruct.worksite import Worksite
 
 
-PATH_DEM = "./test/data/MNT_France_25m_h_crop.tif"
+PATH_DEM = "./dataset/MNT_France_25m_h_crop.tif"
 
 
 def test_add_shot():
@@ -28,7 +28,7 @@ def test_set_proj_Lambertbase():
     work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","d")
     work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","d")
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","d")
-    work.set_proj("2154", path_geotiff="./test/data/")
+    work.set_proj("2154", path_geotiff="./dataset/")
     assert work.proj.projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.x_central, 3) == 814975.925
     assert round(work.shots["t1"].projeucli.y_central, 3) == 6283986.148
@@ -39,7 +39,7 @@ def test_set_proj_Lambertbase_withEPSG():
     work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","d")
     work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","d")
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","d")
-    work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("EPSG:2154", "dataset/proj.json", "./dataset/")
     assert work.proj.projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.x_central, 3) == 814975.925
     assert round(work.shots["t1"].projeucli.y_central, 3) == 6283986.148
@@ -50,7 +50,7 @@ def test_set_proj_withjsonandepsg():
     work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","d")
     work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","d")
     work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","d")
-    work.set_proj("4339", "test/data/proj.json")
+    work.set_proj("4339", "dataset/proj.json")
     assert work.proj.projection_list == {"geoc": "EPSG:4340", "geog": "EPSG:4176", "comment": "Projection of Australian Antartic"}
     assert work.shots["t1"].projeucli.x_central == 1
     assert work.shots["t1"].projeucli.y_central == 2
@@ -70,7 +70,7 @@ def test_set_proj_otherepsgandnotgoodjson():
     work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","d")
     work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","d")
     work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","d")
-    work.set_proj("4326", "test/data/proj.json")
+    work.set_proj("4326", "dataset/proj.json")
     assert work.proj.epsg == "EPSG:4326"
 
 
@@ -146,7 +146,7 @@ def test_add_gcp():
 def test_calculate_world_to_image_gcp_base():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.check_gip = True
@@ -164,7 +164,7 @@ def test_calculate_world_to_image_gcp_base():
 def test_calculate_world_to_image_gcp_addpointunknow():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.check_gip = True
@@ -183,7 +183,7 @@ def test_calculate_world_to_image_gcp_addpointunknow():
 def test_calculate_world_to_image_gcp_testcode():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.add_gipoint('gcp_test_test', 'shot_test', 24042.25, 14781.17)
@@ -203,7 +203,7 @@ def test_calculate_world_to_image_gcp_testcode():
 def test_calculate_world_to_image_gcp_testcodeNone():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.add_gipoint('gcp_test_test', 'shot_test', 24042.25, 14781.17)
@@ -237,7 +237,7 @@ def test_calculate_init_image_world_onecop_multiimg():
     work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","d")
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","d")
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_copoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_copoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
@@ -255,7 +255,7 @@ def test_calculate_init_image_world_onecopwithoneimg():
     work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","d")
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","d")
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_copoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_copoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
@@ -272,7 +272,7 @@ def test_calculate_init_image_world_withzeropoint():
     work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","d")
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","d")
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.check_cop = False
     work.calculate_init_image_world()
@@ -287,7 +287,7 @@ def test_calculate_init_image_world_allgipoint():
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","d")
     work.add_shot("23FD1305x00054_05680",np.array([833124.675,6282303.066,1761.305]),np.array([-0.198514051868,-0.023898399551,0.190559923925]),"cam_test","d")
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_gipoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
@@ -315,7 +315,7 @@ def test_calculate_init_image_world_gipoint13type():
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","d")
     work.add_shot("23FD1305x00054_05680",np.array([833124.675,6282303.066,1761.305]),np.array([-0.198514051868,-0.023898399551,0.190559923925]),"cam_test","d")
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_gipoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
@@ -335,7 +335,7 @@ def test_eucli_intersection_2p():
     work = Worksite("Test")
     work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","d")
     work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_copoint('"1003"',"shot1",24042.25,14781.17)
     work.add_copoint('"1003"',"shot2",24120.2,10329.3)
@@ -351,7 +351,7 @@ def test_shootings_position():
     work = Worksite("Test")
     work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","d")
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_dem(PATH_DEM, "height")
     work.type_z_shot = "al"

@@ -11,8 +11,10 @@ from src.reader.orientation.manage_reader import reader_orientation
 
 OUTPUT = "./test/tmp"
 FILENAME = "Test"
-LINE = [2, None]
-HEADER = ['N','X','Y','Zal','Od','Pd','Kd','C']
+ARGS = {"interval": [2, None],
+        "header": ['N','X','Y','Z','O','P','K','C'],
+        "unit_angle": "degree",
+        "linear_alteration":True}
 
 
 def setup_module(module): # run before the first test
@@ -25,9 +27,9 @@ def setup_module(module): # run before the first test
 
 def test_writer():
     obj = Worksite(name = FILENAME)
-    obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam", "d")
+    obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam", "degree",True)
     write(OUTPUT, obj)
-    obj2 = reader_orientation(f"{OUTPUT}/{FILENAME}.opk", LINE, HEADER)
+    obj2 = reader_orientation(f"{OUTPUT}/{FILENAME}.opk", ARGS)
     assert obj2.name == "Test"
     assert obj2.shots["test_shot"].name_shot == "test_shot"
     assert obj2.shots["test_shot"].pos_shot[0] == 1

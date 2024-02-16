@@ -15,25 +15,25 @@ parser = argparse.ArgumentParser(description='Photogrammetric site conversion'
 parser.add_argument('-w', '--filepath',
                     type=str, help='File path of the workfile.')
 parser.add_argument('-i', '--header',
-                    type=str, nargs='*',
+                    type=str, nargs=1,
                     help='Type of each column in the site file.'
-                    'e.g. N X Y Zal Od Pd Kd C'
+                    'e.g. N X Y Z O P K C'
                     'S: to ignore the column'
                     'N: name of shot'
                     'X: coordinate x of the shot position'
                     'Y: coordinate y of the shot position'
-                    'Z: coordinate z of the shot position'
+                    'Z: coordinate z of the shot position in altitude'
+                    'H: coordinate z of the shot position in height'
                     'O: omega rotation angle'
                     'P: phi rotation angle'
                     'K: kappa rotation angle'
-                    'C: name of the camera'
-                    'Add unit for Z and angle.'
-                    'h: height for Z'
-                    'hl: height with linear alteration for Z'
-                    'a: altitude for Z'
-                    'al: altitude with linear alteration for Z'
-                    'd: degrees for O P K'
-                    'r: radian for O P K')
+                    'C: name of the camera')
+parser.add_argument('-u', '--unit_angle',
+                    type=str, default="degree",
+                    help="Unit of the angle of shooting, 'degree' or 'radian'")
+parser.add_argument('-n', '--linear_alteration',
+                    type=bool, default=True,
+                    help="True if z shot corrected by linear alteration.")
 parser.add_argument('-f', '--first_line',
                     type=int, default=None,
                     help='Line number to start file playback.'
@@ -43,7 +43,7 @@ parser.add_argument('-z', '--last_line',
                     help='Line number to end file playback.'
                          ' If not set, all lines below -l will be read.')
 parser.add_argument('-e', '--epsg',
-                    type=str, default="2154",
+                    type=int, default=2154,
                     help='EPSG codifier number of the reference system used e.g. "2154".')
 parser.add_argument('-p', '--pathepsg',
                     type=str, default=None,
@@ -89,7 +89,10 @@ args = parser.parse_args()
 # Readind data
 if args.filepath is not None:
     if args.header is not None:
-        work = reader_orientation(args.filepath, [args.first_line, args.last_line], args.header)
+        work = reader_orientation(args.filepath, {"interval": [args.first_line, args.last_line],
+                                                  "header": args.header,
+                                                  "unit_angle": args.unit_angle,
+                                                  "linar_alteration": args.linear_alteration})
         print("Orientation file reading done.")
         print(f"Number of image: {len(work.shots)}")
     else:
@@ -99,7 +102,7 @@ else:
 
 # Add a projection to the worksite
 work.set_proj(args.epsg, args.pathepsg, args.pathgeotiff)
-print(f"Projection set-up with {args.epsg if args.epsg[0:5]=='EPSG:' else 'EPSG:' + args.epsg}.")
+print(f"Projection set-up with EPSG:{args.epsg}.")
 
 # Reading camera file
 if args.camera is not None:

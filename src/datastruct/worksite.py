@@ -45,7 +45,8 @@ class Worksite:
 
     # pylint: disable-next=too-many-arguments
     def add_shot(self, name_shot: str, pos_shot: np.ndarray,
-                 ori_shot: np.ndarray, name_cam: str, unit_angle: str) -> None:
+                 ori_shot: np.ndarray, name_cam: str,
+                 unit_angle: str, linear_alteration: bool) -> None:
         """
         Add Shot to the attribut Shots.
 
@@ -60,9 +61,10 @@ class Worksite:
                                      pos_shot=pos_shot,
                                      ori_shot=ori_shot,
                                      name_cam=name_cam,
-                                     unit_angle=unit_angle)
+                                     unit_angle=unit_angle,
+                                     linear_alteration=linear_alteration)
 
-    def set_proj(self, epsg: str, file_epsg: str = None, path_geotiff: str = None) -> None:
+    def set_proj(self, epsg: int, file_epsg: str = None, path_geotiff: str = None) -> None:
         """
         Setup a projection system to the worksite.
 
@@ -72,9 +74,7 @@ class Worksite:
             path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.
         """
         try:  # Check if the epsg exist
-            if epsg[0:5] != "EPSG:":
-                epsg = "EPSG:" + epsg
-            crs = CRS.from_string(epsg)
+            crs = CRS.from_epsg(epsg)
             del crs
         except exceptions.CRSError as e_info:
             raise exceptions.CRSError(f"Your {epsg} doesn't exist") from e_info
@@ -87,7 +87,7 @@ class Worksite:
                     projection_list = json.load(json_file)
                     json_file.close()
                 try:
-                    dict_epsg = projection_list[epsg]
+                    dict_epsg = projection_list[f"EPSG:{epsg}"]
                     self.proj = ProjEngine(epsg, dict_epsg, path_geotiff)
                     self.set_param_eucli_shots()
                 except KeyError:
@@ -111,7 +111,7 @@ class Worksite:
             projection_list = json.load(json_file)
             json_file.close()
         try:
-            dict_epsg = projection_list[epsg]
+            dict_epsg = projection_list[f"EPSG:{epsg}"]
             self.proj = ProjEngine(epsg, dict_epsg, path_geotiff)
             self.set_param_eucli_shots()
         except KeyError:

@@ -67,7 +67,9 @@ The parameters are:
 | Symbol | Details | Default | Mandatory |
 | :----: | :------ | :-----: | :-------: |
 | -w | File path of the workfile | | V |
-| -i | Type of each column in the site file. e.g. N X Y Zal Od Pd Kd C |  | V |
+| -i | Type of each column in the site file. e.g. N X Y Z O P K C |  | V |
+| -u | Unit of the angle of shooting, 'degree' or 'radian' | degree | X |
+| -n | True if z shot corrected by linear alteration| True | X |
 | -f | Line number to start file playback. Does not take file header into account. | None | X |
 | -z | Line number to end file playback. If not set, all lines below -l will be read. | None | X |
 | -e | EPSG codifier number of the reference system used e.g. "2154" | "2154" | X |
@@ -101,21 +103,12 @@ Type is:
 | N | name of shot |
 | X | coordinate x of the shot position |
 | Y | coordinate y of the shot position |
-| Z | coordinate z of the shot position |
+| Z | coordinate z altitude of the shot position |
+| H | coordinate z height of the shot position |
 | O | omega rotation angle |
 | P | phi rotation angle |
 | K | kappa rotation angle |
 | C | name of the camera |
-
-Add unit for Z and angle:
-| Symbol | Details |
-| :----: | :------ |
-| h | height for Z |
-| hl | height with linear alteration for Z |
-| a | altitude for Z |
-| al | altitude with linear alteration for Z |
-| d | degrees for O P K |
-| r | radian for O P K |
 
 ### Python scripte use
 

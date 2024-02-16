@@ -28,6 +28,9 @@ parser.add_argument('-i', '--header',
                     'P: phi rotation angle'
                     'K: kappa rotation angle'
                     'C: name of the camera')
+parser.add_argument('-u','--unit_angle',
+                    type=str,
+                    help="Unit of the angle of shooting, 'degree' or 'radian'")
 parser.add_argument('-f', '--first_line',
                     type=int, default=None,
                     help='Line number to start file playback.'
@@ -85,7 +88,7 @@ if args.filepath is not None:
     if args.header is not None:
         work = reader_orientation(args.filepath, {"interval":[args.first_line, args.last_line],
                                                   "header": args.header,
-                                                  "unit_angle": "degree"})
+                                                  "unit_angle": args.unit_angle})
         print("Orientation file reading done.")
         print(f"Number of image: {len(work.shots)}")
     else:

@@ -25,6 +25,10 @@ def read(file: str, args: dict, work: Worksite) -> Worksite:
     Returns:
         Worksite: The worksite.
     """
+    if args["unit_angle"] not in ["degree", "radian"]:
+        raise ValueError(f"Unit angles is incorrect {args['unit_angle']},"
+                         "correct writing is degree or radian.")
+
     lf, ll = args["interval"]
     if lf is not None:
         lf -= 1

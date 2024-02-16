@@ -63,7 +63,7 @@ class Shot:
         shot = cls(name_shot, np.array([0, 0, 0]), np.array([0, 0, 0]), name_cam, unit_angle)
         shot.pos_shot_eucli = pos_eucli
         shot.projeucli = EuclideanProj(pos_eucli[0], pos_eucli[1], proj)
-        unitori = shot.unit_angle == "d"
+        unitori = shot.unit_angle == "degree"
         shot.ori_shot_eucli = -Rotation.from_matrix(mat_ori_eucli).as_euler("xyz", degrees=unitori)
         shot.pos_shot = shot.projeucli.euclidean_to_world(shot.pos_shot_eucli[0],
                                                           shot.pos_shot_eucli[1],
@@ -88,7 +88,7 @@ class Shot:
         Returns:
             np.array: The rotation matrix.
         """
-        if self.unit_angle == "d":
+        if self.unit_angle == "degree":
             ori_shot = np.copy(self.ori_shot)*np.pi/180
         else:
             ori_shot = self.ori_shot
@@ -118,7 +118,7 @@ class Shot:
         self.mat_rot_eucli = self.projeucli.mat_to_mat_eucli(self.pos_shot[0],
                                                              self.pos_shot[1],
                                                              self.mat_rot)
-        unitori = self.unit_angle == "d"
+        unitori = self.unit_angle == "degree"
         self.ori_shot_eucli = -Rotation.from_matrix(self.mat_rot_eucli).as_euler('xyz',
                                                                                  degrees=unitori)
 

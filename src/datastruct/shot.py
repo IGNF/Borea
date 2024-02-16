@@ -11,7 +11,7 @@ from src.altimetry.dem import Dem
 from src.utils.conversion import change_dim
 
 
-# pylint: disable-next=too-many-instance-attributes
+# pylint: disable-next=too-many-instance-attributes too-many-arguments
 class Shot:
     """
     Shot class definition.
@@ -25,10 +25,12 @@ class Shot:
     """
     # pylint: disable-next=too-many-arguments
     def __init__(self, name_shot: str, pos_shot: np.ndarray,
-                 ori_shot: np.ndarray, name_cam: str, unit_angle: str) -> None:
+                 ori_shot: np.ndarray, name_cam: str,
+                 unit_angle: str, linear_alteration: bool) -> None:
         self.name_shot = name_shot
         self.pos_shot = pos_shot
         self.pos_shot_eucli = None
+        self.linear_alteration = linear_alteration
         self.ori_shot = ori_shot
         self.ori_shot_eucli = None
         self.unit_angle = unit_angle
@@ -46,7 +48,7 @@ class Shot:
     # pylint: disable-next=too-many-arguments
     def from_param_euclidean(cls, name_shot: str, pos_eucli: np.ndarray,
                              mat_ori_eucli: np.ndarray, name_cam: str,
-                             unit_angle: str, proj: ProjEngine) -> None:
+                             unit_angle: str, linear_alteration: bool, proj: ProjEngine) -> None:
         """
         Construction of a shot object using the Euclidean position.
 
@@ -60,7 +62,8 @@ class Shot:
         Returns:
             Shot: The shot.
         """
-        shot = cls(name_shot, np.array([0, 0, 0]), np.array([0, 0, 0]), name_cam, unit_angle)
+        shot = cls(name_shot, np.array([0, 0, 0]), np.array([0, 0, 0]),
+                   name_cam, unit_angle, linear_alteration)
         shot.pos_shot_eucli = pos_eucli
         shot.projeucli = EuclideanProj(pos_eucli[0], pos_eucli[1], proj)
         unitori = shot.unit_angle == "degree"

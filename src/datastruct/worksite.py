@@ -45,7 +45,8 @@ class Worksite:
 
     # pylint: disable-next=too-many-arguments
     def add_shot(self, name_shot: str, pos_shot: np.ndarray,
-                 ori_shot: np.ndarray, name_cam: str, unit_angle: str) -> None:
+                 ori_shot: np.ndarray, name_cam: str,
+                 unit_angle: str, linear_alteration: bool) -> None:
         """
         Add Shot to the attribut Shots.
 
@@ -60,7 +61,8 @@ class Worksite:
                                      pos_shot=pos_shot,
                                      ori_shot=ori_shot,
                                      name_cam=name_cam,
-                                     unit_angle=unit_angle)
+                                     unit_angle=unit_angle,
+                                     linear_alteration=linear_alteration)
 
     def set_proj(self, epsg: str, file_epsg: str = None, path_geotiff: str = None) -> None:
         """

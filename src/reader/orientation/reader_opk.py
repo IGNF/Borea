@@ -20,6 +20,7 @@ def read(file: str, args: dict, work: Worksite) -> Worksite:
                                        e.g. [1, None] = [1:]
                     "header" (list): List of column type file.
                     "unit_angle" (str): unit of angle 'degrees' or 'radian'.
+                    "linear_alteration" (bool): True if data corrected by linear alteration.
         work (Worksite): Worksite to add shot
 
     Returns:
@@ -53,7 +54,7 @@ def read(file: str, args: dict, work: Worksite) -> Worksite:
                                    float(item_shot[header.index("P")]),
                                    float(item_shot[header.index("K")])], dtype=float),
                               item_shot[header.index("C")],
-                              args["unit_angle"])
+                              args["unit_angle"], args["linear_alteration"])
             file_opk.close()
     except FileNotFoundError as e:
         raise FileNotFoundError(f"The path {file} is incorrect !!! "

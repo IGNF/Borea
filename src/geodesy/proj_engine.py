@@ -15,17 +15,17 @@ class ProjEngine:
     This class provides functions for using a cartographic system.
 
     Args:
-        epsg (str): Code epsg of the porjection ex: "EPSG:2154".
+        epsg (int): Code epsg of the porjection ex: "EPSG:2154".
         projection_list (dict): Dictionnary of the projection json.
         path_geotiff (str): Path to the forlder of GeoTIFF.
     """
-    epsg: str
+    epsg: int
     projection_list: dict = None
     path_geotiff: str = None
 
     def __post_init__(self) -> None:
         if self.projection_list is not None:
-            self.crs = pyproj.CRS.from_string(self.epsg)
+            self.crs = pyproj.CRS.from_epsg(self.epsg)
             self.crs_geoc = pyproj.CRS.from_string(self.projection_list["geoc"])
             self.crs_geog = pyproj.CRS.from_string(self.projection_list["geog"])
             self.proj = pyproj.Proj(self.crs)

@@ -9,7 +9,8 @@ INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
 INPUT_GCP = "./dataset/GCP_test.app"
 ARGS = {"interval": [2, None],
         "header": ['N','X','Y','Z','O','P','K','C'],
-        "unit_angle": "degree"}
+        "unit_angle": "degree",
+        "linear_alteration":True}
 
 def test_read_gcp():
     work_gcp = reader_orientation(INPUT_OPK, ARGS)

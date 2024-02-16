@@ -8,7 +8,8 @@ INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
 INPUT_TERRAIN = "./dataset/terrain_test.mes"
 ARGS = {"interval": [2, None],
         "header": ['N','X','Y','Z','O','P','K','C'],
-        "unit_angle": "degree"}
+        "unit_angle": "degree",
+        "linear_alteration":True}
 
 def test_read_gipoints():
     work = reader_orientation(INPUT_OPK, ARGS)

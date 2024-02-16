@@ -89,7 +89,7 @@ Only -w and -i parameters is mandatory.
 
 E.G.
 ```
-python3 pink_lady.py -w test/data/23FD1305_alt_test.OPK -i N X Y Zal Od Pd Kd C -f 1 -e EPSG:2154 -p test/data/proj.json -y test/data/ -c test/data/Camera.txt -l test/data/liaisons_test.mes -t test/data/terrain_test.mes -g test/data/GCP_test.app --fg height -m test/data/MNT_France_25m_h_crop.tif --fm height -o opk
+python3 pink_lady.py -w dataset/23FD1305_alt_test.OPK -i N X Y Zal Od Pd Kd C -f 2 -e EPSG:2154 -p dataset/proj.json -y dataset/ -c dataset/Camera.txt -l dataset/liaisons_test.mes -t dataset/terrain_test.mes -g dataset/GCP_test.app --fg height -m dataset/MNT_France_25m_h_crop.tif --fm height -o opk
 ```
 
 #### Detail for the header of file -i
@@ -149,34 +149,34 @@ from src.writer.manage_writer import manager_reader
 ############# Data ###############
 
 # path to photogrammetric site file
-path_opk = "Worksite_FR_2024.OPK"
+path_opk = "dataset/23FD1305_alt_test.OPK"
 
 # line taken and header
-line_taken = [1, None]
+line_taken = [2, None]
 header = ['N', 'X', 'Y', 'Zal', 'Od', 'Pd', 'Kd', 'C']
 
 # info in epsg and epsg data
 epsg = "EPSG:2154"
-proj_json = "projection_epsg.json"
-folder_geoid = "./data_geotiff/"
+proj_json = "dataset/proj.json"
+folder_geoid = "dataset/"
 
 # path(s) to camera's file
-path_camera = ["Camera.txt"]
+path_camera = ["dataset/Camera1.txt"]
 
 # path(s) to connecting points file
-path_copoints = ["liaison.mes"]
+path_copoints = ["dataset/liaisons_test.mes"]
 
 # path(s) to image ground control points file
-path_gipoints = ["terrain.mes"]
+path_gipoints = ["dataset/terrain_test.mes"]
 
 # path(s) to ground control points file with unit of z and code of control point
-path_gcps = ["GCP.app"]
-type_z_data = 'h'
+path_gcps = ["dataset/GCP_test.app"]
+type_z_data = 'height'
 type_control = [13]
 
 # path to dem file and unit of the dem
-path_dem = "dem.tif"
-type_dem = "h"
+path_dem = "dataset/MNT_France_25m_h_crop.tif"
+type_dem = "height"
 
 # type of output file
 writer = "opk"
@@ -220,7 +220,7 @@ stat.main_stat_and_save()
 # Writing data
 manager_reader(writer, pathreturn, work)
 ```
-Examples of the different formats can be found in *test/data/*.
+Examples of the different formats can be found in *./dataset/*.
 
 ### Camera file format
 
@@ -235,7 +235,7 @@ focal = 30975.00
 width = 26460.00
 height = 17004.00
 ```
-An example file can be found in *./test/data/Camera1.txt*.
+An example file can be found in *./dataset/Camera1.txt*.
 
 ### File projection JSON format
 
@@ -251,5 +251,6 @@ This library requires different projection data to transform coordinates from te
 ```
 The important tags are : the first is the epsg code ("EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection ("geoc") with its epsg code at the site location. The geographic projection ("geog") with its epsg code at the site location, and the geoid ("geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the *usr/share/proj* folder, which is native to pyproj, or in the *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj* folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
 
+You can contribute by putting your structure in the *projection_list.json* file in *resources*.
 
 ![logo ign](docs/logo/logo_ign.png) ![logo fr](docs/logo/Republique_Francaise_Logo.png)

@@ -5,8 +5,8 @@ import numpy as np
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.reader_gcp import read_gcp
 
-INPUT_OPK = "./test/data/23FD1305_alt_test.OPK"
-INPUT_GCP = "./test/data/GCP_test.app"
+INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
+INPUT_GCP = "./dataset/GCP_test.app"
 LINE = [2, None]
 HEADER = ['N','X','Y','Zal','Od','Pd','Kd','C']
 

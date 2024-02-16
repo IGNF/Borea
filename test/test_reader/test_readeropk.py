@@ -6,8 +6,8 @@ import pytest
 from src.datastruct.worksite import Worksite
 from src.reader.orientation.reader_opk import read as read_opk
 
-INPUT_OPK_UBU = "./test/data/23FD1305_alt_test.OPK"
-INPUT_OPK_WIN = ".\\test\\data\\23FD1305_alt_test.OPK"
+INPUT_OPK_UBU = "./dataset/23FD1305_alt_test.OPK"
+INPUT_OPK_WIN = ".\\dataset\\23FD1305_alt_test.OPK"
 LINE = [2, None]
 HEADER = ['N','X','Y','Z','O','P','K','C']
 UNIT_ANGLE = 'd'
@@ -76,7 +76,7 @@ def test_reader_opk_bad_header_miss_column():
 
 def test_reader_opk_diffheader():
     work = Worksite("23FD1305_alt_test")
-    obj = read_opk("test/data/23FD1305_alt_NCPOKXYZ.OPK", LINE, ['S','N','C','P','O','K','X','Y','Z'], UNIT_ANGLE, work)
+    obj = read_opk("test/data/dataset1/23FD1305_alt_NCPOKXYZ.OPK", LINE, ['S','N','C','P','O','K','X','Y','Z'], UNIT_ANGLE, work)
     assert obj.name == "23FD1305_alt_test"
     assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
     assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925

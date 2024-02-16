@@ -104,9 +104,9 @@ class Worksite:
             path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.
         """
         if platform.system() in ["Linux", "Darwin"]:
-            path_data = os.path.dirname(__file__) + "/../data/projection_list.json"
+            path_data = os.path.dirname(__file__) + "/../../resources/projection_list.json"
         else:
-            path_data = os.path.dirname(__file__) + "\\..\\data\\projection_list.json"
+            path_data = os.path.dirname(__file__) + "\\..\\..\\resources\\projection_list.json"
         with open(path_data, 'r', encoding="utf-8") as json_file:
             projection_list = json.load(json_file)
             json_file.close()

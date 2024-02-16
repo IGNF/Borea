@@ -10,7 +10,7 @@ from src.stat.statistics import Stat
 
 OUTPUT = "./test/tmp"
 FILENAME = "Test"
-PATH_DEM = "./test/data/MNT_France_25m_h_crop.tif"
+PATH_DEM = "./dataset/MNT_France_25m_h_crop.tif"
 
 def setup_module(module): # run before the first test
     try:  # Clean folder test if exists
@@ -23,7 +23,7 @@ def setup_module(module): # run before the first test
 def test_stat_world_to_image():
     work = Worksite(FILENAME)
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.check_gip = True
@@ -44,7 +44,7 @@ def test_stat_world_to_image():
 def test_stat_world_to_image_withoutdata():
     work = Worksite(FILENAME)
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.check_gip = True
@@ -63,7 +63,7 @@ def test_stat_image_to_world_type13():
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","d")
     work.add_shot("23FD1305x00054_05680",np.array([833124.675,6282303.066,1761.305]),np.array([-0.198514051868,-0.023898399551,0.190559923925]),"cam_test","d")
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_gipoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
@@ -89,7 +89,7 @@ def test_stat_image_to_world_alltype():
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","d")
     work.add_shot("23FD1305x00054_05680",np.array([833124.675,6282303.066,1761.305]),np.array([-0.198514051868,-0.023898399551,0.190559923925]),"cam_test","d")
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_gipoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
@@ -113,7 +113,7 @@ def test_stat_image_to_world_alltype():
 def test_stat_image_to_world_withoutdata():
     work = Worksite(FILENAME)
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.check_gip = True
@@ -186,7 +186,7 @@ def test_stat_list_world2():
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","d")
     work.add_shot("23FD1305x00054_05680",np.array([833124.675,6282303.066,1761.305]),np.array([-0.198514051868,-0.023898399551,0.190559923925]),"cam_test","d")
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_gipoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
@@ -211,7 +211,7 @@ def test_stat_list_image2():
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","d")
     work.add_shot("23FD1305x00054_05680",np.array([833124.675,6282303.066,1761.305]),np.array([-0.198514051868,-0.023898399551,0.190559923925]),"cam_test","d")
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_gipoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
@@ -258,7 +258,7 @@ def test_main():
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","d")
     work.add_shot("23FD1305x00054_05680",np.array([833124.675,6282303.066,1761.305]),np.array([-0.198514051868,-0.023898399551,0.190559923925]),"cam_test","d")
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","d")
-    work.set_proj("2154", "test/data/proj.json", "./test/data/")
+    work.set_proj("2154", "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_gipoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_gipoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)

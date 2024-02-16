@@ -43,7 +43,7 @@ parser.add_argument('-z', '--last_line',
                     help='Line number to end file playback.'
                          ' If not set, all lines below -l will be read.')
 parser.add_argument('-e', '--epsg',
-                    type=str, default="2154",
+                    type=int, default=2154,
                     help='EPSG codifier number of the reference system used e.g. "2154".')
 parser.add_argument('-p', '--pathepsg',
                     type=str, default=None,
@@ -102,7 +102,7 @@ else:
 
 # Add a projection to the worksite
 work.set_proj(args.epsg, args.pathepsg, args.pathgeotiff)
-print(f"Projection set-up with {args.epsg if args.epsg[0:5]=='EPSG:' else 'EPSG:' + args.epsg}.")
+print(f"Projection set-up with EPSG:{args.epsg}.")
 
 # Reading camera file
 if args.camera is not None:

@@ -5,8 +5,8 @@ import platform
 import pytest
 from src.reader.orientation.manage_reader import reader_orientation
 
-INPUT_OPK_UBU = "./test/data/23FD1305_alt_test.OPK"
-INPUT_OPK_WIN = ".\\test\\data\\23FD1305_alt_test.OPK"
+INPUT_OPK_UBU = "./dataset/23FD1305_alt_test.OPK"
+INPUT_OPK_WIN = ".\\dataset\\23FD1305_alt_test.OPK"
 LINE = [2, None]
 HEADER = ['N','X','Y','Zal','Od','Pd','Kd','C']
 

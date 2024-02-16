@@ -4,8 +4,8 @@ Script test for module reader_gipoints
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.reader_gipoints import read_gipoints
 
-INPUT_OPK = "./test/data/23FD1305_alt_test.OPK"
-INPUT_TERRAIN = "./test/data/terrain_test.mes"
+INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
+INPUT_TERRAIN = "./dataset/terrain_test.mes"
 LINE = [2, None]
 HEADER = ['N','X','Y','Zal','Od','Pd','Kd','C']
 

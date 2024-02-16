@@ -4,7 +4,7 @@ Script test for class dem.
 import numpy as np
 from src.altimetry.dem import Dem
 
-PATH_DEM = "./test/data/MNT_France_25m_h_crop.tif"
+PATH_DEM = "./dataset/MNT_France_25m_h_crop.tif"
 
 def test_init_dem():
     dem = Dem(PATH_DEM, "height")

@@ -6,8 +6,8 @@ import pytest
 from src.datastruct.worksite import Worksite
 from src.reader.orientation.reader_opk import read as read_opk
 
-INPUT_OPK_UBU = "./test/data/23FD1305_alt_test.OPK"
-INPUT_OPK_WIN = ".\\test\\data\\23FD1305_alt_test.OPK"
+INPUT_OPK_UBU = "./dataset/23FD1305_alt_test.OPK"
+INPUT_OPK_WIN = ".\\dataset\\23FD1305_alt_test.OPK"
 LINE = [2, None]
 HEADER = ['N','X','Y','Z','O','P','K','C']
 UNIT_ANGLE = 'd'

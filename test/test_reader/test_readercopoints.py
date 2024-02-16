@@ -6,11 +6,12 @@ from src.reader.reader_copoints import read_copoints
 
 INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
 INPUT_LIAISONS = "./dataset/liaisons_test.mes"
-LINE = [2, None]
-HEADER = ['N','X','Y','Zal','Od','Pd','Kd','C']
+ARGS = {"interval": [2, None],
+        "header": ['N','X','Y','Z','O','P','K','C'],
+        "unit_angle": "degree"}
 
 def test_read_copoints():
-    work = reader_orientation(INPUT_OPK, LINE, HEADER)
+    work = reader_orientation(INPUT_OPK, ARGS)
     read_copoints([INPUT_LIAISONS], work)
     assert work.copoints["MES_674214"] == ["23FD1305x00026_01306", "23FD1305x00026_01307", "23FD1305x00026_01308"]
     assert work.copoints["MES_674219"] == ["23FD1305x00026_01306", "23FD1305x00026_01307", "23FD1305x00026_01308"]

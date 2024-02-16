@@ -7,11 +7,12 @@ from src.reader.orientation.manage_reader import reader_orientation
 
 INPUT_OPK_UBU = "./dataset/23FD1305_alt_test.OPK"
 INPUT_OPK_WIN = ".\\dataset\\23FD1305_alt_test.OPK"
-LINE = [2, None]
-HEADER = ['N','X','Y','Zal','Od','Pd','Kd','C']
+ARGS = {"interval": [2, None],
+        "header": ['N','X','Y','Z','O','P','K','C'],
+        "unit_angle": "degree"}
 
 def test_reader_file_ubupath():
-    obj = reader_orientation(INPUT_OPK_UBU, LINE, HEADER)
+    obj = reader_orientation(INPUT_OPK_UBU, ARGS)
     assert obj.name == "23FD1305_alt_test"
     assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
     assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925
@@ -35,9 +36,9 @@ def test_reader_file_ubupath():
 def test_reader_file_winpath():
     if platform.system() in ['Linux','Darwin']:
         with pytest.raises(FileNotFoundError) as e_info:
-            obj = reader_orientation(INPUT_OPK_WIN, LINE, HEADER)
+            obj = reader_orientation(INPUT_OPK_WIN, ARGS)
     else:
-        obj = reader_orientation(INPUT_OPK_WIN, LINE, HEADER)
+        obj = reader_orientation(INPUT_OPK_WIN, ARGS)
         assert obj.name == "23FD1305_alt_test"
         assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
         assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925

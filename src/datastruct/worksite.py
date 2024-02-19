@@ -31,11 +31,8 @@ class Worksite:
         self.shots = {}
         self.cameras = {}
         self.copoints = {}
-        self.check_cop = False
         self.gipoints = {}
-        self.check_gip = False
         self.gcps = {}
-        self.check_gcp = False
         self.cop_world = {}
         self.gip_world = {}
         self.proj = None
@@ -274,7 +271,7 @@ class Worksite:
         Args:
             lcode (list): gcp code.
         """
-        if self.check_gcp and self.check_gip:
+        if self.gcps and self.gipoints:
             for name_gcp, gcp in self.gcps.items():
                 if gcp.code in lcode or lcode == []:
                     try:
@@ -323,12 +320,12 @@ class Worksite:
         check = False
         if type_point == "copoint":
             points = self.copoints
-            check = self.check_cop
+            check = bool(points)
             check_gcp = False
 
         if type_point == "gipoint":
             points = self.gipoints
-            check = self.check_gip
+            check = bool(points)
             check_gcp = True
 
         if check:

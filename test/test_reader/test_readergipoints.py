@@ -7,7 +7,7 @@ from src.reader.reader_gipoints import read_gipoints
 INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
 INPUT_TERRAIN = "./dataset/terrain_test.mes"
 ARGS = {"interval": [2, None],
-        "header": ['N','X','Y','Z','O','P','K','C'],
+        "header": "N X Y Z O P K C",
         "unit_angle": "degree",
         "linear_alteration":True}
 

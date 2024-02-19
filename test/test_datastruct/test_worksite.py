@@ -374,3 +374,29 @@ def test_add_dem():
     assert hasattr(work.dem, 'img')
     assert hasattr(work.dem, 'rb')
     assert hasattr(work.dem, 'gt')
+
+
+def test_set_unit_shot():
+    work = Worksite("Test")
+    work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([180,0,360]),"cam_test","degree",True)
+    work.set_proj(2154, "dataset/proj.json", "./dataset/")
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+    work.add_dem(PATH_DEM, "height")
+    work.type_z_shot = "altitude"
+    work.set_unit_shot("height", "radian", False)
+    assert work.shots["shot1"].unit_angle == "radian"
+    assert work.shots["shot1"].linear_alteration == False
+    assert (work.shots["shot1"].ori_shot == np.array([np.pi,0,2*np.pi])).all()
+    assert work.type_z_shot == "height"
+
+
+def test_set_unit_shot_sameunit():
+    work = Worksite("Test")
+    work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([180,0,360]),"cam_test","degree",True)
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+    work.type_z_shot = "altitude"
+    work.set_unit_shot("altitude", "degree", True)
+    assert work.shots["shot1"].unit_angle == "degree"
+    assert work.shots["shot1"].linear_alteration == True
+    assert (work.shots["shot1"].ori_shot == np.array([180,0,360])).all()
+    assert work.type_z_shot == "altitude"

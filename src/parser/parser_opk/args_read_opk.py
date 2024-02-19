@@ -2,9 +2,12 @@
 Args of parser for reading opk file
 """
 import argparse
+from src.datastruct.worksite import Worksite
+from src.reader.reader_camera import read_camera
+from src.reader.orientation.manage_reader import reader_orientation
 
 
-def args_ropk(parser: argparse) -> argparse:
+def args_reading_opk(parser: argparse) -> argparse:
     """
     Args for reading opk file.
 
@@ -66,3 +69,51 @@ def args_ropk(parser: argparse) -> argparse:
                         type=str, default=None,
                         help='Format of Dem "altitude" or "height".')
     return parser
+
+
+def process_args_read_opk(args: argparse) -> Worksite:
+    """
+    Processing args with data.
+
+    Args:
+        args (argparse): arg to apply on worksite (data)
+
+    Returns:
+        Worksite: data
+    """
+    # Readind data
+    if args.filepath is not None:
+        if args.header is not None:
+            work = reader_orientation(args.filepath, {"interval": [args.first_line, args.last_line],
+                                                      "header": args.header,
+                                                      "unit_angle": args.unit_angle,
+                                                      "linear_alteration": args.linear_alteration})
+            print("Orientation file reading done.")
+            print(f"Number of image: {len(work.shots)}")
+        else:
+            raise ValueError("The header file is missing -i.")
+    else:
+        raise ValueError("The access road to the photogrammetric site is missing -r.")
+
+    # Add a projection to the worksite
+    if args.epsg is not None:
+        work.set_proj(args.epsg, args.pathepsg, args.pathgeotiff)
+        print(f"Projection set-up with EPSG:{args.epsg}.")
+    else:
+        print("There is no given projection.")
+
+    # Reading camera file
+    if args.camera is not None:
+        read_camera(args.camera, work)
+        print(f"Camera file reading done. {len(args.camera)} read")
+    else:
+        print("There is no given camera.")
+
+    # Add Dem
+    if args.dem is not None:
+        work.add_dem(args.dem, args.fm)
+        print("Add dem to the worksite done.")
+    else:
+        print("Not Dem in the worksite.")
+
+    return work

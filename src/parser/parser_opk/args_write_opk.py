@@ -2,9 +2,11 @@
 Args of parser for writing opk file
 """
 import argparse
+from src.datastruct.worksite import Worksite
+from src.writer.manage_writer import manager_writer
 
 
-def args_wopk(parser: argparse) -> argparse:
+def args_writing_opk(parser: argparse) -> argparse:
     """
     Args for writing opk file.
 
@@ -41,3 +43,25 @@ def args_wopk(parser: argparse) -> argparse:
                         type=bool, default=True,
                         help="True if z shot corrected by linear alteration.")
     return parser
+
+
+def process_args_write_opk(args: argparse, work: Worksite) -> None:
+    """
+    Processing args with data.
+
+    Args:
+        args (argparse): arg to apply on worksite (data)
+        work (Worksite): data
+    """
+    # Writing data
+    if args.name is not None:
+        if args.output_header is not None:
+            args_writing = {"header": args.output_header,
+                            "unit_angle": args.output_unit_angle,
+                            "linear_alteration": args.output_linear_alteration}
+            manager_writer("opk", args.name, args.pathreturn, args_writing, work)
+            print(f"File written in {args.pathreturn + args.name}.opk.")
+        else:
+            raise ValueError("The output header file is missing -o.")
+    else:
+        raise ValueError("The name of the saving file is missing -n.")

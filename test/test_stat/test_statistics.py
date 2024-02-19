@@ -248,7 +248,7 @@ def test_save_txt():
     stat.stat_world_image = stat.stat_list(stat.res_world_image)
     stat.stat_image_world = stat.stat_list(stat.res_image_world)
     stat.save_stat_txt()
-    assert os.path.exists(f"{OUTPUT}/Stat_{FILENAME}.txt")
+    assert os.path.exists(f"{OUTPUT}/Stat_residu_world_to_image_{FILENAME}.txt")
 
 
 def test_main():
@@ -276,4 +276,4 @@ def test_main():
     work.calculate_init_image_world("gipoint")
     stat = Stat(work, OUTPUT, [])
     stat.main_stat_and_save()
-    assert os.path.exists(f"{OUTPUT}/Stat_{FILENAME}.txt")
+    assert os.path.exists(f"{OUTPUT}/Stat_residu_world_to_image_{FILENAME}.txt")

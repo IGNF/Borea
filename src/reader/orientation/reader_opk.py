@@ -13,13 +13,13 @@ def read(file: str, args: dict, work: Worksite) -> Worksite:
 
     Args:
         file (str): Path to the worksite.
-        args (dict): information for reading an opk file.
+        args (dict): Information for reading an opk file.
                     keys:
                     "interval" (list): Interval of lines taken into account,
                                        [i, j] if i or j is None = :.
                                        e.g. [1, None] = [1:]
                     "header" (list): List of column type file.
-                    "unit_angle" (str): unit of angle 'degrees' or 'radian'.
+                    "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
                     "linear_alteration" (bool): True if data corrected by linear alteration.
         work (Worksite): Worksite to add shot
 
@@ -35,7 +35,7 @@ def read(file: str, args: dict, work: Worksite) -> Worksite:
         lf -= 1
     if ll is not None:
         ll -= 1
-    header, type_z = check_header_file(args["header"])
+    header, type_z = check_header_file(args["header"].split())
     try:
         with open(file, 'r', encoding="utf-8") as file_opk:
             for item_opk in file_opk.readlines()[lf:ll]:

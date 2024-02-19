@@ -4,33 +4,57 @@ Photogrammetry site file reader module.
 import os
 import numpy as np
 from src.datastruct.worksite import Worksite
+from src.utils.check_header import check_header_file
 
 
-def write(path_opk: str, work: Worksite) -> None:
+def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:
     """
     Write function, to save a photogrammetric site in .opk format.
 
     Args:
-        path_opk (str): Path of registration file .opk.
+        name_opk (str): Name of the file writing.
+        path_opk (str): Path of folder to registration file .opk.
+        args (dict): Information for writing an opk file.
+                    keys:
+                    "header" (list): List of column type file.
+                    "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
+                    "line_writingar_alteration" (bool): True if data corrected by
+                                                        line_writingar alteration.
         work (Worksite): The site to be recorded.
     """
-    path_opk = os.path.join(path_opk, f"{work.name}.opk")
+    path_opk = os.path.join(path_opk, f"{name_opk}.opk")
+
+    header, type_z = check_header_file(args["header"].split())
+
+    if "S" in header:
+        raise ValueError("Letter S doesn't existe in writing header opk.")
+
+    work.set_unit_shot(type_z, args["unit_angle"], args["linear_alteration"])
 
     try:
         with open(path_opk, "w", encoding="utf-8") as file:
-            file.write("NAME X   Y   Z   O   P   K   CAMERA")
+            file.write(args["header"])
+            file.write("\n")
             keys = np.sort(list(work.shots))
+            line_writing = ""
             for k in keys:
                 shot = work.shots[k]
-                file.write("\n")
-                file.write(shot.name_shot + "   " +
-                           str(shot.pos_shot[0]) + "   " +
-                           str(shot.pos_shot[1]) + "   " +
-                           str(shot.pos_shot[2]) + "   " +
-                           str(shot.ori_shot[0]) + "   " +
-                           str(shot.ori_shot[1]) + "   " +
-                           str(shot.ori_shot[2]) + "   " +
-                           shot.name_cam)
+                dict_letter = {"N": shot.name_shot,
+                               "X": str(shot.pos_shot[0]),
+                               "Y": str(shot.pos_shot[1]),
+                               "Z": str(shot.pos_shot[2]),
+                               "O": str(shot.ori_shot[0]),
+                               "P": str(shot.ori_shot[1]),
+                               "K": str(shot.ori_shot[2]),
+                               "C": shot.name_cam}
+                for i in range(8):
+                    line_writing += dict_letter[header[i]]
+                    if i != 7:
+                        line_writing += "   "
+                    else:
+                        line_writing += "\n"
+
+                file.write(line_writing)
             file.close()
     except FileNotFoundError as e:
         raise ValueError("The path doesn't exist !!!", e) from e

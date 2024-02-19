@@ -236,6 +236,36 @@ class Worksite:
 
         self.dem = Dem(path_dem, type_dem[0])
 
+    def set_unit_shot(self, type_z: str = None, unit_angle: str = None,
+                      linear_alteration: bool = None) -> None:
+        """
+        Allows you to change the orientation angle unit.
+
+        Args:
+            unit_angle (str): Unit angle.
+        """
+        if unit_angle not in ["degree", "radian", None]:
+            raise ValueError(f"unit_angle: {unit_angle} is not recognized,"
+                             "recognized values are degree and radian.")
+
+        if type_z not in ["height", "altitude", None]:
+            raise ValueError(f"type_z: {type_z} is not recognized,"
+                             "recognized values are altitude and height.")
+
+        if type_z == self.type_z_shot:
+            type_z = None
+        else:
+            self.type_z_shot = type_z
+
+        for shot in self.shots.values():
+            if unit_angle is not None:
+                shot.set_unit_angle(unit_angle)
+            if type_z is not None:
+                shot.set_type_z(type_z)
+            if linear_alteration is not None:
+                shot.set_linear_alteration(linear_alteration, self.cameras[shot.name_cam],
+                                           self.dem, self.type_z_shot)
+
     def calculate_world_to_image_gcp(self, lcode: list) -> None:
         """
         Calculates the position of gcps which corresponds to the data code

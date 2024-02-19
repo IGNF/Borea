@@ -14,9 +14,6 @@ def args_control(parser: argparse) -> argparse:
     Returns:
         argsparse: parser with argument
     """
-    parser.add_argument('-l', '--connecting_points',
-                        type=str, default=None, nargs='*',
-                        help='Files paths of connecting points (.mes).')
     parser.add_argument('-t', '--ground_points',
                         type=str, default=None, nargs='*',
                         help='Files paths of ground points in images (.mes).')
@@ -29,4 +26,7 @@ def args_control(parser: argparse) -> argparse:
     parser.add_argument('--fg', '--format_gcp',
                         type=str, default=None,
                         help='Format of GCP and ground image point "altitude" or "height".')
+    parser.add_argument('-w', '--pathreturn',
+                        type=str, default='./',
+                        help='Conversion path e.g. test/tmp/.')
     return parser

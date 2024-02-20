@@ -125,6 +125,56 @@ class Shot:
         self.ori_shot_eucli = -Rotation.from_matrix(self.mat_rot_eucli).as_euler('xyz',
                                                                                  degrees=unitori)
 
+    def set_unit_angle(self, unit_angle: str) -> None:
+        """
+        Allows you to change the orientation angle unit.
+
+        Args:
+            unit_angle (str): Unit angle.
+        """
+        if unit_angle != self.unit_angle:
+            self.unit_angle = unit_angle
+            if unit_angle == "radian":
+                self.ori_shot = self.ori_shot*np.pi/180
+            else:
+                self.ori_shot = self.ori_shot*180/np.pi
+
+    def set_type_z(self, type_z: str) -> None:
+        """
+        Allows you to change the type of z.
+
+        Args:
+            type_z (str): z type height or altitude.
+        """
+        if type_z == "height":
+            self.pos_shot[2] = self.tranform_height(self.pos_shot[0],
+                                                    self.pos_shot[1],
+                                                    self.pos_shot[2])
+        else:
+            self.pos_shot[2] = self.tranform_altitude(self.pos_shot[0],
+                                                      self.pos_shot[1],
+                                                      self.pos_shot[2])
+
+    def set_linear_alteration(self, linear_alteration: bool, cam: Camera,
+                              dem: Dem, type_z: str) -> None:
+        """
+        Allows you to correct or de-correct the linear alteration.
+
+        Args:
+            linear_alteration (bool): Linear alteration boolean.
+            cam (Camera): Camera of the shot.
+            dem (Dem): Dtm of the worksite
+            type_z (str): type of z shot
+        """
+        if linear_alteration != self.linear_alteration:
+            self.linear_alteration = linear_alteration
+            z_nadir = self.image_to_world(cam.ppax, cam.ppay, cam,
+                                          dem, type_z[0], type_z[0])[2]
+            if linear_alteration:
+                self.pos_shot[2] = self.get_z_add_scale_factor(z_nadir)
+            else:
+                self.pos_shot[2] = self.get_z_remove_scale_factor(z_nadir)
+
     # pylint: disable-next=too-many-arguments too-many-locals
     def world_to_image(self, x_world: Union[np.ndarray, float],
                        y_world: Union[np.ndarray, float],

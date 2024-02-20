@@ -11,7 +11,7 @@ def reader_orientation(file: str, args: dict) -> Worksite:
 
     Args:
         file (str): Path to the worksite.
-        args (dict): other information for reading the file
+        args (dict): Other information for reading the file.
 
     Returns:
         Worksite: The worksite.

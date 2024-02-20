@@ -4,7 +4,7 @@ Script to read ground points in image .mes.
 from src.datastruct.worksite import Worksite
 
 
-def read_gipoints(files: list, work: Worksite) -> None:
+def read_ground_image_points(files: list, work: Worksite) -> None:
     """
     Read all files of connecting points.
 

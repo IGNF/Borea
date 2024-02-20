@@ -92,7 +92,7 @@ if args.filepath is not None:
         work = reader_orientation(args.filepath, {"interval": [args.first_line, args.last_line],
                                                   "header": args.header,
                                                   "unit_angle": args.unit_angle,
-                                                  "linar_alteration": args.linear_alteration})
+                                                  "linear_alteration": args.linear_alteration})
         print("Orientation file reading done.")
         print(f"Number of image: {len(work.shots)}")
     else:
@@ -101,8 +101,11 @@ else:
     raise ValueError("The access road to the photogrammetric site is missing -w.")
 
 # Add a projection to the worksite
-work.set_proj(args.epsg, args.pathepsg, args.pathgeotiff)
-print(f"Projection set-up with EPSG:{args.epsg}.")
+if args.epsg is not None:
+    work.set_proj(args.epsg, args.pathepsg, args.pathgeotiff)
+    print(f"Projection set-up with EPSG:{args.epsg}.")
+else:
+    print("There is no given projection.")
 
 # Reading camera file
 if args.camera is not None:

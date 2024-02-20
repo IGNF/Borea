@@ -1,6 +1,7 @@
 """
 Script to read connecting point mes.
 """
+from pathlib import Path, PureWindowsPath
 from src.datastruct.worksite import Worksite
 
 
@@ -14,7 +15,7 @@ def read_copoints(files: list, work: Worksite) -> None:
     """
     for file in files:
         try:
-            with open(file, 'r', encoding="utf-8") as file_copoints:
+            with open(Path(PureWindowsPath(file)), 'r', encoding="utf-8") as file_copoints:
                 for copoint in file_copoints.readlines():
                     if copoint != '\n':
                         name_point, name_shot, x, y = copoint.split()

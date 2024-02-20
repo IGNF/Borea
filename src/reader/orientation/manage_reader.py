@@ -2,6 +2,7 @@
 Photogrammetry site file reader module.
 """
 import importlib
+from pathlib import Path, PureWindowsPath
 from src.datastruct.worksite import Worksite
 
 
@@ -18,11 +19,9 @@ def reader_orientation(file: str, args: dict) -> Worksite:
     """
     # Attention multiple file management orientation
     # Attention management of files with the same extension but different formats
-    splitpath = file.split('/')
-    if len(splitpath) == 1:
-        splitpath = file.split('\\')
-
-    name_work, ext = splitpath[-1].split(".")
+    file = Path(PureWindowsPath(file))
+    name_work = file.stem
+    ext = file.suffix[1:]
 
     work = Worksite(name_work)
     try:

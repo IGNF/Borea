@@ -2,6 +2,7 @@
 Photogrammetry site file reader module.
 """
 import os
+from pathlib import Path, PureWindowsPath
 import numpy as np
 from src.datastruct.worksite import Worksite
 from src.utils.check_header import check_header_file
@@ -22,7 +23,7 @@ def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:
                                                         line_writingar alteration.
         work (Worksite): The site to be recorded.
     """
-    path_opk = os.path.join(path_opk, f"{name_opk}.opk")
+    path_opk = os.path.join(Path(PureWindowsPath(path_opk)), f"{name_opk}.opk")
 
     header, type_z = check_header_file(args["header"].split())
 

@@ -2,17 +2,18 @@
 A script to read opk file.
 """
 import platform
+from pathlib import Path
 import numpy as np
 from src.datastruct.worksite import Worksite
 from src.utils.check_header import check_header_file
 
 
-def read(file: str, args: dict, work: Worksite) -> Worksite:
+def read(file: Path, args: dict, work: Worksite) -> Worksite:
     """
     Reads an opk file to transform it into a Workside object.
 
     Args:
-        file (str): Path to the worksite.
+        file (Path): Path to the worksite.
         args (dict): Information for reading an opk file.
                     keys:
                     "interval" (list): Interval of lines taken into account,

@@ -3,8 +3,8 @@ Worksite data class module.
 """
 import os
 import sys
-import platform
 import json
+from pathlib import Path, PureWindowsPath
 import numpy as np
 from pyproj import CRS, exceptions
 from src.datastruct.shot import Shot
@@ -31,11 +31,8 @@ class Worksite:
         self.shots = {}
         self.cameras = {}
         self.copoints = {}
-        self.check_cop = False
         self.gipoints = {}
-        self.check_gip = False
         self.gcps = {}
-        self.check_gcp = False
         self.cop_world = {}
         self.gip_world = {}
         self.proj = None
@@ -45,7 +42,8 @@ class Worksite:
 
     # pylint: disable-next=too-many-arguments
     def add_shot(self, name_shot: str, pos_shot: np.ndarray,
-                 ori_shot: np.ndarray, name_cam: str, unit_angle: str) -> None:
+                 ori_shot: np.ndarray, name_cam: str,
+                 unit_angle: str, linear_alteration: bool) -> None:
         """
         Add Shot to the attribut Shots.
 
@@ -60,34 +58,34 @@ class Worksite:
                                      pos_shot=pos_shot,
                                      ori_shot=ori_shot,
                                      name_cam=name_cam,
-                                     unit_angle=unit_angle)
+                                     unit_angle=unit_angle,
+                                     linear_alteration=linear_alteration)
 
-    def set_proj(self, epsg: str, file_epsg: str = None, path_geotiff: str = None) -> None:
+    def set_proj(self, epsg: int, file_epsg: str = None, path_geotiff: str = None) -> None:
         """
         Setup a projection system to the worksite.
 
         Args:
-            epsg (str): Code epsg of the porjection ex: "EPSG:2154".
+            epsg (int): Code epsg of the porjection ex: 2154.
             file_epsg (str): Path to the json which list projection.
             path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.
         """
         try:  # Check if the epsg exist
-            if epsg[0:5] != "EPSG:":
-                epsg = "EPSG:" + epsg
-            crs = CRS.from_string(epsg)
+            crs = CRS.from_epsg(epsg)
             del crs
         except exceptions.CRSError as e_info:
-            raise exceptions.CRSError(f"Your {epsg} doesn't exist") from e_info
+            raise exceptions.CRSError(f"Your EPSG:{epsg} doesn't exist") from e_info
 
-        if file_epsg is None:
+        path_geotiff = Path(PureWindowsPath(path_geotiff)) if path_geotiff else None
+        if not file_epsg:
             self.known_projection(epsg, path_geotiff)
         else:
             try:
-                with open(file_epsg, 'r', encoding="utf-8") as json_file:
+                with open(Path(PureWindowsPath(file_epsg)), 'r', encoding="utf-8") as json_file:
                     projection_list = json.load(json_file)
                     json_file.close()
                 try:
-                    dict_epsg = projection_list[epsg]
+                    dict_epsg = projection_list[f"EPSG:{epsg}"]
                     self.proj = ProjEngine(epsg, dict_epsg, path_geotiff)
                     self.set_param_eucli_shots()
                 except KeyError:
@@ -95,23 +93,21 @@ class Worksite:
             except FileNotFoundError as e:
                 raise FileNotFoundError(f"The path {file_epsg} is incorrect !!!") from e
 
-    def known_projection(self, epsg: str = "EPSG:2154", path_geotiff: str = None) -> None:
+    def known_projection(self, epsg: int = 2154, path_geotiff: Path = None) -> None:
         """
         Setup a projection system to the worksite.
 
         Args:
-            epsg (str): Code epsg of the porjection ex: "EPSG:2154".
-            path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.
+            epsg (int): Code epsg of the porjection ex: "EPSG:2154".
+            path_geotiff (Path): List of GeoTIFF which represents the ellipsoid in grid form.
         """
-        if platform.system() in ["Linux", "Darwin"]:
-            path_data = os.path.dirname(__file__) + "/../../resources/projection_list.json"
-        else:
-            path_data = os.path.dirname(__file__) + "\\..\\..\\resources\\projection_list.json"
+        path_data = os.path.join(os.path.dirname(__file__), "..", "..",
+                                 "resources", "projection_list.json")
         with open(path_data, 'r', encoding="utf-8") as json_file:
             projection_list = json.load(json_file)
             json_file.close()
         try:
-            dict_epsg = projection_list[epsg]
+            dict_epsg = projection_list[f"EPSG:{epsg}"]
             self.proj = ProjEngine(epsg, dict_epsg, path_geotiff)
             self.set_param_eucli_shots()
         except KeyError:
@@ -236,6 +232,36 @@ class Worksite:
 
         self.dem = Dem(path_dem, type_dem[0])
 
+    def set_unit_shot(self, type_z: str = None, unit_angle: str = None,
+                      linear_alteration: bool = None) -> None:
+        """
+        Allows you to change the orientation angle unit.
+
+        Args:
+            unit_angle (str): Unit angle.
+        """
+        if unit_angle not in ["degree", "radian", None]:
+            raise ValueError(f"unit_angle: {unit_angle} is not recognized,"
+                             "recognized values are degree and radian.")
+
+        if type_z not in ["height", "altitude", None]:
+            raise ValueError(f"type_z: {type_z} is not recognized,"
+                             "recognized values are altitude and height.")
+
+        if type_z == self.type_z_shot:
+            type_z = None
+        else:
+            self.type_z_shot = type_z
+
+        for shot in self.shots.values():
+            if unit_angle is not None:
+                shot.set_unit_angle(unit_angle)
+            if type_z is not None:
+                shot.set_type_z(type_z)
+            if linear_alteration is not None:
+                shot.set_linear_alteration(linear_alteration, self.cameras[shot.name_cam],
+                                           self.dem, self.type_z_shot)
+
     def calculate_world_to_image_gcp(self, lcode: list) -> None:
         """
         Calculates the position of gcps which corresponds to the data code
@@ -244,7 +270,7 @@ class Worksite:
         Args:
             lcode (list): gcp code.
         """
-        if self.check_gcp and self.check_gip:
+        if self.gcps and self.gipoints:
             for name_gcp, gcp in self.gcps.items():
                 if gcp.code in lcode or lcode == []:
                     try:
@@ -293,12 +319,12 @@ class Worksite:
         check = False
         if type_point == "copoint":
             points = self.copoints
-            check = self.check_cop
+            check = bool(points)
             check_gcp = False
 
         if type_point == "gipoint":
             points = self.gipoints
-            check = self.check_gip
+            check = bool(points)
             check_gcp = True
 
         if check:

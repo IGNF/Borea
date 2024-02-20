@@ -2,16 +2,18 @@
 Script test for module reader_gipoints
 """
 from src.reader.orientation.manage_reader import reader_orientation
-from src.reader.reader_gipoints import read_gipoints
+from src.reader.reader_gipoints import read_ground_image_points
 
 INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
 INPUT_TERRAIN = "./dataset/terrain_test.mes"
-LINE = [2, None]
-HEADER = ['N','X','Y','Zal','Od','Pd','Kd','C']
+ARGS = {"interval": [2, None],
+        "header": "N X Y Z O P K C",
+        "unit_angle": "degree",
+        "linear_alteration":True}
 
 def test_read_gipoints():
-    work = reader_orientation(INPUT_OPK, LINE, HEADER)
-    read_gipoints([INPUT_TERRAIN], work)
+    work = reader_orientation(INPUT_OPK, ARGS)
+    read_ground_image_points([INPUT_TERRAIN], work)
     assert work.gipoints['"1003"'] == ["23FD1305x00026_01306", "23FD1305x00026_01307", "23FD1305x00026_01308"]
     assert work.gipoints['"1005"'] == ["23FD1305x00054_05680", "23FD1305x00054_05681"]
     assert work.gipoints['"1006"'] == ["23FD1305x00062_07727", "23FD1305x00062_07728"]

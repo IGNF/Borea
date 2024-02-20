@@ -2,6 +2,7 @@
 Script test for module shot
 """
 import pytest
+import copy
 import numpy as np
 from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
@@ -9,9 +10,9 @@ from src.geodesy.proj_engine import ProjEngine
 from src.geodesy.euclidean_proj import EuclideanProj
 from src.altimetry.dem import Dem
 
-SHOT = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'd')
+SHOT = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True)
 CAM = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-EPSG = "EPSG:2154"
+EPSG = 2154
 DICT_PROJ_WITH_G = {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}
 DICT_PROJ_WITHOUT_G = {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084'}
 PATH_GEOID = "./dataset/"
@@ -21,7 +22,7 @@ SHOT_TYPE_Z = "al"
 
 
 def test_set_param_eucli():
-    shot = SHOT
+    shot = copy.copy(SHOT)
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     projeucli = EuclideanProj(814975.925, 6283986.148, proj)
     shot.set_param_eucli_shot(proj)
@@ -30,7 +31,7 @@ def test_set_param_eucli():
 
 
 def test_set_param_eucli_withoutdem():
-    shot = SHOT
+    shot = copy.copy(SHOT)
     proj = ProjEngine(EPSG, DICT_PROJ_WITHOUT_G)
     projeucli = EuclideanProj(814975.925, 6283986.148, proj)
     shot.set_param_eucli_shot(proj)
@@ -39,10 +40,10 @@ def test_set_param_eucli_withoutdem():
 
 
 def test_from_shot_eucli():
-    shot = SHOT
+    shot = copy.copy(SHOT)
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     shot.set_param_eucli_shot(proj)
-    shot_eucli = Shot.from_param_euclidean("test_shot", shot.pos_shot_eucli, shot.mat_rot_eucli, "test_cam", "d", proj)
+    shot_eucli = Shot.from_param_euclidean("test_shot", shot.pos_shot_eucli, shot.mat_rot_eucli, "test_cam", "degree",True, proj)
     assert shot.name_shot == shot_eucli.name_shot
     assert shot.pos_shot[0] == round(shot_eucli.pos_shot[0],3)
     assert shot.pos_shot[1] == round(shot_eucli.pos_shot[1],3)
@@ -57,7 +58,7 @@ def test_from_shot_eucli():
 
 def test_world_to_image():
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
-    shot = SHOT
+    shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     dem = Dem(PATH_DEM,DATA_TYPE_Z)
@@ -70,7 +71,7 @@ def test_world_to_image():
 
 def test_world_to_image_withoutgeoid():
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
-    shot = SHOT
+    shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITHOUT_G)
     dem = None
@@ -81,7 +82,7 @@ def test_world_to_image_withoutgeoid():
 
 def test_world_to_image_sametypea():
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
-    shot = SHOT
+    shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITHOUT_G)
     dem = None
@@ -91,7 +92,7 @@ def test_world_to_image_sametypea():
 
 def test_world_to_image_sametypewithl():
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
-    shot = SHOT
+    shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     dem = None
@@ -101,7 +102,7 @@ def test_world_to_image_sametypewithl():
 
 def test_world_to_image_sametypewithoutl():
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
-    shot = SHOT
+    shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     dem = None
@@ -111,7 +112,7 @@ def test_world_to_image_sametypewithoutl():
 
 def test_image_to_world():
     point_image = np.array([24042.25, 14781.17])
-    shot = SHOT
+    shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     dem = Dem(PATH_DEM,DATA_TYPE_Z)
@@ -125,7 +126,7 @@ def test_image_to_world():
 
 def test_image_to_world_sametype_withoutgeoid():
     point_image = np.array([24042.25, 14781.17])
-    shot = SHOT
+    shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITHOUT_G)
     dem = Dem(PATH_DEM,DATA_TYPE_Z)
@@ -135,7 +136,7 @@ def test_image_to_world_sametype_withoutgeoid():
 
 def test_image_to_world_withoutdem():
     point_image = np.array([24042.25, 14781.17])
-    shot = SHOT
+    shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     dem = None
@@ -147,7 +148,7 @@ def test_image_to_world_withoutdem():
 def test_image_to_world_multipoint():
     c = np.array([24042.25, 24042.25])
     l = np.array([14781.17, 14781.17])
-    shot = SHOT
+    shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     dem = Dem(PATH_DEM,DATA_TYPE_Z)
@@ -156,3 +157,54 @@ def test_image_to_world_multipoint():
     assert abs(actual[0,0] - 815601.510) < 1
     assert abs(actual[1,0] - 6283629.280) < 1
     assert abs(actual[2,0] - 54.960) < 3
+
+
+def test_set_unit_angle_degree():
+    shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([np.pi,0,2*np.pi]), "test_cam", 'radian',True)
+    shot.set_unit_angle("degree")
+    assert shot.unit_angle == "degree"
+    assert shot.ori_shot[0] == 180
+    assert shot.ori_shot[1] == 0
+    assert shot.ori_shot[2] == 360
+
+
+def test_set_unit_angle_radian():
+    shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([180,0,360]), "test_cam", 'degree',True)
+    shot.set_unit_angle("radian")
+    assert shot.unit_angle == "radian"
+    assert shot.ori_shot[0] == np.pi
+    assert shot.ori_shot[1] == 0
+    assert shot.ori_shot[2] == 2*np.pi
+
+
+def test_set_unit_angle_same():
+    shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([180,0,360]), "test_cam", 'degree',True)
+    shot.set_unit_angle("degree")
+    assert shot.unit_angle == "degree"
+    assert shot.ori_shot[0] == 180
+    assert shot.ori_shot[1] == 0
+    assert shot.ori_shot[2] == 360
+
+
+def test_set_type_z():
+    shot = copy.copy(SHOT)
+    proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    shot.set_param_eucli_shot(proj)
+    shot.set_type_z("height")
+
+
+def test_set_linear_alteration_False():
+    shot = copy.copy(SHOT)
+    proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    shot.set_param_eucli_shot(proj)
+    dem = Dem(PATH_DEM,DATA_TYPE_Z)
+    shot.set_linear_alteration(False, CAM, dem, SHOT_TYPE_Z)
+    assert shot.linear_alteration == False
+
+
+def test_set_linear_alteration_True():
+    shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True)
+    dem = Dem(PATH_DEM,DATA_TYPE_Z)
+    shot.set_linear_alteration(True, CAM, dem, SHOT_TYPE_Z)
+    assert shot.linear_alteration == True
+    assert shot.pos_shot[2] == 1771.280

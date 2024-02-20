@@ -3,6 +3,7 @@ Module for statistics
 """
 import os
 import io
+from pathlib import Path, PureWindowsPath
 import numpy as np
 from src.datastruct.worksite import Worksite
 
@@ -22,7 +23,7 @@ class Stat:
             type_point (list): List of type point on which we make the stats.
         """
         self.work = work
-        self.pathoutput = pathoutput
+        self.pathoutput = Path(PureWindowsPath(pathoutput))
 
         if type_point is None:
             self.type_point = []
@@ -150,44 +151,58 @@ class Stat:
         """
         Save calculation statistics in a .txt file
         """
-        path_txt = os.path.join(self.pathoutput, f"Stat_{self.work.name}.txt")
+        path_riw = os.path.join(self.pathoutput, f"Stat_residu_image_to_world_{self.work.name}.txt")
+        path_miw = os.path.join(self.pathoutput, f"Stat_metric_image_to_world_{self.work.name}.txt")
+        path_rwi = os.path.join(self.pathoutput, f"Stat_residu_world_to_image_{self.work.name}.txt")
+        path_mwi = os.path.join(self.pathoutput, f"Stat_metric_world_to_image_{self.work.name}.txt")
 
-        try:
-            with open(path_txt, "w", encoding="utf-8") as file:
-                file.write("Control point statistics file.\n")
-                file.write("\n")
-                file.write("\n")
-                if self.res_image_world:
-                    file.write("Residue of control points from image to terrain function.\n")
-                    file.write("residual = ground control point - calculated ground control point")
-                    file.write("\n")
-                    file.write("name_point  res_x  res_y  res_z\n")
+        if self.check_stat_iw:
+            try:
+                with open(path_riw, "w", encoding="utf-8") as file_riw:
+                    file_riw.write("Control point statistics file.\n")
+                    file_riw.write("\n")
+                    file_riw.write("\n")
+                    file_riw.write("Residue of control points from image to terrain function.\n")
+                    file_riw.write("residual = ground control point -"
+                                   " calculated ground control point")
+                    file_riw.write("\n")
+                    file_riw.write("name_point  res_x  res_y  res_z\n")
                     for data in self.res_image_world:
-                        file.write(f"{data[0][0]}  {data[1][0]}  {data[1][1]}  {data[1][2]}\n")
+                        file_riw.write(f"{data[0][0]}  {data[1][0]}  {data[1][1]}  {data[1][2]}\n")
+                    file_riw.close()
+            except FileNotFoundError as e:
+                raise ValueError("The path doesn't exist !!!") from e
 
-                    if self.stat_image_world:
-                        file.write("\nStatistics on residual function image to world.\n")
-                        file.write("Name_stat: [stat_X, stat_Y, stat_Z]\n")
-                        self.write_stat(file, self.stat_image_world)
+            with open(path_miw, "w", encoding="utf-8") as file_miw:
+                file_miw.write("Control point statistics file.\n")
+                file_miw.write("\n")
+                file_miw.write("\n")
+                file_miw.write("Statistics on residual function image to world.\n")
+                file_miw.write("Name_stat: [stat_X, stat_Y, stat_Z]\n")
+                self.write_stat(file_miw, self.stat_image_world)
+                file_miw.close()
 
-                    file.write("\n")
-                    file.write("\n")
-                if self.res_world_image:
-                    file.write("Residual control points from terrain to image function.\n")
-                    file.write("residual = image's ground point - calculated image's ground point")
-                    file.write("\n")
-                    file.write("name_point  name_shot  res_column  res_line\n")
-                    for data in self.res_world_image:
-                        file.write(f"{data[0][0]}  {data[0][1]}  {data[1][0]}  {data[1][1]}\n")
+        if self.check_stat_wi:
+            with open(path_rwi, "w", encoding="utf-8") as file_rwi:
+                file_rwi.write("Control point statistics file.\n")
+                file_rwi.write("\n")
+                file_rwi.write("\n")
+                file_rwi.write("Residual control points from terrain to image function.\n")
+                file_rwi.write("residual = image's ground point - calculated image's ground point")
+                file_rwi.write("\n")
+                file_rwi.write("name_point  name_shot  res_column  res_line\n")
+                for data in self.res_world_image:
+                    file_rwi.write(f"{data[0][0]}  {data[0][1]}  {data[1][0]}  {data[1][1]}\n")
+                file_rwi.close()
 
-                    if self.stat_world_image:
-                        file.write("\nStatistics on residual function world to image.\n")
-                        file.write("Name_stat: [stat_column, stat_line]\n")
-                        self.write_stat(file, self.stat_world_image)
-
-                file.close()
-        except FileNotFoundError as e:
-            raise ValueError("The path doesn't exist !!!") from e
+            with open(path_mwi, "w", encoding="utf-8") as file_mwi:
+                file_mwi.write("Control point statistics file.\n")
+                file_mwi.write("\n")
+                file_mwi.write("\n")
+                file_mwi.write("Statistics on residual function world to image.\n")
+                file_mwi.write("Name_stat: [stat_column, stat_line]\n")
+                self.write_stat(file_mwi, self.stat_world_image)
+                file_mwi.close()
 
     def write_stat(self, file: io.TextIOWrapper, data: dict) -> None:
         """

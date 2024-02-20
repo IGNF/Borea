@@ -1,7 +1,7 @@
 """
 A module for manipulating a digital elevation model.
 """
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import Union, Any, Tuple
 import numpy as np
 from osgeo import gdal
@@ -45,7 +45,7 @@ class Dem:
         self.type_dem = type_dem
         self.order = order
         self.keep_in_memory = keep_in_memory
-        self.path_dem = Path(path_dem)
+        self.path_dem = Path(PureWindowsPath(path_dem))
         self.img = gdal.Open(self.path_dem.as_posix())
         self.rb = self.img.GetRasterBand(1)
         self.gt = self.img.GetGeoTransform()

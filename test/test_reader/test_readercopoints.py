@@ -5,7 +5,7 @@ from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.reader_copoints import read_copoints
 
 INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
-INPUT_LIAISONS = "./dataset/liaisons_test.mes"
+INPUT_LIAISONS = "dataset\\liaisons_test.mes"
 ARGS = {"interval": [2, None],
         "header": "N X Y Z O P K C",
         "unit_angle": "degree",

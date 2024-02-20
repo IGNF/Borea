@@ -3,6 +3,7 @@ Module for statistics
 """
 import os
 import io
+from pathlib import Path, PureWindowsPath
 import numpy as np
 from src.datastruct.worksite import Worksite
 
@@ -22,7 +23,7 @@ class Stat:
             type_point (list): List of type point on which we make the stats.
         """
         self.work = work
-        self.pathoutput = pathoutput
+        self.pathoutput = Path(PureWindowsPath(pathoutput))
 
         if type_point is None:
             self.type_point = []

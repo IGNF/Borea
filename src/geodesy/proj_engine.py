@@ -2,6 +2,7 @@
 Module for manipulating a cartographic system.
 """
 from os import path
+from pathlib import Path
 from typing import Union, List
 from dataclasses import dataclass
 import pyproj
@@ -17,11 +18,11 @@ class ProjEngine:
     Args:
         epsg (int): Code epsg of the porjection ex: "EPSG:2154".
         projection_list (dict): Dictionnary of the projection json.
-        path_geotiff (str): Path to the forlder of GeoTIFF.
+        path_geotiff (Path): Path to the forlder of GeoTIFF.
     """
     epsg: int
     projection_list: dict = None
-    path_geotiff: str = None
+    path_geotiff: Path = None
 
     def __post_init__(self) -> None:
         if self.projection_list is not None:
@@ -92,8 +93,9 @@ class Transform():
         Create attribute transform, to transform geographic coordinates to geoide coordinates
         """
         if pe.path_geotiff is not None:
-            ptiff = pe.path_geotiff
-            geoid_list = [ptiff + geoid + '.tif' for geoid in pe.projection_list['geoid']]
+            ptiff = str(pe.path_geotiff)
+            for geoid in pe.projection_list['geoid']:
+                geoid_list = [path.join('.', ptiff, geoid + '.tif')]
             if not path.exists(geoid_list[0]):
                 geoid_list = [geoid+'.tif' for geoid in pe.projection_list['geoid']]
         else:

@@ -11,8 +11,8 @@ from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
 from src.datastruct.gcp import GCP
 from src.geodesy.proj_engine import ProjEngine
-from src.position.shot_pos import space_resection
-from src.altimetry.dem import Dem
+from src.transform_world_image.shot_pos import space_resection
+from src.datastruct.dtm import Dtm
 
 
 # pylint: disable-next=too-many-instance-attributes
@@ -36,7 +36,7 @@ class Worksite:
         self.cop_world = {}
         self.gip_world = {}
         self.proj = None
-        self.dem = None
+        self.dtm = None
         self.type_z_data = None
         self.type_z_shot = None
 
@@ -219,18 +219,18 @@ class Worksite:
         """
         self.gcps[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
 
-    def add_dem(self, path_dem: str, type_dem: str) -> None:
+    def add_dtm(self, path_dtm: str, type_dtm: str) -> None:
         """
-        Add class DEM to the worksite.
+        Add class DtM to the worksite.
 
         Args:
-            path_dem (str): Path to the dem.
-            type (str): Type of the dem "altitude" or "height".
+            path_dtm (str): Path to the dtm.
+            type (str): Type of the dtm "altitude" or "height".
         """
-        if type_dem not in ["altitude", "height", "a", "h"]:
-            raise ValueError(f"The dem's type {type_dem} isn't correct ('altitude' or 'height')")
+        if type_dtm not in ["altitude", "height", "a", "h"]:
+            raise ValueError(f"The dtm's type {type_dtm} isn't correct ('altitude' or 'height')")
 
-        self.dem = Dem(path_dem, type_dem[0])
+        self.dtm = Dtm(path_dtm, type_dtm[0])
 
     def set_unit_shot(self, type_z: str = None, unit_angle: str = None,
                       linear_alteration: bool = None) -> None:
@@ -260,7 +260,7 @@ class Worksite:
                 shot.set_type_z(type_z)
             if linear_alteration is not None:
                 shot.set_linear_alteration(linear_alteration, self.cameras[shot.name_cam],
-                                           self.dem, self.type_z_shot)
+                                           self.dtm, self.type_z_shot)
 
     def calculate_world_to_image_gcp(self, lcode: list) -> None:
         """
@@ -279,7 +279,7 @@ class Worksite:
                             shot = self.shots[name_shot]
                             cam = self.cameras[shot.name_cam]
                             coor_img = shot.world_to_image(gcp.coor[0], gcp.coor[1], gcp.coor[2],
-                                                           cam, self.dem, self.type_z_data,
+                                                           cam, self.dtm, self.type_z_data,
                                                            self.type_z_shot)
                             self.shots[name_shot].gcps[name_gcp] = coor_img
                     except KeyError:
@@ -408,5 +408,5 @@ class Worksite:
         for key_shot, item_shot in self.shots.items():
             cam = self.cameras[item_shot.name_cam]
             self.shots[key_shot] = space_resection(item_shot, cam, self.proj,
-                                                   self.dem, self.type_z_data,
+                                                   self.dtm, self.type_z_data,
                                                    self.type_z_shot, add_pixel)

@@ -196,8 +196,7 @@ class Shot:
         Returns:
             np.array: The image coordinate [c,l].
         """
-        dtm = Dtm()
-        if len(type_z_data) != len(type_z_shot) and dtm.path_dtm is None:
+        if len(type_z_data) != len(type_z_shot) and Dtm().path_dtm is None:
             raise ValueError("Missing dtm, because type z data != type z shot.")
 
         if isinstance(x_world, np.ndarray):
@@ -244,8 +243,7 @@ class Shot:
         Returns:
             np.array: Cartographique coordinate [x,y,z].
         """
-        dtm = Dtm()
-        if dtm.path_dtm is None:
+        if Dtm().path_dtm is None:
             raise ValueError("Missing dtm")
 
         if isinstance(col, np.ndarray):
@@ -253,13 +251,13 @@ class Shot:
         else:
             dim = ()
 
-        z_world = np.full_like(col, dtm.get_z_world(self.pos_shot[0], self.pos_shot[1]))
+        z_world = np.full_like(col, Dtm().get_z_world(self.pos_shot[0], self.pos_shot[1]))
         x_world, y_world, _ = self.image_z_to_world(col, line, cam, type_z_shot, z_world)
         precision_reached = False
         nbr_iter = 0
         iter_max = 10
         while not precision_reached and nbr_iter < iter_max:
-            z_world = dtm.get_z_world(x_world, y_world)
+            z_world = Dtm().get_z_world(x_world, y_world)
             x_new_world, y_new_world, z_new_world = self.image_z_to_world(col, line, cam,
                                                                           type_z_shot, z_world)
             x_diff = (x_new_world - x_world) ** 2
@@ -270,7 +268,7 @@ class Shot:
             x_world, y_world, z_world = x_new_world, y_new_world, z_new_world
             nbr_iter += 1
 
-        x_world, y_world, z_world = self.conv_z_type_to_type(dtm.type_dtm[0], type_z_data, cam,
+        x_world, y_world, z_world = self.conv_z_type_to_type(Dtm().type_dtm[0], type_z_data, cam,
                                                              x_world, y_world, z_world)
         x_world = change_dim(x_world, dim)
         y_world = change_dim(y_world, dim)
@@ -298,7 +296,6 @@ class Shot:
         Returns:
             np.array: Cartographique coordinate [x,y,z].
         """
-        dtm = Dtm()
         if isinstance(col, np.ndarray):
             dim = np.shape(col)
             if np.all(z == 0):
@@ -307,7 +304,7 @@ class Shot:
             dim = ()
 
         x_bundle, y_bundle, z_bundle = self.image_to_bundle(col, line, cam)
-        pos_shot = self.conv_z_type_to_type(type_z_shot, dtm.type_dtm[0], cam,
+        pos_shot = self.conv_z_type_to_type(type_z_shot, Dtm().type_dtm[0], cam,
                                             self.pos_shot[0], self.pos_shot[1], self.pos_shot[2])
         pos_eucli = self.projeucli.world_to_euclidean(pos_shot[0], pos_shot[1], pos_shot[2])
         p_local = self.mat_rot_eucli.T @ np.vstack([x_bundle, y_bundle, z_bundle])

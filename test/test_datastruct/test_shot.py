@@ -10,6 +10,7 @@ from src.geodesy.proj_engine import ProjEngine
 from src.geodesy.euclidean_proj import EuclideanProj
 from src.datastruct.dtm import Dtm
 
+
 SHOT = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True)
 CAM = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
 EPSG = 2154
@@ -19,6 +20,10 @@ PATH_GEOID = "./dataset/"
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
 DATA_TYPE_Z = "h"
 SHOT_TYPE_Z = "al"
+
+
+def Dtm_singleton(path, type_dtm):
+        Dtm().set_dtm(path, type_dtm)
 
 
 def test_set_param_eucli():
@@ -61,9 +66,9 @@ def test_world_to_image():
     shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    dtm = Dtm(PATH_DTM,DATA_TYPE_Z)
+    Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(proj)
-    actual = shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, dtm, DATA_TYPE_Z, SHOT_TYPE_Z)
+    actual = shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, DATA_TYPE_Z, SHOT_TYPE_Z)
     print(abs(actual[0] - 24042.25), abs(actual[1] - 14781.17))
     assert abs(actual[0] - 24042.25) < 1
     assert abs(actual[1] - 14781.17) < 1
@@ -74,10 +79,10 @@ def test_world_to_image_withoutgeoid():
     shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITHOUT_G)
-    dtm = None
+    Dtm_singleton(None, None)
     shot.set_param_eucli_shot(proj)
     with pytest.raises(ValueError) as e_info:
-        shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, dtm, DATA_TYPE_Z, SHOT_TYPE_Z)
+        shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, DATA_TYPE_Z, SHOT_TYPE_Z)
 
 
 def test_world_to_image_sametypea():
@@ -85,9 +90,9 @@ def test_world_to_image_sametypea():
     shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITHOUT_G)
-    dtm = None
+    Dtm_singleton(None,None)
     shot.set_param_eucli_shot(proj)
-    shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, dtm, 'a', 'a')
+    shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, 'a', 'a')
 
 
 def test_world_to_image_sametypewithl():
@@ -95,9 +100,9 @@ def test_world_to_image_sametypewithl():
     shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    dtm = None
+    Dtm_singleton(None,None)
     shot.set_param_eucli_shot(proj)
-    shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, dtm, 'al', 'hl')
+    shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, 'al', 'hl')
 
 
 def test_world_to_image_sametypewithoutl():
@@ -105,9 +110,9 @@ def test_world_to_image_sametypewithoutl():
     shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    dtm = None
+    Dtm_singleton(None,None)
     shot.set_param_eucli_shot(proj)
-    shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, dtm, 'h', 'a')
+    shot.world_to_image(point_terrain[0], point_terrain[1], point_terrain[2], cam, 'h', 'a')
 
 
 def test_image_to_world():
@@ -115,9 +120,9 @@ def test_image_to_world():
     shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    dtm = Dtm(PATH_DTM,DATA_TYPE_Z)
+    Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(proj)
-    actual = shot.image_to_world(point_image[0], point_image[1], cam, dtm, DATA_TYPE_Z, SHOT_TYPE_Z)
+    actual = shot.image_to_world(point_image[0], point_image[1], cam, DATA_TYPE_Z, SHOT_TYPE_Z)
     print(abs(actual[0] - 815601.510),abs(actual[1] - 6283629.280),abs(actual[2] - 54.960))
     assert abs(actual[0] - 815601.510) < 1
     assert abs(actual[1] - 6283629.280) < 1
@@ -129,9 +134,9 @@ def test_image_to_world_sametype_withoutgeoid():
     shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITHOUT_G)
-    dtm = Dtm(PATH_DTM,DATA_TYPE_Z)
+    Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(proj)
-    actual = shot.image_to_world(point_image[0], point_image[1], cam, dtm, DATA_TYPE_Z, DATA_TYPE_Z)
+    actual = shot.image_to_world(point_image[0], point_image[1], cam, DATA_TYPE_Z, DATA_TYPE_Z)
 
 
 def test_image_to_world_withoutdtm():
@@ -139,10 +144,10 @@ def test_image_to_world_withoutdtm():
     shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    dtm = None
+    Dtm_singleton(None, None)
     shot.set_param_eucli_shot(proj)
     with pytest.raises(ValueError) as e_info:
-        actual = shot.image_to_world(point_image[0], point_image[1], cam, dtm, DATA_TYPE_Z, SHOT_TYPE_Z)
+        actual = shot.image_to_world(point_image[0], point_image[1], cam, DATA_TYPE_Z, SHOT_TYPE_Z)
 
 
 def test_image_to_world_multipoint():
@@ -151,9 +156,9 @@ def test_image_to_world_multipoint():
     shot = copy.copy(SHOT)
     cam = CAM
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    dtm = Dtm(PATH_DTM,DATA_TYPE_Z)
+    Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(proj)
-    actual = shot.image_to_world(c, l, cam, dtm, DATA_TYPE_Z, SHOT_TYPE_Z)
+    actual = shot.image_to_world(c, l, cam, DATA_TYPE_Z, SHOT_TYPE_Z)
     assert abs(actual[0,0] - 815601.510) < 1
     assert abs(actual[1,0] - 6283629.280) < 1
     assert abs(actual[2,0] - 54.960) < 3
@@ -197,14 +202,14 @@ def test_set_linear_alteration_False():
     shot = copy.copy(SHOT)
     proj = ProjEngine(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     shot.set_param_eucli_shot(proj)
-    dtm = Dtm(PATH_DTM,DATA_TYPE_Z)
-    shot.set_linear_alteration(False, CAM, dtm, SHOT_TYPE_Z)
+    Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
+    shot.set_linear_alteration(False, CAM, SHOT_TYPE_Z)
     assert shot.linear_alteration == False
 
 
 def test_set_linear_alteration_True():
     shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True)
-    dtm = Dtm(PATH_DTM,DATA_TYPE_Z)
-    shot.set_linear_alteration(True, CAM, dtm, SHOT_TYPE_Z)
+    Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
+    shot.set_linear_alteration(True, CAM, SHOT_TYPE_Z)
     assert shot.linear_alteration == True
     assert shot.pos_shot[2] == 1771.280

@@ -5,6 +5,7 @@ import pytest
 import pyproj
 import numpy as np
 from src.datastruct.worksite import Worksite
+from src.datastruct.dtm import Dtm
 
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
@@ -390,12 +391,13 @@ def test_shootings_position():
 def test_add_dtm():
     work = Worksite("Test")
     work.add_dtm(PATH_DTM, "height")
-    assert work.dtm.type_dtm == "h"
-    assert work.dtm.order == 1
-    assert work.dtm.keep_in_memory == False
-    assert hasattr(work.dtm, 'img')
-    assert hasattr(work.dtm, 'rb')
-    assert hasattr(work.dtm, 'gt')
+    dtm = Dtm()
+    assert dtm.type_dtm == "height"
+    assert dtm.order == 1
+    assert dtm.keep_in_memory == False
+    assert hasattr(dtm, 'img')
+    assert hasattr(dtm, 'rb')
+    assert hasattr(dtm, 'gt')
 
 
 def test_set_unit_shot():

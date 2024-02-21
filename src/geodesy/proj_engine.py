@@ -1,36 +1,44 @@
 """
 Module for manipulating a cartographic system.
 """
-from os import path
 from pathlib import Path
 from typing import Union, List
 from dataclasses import dataclass
 import pyproj
 import numpy as np
+from src.geodesy.transform_geodesy import TransformGeodesy
+from src.utils.singleton.singleton import Singleton
 
 
 @dataclass
-# pylint: disable-next=too-many-instance-attributes
-class ProjEngine:
+class ProjEngine(TransformGeodesy, metaclass=Singleton):
     """
     This class provides functions for using a cartographic system.
-
-    Args:
-        epsg (int): Code epsg of the porjection ex: "EPSG:2154".
-        projection_list (dict): Dictionnary of the projection json.
-        path_geotiff (Path): Path to the forlder of GeoTIFF.
     """
-    epsg: int
+    epsg: int = None
     projection_list: dict = None
-    path_geotiff: Path = None
+    path_geoid: Path = None
 
     def __post_init__(self) -> None:
         if self.projection_list is not None:
             self.crs = pyproj.CRS.from_epsg(self.epsg)
-            self.crs_geoc = pyproj.CRS.from_string(self.projection_list["geoc"])
-            self.crs_geog = pyproj.CRS.from_string(self.projection_list["geog"])
             self.proj = pyproj.Proj(self.crs)
-            self.tf = Transform(self)
+            super().__tf_init__(self.projection_list, self.path_geoid, self.crs)
+
+    def set_epsg(self, epsg: int, proj_list: dict = None, path_geoid: Path = None) -> None:
+        """
+        Setter of the class ProjEngine.
+        Allows to init the class with data.
+
+        Args:
+            epsg (int): Code epsg of the porjection ex: "EPSG:2154".
+            projection_list (dict): Dictionnary of the projection json.
+            path_geoid (Path): Path to the forlder of GeoTIFF.
+        """
+        self.epsg = epsg
+        self.projection_list = proj_list
+        self.path_geoid = path_geoid
+        self.__post_init__()
 
     def get_meridian_convergence(self, x_carto: Union[np.ndarray, List[float], float],
                                  y_carto: Union[np.ndarray, List[float], float]) -> np.ndarray:
@@ -46,7 +54,7 @@ class ProjEngine:
             np.array : Meridian convergence in degree.
         """
         # pylint: disable-next=unpacking-non-sequence
-        (x_geog, y_geog) = self.tf.carto_to_geog(x_carto, y_carto)
+        (x_geog, y_geog) = self.carto_to_geog(x_carto, y_carto)
         return -np.array(self.proj.get_factors(x_geog, y_geog).meridian_convergence)
 
     def get_scale_factor(self, x_carto: Union[np.ndarray, List[float], float],
@@ -63,54 +71,5 @@ class ProjEngine:
             np.array: Scale factor and meridian convergence.
         """
         # pylint: disable-next=unpacking-non-sequence
-        x_geog, y_geog = self.tf.carto_to_geog(x_carto, y_carto)
+        x_geog, y_geog = self.carto_to_geog(x_carto, y_carto)
         return np.array(self.proj.get_factors(x_geog, y_geog).meridional_scale) - 1
-
-
-@dataclass
-class Transform():
-    """
-    This class provides functions to tranform coordinate system.
-
-    Args:
-        pe (ProjEngin): Tranformation for the ProjEgine.
-    """
-    def __init__(self, pe: ProjEngine) -> None:
-        # Transform cartographic coordinates to geographic coordinates
-        self.carto_to_geog = pyproj.Transformer.from_crs(pe.crs, pe.crs_geog).transform
-        # Transform geographic coordinates to cartographic coordinates
-        self.geog_to_carto = pyproj.Transformer.from_crs(pe.crs_geog, pe.crs).transform
-        # Transform cartographic coordinates to geocentric coordinates
-        self.carto_to_geoc = pyproj.Transformer.from_crs(pe.crs, pe.crs_geoc).transform
-        # Transform geocentric coordinates to cartographic coordinates
-        self.geoc_to_carto = pyproj.Transformer.from_crs(pe.crs_geoc, pe.crs).transform
-
-        if 'geoid' in pe.projection_list:
-            self.tf_geoid(pe)
-
-    def tf_geoid(self, pe: ProjEngine) -> None:
-        """
-        Create attribute transform, to transform geographic coordinates to geoide coordinates
-        """
-        if pe.path_geotiff is not None:
-            ptiff = str(pe.path_geotiff)
-            for geoid in pe.projection_list['geoid']:
-                geoid_list = [path.join('.', ptiff, geoid + '.tif')]
-            if not path.exists(geoid_list[0]):
-                geoid_list = [geoid+'.tif' for geoid in pe.projection_list['geoid']]
-        else:
-            geoid_list = [geoid+'.tif' for geoid in pe.projection_list['geoid']]
-
-        try:
-            # Transform geographic coordinates to geoide coordinates
-            self.geog_to_geoid = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
-                                                                  f"+grids={','.join(geoid_list)} "
-                                                                  "+multiplier=1").transform
-            # Transform geoide coordinates to geographic coordinates
-            self.geoid_to_geog = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
-                                                                  f"+grids={','.join(geoid_list)} "
-                                                                  "+multiplier=-1").transform
-        except pyproj.exceptions.ProjError as e:
-            raise pyproj.exceptions.ProjError(f"{geoid_list} The name of geotif is incorrect or "
-                                              "does not exist in folder or "
-                                              "in usr/share/proj !!!{e}") from e

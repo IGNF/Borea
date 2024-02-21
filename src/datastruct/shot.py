@@ -48,7 +48,7 @@ class Shot:
     # pylint: disable-next=too-many-arguments
     def from_param_euclidean(cls, name_shot: str, pos_eucli: np.ndarray,
                              mat_ori_eucli: np.ndarray, name_cam: str,
-                             unit_angle: str, linear_alteration: bool, proj: ProjEngine) -> None:
+                             unit_angle: str, linear_alteration: bool) -> None:
         """
         Construction of a shot object using the Euclidean position.
 
@@ -57,7 +57,6 @@ class Shot:
             pos_eucli (np.array): Euclidean position of the shot.
             mat_ori_eucli (np.array): Euclidean rotation matrix of the shot.
             name_cam (str): Name of the camera.
-            proj (ProjEngine): Projection of the worksite.
 
         Returns:
             Shot: The shot.
@@ -65,7 +64,7 @@ class Shot:
         shot = cls(name_shot, np.array([0, 0, 0]), np.array([0, 0, 0]),
                    name_cam, unit_angle, linear_alteration)
         shot.pos_shot_eucli = pos_eucli
-        shot.projeucli = EuclideanProj(pos_eucli[0], pos_eucli[1], proj)
+        shot.projeucli = EuclideanProj(pos_eucli[0], pos_eucli[1])
         unitori = shot.unit_angle == "degree"
         shot.ori_shot_eucli = -Rotation.from_matrix(mat_ori_eucli).as_euler("xyz", degrees=unitori)
         shot.pos_shot = shot.projeucli.euclidean_to_world(shot.pos_shot_eucli[0],
@@ -107,14 +106,11 @@ class Shot:
                        [0, 0, 1]])
         return (rx @ ry @ rz).T
 
-    def set_param_eucli_shot(self, proj: ProjEngine) -> None:
+    def set_param_eucli_shot(self) -> None:
         """
         Setting up Euclidean parameters projeucli, pos_shot_eucli, ori_shot_eucli, mat_rot_eucli.
-
-        Args:
-            proj (ProjEngine): Projection of the worksite.
         """
-        self.projeucli = EuclideanProj(self.pos_shot[0], self.pos_shot[1], proj)
+        self.projeucli = EuclideanProj(self.pos_shot[0], self.pos_shot[1])
         self.pos_shot_eucli = self.projeucli.world_to_euclidean(self.pos_shot[0],
                                                                 self.pos_shot[1],
                                                                 self.pos_shot[2])
@@ -357,11 +353,11 @@ class Shot:
         Returns:
             float: New height z.
         """
-        coor_geog = self.projeucli.proj_engine.tf.carto_to_geog(x, y, z)
+        coor_geog = ProjEngine().carto_to_geog(x, y, z)
         try:
-            new_z = self.projeucli.proj_engine.tf.geog_to_geoid(coor_geog[0],
-                                                                coor_geog[1],
-                                                                coor_geog[2])[2]
+            new_z = ProjEngine().geog_to_geoid(coor_geog[0],
+                                               coor_geog[1],
+                                               coor_geog[2])[2]
         except AttributeError:
             print("Warning: the geoid has not been entered, the z transformation from altitude "
                   "to height has not been performed, return z altitude")
@@ -384,14 +380,14 @@ class Shot:
         Returns:
             float: New altitude z.
         """
-        coor_geog = self.projeucli.proj_engine.tf.carto_to_geog(x, y, z)
+        coor_geog = ProjEngine().carto_to_geog(x, y, z)
         try:
-            coor_geog = self.projeucli.proj_engine.tf.geoid_to_geog(coor_geog[0],
-                                                                    coor_geog[1],
-                                                                    coor_geog[2])
-            new_z = self.projeucli.proj_engine.tf.geog_to_carto(coor_geog[0],
-                                                                coor_geog[1],
-                                                                coor_geog[2])[2]
+            coor_geog = ProjEngine().geoid_to_geog(coor_geog[0],
+                                                   coor_geog[1],
+                                                   coor_geog[2])
+            new_z = ProjEngine().geog_to_carto(coor_geog[0],
+                                               coor_geog[1],
+                                               coor_geog[2])[2]
         except AttributeError:
             print("Warning: the geoid has not been entered, the z transformation from height "
                   "to altitude has not been performed, return z height")
@@ -411,8 +407,8 @@ class Shot:
         Returns:
             float: z without linear alteration
         """
-        scale_factor = self.projeucli.proj_engine.get_scale_factor(self.pos_shot[0],
-                                                                   self.pos_shot[1])
+        scale_factor = ProjEngine().get_scale_factor(self.pos_shot[0],
+                                                     self.pos_shot[1])
         return (self.pos_shot[2] + scale_factor * z_nadir) / (1 + scale_factor)
 
     def get_z_add_scale_factor(self, z_nadir: float) -> float:
@@ -425,8 +421,8 @@ class Shot:
         Returns:
             float: z with linear alteration.
         """
-        scale_factor = self.projeucli.proj_engine.get_scale_factor(self.pos_shot[0],
-                                                                   self.pos_shot[1])
+        scale_factor = ProjEngine().get_scale_factor(self.pos_shot[0],
+                                                     self.pos_shot[1])
         return self.pos_shot[2] + scale_factor * (self.pos_shot[2] - z_nadir)
 
     # pylint: disable-next=too-many-arguments

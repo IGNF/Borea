@@ -5,11 +5,10 @@ import numpy as np
 from scipy.spatial.transform import Rotation
 from src.datastruct.camera import Camera
 from src.datastruct.shot import Shot
-from src.geodesy.proj_engine import ProjEngine
 
 
 # pylint: disable-next=too-many-locals too-many-arguments
-def space_resection(shot: Shot, cam: Camera, proj: ProjEngine, type_z_data: str,
+def space_resection(shot: Shot, cam: Camera, type_z_data: str,
                     type_z_shot: str, add_pixel: tuple = (0, 0)) -> Shot:
     """
     Recalculates the shot's 6 external orientation parameters,
@@ -18,7 +17,6 @@ def space_resection(shot: Shot, cam: Camera, proj: ProjEngine, type_z_data: str,
     Args:
         shot (Shot): Shot to recalculte externa parameters.
         cam (Camera): Camera of the shot.
-        projeucli (EuclideanProj): Euclidiean projection system of the worksite.
         type_z_data (str): z's type of data".
                       "h" height
                       "a" altitude / elevation
@@ -48,7 +46,7 @@ def space_resection(shot: Shot, cam: Camera, proj: ProjEngine, type_z_data: str,
     # Initialization of adjusted shot
     shot_adjust = Shot(shot.name_shot, shot.pos_shot, shot.ori_shot, shot.name_cam,
                        shot.unit_angle, shot.linear_alteration)
-    shot_adjust.set_param_eucli_shot(proj)
+    shot_adjust.set_param_eucli_shot()
 
     bool_iter = True
     count_iter = 0
@@ -78,7 +76,7 @@ def space_resection(shot: Shot, cam: Camera, proj: ProjEngine, type_z_data: str,
         imc_new_adjust = Shot.from_param_euclidean(shot_adjust.name_shot, new_pos_eucli,
                                                    new_mat_eucli, shot_adjust.name_cam,
                                                    shot_adjust.unit_angle,
-                                                   shot_adjust.linear_alteration, proj)
+                                                   shot_adjust.linear_alteration)
 
         # Look difference to know if you want to stop the calculation
         diff_coord = np.array([imc_new_adjust.pos_shot]) - np.array([shot_adjust.pos_shot])

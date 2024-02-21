@@ -35,7 +35,6 @@ class Worksite:
         self.gcps = {}
         self.cop_world = {}
         self.gip_world = {}
-        self.proj = None
         self.type_z_data = None
         self.type_z_shot = None
 
@@ -69,6 +68,7 @@ class Worksite:
             file_epsg (str): Path to the json which list projection.
             path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.
         """
+        ProjEngine.clear()
         try:  # Check if the epsg exist
             crs = CRS.from_epsg(epsg)
             del crs
@@ -85,7 +85,7 @@ class Worksite:
                     json_file.close()
                 try:
                     dict_epsg = projection_list[f"EPSG:{epsg}"]
-                    self.proj = ProjEngine(epsg, dict_epsg, path_geotiff)
+                    ProjEngine().set_epsg(epsg, dict_epsg, path_geotiff)
                     self.set_param_eucli_shots()
                 except KeyError:
                     self.known_projection(epsg, path_geotiff)
@@ -107,17 +107,17 @@ class Worksite:
             json_file.close()
         try:
             dict_epsg = projection_list[f"EPSG:{epsg}"]
-            self.proj = ProjEngine(epsg, dict_epsg, path_geotiff)
+            ProjEngine().set_epsg(epsg, dict_epsg, path_geotiff)
             self.set_param_eucli_shots()
         except KeyError:
-            self.proj = ProjEngine(epsg)
+            ProjEngine().set_epsg(epsg)
 
     def set_param_eucli_shots(self) -> None:
         """
         Setting up Euclidean parameters pos_shot_eucli, ori_shot_eucli, mat_rot_eucli by shot.
         """
         for shot in self.shots.values():
-            shot.set_param_eucli_shot(self.proj)
+            shot.set_param_eucli_shot()
 
     # pylint: disable-next=too-many-arguments
     def add_camera(self, name_camera: str, ppax: float, ppay: float,
@@ -229,6 +229,7 @@ class Worksite:
         if type_dtm not in ["altitude", "height", "a", "h"]:
             raise ValueError(f"The dtm's type {type_dtm} isn't correct ('altitude' or 'height')")
 
+        Dtm.clear()
         Dtm().set_dtm(path_dtm, type_dtm)
 
     def set_unit_shot(self, type_z: str = None, unit_angle: str = None,
@@ -406,6 +407,6 @@ class Worksite:
         """
         for key_shot, item_shot in self.shots.items():
             cam = self.cameras[item_shot.name_cam]
-            self.shots[key_shot] = space_resection(item_shot, cam, self.proj,
+            self.shots[key_shot] = space_resection(item_shot, cam,
                                                    self.type_z_data,
                                                    self.type_z_shot, add_pixel)

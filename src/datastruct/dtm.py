@@ -8,11 +8,12 @@ from osgeo import gdal
 from scipy import ndimage
 from src.utils.conversion import change_dim
 from src.transform_world_image.transform_dtm.world_image_dtm import WorldImageDtm
+from src.utils.singleton.singleton import Singleton
 gdal.UseExceptions()
 
 
 # pylint: disable-next=too-many-instance-attributes
-class Dtm(WorldImageDtm):
+class Dtm(WorldImageDtm, metaclass=Singleton):
     """
     Represents a digital elevation model.
 
@@ -28,32 +29,70 @@ class Dtm(WorldImageDtm):
         All gdal formats are supported. The file must contain georeferencing information.
     """
     # pylint: disable-next=too-many-arguments
-    def __init__(self, path_dtm: str, type_dtm: str, order: int = 1, cval: Union[int, None] = None,
-                 keep_in_memory: bool = False):
+    def __init__(self):
         """
-        Initiate a Dtm object from a file path.
+        Initiate a Dtm object.
+        """
+        self.path_dtm = None
+        self.type_dtm = None
+        self.order = 1
+        self.keep_in_memory = False
+        self.cval = np.nan
+        self.img = None
+        self.rb = None
+        self.nodata = None
+        self.dtm_array = None
+        super().__init__(None)
+
+    def set_dtm(self, path_dtm: str, type_dtm: str) -> None:
+        """
+        Set the dtm path for reading dtm
 
         Args:
             path_dtm (str): path to the dtm file.
             type (str): Type of dtm "a" altitude, "h" height.
+        """
+        if path_dtm:
+            gdal.AllRegister()
+            self.type_dtm = type_dtm
+            self.path_dtm = Path(PureWindowsPath(path_dtm))
+            self.img = gdal.Open(self.path_dtm.as_posix())
+            self.rb = self.img.GetRasterBand(1)
+            self.nodata = self.rb.GetNoDataValue()
+            if self.keep_in_memory:
+                self.dtm_array = self.rb.ReadAsArray()
+            super().__init__(self.img.GetGeoTransform())
+        else:
+            self.path_dtm = path_dtm
+
+    def set_order(self, order: int) -> None:
+        """
+        The method of interpolation to perform.
+        0:nearest 1:bilinear 3:cubic 5:quintic.
+
+        Args:
             order (int): The method of interpolation to perform.
-                        0:nearest 1:bilinear 3:cubic 5:quintic.
+        """
+        self.order = order
+
+    def set_cval(self, cval: int) -> None:
+        """
+        Value to fill past edges of dtm or nodata.
+        If None raise an error for any point outside the dtm or Nodata.
+
+        Args
             cval (int): Value to fill past edges of dtm or nodata.
-                        If None raise an error for any point outside the dtm or Nodata.
+        """
+        self.cval = cval if cval else np.nan
+
+    def set_keep_memory(self, keep_memory: bool) -> None:
+        """
+        Store all image in memory.
+
+        Args:
             keep_in_memory (bool): Store all image in memory.
         """
-        gdal.AllRegister()
-        self.type_dtm = type_dtm
-        self.order = order
-        self.keep_in_memory = keep_in_memory
-        self.path_dtm = Path(PureWindowsPath(path_dtm))
-        self.img = gdal.Open(self.path_dtm.as_posix())
-        self.rb = self.img.GetRasterBand(1)
-        self.cval = cval if cval is not None else np.nan
-        self.nodata = self.rb.GetNoDataValue()
-        if self.keep_in_memory:
-            self.array = self.rb.ReadAsArray()
-        super().__init__(self.img.GetGeoTransform())
+        self.keep_in_memory = keep_memory
 
     def get_z_world(self, x: Union[int, float, np.ndarray],
                     y: Union[int, float, np.ndarray]) -> Any:
@@ -86,7 +125,7 @@ class Dtm(WorldImageDtm):
                 except RuntimeError:
                     z += [self.cval]
         else:
-            z = ndimage.map_coordinates(self.array, np.vstack([line, col]),
+            z = ndimage.map_coordinates(self.dtm_array, np.vstack([line, col]),
                                         order=self.order, mode="constant", cval=self.cval)
         if np.any(np.isnan(z)):
             raise IndexError(f"Out dtm {x} {y}")

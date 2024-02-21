@@ -22,11 +22,10 @@ class EuclideanProj:
         the collinear equation is valid.
         The cartographic system parameters must be known.
     """
-    def __init__(self, x_central: float, y_central: float, proj_engine: ProjEngine) -> None:
+    def __init__(self, x_central: float, y_central: float) -> None:
         self.x_central = x_central
         self.y_central = y_central
         self.z_central = 0
-        self.proj_engine = proj_engine
         self.rot_to_euclidean_local = self.mat_rot_euclidean_local(self.x_central, self.y_central)
 
     def mat_rot_euclidean_local(self, x: float, y: float) -> np.ndarray:
@@ -41,8 +40,9 @@ class EuclideanProj:
         Returns:
             np.array: transition matrix
         """
-        lon, lat = self.proj_engine.tf.carto_to_geog(x, y)
-        gamma = self.proj_engine.get_meridian_convergence(x, y)
+        proj = ProjEngine()
+        lon, lat = proj.carto_to_geog(x, y)
+        gamma = proj.get_meridian_convergence(x, y)
 
         # Matrix for switching to local cartesian coordinates
         sl = m.sin(lon * m.pi/180)
@@ -125,10 +125,10 @@ class EuclideanProj:
 
         x, y, z = check_array_transfo(x, y, z)
 
-        x_geoc, y_geoc, z_geoc = self.proj_engine.tf.carto_to_geoc(x, y, z)
-        central_geoc = self.proj_engine.tf.carto_to_geoc(self.x_central,
-                                                         self.y_central,
-                                                         self.z_central)
+        x_geoc, y_geoc, z_geoc = ProjEngine().carto_to_geoc(x, y, z)
+        central_geoc = ProjEngine().carto_to_geoc(self.x_central,
+                                                  self.y_central,
+                                                  self.z_central)
         dr = np.vstack([x_geoc-central_geoc[0], y_geoc-central_geoc[1], z_geoc-central_geoc[2]])
         point_eucli = (self.rot_to_euclidean_local @ dr) + np.array([[self.x_central,
                                                                       self.y_central,
@@ -157,15 +157,15 @@ class EuclideanProj:
         else:
             dim = ()
 
-        central_geoc = self.proj_engine.tf.carto_to_geoc(self.x_central,
-                                                         self.y_central,
-                                                         self.z_central)
+        central_geoc = ProjEngine().carto_to_geoc(self.x_central,
+                                                  self.y_central,
+                                                  self.z_central)
         dr = np.vstack([x - self.x_central, y - self.y_central, z - self.z_central])
         point_geoc = (self.rot_to_euclidean_local.T @ dr) + np.array([[central_geoc[0],
                                                                        central_geoc[1],
                                                                        central_geoc[2]]]).T
         x_gc, y_gc, z_gc = check_array_transfo(point_geoc[0, :], point_geoc[1, :], point_geoc[2, :])
-        tup = self.proj_engine.tf.geoc_to_carto(x_gc, y_gc, z_gc)
+        tup = ProjEngine().geoc_to_carto(x_gc, y_gc, z_gc)
         x_r = change_dim(tup[0], dim)
         y_r = change_dim(tup[1], dim)
         z_r = change_dim(tup[2], dim)

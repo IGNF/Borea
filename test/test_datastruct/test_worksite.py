@@ -5,6 +5,7 @@ import pytest
 import pyproj
 import numpy as np
 from src.datastruct.worksite import Worksite
+from src.geodesy.proj_engine import ProjEngine
 from src.datastruct.dtm import Dtm
 
 
@@ -30,7 +31,7 @@ def test_set_proj_Lambertbase():
     work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(2154, path_geotiff="./dataset/")
-    assert work.proj.projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
+    assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.x_central, 3) == 814975.925
     assert round(work.shots["t1"].projeucli.y_central, 3) == 6283986.148
 
@@ -41,7 +42,7 @@ def test_set_proj_Lambertbase_pathfolder():
     work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(2154, path_geotiff="dataset/")
-    assert work.proj.projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
+    assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.x_central, 3) == 814975.925
     assert round(work.shots["t1"].projeucli.y_central, 3) == 6283986.148
 
@@ -52,7 +53,7 @@ def test_set_proj_Lambertbase_pathfolderwin():
     work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(2154, path_geotiff="dataset\\")
-    assert work.proj.projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
+    assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.x_central, 3) == 814975.925
     assert round(work.shots["t1"].projeucli.y_central, 3) == 6283986.148
 
@@ -63,7 +64,7 @@ def test_set_proj_Lambertbase_withEPSG():
     work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(2154, "dataset/proj.json", "dataset/")
-    assert work.proj.projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
+    assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.x_central, 3) == 814975.925
     assert round(work.shots["t1"].projeucli.y_central, 3) == 6283986.148
 
@@ -74,7 +75,7 @@ def test_set_proj_withjsonandepsg():
     work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(4339, "dataset/proj.json")
-    assert work.proj.projection_list == {"geoc": "EPSG:4340", "geog": "EPSG:4176", "comment": "Projection of Australian Antartic"}
+    assert ProjEngine().projection_list == {"geoc": "EPSG:4340", "geog": "EPSG:4176", "comment": "Projection of Australian Antartic"}
     assert work.shots["t1"].projeucli.x_central == 1
     assert work.shots["t1"].projeucli.y_central == 2
 
@@ -85,7 +86,7 @@ def test_set_proj_epsgnojson():
     work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(4339)
-    assert work.proj.epsg == 4339
+    assert ProjEngine().epsg == 4339
 
 
 def test_set_proj_otherepsgandnotgoodjson():
@@ -94,7 +95,7 @@ def test_set_proj_otherepsgandnotgoodjson():
     work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(4326, "dataset/proj.json")
-    assert work.proj.epsg == 4326
+    assert ProjEngine().epsg == 4326
 
 
 def test_set_proj_badepsg():

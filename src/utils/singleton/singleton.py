@@ -18,4 +18,4 @@ class Singleton(type):
         """
         Clear instances
         """
-        Singleton._instances = {}
+        _ = cls._instances.pop(cls, None)

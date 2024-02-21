@@ -143,13 +143,13 @@ class Shot:
             type_z (str): z type height or altitude.
         """
         if type_z == "height":
-            self.pos_shot[2] = self.tranform_height(self.pos_shot[0],
-                                                    self.pos_shot[1],
-                                                    self.pos_shot[2])
+            self.pos_shot[2] = ProjEngine().tranform_height(self.pos_shot[0],
+                                                            self.pos_shot[1],
+                                                            self.pos_shot[2])
         else:
-            self.pos_shot[2] = self.tranform_altitude(self.pos_shot[0],
-                                                      self.pos_shot[1],
-                                                      self.pos_shot[2])
+            self.pos_shot[2] = ProjEngine().tranform_altitude(self.pos_shot[0],
+                                                              self.pos_shot[1],
+                                                              self.pos_shot[2])
 
     def set_linear_alteration(self, linear_alteration: bool, cam: Camera,
                               type_z: str) -> None:
@@ -337,63 +337,6 @@ class Shot:
         z_bundle = z_shot
         return np.array([x_bundle, y_bundle, z_bundle])
 
-    def tranform_height(self, x: Union[np.ndarray, float], y: Union[np.ndarray, float],
-                        z: Union[np.ndarray, float]) -> float:
-        """
-        Converting z in altitude to z in height of point.
-
-        Args:
-            x (Union[np.array, float]): x coordinate of the point.
-            y (Union[np.array, float]): x coordinate of the point.
-            z (Union[np.array, float]): x coordinate of the point.
-
-        Returns:
-            float: New height z.
-        """
-        coor_geog = ProjEngine().carto_to_geog(x, y, z)
-        try:
-            new_z = ProjEngine().geog_to_geoid(coor_geog[0],
-                                               coor_geog[1],
-                                               coor_geog[2])[2]
-        except AttributeError:
-            print("Warning: the geoid has not been entered, the z transformation from altitude "
-                  "to height has not been performed, return z altitude")
-            new_z = z
-
-        if new_z == np.inf:
-            raise ValueError("out geoid")
-        return new_z
-
-    def tranform_altitude(self, x: Union[np.ndarray, float], y: Union[np.ndarray, float],
-                          z: Union[np.ndarray, float]) -> float:
-        """
-        Converting z in height to z in altitude of point.
-
-        Args:
-            x (Union[np.array, float]): x coordinate of the point.
-            y (Union[np.array, float]): x coordinate of the point.
-            z (Union[np.array, float]): x coordinate of the point.
-
-        Returns:
-            float: New altitude z.
-        """
-        coor_geog = ProjEngine().carto_to_geog(x, y, z)
-        try:
-            coor_geog = ProjEngine().geoid_to_geog(coor_geog[0],
-                                                   coor_geog[1],
-                                                   coor_geog[2])
-            new_z = ProjEngine().geog_to_carto(coor_geog[0],
-                                               coor_geog[1],
-                                               coor_geog[2])[2]
-        except AttributeError:
-            print("Warning: the geoid has not been entered, the z transformation from height "
-                  "to altitude has not been performed, return z height")
-            new_z = z
-
-        if np.all(new_z == np.inf):
-            raise ValueError("out geoid")
-        return new_z
-
     def get_z_remove_scale_factor(self, z_nadir: float) -> float:
         """
         Return Z after removing the scale factor. The Z of the object is NOT modified.
@@ -448,14 +391,14 @@ class Shot:
         Returns:
             tuple: X, Y, Z with z in type expected
         """
-        conv = {"a-h": [[self.tranform_height, 0]],
-                "h-a": [[self.tranform_altitude, 0]],
-                "al-h": [[self.get_z_remove_scale_factor, 1], [self.tranform_height, 0]],
-                "h-al": [[self.tranform_altitude, 0], [self.get_z_add_scale_factor, 2]],
-                "a-hl": [[self.tranform_height, 0], [self.get_z_add_scale_factor, 2]],
-                "hl-a": [[self.get_z_remove_scale_factor, 1], [self.tranform_altitude, 0]],
-                "al-hl": [[self.tranform_height, 0]],
-                "hl-al": [[self.tranform_altitude, 0]],
+        conv = {"a-h": [[ProjEngine().tranform_height, 0]],
+                "h-a": [[ProjEngine().tranform_altitude, 0]],
+                "al-h": [[self.get_z_remove_scale_factor, 1], [ProjEngine().tranform_height, 0]],
+                "h-al": [[ProjEngine().tranform_altitude, 0], [self.get_z_add_scale_factor, 2]],
+                "a-hl": [[ProjEngine().tranform_height, 0], [self.get_z_add_scale_factor, 2]],
+                "hl-a": [[self.get_z_remove_scale_factor, 1], [ProjEngine().tranform_altitude, 0]],
+                "al-hl": [[ProjEngine().tranform_height, 0]],
+                "hl-al": [[ProjEngine().tranform_altitude, 0]],
                 "al-a": [[self.get_z_remove_scale_factor, 1]],
                 "a-al": [[self.get_z_add_scale_factor, 2]],
                 "hl-h": [[self.get_z_remove_scale_factor, 1]],

@@ -1,1 +1,1 @@
-python3 -m pytest -s ./test/test_position/test_shotpos.py -v
+python3 -m pytest -s ./test/test_transfo_world_image/test_shotpos.py -v

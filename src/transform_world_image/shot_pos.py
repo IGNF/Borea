@@ -6,11 +6,10 @@ from scipy.spatial.transform import Rotation
 from src.datastruct.camera import Camera
 from src.datastruct.shot import Shot
 from src.geodesy.proj_engine import ProjEngine
-from src.altimetry.dem import Dem
 
 
 # pylint: disable-next=too-many-locals too-many-arguments
-def space_resection(shot: Shot, cam: Camera, proj: ProjEngine, dem: Dem, type_z_data: str,
+def space_resection(shot: Shot, cam: Camera, proj: ProjEngine, type_z_data: str,
                     type_z_shot: str, add_pixel: tuple = (0, 0)) -> Shot:
     """
     Recalculates the shot's 6 external orientation parameters,
@@ -20,7 +19,6 @@ def space_resection(shot: Shot, cam: Camera, proj: ProjEngine, dem: Dem, type_z_
         shot (Shot): Shot to recalculte externa parameters.
         cam (Camera): Camera of the shot.
         projeucli (EuclideanProj): Euclidiean projection system of the worksite.
-        dem (Dem): Dem of the worksite.
         type_z_data (str): z's type of data".
                       "h" height
                       "a" altitude / elevation
@@ -38,7 +36,7 @@ def space_resection(shot: Shot, cam: Camera, proj: ProjEngine, dem: Dem, type_z_
     c_obs, l_obs, z_world = seed_20_point(cam)
 
     # Calculate world position
-    x_world, y_world, _ = shot.image_z_to_world(c_obs, l_obs, cam, dem, type_z_shot, z_world)
+    x_world, y_world, _ = shot.image_z_to_world(c_obs, l_obs, cam, type_z_shot, z_world)
 
     # Calculate euclidean position
     x_eucli, y_eucli, z_eucli = shot.projeucli.world_to_euclidean(x_world, y_world, z_world)
@@ -61,7 +59,7 @@ def space_resection(shot: Shot, cam: Camera, proj: ProjEngine, dem: Dem, type_z_
         mat_a = mat_obs_axia(x_eucli, y_eucli, z_eucli, shot_adjust, cam)
 
         # Calculate position column and line with new shot f(x0)
-        c_f0, l_f0 = shot_adjust.world_to_image(x_world, y_world, z_world, cam, dem,
+        c_f0, l_f0 = shot_adjust.world_to_image(x_world, y_world, z_world, cam,
                                                 type_z_data, type_z_shot)
 
         # Calculate residual vector B

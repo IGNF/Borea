@@ -5,9 +5,10 @@ import pytest
 import pyproj
 import numpy as np
 from src.datastruct.worksite import Worksite
+from src.datastruct.dtm import Dtm
 
 
-PATH_DEM = "./dataset/MNT_France_25m_h_crop.tif"
+PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
 
 
 def test_add_shot():
@@ -174,7 +175,7 @@ def test_calculate_world_to_image_gcp_base():
     work.check_gip = True
     work.add_gcp('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.check_gcp = True
-    work.add_dem(PATH_DEM, "height")
+    work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "al"
     work.type_z_data = "h"
     work.calculate_world_to_image_gcp([3])
@@ -193,7 +194,7 @@ def test_calculate_world_to_image_gcp_addpointunknow():
     work.add_gcp('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.add_gcp('gcp_test_test', 3, np.array([0,0,0]))
     work.check_gcp = True
-    work.add_dem(PATH_DEM, "height")
+    work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "al"
     work.type_z_data = "h"
     work.calculate_world_to_image_gcp([3])
@@ -213,7 +214,7 @@ def test_calculate_world_to_image_gcp_testcode():
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
     work.add_gcp('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.check_gcp = True
-    work.add_dem(PATH_DEM, "height")
+    work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "al"
     work.type_z_data = "h"
     work.calculate_world_to_image_gcp([13])
@@ -233,7 +234,7 @@ def test_calculate_world_to_image_gcp_testcodeNone():
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
     work.add_gcp('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.check_gcp = True
-    work.add_dem(PATH_DEM, "height")
+    work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "al"
     work.type_z_data = "h"
     work.calculate_world_to_image_gcp([])
@@ -375,7 +376,7 @@ def test_shootings_position():
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-    work.add_dem(PATH_DEM, "height")
+    work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "al"
     work.type_z_data = "h"
     work.shootings_position()
@@ -387,15 +388,16 @@ def test_shootings_position():
     assert abs(work.shots["23FD1305x00026_01307"].pos_shot[2] - 1771.519) < 5
 
 
-def test_add_dem():
+def test_add_dtm():
     work = Worksite("Test")
-    work.add_dem(PATH_DEM, "height")
-    assert work.dem.type_dem == "h"
-    assert work.dem.order == 1
-    assert work.dem.keep_in_memory == False
-    assert hasattr(work.dem, 'img')
-    assert hasattr(work.dem, 'rb')
-    assert hasattr(work.dem, 'gt')
+    work.add_dtm(PATH_DTM, "height")
+    dtm = Dtm()
+    assert dtm.type_dtm == "height"
+    assert dtm.order == 1
+    assert dtm.keep_in_memory == False
+    assert hasattr(dtm, 'img')
+    assert hasattr(dtm, 'rb')
+    assert hasattr(dtm, 'gt')
 
 
 def test_set_unit_shot():
@@ -403,7 +405,7 @@ def test_set_unit_shot():
     work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([180,0,360]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-    work.add_dem(PATH_DEM, "height")
+    work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.set_unit_shot("height", "radian", False)
     assert work.shots["shot1"].unit_angle == "radian"

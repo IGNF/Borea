@@ -36,7 +36,6 @@ class Worksite:
         self.cop_world = {}
         self.gip_world = {}
         self.proj = None
-        self.dtm = None
         self.type_z_data = None
         self.type_z_shot = None
 
@@ -230,7 +229,7 @@ class Worksite:
         if type_dtm not in ["altitude", "height", "a", "h"]:
             raise ValueError(f"The dtm's type {type_dtm} isn't correct ('altitude' or 'height')")
 
-        self.dtm = Dtm(path_dtm, type_dtm[0])
+        Dtm().set_dtm(path_dtm, type_dtm)
 
     def set_unit_shot(self, type_z: str = None, unit_angle: str = None,
                       linear_alteration: bool = None) -> None:
@@ -260,7 +259,7 @@ class Worksite:
                 shot.set_type_z(type_z)
             if linear_alteration is not None:
                 shot.set_linear_alteration(linear_alteration, self.cameras[shot.name_cam],
-                                           self.dtm, self.type_z_shot)
+                                           self.type_z_shot)
 
     def calculate_world_to_image_gcp(self, lcode: list) -> None:
         """
@@ -279,7 +278,7 @@ class Worksite:
                             shot = self.shots[name_shot]
                             cam = self.cameras[shot.name_cam]
                             coor_img = shot.world_to_image(gcp.coor[0], gcp.coor[1], gcp.coor[2],
-                                                           cam, self.dtm, self.type_z_data,
+                                                           cam, self.type_z_data,
                                                            self.type_z_shot)
                             self.shots[name_shot].gcps[name_gcp] = coor_img
                     except KeyError:
@@ -408,5 +407,5 @@ class Worksite:
         for key_shot, item_shot in self.shots.items():
             cam = self.cameras[item_shot.name_cam]
             self.shots[key_shot] = space_resection(item_shot, cam, self.proj,
-                                                   self.dtm, self.type_z_data,
+                                                   self.type_z_data,
                                                    self.type_z_shot, add_pixel)

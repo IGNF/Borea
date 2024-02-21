@@ -156,20 +156,19 @@ class Shot:
                                                       self.pos_shot[2])
 
     def set_linear_alteration(self, linear_alteration: bool, cam: Camera,
-                              dtm: Dtm, type_z: str) -> None:
+                              type_z: str) -> None:
         """
         Allows you to correct or de-correct the linear alteration.
 
         Args:
             linear_alteration (bool): Linear alteration boolean.
             cam (Camera): Camera of the shot.
-            dtm (Dtm): Dtm of the worksite
             type_z (str): type of z shot
         """
         if linear_alteration != self.linear_alteration:
             self.linear_alteration = linear_alteration
             z_nadir = self.image_to_world(cam.ppax, cam.ppay, cam,
-                                          dtm, type_z[0], type_z[0])[2]
+                                          type_z[0], type_z[0])[2]
             if linear_alteration:
                 self.pos_shot[2] = self.get_z_add_scale_factor(z_nadir)
             else:
@@ -179,7 +178,7 @@ class Shot:
     def world_to_image(self, x_world: Union[np.ndarray, float],
                        y_world: Union[np.ndarray, float],
                        z_world: Union[np.ndarray, float],
-                       cam: Camera, dtm: Dtm,
+                       cam: Camera,
                        type_z_data: str, type_z_shot: str) -> np.ndarray:
         """
         Calculates the c,l coordinates of a terrain point in an image.
@@ -189,7 +188,6 @@ class Shot:
             y_world (Union[np.array, float]): the coordinate y of ground point.
             z_world (Union[np.array, float]): the coordinate z of ground point.
             cam (Camera): the camera used.
-            dtm (Dtm): Dtm of the worksite.
             type_z_data (str): type of z of data.
                                "h" height
                                "a" altitude
@@ -202,7 +200,8 @@ class Shot:
         Returns:
             np.array: The image coordinate [c,l].
         """
-        if len(type_z_data) != len(type_z_shot) and dtm is None:
+        dtm = Dtm()
+        if len(type_z_data) != len(type_z_shot) and dtm.path_dtm is None:
             raise ValueError("Missing dtm, because type z data != type z shot.")
 
         if isinstance(x_world, np.ndarray):
@@ -211,7 +210,7 @@ class Shot:
             dim = ()
 
         p_eucli = self.projeucli.world_to_euclidean(x_world, y_world, z_world)
-        pos_shot = np.array(self.conv_z_type_to_type(type_z_shot, type_z_data, cam, dtm,
+        pos_shot = np.array(self.conv_z_type_to_type(type_z_shot, type_z_data, cam,
                                                      self.pos_shot[0],
                                                      self.pos_shot[1],
                                                      self.pos_shot[2]))
@@ -229,7 +228,7 @@ class Shot:
 
     # pylint: disable-next=too-many-locals too-many-arguments
     def image_to_world(self, col: Union[np.ndarray, float], line: Union[np.ndarray, float],
-                       cam: Camera, dtm: Dtm, type_z_data: str, type_z_shot: str) -> np.ndarray:
+                       cam: Camera, type_z_data: str, type_z_shot: str) -> np.ndarray:
         """
         Calculate x and y cartographique coordinate with z.
 
@@ -237,7 +236,6 @@ class Shot:
             col (Union[np.array, float]): Column coordinates of image point(s).
             line (Union[np.array, float]): Line coordinates of image point(s).
             cam (Camera): Objet cam which correspond to the shot.
-            dtm (Dtm): Dtm of the worksite.
             type_z_data (str): type of z data you want in output.
                                "h" height
                                "a" altitude / elevation
@@ -250,7 +248,8 @@ class Shot:
         Returns:
             np.array: Cartographique coordinate [x,y,z].
         """
-        if dtm is None:
+        dtm = Dtm()
+        if dtm.path_dtm is None:
             raise ValueError("Missing dtm")
 
         if isinstance(col, np.ndarray):
@@ -259,13 +258,13 @@ class Shot:
             dim = ()
 
         z_world = np.full_like(col, dtm.get_z_world(self.pos_shot[0], self.pos_shot[1]))
-        x_world, y_world, _ = self.image_z_to_world(col, line, cam, dtm, type_z_shot, z_world)
+        x_world, y_world, _ = self.image_z_to_world(col, line, cam, type_z_shot, z_world)
         precision_reached = False
         nbr_iter = 0
         iter_max = 10
         while not precision_reached and nbr_iter < iter_max:
             z_world = dtm.get_z_world(x_world, y_world)
-            x_new_world, y_new_world, z_new_world = self.image_z_to_world(col, line, cam, dtm,
+            x_new_world, y_new_world, z_new_world = self.image_z_to_world(col, line, cam,
                                                                           type_z_shot, z_world)
             x_diff = (x_new_world - x_world) ** 2
             y_diff = (y_new_world - y_world) ** 2
@@ -275,8 +274,8 @@ class Shot:
             x_world, y_world, z_world = x_new_world, y_new_world, z_new_world
             nbr_iter += 1
 
-        x_world, y_world, z_world = self.conv_z_type_to_type(dtm.type_dtm, type_z_data, cam,
-                                                             dtm, x_world, y_world, z_world)
+        x_world, y_world, z_world = self.conv_z_type_to_type(dtm.type_dtm[0], type_z_data, cam,
+                                                             x_world, y_world, z_world)
         x_world = change_dim(x_world, dim)
         y_world = change_dim(y_world, dim)
         z_world = change_dim(z_world, dim)
@@ -284,7 +283,7 @@ class Shot:
 
     # pylint: disable-next=too-many-locals too-many-arguments
     def image_z_to_world(self, col: Union[np.ndarray, float], line: Union[np.ndarray, float],
-                         cam: Camera, dtm: Dtm, type_z_shot: str,
+                         cam: Camera, type_z_shot: str,
                          z: Union[np.ndarray, float] = 0) -> np.ndarray:
         """
         Calculate x and y cartographique coordinate with z.
@@ -293,7 +292,6 @@ class Shot:
             col (Union[np.array, float]): Column coordinates of image point(s).
             line (Union[np.array, float]): Line coordinates of image point(s).
             cam (Camera): Objet cam which correspond to the shot.
-            dtm (Dtm): Dtm of the worksite.
             type_z_shot (str): type of z, default = "a".
                           "h" height
                           "hl" height with linear alteration
@@ -304,6 +302,7 @@ class Shot:
         Returns:
             np.array: Cartographique coordinate [x,y,z].
         """
+        dtm = Dtm()
         if isinstance(col, np.ndarray):
             dim = np.shape(col)
             if np.all(z == 0):
@@ -312,7 +311,7 @@ class Shot:
             dim = ()
 
         x_bundle, y_bundle, z_bundle = self.image_to_bundle(col, line, cam)
-        pos_shot = self.conv_z_type_to_type(type_z_shot, dtm.type_dtm, cam, dtm,
+        pos_shot = self.conv_z_type_to_type(type_z_shot, dtm.type_dtm[0], cam,
                                             self.pos_shot[0], self.pos_shot[1], self.pos_shot[2])
         pos_eucli = self.projeucli.world_to_euclidean(pos_shot[0], pos_shot[1], pos_shot[2])
         p_local = self.mat_rot_eucli.T @ np.vstack([x_bundle, y_bundle, z_bundle])
@@ -431,7 +430,7 @@ class Shot:
         return self.pos_shot[2] + scale_factor * (self.pos_shot[2] - z_nadir)
 
     # pylint: disable-next=too-many-arguments
-    def conv_z_type_to_type(self, type_actual: str, type_expected: str, cam: Camera, dtm: Dtm,
+    def conv_z_type_to_type(self, type_actual: str, type_expected: str, cam: Camera,
                             x: Union[np.ndarray, float], y: Union[np.ndarray, float],
                             z: Union[np.ndarray, float]) -> float:
         """
@@ -449,7 +448,6 @@ class Shot:
                                  "a" altitude / elevation
                                  "al" altitude with linear alteration
             cam (Camera): The camera of the shot.
-            dtm (Dtm): Dtm of the worksite.
             x (Union[np.array, float]): x coordinate of the point.
             y (Union[np.array, float]): x coordinate of the point.
             z (Union[np.array, float]): x coordinate of the point.
@@ -476,11 +474,11 @@ class Shot:
                 for func in list_func:
                     if func[1] == 2:
                         z_nadir = self.image_to_world(cam.ppax, cam.ppay, cam,
-                                                      dtm, type_expected[0], type_expected[0])[2]
+                                                      type_expected[0], type_expected[0])[2]
                         z = func[0](z_nadir)
                     elif func[1] == 1:
                         z_nadir = self.image_to_world(cam.ppax, cam.ppay, cam,
-                                                      dtm, type_actual[0], type_actual[0])[2]
+                                                      type_actual[0], type_actual[0])[2]
                         z = func[0](z_nadir)
                     else:
                         z = func[0](x, y, z)

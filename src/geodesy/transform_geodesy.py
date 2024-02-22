@@ -9,6 +9,7 @@ import pyproj
 import numpy as np
 
 
+# pylint: disable=unsubscriptable-object
 @dataclass
 class TransformGeodesy():
     """
@@ -80,8 +81,8 @@ class TransformGeodesy():
 
         Args:
             x (Union[np.array, float]): x coordinate of the point.
-            y (Union[np.array, float]): x coordinate of the point.
-            z (Union[np.array, float]): x coordinate of the point.
+            y (Union[np.array, float]): y coordinate of the point.
+            z (Union[np.array, float]): z coordinate of the point.
 
         Returns:
             float: New height z.
@@ -107,8 +108,8 @@ class TransformGeodesy():
 
         Args:
             x (Union[np.array, float]): x coordinate of the point.
-            y (Union[np.array, float]): x coordinate of the point.
-            z (Union[np.array, float]): x coordinate of the point.
+            y (Union[np.array, float]): y coordinate of the point.
+            z (Union[np.array, float]): z coordinate of the point.
 
         Returns:
             float: New altitude z.

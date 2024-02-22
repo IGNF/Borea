@@ -23,7 +23,6 @@ class ImageWorldShot():
         self.shot = shot
         self.cam = cam
 
-    # pylint: disable-next=too-many-locals
     def image_to_world(self, img_coor: np.ndarray,
                        type_z_data: str, type_z_shot: str,
                        nonadir: bool = True) -> np.ndarray:
@@ -50,6 +49,27 @@ class ImageWorldShot():
         else:
             dim = ()
 
+        coor_world = self.image_world_iter(img_coor, type_z_shot, nonadir)
+
+        x_world, y_world, z_world = conv_output_z_type(coor_world, Dtm().type_dtm, type_z_data)
+        x_world = change_dim(x_world, dim)
+        y_world = change_dim(y_world, dim)
+        z_world = change_dim(z_world, dim)
+        return np.array([x_world, y_world, z_world])
+
+    def image_world_iter(self, img_coor: np.ndarray,
+                         type_z_shot: str, nonadir: bool = True) -> np.ndarray:
+        """
+        Calculate x and y cartographique coordinate with z.
+
+        Args:
+            img_coor (np.array): Image coordinate [col line].
+            type_z_shot (str): type of z shot, "height" or "altitude".
+            nonadir (bool): To calculate nadir no take linear alteration.
+
+        Returns:
+            np.array: Cartographique coordinate [x,y,z].
+        """
         z_world = np.full_like(img_coor[0], Dtm().get_z_world(self.shot.pos_shot[0:2]))
         coor_world = self.image_z_to_world(img_coor, type_z_shot, z_world, nonadir)
         precision_reached = False
@@ -66,13 +86,8 @@ class ImageWorldShot():
             coor_world = coor_new_world
             nbr_iter += 1
 
-        x_world, y_world, z_world = conv_output_z_type(coor_world, Dtm().type_dtm, type_z_data)
-        x_world = change_dim(x_world, dim)
-        y_world = change_dim(y_world, dim)
-        z_world = change_dim(z_world, dim)
-        return np.array([x_world, y_world, z_world])
+        return coor_world
 
-    # pylint: disable-next=too-many-locals
     def image_z_to_world(self, img_coor: np.ndarray, type_z_shot: str,
                          z: np.ndarray = 0, nonadir: bool = True) -> np.ndarray:
         """
@@ -99,12 +114,9 @@ class ImageWorldShot():
 
         pos_eucli = self.shot.projeucli.world_to_euclidean(pos_shot_new_z)
 
-        p_local = self.shot.mat_rot_eucli.T @ np.vstack(pt_bundle)
-        p_local = np.squeeze(p_local + pos_eucli.reshape((3, 1)))
-        lamb = (z - pos_eucli[2])/(p_local[2] - pos_eucli[2])
-        x_local = pos_eucli[0] + (p_local[0] - pos_eucli[0]) * lamb
-        y_local = pos_eucli[1] + (p_local[1] - pos_eucli[1]) * lamb
-        pt_world = self.shot.projeucli.euclidean_to_world(np.array([x_local, y_local, z]))
+        pt_eucli = self.local_to_eucli(pt_bundle, pos_eucli, z)
+
+        pt_world = self.shot.projeucli.euclidean_to_world(pt_eucli)
         return np.array([change_dim(pt_world[0], dim), change_dim(pt_world[1], dim), z])
 
     def image_to_bundle(self, img_coor: np.ndarray) -> np.ndarray:
@@ -125,3 +137,23 @@ class ImageWorldShot():
         y_bundle = y_shot / self.cam.focal * z_shot
         z_bundle = z_shot
         return np.array([x_bundle, y_bundle, z_bundle])
+
+    def local_to_eucli(self, pt_bundle: np.ndarray, pos_eucli: np.ndarray,
+                       z: np.ndarray) -> np.ndarray:
+        """
+        Convert coordinate point in local system to euclidean system.
+
+        Args:
+            pt_bundle (np.array): Point to convert [X, Y, Z].
+            pos_eucli (np.array): Shot position in the euclidean system.
+            z (np.array): Z position of points.
+
+        Returns:
+            np.array: [X, Y, Z] in euclidean system.
+        """
+        p_local = self.shot.mat_rot_eucli.T @ np.vstack(pt_bundle)
+        p_local = np.squeeze(p_local + pos_eucli.reshape((3, 1)))
+        lamb = (z - pos_eucli[2])/(p_local[2] - pos_eucli[2])
+        x_local = pos_eucli[0] + (p_local[0] - pos_eucli[0]) * lamb
+        y_local = pos_eucli[1] + (p_local[1] - pos_eucli[1]) * lamb
+        return np.array([x_local, y_local, z])

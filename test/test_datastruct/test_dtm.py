@@ -23,14 +23,14 @@ def test_init_dtm():
 def test_dtm_get_one():
     Dtm_singleton(PATH_DTM, "height")
     dtm = Dtm()
-    z = dtm.get_z_world(800000, 6280000)
+    z = dtm.get_z_world(np.array([800000, 6280000]))
     assert z == 49.533
 
 
 def test_dtm_get_multi():
     Dtm_singleton(PATH_DTM, "height")
     dtm = Dtm()
-    z = dtm.get_z_world(np.array([800000,800000,800000]), np.array([6280000,6280000,6280000]))
+    z = dtm.get_z_world(np.array([[800000,800000,800000],[6280000,6280000,6280000]]))
     assert (z == np.array([49.533,49.533,49.533])).all
 
 

@@ -38,14 +38,14 @@ def test_conv_z_shot_to_z_data():
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot()
-    z_nadir = ImageWorldShot(shot).image_to_world(cam.ppax, cam.ppay, cam, 'altitude', 'altitude', False)[2]
+    z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
-    new_z = conv_z_shot_to_z_data(shot, SHOT_TYPE_Z, DATA_TYPE_Z)
-    assert round(new_z,0) == 1820
+    pos_new_z = conv_z_shot_to_z_data(shot, SHOT_TYPE_Z, DATA_TYPE_Z)
+    assert round(pos_new_z[2],0) == 1820
 
 
 def test_conv_output_z_type():
     x = [814975.925,6283986.148,1771.280]
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    new_x = conv_output_z_type(x[0],x[1],x[2],SHOT_TYPE_Z, DATA_TYPE_Z)
+    new_x = conv_output_z_type(x,SHOT_TYPE_Z, DATA_TYPE_Z)
     assert round(new_x[2],0) == 1821

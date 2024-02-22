@@ -26,7 +26,7 @@ def test_space_resection():
     Proj_singleton(2154, {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}, "./dataset/")
     Dtm_singleton("./dataset/MNT_France_25m_h_crop.tif", "height")
     shot.set_param_eucli_shot()
-    z_nadir = ImageWorldShot(shot).image_to_world(cam.ppax, cam.ppay, cam, 'altitude', 'altitude', False)[2]
+    z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
     actual_shot = space_resection(shot, cam, "height", "altitude")
     assert abs(actual_shot.pos_shot[0] - 814975.925) < 0.02

@@ -2,7 +2,6 @@
 A module for manipulating a digital elevation model.
 """
 from pathlib import Path, PureWindowsPath
-from typing import Union, Any
 import numpy as np
 from osgeo import gdal
 from scipy import ndimage
@@ -28,7 +27,6 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
     .. note::
         All gdal formats are supported. The file must contain georeferencing information.
     """
-    # pylint: disable-next=too-many-arguments
     def __init__(self):
         """
         Initiate a Dtm object.
@@ -49,7 +47,7 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
         Set the dtm path for reading dtm
 
         Args:
-            path_dtm (str): path to the dtm file.
+            path_dtm (str): Path to the dtm file.
             type (str): Type of dtm "a" altitude, "h" height.
         """
         if path_dtm:
@@ -94,27 +92,24 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
         """
         self.keep_in_memory = keep_memory
 
-    def get_z_world(self, x: Union[int, float, np.ndarray],
-                    y: Union[int, float, np.ndarray]) -> Any:
+    def get_z_world(self, coor_2d: np.ndarray) -> np.ndarray:
         """
         Extract value in the Dtm.
 
         Args:
-            x (Union[int, float, np.ndarray]): x world coordinate.
-            y (Union[int, float, np.ndarray]): y world coordinate.
+            coor_2d (np.array): World coordinate 2D [X, Y].
 
         Returns:
-            Union[int, float, list, np.ndarray]: z value.
+            np.array: z value.
         """
-        if isinstance(x, np.ndarray):
-            dim = np.shape(x)
+        if isinstance(coor_2d[0], np.ndarray):
+            dim = np.shape(coor_2d[0])
         else:
             dim = ()
 
-        x, y, = np.array(x), np.array(y)
         if self.path_dtm is None:
-            return np.zeros_like(x)
-        col, line = self.world_to_image(x, y)
+            return np.zeros_like(coor_2d[0])
+        col, line = self.world_to_image(coor_2d)
         if not self.keep_in_memory:
             z = []
             if isinstance(col, float):
@@ -128,7 +123,7 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
             z = ndimage.map_coordinates(self.dtm_array, np.vstack([line, col]),
                                         order=self.order, mode="constant", cval=self.cval)
         if np.any(np.isnan(z)):
-            raise IndexError(f"Out dtm {x} {y}")
+            raise IndexError(f"Out dtm {coor_2d[0]} {coor_2d[1]}")
 
         if dim == ():
             z = z[0]

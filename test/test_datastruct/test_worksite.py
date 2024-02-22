@@ -32,8 +32,8 @@ def test_set_proj_Lambertbase():
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(2154, path_geotiff="./dataset/")
     assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
-    assert round(work.shots["t1"].projeucli.x_central, 3) == 814975.925
-    assert round(work.shots["t1"].projeucli.y_central, 3) == 6283986.148
+    assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
+    assert round(work.shots["t1"].projeucli.pt_central[1], 3) == 6283986.148
 
 
 def test_set_proj_Lambertbase_pathfolder():
@@ -43,8 +43,8 @@ def test_set_proj_Lambertbase_pathfolder():
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(2154, path_geotiff="dataset/")
     assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
-    assert round(work.shots["t1"].projeucli.x_central, 3) == 814975.925
-    assert round(work.shots["t1"].projeucli.y_central, 3) == 6283986.148
+    assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
+    assert round(work.shots["t1"].projeucli.pt_central[1], 3) == 6283986.148
 
 
 def test_set_proj_Lambertbase_pathfolderwin():
@@ -54,8 +54,8 @@ def test_set_proj_Lambertbase_pathfolderwin():
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(2154, path_geotiff="dataset\\")
     assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
-    assert round(work.shots["t1"].projeucli.x_central, 3) == 814975.925
-    assert round(work.shots["t1"].projeucli.y_central, 3) == 6283986.148
+    assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
+    assert round(work.shots["t1"].projeucli.pt_central[1], 3) == 6283986.148
 
 
 def test_set_proj_Lambertbase_withEPSG():
@@ -65,8 +65,8 @@ def test_set_proj_Lambertbase_withEPSG():
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(2154, "dataset/proj.json", "dataset/")
     assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
-    assert round(work.shots["t1"].projeucli.x_central, 3) == 814975.925
-    assert round(work.shots["t1"].projeucli.y_central, 3) == 6283986.148
+    assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
+    assert round(work.shots["t1"].projeucli.pt_central[1], 3) == 6283986.148
 
 
 def test_set_proj_withjsonandepsg():
@@ -76,8 +76,8 @@ def test_set_proj_withjsonandepsg():
     work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(4339, "dataset/proj.json")
     assert ProjEngine().projection_list == {"geoc": "EPSG:4340", "geog": "EPSG:4176", "comment": "Projection of Australian Antartic"}
-    assert work.shots["t1"].projeucli.x_central == 1
-    assert work.shots["t1"].projeucli.y_central == 2
+    assert work.shots["t1"].projeucli.pt_central[0] == 1
+    assert work.shots["t1"].projeucli.pt_central[1] == 2
 
 
 def test_set_proj_epsgnojson():
@@ -167,6 +167,17 @@ def test_add_gcp():
     assert (obj.gcps['"1003"'].coor == np.array([1,2,3])).all()
 
 
+def test_set_z_nadir_shot():
+    work = Worksite("test")
+    work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"degree",True)
+    work.set_proj(2154, "dataset/proj.json", "./dataset/")
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+    work.add_dtm(PATH_DTM, "height")
+    work.type_z_shot = "altitude"
+    work.set_z_nadir_shot()
+    assert work.shots["shot_test"].z_nadir
+
+
 def test_calculate_world_to_image_gcp_base():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"degree",True)
@@ -177,8 +188,9 @@ def test_calculate_world_to_image_gcp_base():
     work.add_gcp('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.check_gcp = True
     work.add_dtm(PATH_DTM, "height")
-    work.type_z_shot = "al"
-    work.type_z_data = "h"
+    work.type_z_shot = "altitude"
+    work.type_z_data = "height"
+    work.set_z_nadir_shot()
     work.calculate_world_to_image_gcp([3])
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
@@ -196,8 +208,9 @@ def test_calculate_world_to_image_gcp_addpointunknow():
     work.add_gcp('gcp_test_test', 3, np.array([0,0,0]))
     work.check_gcp = True
     work.add_dtm(PATH_DTM, "height")
-    work.type_z_shot = "al"
-    work.type_z_data = "h"
+    work.type_z_shot = "altitude"
+    work.type_z_data = "height"
+    work.set_z_nadir_shot()
     work.calculate_world_to_image_gcp([3])
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
@@ -216,8 +229,9 @@ def test_calculate_world_to_image_gcp_testcode():
     work.add_gcp('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.check_gcp = True
     work.add_dtm(PATH_DTM, "height")
-    work.type_z_shot = "al"
-    work.type_z_data = "h"
+    work.type_z_shot = "altitude"
+    work.type_z_data = "height"
+    work.set_z_nadir_shot()
     work.calculate_world_to_image_gcp([13])
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
@@ -236,8 +250,9 @@ def test_calculate_world_to_image_gcp_testcodeNone():
     work.add_gcp('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.check_gcp = True
     work.add_dtm(PATH_DTM, "height")
-    work.type_z_shot = "al"
-    work.type_z_data = "h"
+    work.type_z_shot = "altitude"
+    work.type_z_data = "height"
+    work.set_z_nadir_shot()
     work.calculate_world_to_image_gcp([])
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
@@ -378,8 +393,9 @@ def test_shootings_position():
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_dtm(PATH_DTM, "height")
-    work.type_z_shot = "al"
-    work.type_z_data = "h"
+    work.type_z_shot = "altitude"
+    work.type_z_data = "height"
+    work.set_z_nadir_shot()
     work.shootings_position()
     assert abs(work.shots["23FD1305x00026_01306"].pos_shot[0] - 814975.925) < 5
     assert abs(work.shots["23FD1305x00026_01306"].pos_shot[1] - 6283986.148) < 5
@@ -408,6 +424,7 @@ def test_set_unit_shot():
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
+    work.set_z_nadir_shot()
     work.set_unit_shot("height", "radian", False)
     assert work.shots["shot1"].unit_angle == "radian"
     assert work.shots["shot1"].linear_alteration == False

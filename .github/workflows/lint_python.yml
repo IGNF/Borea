@@ -37,6 +37,7 @@ jobs:
         pylint src/writer/writer_opk.py src/writer/manage_writer.py
         pylint src/utils/conversion.py src/utils/check_header.py src/utils/singleton/singleton.py
         pylint src/transform_world_image/shot_pos.py src/transform_world_image/copoints_pos.py
+        pylint src/transform_world_image/transform_shot/world_image_shot.py src/transform_world_image/transform_shot/image_world_shot.py src/transform_world_image/transform_shot/conversion_coor_shot.py
         pylint src/transform_world_image/transform_dtm/world_image_dtm.py
         pylint src/stat/statistics.py
 
@@ -50,5 +51,6 @@ jobs:
         flake8  --max-line-length 100 src/writer/writer_opk.py src/writer/manage_writer.py
         flake8  --max-line-length 100 src/utils/conversion.py src/utils/check_header.py src/utils/singleton/singleton.py
         flake8  --max-line-length 100 src/transform_world_image/shot_pos.py src/transform_world_image/copoints_pos.py
+        flake8  --max-line-length 100 src/transform_world_image/transform_shot/world_image_shot.py src/transform_world_image/transform_shot/image_world_shot.py src/transform_world_image/transform_shot/conversion_coor_shot.py
         flake8  --max-line-length 100 src/transform_world_image/transform_dtm/world_image_dtm.py
         flake8  --max-line-length 100 src/stat/statistics.py

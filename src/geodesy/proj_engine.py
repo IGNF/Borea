@@ -10,6 +10,7 @@ from src.geodesy.transform_geodesy import TransformGeodesy
 from src.utils.singleton.singleton import Singleton
 
 
+# pylint: disable=unpacking-non-sequence
 @dataclass
 class ProjEngine(TransformGeodesy, metaclass=Singleton):
     """
@@ -53,7 +54,6 @@ class ProjEngine(TransformGeodesy, metaclass=Singleton):
         Returns:
             np.array : Meridian convergence in degree.
         """
-        # pylint: disable-next=unpacking-non-sequence
         (x_geog, y_geog) = self.carto_to_geog(x_carto, y_carto)
         return -np.array(self.proj.get_factors(x_geog, y_geog).meridian_convergence)
 
@@ -70,6 +70,5 @@ class ProjEngine(TransformGeodesy, metaclass=Singleton):
         Returns:
             np.array: Scale factor and meridian convergence.
         """
-        # pylint: disable-next=unpacking-non-sequence
         x_geog, y_geog = self.carto_to_geog(x_carto, y_carto)
         return np.array(self.proj.get_factors(x_geog, y_geog).meridional_scale) - 1

@@ -53,6 +53,7 @@ class Worksite:
             ori_shot (np.array): Array of orientation of the shot [Omega, Phi, Kappa].
             name_cam (str): Name of the camera.
             unit_angle (str): unit of angle 'd' degrees, 'r' radian.
+            linear_alteration (bool): True if z shot is correct of linear alteration.
         """
         self.shots[name_shot] = Shot(name_shot=name_shot,
                                      pos_shot=pos_shot,
@@ -214,7 +215,7 @@ class Worksite:
         Args:
             name_gcp (str): Name of the gcp.
             code_gcp (int): IGN code to differentiate between support points (1, 2, 3)
-                            and control points (11, 12, 13)
+                            and control points (11, 12, 13).
                             1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.
             coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].
         """
@@ -236,12 +237,13 @@ class Worksite:
 
     def set_z_nadir_shot(self) -> None:
         """
-        Calculates z_nadir for each shot
+        Calculates z_nadir for each shot.
         """
         for shot in self.shots.values():
             cam = self.cameras[shot.name_cam]
-            z_nadir = ImageWorldShot(shot).image_to_world(cam.ppax, cam.ppay, cam, self.type_z_shot,
-                                                          self.type_z_shot, False)[2]
+            z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]),
+                                                               self.type_z_shot,
+                                                               self.type_z_shot, False)[2]
             shot.set_z_nadir(z_nadir)
 
     def set_unit_shot(self, type_z: str = None, unit_angle: str = None,
@@ -289,10 +291,9 @@ class Worksite:
                         for name_shot in list_shots:
                             shot = self.shots[name_shot]
                             cam = self.cameras[shot.name_cam]
-                            coor_img = WorldImageShot(shot).world_to_image(gcp.coor[0], gcp.coor[1],
-                                                                           gcp.coor[2], cam,
-                                                                           self.type_z_data,
-                                                                           self.type_z_shot)
+                            coor_img = WorldImageShot(shot, cam).world_to_image(gcp.coor,
+                                                                                self.type_z_data,
+                                                                                self.type_z_shot)
                             self.shots[name_shot].gcps[name_gcp] = coor_img
                     except KeyError:
                         print(f"Warning: id point {name_gcp} is present "
@@ -394,8 +395,8 @@ class Worksite:
         cam1 = self.cameras[shot1.name_cam]
         cam2 = self.cameras[shot2.name_cam]
         base = shot1.pos_shot - shot2.pos_shot
-        vect1 = shot1.mat_rot.T @ ImageWorldShot(shot1).image_to_bundle(p_img1[0], p_img1[1], cam1)
-        vect2 = shot2.mat_rot.T @ ImageWorldShot(shot2).image_to_bundle(p_img2[0], p_img2[1], cam2)
+        vect1 = shot1.mat_rot.T @ ImageWorldShot(shot1, cam1).image_to_bundle(p_img1)
+        vect2 = shot2.mat_rot.T @ ImageWorldShot(shot2, cam2).image_to_bundle(p_img2)
         norme_v1 = vect1 @ vect1
         norme_v2 = vect2 @ vect2
         v1_v2 = vect1 @ vect2

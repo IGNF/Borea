@@ -7,7 +7,7 @@ from src.geodesy.proj_engine import ProjEngine
 from src.geodesy.euclidean_proj import EuclideanProj
 
 
-# pylint: disable-next=too-many-instance-attributes too-many-arguments
+# pylint: disable=too-many-instance-attributes too-many-arguments
 class Shot:
     """
     Shot class definition.
@@ -17,9 +17,9 @@ class Shot:
         pos_shot (numpy.array): Array of coordinate position [X, Y, Z].
         ori_shot (numpy.array): Array of orientation of the shot [Omega, Phi, Kappa] in degree.
         name_cam (str): Name of the camera.
-        unit_angle (str): unit of angle 'd' degrees, 'r' radian.
+        unit_angle (str): unit of angle 'degrees', 'radian'.
+        linear_alteration (bool): True if z shot is correct of linear alteration.
     """
-    # pylint: disable-next=too-many-arguments
     def __init__(self, name_shot: str, pos_shot: np.ndarray,
                  ori_shot: np.ndarray, name_cam: str,
                  unit_angle: str, linear_alteration: bool) -> None:
@@ -41,7 +41,6 @@ class Shot:
         self.f_sys_inv = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
 
     @classmethod
-    # pylint: disable-next=too-many-arguments
     def from_param_euclidean(cls, name_shot: str, pos_eucli: np.ndarray,
                              mat_ori_eucli: np.ndarray, name_cam: str,
                              unit_angle: str, linear_alteration: bool) -> None:
@@ -53,6 +52,8 @@ class Shot:
             pos_eucli (np.array): Euclidean position of the shot.
             mat_ori_eucli (np.array): Euclidean rotation matrix of the shot.
             name_cam (str): Name of the camera.
+            unit_angle (str): unit of angle 'degrees', 'radian'.
+            linear_alteration (bool): True if z shot is correct of linear alteration.
 
         Returns:
             Shot: The shot.
@@ -62,9 +63,7 @@ class Shot:
         shot.pos_shot_eucli = pos_eucli
         shot.projeucli = EuclideanProj(pos_eucli[0], pos_eucli[1])
         unitori = shot.unit_angle == "degree"
-        shot.pos_shot = shot.projeucli.euclidean_to_world(pos_eucli[0],
-                                                          pos_eucli[1],
-                                                          pos_eucli[2])
+        shot.pos_shot = shot.projeucli.euclidean_to_world(pos_eucli)
         shot.copoints = {}
         shot.gcps = {}
         shot.gipoints = {}
@@ -103,12 +102,10 @@ class Shot:
 
     def set_param_eucli_shot(self) -> None:
         """
-        Setting up Euclidean parameters projeucli, mat_rot_eucli.
+        Setting up Euclidean parameters projeucli, pos_shot_eucli, mat_rot_eucli.
         """
         self.projeucli = EuclideanProj(self.pos_shot[0], self.pos_shot[1])
-        self.pos_shot_eucli = self.projeucli.world_to_euclidean(self.pos_shot[0],
-                                                                self.pos_shot[1],
-                                                                self.pos_shot[2])
+        self.pos_shot_eucli = self.projeucli.world_to_euclidean(self.pos_shot)
         self.mat_rot_eucli = self.projeucli.mat_to_mat_eucli(self.pos_shot[0],
                                                              self.pos_shot[1],
                                                              self.mat_rot)
@@ -144,13 +141,9 @@ class Shot:
             type_z (str): z type height or altitude.
         """
         if type_z == "height":
-            self.pos_shot[2] = ProjEngine().tranform_height(self.pos_shot[0],
-                                                            self.pos_shot[1],
-                                                            self.pos_shot[2])
+            self.pos_shot[2] = ProjEngine().tranform_height(self.pos_shot)
         else:
-            self.pos_shot[2] = ProjEngine().tranform_altitude(self.pos_shot[0],
-                                                              self.pos_shot[1],
-                                                              self.pos_shot[2])
+            self.pos_shot[2] = ProjEngine().tranform_altitude(self.pos_shot)
 
     def set_linear_alteration(self, linear_alteration: bool) -> None:
         """

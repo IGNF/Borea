@@ -4,7 +4,6 @@ Module for class ProjEngine, transform geodesy
 from os import path
 from pathlib import Path
 from dataclasses import dataclass
-from typing import Union
 import pyproj
 import numpy as np
 
@@ -14,11 +13,13 @@ import numpy as np
 class TransformGeodesy():
     """
     This class provides functions to tranform coordinate system.
+    Class parent of ProjEngine.
+    Implemented by ProjEngine.
 
     Args:
         projection_list (dict): Dictionnary of the projection json.
         path_geoid (Path): Path to the forlder of GeoTIFF.
-        crs (pyproj): crs pyproj of the worksite.
+        crs (pyproj): CRS pyproj of the worksite.
     """
     carto_to_geoc = None
     geoc_to_carto = None
@@ -74,20 +75,17 @@ class TransformGeodesy():
                                               "does not exist in folder or "
                                               "in usr/share/proj !!!{e}") from e
 
-    def tranform_height(self, x: Union[np.ndarray, float], y: Union[np.ndarray, float],
-                        z: Union[np.ndarray, float]) -> float:
+    def tranform_height(self, coor: np.ndarray) -> float:
         """
         Converting z in altitude to z in height of point.
 
         Args:
-            x (Union[np.array, float]): x coordinate of the point.
-            y (Union[np.array, float]): y coordinate of the point.
-            z (Union[np.array, float]): z coordinate of the point.
+            coor (np.array): [X, Y, Z] coordinate of the point.
 
         Returns:
-            float: New height z.
+            float: New height Z.
         """
-        coor_geog = self.carto_to_geog(x, y, z)
+        coor_geog = self.carto_to_geog(coor[0], coor[1], coor[2])
         try:
             new_z = self.geog_to_geoid(coor_geog[0],
                                        coor_geog[1],
@@ -95,26 +93,23 @@ class TransformGeodesy():
         except AttributeError:
             print("Warning: the geoid has not been entered, the z transformation from altitude "
                   "to height has not been performed, return z altitude")
-            new_z = z
+            new_z = coor[2]
 
         if new_z == np.inf:
             raise ValueError("out geoid")
         return new_z
 
-    def tranform_altitude(self, x: Union[np.ndarray, float], y: Union[np.ndarray, float],
-                          z: Union[np.ndarray, float]) -> float:
+    def tranform_altitude(self, coor: np.ndarray) -> float:
         """
         Converting z in height to z in altitude of point.
 
         Args:
-            x (Union[np.array, float]): x coordinate of the point.
-            y (Union[np.array, float]): y coordinate of the point.
-            z (Union[np.array, float]): z coordinate of the point.
+            coor (np.array): [X, Y, Z] coordinate of the point.
 
         Returns:
-            float: New altitude z.
+            float: New altitude Z.
         """
-        coor_geog = self.carto_to_geog(x, y, z)
+        coor_geog = self.carto_to_geog(coor[0], coor[1], coor[2])
         try:
             coor_geog = self.geoid_to_geog(coor_geog[0],
                                            coor_geog[1],
@@ -125,7 +120,7 @@ class TransformGeodesy():
         except AttributeError:
             print("Warning: the geoid has not been entered, the z transformation from height "
                   "to altitude has not been performed, return z height")
-            new_z = z
+            new_z = coor[2]
 
         if np.all(new_z == np.inf):
             raise ValueError("out geoid")

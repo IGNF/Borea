@@ -30,11 +30,12 @@ def space_resection(shot: Shot, cam: Camera, type_z_data: str,
     c_obs, l_obs, z_world = seed_20_point(cam)
 
     # Calculate world position
-    x_world, y_world, _ = ImageWorldShot(shot).image_z_to_world(c_obs, l_obs, cam,
-                                                                type_z_shot, z_world)
+    x_world, y_world, _ = ImageWorldShot(shot, cam).image_z_to_world(np.array([c_obs, l_obs]),
+                                                                     type_z_shot, z_world)
 
     # Calculate euclidean position
-    x_eucli, y_eucli, z_eucli = shot.projeucli.world_to_euclidean(x_world, y_world, z_world)
+    pt_world = np.array([x_world, y_world, z_world])
+    pt_eucli = shot.projeucli.world_to_euclidean(pt_world)
 
     # Add factor
     c_obs += add_pixel[0]
@@ -44,8 +45,8 @@ def space_resection(shot: Shot, cam: Camera, type_z_data: str,
     shot_adjust = Shot(shot.name_shot, shot.pos_shot, shot.ori_shot, shot.name_cam,
                        shot.unit_angle, shot.linear_alteration)
     shot_adjust.set_param_eucli_shot()
-    z_nadir = ImageWorldShot(shot_adjust).image_to_world(cam.ppax, cam.ppay, cam, type_z_shot,
-                                                         type_z_shot, False)[2]
+    z_nadir = ImageWorldShot(shot_adjust, cam).image_to_world(np.array([cam.ppax, cam.ppay]),
+                                                              type_z_shot, type_z_shot, False)[2]
     shot_adjust.set_z_nadir(z_nadir)
 
     bool_iter = True
@@ -54,14 +55,14 @@ def space_resection(shot: Shot, cam: Camera, type_z_data: str,
         count_iter += 1
 
         # Creation of A
-        mat_a = mat_obs_axia(x_eucli, y_eucli, z_eucli, shot_adjust, cam)
+        mat_a = mat_obs_axia(pt_eucli, shot_adjust, cam)
 
         # Calculate position column and line with new shot f(x0)
-        c_f0, l_f0 = WorldImageShot(shot_adjust).world_to_image(x_world, y_world, z_world, cam,
-                                                                type_z_data, type_z_shot)
+        c_f0, l_f0 = WorldImageShot(shot_adjust, cam).world_to_image(pt_world, type_z_data,
+                                                                     type_z_shot)
 
         # Calculate residual vector B
-        v_res = np.c_[c_obs - c_f0, l_obs - l_f0].reshape(2 * len(x_eucli), 1)
+        v_res = np.c_[c_obs - c_f0, l_obs - l_f0].reshape(2 * len(pt_eucli[0]), 1)
 
         # Calculate dx = (A.T @ A)**-1 @ A.T @ B
         dx = np.squeeze(np.linalg.lstsq(mat_a, v_res, rcond=None)[0])
@@ -77,9 +78,6 @@ def space_resection(shot: Shot, cam: Camera, type_z_data: str,
                                                    new_mat_eucli, shot_adjust.name_cam,
                                                    shot_adjust.unit_angle,
                                                    shot_adjust.linear_alteration)
-
-        z_nadir = ImageWorldShot(imc_new_adjust).image_to_world(cam.ppax, cam.ppay, cam,
-                                                                type_z_shot, type_z_shot, False)[2]
         imc_new_adjust.set_z_nadir(z_nadir)
 
         # Look difference to know if you want to stop the calculation
@@ -99,24 +97,21 @@ def space_resection(shot: Shot, cam: Camera, type_z_data: str,
     return shot_adjust
 
 
-def mat_obs_axia(x_eucli: np.ndarray, y_eucli: np.ndarray, z_eucli: np.ndarray,
-                 imc_adjust: Shot, cam: Camera) -> np.ndarray:
+def mat_obs_axia(pt_eucli: np.ndarray, imc_adjust: Shot, cam: Camera) -> np.ndarray:
     """
     Setting up the mat_a matrix to solve the system by axiator.
 
     Args:
-        x_eucli (np.array): Coordinate x euclidean.
-        y_eucli (np.array): Coordinate y euclidean.
-        z_eucli (np.array): Coordinate z euclidean.
+        pt_eucli (np.array): Coordinate [X, Y, Z] euclidean.
         imc_adjust (Shot): adjusted shot.
         cam (Camera): Camera of shot.
 
     Returns:
         np.array: Matrix A.
     """
-    vect_a = np.vstack([x_eucli - imc_adjust.pos_shot_eucli[0],
-                        y_eucli - imc_adjust.pos_shot_eucli[1],
-                        z_eucli - imc_adjust.pos_shot_eucli[2]])  # vect_a = M-S
+    vect_a = np.vstack([pt_eucli[0] - imc_adjust.pos_shot_eucli[0],
+                        pt_eucli[1] - imc_adjust.pos_shot_eucli[1],
+                        pt_eucli[2] - imc_adjust.pos_shot_eucli[2]])  # vect_a = M-S
     vect_u = imc_adjust.mat_rot_eucli @ vect_a  # U = RA
 
     # Axiator of vect_a

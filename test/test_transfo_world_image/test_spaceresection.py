@@ -5,7 +5,7 @@ import numpy as np
 from src.datastruct.camera import Camera
 from src.datastruct.shot import Shot
 from src.geodesy.proj_engine import ProjEngine
-from src.transform_world_image.shot_pos import space_resection
+from src.transform_world_image.transform_worksite.space_resection import SpaceResection
 from src.datastruct.dtm import Dtm
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 
@@ -28,7 +28,7 @@ def test_space_resection():
     shot.set_param_eucli_shot()
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
-    actual_shot = space_resection(shot, cam, "height", "altitude")
+    actual_shot = SpaceResection(shot, cam, "height", "altitude").space_resection()
     assert abs(actual_shot.pos_shot[0] - 814975.925) < 0.02
     assert abs(actual_shot.pos_shot[1] - 6283986.148) < 0.02
     assert abs(actual_shot.pos_shot[2] - 1771.280) < 0.02

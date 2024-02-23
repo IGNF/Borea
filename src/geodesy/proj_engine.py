@@ -24,7 +24,7 @@ class ProjEngine(TransformGeodesy, metaclass=Singleton):
         if self.projection_list is not None:
             self.crs = pyproj.CRS.from_epsg(self.epsg)
             self.proj = pyproj.Proj(self.crs)
-            super().__tf_init__(self.projection_list, self.path_geoid, self.crs)
+            TransformGeodesy.__tf_init__(self, self.projection_list, self.path_geoid, self.crs)
 
     def set_epsg(self, epsg: int, proj_list: dict = None, path_geoid: Path = None) -> None:
         """

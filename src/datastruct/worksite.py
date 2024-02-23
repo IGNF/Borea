@@ -143,7 +143,7 @@ class Worksite:
                                            width=width,
                                            height=height)
 
-    def add_copoint(self, name_point: str, name_shot: str, x: float, y: float) -> None:
+    def add_co_point(self, name_point: str, name_shot: str, x: float, y: float) -> None:
         """
         Add linking point between acquisition in two part.
         One in self.co_points a dict with name_point the key and list of acquisition the result.
@@ -175,7 +175,7 @@ class Worksite:
 
         self.co_points[name_point].append(name_shot)
 
-    def add_gipoint(self, name_point: str, name_shot: str, x: float, y: float) -> None:
+    def add_ground_img_pt(self, name_point: str, name_shot: str, x: float, y: float) -> None:
         """
         Add linking point between acquisition in two part.
         One in self.ground_img_pts a dict with name_point the key
@@ -317,26 +317,26 @@ class Worksite:
         return np.mean(pos, axis=0)
 
     # pylint: disable-next=too-many-locals too-many-branches
-    def calculate_init_image_world(self, type_point: str = "copoint",
+    def calculate_init_image_world(self, type_point: str = "co_point",
                                    control_type: list = None) -> None:
         """
         Calculates the ground position of connecting point by intersection with
         the most distance between two shots or ground image point.
 
         Args:
-            type_point (str): "copoint" or "gipoint" depending on what you want to calculate.
+            type_point (str): "co_point" or "ground_img_pt" depending on what you want to calculate.
             control_type (list): type controle for gcp.
         """
         if control_type is None:
             control_type = []
 
         check = False
-        if type_point == "copoint":
+        if type_point == "co_point":
             points = self.co_points
             check = bool(points)
             check_gcp = False
 
-        if type_point == "gipoint":
+        if type_point == "ground_img_pt":
             points = self.ground_img_pts
             check = bool(points)
             check_gcp = True
@@ -355,7 +355,7 @@ class Worksite:
                 list_shot1 = item_p.copy()
                 list_shot2 = list_shot1.copy()
                 _ = list_shot1.pop(-1)
-                for name_shot1 in list_shot1:  # Double loop on shots of copoint
+                for name_shot1 in list_shot1:  # Double loop on shots of co_point
                     _ = list_shot2.pop(0)
                     for name_shot2 in list_shot2:
                         pos_shot1 = self.shots[name_shot1].pos_shot
@@ -366,12 +366,12 @@ class Worksite:
                             shot1 = name_shot1
                             shot2 = name_shot2
                 coor = self.eucli_intersection_2p(name_p, self.shots[shot1], self.shots[shot2])
-                if type_point == "copoint":
+                if type_point == "co_point":
                     self.co_pts_world[name_p] = coor
-                if type_point == "gipoint":
+                if type_point == "ground_img_pt":
                     self.img_pts_world[name_p] = coor
         else:
-            print(f"There isn't {type_point} or bad spelling copoint / gipoint.")
+            print(f"There isn't {type_point} or bad spelling co_point / ground_img_pt.")
 
     # pylint: disable-next=too-many-locals
     def eucli_intersection_2p(self, name_point: str, shot1: Shot, shot2: Shot) -> np.ndarray:

@@ -31,8 +31,8 @@ class Shot:
         self.unit_angle = unit_angle
         self.name_cam = name_cam
         self.z_nadir = None
-        self.copoints = {}
-        self.gipoints = {}
+        self.co_points = {}
+        self.ground_img_pts = {}
         self.gcps = {}
         self.mat_rot = self.set_rot_shot()
         self.mat_rot_eucli = None
@@ -64,9 +64,9 @@ class Shot:
         shot.projeucli = EuclideanProj(pos_eucli[0], pos_eucli[1])
         unitori = shot.unit_angle == "degree"
         shot.pos_shot = shot.projeucli.euclidean_to_world(pos_eucli)
-        shot.copoints = {}
+        shot.co_points = {}
         shot.gcps = {}
-        shot.gipoints = {}
+        shot.ground_img_pts = {}
         shot.mat_rot = shot.projeucli.mat_eucli_to_mat(shot.pos_shot[0], shot.pos_shot[1],
                                                        mat_ori_eucli)
         shot.mat_rot_eucli = mat_ori_eucli

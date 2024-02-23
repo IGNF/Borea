@@ -32,7 +32,8 @@ jobs:
         pylint opk_to_opk.py opk_control.py
         pylint src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/args_control.py
         pylint src/geodesy/proj_engine.py src/geodesy/euclidean_proj.py src/geodesy/transform_geodesy.py
-        pylint src/reader/reader_camera.py src/reader/reader_copoints.py src/reader/reader_gcp.py src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py
+        pylint src/reader/reader_camera.py src/reader/reader_co_points.py src/reader/reader_gcp.py src/reader/reader_ground_img_pts.py
+        pylint src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py
         pylint src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/worksite.py src/datastruct/camera.py src/datastruct/dtm.py
         pylint src/writer/writer_opk.py src/writer/manage_writer.py
         pylint src/utils/conversion.py src/utils/check_header.py src/utils/singleton/singleton.py
@@ -46,7 +47,8 @@ jobs:
         flake8  --max-line-length 100 opk_to_opk.py opk_control.py
         flake8  --max-line-length 100 src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/args_control.py
         flake8  --max-line-length 100 src/geodesy/proj_engine.py src/geodesy/euclidean_proj.py src/geodesy/transform_geodesy.py
-        flake8  --max-line-length 100 src/reader/reader_camera.py src/reader/reader_copoints.py src/reader/reader_gcp.py src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py
+        flake8  --max-line-length 100 src/reader/reader_camera.py src/reader/reader_co_points.py src/reader/reader_gcp.py src/reader/reader_ground_img_pts.py
+        flake8  --max-line-length 100 src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py
         flake8  --max-line-length 100 src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/worksite.py src/datastruct/camera.py src/datastruct/dtm.py
         flake8  --max-line-length 100 src/writer/writer_opk.py src/writer/manage_writer.py
         flake8  --max-line-length 100 src/utils/conversion.py src/utils/check_header.py src/utils/singleton/singleton.py

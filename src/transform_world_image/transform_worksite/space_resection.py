@@ -62,8 +62,8 @@ class SpaceResection:
         # Least-square methode
         shot_adjust = self.least_square_shot(shot_adjust, obs, pt_eucli, pt_world)
 
-        shot_adjust.copoints = self.shot.copoints
-        shot_adjust.gipoints = self.shot.gipoints
+        shot_adjust.co_points = self.shot.co_points
+        shot_adjust.ground_img_pts = self.shot.ground_img_pts
         shot_adjust.gcps = self.shot.gcps
 
         return shot_adjust

@@ -5,7 +5,7 @@ from pathlib import Path, PureWindowsPath
 from src.datastruct.worksite import Worksite
 
 
-def read_copoints(files: list, work: Worksite) -> None:
+def read_co_points(files: list, work: Worksite) -> None:
     """
     Read all files of connecting points.
 
@@ -15,12 +15,12 @@ def read_copoints(files: list, work: Worksite) -> None:
     """
     for file in files:
         try:
-            with open(Path(PureWindowsPath(file)), 'r', encoding="utf-8") as file_copoints:
-                for copoint in file_copoints.readlines():
+            with open(Path(PureWindowsPath(file)), 'r', encoding="utf-8") as file_co_points:
+                for copoint in file_co_points.readlines():
                     if copoint != '\n':
                         name_point, name_shot, x, y = copoint.split()
                         work.add_copoint(name_point, name_shot, float(x), float(y))
-                file_copoints.close()
+                file_co_points.close()
         except FileNotFoundError as e:
             raise FileNotFoundError(f"The path {file} is incorrect !!!") from e
     work.check_cop = True

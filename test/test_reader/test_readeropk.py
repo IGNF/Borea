@@ -3,7 +3,7 @@ Script test for module reader_opk
 """
 import platform
 import pytest
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.reader.orientation.reader_opk import read as read_opk
 
 INPUT_OPK_UBU = "./dataset/23FD1305_alt_test.OPK"

@@ -4,7 +4,7 @@ Script test for module statistics
 import os
 import numpy as np
 import shutil as shutil
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.stat.statistics import Stat
 
 

@@ -4,7 +4,7 @@ Script test for module workdata
 import pytest
 import pyproj
 import numpy as np
-from src.transform_world_image.transform_worksite.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.geodesy.proj_engine import ProjEngine
 from src.datastruct.dtm import Dtm
 

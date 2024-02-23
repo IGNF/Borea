@@ -2,7 +2,7 @@
 Script test for module worksite
 """
 import numpy as np
-from src.transform_world_image.transform_worksite.worksite import Worksite
+from src.worksite.worksite import Worksite
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
 

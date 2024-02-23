@@ -19,7 +19,7 @@ def read_co_points(files: list, work: Worksite) -> None:
                 for copoint in file_co_points.readlines():
                     if copoint != '\n':
                         name_point, name_shot, x, y = copoint.split()
-                        work.add_copoint(name_point, name_shot, float(x), float(y))
+                        work.add_co_point(name_point, name_shot, float(x), float(y))
                 file_co_points.close()
         except FileNotFoundError as e:
             raise FileNotFoundError(f"The path {file} is incorrect !!!") from e

@@ -19,7 +19,7 @@ def read_ground_image_points(files: list, work: Worksite) -> None:
                 for gipoint in file_gipoints.readlines():
                     if gipoint != '\n':
                         name_point, name_shot, x, y = gipoint.split()
-                        work.add_gipoint(name_point, name_shot, float(x), float(y))
+                        work.add_ground_img_pt(name_point, name_shot, float(x), float(y))
                 file_gipoints.close()
         except FileNotFoundError as e:
             raise FileNotFoundError(f"The path {file} is incorrect !!!") from e

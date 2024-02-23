@@ -32,11 +32,11 @@ class Worksite:
         self.name = name
         self.shots = {}
         self.cameras = {}
-        self.copoints = {}
-        self.gipoints = {}
+        self.co_points = {}
+        self.ground_img_pts = {}
         self.gcps = {}
-        self.cop_world = {}
-        self.gip_world = {}
+        self.co_pts_world = {}
+        self.img_pts_world = {}
         self.type_z_data = None
         self.type_z_shot = None
 
@@ -146,8 +146,8 @@ class Worksite:
     def add_copoint(self, name_point: str, name_shot: str, x: float, y: float) -> None:
         """
         Add linking point between acquisition in two part.
-        One in self.copoints a dict with name_point the key and list of acquisition the result.
-        And One in self.shot[name_shot].copoints a dict whit
+        One in self.co_points a dict with name_point the key and list of acquisition the result.
+        And One in self.shot[name_shot].co_points a dict whit
         name_point the key and list of coordinate x (column) y (line) the result in list.
 
         Agrs:
@@ -160,26 +160,27 @@ class Worksite:
             print(f"The shot {name_shot} doesn't exist in list of shots.")
             sys.exit()
 
-        if name_point not in self.copoints:
-            self.copoints[name_point] = []
+        if name_point not in self.co_points:
+            self.co_points[name_point] = []
 
-        if name_point not in self.shots[name_shot].copoints:
-            self.shots[name_shot].copoints[name_point] = [x, y]
+        if name_point not in self.shots[name_shot].co_points:
+            self.shots[name_shot].co_points[name_point] = [x, y]
         else:
             print("\n :--------------------------:")
             print("Warning : connecting point duplicate.")
             print(f"The point {name_point} already exists in the shot {name_shot}.")
             print("Keep first point with coordinates " +
-                  f"{self.shots[name_shot].copoints[name_point]}.")
+                  f"{self.shots[name_shot].co_points[name_point]}.")
             print(":--------------------------:")
 
-        self.copoints[name_point].append(name_shot)
+        self.co_points[name_point].append(name_shot)
 
     def add_gipoint(self, name_point: str, name_shot: str, x: float, y: float) -> None:
         """
         Add linking point between acquisition in two part.
-        One in self.gipoints a dict with name_point the key and list of acquisition the result.
-        And One in self.shot[name_shot].gipoints a dict whit
+        One in self.ground_img_pts a dict with name_point the key
+        and list of acquisition the result.
+        And One in self.shot[name_shot].ground_img_pts a dict whit
         name_point the key and list of coordinate x (column) y (line) the result in list.
 
         Agrs:
@@ -193,20 +194,20 @@ class Worksite:
         except KeyError as e_info:
             raise ValueError(f"The shot {name_shot} doesn't exist in list of shots.") from e_info
 
-        if name_point not in self.gipoints:
-            self.gipoints[name_point] = []
+        if name_point not in self.ground_img_pts:
+            self.ground_img_pts[name_point] = []
 
-        if name_point not in self.shots[name_shot].gipoints:
-            self.shots[name_shot].gipoints[name_point] = [x, y]
+        if name_point not in self.shots[name_shot].ground_img_pts:
+            self.shots[name_shot].ground_img_pts[name_point] = [x, y]
         else:
             print("\n :--------------------------:")
             print("Warning : connecting point duplicate.")
             print(f"The point {name_point} already exists in the shot {name_shot}.")
             print("Keep first point with coordinates " +
-                  f"{self.shots[name_shot].gipoints[name_point]}.")
+                  f"{self.shots[name_shot].ground_img_pts[name_point]}.")
             print(":--------------------------:")
 
-        self.gipoints[name_point].append(name_shot)
+        self.ground_img_pts[name_point].append(name_shot)
 
     def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np.ndarray) -> None:
         """
@@ -283,11 +284,11 @@ class Worksite:
         Args:
             lcode (list): gcp code.
         """
-        if self.gcps and self.gipoints:
+        if self.gcps and self.ground_img_pts:
             for name_gcp, gcp in self.gcps.items():
                 if gcp.code in lcode or lcode == []:
                     try:
-                        list_shots = self.gipoints[name_gcp]
+                        list_shots = self.ground_img_pts[name_gcp]
                         for name_shot in list_shots:
                             shot = self.shots[name_shot]
                             cam = self.cameras[shot.name_cam]
@@ -331,12 +332,12 @@ class Worksite:
 
         check = False
         if type_point == "copoint":
-            points = self.copoints
+            points = self.co_points
             check = bool(points)
             check_gcp = False
 
         if type_point == "gipoint":
-            points = self.gipoints
+            points = self.ground_img_pts
             check = bool(points)
             check_gcp = True
 
@@ -366,9 +367,9 @@ class Worksite:
                             shot2 = name_shot2
                 coor = self.eucli_intersection_2p(name_p, self.shots[shot1], self.shots[shot2])
                 if type_point == "copoint":
-                    self.cop_world[name_p] = coor
+                    self.co_pts_world[name_p] = coor
                 if type_point == "gipoint":
-                    self.gip_world[name_p] = coor
+                    self.img_pts_world[name_p] = coor
         else:
             print(f"There isn't {type_point} or bad spelling copoint / gipoint.")
 
@@ -385,12 +386,12 @@ class Worksite:
         Returns:
             np.array: Euclidien coordinate of the copoint.
         """
-        if name_point in list(shot1.copoints):
-            p_img1 = shot1.copoints[name_point]
-            p_img2 = shot2.copoints[name_point]
+        if name_point in list(shot1.co_points):
+            p_img1 = shot1.co_points[name_point]
+            p_img2 = shot2.co_points[name_point]
         else:
-            p_img1 = shot1.gipoints[name_point]
-            p_img2 = shot2.gipoints[name_point]
+            p_img1 = shot1.ground_img_pts[name_point]
+            p_img2 = shot2.ground_img_pts[name_point]
 
         cam1 = self.cameras[shot1.name_cam]
         cam2 = self.cameras[shot2.name_cam]

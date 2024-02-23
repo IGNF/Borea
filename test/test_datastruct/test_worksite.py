@@ -134,12 +134,12 @@ def test_add_copoint():
     obj.add_copoint("p0", "t2", 40, 40)
     obj.add_copoint("p1", "t1", 70, 10)
     obj.add_copoint("p1", "t3", 50, 90)
-    assert obj.copoints["p0"] == ["t1", "t2"]
-    assert obj.copoints["p1"] == ["t1", "t3"]
-    assert obj.shots["t1"].copoints["p0"] == [50, 30]
-    assert obj.shots["t1"].copoints["p1"] == [70, 10]
-    assert obj.shots["t2"].copoints["p0"] == [40, 40]
-    assert obj.shots["t3"].copoints["p1"] == [50, 90]
+    assert obj.co_points["p0"] == ["t1", "t2"]
+    assert obj.co_points["p1"] == ["t1", "t3"]
+    assert obj.shots["t1"].co_points["p0"] == [50, 30]
+    assert obj.shots["t1"].co_points["p1"] == [70, 10]
+    assert obj.shots["t2"].co_points["p0"] == [40, 40]
+    assert obj.shots["t3"].co_points["p1"] == [50, 90]
 
 
 def test_add_gipoint():
@@ -151,12 +151,12 @@ def test_add_gipoint():
     obj.add_gipoint("p0", "t2", 40, 40)
     obj.add_gipoint("p1", "t1", 70, 10)
     obj.add_gipoint("p1", "t3", 50, 90)
-    assert obj.gipoints["p0"] == ["t1", "t2"]
-    assert obj.gipoints["p1"] == ["t1", "t3"]
-    assert obj.shots["t1"].gipoints["p0"] == [50, 30]
-    assert obj.shots["t1"].gipoints["p1"] == [70, 10]
-    assert obj.shots["t2"].gipoints["p0"] == [40, 40]
-    assert obj.shots["t3"].gipoints["p1"] == [50, 90]
+    assert obj.ground_img_pts["p0"] == ["t1", "t2"]
+    assert obj.ground_img_pts["p1"] == ["t1", "t3"]
+    assert obj.shots["t1"].ground_img_pts["p0"] == [50, 30]
+    assert obj.shots["t1"].ground_img_pts["p1"] == [70, 10]
+    assert obj.shots["t2"].ground_img_pts["p0"] == [40, 40]
+    assert obj.shots["t3"].ground_img_pts["p1"] == [50, 90]
 
 
 def test_add_gcp():
@@ -283,10 +283,10 @@ def test_calculate_init_image_world_onecop_multiimg():
     work.add_copoint('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
     work.check_cop = True
     work.calculate_init_image_world()
-    print(abs(work.cop_world['"1003"'][0] - 815601.510),abs(work.cop_world['"1003"'][1] - 6283629.280),abs(work.cop_world['"1003"'][2] - 54.960))
-    assert abs(work.cop_world['"1003"'][0] - 815601.510) < 10000
-    assert abs(work.cop_world['"1003"'][1] - 6283629.280) < 10000
-    assert abs(work.cop_world['"1003"'][2] - 54.960) < 10000
+    print(abs(work.co_pts_world['"1003"'][0] - 815601.510),abs(work.co_pts_world['"1003"'][1] - 6283629.280),abs(work.co_pts_world['"1003"'][2] - 54.960))
+    assert abs(work.co_pts_world['"1003"'][0] - 815601.510) < 10000
+    assert abs(work.co_pts_world['"1003"'][1] - 6283629.280) < 10000
+    assert abs(work.co_pts_world['"1003"'][2] - 54.960) < 10000
 
 
 def test_calculate_init_image_world_onecopwithoneimg():
@@ -301,9 +301,9 @@ def test_calculate_init_image_world_onecopwithoneimg():
     work.add_copoint('"1004"',"23FD1305x00026_01308",24161.49,5929.37)
     work.check_cop = True
     work.calculate_init_image_world()
-    assert len(list(work.cop_world)) == 1
-    assert '"1003"' in work.cop_world.keys()
-    assert not('"1004"' in work.cop_world.keys())
+    assert len(list(work.co_pts_world)) == 1
+    assert '"1003"' in work.co_pts_world.keys()
+    assert not('"1004"' in work.co_pts_world.keys())
 
 
 def test_calculate_init_image_world_withzeropoint():
@@ -316,7 +316,7 @@ def test_calculate_init_image_world_withzeropoint():
     work.check_cop = False
     work.calculate_init_image_world()
     print("The print is normal")
-    assert work.cop_world == {}
+    assert work.co_pts_world == {}
 
 
 def test_calculate_init_image_world_allgipoint():
@@ -337,14 +337,14 @@ def test_calculate_init_image_world_allgipoint():
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.check_gip = True
     work.calculate_init_image_world("gipoint")
-    print(abs(work.gip_world['"1003"'][0] - 815601.510),abs(work.gip_world['"1003"'][1] - 6283629.280),abs(work.gip_world['"1003"'][2] - 54.960))
-    print(abs(work.gip_world['"1005"'][0] - 833670.940),abs(work.gip_world['"1005"'][1] - 6281965.400),abs(work.gip_world['"1005"'][2] - 52.630))
-    assert len(list(work.gip_world)) == 2
-    assert '"1003"' in work.gip_world.keys()
-    assert '"1005"' in work.gip_world.keys()
-    assert abs(work.gip_world['"1003"'][0] - 815601.510) < 10000
-    assert abs(work.gip_world['"1003"'][1] - 6283629.280) < 10000
-    assert abs(work.gip_world['"1003"'][2] - 54.960) < 10000
+    print(abs(work.img_pts_world['"1003"'][0] - 815601.510),abs(work.img_pts_world['"1003"'][1] - 6283629.280),abs(work.img_pts_world['"1003"'][2] - 54.960))
+    print(abs(work.img_pts_world['"1005"'][0] - 833670.940),abs(work.img_pts_world['"1005"'][1] - 6281965.400),abs(work.img_pts_world['"1005"'][2] - 52.630))
+    assert len(list(work.img_pts_world)) == 2
+    assert '"1003"' in work.img_pts_world.keys()
+    assert '"1005"' in work.img_pts_world.keys()
+    assert abs(work.img_pts_world['"1003"'][0] - 815601.510) < 10000
+    assert abs(work.img_pts_world['"1003"'][1] - 6283629.280) < 10000
+    assert abs(work.img_pts_world['"1003"'][2] - 54.960) < 10000
 
 
 def test_calculate_init_image_world_gipoint13type():
@@ -365,9 +365,9 @@ def test_calculate_init_image_world_gipoint13type():
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.check_gip = True
     work.calculate_init_image_world("gipoint", [13])
-    assert len(list(work.gip_world)) == 1
-    assert '"1003"' in work.gip_world.keys()
-    assert '"1005"' not in work.gip_world.keys()
+    assert len(list(work.img_pts_world)) == 1
+    assert '"1003"' in work.img_pts_world.keys()
+    assert '"1005"' not in work.img_pts_world.keys()
 
 
 def test_eucli_intersection_2p():

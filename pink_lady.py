@@ -4,8 +4,8 @@ pink lady launch module
 import argparse
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.reader_camera import read_camera
-from src.reader.reader_copoints import read_copoints
-from src.reader.reader_gipoints import read_gipoints
+from src.reader.reader_co_points import read_copoints
+from src.reader.reader_ground_img_pts import read_gipoints
 from src.reader.reader_gcp import read_gcp
 from src.writer.manage_writer import manager_writer
 from src.stat.statistics import Stat

@@ -40,7 +40,7 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
         self.rb = None
         self.nodata = None
         self.dtm_array = None
-        super().__init__(None)
+        WorldImageDtm.__init__(self, None)
 
     def set_dtm(self, path_dtm: str, type_dtm: str) -> None:
         """
@@ -59,7 +59,7 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
             self.nodata = self.rb.GetNoDataValue()
             if self.keep_in_memory:
                 self.dtm_array = self.rb.ReadAsArray()
-            super().__init__(self.img.GetGeoTransform())
+            WorldImageDtm.__init__(self, self.img.GetGeoTransform())
         else:
             self.path_dtm = path_dtm
 

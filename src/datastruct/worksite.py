@@ -11,7 +11,7 @@ from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
 from src.datastruct.gcp import GCP
 from src.geodesy.proj_engine import ProjEngine
-from src.transform_world_image.shot_pos import space_resection
+from src.transform_world_image.transform_worksite.space_resection import SpaceResection
 from src.transform_world_image.transform_shot.world_image_shot import WorldImageShot
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 from src.datastruct.dtm import Dtm
@@ -420,6 +420,6 @@ class Worksite:
         """
         for key_shot, item_shot in self.shots.items():
             cam = self.cameras[item_shot.name_cam]
-            self.shots[key_shot] = space_resection(item_shot, cam,
-                                                   self.type_z_data,
-                                                   self.type_z_shot, add_pixel)
+            self.shots[key_shot] = SpaceResection(item_shot, cam,
+                                                  self.type_z_data,
+                                                  self.type_z_shot).space_resection(add_pixel)

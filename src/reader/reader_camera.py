@@ -2,7 +2,7 @@
 Script to read camera file txt or xml.
 """
 from pathlib import Path, PureWindowsPath
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 
 
 def read_camera(files: list, work: Worksite) -> None:

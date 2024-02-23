@@ -2,7 +2,7 @@
 Module for calculate copoints position
 """
 # import numpy as np
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 
 
 # pylint: disable-next=unused-argument

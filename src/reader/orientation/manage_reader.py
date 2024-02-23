@@ -3,7 +3,7 @@ Photogrammetry site file reader module.
 """
 import importlib
 from pathlib import Path, PureWindowsPath
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 
 
 def reader_orientation(file: str, args: dict) -> Worksite:

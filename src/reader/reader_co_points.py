@@ -2,7 +2,7 @@
 Script to read connecting point mes.
 """
 from pathlib import Path, PureWindowsPath
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 
 
 def read_co_points(files: list, work: Worksite) -> None:

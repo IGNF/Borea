@@ -2,7 +2,7 @@
 Args of parser for reading opk file
 """
 import argparse
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.reader.reader_camera import read_camera
 from src.reader.orientation.manage_reader import reader_orientation
 

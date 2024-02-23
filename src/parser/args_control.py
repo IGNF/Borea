@@ -2,7 +2,7 @@
 Args of parser to control file
 """
 import argparse
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.reader.reader_ground_img_pts import read_ground_image_points
 from src.reader.reader_gcp import read_gcp
 from src.stat.statistics import Stat

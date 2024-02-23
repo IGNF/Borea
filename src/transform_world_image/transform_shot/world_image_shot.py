@@ -7,7 +7,7 @@ from src.datastruct.camera import Camera
 from src.datastruct.dtm import Dtm
 from src.geodesy.proj_engine import ProjEngine
 from src.transform_world_image.transform_shot.conversion_coor_shot import conv_z_shot_to_z_data
-from src.utils.conversion import change_dim
+from src.utils.change_dim import change_dim
 
 
 class WorldImageShot():

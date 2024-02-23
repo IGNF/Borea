@@ -5,7 +5,7 @@ import platform
 from pathlib import Path
 import numpy as np
 from src.datastruct.worksite import Worksite
-from src.utils.check_header import check_header_file
+from src.utils.check.check_header import check_header_file
 
 
 def read(file: Path, args: dict, work: Worksite) -> Worksite:

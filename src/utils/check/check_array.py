@@ -54,28 +54,3 @@ def check_array_transfo(x: Union[np.ndarray, float],
                         z = float(z[0])
 
     return x, y, z
-
-
-def change_dim(x: Union[np.ndarray, float],
-               dim: tuple) -> Union[np.ndarray, float]:
-    """
-    Change dimension of x to the dim given.
-
-    Args:
-        x (Union[np.array, float]): Values to change dim.
-        dim (tuble): The dimension to have.
-
-    Returns:
-        Union[np.array, float]: x with the new dimension.
-    """
-    if isinstance(x, np.ndarray):
-        if np.shape(x) != dim:
-            x = x.reshape(dim)
-    else:
-        if dim != ():
-            if len(dim) == 1:
-                x = np.array([x])
-            if len(dim) == 2:
-                x = np.array([[x]])
-
-    return x

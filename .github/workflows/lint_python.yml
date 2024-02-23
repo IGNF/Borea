@@ -34,10 +34,10 @@ jobs:
         pylint src/geodesy/proj_engine.py src/geodesy/euclidean_proj.py src/geodesy/transform_geodesy.py
         pylint src/reader/reader_camera.py src/reader/reader_co_points.py src/reader/reader_gcp.py src/reader/reader_ground_img_pts.py
         pylint src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py
-        pylint src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/worksite.py src/datastruct/camera.py src/datastruct/dtm.py
+        pylint src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/workdata.py src/datastruct/camera.py src/datastruct/dtm.py
         pylint src/writer/writer_opk.py src/writer/manage_writer.py
         pylint src/utils/change_dim.py src/utils/check/check_header.py src/utils/check/check_array.py src/utils/singleton/singleton.py
-        pylint src/transform_world_image/transform_worksite/space_resection.py src/transform_world_image/transform_worksite/copoints_pos.py
+        pylint src/transform_world_image/transform_worksite/space_resection.py src/transform_world_image/transform_worksite/copoints_pos.py src/transform_world_image/transform_worksite/worksite.py
         pylint src/transform_world_image/transform_shot/world_image_shot.py src/transform_world_image/transform_shot/image_world_shot.py src/transform_world_image/transform_shot/conversion_coor_shot.py
         pylint src/transform_world_image/transform_dtm/world_image_dtm.py
         pylint src/stat/statistics.py
@@ -49,10 +49,10 @@ jobs:
         flake8  --max-line-length 100 src/geodesy/proj_engine.py src/geodesy/euclidean_proj.py src/geodesy/transform_geodesy.py
         flake8  --max-line-length 100 src/reader/reader_camera.py src/reader/reader_co_points.py src/reader/reader_gcp.py src/reader/reader_ground_img_pts.py
         flake8  --max-line-length 100 src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py
-        flake8  --max-line-length 100 src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/worksite.py src/datastruct/camera.py src/datastruct/dtm.py
+        flake8  --max-line-length 100 src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/workdata.py src/datastruct/camera.py src/datastruct/dtm.py
         flake8  --max-line-length 100 src/writer/writer_opk.py src/writer/manage_writer.py
         flake8  --max-line-length 100 src/utils/change_dim.py src/utils/check/check_header.py src/utils/check/check_array.py src/utils/singleton/singleton.py
-        flake8  --max-line-length 100 src/transform_world_image/transform_worksite/space_resection.py src/transform_world_image/transform_worksite/copoints_pos.py
+        flake8  --max-line-length 100 src/transform_world_image/transform_worksite/space_resection.py src/transform_world_image/transform_worksite/copoints_pos.py src/transform_world_image/transform_worksite/worksite.py
         flake8  --max-line-length 100 src/transform_world_image/transform_shot/world_image_shot.py src/transform_world_image/transform_shot/image_world_shot.py src/transform_world_image/transform_shot/conversion_coor_shot.py
         flake8  --max-line-length 100 src/transform_world_image/transform_dtm/world_image_dtm.py
         flake8  --max-line-length 100 src/stat/statistics.py

@@ -1,8 +1,8 @@
 """
-Script test for module convedrtion
+Script test for module check array
 """
 import numpy as np
-from src.utils.conversion import check_array_transfo, change_dim
+from src.utils.check.check_array import check_array_transfo
 
 
 def test_check_array_transfo_floatfloat():
@@ -63,60 +63,3 @@ def test_check_array_transfo_arrayarraydim22():
     assert (actual[0] == np.array([1.0,1.0])).all()
     assert (actual[1] == np.array([1.0,1.0])).all()
     assert (actual[2] == np.array([1.0,1.0])).all()
-
-
-def test_change_dim_floatfloat():
-    x = 0
-    dim = ()
-    actual = change_dim(x, dim)
-    assert actual == 0
-
-
-def test_change_dim_array12array21():
-    x = np.array([[0,0]])
-    dim = (2,1)
-    actual = change_dim(x, dim)
-    assert np.shape(actual) == (2,1)
-
-
-def test_change_dim_floatarray1():
-    x = 0
-    dim = (1,)
-    actual = change_dim(x, dim)
-    assert np.shape(actual) == (1,)
-
-
-def test_change_dim_array1float():
-    x = np.array([1.0])
-    dim = ()
-    actual = change_dim(x, dim)
-    assert np.shape(actual) == ()
-
-
-def test_change_dim_array1array1():
-    x = np.array([1.0])
-    dim = (1,)
-    actual = change_dim(x, dim)
-    assert np.shape(actual) == (1,)
-
-
-def test_change_dim_floatarray11():
-    x = 0
-    dim = (1,1)
-    actual = change_dim(x, dim)
-    assert np.shape(actual) == (1,1)
-
-
-def test_change_dim_array2array12():
-    x = np.array([0,0])
-    dim = (1,2)
-    actual = change_dim(x, dim)
-    assert np.shape(actual) == (1,2)
-
-
-def test_change_dim_array2array21():
-    x = np.array([0,0])
-    dim = (2,1)
-    actual = change_dim(x, dim)
-    assert np.shape(actual) == (2,1)
-    

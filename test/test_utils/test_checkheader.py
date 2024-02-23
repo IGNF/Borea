@@ -2,7 +2,7 @@
 Script test for module check_header
 """
 import pytest
-from src.utils.check_header import check_header_file, get_type_z_and_header
+from src.utils.check.check_header import check_header_file, get_type_z_and_header
 
 
 def test_check_header_file_goodZ():

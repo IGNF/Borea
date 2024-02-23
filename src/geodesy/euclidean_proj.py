@@ -4,7 +4,8 @@ A module for manipulating an euclidean projection.
 import math as m
 import numpy as np
 from src.geodesy.proj_engine import ProjEngine
-from src.utils.conversion import check_array_transfo, change_dim
+from src.utils.check.check_array import check_array_transfo
+from src.utils.change_dim import change_dim
 
 
 class EuclideanProj:
@@ -127,9 +128,9 @@ class EuclideanProj:
                         coor_geoc[1] - central_geoc[1],
                         coor_geoc[2] - central_geoc[2]])
         point_eucli = (self.rot_to_euclidean_local @ dr) + np.array([self.pt_central]).T
-        x_r = change_dim(point_eucli[0], dim)
-        y_r = change_dim(point_eucli[1], dim)
-        z_r = change_dim(point_eucli[2], dim)
+        x_r = change_dim(np.array([point_eucli[0]]), dim)
+        y_r = change_dim(np.array([point_eucli[1]]), dim)
+        z_r = change_dim(np.array([point_eucli[2]]), dim)
         return np.array([x_r, y_r, z_r])
 
     def euclidean_to_world(self, coor: np.ndarray) -> np.ndarray:
@@ -157,7 +158,7 @@ class EuclideanProj:
         point_geoc = (self.rot_to_euclidean_local.T @ dr) + np.array([central_geoc]).T
         x_gc, y_gc, z_gc = check_array_transfo(point_geoc[0], point_geoc[1], point_geoc[2])
         tup = ProjEngine().geoc_to_carto(x_gc, y_gc, z_gc)
-        x_r = change_dim(tup[0], dim)
-        y_r = change_dim(tup[1], dim)
-        z_r = change_dim(tup[2], dim)
+        x_r = change_dim(np.array([tup[0]]), dim)
+        y_r = change_dim(np.array([tup[1]]), dim)
+        z_r = change_dim(np.array([tup[2]]), dim)
         return np.array([x_r, y_r, z_r])

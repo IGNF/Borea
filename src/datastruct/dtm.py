@@ -5,7 +5,7 @@ from pathlib import Path, PureWindowsPath
 import numpy as np
 from osgeo import gdal
 from scipy import ndimage
-from src.utils.conversion import change_dim
+from src.utils.change_dim import change_dim
 from src.transform_world_image.transform_dtm.world_image_dtm import WorldImageDtm
 from src.utils.singleton.singleton import Singleton
 gdal.UseExceptions()

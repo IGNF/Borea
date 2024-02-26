@@ -4,6 +4,8 @@ Worksite data class module.
 import numpy as np
 from src.datastruct.workdata import Workdata
 from src.datastruct.shot import Shot
+from src.geodesy.euclidean_proj import EuclideanProj
+from src.transform_world_image.transform_shot.conversion_coor_shot import conv_z_shot_to_z_data
 from src.transform_world_image.transform_worksite.space_resection import SpaceResection
 from src.transform_world_image.transform_shot.world_image_shot import WorldImageShot
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
@@ -86,10 +88,8 @@ class Worksite(Workdata):
 
         if check:
             for name_p, item_p in points.items():  # Loop on points
-                if check_gcp:
-                    if control_type != []:
-                        if self.gcps[name_p].code not in control_type:
-                            continue
+                if check_gcp and control_type != [] and self.gcps[name_p].code not in control_type:
+                    continue
                 if len(item_p) == 1:
                     continue
                 shot1 = ""
@@ -98,7 +98,7 @@ class Worksite(Workdata):
                 list_shot1 = item_p.copy()
                 list_shot2 = list_shot1.copy()
                 _ = list_shot1.pop(-1)
-                for name_shot1 in list_shot1:  # Double loop on shots of co_point
+                for name_shot1 in list_shot1:  # Double loop on shots where see the point
                     _ = list_shot2.pop(0)
                     for name_shot2 in list_shot2:
                         pos_shot1 = self.shots[name_shot1].pos_shot
@@ -138,9 +138,17 @@ class Worksite(Workdata):
 
         cam1 = self.cameras[shot1.name_cam]
         cam2 = self.cameras[shot2.name_cam]
-        base = shot1.pos_shot - shot2.pos_shot
-        vect1 = shot1.mat_rot.T @ ImageWorldShot(shot1, cam1).image_to_bundle(p_img1)
-        vect2 = shot2.mat_rot.T @ ImageWorldShot(shot2, cam2).image_to_bundle(p_img2)
+        bary = (shot1.pos_shot + shot2.pos_shot)/2
+        projeucli = EuclideanProj(bary[0], bary[1])
+        mat_eucli1 = projeucli.mat_to_mat_eucli(shot1.pos_shot[0], shot1.pos_shot[1], shot1.mat_rot)
+        mat_eucli2 = projeucli.mat_to_mat_eucli(shot2.pos_shot[0], shot2.pos_shot[1], shot2.mat_rot)
+        pos_eucli1 = conv_z_shot_to_z_data(shot1, self.type_z_shot, self.type_z_data)
+        pos_eucli2 = conv_z_shot_to_z_data(shot2, self.type_z_shot, self.type_z_data)
+        pos_eucli1 = projeucli.world_to_euclidean(pos_eucli1)
+        pos_eucli2 = projeucli.world_to_euclidean(pos_eucli2)
+        base = pos_eucli2 - pos_eucli1
+        vect1 = mat_eucli1.T @ ImageWorldShot(shot1, cam1).image_to_bundle(p_img1)
+        vect2 = mat_eucli2.T @ ImageWorldShot(shot2, cam2).image_to_bundle(p_img2)
         norme_v1 = vect1 @ vect1
         norme_v2 = vect2 @ vect2
         v1_v2 = vect1 @ vect2
@@ -149,9 +157,10 @@ class Worksite(Workdata):
         num1 = b_v2*v1_v2 - b_v1*norme_v2
         num2 = b_v2*norme_v1 - b_v1*v1_v2
         denum = v1_v2**2 - norme_v1*norme_v2
-        p1_world = shot1.pos_shot + ((num1)/(denum))*vect1
-        p2_world = shot2.pos_shot + ((num2)/(denum))*vect2
-        return (p1_world + p2_world) / 2
+        p1_world = pos_eucli1 + ((num1)/(denum))*vect1
+        p2_world = pos_eucli2 + ((num2)/(denum))*vect2
+        pt_world = (p1_world + p2_world) / 2
+        return projeucli.euclidean_to_world(pt_world)
 
     def shootings_position(self, add_pixel: tuple = (0, 0)) -> None:
         """

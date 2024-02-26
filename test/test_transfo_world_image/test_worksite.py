@@ -13,9 +13,7 @@ def test_calculate_world_to_image_gcp_base():
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_ground_img_pt('gcp_test', 'shot_test', 24042.25, 14781.17)
-    work.check_gip = True
     work.add_gcp('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
-    work.check_gcp = True
     work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
@@ -32,10 +30,8 @@ def test_calculate_world_to_image_gcp_addpointunknow():
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_ground_img_pt('gcp_test', 'shot_test', 24042.25, 14781.17)
-    work.check_gip = True
     work.add_gcp('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.add_gcp('gcp_test_test', 3, np.array([0,0,0]))
-    work.check_gcp = True
     work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
@@ -54,10 +50,8 @@ def test_calculate_world_to_image_gcp_testcode():
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_ground_img_pt('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.add_ground_img_pt('gcp_test_test', 'shot_test', 24042.25, 14781.17)
-    work.check_gip = True
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
     work.add_gcp('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
-    work.check_gcp = True
     work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
@@ -75,10 +69,8 @@ def test_calculate_world_to_image_gcp_testcodeNone():
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_ground_img_pt('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.add_ground_img_pt('gcp_test_test', 'shot_test', 24042.25, 14781.17)
-    work.check_gip = True
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
     work.add_gcp('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
-    work.check_gcp = True
     work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
@@ -111,12 +103,15 @@ def test_calculate_init_image_world_onecop_multiimg():
     work.add_co_point('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_co_point('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
     work.add_co_point('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.check_cop = True
+    work.add_dtm(PATH_DTM, "height")
+    work.type_z_shot = "altitude"
+    work.type_z_data = "height"
+    work.set_z_nadir_shot()
     work.calculate_init_image_world()
     print(abs(work.co_pts_world['"1003"'][0] - 815601.510),abs(work.co_pts_world['"1003"'][1] - 6283629.280),abs(work.co_pts_world['"1003"'][2] - 54.960))
-    assert abs(work.co_pts_world['"1003"'][0] - 815601.510) < 10000
-    assert abs(work.co_pts_world['"1003"'][1] - 6283629.280) < 10000
-    assert abs(work.co_pts_world['"1003"'][2] - 54.960) < 10000
+    assert abs(work.co_pts_world['"1003"'][0] - 815601.510) < 1
+    assert abs(work.co_pts_world['"1003"'][1] - 6283629.280) < 1
+    assert abs(work.co_pts_world['"1003"'][2] - 54.960) < 1
 
 
 def test_calculate_init_image_world_onecopwithoneimg():
@@ -129,7 +124,10 @@ def test_calculate_init_image_world_onecopwithoneimg():
     work.add_co_point('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_co_point('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
     work.add_co_point('"1004"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.check_cop = True
+    work.add_dtm(PATH_DTM, "height")
+    work.type_z_shot = "altitude"
+    work.type_z_data = "height"
+    work.set_z_nadir_shot()
     work.calculate_init_image_world()
     assert len(list(work.co_pts_world)) == 1
     assert '"1003"' in work.co_pts_world.keys()
@@ -143,7 +141,6 @@ def test_calculate_init_image_world_withzeropoint():
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-    work.check_cop = False
     work.calculate_init_image_world()
     print("The print is normal")
     assert work.co_pts_world == {}
@@ -165,16 +162,19 @@ def test_calculate_init_image_world_allgipoint():
     work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
-    work.check_gip = True
+    work.add_dtm(PATH_DTM, "height")
+    work.type_z_shot = "altitude"
+    work.type_z_data = "height"
+    work.set_z_nadir_shot()
     work.calculate_init_image_world("ground_img_pt")
     print(abs(work.img_pts_world['"1003"'][0] - 815601.510),abs(work.img_pts_world['"1003"'][1] - 6283629.280),abs(work.img_pts_world['"1003"'][2] - 54.960))
     print(abs(work.img_pts_world['"1005"'][0] - 833670.940),abs(work.img_pts_world['"1005"'][1] - 6281965.400),abs(work.img_pts_world['"1005"'][2] - 52.630))
     assert len(list(work.img_pts_world)) == 2
     assert '"1003"' in work.img_pts_world.keys()
     assert '"1005"' in work.img_pts_world.keys()
-    assert abs(work.img_pts_world['"1003"'][0] - 815601.510) < 10000
-    assert abs(work.img_pts_world['"1003"'][1] - 6283629.280) < 10000
-    assert abs(work.img_pts_world['"1003"'][2] - 54.960) < 10000
+    assert abs(work.img_pts_world['"1003"'][0] - 815601.510) < 1
+    assert abs(work.img_pts_world['"1003"'][1] - 6283629.280) < 1
+    assert abs(work.img_pts_world['"1003"'][2] - 54.960) < 1
 
 
 def test_calculate_init_image_world_gipoint13type():
@@ -193,7 +193,10 @@ def test_calculate_init_image_world_gipoint13type():
     work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
-    work.check_gip = True
+    work.add_dtm(PATH_DTM, "height")
+    work.type_z_shot = "altitude"
+    work.type_z_data = "height"
+    work.set_z_nadir_shot()
     work.calculate_init_image_world("ground_img_pt", [13])
     assert len(list(work.img_pts_world)) == 1
     assert '"1003"' in work.img_pts_world.keys()
@@ -208,11 +211,15 @@ def test_eucli_intersection_2p():
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_co_point('"1003"',"shot1",24042.25,14781.17)
     work.add_co_point('"1003"',"shot2",24120.2,10329.3)
+    work.add_dtm(PATH_DTM, "height")
+    work.type_z_shot = "altitude"
+    work.type_z_data = "height"
+    work.set_z_nadir_shot()
     actual = work.eucli_intersection_2p('"1003"', work.shots["shot1"], work.shots["shot2"])
     print(abs(actual[0] - 815601.510),abs(actual[1] - 6283629.280),abs(actual[2] - 54.960))
-    assert abs(actual[0] - 815601.510) < 10000
-    assert abs(actual[1] - 6283629.280) < 10000
-    assert abs(actual[2] - 54.960) < 10000
+    assert abs(actual[0] - 815601.510) < 1
+    assert abs(actual[1] - 6283629.280) < 1
+    assert abs(actual[2] - 54.960) < 1
 
 
 def test_shootings_position():

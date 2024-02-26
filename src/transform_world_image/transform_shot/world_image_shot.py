@@ -46,6 +46,26 @@ class WorldImageShot():
         else:
             dim = ()
 
+        p_bundle = self.world_to_bundle(coor_world, type_z_data, type_z_shot)
+
+        # Convert coordinate in bundle system to image system
+        x_col, y_line = self.bundle_to_image(p_bundle)
+
+        return np.array([change_dim(x_col, dim), change_dim(y_line, dim)])
+
+    def world_to_bundle(self, coor_world: np.ndarray,
+                        type_z_data: str, type_z_shot: str) -> np.ndarray:
+        """
+        Convert ground coordinate to bundle coordinate.
+
+        Args:
+            coor_world (np.array): The coordinate [x, y, z] of ground point.
+            type_z_data (str): Type of z of data, "height" or "altitude".
+            type_z_shot (str): Type of z of worksite, "height" or "altitude".
+
+        Returns:
+            np.array: Bundle coordinate [c,l].
+        """
         pos_shot_new_z = conv_z_shot_to_z_data(self.shot, type_z_shot, type_z_data)
 
         # Convert coordinate in world system to euclidean system
@@ -56,11 +76,7 @@ class WorldImageShot():
         p_bundle = self.shot.mat_rot_eucli @ np.vstack([p_eucli[0] - pos_eucli[0],
                                                         p_eucli[1] - pos_eucli[1],
                                                         p_eucli[2] - pos_eucli[2]])
-
-        # Convert coordinate in bundle system to image system
-        x_col, y_line = self.bundle_to_image(p_bundle)
-
-        return np.array([change_dim(x_col, dim), change_dim(y_line, dim)])
+        return p_bundle
 
     def bundle_to_image(self, p_bundle: np.ndarray) -> tuple:
         """

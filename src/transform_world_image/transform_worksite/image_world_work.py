@@ -64,7 +64,7 @@ class ImageWorldWork(Workdata):
                             dist = new_dist
                             shot1 = name_shot1
                             shot2 = name_shot2
-                coor = self.eucli_intersection_2p(name_p, self.shots[shot1], self.shots[shot2])
+                coor = self.intersection_pt_in_2shot(name_p, self.shots[shot1], self.shots[shot2])
                 if type_point == "co_point":
                     self.co_pts_world[name_p] = coor
                 if type_point == "ground_img_pt":
@@ -72,8 +72,7 @@ class ImageWorldWork(Workdata):
         else:
             print(f"There isn't {type_point} or bad spelling co_point / ground_img_pt.")
 
-    # pylint: disable-next=too-many-locals
-    def eucli_intersection_2p(self, name_point: str, shot1: Shot, shot2: Shot) -> np.ndarray:
+    def intersection_pt_in_2shot(self, name_point: str, shot1: Shot, shot2: Shot) -> np.ndarray:
         """
         Calculates the euclidien position of a point from two shots.
 
@@ -85,6 +84,7 @@ class ImageWorldWork(Workdata):
         Returns:
             np.array: Euclidien coordinate of the copoint.
         """
+        # Retrieve coordinates of points in the image.
         if name_point in list(shot1.co_points):
             p_img1 = shot1.co_points[name_point]
             p_img2 = shot2.co_points[name_point]
@@ -92,31 +92,55 @@ class ImageWorldWork(Workdata):
             p_img1 = shot1.ground_img_pts[name_point]
             p_img2 = shot2.ground_img_pts[name_point]
 
-        cam1 = self.cameras[shot1.name_cam]
-        cam2 = self.cameras[shot2.name_cam]
+        # Setting up a Euclidean projection centered on the two images.
         bary = (shot1.pos_shot + shot2.pos_shot)/2
         projeucli = EuclideanProj(bary[0], bary[1])
+
+        # Calculates data specific to Euclidean projection.
         mat_eucli1 = projeucli.mat_to_mat_eucli(shot1.pos_shot[0], shot1.pos_shot[1], shot1.mat_rot)
         mat_eucli2 = projeucli.mat_to_mat_eucli(shot2.pos_shot[0], shot2.pos_shot[1], shot2.mat_rot)
         pos_eucli1 = conv_z_shot_to_z_data(shot1, self.type_z_shot, self.type_z_data)
         pos_eucli2 = conv_z_shot_to_z_data(shot2, self.type_z_shot, self.type_z_data)
         pos_eucli1 = projeucli.world_to_euclidean(pos_eucli1)
         pos_eucli2 = projeucli.world_to_euclidean(pos_eucli2)
-        base = pos_eucli2 - pos_eucli1
-        vect1 = mat_eucli1.T @ ImageWorldShot(shot1, cam1).image_to_bundle(p_img1)
-        vect2 = mat_eucli2.T @ ImageWorldShot(shot2, cam2).image_to_bundle(p_img2)
+
+        # Calculates the director vectors of the point bundles in the Euclidean reference system.
+        vect1 = mat_eucli1.T @ ImageWorldShot(shot1,
+                                              self.cameras[shot1.name_cam]).image_to_bundle(p_img1)
+        vect2 = mat_eucli2.T @ ImageWorldShot(shot2,
+                                              self.cameras[shot2.name_cam]).image_to_bundle(p_img2)
+
+        # Calculating the intersection of two lines
+        pt_inter = self.intersection_line_3d(vect1, pos_eucli1, vect2, pos_eucli2)
+
+        # Converting the point to the world system.
+        pt_inter = projeucli.euclidean_to_world(pt_inter)
+        return pt_inter
+
+    def intersection_line_3d(self, vect1: np.ndarray, point1: np.ndarray,
+                             vect2: np.ndarray, point2: np.ndarray) -> np.ndarray:
+        """
+        Calculation of the intersection point between 2 line in a 3d system.
+
+        Args:
+            vect1 (np.array): Directing vector of the first line.
+            point1 (np.array): A point on the first line.
+            vect2 (np.array): Directing vector of the second line.
+            point2 (np.array): A point on the second line.
+
+        Returns:
+            np.array: The point of the intersection of the lines.
+        """
+        base = point2 - point1
         norme_v1 = vect1 @ vect1
         norme_v2 = vect2 @ vect2
         v1_v2 = vect1 @ vect2
         b_v1 = base @ vect1
         b_v2 = base @ vect2
-        num1 = b_v2*v1_v2 - b_v1*norme_v2
-        num2 = b_v2*norme_v1 - b_v1*v1_v2
         denum = v1_v2**2 - norme_v1*norme_v2
-        p1_world = pos_eucli1 + ((num1)/(denum))*vect1
-        p2_world = pos_eucli2 + ((num2)/(denum))*vect2
-        pt_world = (p1_world + p2_world) / 2
-        return projeucli.euclidean_to_world(pt_world)
+        p1_eucli = point1 + ((b_v2*v1_v2 - b_v1*norme_v2)/(denum))*vect1
+        p2_eucli = point2 + ((b_v2*norme_v1 - b_v1*v1_v2)/(denum))*vect2
+        return (p1_eucli + p2_eucli) / 2
 
     # pylint: disable-next=unused-argument
     def copoints_position(self) -> None:

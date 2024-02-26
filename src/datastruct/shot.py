@@ -166,9 +166,17 @@ class Shot:
         Returns:
             float: z without linear alteration
         """
-        scale_factor = ProjEngine().get_scale_factor(self.pos_shot[0],
-                                                     self.pos_shot[1])
-        return (self.pos_shot[2] + scale_factor * self.z_nadir) / (1 + scale_factor)
+        if self.z_nadir:
+            scale_factor = ProjEngine().get_scale_factor(self.pos_shot[0],
+                                                         self.pos_shot[1])
+            new_z = (self.pos_shot[2] + scale_factor * self.z_nadir) / (1 + scale_factor)
+        else:
+            print("No removing linear alteration of the z shot,")
+            print("because no dtm or no set z_nadir of shot")
+            print("For setting z_nadir of shots make dtm or add work.set_z_nadir_shot()")
+            new_z = self.pos_shot[2]
+
+        return new_z
 
     def get_z_add_scale_factor(self) -> float:
         """
@@ -177,6 +185,14 @@ class Shot:
         Returns:
             float: z with linear alteration.
         """
-        scale_factor = ProjEngine().get_scale_factor(self.pos_shot[0],
-                                                     self.pos_shot[1])
-        return self.pos_shot[2] + scale_factor * (self.pos_shot[2] - self.z_nadir)
+        if self.z_nadir:
+            scale_factor = ProjEngine().get_scale_factor(self.pos_shot[0],
+                                                         self.pos_shot[1])
+            new_z = self.pos_shot[2] + scale_factor * (self.pos_shot[2] - self.z_nadir)
+        else:
+            print("No adding linear alteration of the z shot,")
+            print("because no dtm or no set z_nadir of shot.")
+            print("For setting z_nadir of shots make dtm or add work.set_z_nadir_shot()")
+            new_z = self.pos_shot[2]
+
+        return new_z

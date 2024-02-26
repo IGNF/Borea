@@ -238,12 +238,15 @@ class Workdata:
         """
         Calculates z_nadir for each shot.
         """
-        for shot in self.shots.values():
-            cam = self.cameras[shot.name_cam]
-            z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]),
-                                                               self.type_z_shot,
-                                                               self.type_z_shot, False)[2]
-            shot.set_z_nadir(z_nadir)
+        if Dtm().path_dtm:
+            for shot in self.shots.values():
+                cam = self.cameras[shot.name_cam]
+                z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]),
+                                                                   self.type_z_shot,
+                                                                   self.type_z_shot, False)[2]
+                shot.set_z_nadir(z_nadir)
+        else:
+            print("No correction or de-correction of the linear alteration, because no dtm.")
 
     def set_unit_shot(self, type_z: str = None, unit_angle: str = None,
                       linear_alteration: bool = None) -> None:

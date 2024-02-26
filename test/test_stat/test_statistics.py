@@ -31,7 +31,7 @@ def test_stat_world_to_image():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_z_nadir_shot()
-    work.calculate_world_to_image_gcp([13])
+    work.calculate_world_to_image([13])
     stat = Stat(work, "./", [13])
     stat.stat_world_to_image()
     assert stat.res_world_image[0][0][0] == 'gcp_test'
@@ -222,7 +222,7 @@ def test_stat_list_image2():
     work.type_z_shot = "altitude"
     work.set_z_nadir_shot()
     work.add_dtm(PATH_DTM,"height")
-    work.calculate_world_to_image_gcp([])
+    work.calculate_world_to_image([])
     stat = Stat(work, "./", [])
     stat.stat_world_to_image()
     dict_stat = stat.stat_list(stat.res_world_image)
@@ -268,7 +268,7 @@ def test_main():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_z_nadir_shot()
-    work.calculate_world_to_image_gcp([])
+    work.calculate_world_to_image([])
     work.calculate_init_image_world("ground_img_pt")
     stat = Stat(work, OUTPUT, [])
     stat.main_stat_and_save()

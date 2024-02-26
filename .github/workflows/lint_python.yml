@@ -38,7 +38,7 @@ jobs:
         pylint src/writer/writer_opk.py src/writer/manage_writer.py
         pylint src/utils/change_dim.py src/utils/check/check_header.py src/utils/check/check_array.py src/utils/singleton/singleton.py
         pylint src/worksite/worksite.py
-        pylint src/transform_world_image/transform_worksite/space_resection.py src/transform_world_image/transform_worksite/copoints_pos.py
+        pylint src/transform_world_image/transform_worksite/space_resection.py src/transform_world_image/transform_worksite/world_image_work.py src/transform_world_image/transform_worksite/image_world_work.py
         pylint src/transform_world_image/transform_shot/world_image_shot.py src/transform_world_image/transform_shot/image_world_shot.py src/transform_world_image/transform_shot/conversion_coor_shot.py
         pylint src/transform_world_image/transform_dtm/world_image_dtm.py
         pylint src/stat/statistics.py
@@ -54,7 +54,7 @@ jobs:
         flake8  --max-line-length 100 src/writer/writer_opk.py src/writer/manage_writer.py
         flake8  --max-line-length 100 src/utils/change_dim.py src/utils/check/check_header.py src/utils/check/check_array.py src/utils/singleton/singleton.py
         flake8  --max-line-length 100 src/worksite/worksite.py
-        flake8  --max-line-length 100 src/transform_world_image/transform_worksite/space_resection.py src/transform_world_image/transform_worksite/copoints_pos.py
+        flake8  --max-line-length 100 src/transform_world_image/transform_worksite/space_resection.py src/transform_world_image/transform_worksite/world_image_work.py src/transform_world_image/transform_worksite/image_world_work.py
         flake8  --max-line-length 100 src/transform_world_image/transform_shot/world_image_shot.py src/transform_world_image/transform_shot/image_world_shot.py src/transform_world_image/transform_shot/conversion_coor_shot.py
         flake8  --max-line-length 100 src/transform_world_image/transform_dtm/world_image_dtm.py
         flake8  --max-line-length 100 src/stat/statistics.py

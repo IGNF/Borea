@@ -87,7 +87,10 @@ class TransformGeodesy():
         """
         coor_geog = self.carto_to_geog(coor[0], coor[1], coor[2])
         try:
-            new_z = self.geog_to_geoid(coor_geog[0],
+            coor_geog = self.geog_to_geoid(coor_geog[0],
+                                           coor_geog[1],
+                                           coor_geog[2])
+            new_z = self.geog_to_carto(coor_geog[0],
                                        coor_geog[1],
                                        coor_geog[2])[2]
         except AttributeError:

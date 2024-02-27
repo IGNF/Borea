@@ -2,7 +2,7 @@
 Args of parser to control file
 """
 import argparse
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.reader.reader_ground_img_pts import read_ground_image_points
 from src.reader.reader_gcp import read_gcp
 from src.stat.statistics import Stat
@@ -30,6 +30,10 @@ def args_control(parser: argparse) -> argparse:
     parser.add_argument('--fg', '--format_gcp',
                         type=str, default=None,
                         help='Format of GCP and ground image point "altitude" or "height".')
+    parser.add_argument('-p', '--process',
+                        type=str, default="intersection",
+                        help="Type of process for the function image to world,"
+                             "intersection or direct")
     parser.add_argument('-w', '--pathreturn',
                         type=str, default='./',
                         help='Conversion path e.g. test/tmp/.')
@@ -71,9 +75,12 @@ def process_args_control(args, work: Worksite) -> None:
         print(f"Number of gcp: {len(work.gcps)}")
 
     # Calculate ground coordinate of conneting point by intersection
+    work.manage_image_world(type_point="ground_img_pt",
+                            type_process=args.process,
+                            control_type=args.control_type)
 
     # Calculate image coordinate of GCP if they exist
-    work.calculate_world_to_image_gcp(args.control_type)
+    work.calculate_world_to_image(args.control_type)
 
     # Statistics
     stat = Stat(work, args.pathreturn, args.control_type)

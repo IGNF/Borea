@@ -5,7 +5,7 @@ import os
 import io
 from pathlib import Path, PureWindowsPath
 import numpy as np
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 
 
 # pylint: disable-next=too-many-instance-attributes

@@ -4,7 +4,7 @@ Script test for module writer
 import os
 import numpy as np
 import shutil as shutil
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.writer.writer_opk import write
 from src.reader.orientation.manage_reader import reader_orientation
 

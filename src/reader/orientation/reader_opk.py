@@ -4,7 +4,7 @@ A script to read opk file.
 import platform
 from pathlib import Path
 import numpy as np
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.utils.check.check_header import check_header_file
 
 

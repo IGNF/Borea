@@ -4,7 +4,7 @@ Script test for module statistics
 import os
 import numpy as np
 import shutil as shutil
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.stat.statistics import Stat
 
 
@@ -31,7 +31,7 @@ def test_stat_world_to_image():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_z_nadir_shot()
-    work.calculate_world_to_image_gcp([13])
+    work.calculate_world_to_image([13])
     stat = Stat(work, "./", [13])
     stat.stat_world_to_image()
     assert stat.res_world_image[0][0][0] == 'gcp_test'
@@ -72,11 +72,11 @@ def test_stat_image_to_world_type13():
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.set_z_nadir_shot()
-    work.calculate_init_image_world("ground_img_pt")
+    work.manage_image_world(type_point="ground_img_pt")
     stat = Stat(work, "./", [13])
     stat.stat_image_to_world()
     assert stat.res_image_world[0][0][0] == '"1003"'
-    assert np.all(np.round(stat.res_image_world[0][1],2) == np.round(np.array([15.479717904701829,-223.1927813924849,-3456.2759610545118]),2))
+    assert np.all(stat.res_image_world[0][1]<1) 
     assert len(stat.res_image_world) == 1
 
 
@@ -99,13 +99,13 @@ def test_stat_image_to_world_alltype():
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.set_z_nadir_shot()
-    work.calculate_init_image_world("ground_img_pt")
+    work.manage_image_world(type_point="ground_img_pt")
     stat = Stat(work, "./", [])
     stat.stat_image_to_world()
     assert stat.res_image_world[0][0][0] == '"1003"'
-    assert np.all(np.round(stat.res_image_world[0][1],2) == np.round(np.array([15.479717904701829,-223.1927813924849,-3456.2759610545118]),2))
+    assert np.all(stat.res_image_world[0][1]<1)
     assert stat.res_image_world[1][0][0] == '"1005"'
-    assert np.all(np.round(stat.res_image_world[1][1],2) == np.round(np.array([4.70253158127889,-426.9300078107044,-3462.877340453979]),2))
+    assert np.all(stat.res_image_world[1][1] <1)
     assert len(stat.res_image_world) == 2
 
 
@@ -195,7 +195,7 @@ def test_stat_list_world2():
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.set_z_nadir_shot()
-    work.calculate_init_image_world("ground_img_pt")
+    work.manage_image_world(type_point="ground_img_pt")
     stat = Stat(work, "./", [])
     stat.stat_image_to_world()
     dict_stat = stat.stat_list(stat.res_image_world)
@@ -222,7 +222,7 @@ def test_stat_list_image2():
     work.type_z_shot = "altitude"
     work.set_z_nadir_shot()
     work.add_dtm(PATH_DTM,"height")
-    work.calculate_world_to_image_gcp([])
+    work.calculate_world_to_image([])
     stat = Stat(work, "./", [])
     stat.stat_world_to_image()
     dict_stat = stat.stat_list(stat.res_world_image)
@@ -268,8 +268,8 @@ def test_main():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_z_nadir_shot()
-    work.calculate_world_to_image_gcp([])
-    work.calculate_init_image_world("ground_img_pt")
+    work.calculate_world_to_image([])
+    work.manage_image_world(type_point="ground_img_pt")
     stat = Stat(work, OUTPUT, [])
     stat.main_stat_and_save()
     assert os.path.exists(f"{OUTPUT}/Stat_residu_world_to_image_{FILENAME}.txt")

@@ -2,7 +2,7 @@
 Photogrammetry site file writer module.
 """
 import importlib
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 
 
 def manager_writer(writer: str, name: str, pathreturn: str, args: dict, work: Worksite) -> None:

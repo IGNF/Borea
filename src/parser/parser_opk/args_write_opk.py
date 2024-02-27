@@ -2,7 +2,7 @@
 Args of parser for writing opk file
 """
 import argparse
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.writer.manage_writer import manager_writer
 
 

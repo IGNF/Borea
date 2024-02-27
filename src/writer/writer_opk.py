@@ -4,7 +4,7 @@ Photogrammetry site file reader module.
 import os
 from pathlib import Path, PureWindowsPath
 import numpy as np
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.utils.check.check_header import check_header_file
 
 

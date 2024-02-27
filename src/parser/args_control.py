@@ -6,6 +6,8 @@ from src.worksite.worksite import Worksite
 from src.reader.reader_ground_img_pts import read_ground_image_points
 from src.reader.reader_gcp import read_gcp
 from src.stat.statistics import Stat
+from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
+from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
 
 
 def args_control(parser: argparse) -> argparse:
@@ -75,12 +77,12 @@ def process_args_control(args, work: Worksite) -> None:
         print(f"Number of gcp: {len(work.gcps)}")
 
     # Calculate ground coordinate of conneting point by intersection
-    work.manage_image_world(type_point="ground_img_pt",
-                            type_process=args.process,
-                            control_type=args.control_type)
+    ImageWorldWork(work).manage_image_world(type_point="ground_img_pt",
+                                            type_process=args.process,
+                                            control_type=args.control_type)
 
     # Calculate image coordinate of GCP if they exist
-    work.calculate_world_to_image(args.control_type)
+    WorldImageWork(work).calculate_world_to_image(args.control_type)
 
     # Statistics
     stat = Stat(work, args.pathreturn, args.control_type)

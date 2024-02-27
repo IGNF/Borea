@@ -3,6 +3,7 @@ Script test for module WorldImageWork
 """
 import numpy as np
 from src.worksite.worksite import Worksite
+from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
 
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
@@ -19,7 +20,7 @@ def test_calculate_world_to_image_base():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_z_nadir_shot()
-    work.calculate_world_to_image([3])
+    WorldImageWork(work).calculate_world_to_image([3])
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
     assert len(work.shots['shot_test'].gcps) == 1
@@ -37,7 +38,7 @@ def test_calculate_world_to_image_addpointunknow():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_z_nadir_shot()
-    work.calculate_world_to_image([3])
+    WorldImageWork(work).calculate_world_to_image([3])
     print("The print is normal")
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
@@ -57,7 +58,7 @@ def test_calculate_world_to_image_testcode():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_z_nadir_shot()
-    work.calculate_world_to_image([13])
+    WorldImageWork(work).calculate_world_to_image([13])
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
     assert len(work.shots['shot_test'].gcps) == 1
@@ -76,7 +77,7 @@ def test_calculate_world_to_image_testcodeNone():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_z_nadir_shot()
-    work.calculate_world_to_image([])
+    WorldImageWork(work).calculate_world_to_image([])
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
     assert len(work.shots['shot_test'].gcps) == 2

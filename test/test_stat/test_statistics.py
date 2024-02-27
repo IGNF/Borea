@@ -72,7 +72,7 @@ def test_stat_image_to_world_type13():
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.set_z_nadir_shot()
-    work.calculate_image_world_by_intersection("ground_img_pt")
+    work.manage_image_world(type_point="ground_img_pt")
     stat = Stat(work, "./", [13])
     stat.stat_image_to_world()
     assert stat.res_image_world[0][0][0] == '"1003"'
@@ -99,7 +99,7 @@ def test_stat_image_to_world_alltype():
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.set_z_nadir_shot()
-    work.calculate_image_world_by_intersection("ground_img_pt")
+    work.manage_image_world(type_point="ground_img_pt")
     stat = Stat(work, "./", [])
     stat.stat_image_to_world()
     assert stat.res_image_world[0][0][0] == '"1003"'
@@ -195,7 +195,7 @@ def test_stat_list_world2():
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.set_z_nadir_shot()
-    work.calculate_image_world_by_intersection("ground_img_pt")
+    work.manage_image_world(type_point="ground_img_pt")
     stat = Stat(work, "./", [])
     stat.stat_image_to_world()
     dict_stat = stat.stat_list(stat.res_image_world)
@@ -269,7 +269,7 @@ def test_main():
     work.type_z_data = "height"
     work.set_z_nadir_shot()
     work.calculate_world_to_image([])
-    work.calculate_image_world_by_intersection("ground_img_pt")
+    work.manage_image_world(type_point="ground_img_pt")
     stat = Stat(work, OUTPUT, [])
     stat.main_stat_and_save()
     assert os.path.exists(f"{OUTPUT}/Stat_residu_world_to_image_{FILENAME}.txt")

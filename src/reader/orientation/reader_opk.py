@@ -5,7 +5,7 @@ import platform
 from pathlib import Path
 import numpy as np
 from src.worksite.worksite import Worksite
-from src.utils.check.check_header import check_header_file
+from src.utils.check.check_args_opk import check_args_opk
 
 
 def read(file: Path, args: dict, work: Worksite) -> Worksite:
@@ -27,19 +27,11 @@ def read(file: Path, args: dict, work: Worksite) -> Worksite:
     Returns:
         Worksite: The worksite.
     """
-    if args["unit_angle"] not in ["degree", "radian"]:
-        raise ValueError(f"Unit angles is incorrect {args['unit_angle']},"
-                         "correct writing is degree or radian.")
+    args, header, type_z = check_args_opk(args)
 
-    lf, ll = args["interval"]
-    if lf is not None:
-        lf -= 1
-    if ll is not None:
-        ll -= 1
-    header, type_z = check_header_file(args["header"].split())
     try:
         with open(file, 'r', encoding="utf-8") as file_opk:
-            for item_opk in file_opk.readlines()[lf:ll]:
+            for item_opk in file_opk.readlines()[args["interval"][0]:args["interval"][1]]:
                 item_shot = item_opk.split()
                 if len(item_shot) != len(header):
                     raise ValueError(f"The number of columns in your file {len(item_shot)}"

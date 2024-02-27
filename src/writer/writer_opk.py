@@ -5,7 +5,7 @@ import os
 from pathlib import Path, PureWindowsPath
 import numpy as np
 from src.worksite.worksite import Worksite
-from src.utils.check.check_header import check_header_file
+from src.utils.check.check_args_opk import check_header_file
 
 
 def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:

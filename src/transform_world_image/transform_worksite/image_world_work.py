@@ -1,21 +1,24 @@
 """
 Image world transformation module for worksite
 """
+from dataclasses import dataclass
 import numpy as np
-from src.datastruct.workdata import Workdata
+from src.worksite.worksite import Worksite
 from src.datastruct.shot import Shot
 from src.geodesy.euclidean_proj import EuclideanProj
 from src.transform_world_image.transform_shot.conversion_coor_shot import conv_z_shot_to_z_data
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 
 
-class ImageWorldWork(Workdata):
+@dataclass
+class ImageWorldWork:
     """
     Class to calculate image coordinate to world coordinate in worksite.
 
     Args:
         name (str): Name of the worksite.
     """
+    work: Worksite
 
     def manage_image_world(self, type_point: str = "co_point", type_process: str = "intersection",
                            control_type: list = None) -> None:
@@ -37,11 +40,11 @@ class ImageWorldWork(Workdata):
 
         check = False
         if type_point == "co_point":
-            points = self.co_points
+            points = self.work.co_points
             check = bool(points)
 
         if type_point == "ground_img_pt":
-            points = self.ground_img_pts
+            points = self.work.ground_img_pts
             check = bool(points)
 
         if check:
@@ -50,9 +53,9 @@ class ImageWorldWork(Workdata):
 
             if type_process == "direct":
                 if type_point == "co_point":
-                    world_pt = self.co_pts_world
+                    world_pt = self.work.co_pts_world
                 else:
-                    world_pt = self.img_pts_world
+                    world_pt = self.work.img_pts_world
                 self.compute_mean_image_world(points, world_pt, type_point, control_type)
 
         else:
@@ -70,24 +73,24 @@ class ImageWorldWork(Workdata):
                                  To take all points or co_point, control_type = [].
         """
         for name_pt, list_shot in points.items():
-            if control_type != [] and self.gcps[name_pt].code not in control_type:
+            if control_type != [] and self.work.gcps[name_pt].code not in control_type:
                 continue
             coor = []
             for name_shot in list_shot:
-                shot = self.shots[name_shot]
-                cam = self.cameras[shot.name_cam]
+                shot = self.work.shots[name_shot]
+                cam = self.work.cameras[shot.name_cam]
                 if type_point == "co_point":
                     coor_pt_img = shot.co_points[name_pt]
                 else:
                     coor_pt_img = shot.ground_img_pts[name_pt]
 
                 coor.append(ImageWorldShot(shot, cam).image_to_world(coor_pt_img,
-                                                                     self.type_z_data,
-                                                                     self.type_z_shot))
+                                                                     self.work.type_z_data,
+                                                                     self.work.type_z_shot))
             world_pt[name_pt] = np.mean(coor, axis=0)
 
-    def calculate_image_world_by_intersection(self, points: dict, control_type:
-                                              list, type_point: str) -> None:
+    def calculate_image_world_by_intersection(self, points: dict, control_type: list,
+                                              type_point: str) -> None:
         """
         Calculates the ground position of connecting point by intersection with
         the most distance between two shots or ground image point.
@@ -98,7 +101,7 @@ class ImageWorldWork(Workdata):
             type_point (str): "co_point" or "ground_img_pt" depending on what you want to calculate.
         """
         for name_pt, list_shot in points.items():  # Loop on points
-            if control_type != [] and self.gcps[name_pt].code not in control_type:
+            if control_type != [] and self.work.gcps[name_pt].code not in control_type:
                 continue
             if len(list_shot) == 1:
                 continue
@@ -106,9 +109,9 @@ class ImageWorldWork(Workdata):
             coor = self.comput_inter_in_2_more_distant_shot(name_pt, list_shot)
 
             if type_point == "co_point":
-                self.co_pts_world[name_pt] = coor
+                self.work.co_pts_world[name_pt] = coor
             if type_point == "ground_img_pt":
-                self.img_pts_world[name_pt] = coor
+                self.work.img_pts_world[name_pt] = coor
 
     def comput_inter_in_2_more_distant_shot(self, name_pt: str, list_shot: list) -> np.ndarray:
         """
@@ -131,14 +134,16 @@ class ImageWorldWork(Workdata):
         for name_shot1 in list_shot1:  # Double loop on shots where see the point
             _ = list_shot2.pop(0)
             for name_shot2 in list_shot2:
-                pos_shot1 = self.shots[name_shot1].pos_shot
-                pos_shot2 = self.shots[name_shot2].pos_shot
+                pos_shot1 = self.work.shots[name_shot1].pos_shot
+                pos_shot2 = self.work.shots[name_shot2].pos_shot
                 new_dist = np.sqrt(np.sum((pos_shot1 - pos_shot2)**2))
                 if new_dist > dist:
                     dist = new_dist
                     shot1 = name_shot1
                     shot2 = name_shot2
-        return self.intersection_pt_in_2shot(name_pt, self.shots[shot1], self.shots[shot2])
+        return self.intersection_pt_in_2shot(name_pt,
+                                             self.work.shots[shot1],
+                                             self.work.shots[shot2])
 
     def intersection_pt_in_2shot(self, name_point: str, shot1: Shot, shot2: Shot) -> np.ndarray:
         """
@@ -167,16 +172,16 @@ class ImageWorldWork(Workdata):
         # Calculates data specific to Euclidean projection.
         mat_eucli1 = projeucli.mat_to_mat_eucli(shot1.pos_shot[0], shot1.pos_shot[1], shot1.mat_rot)
         mat_eucli2 = projeucli.mat_to_mat_eucli(shot2.pos_shot[0], shot2.pos_shot[1], shot2.mat_rot)
-        pos_eucli1 = conv_z_shot_to_z_data(shot1, self.type_z_shot, self.type_z_data)
-        pos_eucli2 = conv_z_shot_to_z_data(shot2, self.type_z_shot, self.type_z_data)
+        pos_eucli1 = conv_z_shot_to_z_data(shot1, self.work.type_z_shot, self.work.type_z_data)
+        pos_eucli2 = conv_z_shot_to_z_data(shot2, self.work.type_z_shot, self.work.type_z_data)
         pos_eucli1 = projeucli.world_to_euclidean(pos_eucli1)
         pos_eucli2 = projeucli.world_to_euclidean(pos_eucli2)
 
         # Calculates the director vectors of the point bundles in the Euclidean reference system.
-        vect1 = mat_eucli1.T @ ImageWorldShot(shot1,
-                                              self.cameras[shot1.name_cam]).image_to_bundle(p_img1)
-        vect2 = mat_eucli2.T @ ImageWorldShot(shot2,
-                                              self.cameras[shot2.name_cam]).image_to_bundle(p_img2)
+        vect1 = mat_eucli1.T @ ImageWorldShot(shot1, self.work.cameras[shot1.name_cam]
+                                              ).image_to_bundle(p_img1)
+        vect2 = mat_eucli2.T @ ImageWorldShot(shot2, self.work.cameras[shot2.name_cam]
+                                              ).image_to_bundle(p_img2)
 
         # Calculating the intersection of two lines
         pt_inter = self.intersection_line_3d(vect1, pos_eucli1, vect2, pos_eucli2)

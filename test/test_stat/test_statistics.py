@@ -6,6 +6,8 @@ import numpy as np
 import shutil as shutil
 from src.worksite.worksite import Worksite
 from src.stat.statistics import Stat
+from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
+from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
 
 
 OUTPUT = "./test/tmp"
@@ -31,7 +33,7 @@ def test_stat_world_to_image():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_z_nadir_shot()
-    work.calculate_world_to_image([13])
+    WorldImageWork(work).calculate_world_to_image([13])
     stat = Stat(work, "./", [13])
     stat.stat_world_to_image()
     assert stat.res_world_image[0][0][0] == 'gcp_test'
@@ -72,7 +74,7 @@ def test_stat_image_to_world_type13():
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.set_z_nadir_shot()
-    work.manage_image_world(type_point="ground_img_pt")
+    ImageWorldWork(work).manage_image_world(type_point="ground_img_pt")
     stat = Stat(work, "./", [13])
     stat.stat_image_to_world()
     assert stat.res_image_world[0][0][0] == '"1003"'
@@ -99,7 +101,7 @@ def test_stat_image_to_world_alltype():
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.set_z_nadir_shot()
-    work.manage_image_world(type_point="ground_img_pt")
+    ImageWorldWork(work).manage_image_world(type_point="ground_img_pt")
     stat = Stat(work, "./", [])
     stat.stat_image_to_world()
     assert stat.res_image_world[0][0][0] == '"1003"'
@@ -195,7 +197,7 @@ def test_stat_list_world2():
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.set_z_nadir_shot()
-    work.manage_image_world(type_point="ground_img_pt")
+    ImageWorldWork(work).manage_image_world(type_point="ground_img_pt")
     stat = Stat(work, "./", [])
     stat.stat_image_to_world()
     dict_stat = stat.stat_list(stat.res_image_world)
@@ -222,7 +224,7 @@ def test_stat_list_image2():
     work.type_z_shot = "altitude"
     work.set_z_nadir_shot()
     work.add_dtm(PATH_DTM,"height")
-    work.calculate_world_to_image([])
+    WorldImageWork(work).calculate_world_to_image([])
     stat = Stat(work, "./", [])
     stat.stat_world_to_image()
     dict_stat = stat.stat_list(stat.res_world_image)
@@ -268,8 +270,8 @@ def test_main():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_z_nadir_shot()
-    work.calculate_world_to_image([])
-    work.manage_image_world(type_point="ground_img_pt")
+    WorldImageWork(work).calculate_world_to_image([])
+    ImageWorldWork(work).manage_image_world(type_point="ground_img_pt")
     stat = Stat(work, OUTPUT, [])
     stat.main_stat_and_save()
     assert os.path.exists(f"{OUTPUT}/Stat_residu_world_to_image_{FILENAME}.txt")

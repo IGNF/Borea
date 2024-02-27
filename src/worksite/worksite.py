@@ -2,12 +2,11 @@
 Worksite data class module.
 """
 import numpy as np
-from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
-from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
+from src.datastruct.workdata import Workdata
 from src.transform_world_image.transform_worksite.space_resection import SpaceResection
 
 
-class Worksite(WorldImageWork, ImageWorldWork):
+class Worksite(Workdata):
     """
     Worksite class, class main of the tools.
 

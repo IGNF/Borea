@@ -3,6 +3,37 @@ A script for verification header str in manage reader.
 """
 
 
+def check_args_opk(args: dict) -> tuple:
+    """
+    Check args for reading an oopk.
+
+    Args:
+        args (dict): Information for reading an opk file.
+                    keys:
+                    "interval" (list): Interval of lines taken into account,
+                                       [i, j] if i or j is None = :.
+                                       e.g. [1, None] = [1:]
+                    "header" (list): List of column type file.
+                    "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
+                    "linear_alteration" (bool): True if data corrected by linear alteration.
+
+    Return:
+        tuple: args, header and type of z shot
+    """
+    if args["unit_angle"] not in ["degree", "radian"]:
+        raise ValueError(f"Unit angles is incorrect {args['unit_angle']},"
+                         "correct writing is degree or radian.")
+
+    if args["interval"][0] is not None:
+        args["interval"][0] -= 1
+    if args["interval"][1] is not None:
+        args["interval"][1] -= 1
+
+    header, type_z = check_header_file(args["header"].split())
+
+    return args, header, type_z
+
+
 def check_header_file(header: list) -> tuple:
     """
     Check if the header of the file is good

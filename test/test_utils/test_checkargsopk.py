@@ -2,7 +2,18 @@
 Script test for module check_header
 """
 import pytest
-from src.utils.check.check_header import check_header_file, get_type_z_and_header
+from src.utils.check.check_args_opk import check_args_opk, check_header_file, get_type_z_and_header
+
+
+def test_check_args_opk():
+    args = {"interval": [2, None],
+            "header": "N X Y Z O P K C",
+            "unit_angle": "degree",
+            "linear_alteration":True}
+    args, header, type_z = check_args_opk(args)
+    assert args["interval"] == [1, None]
+    assert header == ['N','X','Y','Z','O','P','K','C']
+    assert type_z == "altitude"
 
 
 def test_check_header_file_goodZ():

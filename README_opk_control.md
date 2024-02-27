@@ -30,6 +30,7 @@ The parameters are:
 | -g | Files paths of ground control point (.app) | None | X |
 | -d | Type of gcp to control. | [] | X |
 | --fg | Format of GCP and ground image points "altitude" or "height". | None | X, unless gcp and gip is given |
+| -p | Type of process for the function image to world, "intersection" or "direct" | "intersection" | X |
 | -w | Path stat e.g. "./" | "./" | X |
 
 E.G.
@@ -83,5 +84,24 @@ This library requires different projection data to transform coordinates from te
 The important tags are : the first is the epsg code ("EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection ("geoc") with its epsg code at the site location. The geographic projection ("geog") with its epsg code at the site location, and the geoid ("geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the *usr/share/proj* folder, which is native to pyproj, or in the *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj* folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
 
 You can contribute by putting your structure in the *projection_list.json* file in *./resources/*.
+
+### Detail for process
+
+#### Intersection
+
+Calculations of world coordinates by intersect bundle of point in 2 more distant shots.  
+Needs:
+* at least one point on two images, otherwise it won't calculate the coordinates.
+
+No needs:
+* DTM (if no dtm and z shot is corrected by the linear alteration the result won't be as good)
+
+#### Direct
+
+Calculations of world coordinates by means of function image_to_world() for the point on each shot.  
+Needs:
+* DTM
+
+`Intersection` has a better accuracy than `direct`.
 
 ![logo ign](docs/logo/logo_ign.png) ![logo fr](docs/logo/Republique_Francaise_Logo.png)

@@ -46,7 +46,7 @@ class TransformGeodesy():
 
     def tf_geoid(self, projection_list: dict, path_geoid: Path) -> None:
         """
-        Create attribute transform, to transform geographic coordinates to geoide coordinates
+        Create attribute transform, to transform geographic coordinates to geoide coordinates.
 
         Args:
             projection_list (dict): Dictionnary of the projection json.

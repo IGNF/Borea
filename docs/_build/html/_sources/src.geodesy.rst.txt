@@ -20,6 +20,14 @@ src.geodesy.proj\_engine module
    :undoc-members:
    :show-inheritance:
 
+src.geodesy.transform\_geodesy module
+-------------------------------------
+
+.. automodule:: src.geodesy.transform_geodesy
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

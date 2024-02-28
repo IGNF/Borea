@@ -36,7 +36,7 @@ class EuclideanProj:
             y (float): y coordinate of the central point of the Euclidean system.
 
         Returns:
-            np.array: transition matrix
+            np.array: Transition matrix.
         """
         proj = ProjEngine()
         lon, lat = proj.carto_to_geog(x, y)

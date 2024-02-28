@@ -76,7 +76,7 @@ def process_args_read_opk(args: argparse) -> Worksite:
     Processing args with data.
 
     Args:
-        args (argparse): arg to apply on worksite (data)
+        args (argparse): Arg to apply on worksite (data)
 
     Returns:
         Worksite: data

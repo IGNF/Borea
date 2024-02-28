@@ -50,8 +50,8 @@ def process_args_write_opk(args: argparse, work: Worksite) -> None:
     Processing args with data.
 
     Args:
-        args (argparse): arg to apply on worksite (data)
-        work (Worksite): data
+        args (argparse): Arg to apply on worksite (data).
+        work (Worksite): Data.
     """
     # Writing data
     if args.name is not None:

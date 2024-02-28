@@ -12,13 +12,13 @@ from src.transform_world_image.transform_worksite.world_image_work import WorldI
 
 def args_control(parser: argparse) -> argparse:
     """
-    Args to control photogrametrique file
+    Args to control photogrametrique file.
 
     Args:
-        parser (argparse): parser to add argument
+        parser (argparse): Parser to add argument.
 
     Returns:
-        argsparse: parser with argument
+        argsparse: Parser with argument.
     """
     parser.add_argument('-t', '--ground_points',
                         type=str, default=None, nargs='*',
@@ -47,8 +47,8 @@ def process_args_control(args, work: Worksite) -> None:
     Processing args with data.
 
     Args:
-        args (argparse): arg to apply on worksite (data)
-        work (Worksite): data
+        args (argparse): Arg to apply on worksite (data).
+        work (Worksite): Data.
     """
     # Reading ground point image
     if args.ground_points is not None:

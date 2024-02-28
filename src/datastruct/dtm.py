@@ -17,7 +17,7 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
     Represents a digital elevation model.
 
     Args:
-        path_dtm (str): path to the dtm file. If None Dtm.get() always returns  0.
+        path_dtm (str): Path to the dtm file. If None Dtm.get() always returns  0.
         order (int): The method of interpolation to perform.
                     0 : nearest, 1 : slinear, 3 : cubic, 5 : quintic.
         cval (int): Value to fill past edges of dtm.
@@ -28,9 +28,6 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
         All gdal formats are supported. The file must contain georeferencing information.
     """
     def __init__(self):
-        """
-        Initiate a Dtm object.
-        """
         self.path_dtm = None
         self.type_dtm = None
         self.order = 1
@@ -44,7 +41,7 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
 
     def set_dtm(self, path_dtm: str, type_dtm: str) -> None:
         """
-        Set the dtm path for reading dtm
+        Set the dtm path for reading dtm.
 
         Args:
             path_dtm (str): Path to the dtm file.

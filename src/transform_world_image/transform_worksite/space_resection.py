@@ -18,8 +18,8 @@ class SpaceResection:
     Args:
         shot (Shot): Shot to recalculte externa parameters.
         cam (Camera): Camera of the shot.
-        type_z_data (str): z's type of data, "height" or "altitude"
-        type_z_shot (str): z's type of shot, "height" or "altitude"
+        type_z_data (str): z's type of data, "height" or "altitude".
+        type_z_shot (str): z's type of shot, "height" or "altitude".
     """
     def __init__(self, shot: Shot, cam: Camera, type_z_data: str, type_z_shot: str) -> None:
         self.shot = shot
@@ -36,7 +36,7 @@ class SpaceResection:
             add_pixel (tuble): Pixel to be added to change marker.
 
         Returns:
-            Shot: Adjusted shot
+            Shot: Adjusted shot.
         """
         # Initialization of 20 points for shooting position
         obs, z_world = self.seed_20_point()

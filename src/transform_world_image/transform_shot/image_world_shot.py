@@ -31,8 +31,8 @@ class ImageWorldShot():
 
         Args:
             img_coor (np.array): Image coordinate [col line].
-            type_z_data (str): type of z data you want in output, "height" or "altitude".
-            type_z_shot (str): type of z shot, "height" or "altitude".
+            type_z_data (str): Type of z data you want in output, "height" or "altitude".
+            type_z_shot (str): Type of z shot, "height" or "altitude".
             nonadir (bool): To calculate nadir no take linear alteration.
 
         Returns:
@@ -64,7 +64,7 @@ class ImageWorldShot():
 
         Args:
             img_coor (np.array): Image coordinate [col line].
-            type_z_shot (str): type of z shot, "height" or "altitude".
+            type_z_shot (str): Type of z shot, "height" or "altitude".
             nonadir (bool): To calculate nadir no take linear alteration.
 
         Returns:
@@ -95,7 +95,7 @@ class ImageWorldShot():
 
         Args:
             img_coor (np.array): Image coordinate [col line].
-            type_z_shot (str): type of z "height" or "altitude".
+            type_z_shot (str): Type of z "height" or "altitude".
             z (Union[np.array, float]): La position z du point par défault = 0.
             nonadir (bool): To calculate nadir no take linear alteration.
 

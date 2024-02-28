@@ -35,7 +35,7 @@ def args_control(parser: argparse) -> argparse:
     parser.add_argument('-p', '--process',
                         type=str, default="intersection",
                         help="Type of process for the function image to world,"
-                             "intersection or direct")
+                             "intersection or least_squart")
     parser.add_argument('-w', '--pathreturn',
                         type=str, default='./',
                         help='Conversion path e.g. test/tmp/.')

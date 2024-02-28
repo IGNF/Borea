@@ -30,12 +30,12 @@ The parameters are:
 | -g | Files paths of ground control point (.app) | None | X |
 | -d | Type of gcp to control. | [] | X |
 | --fg | Format of GCP and ground image points "altitude" or "height". | None | X, unless gcp and gip is given |
-| -p | Type of process for the function image to world, "intersection" or "direct" | "intersection" | X |
+| -p | Type of process for the function image to world, "intersection" or "least_squart" | "intersection" | X |
 | -w | Path stat e.g. "./" | "./" | X |
 
 E.G.
 ```
-python3 ./opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i "N X Y Z O P K C" -f 2 -c ./dataset/Camera1.txt -e 2154 -j ./dataset/proj.json -y ./dataset/ -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height
+python3 ./opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i "N X Y Z O P K C" -f 2 -c ./dataset/Camera1.txt -e 2154 -j ./dataset/proj.json -y ./dataset/ -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p intersection
 ```
 
 #### Detail for the header of file -i
@@ -96,12 +96,12 @@ Needs:
 No needs:
 * DTM (if no dtm and z shot is corrected by the linear alteration the result won't be as good)
 
-#### Direct
+#### Least squart
 
-Calculations of world coordinates by means of function image_to_world() for the point on each shot.  
+Calculations of world coordinates by least squart methode.  
 Needs:
 * DTM
 
-`Intersection` has a better accuracy than `direct`.
+`intersection` has a better accuracy than `least_squart`.
 
 ![logo ign](docs/logo/logo_ign.png) ![logo fr](docs/logo/Republique_Francaise_Logo.png)

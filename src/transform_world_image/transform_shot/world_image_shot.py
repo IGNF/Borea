@@ -46,20 +46,41 @@ class WorldImageShot():
         else:
             dim = ()
 
-        p_bundle = self.world_to_bundle(coor_world, type_z_data, type_z_shot)
+        p_eucli = self.shot.projeucli.world_to_euclidean(coor_world)
+
+        # Convert coordinate in bundle system to image system
+        x_col, y_line = self.eucli_to_image(p_eucli, type_z_data, type_z_shot)
+
+        return np.array([change_dim(x_col, dim), change_dim(y_line, dim)])
+
+    def eucli_to_image(self, p_eucli: np.ndarray,
+                       type_z_data: str, type_z_shot: str) -> np.ndarray:
+        """
+        Convert euclidean coordinate to image coordinate.
+
+        Args:
+            p_eucli (np.array): The euclidean coordinate [x, y, z] of ground point.
+            type_z_data (str): Type of z of data, "height" or "altitude".
+            type_z_shot (str): Type of z of worksite, "height" or "altitude".
+
+        Returns:
+            np.array: Bundle coordinate [c,l].
+        """
+        # Convert euclidean coordinate system to bundle system
+        p_bundle = self.eucli_to_bundle(p_eucli, type_z_data, type_z_shot)
 
         # Convert coordinate in bundle system to image system
         x_col, y_line = self.bundle_to_image(p_bundle)
 
-        return np.array([change_dim(x_col, dim), change_dim(y_line, dim)])
+        return x_col, y_line
 
-    def world_to_bundle(self, coor_world: np.ndarray,
+    def eucli_to_bundle(self, p_eucli: np.ndarray,
                         type_z_data: str, type_z_shot: str) -> np.ndarray:
         """
-        Convert ground coordinate to bundle coordinate.
+        Convert euclidean coordinate to bundle coordinate.
 
         Args:
-            coor_world (np.array): The coordinate [x, y, z] of ground point.
+            p_eucli (np.array): The euclidean coordinate [x, y, z] of ground point.
             type_z_data (str): Type of z of data, "height" or "altitude".
             type_z_shot (str): Type of z of worksite, "height" or "altitude".
 
@@ -69,7 +90,6 @@ class WorldImageShot():
         pos_shot_new_z = conv_z_shot_to_z_data(self.shot, type_z_shot, type_z_data)
 
         # Convert coordinate in world system to euclidean system
-        p_eucli = self.shot.projeucli.world_to_euclidean(coor_world)
         pos_eucli = self.shot.projeucli.world_to_euclidean(pos_shot_new_z)
 
         # Convert coordinate in euclidean system to bundle system

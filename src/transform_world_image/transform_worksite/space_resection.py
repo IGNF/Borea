@@ -7,6 +7,7 @@ from src.datastruct.camera import Camera
 from src.datastruct.shot import Shot
 from src.transform_world_image.transform_shot.world_image_shot import WorldImageShot
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
+from src.math.param_bundle import param_bundle_diff
 
 
 class SpaceResection:
@@ -136,10 +137,7 @@ class SpaceResection:
         Returns:
             np.array: Matrix A.
         """
-        vect_a = np.vstack([pt_eucli[0] - imc_adjust.pos_shot_eucli[0],
-                            pt_eucli[1] - imc_adjust.pos_shot_eucli[1],
-                            pt_eucli[2] - imc_adjust.pos_shot_eucli[2]])  # vect_a = M-S
-        vect_u = imc_adjust.mat_rot_eucli @ vect_a  # U = RA
+        vect_a, vect_u, mat_v = param_bundle_diff(imc_adjust, pt_eucli)
 
         # Axiator of vect_a
         a_axiator = np.zeros((3 * len(vect_a[0]), 3))
@@ -149,12 +147,6 @@ class SpaceResection:
         a_axiator[1::3, 2] = -vect_a[0]
         a_axiator[2::3, 0] = -vect_a[1]
         a_axiator[2::3, 1] = vect_a[0]
-
-        mat_v = np.zeros((2 * len(vect_u[0]), 3))
-        mat_v[::2, 0] = vect_u[2]
-        mat_v[::2, 2] = -vect_u[0]
-        mat_v[1::2, 1] = vect_u[2]
-        mat_v[1::2, 2] = -vect_u[1]
 
         mat_a = -np.tile(np.repeat(self.cam.focal / vect_u[2] ** 2, 2), (6, 1)).T
         mat_a[:, :3] *= (mat_v @ imc_adjust.mat_rot_eucli)

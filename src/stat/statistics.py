@@ -5,7 +5,7 @@ import os
 import io
 from pathlib import Path, PureWindowsPath
 import numpy as np
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 
 
 # pylint: disable-next=too-many-instance-attributes
@@ -66,12 +66,12 @@ class Stat:
         Calculates residual of controle point for world to image.
         residual = image's ground point - calculated image's ground point
         """
-        for name_gcp, l_shot in self.work.gipoints.items():
+        for name_gcp, l_shot in self.work.ground_img_pts.items():
             try:
                 if self.work.gcps[name_gcp].code in self.type_point or self.type_point == []:
                     for shot in l_shot:
                         try:
-                            img_coor = self.work.shots[shot].gipoints[name_gcp]
+                            img_coor = self.work.shots[shot].ground_img_pts[name_gcp]
                             img_coor_calculated = self.work.shots[shot].gcps[name_gcp]
                             l_data = [[name_gcp, shot], img_coor - img_coor_calculated]
                             self.res_world_image.append(l_data)
@@ -87,12 +87,12 @@ class Stat:
         Calculates residual of controle point for image to world.
         residual = ground control point - calculated ground control point
         """
-        for name_gcp in list(self.work.gipoints):
+        for name_gcp in list(self.work.ground_img_pts):
             try:
                 if self.work.gcps[name_gcp].code in self.type_point or self.type_point == []:
                     try:
                         gcp_coor = self.work.gcps[name_gcp].coor
-                        gcp_coor_calculated = self.work.gip_world[name_gcp]
+                        gcp_coor_calculated = self.work.img_pts_world[name_gcp]
                         l_data = [[name_gcp], gcp_coor - gcp_coor_calculated]
                         self.res_image_world.append(l_data)
                     except KeyError:
@@ -106,10 +106,10 @@ class Stat:
     def stat_list(self, data_list: list) -> dict:
         """
         Calculates statistics on residual data.
-        Min, Max, Median, Mean, Var, Sigma arithmetic and absolute
+        Min, Max, Median, Mean, Var, Sigma arithmetic and absolute.
 
         Args:
-            data_list (list): List of data
+            data_list (list): List of data.
         """
         dict_output = {}
         data = []
@@ -149,7 +149,7 @@ class Stat:
 
     def save_stat_txt(self) -> None:
         """
-        Save calculation statistics in a .txt file
+        Save calculation statistics in a .txt file.
         """
         path_riw = os.path.join(self.pathoutput, f"Stat_residu_image_to_world_{self.work.name}.txt")
         path_miw = os.path.join(self.pathoutput, f"Stat_metric_image_to_world_{self.work.name}.txt")

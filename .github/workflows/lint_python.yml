@@ -25,12 +25,40 @@ jobs:
         python -m pip install --upgrade pip
         export CPLUS_INCLUDE_PATH=/usr/include/gdal
         export C_INCLUDE_PATH=/usr/include/gdal
-        pip install pylint flake8 numpy importlib dataclasses pyproj scipy jsons wheel GDAL==3.4.1
+        pip install pylint flake8 numpy importlib dataclasses pyproj pandas scipy jsons wheel GDAL==3.4.1
 
     - name: Analysing the code with pylint
       run: |
-        pylint opk_to_opk.py opk_control.py src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/args_control.py src/geodesy/proj_engine.py src/geodesy/euclidean_proj.py src/reader/reader_camera.py src/reader/reader_copoints.py src/reader/reader_gcp.py src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/worksite.py src/datastruct/camera.py src/writer/writer_opk.py src/writer/manage_writer.py src/utils/conversion.py src/utils/check_header.py src/position/shot_pos.py src/position/copoints_pos.py src/stat/statistics.py src/altimetry/dem.py
+        pylint opk_to_opk.py opk_control.py
+        pylint src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/args_control.py
+        pylint src/geodesy/proj_engine.py src/geodesy/euclidean_proj.py src/geodesy/transform_geodesy.py
+        pylint src/reader/reader_camera.py src/reader/reader_co_points.py src/reader/reader_gcp.py src/reader/reader_ground_img_pts.py
+        pylint src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py
+        pylint src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/workdata.py src/datastruct/camera.py src/datastruct/dtm.py
+        pylint src/writer/writer_opk.py src/writer/manage_writer.py
+        pylint src/utils/change_dim.py src/utils/check/check_args_opk.py src/utils/check/check_array.py src/utils/singleton/singleton.py
+        pylint src/worksite/worksite.py
+        pylint src/transform_world_image/transform_worksite/space_resection.py src/transform_world_image/transform_worksite/world_image_work.py src/transform_world_image/transform_worksite/image_world_work.py
+        pylint src/transform_world_image/transform_worksite/image_world_intersection.py src/transform_world_image/transform_worksite/image_world_least_squart.py
+        pylint src/transform_world_image/transform_shot/world_image_shot.py src/transform_world_image/transform_shot/image_world_shot.py src/transform_world_image/transform_shot/conversion_coor_shot.py
+        pylint src/transform_world_image/transform_dtm/world_image_dtm.py
+        pylint src/stat/statistics.py
+        pylint src/math/sparse.py src/math/param_bundle.py
 
     - name: Analysing the code with flake8
       run: |
-        flake8  --max-line-length 100 opk_to_opk.py opk_control.py src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/args_control.py src/geodesy/proj_engine.py src/geodesy/euclidean_proj.py src/reader/reader_camera.py src/reader/reader_copoints.py src/reader/reader_gcp.py src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/worksite.py src/datastruct/camera.py src/writer/writer_opk.py src/writer/manage_writer.py src/utils/conversion.py src/utils/check_header.py src/position/shot_pos.py src/position/copoints_pos.py src/stat/statistics.py src/altimetry/dem.py
+        flake8  --max-line-length 100 opk_to_opk.py opk_control.py
+        flake8  --max-line-length 100 src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/args_control.py
+        flake8  --max-line-length 100 src/geodesy/proj_engine.py src/geodesy/euclidean_proj.py src/geodesy/transform_geodesy.py
+        flake8  --max-line-length 100 src/reader/reader_camera.py src/reader/reader_co_points.py src/reader/reader_gcp.py src/reader/reader_ground_img_pts.py
+        flake8  --max-line-length 100 src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py
+        flake8  --max-line-length 100 src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/workdata.py src/datastruct/camera.py src/datastruct/dtm.py
+        flake8  --max-line-length 100 src/writer/writer_opk.py src/writer/manage_writer.py
+        flake8  --max-line-length 100 src/utils/change_dim.py src/utils/check/check_args_opk.py src/utils/check/check_array.py src/utils/singleton/singleton.py
+        flake8  --max-line-length 100 src/worksite/worksite.py
+        flake8  --max-line-length 100 src/transform_world_image/transform_worksite/space_resection.py src/transform_world_image/transform_worksite/world_image_work.py src/transform_world_image/transform_worksite/image_world_work.py
+        flake8  --max-line-length 100 src/transform_world_image/transform_shot/world_image_shot.py src/transform_world_image/transform_shot/image_world_shot.py src/transform_world_image/transform_shot/conversion_coor_shot.py
+        flake8  --max-line-length 100 src/transform_world_image/transform_worksite/image_world_intersection.py src/transform_world_image/transform_worksite/image_world_least_squart.py
+        flake8  --max-line-length 100 src/transform_world_image/transform_dtm/world_image_dtm.py
+        flake8  --max-line-length 100 src/stat/statistics.py
+        flake8  --max-line-length 100 src/math/sparse.py src/math/param_bundle.py

@@ -3,7 +3,7 @@ Script to read GCP app.
 """
 from pathlib import Path, PureWindowsPath
 import numpy as np
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 
 
 def read_gcp(files: list, work: Worksite) -> None:

@@ -1,21 +1,22 @@
 src.utils package
 =================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   src.utils.check
+   src.utils.singleton
+
 Submodules
 ----------
 
-src.utils.check\_header module
-------------------------------
+src.utils.change\_dim module
+----------------------------
 
-.. automodule:: src.utils.check_header
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-src.utils.conversion module
----------------------------
-
-.. automodule:: src.utils.conversion
+.. automodule:: src.utils.change_dim
    :members:
    :undoc-members:
    :show-inheritance:

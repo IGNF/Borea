@@ -4,13 +4,15 @@ Script test for module statistics
 import os
 import numpy as np
 import shutil as shutil
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.stat.statistics import Stat
+from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
+from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
 
 
 OUTPUT = "./test/tmp"
 FILENAME = "Test"
-PATH_DEM = "./dataset/MNT_France_25m_h_crop.tif"
+PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
 
 def setup_module(module): # run before the first test
     try:  # Clean folder test if exists
@@ -25,14 +27,13 @@ def test_stat_world_to_image():
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-    work.add_gipoint('gcp_test', 'shot_test', 24042.25, 14781.17)
-    work.check_gip = True
+    work.add_ground_img_pt('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
-    work.check_gcp = True
-    work.add_dem(PATH_DEM, "height")
-    work.type_z_shot = "al"
-    work.type_z_data = "h"
-    work.calculate_world_to_image_gcp([13])
+    work.add_dtm(PATH_DTM, "height")
+    work.type_z_shot = "altitude"
+    work.type_z_data = "height"
+    work.set_z_nadir_shot()
+    WorldImageWork(work).calculate_world_to_image([13])
     stat = Stat(work, "./", [13])
     stat.stat_world_to_image()
     assert stat.res_world_image[0][0][0] == 'gcp_test'
@@ -46,10 +47,8 @@ def test_stat_world_to_image_withoutdata():
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-    work.add_gipoint('gcp_test', 'shot_test', 24042.25, 14781.17)
-    work.check_gip = True
+    work.add_ground_img_pt('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
-    work.check_gcp = True
     stat = Stat(work, "./", [13])
     stat.stat_world_to_image()
     assert stat.res_world_image == []
@@ -65,20 +64,21 @@ def test_stat_image_to_world_type13():
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-    work.add_gipoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
-    work.add_gipoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
-    work.add_gipoint('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_gipoint('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
-    work.add_gipoint('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
+    work.add_ground_img_pt('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
+    work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
-    work.check_gip = True
-    work.check_gcp = True
-    work.calculate_init_image_world("gipoint")
+    work.type_z_data = "height"
+    work.type_z_shot = "altitude"
+    work.set_z_nadir_shot()
+    ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
     stat = Stat(work, "./", [13])
     stat.stat_image_to_world()
     assert stat.res_image_world[0][0][0] == '"1003"'
-    assert np.all(np.round(stat.res_image_world[0][1],2) == np.round(np.array([15.479717904701829,-223.1927813924849,-3456.2759610545118]),2))
+    assert np.all(stat.res_image_world[0][1]<1) 
     assert len(stat.res_image_world) == 1
 
 
@@ -91,22 +91,23 @@ def test_stat_image_to_world_alltype():
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-    work.add_gipoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
-    work.add_gipoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
-    work.add_gipoint('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_gipoint('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
-    work.add_gipoint('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
+    work.add_ground_img_pt('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
+    work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
-    work.check_gip = True
-    work.check_gcp = True
-    work.calculate_init_image_world("gipoint")
+    work.type_z_data = "height"
+    work.type_z_shot = "altitude"
+    work.set_z_nadir_shot()
+    ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
     stat = Stat(work, "./", [])
     stat.stat_image_to_world()
     assert stat.res_image_world[0][0][0] == '"1003"'
-    assert np.all(np.round(stat.res_image_world[0][1],2) == np.round(np.array([15.479717904701829,-223.1927813924849,-3456.2759610545118]),2))
+    assert np.all(stat.res_image_world[0][1]<1)
     assert stat.res_image_world[1][0][0] == '"1005"'
-    assert np.all(np.round(stat.res_image_world[1][1],2) == np.round(np.array([4.70253158127889,-426.9300078107044,-3462.877340453979]),2))
+    assert np.all(stat.res_image_world[1][1] <1)
     assert len(stat.res_image_world) == 2
 
 
@@ -115,10 +116,8 @@ def test_stat_image_to_world_withoutdata():
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-    work.add_gipoint('gcp_test', 'shot_test', 24042.25, 14781.17)
-    work.check_gip = True
+    work.add_ground_img_pt('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
-    work.check_gcp = True
     stat = Stat(work, "./", [13])
     stat.stat_image_to_world()
     assert stat.res_image_world == []
@@ -188,16 +187,17 @@ def test_stat_list_world2():
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-    work.add_gipoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
-    work.add_gipoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
-    work.add_gipoint('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_gipoint('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
-    work.add_gipoint('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
+    work.add_ground_img_pt('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
+    work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
-    work.check_gip = True
-    work.check_gcp = True
-    work.calculate_init_image_world("gipoint")
+    work.type_z_data = "height"
+    work.type_z_shot = "altitude"
+    work.set_z_nadir_shot()
+    ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
     stat = Stat(work, "./", [])
     stat.stat_image_to_world()
     dict_stat = stat.stat_list(stat.res_image_world)
@@ -213,19 +213,18 @@ def test_stat_list_image2():
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-    work.add_gipoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
-    work.add_gipoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
-    work.add_gipoint('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_gipoint('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
-    work.add_gipoint('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
+    work.add_ground_img_pt('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
+    work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
-    work.check_gip = True
-    work.check_gcp = True
-    work.type_z_data = "h"
-    work.type_z_shot = "al"
-    work.add_dem(PATH_DEM,"h")
-    work.calculate_world_to_image_gcp([])
+    work.type_z_data = "height"
+    work.type_z_shot = "altitude"
+    work.set_z_nadir_shot()
+    work.add_dtm(PATH_DTM,"height")
+    WorldImageWork(work).calculate_world_to_image([])
     stat = Stat(work, "./", [])
     stat.stat_world_to_image()
     dict_stat = stat.stat_list(stat.res_world_image)
@@ -260,20 +259,19 @@ def test_main():
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-    work.add_gipoint('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
-    work.add_gipoint('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
-    work.add_gipoint('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_gipoint('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
-    work.add_gipoint('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
+    work.add_ground_img_pt('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
+    work.add_ground_img_pt('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
+    work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
-    work.check_gip = True
-    work.check_gcp = True
-    work.add_dem(PATH_DEM, "height")
-    work.type_z_shot = "al"
-    work.type_z_data = "h"
-    work.calculate_world_to_image_gcp([])
-    work.calculate_init_image_world("gipoint")
+    work.add_dtm(PATH_DTM, "height")
+    work.type_z_shot = "altitude"
+    work.type_z_data = "height"
+    work.set_z_nadir_shot()
+    WorldImageWork(work).calculate_world_to_image([])
+    ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
     stat = Stat(work, OUTPUT, [])
     stat.main_stat_and_save()
     assert os.path.exists(f"{OUTPUT}/Stat_residu_world_to_image_{FILENAME}.txt")

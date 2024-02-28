@@ -157,16 +157,30 @@
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../src.altimetry.html">src.altimetry package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.datastruct.html">src.datastruct package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.geodesy.html">src.geodesy package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../src.position.html">src.position package</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.math.html">src.math package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.stat.html">src.stat package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../src.utils.html">src.utils package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.transform_world_image.html">src.transform_world_image package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of src.transform_world_image package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.transform_world_image.transform_dtm.html">src.transform_world_image.transform_dtm package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.transform_world_image.transform_shot.html">src.transform_world_image.transform_shot package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.transform_world_image.transform_worksite.html">src.transform_world_image.transform_worksite package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.utils.html">src.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of src.utils package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.utils.check.html">src.utils.check package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.utils.singleton.html">src.utils.singleton package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.worksite.html">src.worksite package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.writer.html">src.writer package</a></li>
 </ul>
 </li>
@@ -209,37 +223,50 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Module for manipulating a cartographic system.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">import</span> <span class="nn">pyproj</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">src.geodesy.transform_geodesy</span> <span class="kn">import</span> <span class="n">TransformGeodesy</span>
+<span class="kn">from</span> <span class="nn">src.utils.singleton.singleton</span> <span class="kn">import</span> <span class="n">Singleton</span>
 
 
+<span class="c1"># pylint: disable=unpacking-non-sequence</span>
 <div class="viewcode-block" id="ProjEngine">
 <a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.proj_engine.ProjEngine">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="c1"># pylint: disable-next=too-many-instance-attributes</span>
-<span class="k">class</span> <span class="nc">ProjEngine</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">ProjEngine</span><span class="p">(</span><span class="n">TransformGeodesy</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">Singleton</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class provides functions for using a cartographic system.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        epsg (str): Code epsg of the porjection ex: &quot;EPSG:2154&quot;.</span>
-<span class="sd">        projection_list (dict): Dictionnary of the projection json.</span>
-<span class="sd">        path_geotiff (str): Path to the forlder of GeoTIFF.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">epsg</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">epsg</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">projection_list</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">path_geotiff</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">path_geoid</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">CRS</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epsg</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">crs_geoc</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">CRS</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">projection_list</span><span class="p">[</span><span class="s2">&quot;geoc&quot;</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">crs_geog</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">CRS</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">projection_list</span><span class="p">[</span><span class="s2">&quot;geog&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epsg</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proj</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Proj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tf</span> <span class="o">=</span> <span class="n">Transform</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">TransformGeodesy</span><span class="o">.</span><span class="n">__tf_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_geoid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ProjEngine.set_epsg">
+<a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.proj_engine.ProjEngine.set_epsg">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_epsg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsg</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">proj_list</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">path_geoid</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter of the class ProjEngine.</span>
+<span class="sd">        Allows to init the class with data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            epsg (int): Code epsg of the porjection ex: &quot;EPSG:2154&quot;.</span>
+<span class="sd">            projection_list (dict): Dictionnary of the projection json.</span>
+<span class="sd">            path_geoid (Path): Path to the forlder of GeoTIFF.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsg</span> <span class="o">=</span> <span class="n">epsg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projection_list</span> <span class="o">=</span> <span class="n">proj_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_geoid</span> <span class="o">=</span> <span class="n">path_geoid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="ProjEngine.get_meridian_convergence">
 <a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.proj_engine.ProjEngine.get_meridian_convergence">[docs]</a>
@@ -256,8 +283,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            np.array : Meridian convergence in degree.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># pylint: disable-next=unpacking-non-sequence</span>
-        <span class="p">(</span><span class="n">x_geog</span><span class="p">,</span> <span class="n">y_geog</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">carto_to_geog</span><span class="p">(</span><span class="n">x_carto</span><span class="p">,</span> <span class="n">y_carto</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">x_geog</span><span class="p">,</span> <span class="n">y_geog</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">carto_to_geog</span><span class="p">(</span><span class="n">x_carto</span><span class="p">,</span> <span class="n">y_carto</span><span class="p">)</span>
         <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proj</span><span class="o">.</span><span class="n">get_factors</span><span class="p">(</span><span class="n">x_geog</span><span class="p">,</span> <span class="n">y_geog</span><span class="p">)</span><span class="o">.</span><span class="n">meridian_convergence</span><span class="p">)</span></div>
 
 
@@ -276,63 +302,8 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            np.array: Scale factor and meridian convergence.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># pylint: disable-next=unpacking-non-sequence</span>
-        <span class="n">x_geog</span><span class="p">,</span> <span class="n">y_geog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">carto_to_geog</span><span class="p">(</span><span class="n">x_carto</span><span class="p">,</span> <span class="n">y_carto</span><span class="p">)</span>
+        <span class="n">x_geog</span><span class="p">,</span> <span class="n">y_geog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">carto_to_geog</span><span class="p">(</span><span class="n">x_carto</span><span class="p">,</span> <span class="n">y_carto</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proj</span><span class="o">.</span><span class="n">get_factors</span><span class="p">(</span><span class="n">x_geog</span><span class="p">,</span> <span class="n">y_geog</span><span class="p">)</span><span class="o">.</span><span class="n">meridional_scale</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span></div>
-</div>
-
-
-
-<div class="viewcode-block" id="Transform">
-<a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.proj_engine.Transform">[docs]</a>
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Transform</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This class provides functions to tranform coordinate system.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        pe (ProjEngin): Tranformation for the ProjEgine.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pe</span><span class="p">:</span> <span class="n">ProjEngine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># Transform cartographic coordinates to geographic coordinates</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">carto_to_geog</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">pe</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="n">pe</span><span class="o">.</span><span class="n">crs_geog</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
-        <span class="c1"># Transform geographic coordinates to cartographic coordinates</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">geog_to_carto</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">pe</span><span class="o">.</span><span class="n">crs_geog</span><span class="p">,</span> <span class="n">pe</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
-        <span class="c1"># Transform cartographic coordinates to geocentric coordinates</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">carto_to_geoc</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">pe</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="n">pe</span><span class="o">.</span><span class="n">crs_geoc</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
-        <span class="c1"># Transform geocentric coordinates to cartographic coordinates</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">geoc_to_carto</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">pe</span><span class="o">.</span><span class="n">crs_geoc</span><span class="p">,</span> <span class="n">pe</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
-
-        <span class="k">if</span> <span class="s1">&#39;geoid&#39;</span> <span class="ow">in</span> <span class="n">pe</span><span class="o">.</span><span class="n">projection_list</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tf_geoid</span><span class="p">(</span><span class="n">pe</span><span class="p">)</span>
-
-<div class="viewcode-block" id="Transform.tf_geoid">
-<a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.proj_engine.Transform.tf_geoid">[docs]</a>
-    <span class="k">def</span> <span class="nf">tf_geoid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pe</span><span class="p">:</span> <span class="n">ProjEngine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create attribute transform, to transform geographic coordinates to geoide coordinates</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">pe</span><span class="o">.</span><span class="n">path_geotiff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">ptiff</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">path_geotiff</span>
-            <span class="n">geoid_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ptiff</span> <span class="o">+</span> <span class="n">geoid</span> <span class="o">+</span> <span class="s1">&#39;.tif&#39;</span> <span class="k">for</span> <span class="n">geoid</span> <span class="ow">in</span> <span class="n">pe</span><span class="o">.</span><span class="n">projection_list</span><span class="p">[</span><span class="s1">&#39;geoid&#39;</span><span class="p">]]</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">geoid_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-                <span class="n">geoid_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">geoid</span><span class="o">+</span><span class="s1">&#39;.tif&#39;</span> <span class="k">for</span> <span class="n">geoid</span> <span class="ow">in</span> <span class="n">pe</span><span class="o">.</span><span class="n">projection_list</span><span class="p">[</span><span class="s1">&#39;geoid&#39;</span><span class="p">]]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">geoid_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">geoid</span><span class="o">+</span><span class="s1">&#39;.tif&#39;</span> <span class="k">for</span> <span class="n">geoid</span> <span class="ow">in</span> <span class="n">pe</span><span class="o">.</span><span class="n">projection_list</span><span class="p">[</span><span class="s1">&#39;geoid&#39;</span><span class="p">]]</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># Transform geographic coordinates to geoide coordinates</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">geog_to_geoid</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_pipeline</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;+proj=vgridshift &quot;</span>
-                                                                  <span class="sa">f</span><span class="s2">&quot;+grids=</span><span class="si">{</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">geoid_list</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
-                                                                  <span class="s2">&quot;+multiplier=1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
-            <span class="c1"># Transform geoide coordinates to geographic coordinates</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">geoid_to_geog</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_pipeline</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;+proj=vgridshift &quot;</span>
-                                                                  <span class="sa">f</span><span class="s2">&quot;+grids=</span><span class="si">{</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">geoid_list</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
-                                                                  <span class="s2">&quot;+multiplier=-1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
-        <span class="k">except</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ProjError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ProjError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">geoid_list</span><span class="si">}</span><span class="s2"> The name of geotif is incorrect or &quot;</span>
-                                              <span class="s2">&quot;does not exist in folder or &quot;</span>
-                                              <span class="s2">&quot;in usr/share/proj !!!</span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span></div>
 </div>
 
 </pre></div>

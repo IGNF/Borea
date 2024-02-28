@@ -2,7 +2,7 @@
 Args of parser for reading opk file
 """
 import argparse
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 from src.reader.reader_camera import read_camera
 from src.reader.orientation.manage_reader import reader_orientation
 
@@ -62,12 +62,12 @@ def args_reading_opk(parser: argparse) -> argparse:
     parser.add_argument('-c', '--camera',
                         type=str, nargs='*',
                         help='Files paths of cameras (xml or txt).')
-    parser.add_argument('-m', '--dem',
+    parser.add_argument('-m', '--dtm',
                         type=str, default=None,
-                        help='DEM of the worksite.')
-    parser.add_argument('--fm', '--format_dem',
+                        help='DtM of the worksite.')
+    parser.add_argument('--fm', '--format_dtm',
                         type=str, default=None,
-                        help='Format of Dem "altitude" or "height".')
+                        help='Format of Dtm "altitude" or "height".')
     return parser
 
 
@@ -76,7 +76,7 @@ def process_args_read_opk(args: argparse) -> Worksite:
     Processing args with data.
 
     Args:
-        args (argparse): arg to apply on worksite (data)
+        args (argparse): Arg to apply on worksite (data)
 
     Returns:
         Worksite: data
@@ -110,10 +110,10 @@ def process_args_read_opk(args: argparse) -> Worksite:
         print("There is no given camera.")
 
     # Add Dem
+    work.add_dtm(args.dtm, args.fm)
     if args.dem is not None:
-        work.add_dem(args.dem, args.fm)
-        print("Add dem to the worksite done.")
+        print("Add dtm to the worksite done.")
     else:
-        print("Not Dem in the worksite.")
+        print("Not Dtm in the worksite.")
 
     return work

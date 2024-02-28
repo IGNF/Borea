@@ -20,10 +20,10 @@ src.reader.reader\_camera module
    :undoc-members:
    :show-inheritance:
 
-src.reader.reader\_copoints module
-----------------------------------
+src.reader.reader\_co\_points module
+------------------------------------
 
-.. automodule:: src.reader.reader_copoints
+.. automodule:: src.reader.reader_co_points
    :members:
    :undoc-members:
    :show-inheritance:
@@ -36,10 +36,10 @@ src.reader.reader\_gcp module
    :undoc-members:
    :show-inheritance:
 
-src.reader.reader\_gipoints module
-----------------------------------
+src.reader.reader\_ground\_img\_pts module
+------------------------------------------
 
-.. automodule:: src.reader.reader_gipoints
+.. automodule:: src.reader.reader_ground_img_pts
    :members:
    :undoc-members:
    :show-inheritance:

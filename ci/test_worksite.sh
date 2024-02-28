@@ -1,1 +1,1 @@
-python3 -m pytest -s ./test/test_datastruct/test_worksite.py -v
+python3 -m pytest -s ./test/test_worksite/test_worksite.py -v

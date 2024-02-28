@@ -16,3 +16,4 @@ dependencies:
   - conda-forge:jsons
   - pyproj
   - scipy
+  - pandas

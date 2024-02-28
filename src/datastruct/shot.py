@@ -159,6 +159,19 @@ class Shot:
             else:
                 self.pos_shot[2] = self.get_z_remove_scale_factor()
 
+    def getatt(self, attsrt: str) -> any:
+        """
+        Get attribut by str name.
+
+        Args:
+            attstr (str): String attribute.
+
+        Returns:
+            Any: The attribute of the class.
+        """
+        # pylint: disable-next=unnecessary-dunder-call
+        return self.__getattribute__(attsrt)
+
     def get_z_remove_scale_factor(self) -> float:
         """
         Return Z after removing the scale factor. The Z of the object is NOT modified.

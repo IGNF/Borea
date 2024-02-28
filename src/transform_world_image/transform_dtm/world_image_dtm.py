@@ -17,7 +17,7 @@ class WorldImageDtm:
         Compute world coordinates from image coordinates.
 
         Args:
-            coor_img (np.array): Coordinate image [column, line]
+            coor_img (np.array): Coordinate image [column, line].
 
         Returns:
             np.array: x, y world coordinates.
@@ -34,7 +34,7 @@ class WorldImageDtm:
         Compute image coordinates from world coordinates.
 
         Args:
-            coor_world (np.array): Coordinate world 2D [X, Y]
+            coor_world (np.array): Coordinate world 2D [X, Y].
 
         Returns:
             np.array: Image coordinates.

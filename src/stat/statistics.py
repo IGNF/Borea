@@ -106,10 +106,10 @@ class Stat:
     def stat_list(self, data_list: list) -> dict:
         """
         Calculates statistics on residual data.
-        Min, Max, Median, Mean, Var, Sigma arithmetic and absolute
+        Min, Max, Median, Mean, Var, Sigma arithmetic and absolute.
 
         Args:
-            data_list (list): List of data
+            data_list (list): List of data.
         """
         dict_output = {}
         data = []
@@ -149,7 +149,7 @@ class Stat:
 
     def save_stat_txt(self) -> None:
         """
-        Save calculation statistics in a .txt file
+        Save calculation statistics in a .txt file.
         """
         path_riw = os.path.join(self.pathoutput, f"Stat_residu_image_to_world_{self.work.name}.txt")
         path_miw = os.path.join(self.pathoutput, f"Stat_metric_image_to_world_{self.work.name}.txt")

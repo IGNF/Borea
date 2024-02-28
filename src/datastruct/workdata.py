@@ -51,7 +51,7 @@ class Workdata:
             pos_shot (np.array): Array of coordinate position [X, Y, Z].
             ori_shot (np.array): Array of orientation of the shot [Omega, Phi, Kappa].
             name_cam (str): Name of the camera.
-            unit_angle (str): unit of angle 'd' degrees, 'r' radian.
+            unit_angle (str): Unit of angle 'degrees', 'radian'.
             linear_alteration (bool): True if z shot is correct of linear alteration.
         """
         self.shots[name_shot] = Shot(name_shot=name_shot,

@@ -12,8 +12,7 @@ def param_bundle_diff(shot: Shot, coor_eucli: np.ndarray, uniform_v: bool = Fals
     A = M - S
     U = R @ A
     U = [u1, u2, u3]
-    V = [u3, 0,-u1]
-        [ 0,u3,-u2]
+    V = [[u3, 0,-u1][ 0,u3,-u2]]
     M euclidean point, S euclidean position shot, R rotation matrix euclidean to image.
 
     Args:
@@ -22,7 +21,7 @@ def param_bundle_diff(shot: Shot, coor_eucli: np.ndarray, uniform_v: bool = Fals
         uniform (bool): If you want to uniform matrix V, V/u3
 
     Returns:
-        tuple: vector A, vector U and matrix V
+        tuple: vector A, vector U and matrix V.
     """
     vect_a = np.vstack([coor_eucli[0] - shot.pos_shot_eucli[0],
                         coor_eucli[1] - shot.pos_shot_eucli[1],

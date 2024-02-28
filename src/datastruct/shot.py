@@ -17,7 +17,7 @@ class Shot:
         pos_shot (numpy.array): Array of coordinate position [X, Y, Z].
         ori_shot (numpy.array): Array of orientation of the shot [Omega, Phi, Kappa] in degree.
         name_cam (str): Name of the camera.
-        unit_angle (str): unit of angle 'degrees', 'radian'.
+        unit_angle (str): Unit of angle 'degrees', 'radian'.
         linear_alteration (bool): True if z shot is correct of linear alteration.
     """
     def __init__(self, name_shot: str, pos_shot: np.ndarray,
@@ -52,7 +52,7 @@ class Shot:
             pos_eucli (np.array): Euclidean position of the shot.
             mat_ori_eucli (np.array): Euclidean rotation matrix of the shot.
             name_cam (str): Name of the camera.
-            unit_angle (str): unit of angle 'degrees', 'radian'.
+            unit_angle (str): Unit of angle 'degrees', 'radian'.
             linear_alteration (bool): True if z shot is correct of linear alteration.
 
         Returns:
@@ -177,7 +177,7 @@ class Shot:
         Return Z after removing the scale factor. The Z of the object is NOT modified.
 
         Returns:
-            float: z without linear alteration
+            float: z without linear alteration.
         """
         if self.z_nadir:
             scale_factor = ProjEngine().get_scale_factor(self.pos_shot[0],

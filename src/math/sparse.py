@@ -10,7 +10,7 @@ def invert_diag_sparse_matrix_3_3(mat_inv: np.ndarray) -> np.ndarray:
     Block matrix inversion.
 
     Args:
-        mat (np.array): Matrix to flip
+        mat (np.array): Matrix to flip.
 
     Returns:
         np.array: Flip matrix.

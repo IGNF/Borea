@@ -15,14 +15,13 @@ def read(file: Path, args: dict, work: Worksite) -> Worksite:
     Args:
         file (Path): Path to the worksite.
         args (dict): Information for reading an opk file.
-                    keys:
-                    "interval" (list): Interval of lines taken into account,
-                                       [i, j] if i or j is None = :.
-                                       e.g. [1, None] = [1:]
-                    "header" (list): List of column type file.
-                    "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
-                    "linear_alteration" (bool): True if data corrected by linear alteration.
-        work (Worksite): Worksite to add shot
+                     keys:
+                     "interval" (list): Interval of lines taken into account,
+                     [i, j] if i or j is None = :. e.g. [1, None] = [1:].
+                     "header" (list): List of column type file.
+                     "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
+                     "linear_alteration" (bool): True if data corrected by linear alteration.
+        work (Worksite): Worksite to add shot.
 
     Returns:
         Worksite: The worksite.

@@ -42,9 +42,9 @@ def conv_output_z_type(coor: np.ndarray, type_z_input: str, type_z_output: str) 
     Convert type z to the output given.
 
     Args:
-        coor (Union[float, np.ndarray]): Coordinate [X, Y, Z]
-        type_z_input (str): Z type in input "height" or "altitude"
-        type_z_output (str): Z type in output "height" or "altitude"
+        coor (Union[float, np.ndarray]): Coordinate [X, Y, Z].
+        type_z_input (str): Z type in input "height" or "altitude".
+        type_z_output (str): Z type in output "height" or "altitude".
 
     Returns:
         np.array: Coodinate x, y, z.

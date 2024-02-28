@@ -20,7 +20,7 @@ class ImageWorldWork:
     def manage_image_world(self, type_point: str = "co_points", type_process: str = "intersection",
                            control_type: list = None) -> None:
         """
-        Process to calcule image coordinate to world coordinate
+        Process to calcule image coordinate to world coordinate.
 
         Args:
             type_point (str): "co_points" or "ground_img_pts"

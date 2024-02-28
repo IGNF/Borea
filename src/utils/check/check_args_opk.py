@@ -9,16 +9,15 @@ def check_args_opk(args: dict) -> tuple:
 
     Args:
         args (dict): Information for reading an opk file.
-                    keys:
-                    "interval" (list): Interval of lines taken into account,
-                                       [i, j] if i or j is None = :.
-                                       e.g. [1, None] = [1:]
-                    "header" (list): List of column type file.
-                    "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
-                    "linear_alteration" (bool): True if data corrected by linear alteration.
+                     keys:
+                     "interval" (list): Interval of lines taken into account,
+                     [i, j] if i or j is None = :. e.g. [1, None] = [1:].
+                     "header" (list): List of column type file.
+                     "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
+                     "linear_alteration" (bool): True if data corrected by linear alteration.
 
     Return:
-        tuple: args, header and type of z shot
+        tuple: args, header and type of z shot.
     """
     if args["unit_angle"] not in ["degree", "radian"]:
         raise ValueError(f"Unit angles is incorrect {args['unit_angle']},"
@@ -36,13 +35,13 @@ def check_args_opk(args: dict) -> tuple:
 
 def check_header_file(header: list) -> tuple:
     """
-    Check if the header of the file is good
+    Check if the header of the file is good.
 
     Args:
         header (list): List of column type file.
 
     Returns:
-        tuple: header without type, type of z, type of angle
+        tuple: Header without type, type of z, type of angle.
     """
     list_letter = ['S', 'N', 'X', 'Y', 'Z', 'H', 'O', 'P', 'K', 'C']
     bad_head = False
@@ -101,7 +100,7 @@ def get_type_z_and_header(header: list) -> tuple:
         header (list): List of column type file.
 
     Returns:
-        tuple: header and type_z
+        tuple: Header and type_z.
     """
     if "H" in header:
         type_z = "height"

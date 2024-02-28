@@ -16,11 +16,11 @@ def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:
         name_opk (str): Name of the file writing.
         path_opk (str): Path of folder to registration file .opk.
         args (dict): Information for writing an opk file.
-                    keys:
-                    "header" (list): List of column type file.
-                    "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
-                    "line_writingar_alteration" (bool): True if data corrected by
-                                                        line_writingar alteration.
+                     keys:
+                     "header" (list): List of column type file.
+                     "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
+                     "line_writingar_alteration" (bool): True if data corrected by
+                     line_writingar alteration.
         work (Worksite): The site to be recorded.
     """
     path_opk = os.path.join(Path(PureWindowsPath(path_opk)), f"{name_opk}.opk")

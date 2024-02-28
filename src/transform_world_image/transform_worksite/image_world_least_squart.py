@@ -142,7 +142,7 @@ class WorldLeastSquart:
             nbr_inc (int): Number of world observation.
 
         Returns:
-            tuple: Matrix A and vector residu
+            tuple: Matrix A and vector residu.
         """
         v_res = np.zeros(nbr_obs)
         coord_i, coord_j, data = [], [], []

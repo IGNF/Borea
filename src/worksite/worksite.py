@@ -3,7 +3,7 @@ Worksite data class module.
 """
 import numpy as np
 from src.datastruct.workdata import Workdata
-from src.transform_world_image.transform_worksite.space_resection import SpaceResection
+from src.transform_world_image.transform_shot.space_resection import SpaceResection
 
 
 class Worksite(Workdata):

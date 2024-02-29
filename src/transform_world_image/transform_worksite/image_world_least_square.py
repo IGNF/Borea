@@ -1,5 +1,5 @@
 """
-Class to calcule world coordinate by least squart methode.
+Class to calcule world coordinate by least square methode.
 """
 from dataclasses import dataclass
 import numpy as np
@@ -15,9 +15,9 @@ from src.math.param_bundle import param_bundle_diff
 
 
 @dataclass
-class WorldLeastSquart:
+class WorldLeastSquare:
     """
-    Class to calculate image coordinate to world coordinate in worksite by least squart.
+    Class to calculate image coordinate to world coordinate in worksite by least square.
 
     Args:
         name (str): Name of the worksite.
@@ -45,8 +45,8 @@ class WorldLeastSquart:
         # Initialization of euclidean points.
         pd_pnt = self.init_eucli_points(pd_mes)
 
-        # Do least squart methode.
-        pd_pnt = self.least_squart_intersect(pd_mes, pd_pnt)
+        # Do least square methode.
+        pd_pnt = self.least_square_intersect(pd_mes, pd_pnt)
 
         # Transform euclidean point to world point.
         xw, yw, zw = eucliproj.euclidean_to_world(np.array([pd_pnt["x"].to_numpy(),
@@ -94,9 +94,9 @@ class WorldLeastSquart:
 
         return pd_pnt
 
-    def least_squart_intersect(self, pd_mes: pd.DataFrame, pd_pnt: pd.DataFrame) -> pd.DataFrame:
+    def least_square_intersect(self, pd_mes: pd.DataFrame, pd_pnt: pd.DataFrame) -> pd.DataFrame:
         """
-        Methode of least squart to calcule world coordinate point.
+        Methode of least square to calcule world coordinate point.
 
         Args:
             pd_mes (pd.Dataframe): Dataframe of image data, id_pt, id_img; column, line.
@@ -134,7 +134,7 @@ class WorldLeastSquart:
     def create_mat_a_and_vect_residu(self, pd_mes_temp: pd.DataFrame,
                                      nbr_obs: int, nbr_inc: int) -> tuple:
         """
-        Creation of matrix A and vector residu for the least squart methode.
+        Creation of matrix A and vector residu for the least square methode.
 
         Args:
             pd_mes_temp (pd.Dataframe): Dataframe of data.

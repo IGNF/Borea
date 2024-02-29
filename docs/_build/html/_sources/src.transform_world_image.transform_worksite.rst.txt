@@ -12,10 +12,10 @@ src.transform\_world\_image.transform\_worksite.image\_world\_intersection modul
    :undoc-members:
    :show-inheritance:
 
-src.transform\_world\_image.transform\_worksite.image\_world\_least\_squart module
+src.transform\_world\_image.transform\_worksite.image\_world\_least\_square module
 ----------------------------------------------------------------------------------
 
-.. automodule:: src.transform_world_image.transform_worksite.image_world_least_squart
+.. automodule:: src.transform_world_image.transform_worksite.image_world_least_square
    :members:
    :undoc-members:
    :show-inheritance:
@@ -24,14 +24,6 @@ src.transform\_world\_image.transform\_worksite.image\_world\_work module
 -------------------------------------------------------------------------
 
 .. automodule:: src.transform_world_image.transform_worksite.image_world_work
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-src.transform\_world\_image.transform\_worksite.space\_resection module
------------------------------------------------------------------------
-
-.. automodule:: src.transform_world_image.transform_worksite.space_resection
    :members:
    :undoc-members:
    :show-inheritance:

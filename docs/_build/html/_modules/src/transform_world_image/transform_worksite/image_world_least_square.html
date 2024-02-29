@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.transform_world_image.transform_worksite.image_world_least_squart - Pink_Lady 1.0.0 documentation</title>
+        <title>src.transform_world_image.transform_worksite.image_world_least_square - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -219,9 +219,9 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.transform_world_image.transform_worksite.image_world_least_squart</h1><div class="highlight"><pre>
+          <h1>Source code for src.transform_world_image.transform_worksite.image_world_least_square</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Class to calcule world coordinate by least squart methode.</span>
+<span class="sd">Class to calcule world coordinate by least square methode.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -236,20 +236,20 @@
 <span class="kn">from</span> <span class="nn">src.math.param_bundle</span> <span class="kn">import</span> <span class="n">param_bundle_diff</span>
 
 
-<div class="viewcode-block" id="WorldLeastSquart">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_squart.WorldLeastSquart">[docs]</a>
+<div class="viewcode-block" id="WorldLeastSquare">
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_square.WorldLeastSquare">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">WorldLeastSquart</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">WorldLeastSquare</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Class to calculate image coordinate to world coordinate in worksite by least squart.</span>
+<span class="sd">    Class to calculate image coordinate to world coordinate in worksite by least square.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        name (str): Name of the worksite.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">work</span><span class="p">:</span> <span class="n">Worksite</span>
 
-<div class="viewcode-block" id="WorldLeastSquart.compute_image_world_least_square">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_squart.WorldLeastSquart.compute_image_world_least_square">[docs]</a>
+<div class="viewcode-block" id="WorldLeastSquare.compute_image_world_least_square">
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_square.WorldLeastSquare.compute_image_world_least_square">[docs]</a>
     <span class="k">def</span> <span class="nf">compute_image_world_least_square</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">control_type</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates the mean of the result x y z of the point for each shot where it&#39;s visible.</span>
@@ -271,8 +271,8 @@
         <span class="c1"># Initialization of euclidean points.</span>
         <span class="n">pd_pnt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_eucli_points</span><span class="p">(</span><span class="n">pd_mes</span><span class="p">)</span>
 
-        <span class="c1"># Do least squart methode.</span>
-        <span class="n">pd_pnt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">least_squart_intersect</span><span class="p">(</span><span class="n">pd_mes</span><span class="p">,</span> <span class="n">pd_pnt</span><span class="p">)</span>
+        <span class="c1"># Do least square methode.</span>
+        <span class="n">pd_pnt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">least_square_intersect</span><span class="p">(</span><span class="n">pd_mes</span><span class="p">,</span> <span class="n">pd_pnt</span><span class="p">)</span>
 
         <span class="c1"># Transform euclidean point to world point.</span>
         <span class="n">xw</span><span class="p">,</span> <span class="n">yw</span><span class="p">,</span> <span class="n">zw</span> <span class="o">=</span> <span class="n">eucliproj</span><span class="o">.</span><span class="n">euclidean_to_world</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pd_pnt</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
@@ -284,8 +284,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">set_point_world_pandas</span><span class="p">(</span><span class="n">pd_pnt</span><span class="p">,</span> <span class="n">type_point</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="WorldLeastSquart.init_eucli_points">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_squart.WorldLeastSquart.init_eucli_points">[docs]</a>
+<div class="viewcode-block" id="WorldLeastSquare.init_eucli_points">
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_square.WorldLeastSquare.init_eucli_points">[docs]</a>
     <span class="k">def</span> <span class="nf">init_eucli_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pd_mes</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialization of ground points.</span>
@@ -324,11 +324,11 @@
         <span class="k">return</span> <span class="n">pd_pnt</span></div>
 
 
-<div class="viewcode-block" id="WorldLeastSquart.least_squart_intersect">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_squart.WorldLeastSquart.least_squart_intersect">[docs]</a>
-    <span class="k">def</span> <span class="nf">least_squart_intersect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pd_mes</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd_pnt</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="WorldLeastSquare.least_square_intersect">
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_square.WorldLeastSquare.least_square_intersect">[docs]</a>
+    <span class="k">def</span> <span class="nf">least_square_intersect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pd_mes</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd_pnt</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Methode of least squart to calcule world coordinate point.</span>
+<span class="sd">        Methode of least square to calcule world coordinate point.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            pd_mes (pd.Dataframe): Dataframe of image data, id_pt, id_img; column, line.</span>
@@ -364,12 +364,12 @@
         <span class="k">return</span> <span class="n">pd_pnt</span></div>
 
 
-<div class="viewcode-block" id="WorldLeastSquart.create_mat_a_and_vect_residu">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_squart.WorldLeastSquart.create_mat_a_and_vect_residu">[docs]</a>
+<div class="viewcode-block" id="WorldLeastSquare.create_mat_a_and_vect_residu">
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_square.WorldLeastSquare.create_mat_a_and_vect_residu">[docs]</a>
     <span class="k">def</span> <span class="nf">create_mat_a_and_vect_residu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pd_mes_temp</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                                      <span class="n">nbr_obs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nbr_inc</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creation of matrix A and vector residu for the least squart methode.</span>
+<span class="sd">        Creation of matrix A and vector residu for the least square methode.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            pd_mes_temp (pd.Dataframe): Dataframe of data.</span>

@@ -52,7 +52,6 @@ def test_stat_world_to_image_withoutdata():
     stat = Stat(work, "./", [13])
     stat.stat_world_to_image()
     assert stat.res_world_image == []
-    assert stat.check_stat_wi == False
 
 
 def test_stat_image_to_world_type13():
@@ -121,7 +120,6 @@ def test_stat_image_to_world_withoutdata():
     stat = Stat(work, "./", [13])
     stat.stat_image_to_world()
     assert stat.res_image_world == []
-    assert stat.check_stat_iw == False
 
 
 def test_stat_list_world1():

@@ -98,7 +98,7 @@ class WorldImageShot():
                                                         p_eucli[2] - pos_eucli[2]])
         return p_bundle
 
-    def bundle_to_image(self, p_bundle: np.ndarray) -> tuple:
+    def bundle_to_image(self, p_bundle: np.ndarray) -> np.ndarray:
         """
         Convert coordinate bundle to coordinate image col line.
 
@@ -106,7 +106,7 @@ class WorldImageShot():
             p_bundle (np.array): [X, Y, Z] coordinates in bundle.
 
         Returns:
-            tuple: Image coordinate x_col y_line.
+            np.array: Image coordinate x_col y_line.
         """
         x_shot = p_bundle[0] * self.cam.focal / p_bundle[2]
         y_shot = p_bundle[1] * self.cam.focal / p_bundle[2]
@@ -115,4 +115,4 @@ class WorldImageShot():
         x_col = self.cam.ppax + x_shot
         y_line = self.cam.ppay + y_shot
 
-        return x_col, y_line
+        return np.array([x_col, y_line])

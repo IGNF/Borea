@@ -20,6 +20,14 @@ src.transform\_world\_image.transform\_shot.image\_world\_shot module
    :undoc-members:
    :show-inheritance:
 
+src.transform\_world\_image.transform\_shot.space\_resection module
+-------------------------------------------------------------------
+
+.. automodule:: src.transform_world_image.transform_shot.space_resection
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 src.transform\_world\_image.transform\_shot.world\_image\_shot module
 ---------------------------------------------------------------------
 

@@ -30,7 +30,7 @@ The parameters are:
 | -g | Files paths of ground control point (.app) | None | X |
 | -d | Type of gcp to control. | [] | X |
 | --fg | Format of GCP and ground image points "altitude" or "height". | None | X, unless gcp and gip is given |
-| -p | Type of process for the function image to world, "intersection" or "least_squart" | "intersection" | X |
+| -p | Type of process for the function image to world, "intersection" or "least_square" | "intersection" | X |
 | -w | Path stat e.g. "./" | "./" | X |
 
 E.G.
@@ -96,12 +96,12 @@ Needs:
 No needs:
 * DTM (if no dtm and z shot is corrected by the linear alteration the result won't be as good)
 
-#### Least squart
+#### Least square
 
-Calculations of world coordinates by least squart methode.  
+Calculations of world coordinates by least square methode.  
 Needs:
 * DTM
 
-`intersection` has a better accuracy than `least_squart`.
+`intersection` has a better accuracy than `least_square`.
 
 ![logo ign](docs/logo/logo_ign.png) ![logo fr](docs/logo/Republique_Francaise_Logo.png)

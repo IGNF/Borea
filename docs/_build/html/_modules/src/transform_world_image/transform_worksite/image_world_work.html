@@ -226,7 +226,7 @@
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">src.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
 <span class="kn">from</span> <span class="nn">src.transform_world_image.transform_worksite.image_world_intersection</span> <span class="kn">import</span> <span class="n">WorldIntersection</span>
-<span class="kn">from</span> <span class="nn">src.transform_world_image.transform_worksite.image_world_least_squart</span> <span class="kn">import</span> <span class="n">WorldLeastSquart</span>
+<span class="kn">from</span> <span class="nn">src.transform_world_image.transform_worksite.image_world_least_square</span> <span class="kn">import</span> <span class="n">WorldLeastSquare</span>
 
 
 <div class="viewcode-block" id="ImageWorldWork">
@@ -253,15 +253,15 @@
 <span class="sd">                              depending on what you want to calculate.</span>
 <span class="sd">            type_process (str): Type of process you want to use.</span>
 <span class="sd">                                * &quot;intersection&quot; by intersect bundle of point in each shot.</span>
-<span class="sd">                                * &quot;least_squart&quot; take all point and do methode.</span>
+<span class="sd">                                * &quot;least_square&quot; take all point and do methode.</span>
 <span class="sd">            control_type (list): Type controle for gcp.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_points&quot;</span><span class="p">,</span> <span class="s2">&quot;ground_img_pts&quot;</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect,[&#39;co_points&#39;,&#39;ground_img_pts&#39;]&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">type_process</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;intersection&quot;</span><span class="p">,</span> <span class="s2">&quot;least_squart&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">type_process</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;intersection&quot;</span><span class="p">,</span> <span class="s2">&quot;least_square&quot;</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_process </span><span class="si">{</span><span class="n">type_process</span><span class="si">}</span><span class="s2"> is incorrect, &quot;</span>
-                             <span class="s2">&quot;[&#39;intersection&#39;,&#39;least_squart&#39;]&quot;</span><span class="p">)</span>
+                             <span class="s2">&quot;[&#39;intersection&#39;,&#39;least_square&#39;]&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">control_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s2">&quot;co_points&quot;</span><span class="p">:</span>
             <span class="n">control_type</span> <span class="o">=</span> <span class="p">[]</span>
@@ -270,8 +270,8 @@
             <span class="n">WorldIntersection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="p">)</span><span class="o">.</span><span class="n">calculate_image_world_by_intersection</span><span class="p">(</span><span class="n">control_type</span><span class="p">,</span>
                                                                                <span class="n">type_point</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">type_process</span> <span class="o">==</span> <span class="s2">&quot;least_squart&quot;</span><span class="p">:</span>
-            <span class="n">WorldLeastSquart</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="p">)</span><span class="o">.</span><span class="n">compute_image_world_least_square</span><span class="p">(</span><span class="n">type_point</span><span class="p">,</span> <span class="n">control_type</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="n">type_process</span> <span class="o">==</span> <span class="s2">&quot;least_square&quot;</span><span class="p">:</span>
+            <span class="n">WorldLeastSquare</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="p">)</span><span class="o">.</span><span class="n">compute_image_world_least_square</span><span class="p">(</span><span class="n">type_point</span><span class="p">,</span> <span class="n">control_type</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

@@ -60,9 +60,9 @@ def process_args_control(args, work: Worksite) -> None:
                              'or misspelled --fg altitude or height')
         print("Connecting point reading done.")
         count = 0
-        for k in work.gipoints.values():
+        for k in work.ground_img_pts.values():
             count += len(k)
-        print(f"Number of ground points of image: {len(work.gipoints)}")
+        print(f"Number of ground points of image: {len(work.ground_img_pts)}")
         print(f"Number of image with ground point.s: {count}")
 
     # Reading GCP
@@ -76,8 +76,9 @@ def process_args_control(args, work: Worksite) -> None:
         print("GCP reading done.")
         print(f"Number of gcp: {len(work.gcps)}")
 
+    work.set_z_nadir_shot()
     # Calculate ground coordinate of conneting point by intersection
-    ImageWorldWork(work).manage_image_world(type_point="ground_img_pt",
+    ImageWorldWork(work).manage_image_world(type_point="ground_img_pts",
                                             type_process=args.process,
                                             control_type=args.control_type)
 

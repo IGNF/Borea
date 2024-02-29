@@ -1,4 +1,4 @@
-# Documentation for the function eucli_intersection_2p in src/datastruct/worksite
+# Documentation for the function eucli_intersection_2p in src/transform_world_image/transform_worksite/image_world_work.py
 
 Function to calculate the Euclidean coordinates of a point, visible on two acquisitions. Function built in worksite to calculate from 2 acquisitions.
 
@@ -119,30 +119,39 @@ $$
 ```
 import numpy as np
 from src.datastruct.worksite import Worksite
+from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
 
 # Create worksite with just a name
 work = Worksite("Test")
 
 # Add two shots
-work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","d")
-work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","d")
+# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration)
+# unit_angle = "degree" or "radian".
+# linear_alteration True if z shot is corrected by linear alteration.
+work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True)
+work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True)
 
 # Setup projection
-work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
+# set_epsg(epsg, proj_json, folder_geoid)
+# the geoid is mandatory if type_z_data and type_z_shot are different
+work.set_proj(2154, "test/data/proj.json", "./test/data/")
 
 # Add camera information
+# add_camera(name_cam, ppax, ppay, focal, width, height)
+# ppax and ppay image center in pixel with distortion
 work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
 
 # Add connecting points in each shot
-work.add_copoint('"1003"',"shot1",24042.25,14781.17)
-work.add_copoint('"1003"',"shot2",24120.2,10329.3)
-work.check_cop = True
+# add_co_point(name_point, name_shot, column, line)
+work.add_co_point('"1003"',"shot1",24042.25,14781.17)
+work.add_co_point('"1003"',"shot2",24120.2,10329.3)
 
 # Calculate eucliean coordinate of intersection
-coor = work.eucli_intersection_2p('"1003"', work.shots["shot1"], work.shots["shot2"])
+# manage_image_world(type_point, type_process)
+ImageWorldWork(work).manage_image_world("co_points", "intersection")
 
 # Transform euclidiean coordinate to world coordinate 
-actual = work.projeucli.euclidean_to_world(coor[0], coor[1], coor[2])
+coor_world = work.co_pts_world['"1003"']
 ```
 
 ![logo ign](../logo/logo_ign.png) ![logo fr](../logo/Republique_Francaise_Logo.png)

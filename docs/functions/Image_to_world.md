@@ -1,20 +1,19 @@
-# Documentation for the function image_to_world in src/datastruct/shot
+# Documentation for the function image_to_world in src/transform_world_image/transform_shot/image_world_shot.py
 
 Function for calculating the ground coordinates of an image point, starting from a given z.
 It is built into the shot object to calculate the coordinates of the point in the field, based on the desired acquisition.
 
 ## Parameters
 
-1. col: column coordinates of the point in the image in float format.
-2. lig: line coordinates of the point in the image in float format.
-3. cam: a Camera object.
-4. dem: Dem of the worksite
-5. type_z_data: type of z you want in output 'a' for altitude, 'h' for height 
-6. type_z_shot: type of z there are in shot's position 'a', 'al', 'h', 'hl' -> 'l' it's with linear alteration. 
+1. coor_2d: [column, line]
+2. cam: a Camera object.
+3. dtm: Dtm of the worksite
+4. type_z_data: type of z you want in output 'altitude', 'height' 
+5. type_z_shot: type of z there are in shot's position 'altitude' or 'height'. 
 
 The Camera object is the camera used for acquisition, defined by a name, its ppax, ppay and focal.
 
-The dem allows a first estimate z terrain, and converts the data they have linear alteration.
+The dtm allows a first estimate z terrain, and converts the data they have linear alteration.
 
 type_z_data and type_z_shot are used to make the right conversions between different data so that calculations are made in the same system.
 
@@ -112,46 +111,45 @@ $$
 
 ## Example to use
 
-Example for one point 
 ```
 import numpy as np
-from src.datastruct.shot import Shot
-from src.datastruct.camera import Camera
-from src.geodesy.proj_engine import ProjEngine
-from src.geodesy.euclidean_proj import EuclideanProj
+from src.datastruct.worksite import Worksite
+from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
 
-# Point to calculate coordinate 
-point_image = np.array([24042.25, 14781.17])
+# Create worksite with just a name
+work = Worksite("Test")
 
-# Shot where there is the point
-# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle)
-# unit_angle = "d" for degrees and "r" for radian.
-shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", "d")
+# Add two shots
+# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration)
+# unit_angle = "degree" or "radian".
+# linear_alteration True if z shot is corrected by linear alteration.
+work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True)
+work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True)
 
-# Camera of the shot
-# Camera(name_cam, ppax, ppay, focal, width, height)
+# Setup projection
+# set_epsg(epsg, proj_json, folder_geoid)
+# the geoid is mandatory if type_z_data and type_z_shot are different
+work.set_proj(2154, "test/data/proj.json", "./test/data/")
+
+# Add camera information
+# add_camera(name_cam, ppax, ppay, focal, width, height)
 # ppax and ppay image center in pixel with distortion
-cam = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
 
-# Projection of the worksite
-# ProjEngine(epsg, proj_json, folder_geoid)
-# the geoid is mandatory if type_z_data and type_z_shot[0] are different
-proj = ProjEngine("EPSG:2154", {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"]}, "./test/data/")
+# Add connecting points in each shot
+# add_co_point(name_point, name_shot, column, line)
+work.add_co_point('"1003"',"shot1",24042.25,14781.17)
+work.add_co_point('"1003"',"shot2",24120.2,10329.3)
 
-# Calcule euclidean projection of the shot
-shot.set_param_eucli_shot(proj)
+# Setup z_nadir of shot
+work.set_z_nadir_shot()
 
-# Add dem
-# Dem(path_dem, type_dem)
-# type_dem = 'h' for height or 'a' for altitude
-# The dem is mandatory for the function image to world
-dem = Dem('MNT_France_25m_h_crop.tif','h')
+# Calculate world coordinate by least square.
+# manage_image_world(type_point, type_process)
+ImageWorldWork(work).manage_image_world("co_points", "least_square")
 
-# The calculation
-# image_to_world(column, line, camera, dem, type_z_data, type_z_shot)
-# type_z_data = type of z you want in output 'a' or 'h'
-# type_z_shot = z's type of position shot 'a' 'al' 'h' 'hl' -> l with linear alteration 
-actual = shot.image_to_world(point_image[0],point_image[1],cam,dem,'a','a')
+# Transform euclidiean coordinate to world coordinate 
+coor_world = work.co_pts_world['"1003"']
 ```
 
 ![logo ign](../logo/logo_ign.png) ![logo fr](../logo/Republique_Francaise_Logo.png)

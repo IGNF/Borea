@@ -5,7 +5,7 @@ import numpy as np
 from src.datastruct.camera import Camera
 from src.datastruct.shot import Shot
 from src.geodesy.proj_engine import ProjEngine
-from src.transform_world_image.transform_worksite.space_resection import SpaceResection
+from src.transform_world_image.transform_shot.space_resection import SpaceResection
 from src.datastruct.dtm import Dtm
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 

@@ -1,1 +1,0 @@
-python3 -m pytest -s ./test/test_utils/test_conversion.py -v

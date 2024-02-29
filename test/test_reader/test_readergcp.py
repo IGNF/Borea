@@ -5,13 +5,15 @@ import numpy as np
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.reader_gcp import read_gcp
 
-INPUT_OPK = "./test/data/23FD1305_alt_test.OPK"
-INPUT_GCP = "./test/data/GCP_test.app"
-LINE = [2, None]
-HEADER = ['N','X','Y','Zal','Od','Pd','Kd','C']
+INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
+INPUT_GCP = "./dataset/GCP_test.app"
+ARGS = {"interval": [2, None],
+        "header": "N X Y Z O P K C",
+        "unit_angle": "degree",
+        "linear_alteration":True}
 
 def test_read_gcp():
-    work_gcp = reader_orientation(INPUT_OPK, LINE, HEADER)
+    work_gcp = reader_orientation(INPUT_OPK, ARGS)
     read_gcp([INPUT_GCP], work_gcp)
     assert list(work_gcp.gcps) == ['"1003"','"1005"','"1006"']
     assert work_gcp.gcps['"1003"'].name_gcp == '"1003"'

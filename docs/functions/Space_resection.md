@@ -1,4 +1,4 @@
-# Documentation for the function space_resection in src/orientation/shot_pos
+# Documentation for the function space_resection in src/transform_world_image/transform_shot/space_resection.py
 
 Function to recalculate the 6 external image parameters. 3 parameters for image position and 3 parameters for orientation angles omega, phi, kappa, per least square.
 
@@ -206,32 +206,7 @@ shot_adjust = imc_new_adjust
 
 This function is used in the shootings_position() function of the worksite class to loop over all the shots present on the worksite.
 
-Example for one shot:
-```
-import numpy as np
-from src.datastruct.camera import Camera
-from src.datastruct.shot import Shot
-from src.geodesy.euclidean_proj import EuclideanProj
-from src.geodesy.proj_engine import ProjEngine
-from src.orientation.shot_pos import space_resection
-
-# Create Shot
-shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", "d")
-
-# Create Camera and add dimension of image
-cam = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
-
-# Create projection of worksite
-proj = ProjEngine("EPSG:2154", {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20_test"]}, "./test/data/")
-
-# Setup euclidean parameter of shot
-shot.set_param_eucli_shot(proj)
-
-# Recalculate 6 externa parameter of the shot
-adjusted _shot = space_resection(shot, cam, projeucli)
-```
-
-Example for a worksite:
+Example:
 ```
 import numpy as np
 from src.datastruct.worksite import Worksite
@@ -240,81 +215,28 @@ from src.datastruct.worksite import Worksite
 work = Worksite("Test")
 
 # Add 2 shots
+# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration)
+# unit_angle = "degree" or "radian".
+# linear_alteration True if z shot is corrected by linear alteration.
 work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","d")
 work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","d")
 
 # Setup projection of the worksite
+# set_epsg(epsg, proj_json, folder_geoid)
+# the geoid is mandatory if type_z_data and type_z_shot are different
 work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
 
-# Add camera and dimension of image
+# Add camera information
+# add_camera(name_cam, ppax, ppay, focal, width, height)
+# ppax and ppay image center in pixel with distortion
 work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
 
-# Recalculate 6 externa parameters of all shots
-work.shootings_position()
-```
-
-Example with file:
-```
-from src.reader.orientation.manage_reader import reader_orientation
-from src.reader.reader_camera import read_camera
-from src.reader.reader_copoints import read_copoints
-from src.reader.reader_gcp import read_gcp
-
-############# Data ###############
-
-# path to photogrammetric site file
-path_opk = "Worksite_FR_2024.OPK"
-
-# line taken and header
-line_taken = [1, None]
-header = ['N', 'X', 'Y', 'Zal', 'Od', 'Pd', 'Kd', 'C']
-
-# info in epsg and epsg data
-epsg = "EPSG:2154"
-proj_json = "projection_epsg.json"
-folder_geoid = "./data_geotiff/"
-
-# path(s) to camera's file
-path_camera = ["Camera.txt"]
-
-# path(s) to connecting points file
-path_copoints = ["liaison.mes"]
-
-# path(s) to image ground control points file
-path_gipoints = ["terrain.mes"]
-
-# path(s) to ground control points file with unit of z and code of control point
-path_gcps = ["GCP.app"]
-type_z_data = 'h'
-type_control = [13]
-
-# path to dem file and unit of the dem
-path_dem = "dem.tif"
-type_dem = "h"
-
-################# Function ###################
-
-# Readind data and create objet worksite
-work = reader_orientation(path_opk, line_taken, header)
-
-# Add a projection to the worksite
-work.set_proj(epsg, proj_json, folder_geoid)
-
-# Reading camera file
-read_camera(path_camera, work)
-
-# Reading connecting point
-read_copoints(path_copoints, work)
-
-# Reading GCP
-read_gcp(path_gcps, work)
-work.type_z_data = type_z_data
-
-# Add Dem to the worksite
-work.add_dem(path_dem, type_dem)
+# Setup z_nadir of shot
+work.set_z_nadir_shot()
 
 # Recalculate 6 externa parameters of all shots
-work.shootings_position()
+work.shootings_position(add_pixel=(0,0))
 ```
+
 
 ![logo ign](../logo/logo_ign.png) ![logo fr](../logo/Republique_Francaise_Logo.png)

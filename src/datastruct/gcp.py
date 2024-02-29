@@ -8,7 +8,7 @@ import numpy as np
 @dataclass
 class GCP:
     """
-    Ground Control Point definition.
+    Ground Control Point class.
 
     Args:
         name_gcp (str): Name of the gcp.

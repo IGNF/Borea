@@ -157,16 +157,30 @@
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../src.altimetry.html">src.altimetry package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.datastruct.html">src.datastruct package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.geodesy.html">src.geodesy package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../src.position.html">src.position package</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.math.html">src.math package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.stat.html">src.stat package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../src.utils.html">src.utils package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.transform_world_image.html">src.transform_world_image package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of src.transform_world_image package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.transform_world_image.transform_dtm.html">src.transform_world_image.transform_dtm package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.transform_world_image.transform_shot.html">src.transform_world_image.transform_shot package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.transform_world_image.transform_worksite.html">src.transform_world_image.transform_worksite package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.utils.html">src.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of src.utils package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.utils.check.html">src.utils.check package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.utils.singleton.html">src.utils.singleton package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.worksite.html">src.worksite package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.writer.html">src.writer package</a></li>
 </ul>
 </li>
@@ -209,17 +223,13 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Acquisition data class module.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.spatial.transform</span> <span class="kn">import</span> <span class="n">Rotation</span>
-<span class="kn">from</span> <span class="nn">src.datastruct.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span> <span class="nn">src.geodesy.proj_engine</span> <span class="kn">import</span> <span class="n">ProjEngine</span>
 <span class="kn">from</span> <span class="nn">src.geodesy.euclidean_proj</span> <span class="kn">import</span> <span class="n">EuclideanProj</span>
-<span class="kn">from</span> <span class="nn">src.altimetry.dem</span> <span class="kn">import</span> <span class="n">Dem</span>
-<span class="kn">from</span> <span class="nn">src.utils.conversion</span> <span class="kn">import</span> <span class="n">change_dim</span>
 
 
-<span class="c1"># pylint: disable-next=too-many-instance-attributes</span>
+<span class="c1"># pylint: disable=too-many-instance-attributes too-many-arguments</span>
 <div class="viewcode-block" id="Shot">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot">[docs]</a>
 <span class="k">class</span> <span class="nc">Shot</span><span class="p">:</span>
@@ -231,20 +241,22 @@
 <span class="sd">        pos_shot (numpy.array): Array of coordinate position [X, Y, Z].</span>
 <span class="sd">        ori_shot (numpy.array): Array of orientation of the shot [Omega, Phi, Kappa] in degree.</span>
 <span class="sd">        name_cam (str): Name of the camera.</span>
-<span class="sd">        unit_angle (str): unit of angle &#39;d&#39; degrees, &#39;r&#39; radian.</span>
+<span class="sd">        unit_angle (str): Unit of angle &#39;degrees&#39;, &#39;radian&#39;.</span>
+<span class="sd">        linear_alteration (bool): True if z shot is correct of linear alteration.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># pylint: disable-next=too-many-arguments</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-                 <span class="n">ori_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">name_cam</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                 <span class="n">ori_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">name_cam</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name_shot</span> <span class="o">=</span> <span class="n">name_shot</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span> <span class="o">=</span> <span class="n">pos_shot</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot_eucli</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear_alteration</span> <span class="o">=</span> <span class="n">linear_alteration</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ori_shot</span> <span class="o">=</span> <span class="n">ori_shot</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ori_shot_eucli</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unit_angle</span> <span class="o">=</span> <span class="n">unit_angle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name_cam</span> <span class="o">=</span> <span class="n">name_cam</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">copoints</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gipoints</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z_nadir</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">co_points</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ground_img_pts</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gcps</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mat_rot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_rot_shot</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mat_rot_eucli</span> <span class="o">=</span> <span class="kc">None</span>
@@ -255,10 +267,9 @@
 <div class="viewcode-block" id="Shot.from_param_euclidean">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.from_param_euclidean">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="c1"># pylint: disable-next=too-many-arguments</span>
     <span class="k">def</span> <span class="nf">from_param_euclidean</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
                              <span class="n">mat_ori_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">name_cam</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                             <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">proj</span><span class="p">:</span> <span class="n">ProjEngine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                             <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construction of a shot object using the Euclidean position.</span>
 
@@ -267,22 +278,21 @@
 <span class="sd">            pos_eucli (np.array): Euclidean position of the shot.</span>
 <span class="sd">            mat_ori_eucli (np.array): Euclidean rotation matrix of the shot.</span>
 <span class="sd">            name_cam (str): Name of the camera.</span>
-<span class="sd">            proj (ProjEngine): Projection of the worksite.</span>
+<span class="sd">            unit_angle (str): Unit of angle &#39;degrees&#39;, &#39;radian&#39;.</span>
+<span class="sd">            linear_alteration (bool): True if z shot is correct of linear alteration.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Shot: The shot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">shot</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name_shot</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">name_cam</span><span class="p">,</span> <span class="n">unit_angle</span><span class="p">)</span>
+        <span class="n">shot</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name_shot</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+                   <span class="n">name_cam</span><span class="p">,</span> <span class="n">unit_angle</span><span class="p">,</span> <span class="n">linear_alteration</span><span class="p">)</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot_eucli</span> <span class="o">=</span> <span class="n">pos_eucli</span>
-        <span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span> <span class="o">=</span> <span class="n">EuclideanProj</span><span class="p">(</span><span class="n">pos_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj</span><span class="p">)</span>
-        <span class="n">unitori</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">unit_angle</span> <span class="o">==</span> <span class="s2">&quot;d&quot;</span>
-        <span class="n">shot</span><span class="o">.</span><span class="n">ori_shot_eucli</span> <span class="o">=</span> <span class="o">-</span><span class="n">Rotation</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">mat_ori_eucli</span><span class="p">)</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="n">unitori</span><span class="p">)</span>
-        <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">euclidean_to_world</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">pos_shot_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                                          <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                                          <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot_eucli</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">shot</span><span class="o">.</span><span class="n">copoints</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span> <span class="o">=</span> <span class="n">EuclideanProj</span><span class="p">(</span><span class="n">pos_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">unitori</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">unit_angle</span> <span class="o">==</span> <span class="s2">&quot;degree&quot;</span>
+        <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">euclidean_to_world</span><span class="p">(</span><span class="n">pos_eucli</span><span class="p">)</span>
+        <span class="n">shot</span><span class="o">.</span><span class="n">co_points</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">gcps</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">shot</span><span class="o">.</span><span class="n">gipoints</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">shot</span><span class="o">.</span><span class="n">ground_img_pts</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">mat_rot</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">mat_eucli_to_mat</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                                                        <span class="n">mat_ori_eucli</span><span class="p">)</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">mat_rot_eucli</span> <span class="o">=</span> <span class="n">mat_ori_eucli</span>
@@ -303,7 +313,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            np.array: The rotation matrix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_angle</span> <span class="o">==</span> <span class="s2">&quot;d&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_angle</span> <span class="o">==</span> <span class="s2">&quot;degree&quot;</span><span class="p">:</span>
             <span class="n">ori_shot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ori_shot</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">ori_shot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ori_shot</span>
@@ -322,364 +332,136 @@
 
 <div class="viewcode-block" id="Shot.set_param_eucli_shot">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.set_param_eucli_shot">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_param_eucli_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proj</span><span class="p">:</span> <span class="n">ProjEngine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_param_eucli_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Setting up Euclidean parameters projeucli, pos_shot_eucli, ori_shot_eucli, mat_rot_eucli.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            proj (ProjEngine): Projection of the worksite.</span>
+<span class="sd">        Setting up Euclidean parameters projeucli, pos_shot_eucli, mat_rot_eucli.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span> <span class="o">=</span> <span class="n">EuclideanProj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot_eucli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_euclidean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                                                <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                                                <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span> <span class="o">=</span> <span class="n">EuclideanProj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot_eucli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_euclidean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mat_rot_eucli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">mat_to_mat_eucli</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                                                              <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                                             <span class="bp">self</span><span class="o">.</span><span class="n">mat_rot</span><span class="p">)</span>
-        <span class="n">unitori</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_angle</span> <span class="o">==</span> <span class="s2">&quot;d&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ori_shot_eucli</span> <span class="o">=</span> <span class="o">-</span><span class="n">Rotation</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mat_rot_eucli</span><span class="p">)</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span>
-                                                                                 <span class="n">degrees</span><span class="o">=</span><span class="n">unitori</span><span class="p">)</span></div>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">mat_rot</span><span class="p">)</span></div>
 
 
-    <span class="c1"># pylint: disable-next=too-many-arguments too-many-locals</span>
-<div class="viewcode-block" id="Shot.world_to_image">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.world_to_image">[docs]</a>
-    <span class="k">def</span> <span class="nf">world_to_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_world</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-                       <span class="n">y_world</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-                       <span class="n">z_world</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-                       <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">dem</span><span class="p">:</span> <span class="n">Dem</span><span class="p">,</span>
-                       <span class="n">type_z_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="Shot.set_z_nadir">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.set_z_nadir">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_z_nadir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z_nadir</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calculates the c,l coordinates of a terrain point in an image.</span>
+<span class="sd">        Give z nadir to the shot.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            x_world (Union[np.array, float]): the coordinate x of ground point.</span>
-<span class="sd">            y_world (Union[np.array, float]): the coordinate y of ground point.</span>
-<span class="sd">            z_world (Union[np.array, float]): the coordinate z of ground point.</span>
-<span class="sd">            cam (Camera): the camera used.</span>
-<span class="sd">            dem (Dem): Dem of the worksite.</span>
-<span class="sd">            type_z_data (str): type of z of data.</span>
-<span class="sd">                               &quot;h&quot; height</span>
-<span class="sd">                               &quot;a&quot; altitude</span>
-<span class="sd">            type_z_shot (str): type of z of worksite.</span>
-<span class="sd">                               &quot;h&quot; height</span>
-<span class="sd">                               &quot;hl&quot; height with linear alteration</span>
-<span class="sd">                               &quot;a&quot; altitude / elevation</span>
-<span class="sd">                               &quot;al&quot; altitude with linear alteration</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            np.array: The image coordinate [c,l].</span>
+<span class="sd">            z_nadir (flaot): z_nadir of the shot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">type_z_data</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">type_z_shot</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dem</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing dem, because type z data != type z shot.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z_nadir</span> <span class="o">=</span> <span class="n">z_nadir</span></div>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x_world</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x_world</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Shot.set_unit_angle">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.set_unit_angle">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_unit_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows you to change the orientation angle unit.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            unit_angle (str): Unit angle.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">unit_angle</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_angle</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unit_angle</span> <span class="o">=</span> <span class="n">unit_angle</span>
+            <span class="k">if</span> <span class="n">unit_angle</span> <span class="o">==</span> <span class="s2">&quot;radian&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ori_shot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ori_shot</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ori_shot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ori_shot</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span></div>
+
+
+<div class="viewcode-block" id="Shot.set_type_z">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.set_type_z">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_type_z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_z</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows you to change the type of z.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            type_z (str): z type height or altitude.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">type_z</span> <span class="o">==</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">tranform_height</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">dim</span> <span class="o">=</span> <span class="p">()</span>
-
-        <span class="n">p_eucli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_euclidean</span><span class="p">(</span><span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span><span class="p">)</span>
-        <span class="n">pos_shot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv_z_type_to_type</span><span class="p">(</span><span class="n">type_z_shot</span><span class="p">,</span> <span class="n">type_z_data</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span> <span class="n">dem</span><span class="p">,</span>
-                                                     <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                                     <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                                     <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
-        <span class="n">pos_eucli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_euclidean</span><span class="p">(</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">p_bundle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mat_rot_eucli</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">p_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                                   <span class="n">p_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                                   <span class="n">p_eucli</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos_eucli</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
-        <span class="n">x_shot</span> <span class="o">=</span> <span class="n">p_bundle</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">cam</span><span class="o">.</span><span class="n">focal</span> <span class="o">/</span> <span class="n">p_bundle</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="n">y_shot</span> <span class="o">=</span> <span class="n">p_bundle</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">cam</span><span class="o">.</span><span class="n">focal</span> <span class="o">/</span> <span class="n">p_bundle</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="n">z_shot</span> <span class="o">=</span> <span class="n">p_bundle</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="n">x_shot</span><span class="p">,</span> <span class="n">y_shot</span><span class="p">,</span> <span class="n">z_shot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f_sys</span><span class="p">(</span><span class="n">x_shot</span><span class="p">,</span> <span class="n">y_shot</span><span class="p">,</span> <span class="n">z_shot</span><span class="p">)</span>
-        <span class="n">x_col</span> <span class="o">=</span> <span class="n">cam</span><span class="o">.</span><span class="n">ppax</span> <span class="o">+</span> <span class="n">x_shot</span>
-        <span class="n">y_lig</span> <span class="o">=</span> <span class="n">cam</span><span class="o">.</span><span class="n">ppay</span> <span class="o">+</span> <span class="n">y_shot</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">change_dim</span><span class="p">(</span><span class="n">x_col</span><span class="p">,</span> <span class="n">dim</span><span class="p">),</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">y_lig</span><span class="p">,</span> <span class="n">dim</span><span class="p">)])</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">tranform_altitude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">)</span></div>
 
 
-    <span class="c1"># pylint: disable-next=too-many-locals too-many-arguments</span>
-<div class="viewcode-block" id="Shot.image_to_world">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.image_to_world">[docs]</a>
-    <span class="k">def</span> <span class="nf">image_to_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">line</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-                       <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">dem</span><span class="p">:</span> <span class="n">Dem</span><span class="p">,</span> <span class="n">type_z_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="Shot.set_linear_alteration">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.set_linear_alteration">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_linear_alteration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calculate x and y cartographique coordinate with z.</span>
+<span class="sd">        Allows you to correct or de-correct the linear alteration.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            col (Union[np.array, float]): Column coordinates of image point(s).</span>
-<span class="sd">            line (Union[np.array, float]): Line coordinates of image point(s).</span>
-<span class="sd">            cam (Camera): Objet cam which correspond to the shot.</span>
-<span class="sd">            dem (Dem): Dem of the worksite.</span>
-<span class="sd">            type_z_data (str): type of z data you want in output.</span>
-<span class="sd">                               &quot;h&quot; height</span>
-<span class="sd">                               &quot;a&quot; altitude / elevation</span>
-<span class="sd">            type_z_shot (str): type of z shot, default = &quot;a&quot;.</span>
-<span class="sd">                          &quot;h&quot; height</span>
-<span class="sd">                          &quot;hl&quot; height with linear alteration</span>
-<span class="sd">                          &quot;a&quot; altitude / elevation</span>
-<span class="sd">                          &quot;al&quot; altitude with linear alteration</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            np.array: Cartographique coordinate [x,y,z].</span>
+<span class="sd">            linear_alteration (bool): Linear alteration boolean.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">dem</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing dem&quot;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">dim</span> <span class="o">=</span> <span class="p">()</span>
-
-        <span class="n">z_world</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">dem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-        <span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_z_to_world</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span> <span class="n">dem</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">,</span> <span class="n">z_world</span><span class="p">)</span>
-        <span class="n">precision_reached</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">nbr_iter</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">iter_max</span> <span class="o">=</span> <span class="mi">10</span>
-        <span class="k">while</span> <span class="ow">not</span> <span class="n">precision_reached</span> <span class="ow">and</span> <span class="n">nbr_iter</span> <span class="o">&lt;</span> <span class="n">iter_max</span><span class="p">:</span>
-            <span class="n">z_world</span> <span class="o">=</span> <span class="n">dem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">)</span>
-            <span class="n">x_new_world</span><span class="p">,</span> <span class="n">y_new_world</span><span class="p">,</span> <span class="n">z_new_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_z_to_world</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span> <span class="n">dem</span><span class="p">,</span>
-                                                                          <span class="n">type_z_shot</span><span class="p">,</span> <span class="n">z_world</span><span class="p">)</span>
-            <span class="n">x_diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_new_world</span> <span class="o">-</span> <span class="n">x_world</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-            <span class="n">y_diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_new_world</span> <span class="o">-</span> <span class="n">y_world</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-            <span class="n">z_diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">z_new_world</span> <span class="o">-</span> <span class="n">z_world</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-            <span class="n">dist2</span> <span class="o">=</span> <span class="n">x_diff</span> <span class="o">+</span> <span class="n">y_diff</span> <span class="o">+</span> <span class="n">z_diff</span>
-            <span class="n">precision_reached</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">dist2</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-            <span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span> <span class="o">=</span> <span class="n">x_new_world</span><span class="p">,</span> <span class="n">y_new_world</span><span class="p">,</span> <span class="n">z_new_world</span>
-            <span class="n">nbr_iter</span> <span class="o">+=</span> <span class="mi">1</span>
-
-        <span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_z_type_to_type</span><span class="p">(</span><span class="n">dem</span><span class="o">.</span><span class="n">type_dem</span><span class="p">,</span> <span class="n">type_z_data</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span>
-                                                             <span class="n">dem</span><span class="p">,</span> <span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span><span class="p">)</span>
-        <span class="n">x_world</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">x_world</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-        <span class="n">y_world</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">y_world</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-        <span class="n">z_world</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">z_world</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span><span class="p">])</span></div>
+        <span class="k">if</span> <span class="n">linear_alteration</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">linear_alteration</span> <span class="o">=</span> <span class="n">linear_alteration</span>
+            <span class="k">if</span> <span class="n">linear_alteration</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_z_add_scale_factor</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_z_remove_scale_factor</span><span class="p">()</span></div>
 
 
-    <span class="c1"># pylint: disable-next=too-many-locals too-many-arguments</span>
-<div class="viewcode-block" id="Shot.image_z_to_world">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.image_z_to_world">[docs]</a>
-    <span class="k">def</span> <span class="nf">image_z_to_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">line</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-                         <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">dem</span><span class="p">:</span> <span class="n">Dem</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                         <span class="n">z</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="Shot.getatt">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.getatt">[docs]</a>
+    <span class="k">def</span> <span class="nf">getatt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attsrt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calculate x and y cartographique coordinate with z.</span>
+<span class="sd">        Get attribut by str name.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            col (Union[np.array, float]): Column coordinates of image point(s).</span>
-<span class="sd">            line (Union[np.array, float]): Line coordinates of image point(s).</span>
-<span class="sd">            cam (Camera): Objet cam which correspond to the shot.</span>
-<span class="sd">            dem (Dem): Dem of the worksite.</span>
-<span class="sd">            type_z_shot (str): type of z, default = &quot;a&quot;.</span>
-<span class="sd">                          &quot;h&quot; height</span>
-<span class="sd">                          &quot;hl&quot; height with linear alteration</span>
-<span class="sd">                          &quot;a&quot; altitude / elevation</span>
-<span class="sd">                          &quot;al&quot; altitude with linear alteration</span>
-<span class="sd">            z (Union[np.array, float]): La position z du point par défault = 0.</span>
+<span class="sd">            attstr (str): String attribute.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            np.array: Cartographique coordinate [x,y,z].</span>
+<span class="sd">            Any: The attribute of the class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">z</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
-                <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">dim</span> <span class="o">=</span> <span class="p">()</span>
-
-        <span class="n">x_bundle</span><span class="p">,</span> <span class="n">y_bundle</span><span class="p">,</span> <span class="n">z_bundle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_to_bundle</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">cam</span><span class="p">)</span>
-        <span class="n">pos_shot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_z_type_to_type</span><span class="p">(</span><span class="n">type_z_shot</span><span class="p">,</span> <span class="n">dem</span><span class="o">.</span><span class="n">type_dem</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span> <span class="n">dem</span><span class="p">,</span>
-                                            <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">pos_eucli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_euclidean</span><span class="p">(</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">p_local</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mat_rot_eucli</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">x_bundle</span><span class="p">,</span> <span class="n">y_bundle</span><span class="p">,</span> <span class="n">z_bundle</span><span class="p">])</span>
-        <span class="n">p_local</span> <span class="o">=</span> <span class="n">p_local</span> <span class="o">+</span> <span class="n">pos_eucli</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-        <span class="n">lamb</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span> <span class="o">-</span> <span class="n">pos_eucli</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">p_local</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos_eucli</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">x_local</span> <span class="o">=</span> <span class="n">pos_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">p_local</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">lamb</span>
-        <span class="n">y_local</span> <span class="o">=</span> <span class="n">pos_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">p_local</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">lamb</span>
-        <span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">euclidean_to_world</span><span class="p">(</span><span class="n">x_local</span><span class="p">,</span> <span class="n">y_local</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">change_dim</span><span class="p">(</span><span class="n">x_world</span><span class="p">,</span> <span class="n">dim</span><span class="p">),</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">y_world</span><span class="p">,</span> <span class="n">dim</span><span class="p">),</span> <span class="n">z</span><span class="p">])</span></div>
-
-
-<div class="viewcode-block" id="Shot.image_to_bundle">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.image_to_bundle">[docs]</a>
-    <span class="k">def</span> <span class="nf">image_to_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-                        <span class="n">line</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Convert coordinate image col line to coordinate bundle.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            col (Union[np.array, float]): Column coordinates of image point(s).</span>
-<span class="sd">            line (Union[np.array, float]): Line coordinates of image point(s).</span>
-<span class="sd">            cam (Camera): Objet cam which correspond to the shot.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            np.array: Cartographique coordinate [x,y,z].</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">x_shot</span> <span class="o">=</span> <span class="n">col</span> <span class="o">-</span> <span class="n">cam</span><span class="o">.</span><span class="n">ppax</span>
-        <span class="n">y_shot</span> <span class="o">=</span> <span class="n">line</span> <span class="o">-</span> <span class="n">cam</span><span class="o">.</span><span class="n">ppay</span>
-        <span class="n">z_shot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">x_shot</span><span class="p">,</span> <span class="n">cam</span><span class="o">.</span><span class="n">focal</span><span class="p">)</span>
-        <span class="n">x_shot</span><span class="p">,</span> <span class="n">y_shot</span><span class="p">,</span> <span class="n">z_shot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f_sys_inv</span><span class="p">(</span><span class="n">x_shot</span><span class="p">,</span> <span class="n">y_shot</span><span class="p">,</span> <span class="n">z_shot</span><span class="p">)</span>
-        <span class="n">x_bundle</span> <span class="o">=</span> <span class="n">x_shot</span> <span class="o">/</span> <span class="n">cam</span><span class="o">.</span><span class="n">focal</span> <span class="o">*</span> <span class="n">z_shot</span>
-        <span class="n">y_bundle</span> <span class="o">=</span> <span class="n">y_shot</span> <span class="o">/</span> <span class="n">cam</span><span class="o">.</span><span class="n">focal</span> <span class="o">*</span> <span class="n">z_shot</span>
-        <span class="n">z_bundle</span> <span class="o">=</span> <span class="n">z_shot</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_bundle</span><span class="p">,</span> <span class="n">y_bundle</span><span class="p">,</span> <span class="n">z_bundle</span><span class="p">])</span></div>
-
-
-<div class="viewcode-block" id="Shot.tranform_height">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.tranform_height">[docs]</a>
-    <span class="k">def</span> <span class="nf">tranform_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">y</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-                        <span class="n">z</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Converting z in altitude to z in height of point.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            x (Union[np.array, float]): x coordinate of the point.</span>
-<span class="sd">            y (Union[np.array, float]): x coordinate of the point.</span>
-<span class="sd">            z (Union[np.array, float]): x coordinate of the point.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            float: New height z.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">coor_geog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">proj_engine</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">carto_to_geog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">new_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">proj_engine</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">geog_to_geoid</span><span class="p">(</span><span class="n">coor_geog</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                                                <span class="n">coor_geog</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                                                <span class="n">coor_geog</span><span class="p">[</span><span class="mi">2</span><span class="p">])[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: the geoid has not been entered, the z transformation from altitude &quot;</span>
-                  <span class="s2">&quot;to height has not been performed, return z altitude&quot;</span><span class="p">)</span>
-            <span class="n">new_z</span> <span class="o">=</span> <span class="n">z</span>
-
-        <span class="k">if</span> <span class="n">new_z</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;out geoid&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">new_z</span></div>
-
-
-<div class="viewcode-block" id="Shot.tranform_altitude">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.tranform_altitude">[docs]</a>
-    <span class="k">def</span> <span class="nf">tranform_altitude</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">y</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-                          <span class="n">z</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Converting z in height to z in altitude of point.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            x (Union[np.array, float]): x coordinate of the point.</span>
-<span class="sd">            y (Union[np.array, float]): x coordinate of the point.</span>
-<span class="sd">            z (Union[np.array, float]): x coordinate of the point.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            float: New altitude z.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">coor_geog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">proj_engine</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">carto_to_geog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">coor_geog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">proj_engine</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">geoid_to_geog</span><span class="p">(</span><span class="n">coor_geog</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                                                    <span class="n">coor_geog</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                                                    <span class="n">coor_geog</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-            <span class="n">new_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">proj_engine</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">geog_to_carto</span><span class="p">(</span><span class="n">coor_geog</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                                                <span class="n">coor_geog</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                                                <span class="n">coor_geog</span><span class="p">[</span><span class="mi">2</span><span class="p">])[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: the geoid has not been entered, the z transformation from height &quot;</span>
-                  <span class="s2">&quot;to altitude has not been performed, return z height&quot;</span><span class="p">)</span>
-            <span class="n">new_z</span> <span class="o">=</span> <span class="n">z</span>
-
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">new_z</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;out geoid&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">new_z</span></div>
+        <span class="c1"># pylint: disable-next=unnecessary-dunder-call</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">attsrt</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Shot.get_z_remove_scale_factor">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.get_z_remove_scale_factor">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_z_remove_scale_factor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z_nadir</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_z_remove_scale_factor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return Z after removing the scale factor. The Z of the object is NOT modified.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            z_nadir (float): Z nadir of the shot</span>
-
 <span class="sd">        Returns:</span>
-<span class="sd">            float: z without linear alteration</span>
+<span class="sd">            float: z without linear alteration.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">scale_factor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">proj_engine</span><span class="o">.</span><span class="n">get_scale_factor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="n">z_nadir</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">scale_factor</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_nadir</span><span class="p">:</span>
+            <span class="n">scale_factor</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">get_scale_factor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                                         <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">new_z</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_nadir</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">scale_factor</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No removing linear alteration of the z shot,&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;because no dtm or no set z_nadir of shot&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For setting z_nadir of shots make dtm or add work.set_z_nadir_shot()&quot;</span><span class="p">)</span>
+            <span class="n">new_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">new_z</span></div>
 
 
 <div class="viewcode-block" id="Shot.get_z_add_scale_factor">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.get_z_add_scale_factor">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_z_add_scale_factor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z_nadir</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_z_add_scale_factor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return Z after adding the scale factor. The Z of the object is NOT modified.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            z_nadir (float): Z nadir of the shot</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            float: z with linear alteration.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">scale_factor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">proj_engine</span><span class="o">.</span><span class="n">get_scale_factor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">z_nadir</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_nadir</span><span class="p">:</span>
+            <span class="n">scale_factor</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">get_scale_factor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                                         <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">new_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_nadir</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No adding linear alteration of the z shot,&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;because no dtm or no set z_nadir of shot.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For setting z_nadir of shots make dtm or add work.set_z_nadir_shot()&quot;</span><span class="p">)</span>
+            <span class="n">new_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
-
-    <span class="c1"># pylint: disable-next=too-many-arguments</span>
-<div class="viewcode-block" id="Shot.conv_z_type_to_type">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.conv_z_type_to_type">[docs]</a>
-    <span class="k">def</span> <span class="nf">conv_z_type_to_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_actual</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_expected</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">dem</span><span class="p">:</span> <span class="n">Dem</span><span class="p">,</span>
-                            <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">y</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-                            <span class="n">z</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Convert z from one type to another.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            type_actual (str): type z input.</span>
-<span class="sd">                               &quot;h&quot; height</span>
-<span class="sd">                               &quot;hl&quot; height with linear alteration</span>
-<span class="sd">                               &quot;a&quot; altitude / elevation</span>
-<span class="sd">                               &quot;al&quot; altitude with linear alteration</span>
-<span class="sd">            type_expected (str): type z output.</span>
-<span class="sd">                                 &quot;h&quot; height</span>
-<span class="sd">                                 &quot;hl&quot; height with linear alteration</span>
-<span class="sd">                                 &quot;a&quot; altitude / elevation</span>
-<span class="sd">                                 &quot;al&quot; altitude with linear alteration</span>
-<span class="sd">            cam (Camera): The camera of the shot.</span>
-<span class="sd">            dem (Dem): Dem of the worksite.</span>
-<span class="sd">            x (Union[np.array, float]): x coordinate of the point.</span>
-<span class="sd">            y (Union[np.array, float]): x coordinate of the point.</span>
-<span class="sd">            z (Union[np.array, float]): x coordinate of the point.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            tuple: X, Y, Z with z in type expected</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">conv</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a-h&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">tranform_height</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
-                <span class="s2">&quot;h-a&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">tranform_altitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
-                <span class="s2">&quot;al-h&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_z_remove_scale_factor</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tranform_height</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
-                <span class="s2">&quot;h-al&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">tranform_altitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_z_add_scale_factor</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
-                <span class="s2">&quot;a-hl&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">tranform_height</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_z_add_scale_factor</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
-                <span class="s2">&quot;hl-a&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_z_remove_scale_factor</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tranform_altitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
-                <span class="s2">&quot;al-hl&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">tranform_height</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
-                <span class="s2">&quot;hl-al&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">tranform_altitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
-                <span class="s2">&quot;al-a&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_z_remove_scale_factor</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
-                <span class="s2">&quot;a-al&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_z_add_scale_factor</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
-                <span class="s2">&quot;hl-h&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_z_remove_scale_factor</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
-                <span class="s2">&quot;h-hl&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_z_add_scale_factor</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]}</span>
-        <span class="n">id_type</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">type_actual</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">type_expected</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">if</span> <span class="n">type_actual</span> <span class="o">!=</span> <span class="n">type_expected</span><span class="p">:</span>
-            <span class="n">list_func</span> <span class="o">=</span> <span class="n">conv</span><span class="p">[</span><span class="n">id_type</span><span class="p">]</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">id_type</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">list_func</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">func</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                        <span class="n">z_nadir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_to_world</span><span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">ppax</span><span class="p">,</span> <span class="n">cam</span><span class="o">.</span><span class="n">ppay</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span>
-                                                      <span class="n">dem</span><span class="p">,</span> <span class="n">type_expected</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">type_expected</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">2</span><span class="p">]</span>
-                        <span class="n">z</span> <span class="o">=</span> <span class="n">func</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="n">z_nadir</span><span class="p">)</span>
-                    <span class="k">elif</span> <span class="n">func</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                        <span class="n">z_nadir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_to_world</span><span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">ppax</span><span class="p">,</span> <span class="n">cam</span><span class="o">.</span><span class="n">ppay</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span>
-                                                      <span class="n">dem</span><span class="p">,</span> <span class="n">type_actual</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">type_actual</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">2</span><span class="p">]</span>
-                        <span class="n">z</span> <span class="o">=</span> <span class="n">func</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="n">z_nadir</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">z</span> <span class="o">=</span> <span class="n">func</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">z</span> <span class="o">=</span> <span class="n">list_func</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">](</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span></div>
+        <span class="k">return</span> <span class="n">new_z</span></div>
 </div>
 
 </pre></div>

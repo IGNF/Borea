@@ -2,33 +2,35 @@
 A script to read opk file.
 """
 import platform
+from pathlib import Path
 import numpy as np
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
+from src.utils.check.check_args_opk import check_args_opk
 
 
-def read(file: str, lines: list, header: list, unit_angle: str, work: Worksite) -> Worksite:
+def read(file: Path, args: dict, work: Worksite) -> Worksite:
     """
     Reads an opk file to transform it into a Workside object.
 
     Args:
-        file (str): Path to the worksite.
-        lines (list): Interval of lines taken into account, [i, j] if i or j is None = :.
-                          e.g. [1, None] = [1:]
-        header (list): List of column type file.
-        unit_angle (str): unit of angle 'd' degrees, 'r' radian.
-        work (Worksite): Worksite to add shot
+        file (Path): Path to the worksite.
+        args (dict): Information for reading an opk file.
+                     keys:
+                     "interval" (list): Interval of lines taken into account,
+                     [i, j] if i or j is None = :. e.g. [1, None] = [1:].
+                     "header" (list): List of column type file.
+                     "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
+                     "linear_alteration" (bool): True if data corrected by linear alteration.
+        work (Worksite): Worksite to add shot.
 
     Returns:
         Worksite: The worksite.
     """
-    lf, ll = lines
-    if lf is not None:
-        lf -= 1
-    if ll is not None:
-        ll -= 1
+    args, header, type_z = check_args_opk(args)
+
     try:
         with open(file, 'r', encoding="utf-8") as file_opk:
-            for item_opk in file_opk.readlines()[lf:ll]:
+            for item_opk in file_opk.readlines()[args["interval"][0]:args["interval"][1]]:
                 item_shot = item_opk.split()
                 if len(item_shot) != len(header):
                     raise ValueError(f"The number of columns in your file {len(item_shot)}"
@@ -44,7 +46,7 @@ def read(file: str, lines: list, header: list, unit_angle: str, work: Worksite) 
                                    float(item_shot[header.index("P")]),
                                    float(item_shot[header.index("K")])], dtype=float),
                               item_shot[header.index("C")],
-                              unit_angle)
+                              args["unit_angle"], args["linear_alteration"])
             file_opk.close()
     except FileNotFoundError as e:
         raise FileNotFoundError(f"The path {file} is incorrect !!! "
@@ -52,4 +54,5 @@ def read(file: str, lines: list, header: list, unit_angle: str, work: Worksite) 
                                 "For Windows path is \\,"
                                 " for Linux and MacOS (Darwin) is / .") from e
 
+    work.type_z_shot = type_z
     return work

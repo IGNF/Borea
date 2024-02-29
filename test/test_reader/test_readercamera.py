@@ -2,10 +2,10 @@
 Script test for module reader_camera
 """
 from src.reader.reader_camera import read_camera, camera_txt
-from src.datastruct.worksite import Worksite
+from src.worksite.worksite import Worksite
 
-INPUT_CAM1_TXT = "./test/data/Camera1.txt"
-INPUT_CAM2_TXT = "./test/data/Camera2.txt"
+INPUT_CAM1_TXT = "./dataset/Camera1.txt"
+INPUT_CAM2_TXT = ".\\dataset\\Camera2.txt"
 
 
 

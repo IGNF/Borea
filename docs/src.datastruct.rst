@@ -12,6 +12,14 @@ src.datastruct.camera module
    :undoc-members:
    :show-inheritance:
 
+src.datastruct.dtm module
+-------------------------
+
+.. automodule:: src.datastruct.dtm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 src.datastruct.gcp module
 -------------------------
 
@@ -28,10 +36,10 @@ src.datastruct.shot module
    :undoc-members:
    :show-inheritance:
 
-src.datastruct.worksite module
+src.datastruct.workdata module
 ------------------------------
 
-.. automodule:: src.datastruct.worksite
+.. automodule:: src.datastruct.workdata
    :members:
    :undoc-members:
    :show-inheritance:

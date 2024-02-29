@@ -1,7 +1,8 @@
 """
 Script to read camera file txt or xml.
 """
-from src.datastruct.worksite import Worksite
+from pathlib import Path, PureWindowsPath
+from src.worksite.worksite import Worksite
 
 
 def read_camera(files: list, work: Worksite) -> None:
@@ -13,15 +14,15 @@ def read_camera(files: list, work: Worksite) -> None:
         work (Worksite): Worksite which needs camera data.
     """
     for file in files:
-        camera_txt(file, work)
+        camera_txt(Path(PureWindowsPath(file)), work)
 
 
-def camera_txt(file: str, work: Worksite) -> None:
+def camera_txt(file: Path, work: Worksite) -> None:
     """
     Read txt file camera.
 
     Args:
-        files (list): Path list of files cameras.
+        files (Path): Path list of files cameras.
         work (Worksite): Worksite which needs camera data.
     """
     dict_info = {}

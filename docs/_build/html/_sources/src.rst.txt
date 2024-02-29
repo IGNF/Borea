@@ -7,13 +7,15 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   src.altimetry
    src.datastruct
    src.geodesy
-   src.position
+   src.math
+   src.parser
    src.reader
    src.stat
+   src.transform_world_image
    src.utils
+   src.worksite
    src.writer
 
 Module contents

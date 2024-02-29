@@ -1,4 +1,4 @@
-name: unitary_test_ubuntu
+name: test_ubuntu
 
 on:
   push:
@@ -23,7 +23,14 @@ jobs:
         python -m pip install --upgrade pip
         export CPLUS_INCLUDE_PATH=/usr/include/gdal
         export C_INCLUDE_PATH=/usr/include/gdal
-        pip install pytest numpy importlib dataclasses pyproj pandas scipy jsons wheel GDAL==3.4.1
+        pip install GDAL==3.4.1
+        pip install -r ./requirements.txt
 
-    - name: Run tests with pytest
+    - name: Run unit tests with pytest
       run: python3 -m pytest -s ./test -v
+
+    - name: Run regression test conv opk
+      run: python3 ./opk_to_opk.py -r ./dataset/23FD1305_alt_test.OPK -i "N X Y Z O P K C" -f 2 -e 2154 -j ./dataset/proj.json -y ./dataset/ -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -n Test -w ./test/tmp/ -o "N X Y H P O K C" -d radian -l False
+
+    - name: Run regression test control opk
+      run: python3 ./opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i "N X Y Z O P K C" -f 2 -c ./dataset/Camera1.txt -e 2154 -j ./dataset/proj.json -y ./dataset/ -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p intersection -w ./test/tmp/

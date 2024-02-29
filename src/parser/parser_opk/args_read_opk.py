@@ -111,7 +111,7 @@ def process_args_read_opk(args: argparse) -> Worksite:
 
     # Add Dem
     work.add_dtm(args.dtm, args.fm)
-    if args.dem is not None:
+    if args.dtm is not None:
         print("Add dtm to the worksite done.")
     else:
         print("Not Dtm in the worksite.")

@@ -8,7 +8,6 @@ import numpy as np
 from src.worksite.worksite import Worksite
 
 
-# pylint: disable-next=too-many-instance-attributes
 class Stat:
     """
     Calculates site statistics.
@@ -30,9 +29,7 @@ class Stat:
         else:
             self.type_point = type_point
 
-        self.check_stat_wi = True
         self.res_world_image = []
-        self.check_stat_iw = True
         self.res_image_world = []
         self.stat_world_image = {}
         self.stat_image_world = {}
@@ -50,7 +47,7 @@ class Stat:
         Calculates residual and statistics on control point for world to image function.
         """
         self.stat_world_to_image()
-        if self.check_stat_wi:
+        if self.res_world_image:
             self.stat_world_image = self.stat_list(self.res_world_image)
 
     def main_stat_image_to_world(self) -> None:
@@ -58,7 +55,7 @@ class Stat:
         Calculates residual and statistics on control point for image to world function.
         """
         self.stat_image_to_world()
-        if self.check_stat_iw:
+        if self.res_image_world:
             self.stat_image_world = self.stat_list(self.res_image_world)
 
     def stat_world_to_image(self) -> None:
@@ -79,8 +76,6 @@ class Stat:
                             continue
             except KeyError:
                 continue
-        if not self.res_world_image:
-            self.check_stat_wi = False
 
     def stat_image_to_world(self) -> None:
         """
@@ -99,10 +94,7 @@ class Stat:
                         continue
             except KeyError:
                 continue
-        if not self.res_image_world:
-            self.check_stat_iw = False
 
-    # pylint: disable-next=too-many-locals
     def stat_list(self, data_list: list) -> dict:
         """
         Calculates statistics on residual data.
@@ -116,34 +108,27 @@ class Stat:
         for ld in data_list:
             data.append(ld[-1])
         data = np.array(data)
-        adata = abs(data)
 
-        list_stat1 = [np.amin, np.amax]
-        name_stat1 = ["Min", "Max"]
-        list_stat12 = [np.argmin, np.argmax]
-        list_stat2 = [np.median, np.mean, np.var, np.std]
-        name_stat2 = ["Median", "Mean", "Var", "Sigma"]
+        list_stat1 = [[np.amin, np.amax], ["Min", "Max"], [np.argmin, np.argmax]]
+        list_stat2 = [[np.median, np.mean, np.var, np.std],
+                      ["Median", "Mean", "Var", "Sigma"]]
 
-        for func, name, argfunc in zip(list_stat1, name_stat1, list_stat12):
-            stat = func(data, axis=0)
-            abstat = func(adata, axis=0)
-            argstat = argfunc(data, axis=0)
-            absagrstat = argfunc(adata, axis=0)
+        for func, name, argfunc in zip(list_stat1[0], list_stat1[1], list_stat1[2]):
             pstat = []
             abspstat = []
-            for i, j in zip(argstat, absagrstat):
+            for i, j in zip(argfunc(data, axis=0), argfunc(abs(data), axis=0)):
                 if len(data_list[i][0]) == 1:
                     pstat.append(data_list[i][0][0])
                     abspstat.append(data_list[j][0][0])
                 else:
                     pstat.append(data_list[i][0])
                     abspstat.append(data_list[j][0])
-            dict_output[f"{name}_arith"] = {"val": stat, "data": pstat}
-            dict_output[f"{name}_abs"] = {"val": abstat, "data": abspstat}
+            dict_output[f"{name}_arith"] = {"val": func(data, axis=0), "data": pstat}
+            dict_output[f"{name}_abs"] = {"val": func(abs(data), axis=0), "data": abspstat}
 
-        for func, name in zip(list_stat2, name_stat2):
+        for func, name in zip(list_stat2[0], list_stat2[1]):
             dict_output[f"{name}_arith"] = np.round(func(data, axis=0), 2)
-            dict_output[f"{name}_abs"] = np.round(func(adata, axis=0), 2)
+            dict_output[f"{name}_abs"] = np.round(func(abs(data), axis=0), 2)
 
         return dict_output
 
@@ -156,7 +141,7 @@ class Stat:
         path_rwi = os.path.join(self.pathoutput, f"Stat_residu_world_to_image_{self.work.name}.txt")
         path_mwi = os.path.join(self.pathoutput, f"Stat_metric_world_to_image_{self.work.name}.txt")
 
-        if self.check_stat_iw:
+        if self.res_image_world:
             try:
                 with open(path_riw, "w", encoding="utf-8") as file_riw:
                     file_riw.write("Control point statistics file.\n")
@@ -182,7 +167,7 @@ class Stat:
                 self.write_stat(file_miw, self.stat_image_world)
                 file_miw.close()
 
-        if self.check_stat_wi:
+        if self.res_world_image:
             with open(path_rwi, "w", encoding="utf-8") as file_rwi:
                 file_rwi.write("Control point statistics file.\n")
                 file_rwi.write("\n")

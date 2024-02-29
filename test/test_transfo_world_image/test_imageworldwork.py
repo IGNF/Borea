@@ -30,7 +30,7 @@ def test_calculate_image_world_by_intersection_onecop_multiimg():
     assert abs(work.co_pts_world['"1003"'][2] - 54.960) < 1
 
 
-def test_calculate_image_world_by_least_squart_onecop_multiimg():
+def test_calculate_image_world_by_least_square_onecop_multiimg():
     work = Worksite("Test")
     work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree",True)
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree",True)
@@ -44,7 +44,7 @@ def test_calculate_image_world_by_least_squart_onecop_multiimg():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_z_nadir_shot()
-    ImageWorldWork(work).manage_image_world(type_process = "least_squart")
+    ImageWorldWork(work).manage_image_world(type_process = "least_square")
     print(abs(work.co_pts_world['"1003"'][0] - 815601.510),abs(work.co_pts_world['"1003"'][1] - 6283629.280),abs(work.co_pts_world['"1003"'][2] - 54.960))
     assert abs(work.co_pts_world['"1003"'][0] - 815601.510) < 1
     assert abs(work.co_pts_world['"1003"'][1] - 6283629.280) < 1

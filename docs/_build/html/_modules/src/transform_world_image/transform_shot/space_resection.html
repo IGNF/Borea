@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.transform_world_image.transform_worksite.space_resection - Pink_Lady 1.0.0 documentation</title>
+        <title>src.transform_world_image.transform_shot.space_resection - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -219,7 +219,7 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.transform_world_image.transform_worksite.space_resection</h1><div class="highlight"><pre>
+          <h1>Source code for src.transform_world_image.transform_shot.space_resection</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Module for recalculate shooting position</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -233,7 +233,7 @@
 
 
 <div class="viewcode-block" id="SpaceResection">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection">[docs]</a>
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.space_resection.SpaceResection">[docs]</a>
 <span class="k">class</span> <span class="nc">SpaceResection</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Recalculates the shot&#39;s 6 external orientation parameters,</span>
@@ -252,7 +252,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span> <span class="o">=</span> <span class="n">type_z_shot</span>
 
 <div class="viewcode-block" id="SpaceResection.space_resection">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection">[docs]</a>
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.space_resection.SpaceResection.space_resection">[docs]</a>
     <span class="k">def</span> <span class="nf">space_resection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_pixel</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Shot</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Recalculates the shot&#39;s 6 external orientation parameters,</span>
@@ -297,7 +297,7 @@
 
 
 <div class="viewcode-block" id="SpaceResection.least_square_shot">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection.least_square_shot">[docs]</a>
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.space_resection.SpaceResection.least_square_shot">[docs]</a>
     <span class="k">def</span> <span class="nf">least_square_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shot_adjust</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">obs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
                           <span class="n">pt_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pt_world</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Shot</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -357,7 +357,7 @@
 
 
 <div class="viewcode-block" id="SpaceResection.mat_obs_axia">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection.mat_obs_axia">[docs]</a>
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.space_resection.SpaceResection.mat_obs_axia">[docs]</a>
     <span class="k">def</span> <span class="nf">mat_obs_axia</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">imc_adjust</span><span class="p">:</span> <span class="n">Shot</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Setting up the mat_a matrix to solve the system by axiator.</span>
@@ -392,7 +392,7 @@
 
 
 <div class="viewcode-block" id="SpaceResection.seed_20_point">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection.seed_20_point">[docs]</a>
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.space_resection.SpaceResection.seed_20_point">[docs]</a>
     <span class="k">def</span> <span class="nf">seed_20_point</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Positioning of 20 points on an image by percentage position on width and height.</span>

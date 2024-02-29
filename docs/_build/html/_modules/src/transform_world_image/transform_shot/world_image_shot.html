@@ -333,7 +333,7 @@
 
 <div class="viewcode-block" id="WorldImageShot.bundle_to_image">
 <a class="viewcode-back" href="../../../../src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.world_image_shot.WorldImageShot.bundle_to_image">[docs]</a>
-    <span class="k">def</span> <span class="nf">bundle_to_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_bundle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">bundle_to_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_bundle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert coordinate bundle to coordinate image col line.</span>
 
@@ -341,7 +341,7 @@
 <span class="sd">            p_bundle (np.array): [X, Y, Z] coordinates in bundle.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            tuple: Image coordinate x_col y_line.</span>
+<span class="sd">            np.array: Image coordinate x_col y_line.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">x_shot</span> <span class="o">=</span> <span class="n">p_bundle</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">focal</span> <span class="o">/</span> <span class="n">p_bundle</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
         <span class="n">y_shot</span> <span class="o">=</span> <span class="n">p_bundle</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">focal</span> <span class="o">/</span> <span class="n">p_bundle</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -350,7 +350,7 @@
         <span class="n">x_col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">ppax</span> <span class="o">+</span> <span class="n">x_shot</span>
         <span class="n">y_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">ppay</span> <span class="o">+</span> <span class="n">y_shot</span>
 
-        <span class="k">return</span> <span class="n">x_col</span><span class="p">,</span> <span class="n">y_line</span></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_col</span><span class="p">,</span> <span class="n">y_line</span><span class="p">])</span></div>
 </div>
 
 </pre></div>

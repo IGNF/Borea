@@ -95,7 +95,7 @@ class TransformGeodesy():
                                        coor_geog[2])[2]
         except AttributeError:
             print("Warning: the geoid has not been entered, the z transformation from altitude "
-                  "to height has not been performed, return z altitude")
+                  f"to height has not been performed, return z altitude {coor[2]}")
             new_z = coor[2]
 
         if new_z == np.inf:
@@ -122,7 +122,7 @@ class TransformGeodesy():
                                        coor_geog[2])[2]
         except AttributeError:
             print("Warning: the geoid has not been entered, the z transformation from height "
-                  "to altitude has not been performed, return z height")
+                  f"to altitude has not been performed, return z height {coor[2]}")
             new_z = coor[2]
 
         if np.all(new_z == np.inf):

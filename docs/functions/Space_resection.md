@@ -210,6 +210,7 @@ Example:
 ```
 import numpy as np
 from src.datastruct.worksite import Worksite
+from src.transform_world_image.transform_worksite.space_resection import SpaceResection
 
 # Create worksite
 work = Worksite("Test")
@@ -235,7 +236,7 @@ work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
 work.set_param_shot()
 
 # Recalculate 6 externa parameters of all shots
-work.shootings_position(add_pixel=(0,0))
+SpaceResection(work).space_resection_worksite(add_pixel = (0,0))
 ```
 
 

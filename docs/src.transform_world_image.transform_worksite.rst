@@ -28,6 +28,14 @@ src.transform\_world\_image.transform\_worksite.image\_world\_work module
    :undoc-members:
    :show-inheritance:
 
+src.transform\_world\_image.transform\_worksite.space\_resection module
+-----------------------------------------------------------------------
+
+.. automodule:: src.transform_world_image.transform_worksite.space_resection
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 src.transform\_world\_image.transform\_worksite.world\_image\_work module
 -------------------------------------------------------------------------
 

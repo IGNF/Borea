@@ -32,7 +32,7 @@ def test_stat_world_to_image():
     work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     WorldImageWork(work).calculate_world_to_image([13])
     stat = Stat(work, "./", [13])
     stat.stat_world_to_image()
@@ -72,7 +72,7 @@ def test_stat_image_to_world_type13():
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
     stat = Stat(work, "./", [13])
     stat.stat_image_to_world()
@@ -99,7 +99,7 @@ def test_stat_image_to_world_alltype():
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
     stat = Stat(work, "./", [])
     stat.stat_image_to_world()
@@ -194,7 +194,7 @@ def test_stat_list_world2():
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
     stat = Stat(work, "./", [])
     stat.stat_image_to_world()
@@ -220,7 +220,7 @@ def test_stat_list_image2():
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     work.add_dtm(PATH_DTM,"height")
     WorldImageWork(work).calculate_world_to_image([])
     stat = Stat(work, "./", [])
@@ -267,7 +267,7 @@ def test_main():
     work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     WorldImageWork(work).calculate_world_to_image([])
     ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
     stat = Stat(work, OUTPUT, [])

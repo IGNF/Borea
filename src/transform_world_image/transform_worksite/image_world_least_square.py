@@ -6,7 +6,8 @@ import numpy as np
 import pandas as pd
 from scipy.sparse import coo_matrix
 from src.worksite.worksite import Worksite
-from src.geodesy.euclidean_proj import EuclideanProj
+from src.geodesy.local_euclidean_proj import LocalEuclideanProj
+from src.geodesy.approx_euclidean_proj import ApproxEuclideanProj
 from src.datastruct.dtm import Dtm
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 from src.transform_world_image.transform_shot.world_image_shot import WorldImageShot
@@ -36,7 +37,10 @@ class WorldLeastSquare:
         """
         # Creation of worksite's barycentre.
         bary = self.work.calculate_barycentre()
-        eucliproj = EuclideanProj(bary[0], bary[1])
+        if self.work.approxeucli:
+            eucliproj = ApproxEuclideanProj(bary[0], bary[1])
+        else:
+            eucliproj = LocalEuclideanProj(bary[0], bary[1])
 
         # Retrieving point data from images.
         pd_mes = self.work.get_point_image_pandas(type_point, control_type)
@@ -49,9 +53,9 @@ class WorldLeastSquare:
         pd_pnt = self.least_square_intersect(pd_mes, pd_pnt)
 
         # Transform euclidean point to world point.
-        xw, yw, zw = eucliproj.euclidean_to_world(np.array([pd_pnt["x"].to_numpy(),
-                                                            pd_pnt["y"].to_numpy(),
-                                                            pd_pnt["z"].to_numpy()]))
+        xw, yw, zw = eucliproj.eucli_to_world(np.array([pd_pnt["x"].to_numpy(),
+                                                        pd_pnt["y"].to_numpy(),
+                                                        pd_pnt["z"].to_numpy()]))
         pd_pnt["x"] = xw
         pd_pnt["y"] = yw
         pd_pnt["z"] = zw
@@ -83,7 +87,7 @@ class WorldLeastSquare:
                                                                     z_world)
 
             # Transform of world coordinate to euclidean coordinate
-            coor_eucli = shot.projeucli.world_to_euclidean(coor_world)
+            coor_eucli = shot.projeucli.world_to_eucli(coor_world)
             frames += [pd.DataFrame({"id_pt": pd_mes_pnt["id_pt"],
                                      "x": coor_eucli[0],
                                      "y": coor_eucli[1],

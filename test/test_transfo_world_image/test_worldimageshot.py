@@ -40,7 +40,7 @@ def test_world_to_image():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
-    shot.set_param_eucli_shot()
+    shot.set_param_eucli_shot(False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
     actual = WorldImageShot(shot, cam).world_to_image(point_terrain, DATA_TYPE_Z, SHOT_TYPE_Z)
@@ -57,7 +57,7 @@ def test_world_to_image_multipoints():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
-    shot.set_param_eucli_shot()
+    shot.set_param_eucli_shot(False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
     actual = WorldImageShot(shot,cam).world_to_image(point_terrain, DATA_TYPE_Z, SHOT_TYPE_Z)
@@ -76,7 +76,7 @@ def test_world_to_image_withoutgeoid():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITHOUT_G)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
-    shot.set_param_eucli_shot()
+    shot.set_param_eucli_shot(False)
     with pytest.raises(ValueError) as e_info:
         z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
         shot.set_z_nadir(z_nadir)
@@ -89,7 +89,7 @@ def test_world_to_image_sametypea():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITHOUT_G)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
-    shot.set_param_eucli_shot()
+    shot.set_param_eucli_shot(False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
     shot.set_z_nadir(z_nadir)
     WorldImageShot(shot,cam).world_to_image(point_terrain, 'altitude', 'altitude')
@@ -101,7 +101,7 @@ def test_world_to_image_sametypewithl():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
-    shot.set_param_eucli_shot()
+    shot.set_param_eucli_shot(False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
     WorldImageShot(shot,cam).world_to_image(point_terrain, 'altitude', 'altitude')
@@ -113,7 +113,7 @@ def test_world_to_image_sametypewithl_withoutdtm():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
-    shot.set_param_eucli_shot()
+    shot.set_param_eucli_shot(False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
     with pytest.raises(ValueError) as e_info:
@@ -127,8 +127,21 @@ def test_world_to_image_sametypewithoutl():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
-    shot.set_param_eucli_shot()
+    shot.set_param_eucli_shot(False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
     Dtm_singleton(None, None)
     WorldImageShot(shot,cam).world_to_image(point_terrain, 'altitude', 'altitude')
+
+
+def test_world_to_image_approx():
+    Dtm.clear()
+    shot = copy.copy(SHOT)
+    Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    point_terrain = np.array([815601.510, 6283629.280, 54.960])
+    cam = CAM
+    shot.set_param_eucli_shot(True)
+    actual = WorldImageShot(shot, cam).world_to_image(point_terrain, DATA_TYPE_Z, SHOT_TYPE_Z)
+    print(abs(actual[0] - 24042.25), abs(actual[1] - 14781.17))
+    assert abs(actual[0] - 24042.25) < 1
+    assert abs(actual[1] - 14781.17) < 1

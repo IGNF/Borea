@@ -19,7 +19,7 @@ def test_calculate_world_to_image_base():
     work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     WorldImageWork(work).calculate_world_to_image([3])
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
@@ -37,7 +37,7 @@ def test_calculate_world_to_image_addpointunknow():
     work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     WorldImageWork(work).calculate_world_to_image([3])
     print("The print is normal")
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
@@ -57,7 +57,7 @@ def test_calculate_world_to_image_testcode():
     work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     WorldImageWork(work).calculate_world_to_image([13])
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
@@ -76,7 +76,7 @@ def test_calculate_world_to_image_testcodeNone():
     work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     WorldImageWork(work).calculate_world_to_image([])
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1

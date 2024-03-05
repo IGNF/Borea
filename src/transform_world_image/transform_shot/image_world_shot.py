@@ -110,13 +110,14 @@ class ImageWorldShot():
             dim = ()
         pt_bundle = self.image_to_bundle(img_coor)
 
-        pos_shot_new_z = conv_z_shot_to_z_data(self.shot, type_z_shot, Dtm().type_dtm, nonadir)
+        pos_shot_new_z = conv_z_shot_to_z_data(self.shot, type_z_shot, Dtm().type_dtm,
+                                               nonadir, self.shot.approxeucli)
 
-        pos_eucli = self.shot.projeucli.world_to_euclidean(pos_shot_new_z)
+        pos_eucli = self.shot.projeucli.world_to_eucli(pos_shot_new_z)
 
         pt_eucli = self.local_to_eucli(pt_bundle, pos_eucli, z)
 
-        pt_world = self.shot.projeucli.euclidean_to_world(pt_eucli)
+        pt_world = self.shot.projeucli.eucli_to_world(pt_eucli)
         return np.array([change_dim(pt_world[0], dim), change_dim(pt_world[1], dim), z])
 
     def image_to_bundle(self, img_coor: np.ndarray) -> np.ndarray:

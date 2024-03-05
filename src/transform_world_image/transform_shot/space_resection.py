@@ -48,7 +48,7 @@ class SpaceResection:
 
         # Calculate euclidean position
         pt_world = np.array([x_world, y_world, z_world])
-        pt_eucli = self.shot.projeucli.world_to_euclidean(pt_world)
+        pt_eucli = self.shot.projeucli.world_to_eucli(pt_world)
 
         # Add factor
         obs[0] += add_pixel[0]
@@ -57,7 +57,7 @@ class SpaceResection:
         # Initialization of adjusted shot
         shot_adjust = Shot(self.shot.name_shot, self.shot.pos_shot, self.shot.ori_shot,
                            self.shot.name_cam, self.shot.unit_angle, self.shot.linear_alteration)
-        shot_adjust.set_param_eucli_shot()
+        shot_adjust.set_param_eucli_shot(self.shot.approxeucli)
         shot_adjust.set_z_nadir(self.shot.z_nadir)
 
         # Least-square methode
@@ -111,7 +111,8 @@ class SpaceResection:
             imc_new_adjust = Shot.from_param_euclidean(shot_adjust.name_shot, new_pos_eucli,
                                                        new_mat_eucli, shot_adjust.name_cam,
                                                        shot_adjust.unit_angle,
-                                                       shot_adjust.linear_alteration)
+                                                       shot_adjust.linear_alteration,
+                                                       shot_adjust.approxeucli)
             imc_new_adjust.set_z_nadir(self.shot.z_nadir)
 
             # Look difference to know if you want to stop the calculation

@@ -1,0 +1,1 @@
+python3 -m pytest -s ./test/test_geodesy/test_approx_proj.py -v

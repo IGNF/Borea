@@ -28,7 +28,7 @@ Once the object has been created, you can add other data to it:
 
 ## Different process
 
-* Setup z_nadir of shot, this is recommended if the z shot is corrected by linear alteration and you supply a dtm `work.set_z_nadir_shot()`.
+* Set different parameters for shots (projection system of shot and z_nadir), mandatory if data is to be processed afterwards. `work.set_param_shot()`.
 
 * Can calculate the position of image points in world with `ImageWorldWork(worksite).manage_image_world(type_point, type_process, type_control)`.   
     * `type_point` is the type of point you want to calcule `co_points` or `ground_img_pts`.   
@@ -130,8 +130,8 @@ work.type_z_data = type_z_data
 # Add Dtm to the worksite
 work.add_dtm(path_dtm, type_dtm)
 
-# Setup z_nadir of shot, recommended if z shot is corrected by the linear alteration
-work.set_z_nadir_shot()
+# Setup parameters of shot (projection system of shot and z_nadir)
+work.set_param_shot()
 
 # Calculate world coordinate of "co_points" or "ground_image_pts"
 # Type control isn't mandatory, take all points if not specified 

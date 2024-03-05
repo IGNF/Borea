@@ -260,6 +260,9 @@
                         <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;intersection&quot;</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Type of process for the function image to world,&quot;</span>
                              <span class="s2">&quot;intersection or least_square&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-x&#39;</span><span class="p">,</span> <span class="s1">&#39;--approx_system&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;To use an approximate system.&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-w&#39;</span><span class="p">,</span> <span class="s1">&#39;--pathreturn&#39;</span><span class="p">,</span>
                         <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;./&#39;</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Conversion path e.g. test/tmp/.&#39;</span><span class="p">)</span>
@@ -287,9 +290,9 @@
                              <span class="s1">&#39;or misspelled --fg altitude or height&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connecting point reading done.&quot;</span><span class="p">)</span>
         <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">work</span><span class="o">.</span><span class="n">gipoints</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">work</span><span class="o">.</span><span class="n">ground_img_pts</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">count</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of ground points of image: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">gipoints</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of ground points of image: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">ground_img_pts</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of image with ground point.s: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Reading GCP</span>
@@ -303,8 +306,9 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GCP reading done.&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of gcp: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">gcps</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
+    <span class="n">work</span><span class="o">.</span><span class="n">set_param_shot</span><span class="p">()</span>
     <span class="c1"># Calculate ground coordinate of conneting point by intersection</span>
-    <span class="n">ImageWorldWork</span><span class="p">(</span><span class="n">work</span><span class="p">)</span><span class="o">.</span><span class="n">manage_image_world</span><span class="p">(</span><span class="n">type_point</span><span class="o">=</span><span class="s2">&quot;ground_img_pt&quot;</span><span class="p">,</span>
+    <span class="n">ImageWorldWork</span><span class="p">(</span><span class="n">work</span><span class="p">)</span><span class="o">.</span><span class="n">manage_image_world</span><span class="p">(</span><span class="n">type_point</span><span class="o">=</span><span class="s2">&quot;ground_img_pts&quot;</span><span class="p">,</span>
                                             <span class="n">type_process</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">process</span><span class="p">,</span>
                                             <span class="n">control_type</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">control_type</span><span class="p">)</span>
 

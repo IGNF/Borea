@@ -38,15 +38,19 @@ class WorldImageShot():
         if type_z_data != type_z_shot and not ProjEngine().geog_to_geoid:
             raise ValueError("Missing geoid")
 
-        if self.shot.linear_alteration and not Dtm().path_dtm:
+        if self.shot.linear_alteration and not Dtm().path_dtm and not self.shot.approxeucli:
             raise ValueError("Missing dtm")
+
+        if self.shot.approxeucli and not self.shot.linear_alteration:
+            print("The results will not be accurate because the data are not corrected by"
+                  " linear alteration and you are using an approximate system.")
 
         if isinstance(coor_world[0], np.ndarray):
             dim = np.shape(coor_world[0])
         else:
             dim = ()
 
-        p_eucli = self.shot.projeucli.world_to_euclidean(coor_world)
+        p_eucli = self.shot.projeucli.world_to_eucli(coor_world)
 
         # Convert coordinate in bundle system to image system
         x_col, y_line = self.eucli_to_image(p_eucli, type_z_data, type_z_shot)
@@ -87,15 +91,16 @@ class WorldImageShot():
         Returns:
             np.array: Bundle coordinate [c,l].
         """
-        pos_shot_new_z = conv_z_shot_to_z_data(self.shot, type_z_shot, type_z_data)
+        pos_shot_new_z = conv_z_shot_to_z_data(self.shot, type_z_shot, type_z_data,
+                                               approx=self.shot.approxeucli)
 
         # Convert coordinate in world system to euclidean system
-        pos_eucli = self.shot.projeucli.world_to_euclidean(pos_shot_new_z)
+        pos_eucli = self.shot.projeucli.world_to_eucli(pos_shot_new_z)
 
         # Convert coordinate in euclidean system to bundle system
-        p_bundle = self.shot.mat_rot_eucli @ np.vstack([p_eucli[0] - pos_eucli[0],
-                                                        p_eucli[1] - pos_eucli[1],
-                                                        p_eucli[2] - pos_eucli[2]])
+        p_bundle = np.squeeze((self.shot.mat_rot_eucli @ np.vstack([p_eucli[0] - pos_eucli[0],
+                                                                    p_eucli[1] - pos_eucli[1],
+                                                                    p_eucli[2] - pos_eucli[2]])))
         return p_bundle
 
     def bundle_to_image(self, p_bundle: np.ndarray) -> np.ndarray:

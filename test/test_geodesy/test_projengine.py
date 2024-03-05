@@ -1,7 +1,13 @@
 """
 Script test for module proj_engine
 """
+from src.datastruct.dtm import Dtm
 from src.geodesy.proj_engine import ProjEngine
+
+
+def setup_module(module): # run before the first test
+    Dtm.clear()
+    ProjEngine.clear()
 
 
 def test_ProjEngine_withpathgeotiff():

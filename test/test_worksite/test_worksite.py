@@ -28,7 +28,7 @@ def test_shootings_position():
     work.add_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     work.shootings_position()
     assert abs(work.shots["23FD1305x00026_01306"].pos_shot[0] - 814975.925) < 5
     assert abs(work.shots["23FD1305x00026_01306"].pos_shot[1] - 6283986.148) < 5

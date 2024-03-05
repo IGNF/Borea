@@ -274,7 +274,7 @@
 
         <span class="c1"># Calculate euclidean position</span>
         <span class="n">pt_world</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span><span class="p">])</span>
-        <span class="n">pt_eucli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_euclidean</span><span class="p">(</span><span class="n">pt_world</span><span class="p">)</span>
+        <span class="n">pt_eucli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_eucli</span><span class="p">(</span><span class="n">pt_world</span><span class="p">)</span>
 
         <span class="c1"># Add factor</span>
         <span class="n">obs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">add_pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -283,7 +283,7 @@
         <span class="c1"># Initialization of adjusted shot</span>
         <span class="n">shot_adjust</span> <span class="o">=</span> <span class="n">Shot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">name_shot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">ori_shot</span><span class="p">,</span>
                            <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">unit_angle</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">)</span>
-        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">set_param_eucli_shot</span><span class="p">()</span>
+        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">set_param_eucli_shot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">approxeucli</span><span class="p">)</span>
         <span class="n">shot_adjust</span><span class="o">.</span><span class="n">set_z_nadir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">z_nadir</span><span class="p">)</span>
 
         <span class="c1"># Least-square methode</span>
@@ -340,7 +340,8 @@
             <span class="n">imc_new_adjust</span> <span class="o">=</span> <span class="n">Shot</span><span class="o">.</span><span class="n">from_param_euclidean</span><span class="p">(</span><span class="n">shot_adjust</span><span class="o">.</span><span class="n">name_shot</span><span class="p">,</span> <span class="n">new_pos_eucli</span><span class="p">,</span>
                                                        <span class="n">new_mat_eucli</span><span class="p">,</span> <span class="n">shot_adjust</span><span class="o">.</span><span class="n">name_cam</span><span class="p">,</span>
                                                        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">unit_angle</span><span class="p">,</span>
-                                                       <span class="n">shot_adjust</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">)</span>
+                                                       <span class="n">shot_adjust</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">,</span>
+                                                       <span class="n">shot_adjust</span><span class="o">.</span><span class="n">approxeucli</span><span class="p">)</span>
             <span class="n">imc_new_adjust</span><span class="o">.</span><span class="n">set_z_nadir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">z_nadir</span><span class="p">)</span>
 
             <span class="c1"># Look difference to know if you want to stop the calculation</span>

@@ -6,13 +6,11 @@ import sys
 import json
 from pathlib import Path, PureWindowsPath
 import numpy as np
-import pandas as pd
 from pyproj import CRS, exceptions
 from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
 from src.datastruct.gcp import GCP
 from src.geodesy.proj_engine import ProjEngine
-from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 from src.datastruct.dtm import Dtm
 
 
@@ -38,6 +36,7 @@ class Workdata:
         self.img_pts_world = {}
         self.type_z_data = None
         self.type_z_shot = None
+        self.approxeucli = False
 
     # pylint: disable-next=too-many-arguments
     def add_shot(self, name_shot: str, pos_shot: np.ndarray,
@@ -88,7 +87,6 @@ class Workdata:
                 try:
                     dict_epsg = projection_list[f"EPSG:{epsg}"]
                     ProjEngine().set_epsg(epsg, dict_epsg, path_geotiff)
-                    self.set_param_eucli_shots()
                 except KeyError:
                     self.known_projection(epsg, path_geotiff)
             except FileNotFoundError as e:
@@ -110,16 +108,8 @@ class Workdata:
         try:
             dict_epsg = projection_list[f"EPSG:{epsg}"]
             ProjEngine().set_epsg(epsg, dict_epsg, path_geotiff)
-            self.set_param_eucli_shots()
         except KeyError:
             ProjEngine().set_epsg(epsg)
-
-    def set_param_eucli_shots(self) -> None:
-        """
-        Setting up Euclidean parameters pos_shot_eucli, ori_shot_eucli, mat_rot_eucli by shot.
-        """
-        for shot in self.shots.values():
-            shot.set_param_eucli_shot()
 
     # pylint: disable-next=too-many-arguments
     def add_camera(self, name_camera: str, ppax: float, ppay: float,
@@ -235,155 +225,11 @@ class Workdata:
         Dtm.clear()
         Dtm().set_dtm(path_dtm, type_dtm)
 
-    def set_z_nadir_shot(self) -> None:
+    def set_approx_eucli_proj(self, approx: bool) -> None:
         """
-        Calculates z_nadir for each shot.
-        """
-        if Dtm().path_dtm:
-            for shot in self.shots.values():
-                cam = self.cameras[shot.name_cam]
-                z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]),
-                                                                   self.type_z_shot,
-                                                                   self.type_z_shot, False)[2]
-                shot.set_z_nadir(z_nadir)
-        else:
-            print("No correction or de-correction of the linear alteration, because no dtm.")
-
-    def set_unit_shot(self, type_z: str = None, unit_angle: str = None,
-                      linear_alteration: bool = None) -> None:
-        """
-        Allows you to change the orientation angle unit.
+        Setup approxeucli in worksite
 
         Args:
-            unit_angle (str): Unit angle.
+            apprx (bool): True if there are not projengine
         """
-        if unit_angle not in ["degree", "radian", None]:
-            raise ValueError(f"unit_angle: {unit_angle} is not recognized,"
-                             "recognized values are degree and radian.")
-
-        if type_z not in ["height", "altitude", None]:
-            raise ValueError(f"type_z: {type_z} is not recognized,"
-                             "recognized values are altitude and height.")
-
-        if type_z == self.type_z_shot:
-            type_z = None
-        else:
-            self.type_z_shot = type_z
-
-        for shot in self.shots.values():
-            if unit_angle is not None:
-                shot.set_unit_angle(unit_angle)
-            if type_z is not None:
-                shot.set_type_z(type_z)
-            if linear_alteration is not None:
-                shot.set_linear_alteration(linear_alteration)
-
-    def getatt(self, attsrt: str) -> any:
-        """
-        Get attribut by str name.
-
-        Args:
-            attstr (str): String attribute.
-
-        Returns:
-            Any: The attribute of the class.
-        """
-        # pylint: disable-next=unnecessary-dunder-call
-        return self.__getattribute__(attsrt)
-
-    def get_point_image_pandas(self, type_point: str, control_type: list) -> pd.DataFrame:
-        """
-        Retrieves id_pt, id_img, column, line in a pandas of the requested point type.
-
-        Args:
-            type_point (str): "co_points" or "ground_img_pts" depending on what you want to get.
-            control_type (list): Type controle for gcp.
-
-        Returns:
-            pandas: Pandas table.
-        """
-        if type_point not in ["co_points", "ground_img_pts"]:
-            raise ValueError(f"type_point {type_point} is incorrect,['co_points','ground_img_pts']")
-
-        if type_point == "co_points":
-            control_type = []
-
-        id_pt = []
-        id_img = []
-        coor = []
-        for name_pt, list_shot in self.getatt(type_point).items():
-            if control_type != [] and self.gcps[name_pt].code not in control_type:
-                continue
-            for name_shot in list_shot:
-                id_pt.append(name_pt)
-                id_img.append(name_shot)
-                coor.append(self.shots[name_shot].getatt(type_point)[name_pt])
-
-        coor = np.array(coor)
-        return pd.DataFrame({"id_pt": id_pt, "id_img": id_img,
-                             "column": coor[:, 0], "line": coor[:, 1]})
-
-    def set_point_image_pandas(self, pd_mes: pd.DataFrame, type_point: str) -> None:
-        """
-        Set requested point type by pandas table id_pt, id_img, column, line.
-
-        Args:
-            pd_mes (pd): Pandas table of data.
-            type_point (str): "co_points" or "ground_img_pts" depending on what you want to set.
-        """
-        if type_point not in ["co_points", "ground_img_pts"]:
-            raise ValueError(f"type_point {type_point} is incorrect,['co_points','ground_img_pts']")
-
-        for _, row in pd_mes.iterrows():
-            self.shots[row['id_img']].getatt(type_point)[row['id_pt']] = np.array([row['column'],
-                                                                                   row['line']])
-
-    def get_point_world_pandas(self, type_point: str, control_type: list) -> pd.DataFrame:
-        """
-        Retrieves id_pt, x, y, z in a pandas of the requested point type.
-
-        Args:
-            type_point (str): "co_points" or "ground_img_pts" depending on what you want to get.
-            control_type (list): Type controle for gcp.
-
-        Returns:
-            pandas: Pandas table.
-        """
-        if type_point not in ["co_points", "ground_img_pts"]:
-            raise ValueError(f"type_point {type_point} is incorrect,['co_points','ground_img_pts']")
-
-        if type_point == 'co_points':
-            out_pt = "co_pts_world"
-            control_type = []
-        else:
-            out_pt = "img_pts_world"
-
-        id_pt = []
-        coor = []
-        for name_pt, coor_pt in self.getatt(out_pt).items():
-            if control_type != [] and self.gcps[name_pt].code not in control_type:
-                continue
-            id_pt.append(name_pt)
-            coor.append(coor_pt)
-
-        coor = np.array(coor)
-        return pd.DataFrame({"id_pt": id_pt, "x": coor[:, 0], "y": coor[:, 1], "z": coor[:, 2]})
-
-    def set_point_world_pandas(self, pd_mes: pd.DataFrame, type_point: str) -> None:
-        """
-        Set requested point type by pandas table id_pt, x, y, z.
-
-        Args:
-            pd_mes (pd): Pandas table of data.
-            type_point (str): "co_points" or "ground_img_pts" depending on what you want to set.
-        """
-        if type_point not in ["co_points", "ground_img_pts"]:
-            raise ValueError(f"type_point {type_point} is incorrect,['co_points','ground_img_pts']")
-
-        if type_point == 'co_points':
-            out_pt = "co_pts_world"
-        else:
-            out_pt = "img_pts_world"
-
-        for _, row in pd_mes.iterrows():
-            self.getatt(out_pt)[row['id_pt']] = np.array([row['x'], row['y'], row['z']])
+        self.approxeucli = approx

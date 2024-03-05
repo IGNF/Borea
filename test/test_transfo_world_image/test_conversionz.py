@@ -37,7 +37,7 @@ def test_conv_z_shot_to_z_data():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
-    shot.set_param_eucli_shot()
+    shot.set_param_eucli_shot(False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
     pos_new_z = conv_z_shot_to_z_data(shot, SHOT_TYPE_Z, DATA_TYPE_Z)

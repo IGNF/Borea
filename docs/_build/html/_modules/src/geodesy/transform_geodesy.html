@@ -324,7 +324,7 @@
                                        <span class="n">coor_geog</span><span class="p">[</span><span class="mi">2</span><span class="p">])[</span><span class="mi">2</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: the geoid has not been entered, the z transformation from altitude &quot;</span>
-                  <span class="s2">&quot;to height has not been performed, return z altitude&quot;</span><span class="p">)</span>
+                  <span class="sa">f</span><span class="s2">&quot;to height has not been performed, return z altitude </span><span class="si">{</span><span class="n">coor</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">new_z</span> <span class="o">=</span> <span class="n">coor</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">new_z</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
@@ -354,7 +354,7 @@
                                        <span class="n">coor_geog</span><span class="p">[</span><span class="mi">2</span><span class="p">])[</span><span class="mi">2</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: the geoid has not been entered, the z transformation from height &quot;</span>
-                  <span class="s2">&quot;to altitude has not been performed, return z height&quot;</span><span class="p">)</span>
+                  <span class="sa">f</span><span class="s2">&quot;to altitude has not been performed, return z height </span><span class="si">{</span><span class="n">coor</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">new_z</span> <span class="o">=</span> <span class="n">coor</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">new_z</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">):</span>

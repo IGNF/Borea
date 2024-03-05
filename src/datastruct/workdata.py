@@ -211,9 +211,9 @@ class Workdata:
         """
         self.gcps[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
 
-    def add_dtm(self, path_dtm: str, type_dtm: str) -> None:
+    def set_dtm(self, path_dtm: str, type_dtm: str) -> None:
         """
-        Add class DtM to the worksite.
+        set class DtM to the worksite.
 
         Args:
             path_dtm (str): Path to the dtm.

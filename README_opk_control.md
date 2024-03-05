@@ -31,6 +31,7 @@ The parameters are:
 | -d | Type of gcp to control. | [] | X |
 | --fg | Format of GCP and ground image points "altitude" or "height". | None | X, unless gcp and gip is given |
 | -p | Type of process for the function image to world, "intersection" or "least_square" | "intersection" | X |
+| -x | To use an approximate system. | False | X |
 | -w | Path stat e.g. "./" | "./" | X |
 
 E.G.
@@ -103,5 +104,11 @@ Needs:
 * DTM
 
 `intersection` has a better accuracy than `least_square`.
+
+### Detail for approx system
+
+The approximate system is used to set up a local tangent frame of reference for each acquisition in a purely mathematical way, without geodesy. To be used if the **data is corrected by linear alteration**, all data must be in the **same Z coordinate system** (altimetric or height), and there is **no need for the .json projection file**, **nor for DTM** if you are not using the image to world function with least square processing.  
+You can also use it with data not in the same Z repository, but you need the data in the .json projection file.  
+However, the calculation is less accurate in the approximate system.
 
 ![logo ign](docs/logo/logo_ign.png) ![logo fr](docs/logo/Republique_Francaise_Logo.png)

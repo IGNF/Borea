@@ -36,6 +36,9 @@ def args_control(parser: argparse) -> argparse:
                         type=str, default="intersection",
                         help="Type of process for the function image to world,"
                              "intersection or least_square")
+    parser.add_argument('-x', '--approx_system',
+                        type=bool, default=False,
+                        help="To use an approximate system.")
     parser.add_argument('-w', '--pathreturn',
                         type=str, default='./',
                         help='Conversion path e.g. test/tmp/.')
@@ -76,7 +79,7 @@ def process_args_control(args, work: Worksite) -> None:
         print("GCP reading done.")
         print(f"Number of gcp: {len(work.gcps)}")
 
-    work.set_z_nadir_shot()
+    work.set_param_shot()
     # Calculate ground coordinate of conneting point by intersection
     ImageWorldWork(work).manage_image_world(type_point="ground_img_pts",
                                             type_process=args.process,

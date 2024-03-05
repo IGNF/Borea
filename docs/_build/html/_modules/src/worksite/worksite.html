@@ -226,7 +226,6 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">src.datastruct.workshot</span> <span class="kn">import</span> <span class="n">Workshot</span>
-<span class="kn">from</span> <span class="nn">src.transform_world_image.transform_shot.space_resection</span> <span class="kn">import</span> <span class="n">SpaceResection</span>
 
 
 <div class="viewcode-block" id="Worksite">
@@ -380,24 +379,6 @@
             <span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span>
             <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Worksite.shootings_position">
-<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.shootings_position">[docs]</a>
-    <span class="k">def</span> <span class="nf">shootings_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_pixel</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Recalculates the shot&#39;s 6 external orientation parameters,</span>
-<span class="sd">        the 3 angles omega, phi, kappa and its position x, y, z.</span>
-<span class="sd">        For all shot with a variation pixel.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            add_pixel (tuple): Factor (column, line) added on observable point.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">key_shot</span><span class="p">,</span> <span class="n">item_shot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">cam</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">item_shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">key_shot</span><span class="p">]</span> <span class="o">=</span> <span class="n">SpaceResection</span><span class="p">(</span><span class="n">item_shot</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span>
-                                                  <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span><span class="p">,</span>
-                                                  <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">)</span><span class="o">.</span><span class="n">space_resection</span><span class="p">(</span><span class="n">add_pixel</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

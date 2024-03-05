@@ -2,9 +2,10 @@
 Acquisition data class module.
 """
 import numpy as np
-from scipy.spatial.transform import Rotation
+from scipy.spatial.transform import Rotation as R
 from src.geodesy.proj_engine import ProjEngine
-from src.geodesy.euclidean_proj import EuclideanProj
+from src.geodesy.approx_euclidean_proj import ApproxEuclideanProj
+from src.geodesy.local_euclidean_proj import LocalEuclideanProj
 
 
 # pylint: disable=too-many-instance-attributes too-many-arguments
@@ -37,13 +38,15 @@ class Shot:
         self.mat_rot = self.set_rot_shot()
         self.mat_rot_eucli = None
         self.projeucli = None
+        self.approxeucli = False
         self.f_sys = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
         self.f_sys_inv = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
 
     @classmethod
     def from_param_euclidean(cls, name_shot: str, pos_eucli: np.ndarray,
                              mat_ori_eucli: np.ndarray, name_cam: str,
-                             unit_angle: str, linear_alteration: bool) -> None:
+                             unit_angle: str, linear_alteration: bool,
+                             approx: bool) -> None:
         """
         Construction of a shot object using the Euclidean position.
 
@@ -54,6 +57,7 @@ class Shot:
             name_cam (str): Name of the camera.
             unit_angle (str): Unit of angle 'degrees', 'radian'.
             linear_alteration (bool): True if z shot is correct of linear alteration.
+            approx (bool): True if you want to use approx euclidean system.
 
         Returns:
             Shot: The shot.
@@ -61,16 +65,21 @@ class Shot:
         shot = cls(name_shot, np.array([0, 0, 0]), np.array([0, 0, 0]),
                    name_cam, unit_angle, linear_alteration)
         shot.pos_shot_eucli = pos_eucli
-        shot.projeucli = EuclideanProj(pos_eucli[0], pos_eucli[1])
+        shot.approxeucli = approx
+        if approx:
+            shot.projeucli = ApproxEuclideanProj(pos_eucli[0], pos_eucli[1])
+        else:
+            shot.projeucli = LocalEuclideanProj(pos_eucli[0], pos_eucli[1])
         unitori = shot.unit_angle == "degree"
-        shot.pos_shot = shot.projeucli.euclidean_to_world(pos_eucli)
+        shot.pos_shot = shot.projeucli.eucli_to_world(pos_eucli)
         shot.co_points = {}
         shot.gcps = {}
         shot.ground_img_pts = {}
         shot.mat_rot = shot.projeucli.mat_eucli_to_mat(shot.pos_shot[0], shot.pos_shot[1],
                                                        mat_ori_eucli)
         shot.mat_rot_eucli = mat_ori_eucli
-        shot.ori_shot = -Rotation.from_matrix(shot.mat_rot).as_euler("xyz", degrees=unitori)
+        shot.ori_shot = -(R.from_euler("x", np.pi) *
+                          R.from_matrix(shot.mat_rot)).as_euler("xyz", degrees=unitori)
 
         shot.f_sys = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
         shot.f_sys_inv = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
@@ -84,31 +93,27 @@ class Shot:
         Returns:
             np.array: The rotation matrix.
         """
-        if self.unit_angle == "degree":
-            ori_shot = np.copy(self.ori_shot)*np.pi/180
-        else:
-            ori_shot = self.ori_shot
+        rot = R.from_euler("xyz", -np.array(self.ori_shot), degrees=self.unit_angle == "degree")
+        rot = R.from_euler("x", np.pi) * rot
+        return rot.as_matrix()
 
-        rx = np.array([[1, 0, 0],
-                       [0, np.cos(ori_shot[0]), -np.sin(ori_shot[0])],
-                       [0, np.sin(ori_shot[0]), np.cos(ori_shot[0])]])
-        ry = np.array([[np.cos(ori_shot[1]), 0, np.sin(ori_shot[1])],
-                       [0, 1, 0],
-                       [-np.sin(ori_shot[1]), 0, np.cos(ori_shot[1])]])
-        rz = np.array([[np.cos(ori_shot[2]), -np.sin(ori_shot[2]), 0],
-                       [np.sin(ori_shot[2]), np.cos(ori_shot[2]), 0],
-                       [0, 0, 1]])
-        return (rx @ ry @ rz).T
-
-    def set_param_eucli_shot(self) -> None:
+    def set_param_eucli_shot(self, approx: bool) -> None:
         """
         Setting up Euclidean parameters projeucli, pos_shot_eucli, mat_rot_eucli.
+
+        Args:
+            approx (bool): True if you want to use approx euclidean system.
         """
-        self.projeucli = EuclideanProj(self.pos_shot[0], self.pos_shot[1])
-        self.pos_shot_eucli = self.projeucli.world_to_euclidean(self.pos_shot)
+        if approx:
+            self.projeucli = ApproxEuclideanProj(self.pos_shot[0], self.pos_shot[1])
+        else:
+            self.projeucli = LocalEuclideanProj(self.pos_shot[0], self.pos_shot[1])
+
         self.mat_rot_eucli = self.projeucli.mat_to_mat_eucli(self.pos_shot[0],
                                                              self.pos_shot[1],
                                                              self.mat_rot)
+        self.approxeucli = approx
+        self.pos_shot_eucli = self.projeucli.world_to_eucli(self.pos_shot)
 
     def set_z_nadir(self, z_nadir: float) -> None:
         """

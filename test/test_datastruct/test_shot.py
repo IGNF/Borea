@@ -7,7 +7,7 @@ import numpy as np
 from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
 from src.geodesy.proj_engine import ProjEngine
-from src.geodesy.euclidean_proj import EuclideanProj
+from src.geodesy.local_euclidean_proj import LocalEuclideanProj
 from src.datastruct.dtm import Dtm
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 
@@ -23,6 +23,16 @@ DATA_TYPE_Z = "height"
 SHOT_TYPE_Z = "altitude"
 
 
+def setup_module(module): # run before the first test
+    Dtm.clear()
+    ProjEngine.clear()
+
+
+def setup_test(): # run before the first test
+    Dtm.clear()
+    ProjEngine.clear()
+
+
 def Dtm_singleton(path, type_dtm):
     Dtm.clear()
     Dtm().set_dtm(path, type_dtm)
@@ -36,8 +46,8 @@ def Proj_singleton(epsg, proj_list = None, path_geoid = None):
 def test_set_param_eucli():
     shot = copy.copy(SHOT)
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    projeucli = EuclideanProj(814975.925, 6283986.148)
-    shot.set_param_eucli_shot()
+    projeucli = LocalEuclideanProj(814975.925, 6283986.148)
+    shot.set_param_eucli_shot(False)
     pos_expected = projeucli.mat_to_mat_eucli(814975.925, 6283986.148, shot.mat_rot)
     assert np.all(shot.mat_rot_eucli == pos_expected)
 
@@ -45,8 +55,8 @@ def test_set_param_eucli():
 def test_set_param_eucli_withoutgeoid():
     shot = copy.copy(SHOT)
     Proj_singleton(EPSG, DICT_PROJ_WITHOUT_G)
-    projeucli = EuclideanProj(814975.925, 6283986.148)
-    shot.set_param_eucli_shot()
+    projeucli = LocalEuclideanProj(814975.925, 6283986.148)
+    shot.set_param_eucli_shot(False)
     pos_expected = projeucli.mat_to_mat_eucli(814975.925, 6283986.148, shot.mat_rot)
     assert np.all(shot.mat_rot_eucli == pos_expected)
 
@@ -54,11 +64,11 @@ def test_set_param_eucli_withoutgeoid():
 def test_from_shot_eucli():
     shot = copy.copy(SHOT)
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    shot.set_param_eucli_shot()
-    projeucli = EuclideanProj(814975.925, 6283986.148)
-    pos_shot_eucli = projeucli.world_to_euclidean(np.array([814975.925, 6283986.148, 1771.280]))
+    shot.set_param_eucli_shot(False)
+    projeucli = LocalEuclideanProj(814975.925, 6283986.148)
+    pos_shot_eucli = projeucli.world_to_eucli(np.array([814975.925, 6283986.148, 1771.280]))
     mat_rot_eucli = projeucli.mat_to_mat_eucli(814975.925, 6283986.148, shot.mat_rot)
-    shot_eucli = Shot.from_param_euclidean("test_shot", pos_shot_eucli, mat_rot_eucli, "test_cam", "degree",True)
+    shot_eucli = Shot.from_param_euclidean("test_shot", pos_shot_eucli, mat_rot_eucli, "test_cam", "degree",True, False)
     assert shot.name_shot == shot_eucli.name_shot
     assert shot.pos_shot[0] == round(shot_eucli.pos_shot[0],3)
     assert shot.pos_shot[1] == round(shot_eucli.pos_shot[1],3)
@@ -98,14 +108,14 @@ def test_set_unit_angle_same():
 def test_set_type_z():
     shot = copy.copy(SHOT)
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    shot.set_param_eucli_shot()
+    shot.set_param_eucli_shot(False)
     shot.set_type_z("height")
 
 
 def test_set_linear_alteration_False():
     shot = copy.copy(SHOT)
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    shot.set_param_eucli_shot()
+    shot.set_param_eucli_shot(False)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     cam = CAM
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
@@ -118,7 +128,7 @@ def test_set_linear_alteration_True():
     shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    shot.set_param_eucli_shot()
+    shot.set_param_eucli_shot(False)
     cam = CAM
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
@@ -130,4 +140,12 @@ def test_set_z_nadir():
     shot = copy.copy(SHOT)
     shot.set_z_nadir(z_nadir=10.00)
     assert shot.z_nadir == 10.00
-    
+
+
+def test_approx_eucli_system():
+    setup_test()
+    shot = copy.copy(SHOT)
+    shot.set_param_eucli_shot(True)
+    assert shot.approxeucli == True
+    assert shot.projeucli.earth_raduis == 6366000
+    assert (shot.projeucli.pt_central == np.array([814975.925,6283986.148,0])).all()

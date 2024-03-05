@@ -231,7 +231,7 @@
 <div class="viewcode-block" id="conv_z_shot_to_z_data">
 <a class="viewcode-back" href="../../../../src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.conversion_coor_shot.conv_z_shot_to_z_data">[docs]</a>
 <span class="k">def</span> <span class="nf">conv_z_shot_to_z_data</span><span class="p">(</span><span class="n">shot</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_z_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                          <span class="n">nonadir</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                          <span class="n">nonadir</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">approx</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert type z shot to type z data. The Z of the object is NOT modified.</span>
 
@@ -244,20 +244,19 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        np.array: Shot position coordinate with type z asking.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">new_z</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-
-    <span class="k">if</span> <span class="n">nonadir</span> <span class="ow">and</span> <span class="n">shot</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">:</span>
-        <span class="n">new_z</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">get_z_remove_scale_factor</span><span class="p">()</span>
-
     <span class="n">pos_shot</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_z</span>
+
+    <span class="k">if</span> <span class="n">nonadir</span> <span class="ow">and</span> <span class="n">shot</span><span class="o">.</span><span class="n">linear_alteration</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">approx</span><span class="p">:</span>
+        <span class="n">new_z</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">get_z_remove_scale_factor</span><span class="p">()</span>
+        <span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_z</span>
+
     <span class="k">if</span> <span class="n">type_z_shot</span> <span class="o">!=</span> <span class="n">type_z_data</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">type_z_shot</span> <span class="o">==</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span>
             <span class="n">new_z</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">tranform_altitude</span><span class="p">(</span><span class="n">pos_shot</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">new_z</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">tranform_height</span><span class="p">(</span><span class="n">pos_shot</span><span class="p">)</span>
+        <span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_z</span>
 
-    <span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_z</span>
     <span class="k">return</span> <span class="n">pos_shot</span></div>
 
 

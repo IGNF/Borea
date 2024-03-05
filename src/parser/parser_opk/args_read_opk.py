@@ -110,7 +110,7 @@ def process_args_read_opk(args: argparse) -> Worksite:
         print("There is no given camera.")
 
     # Add Dem
-    work.add_dtm(args.dtm, args.fm)
+    work.set_dtm(args.dtm, args.fm)
     if args.dtm is not None:
         print("Add dtm to the worksite done.")
     else:

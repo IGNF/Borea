@@ -2,7 +2,8 @@
 Module for recalculate shooting position
 """
 import numpy as np
-from scipy.spatial.transform import Rotation
+from scipy.spatial.transform import Rotation as R
+from src.worksite.worksite import Worksite
 from src.datastruct.camera import Camera
 from src.datastruct.shot import Shot
 from src.transform_world_image.transform_shot.world_image_shot import WorldImageShot
@@ -16,56 +17,65 @@ class SpaceResection:
     the 3 angles omega, phi, kappa and its position x, y, z.
 
     Args:
-        shot (Shot): Shot to recalculte externa parameters.
-        cam (Camera): Camera of the shot.
-        type_z_data (str): z's type of data, "height" or "altitude".
-        type_z_shot (str): z's type of shot, "height" or "altitude".
+        work (Woksite): Worksite to make space resection
     """
-    def __init__(self, shot: Shot, cam: Camera, type_z_data: str, type_z_shot: str) -> None:
-        self.shot = shot
-        self.cam = cam
-        self.type_z_data = type_z_data
-        self.type_z_shot = type_z_shot
+    def __init__(self, work: Worksite) -> None:
+        self.work = work
 
-    def space_resection(self, add_pixel: tuple = (0, 0)) -> Shot:
+    def space_resection_worksite(self, add_pixel: tuple = (0, 0)) -> None:
+        """
+        Recalculates the shot's 6 external orientation parameters,
+        the 3 angles omega, phi, kappa and its position x, y, z.
+        For all shot with a variation pixel.
+
+        Args:
+            add_pixel (tuple): Factor (column, line) added on observable point.
+        """
+        for key_shot, item_shot in self.work.shots.items():
+            self.work.shots[key_shot] = self.space_resection(item_shot, add_pixel)
+
+    def space_resection(self, shot: Shot, add_pixel: tuple = (0, 0)) -> Shot:
         """
         Recalculates the shot's 6 external orientation parameters,
         the 3 angles omega, phi, kappa and its position x, y, z.
 
         Args:
+            shot (Shot): Shot to recalculte externa parameters.
             add_pixel (tuble): Pixel to be added to change marker.
 
         Returns:
             Shot: Adjusted shot.
         """
+        cam = self.work.cameras[shot.name_cam]
+
         # Initialization of 20 points for shooting position
-        obs, z_world = self.seed_20_point()
+        obs, z_world = self.seed_20_point(cam)
 
         # Calculate world position
-        x_world, y_world, _ = ImageWorldShot(self.shot,
-                                             self.cam).image_z_to_world(obs,
-                                                                        self.type_z_shot, z_world)
+        x_world, y_world, _ = ImageWorldShot(shot,
+                                             cam).image_z_to_world(obs,
+                                                                   self.work.type_z_shot, z_world)
 
         # Calculate euclidean position
         pt_world = np.array([x_world, y_world, z_world])
-        pt_eucli = self.shot.projeucli.world_to_euclidean(pt_world)
+        pt_eucli = shot.projeucli.world_to_eucli(pt_world)
 
         # Add factor
         obs[0] += add_pixel[0]
         obs[1] += add_pixel[1]
 
         # Initialization of adjusted shot
-        shot_adjust = Shot(self.shot.name_shot, self.shot.pos_shot, self.shot.ori_shot,
-                           self.shot.name_cam, self.shot.unit_angle, self.shot.linear_alteration)
-        shot_adjust.set_param_eucli_shot()
-        shot_adjust.set_z_nadir(self.shot.z_nadir)
+        shot_adjust = Shot(shot.name_shot, shot.pos_shot, shot.ori_shot,
+                           shot.name_cam, shot.unit_angle, shot.linear_alteration)
+        shot_adjust.set_param_eucli_shot(shot.approxeucli)
+        shot_adjust.set_z_nadir(shot.z_nadir)
 
         # Least-square methode
         shot_adjust = self.least_square_shot(shot_adjust, obs, pt_eucli, pt_world)
 
-        shot_adjust.co_points = self.shot.co_points
-        shot_adjust.ground_img_pts = self.shot.ground_img_pts
-        shot_adjust.gcps = self.shot.gcps
+        shot_adjust.co_points = shot.co_points
+        shot_adjust.ground_img_pts = shot.ground_img_pts
+        shot_adjust.gcps = shot.gcps
 
         return shot_adjust
 
@@ -89,9 +99,11 @@ class SpaceResection:
             count_iter += 1
 
             # Calculate position column and line with new shot f(x0)
-            f0 = WorldImageShot(shot_adjust, self.cam).world_to_image(pt_world,
-                                                                      self.type_z_data,
-                                                                      self.type_z_shot)
+            f0 = WorldImageShot(shot_adjust,
+                                self.work.cameras[shot_adjust.name_cam]
+                                ).world_to_image(pt_world,
+                                                 self.work.type_z_data,
+                                                 self.work.type_z_shot)
 
             # Calculate residual vector B
             v_res = np.c_[obs[0] - f0[0], obs[1] - f0[1]].reshape(2 * len(pt_eucli[0]), 1)
@@ -105,14 +117,15 @@ class SpaceResection:
             new_pos_eucli = np.array([shot_adjust.pos_shot[0] + dx[0],
                                       shot_adjust.pos_shot[1] + dx[1],
                                       shot_adjust.pos_shot[2] + dx[2]])
-            new_mat_eucli = shot_adjust.mat_rot_eucli @ Rotation.from_rotvec(dx[3:]).as_matrix()
+            new_mat_eucli = shot_adjust.mat_rot_eucli @ R.from_rotvec(dx[3:]).as_matrix()
 
             # Creation of new shot with new parameter
             imc_new_adjust = Shot.from_param_euclidean(shot_adjust.name_shot, new_pos_eucli,
                                                        new_mat_eucli, shot_adjust.name_cam,
                                                        shot_adjust.unit_angle,
-                                                       shot_adjust.linear_alteration)
-            imc_new_adjust.set_z_nadir(self.shot.z_nadir)
+                                                       shot_adjust.linear_alteration,
+                                                       shot_adjust.approxeucli)
+            imc_new_adjust.set_z_nadir(shot_adjust.z_nadir)
 
             # Look difference to know if you want to stop the calculation
             diff_coord = np.array([imc_new_adjust.pos_shot]) - np.array([shot_adjust.pos_shot])
@@ -148,7 +161,8 @@ class SpaceResection:
         a_axiator[2::3, 0] = -vect_a[1]
         a_axiator[2::3, 1] = vect_a[0]
 
-        mat_a = -np.tile(np.repeat(self.cam.focal / vect_u[2] ** 2, 2), (6, 1)).T
+        cam = self.work.cameras[imc_adjust.name_cam]
+        mat_a = -np.tile(np.repeat(cam.focal / vect_u[2] ** 2, 2), (6, 1)).T
         mat_a[:, :3] *= (mat_v @ imc_adjust.mat_rot_eucli)
 
         mat_a[:, 3:] *= np.einsum('lij, ljk->lik',
@@ -158,10 +172,13 @@ class SpaceResection:
 
         return mat_a
 
-    def seed_20_point(self) -> tuple:
+    def seed_20_point(self, cam: Camera) -> tuple:
         """
         Positioning of 20 points on an image by percentage position on width and height.
         The z-world position is given by fixed values.
+
+        Args:
+            cam (Camera): Camera of the shot.
 
         Returns:
             np.array: Tuple of 3 elements (position column obs, position line obs, z world).
@@ -172,7 +189,7 @@ class SpaceResection:
                                60, 90, 20, 80, 50, 20, 10, 70, 40, 90]) / 100
         z_obs = np.array([200, 320, 250, 240, 330, 335, 340, 330, 350, 360,
                           360, 350, 370, 355, 380, 400, 450, 400, 500, 300])
-        c_obs = pourcent_x * self.cam.width
-        l_obs = pourcent_y * self.cam.height
+        c_obs = pourcent_x * cam.width
+        l_obs = pourcent_y * cam.height
 
         return np.array([c_obs, l_obs]), z_obs

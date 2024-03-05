@@ -5,7 +5,8 @@ from dataclasses import dataclass
 import numpy as np
 from src.worksite.worksite import Worksite
 from src.datastruct.shot import Shot
-from src.geodesy.euclidean_proj import EuclideanProj
+from src.geodesy.local_euclidean_proj import LocalEuclideanProj
+from src.geodesy.approx_euclidean_proj import ApproxEuclideanProj
 from src.transform_world_image.transform_shot.conversion_coor_shot import conv_z_shot_to_z_data
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 
@@ -99,15 +100,18 @@ class WorldIntersection:
 
         # Setting up a Euclidean projection centered on the two images.
         bary = (shot1.pos_shot + shot2.pos_shot)/2
-        projeucli = EuclideanProj(bary[0], bary[1])
+        if shot1.approxeucli:
+            projeucli = ApproxEuclideanProj(bary[0], bary[1])
+        else:
+            projeucli = LocalEuclideanProj(bary[0], bary[1])
 
         # Calculates data specific to Euclidean projection.
         mat_eucli1 = projeucli.mat_to_mat_eucli(shot1.pos_shot[0], shot1.pos_shot[1], shot1.mat_rot)
         mat_eucli2 = projeucli.mat_to_mat_eucli(shot2.pos_shot[0], shot2.pos_shot[1], shot2.mat_rot)
         pos_eucli1 = conv_z_shot_to_z_data(shot1, self.work.type_z_shot, self.work.type_z_data)
         pos_eucli2 = conv_z_shot_to_z_data(shot2, self.work.type_z_shot, self.work.type_z_data)
-        pos_eucli1 = projeucli.world_to_euclidean(pos_eucli1)
-        pos_eucli2 = projeucli.world_to_euclidean(pos_eucli2)
+        pos_eucli1 = projeucli.world_to_eucli(pos_eucli1)
+        pos_eucli2 = projeucli.world_to_eucli(pos_eucli2)
 
         # Calculates the director vectors of the point bundles in the Euclidean reference system.
         vect1 = mat_eucli1.T @ ImageWorldShot(shot1, self.work.cameras[shot1.name_cam]
@@ -119,7 +123,7 @@ class WorldIntersection:
         pt_inter = self.intersection_line_3d(vect1, pos_eucli1, vect2, pos_eucli2)
 
         # Converting the point to the world system.
-        pt_inter = projeucli.euclidean_to_world(pt_inter)
+        pt_inter = projeucli.eucli_to_world(pt_inter)
         return pt_inter
 
     def intersection_line_3d(self, vect1: np.ndarray, point1: np.ndarray,

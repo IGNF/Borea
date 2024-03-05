@@ -3,9 +3,15 @@ Script test for class dtm.
 """
 from pathlib import Path, PureWindowsPath
 import numpy as np
+from src.geodesy.proj_engine import ProjEngine
 from src.datastruct.dtm import Dtm
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
+
+def setup_module(module): # run before the first test
+    Dtm.clear()
+    ProjEngine.clear()
+
 
 def Dtm_singleton(path, type_dtm):
         Dtm().set_dtm(path, type_dtm)

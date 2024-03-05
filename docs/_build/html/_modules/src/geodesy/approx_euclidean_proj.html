@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.geodesy.euclidean_proj - Pink_Lady 1.0.0 documentation</title>
+        <title>src.geodesy.approx_euclidean_proj - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -219,20 +219,19 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.geodesy.euclidean_proj</h1><div class="highlight"><pre>
+          <h1>Source code for src.geodesy.approx_euclidean_proj</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">A module for manipulating an euclidean projection.</span>
+<span class="sd">A module for manipulating an approximate euclidean projection.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">src.geodesy.euclidean_proj</span> <span class="kn">import</span> <span class="n">EuclideanProj</span>
 
 
-<div class="viewcode-block" id="EuclideanProj">
-<a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.euclidean_proj.EuclideanProj">[docs]</a>
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">EuclideanProj</span><span class="p">:</span>
+<div class="viewcode-block" id="ApproxEuclideanProj">
+<a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj">[docs]</a>
+<span class="k">class</span> <span class="nc">ApproxEuclideanProj</span><span class="p">(</span><span class="n">EuclideanProj</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This class represents a Euclidean projection system.</span>
+<span class="sd">     This class represents an approximate Euclidean projection system.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        x_central (float): x coordinate of the central point of the Euclidean system.</span>
@@ -242,11 +241,90 @@
 <span class="sd">        A Euclidean system is a local Euclidean reference system in which</span>
 <span class="sd">        the collinear equation is valid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">x_central</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">y_central</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_central</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_central</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">x_central</span><span class="p">,</span> <span class="n">y_central</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">earth_raduis</span> <span class="o">=</span> <span class="mi">6366000</span>
 
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pt_central</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">x_central</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_central</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span></div>
+<div class="viewcode-block" id="ApproxEuclideanProj.mat_to_mat_eucli">
+<a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.mat_to_mat_eucli">[docs]</a>
+    <span class="k">def</span> <span class="nf">mat_to_mat_eucli</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transform the rotation matrix (World system) into rotation matrix (Euclidian systeme).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (float): x coordinate of the point.</span>
+<span class="sd">            y (float): y coordinate of the point.</span>
+<span class="sd">            mat (np.array): Rotation matrix (World system).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.array: Euclidean rotation matrix.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+        <span class="k">return</span> <span class="n">mat</span></div>
+
+
+<div class="viewcode-block" id="ApproxEuclideanProj.mat_eucli_to_mat">
+<a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.mat_eucli_to_mat">[docs]</a>
+    <span class="k">def</span> <span class="nf">mat_eucli_to_mat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mat_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transform the rotation matrix (Euclidean system) into rotation matrix (World system).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (float): x coordinate of the point.</span>
+<span class="sd">            y (float): y coordinate of the point.</span>
+<span class="sd">            mat_eucli (np.array): Rotation matrix (Euclidean system).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.array: Rotation matrix (World system).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+        <span class="k">return</span> <span class="n">mat_eucli</span></div>
+
+
+<div class="viewcode-block" id="ApproxEuclideanProj.world_to_eucli">
+<a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.world_to_eucli">[docs]</a>
+    <span class="k">def</span> <span class="nf">world_to_eucli</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coor_world</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transform a point from the world coordinate reference system into</span>
+<span class="sd">        the Euclidean coordinate reference system.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            coor_world (np.array): World coordinate of the point [X, Y, Z].</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.array: Point in the Euclidean coordinate reference system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">coor_world</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt_central</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">coor_world</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt_central</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">tt</span> <span class="o">=</span> <span class="p">(</span><span class="n">dx</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_raduis</span><span class="p">)</span>
+        <span class="n">cc</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">earth_raduis</span> <span class="o">+</span> <span class="n">coor_world</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">tt</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_raduis</span><span class="p">)</span>
+        <span class="n">xe</span> <span class="o">=</span> <span class="n">dx</span> <span class="o">*</span> <span class="n">cc</span>
+        <span class="n">ye</span> <span class="o">=</span> <span class="n">dy</span> <span class="o">*</span> <span class="n">cc</span>
+        <span class="n">ze</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">earth_raduis</span> <span class="o">-</span> <span class="n">tt</span><span class="p">)</span> <span class="o">*</span> <span class="n">cc</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_raduis</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">xe</span><span class="p">,</span> <span class="n">ye</span><span class="p">,</span> <span class="n">ze</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="ApproxEuclideanProj.eucli_to_world">
+<a class="viewcode-back" href="../../../src.geodesy.html#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.eucli_to_world">[docs]</a>
+    <span class="k">def</span> <span class="nf">eucli_to_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coor_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transform a point from the Euclidean coordinate reference system into</span>
+<span class="sd">        the world coordinate reference system.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            coor_eucli: Euclidean coordinate of the point [X, Y, Z].</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.array: Point in the World coordinate reference system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_raduis</span> <span class="o">+</span> <span class="n">coor_eucli</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">rh</span> <span class="o">=</span> <span class="p">(</span><span class="n">rz</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">coor_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">coor_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+        <span class="n">rz</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">earth_raduis</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">rz</span> <span class="o">+</span> <span class="n">rh</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt_central</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">coor_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">rz</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt_central</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">coor_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">rz</span><span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">rh</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_raduis</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">])</span></div>
+</div>
 
 </pre></div>
         </article>

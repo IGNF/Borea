@@ -44,6 +44,14 @@ src.datastruct.workdata module
    :undoc-members:
    :show-inheritance:
 
+src.datastruct.workshot module
+------------------------------
+
+.. automodule:: src.datastruct.workshot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

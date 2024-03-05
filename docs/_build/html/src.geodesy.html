@@ -226,40 +226,40 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="module-src.geodesy.euclidean_proj">
-<span id="src-geodesy-euclidean-proj-module"></span><h2>src.geodesy.euclidean_proj module<a class="headerlink" href="#module-src.geodesy.euclidean_proj" title="Link to this heading">#</a></h2>
-<p>A module for manipulating an euclidean projection.</p>
+<section id="module-src.geodesy.approx_euclidean_proj">
+<span id="src-geodesy-approx-euclidean-proj-module"></span><h2>src.geodesy.approx_euclidean_proj module<a class="headerlink" href="#module-src.geodesy.approx_euclidean_proj" title="Link to this heading">#</a></h2>
+<p>A module for manipulating an approximate euclidean projection.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="src.geodesy.euclidean_proj.EuclideanProj">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.geodesy.euclidean_proj.</span></span><span class="sig-name descname"><span class="pre">EuclideanProj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_central</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_central</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/geodesy/euclidean_proj.html#EuclideanProj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.euclidean_proj.EuclideanProj" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class represents a Euclidean projection system.</p>
+<dt class="sig sig-object py" id="src.geodesy.approx_euclidean_proj.ApproxEuclideanProj">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.geodesy.approx_euclidean_proj.</span></span><span class="sig-name descname"><span class="pre">ApproxEuclideanProj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_central</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_central</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/geodesy/approx_euclidean_proj.html#ApproxEuclideanProj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.geodesy.euclidean_proj.EuclideanProj" title="src.geodesy.euclidean_proj.EuclideanProj"><code class="xref py py-class docutils literal notranslate"><span class="pre">EuclideanProj</span></code></a></p>
+<blockquote>
+<div><p>This class represents an approximate Euclidean projection system.</p>
+</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x_central</strong> (<em>float</em>) – x coordinate of the central point of the Euclidean system.</p></li>
 <li><p><strong>y_central</strong> (<em>float</em>) – y coordinate of the central point of the Euclidean system.</p></li>
-<li><p><strong>proj_engine</strong> (<a class="reference internal" href="#src.geodesy.proj_engine.ProjEngine" title="src.geodesy.proj_engine.ProjEngine"><em>ProjEngine</em></a>) – Kernel of geodesy calculation.</p></li>
 </ul>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>A Euclidean system is a local Euclidean reference system in which
-the collinear equation is valid.
-The cartographic system parameters must be known.</p>
+the collinear equation is valid.</p>
 </div>
 <dl class="py method">
-<dt class="sig sig-object py" id="src.geodesy.euclidean_proj.EuclideanProj.euclidean_to_world">
-<span class="sig-name descname"><span class="pre">euclidean_to_world</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/euclidean_proj.html#EuclideanProj.euclidean_to_world"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.euclidean_proj.EuclideanProj.euclidean_to_world" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.eucli_to_world">
+<span class="sig-name descname"><span class="pre">eucli_to_world</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coor_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/approx_euclidean_proj.html#ApproxEuclideanProj.eucli_to_world"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.eucli_to_world" title="Link to this definition">#</a></dt>
 <dd><p>Transform a point from the Euclidean coordinate reference system into
 the world coordinate reference system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>coor</strong> (<em>np.ndarray</em>) – Coordinate [X, Y, Z].</p>
+<dd class="field-odd"><p><strong>coor_eucli</strong> – Euclidean coordinate of the point [X, Y, Z].</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>x, y, z in the world coordinate reference system.</p>
+<dd class="field-even"><p>Point in the World coordinate reference system.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
@@ -268,8 +268,8 @@ the world coordinate reference system.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.geodesy.euclidean_proj.EuclideanProj.mat_eucli_to_mat">
-<span class="sig-name descname"><span class="pre">mat_eucli_to_mat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/euclidean_proj.html#EuclideanProj.mat_eucli_to_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.euclidean_proj.EuclideanProj.mat_eucli_to_mat" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.mat_eucli_to_mat">
+<span class="sig-name descname"><span class="pre">mat_eucli_to_mat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/approx_euclidean_proj.html#ApproxEuclideanProj.mat_eucli_to_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.mat_eucli_to_mat" title="Link to this definition">#</a></dt>
 <dd><p>Transform the rotation matrix (Euclidean system) into rotation matrix (World system).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -289,29 +289,8 @@ the world coordinate reference system.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.geodesy.euclidean_proj.EuclideanProj.mat_rot_euclidean_local">
-<span class="sig-name descname"><span class="pre">mat_rot_euclidean_local</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/euclidean_proj.html#EuclideanProj.mat_rot_euclidean_local"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.euclidean_proj.EuclideanProj.mat_rot_euclidean_local" title="Link to this definition">#</a></dt>
-<dd><p>Compute the transition matrix between the world system and
-the Euclidean system centred on a point.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>float</em>) – x coordinate of the central point of the Euclidean system.</p></li>
-<li><p><strong>y</strong> (<em>float</em>) – y coordinate of the central point of the Euclidean system.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Transition matrix.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>np.array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.geodesy.euclidean_proj.EuclideanProj.mat_to_mat_eucli">
-<span class="sig-name descname"><span class="pre">mat_to_mat_eucli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/euclidean_proj.html#EuclideanProj.mat_to_mat_eucli"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.euclidean_proj.EuclideanProj.mat_to_mat_eucli" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.mat_to_mat_eucli">
+<span class="sig-name descname"><span class="pre">mat_to_mat_eucli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/approx_euclidean_proj.html#ApproxEuclideanProj.mat_to_mat_eucli"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.mat_to_mat_eucli" title="Link to this definition">#</a></dt>
 <dd><p>Transform the rotation matrix (World system) into rotation matrix (Euclidian systeme).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -331,8 +310,166 @@ the Euclidean system centred on a point.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.geodesy.euclidean_proj.EuclideanProj.world_to_euclidean">
-<span class="sig-name descname"><span class="pre">world_to_euclidean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/euclidean_proj.html#EuclideanProj.world_to_euclidean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.euclidean_proj.EuclideanProj.world_to_euclidean" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.world_to_eucli">
+<span class="sig-name descname"><span class="pre">world_to_eucli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coor_world</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/approx_euclidean_proj.html#ApproxEuclideanProj.world_to_eucli"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.world_to_eucli" title="Link to this definition">#</a></dt>
+<dd><p>Transform a point from the world coordinate reference system into
+the Euclidean coordinate reference system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>coor_world</strong> (<em>np.array</em>) – World coordinate of the point [X, Y, Z].</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Point in the Euclidean coordinate reference system.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.geodesy.euclidean_proj">
+<span id="src-geodesy-euclidean-proj-module"></span><h2>src.geodesy.euclidean_proj module<a class="headerlink" href="#module-src.geodesy.euclidean_proj" title="Link to this heading">#</a></h2>
+<p>A module for manipulating an euclidean projection.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.geodesy.euclidean_proj.EuclideanProj">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.geodesy.euclidean_proj.</span></span><span class="sig-name descname"><span class="pre">EuclideanProj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_central</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_central</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/geodesy/euclidean_proj.html#EuclideanProj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.euclidean_proj.EuclideanProj" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents a Euclidean projection system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_central</strong> (<em>float</em>) – x coordinate of the central point of the Euclidean system.</p></li>
+<li><p><strong>y_central</strong> (<em>float</em>) – y coordinate of the central point of the Euclidean system.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A Euclidean system is a local Euclidean reference system in which
+the collinear equation is valid.</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.geodesy.euclidean_proj.EuclideanProj.x_central">
+<span class="sig-name descname"><span class="pre">x_central</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.geodesy.euclidean_proj.EuclideanProj.x_central" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.geodesy.euclidean_proj.EuclideanProj.y_central">
+<span class="sig-name descname"><span class="pre">y_central</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.geodesy.euclidean_proj.EuclideanProj.y_central" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.geodesy.local_euclidean_proj">
+<span id="src-geodesy-local-euclidean-proj-module"></span><h2>src.geodesy.local_euclidean_proj module<a class="headerlink" href="#module-src.geodesy.local_euclidean_proj" title="Link to this heading">#</a></h2>
+<p>A module for manipulating a local euclidean projection.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.geodesy.local_euclidean_proj.LocalEuclideanProj">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.geodesy.local_euclidean_proj.</span></span><span class="sig-name descname"><span class="pre">LocalEuclideanProj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_central</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_central</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/geodesy/local_euclidean_proj.html#LocalEuclideanProj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.local_euclidean_proj.LocalEuclideanProj" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.geodesy.euclidean_proj.EuclideanProj" title="src.geodesy.euclidean_proj.EuclideanProj"><code class="xref py py-class docutils literal notranslate"><span class="pre">EuclideanProj</span></code></a></p>
+<p>This class represents a Euclidean projection system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_central</strong> (<em>float</em>) – x coordinate of the central point of the Euclidean system.</p></li>
+<li><p><strong>y_central</strong> (<em>float</em>) – y coordinate of the central point of the Euclidean system.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A Euclidean system is a local Euclidean reference system in which
+the collinear equation is valid.
+The cartographic system parameters must be known.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.geodesy.local_euclidean_proj.LocalEuclideanProj.eucli_to_world">
+<span class="sig-name descname"><span class="pre">eucli_to_world</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/local_euclidean_proj.html#LocalEuclideanProj.eucli_to_world"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.local_euclidean_proj.LocalEuclideanProj.eucli_to_world" title="Link to this definition">#</a></dt>
+<dd><p>Transform a point from the Euclidean coordinate reference system into
+the world coordinate reference system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>coor</strong> (<em>np.ndarray</em>) – Coordinate [X, Y, Z].</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>x, y, z in the world coordinate reference system.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.geodesy.local_euclidean_proj.LocalEuclideanProj.mat_eucli_to_mat">
+<span class="sig-name descname"><span class="pre">mat_eucli_to_mat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/local_euclidean_proj.html#LocalEuclideanProj.mat_eucli_to_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.local_euclidean_proj.LocalEuclideanProj.mat_eucli_to_mat" title="Link to this definition">#</a></dt>
+<dd><p>Transform the rotation matrix (Euclidean system) into rotation matrix (World system).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>float</em>) – x coordinate of the point.</p></li>
+<li><p><strong>y</strong> (<em>float</em>) – y coordinate of the point.</p></li>
+<li><p><strong>mat_eucli</strong> (<em>np.array</em>) – Rotation matrix (Euclidean system).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rotation matrix (World system).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.geodesy.local_euclidean_proj.LocalEuclideanProj.mat_rot_euclidean_local">
+<span class="sig-name descname"><span class="pre">mat_rot_euclidean_local</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/local_euclidean_proj.html#LocalEuclideanProj.mat_rot_euclidean_local"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.local_euclidean_proj.LocalEuclideanProj.mat_rot_euclidean_local" title="Link to this definition">#</a></dt>
+<dd><p>Compute the transition matrix between the world system and
+the Euclidean system centred on a point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>float</em>) – x coordinate of the central point of the Euclidean system.</p></li>
+<li><p><strong>y</strong> (<em>float</em>) – y coordinate of the central point of the Euclidean system.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Transition matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.geodesy.local_euclidean_proj.LocalEuclideanProj.mat_to_mat_eucli">
+<span class="sig-name descname"><span class="pre">mat_to_mat_eucli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/local_euclidean_proj.html#LocalEuclideanProj.mat_to_mat_eucli"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.local_euclidean_proj.LocalEuclideanProj.mat_to_mat_eucli" title="Link to this definition">#</a></dt>
+<dd><p>Transform the rotation matrix (World system) into rotation matrix (Euclidian systeme).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>float</em>) – x coordinate of the point.</p></li>
+<li><p><strong>y</strong> (<em>float</em>) – y coordinate of the point.</p></li>
+<li><p><strong>mat</strong> (<em>np.array</em>) – Rotation matrix (World system).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Euclidean rotation matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.geodesy.local_euclidean_proj.LocalEuclideanProj.world_to_eucli">
+<span class="sig-name descname"><span class="pre">world_to_eucli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/local_euclidean_proj.html#LocalEuclideanProj.world_to_eucli"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.local_euclidean_proj.LocalEuclideanProj.world_to_eucli" title="Link to this definition">#</a></dt>
 <dd><p>Transform a point from the world coordinate reference system into
 the Euclidean coordinate reference system.</p>
 <dl class="field-list simple">
@@ -597,13 +734,31 @@ Implemented by ProjEngine.</p>
             <ul>
 <li><a class="reference internal" href="#">src.geodesy package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.geodesy.approx_euclidean_proj">src.geodesy.approx_euclidean_proj module</a><ul>
+<li><a class="reference internal" href="#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj"><code class="docutils literal notranslate"><span class="pre">ApproxEuclideanProj</span></code></a><ul>
+<li><a class="reference internal" href="#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.eucli_to_world"><code class="docutils literal notranslate"><span class="pre">ApproxEuclideanProj.eucli_to_world()</span></code></a></li>
+<li><a class="reference internal" href="#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.mat_eucli_to_mat"><code class="docutils literal notranslate"><span class="pre">ApproxEuclideanProj.mat_eucli_to_mat()</span></code></a></li>
+<li><a class="reference internal" href="#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.mat_to_mat_eucli"><code class="docutils literal notranslate"><span class="pre">ApproxEuclideanProj.mat_to_mat_eucli()</span></code></a></li>
+<li><a class="reference internal" href="#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj.world_to_eucli"><code class="docutils literal notranslate"><span class="pre">ApproxEuclideanProj.world_to_eucli()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-src.geodesy.euclidean_proj">src.geodesy.euclidean_proj module</a><ul>
 <li><a class="reference internal" href="#src.geodesy.euclidean_proj.EuclideanProj"><code class="docutils literal notranslate"><span class="pre">EuclideanProj</span></code></a><ul>
-<li><a class="reference internal" href="#src.geodesy.euclidean_proj.EuclideanProj.euclidean_to_world"><code class="docutils literal notranslate"><span class="pre">EuclideanProj.euclidean_to_world()</span></code></a></li>
-<li><a class="reference internal" href="#src.geodesy.euclidean_proj.EuclideanProj.mat_eucli_to_mat"><code class="docutils literal notranslate"><span class="pre">EuclideanProj.mat_eucli_to_mat()</span></code></a></li>
-<li><a class="reference internal" href="#src.geodesy.euclidean_proj.EuclideanProj.mat_rot_euclidean_local"><code class="docutils literal notranslate"><span class="pre">EuclideanProj.mat_rot_euclidean_local()</span></code></a></li>
-<li><a class="reference internal" href="#src.geodesy.euclidean_proj.EuclideanProj.mat_to_mat_eucli"><code class="docutils literal notranslate"><span class="pre">EuclideanProj.mat_to_mat_eucli()</span></code></a></li>
-<li><a class="reference internal" href="#src.geodesy.euclidean_proj.EuclideanProj.world_to_euclidean"><code class="docutils literal notranslate"><span class="pre">EuclideanProj.world_to_euclidean()</span></code></a></li>
+<li><a class="reference internal" href="#src.geodesy.euclidean_proj.EuclideanProj.x_central"><code class="docutils literal notranslate"><span class="pre">EuclideanProj.x_central</span></code></a></li>
+<li><a class="reference internal" href="#src.geodesy.euclidean_proj.EuclideanProj.y_central"><code class="docutils literal notranslate"><span class="pre">EuclideanProj.y_central</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.geodesy.local_euclidean_proj">src.geodesy.local_euclidean_proj module</a><ul>
+<li><a class="reference internal" href="#src.geodesy.local_euclidean_proj.LocalEuclideanProj"><code class="docutils literal notranslate"><span class="pre">LocalEuclideanProj</span></code></a><ul>
+<li><a class="reference internal" href="#src.geodesy.local_euclidean_proj.LocalEuclideanProj.eucli_to_world"><code class="docutils literal notranslate"><span class="pre">LocalEuclideanProj.eucli_to_world()</span></code></a></li>
+<li><a class="reference internal" href="#src.geodesy.local_euclidean_proj.LocalEuclideanProj.mat_eucli_to_mat"><code class="docutils literal notranslate"><span class="pre">LocalEuclideanProj.mat_eucli_to_mat()</span></code></a></li>
+<li><a class="reference internal" href="#src.geodesy.local_euclidean_proj.LocalEuclideanProj.mat_rot_euclidean_local"><code class="docutils literal notranslate"><span class="pre">LocalEuclideanProj.mat_rot_euclidean_local()</span></code></a></li>
+<li><a class="reference internal" href="#src.geodesy.local_euclidean_proj.LocalEuclideanProj.mat_to_mat_eucli"><code class="docutils literal notranslate"><span class="pre">LocalEuclideanProj.mat_to_mat_eucli()</span></code></a></li>
+<li><a class="reference internal" href="#src.geodesy.local_euclidean_proj.LocalEuclideanProj.world_to_eucli"><code class="docutils literal notranslate"><span class="pre">LocalEuclideanProj.world_to_eucli()</span></code></a></li>
 </ul>
 </li>
 </ul>

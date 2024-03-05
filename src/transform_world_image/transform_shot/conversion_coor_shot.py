@@ -7,7 +7,7 @@ from src.geodesy.proj_engine import ProjEngine
 
 
 def conv_z_shot_to_z_data(shot: Shot, type_z_shot: str, type_z_data: str,
-                          nonadir: bool = True) -> np.ndarray:
+                          nonadir: bool = True, approx: bool = False) -> np.ndarray:
     """
     Convert type z shot to type z data. The Z of the object is NOT modified.
 
@@ -20,20 +20,19 @@ def conv_z_shot_to_z_data(shot: Shot, type_z_shot: str, type_z_data: str,
     Returns:
         np.array: Shot position coordinate with type z asking.
     """
-    new_z = shot.pos_shot[2]
-
-    if nonadir and shot.linear_alteration:
-        new_z = shot.get_z_remove_scale_factor()
-
     pos_shot = shot.pos_shot.copy()
-    pos_shot[2] = new_z
+
+    if nonadir and shot.linear_alteration and not approx:
+        new_z = shot.get_z_remove_scale_factor()
+        pos_shot[2] = new_z
+
     if type_z_shot != type_z_data:
         if type_z_shot == "height":
             new_z = ProjEngine().tranform_altitude(pos_shot)
         else:
             new_z = ProjEngine().tranform_height(pos_shot)
+        pos_shot[2] = new_z
 
-    pos_shot[2] = new_z
     return pos_shot
 
 

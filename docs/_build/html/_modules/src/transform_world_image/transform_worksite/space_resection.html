@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.transform_world_image.transform_shot.space_resection - Pink_Lady 1.0.0 documentation</title>
+        <title>src.transform_world_image.transform_worksite.space_resection - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -219,12 +219,13 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.transform_world_image.transform_shot.space_resection</h1><div class="highlight"><pre>
+          <h1>Source code for src.transform_world_image.transform_worksite.space_resection</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Module for recalculate shooting position</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.spatial.transform</span> <span class="kn">import</span> <span class="n">Rotation</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial.transform</span> <span class="kn">import</span> <span class="n">Rotation</span> <span class="k">as</span> <span class="n">R</span>
+<span class="kn">from</span> <span class="nn">src.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
 <span class="kn">from</span> <span class="nn">src.datastruct.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 <span class="kn">from</span> <span class="nn">src.datastruct.shot</span> <span class="kn">import</span> <span class="n">Shot</span>
 <span class="kn">from</span> <span class="nn">src.transform_world_image.transform_shot.world_image_shot</span> <span class="kn">import</span> <span class="n">WorldImageShot</span>
@@ -233,71 +234,83 @@
 
 
 <div class="viewcode-block" id="SpaceResection">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.space_resection.SpaceResection">[docs]</a>
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection">[docs]</a>
 <span class="k">class</span> <span class="nc">SpaceResection</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Recalculates the shot&#39;s 6 external orientation parameters,</span>
 <span class="sd">    the 3 angles omega, phi, kappa and its position x, y, z.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        shot (Shot): Shot to recalculte externa parameters.</span>
-<span class="sd">        cam (Camera): Camera of the shot.</span>
-<span class="sd">        type_z_data (str): z&#39;s type of data, &quot;height&quot; or &quot;altitude&quot;.</span>
-<span class="sd">        type_z_shot (str): z&#39;s type of shot, &quot;height&quot; or &quot;altitude&quot;.</span>
+<span class="sd">        work (Woksite): Worksite to make space resection</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shot</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">type_z_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">shot</span> <span class="o">=</span> <span class="n">shot</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cam</span> <span class="o">=</span> <span class="n">cam</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="n">type_z_data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span> <span class="o">=</span> <span class="n">type_z_shot</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">work</span><span class="p">:</span> <span class="n">Worksite</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">work</span> <span class="o">=</span> <span class="n">work</span>
+
+<div class="viewcode-block" id="SpaceResection.space_resection_worksite">
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_worksite">[docs]</a>
+    <span class="k">def</span> <span class="nf">space_resection_worksite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_pixel</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recalculates the shot&#39;s 6 external orientation parameters,</span>
+<span class="sd">        the 3 angles omega, phi, kappa and its position x, y, z.</span>
+<span class="sd">        For all shot with a variation pixel.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            add_pixel (tuple): Factor (column, line) added on observable point.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key_shot</span><span class="p">,</span> <span class="n">item_shot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">shots</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">key_shot</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">space_resection</span><span class="p">(</span><span class="n">item_shot</span><span class="p">,</span> <span class="n">add_pixel</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="SpaceResection.space_resection">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.space_resection.SpaceResection.space_resection">[docs]</a>
-    <span class="k">def</span> <span class="nf">space_resection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_pixel</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Shot</span><span class="p">:</span>
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection">[docs]</a>
+    <span class="k">def</span> <span class="nf">space_resection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shot</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">add_pixel</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Shot</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Recalculates the shot&#39;s 6 external orientation parameters,</span>
 <span class="sd">        the 3 angles omega, phi, kappa and its position x, y, z.</span>
 
 <span class="sd">        Args:</span>
+<span class="sd">            shot (Shot): Shot to recalculte externa parameters.</span>
 <span class="sd">            add_pixel (tuble): Pixel to be added to change marker.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Shot: Adjusted shot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cam</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
+
         <span class="c1"># Initialization of 20 points for shooting position</span>
-        <span class="n">obs</span><span class="p">,</span> <span class="n">z_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed_20_point</span><span class="p">()</span>
+        <span class="n">obs</span><span class="p">,</span> <span class="n">z_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed_20_point</span><span class="p">(</span><span class="n">cam</span><span class="p">)</span>
 
         <span class="c1"># Calculate world position</span>
-        <span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ImageWorldShot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="p">,</span>
-                                             <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="p">)</span><span class="o">.</span><span class="n">image_z_to_world</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span>
-                                                                        <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">,</span> <span class="n">z_world</span><span class="p">)</span>
+        <span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ImageWorldShot</span><span class="p">(</span><span class="n">shot</span><span class="p">,</span>
+                                             <span class="n">cam</span><span class="p">)</span><span class="o">.</span><span class="n">image_z_to_world</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span>
+                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">,</span> <span class="n">z_world</span><span class="p">)</span>
 
         <span class="c1"># Calculate euclidean position</span>
         <span class="n">pt_world</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span><span class="p">])</span>
-        <span class="n">pt_eucli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_euclidean</span><span class="p">(</span><span class="n">pt_world</span><span class="p">)</span>
+        <span class="n">pt_eucli</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_eucli</span><span class="p">(</span><span class="n">pt_world</span><span class="p">)</span>
 
         <span class="c1"># Add factor</span>
         <span class="n">obs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">add_pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">obs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">add_pixel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
         <span class="c1"># Initialization of adjusted shot</span>
-        <span class="n">shot_adjust</span> <span class="o">=</span> <span class="n">Shot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">name_shot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">ori_shot</span><span class="p">,</span>
-                           <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">unit_angle</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">)</span>
-        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">set_param_eucli_shot</span><span class="p">()</span>
-        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">set_z_nadir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">z_nadir</span><span class="p">)</span>
+        <span class="n">shot_adjust</span> <span class="o">=</span> <span class="n">Shot</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">name_shot</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">ori_shot</span><span class="p">,</span>
+                           <span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">unit_angle</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">)</span>
+        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">set_param_eucli_shot</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">approxeucli</span><span class="p">)</span>
+        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">set_z_nadir</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">z_nadir</span><span class="p">)</span>
 
         <span class="c1"># Least-square methode</span>
         <span class="n">shot_adjust</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">least_square_shot</span><span class="p">(</span><span class="n">shot_adjust</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">pt_eucli</span><span class="p">,</span> <span class="n">pt_world</span><span class="p">)</span>
 
-        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">co_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">co_points</span>
-        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">ground_img_pts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">ground_img_pts</span>
-        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">gcps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">gcps</span>
+        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">co_points</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">co_points</span>
+        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">ground_img_pts</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">ground_img_pts</span>
+        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">gcps</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">gcps</span>
 
         <span class="k">return</span> <span class="n">shot_adjust</span></div>
 
 
 <div class="viewcode-block" id="SpaceResection.least_square_shot">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.space_resection.SpaceResection.least_square_shot">[docs]</a>
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection.least_square_shot">[docs]</a>
     <span class="k">def</span> <span class="nf">least_square_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shot_adjust</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">obs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
                           <span class="n">pt_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pt_world</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Shot</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -318,9 +331,11 @@
             <span class="n">count_iter</span> <span class="o">+=</span> <span class="mi">1</span>
 
             <span class="c1"># Calculate position column and line with new shot f(x0)</span>
-            <span class="n">f0</span> <span class="o">=</span> <span class="n">WorldImageShot</span><span class="p">(</span><span class="n">shot_adjust</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="p">)</span><span class="o">.</span><span class="n">world_to_image</span><span class="p">(</span><span class="n">pt_world</span><span class="p">,</span>
-                                                                      <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span><span class="p">,</span>
-                                                                      <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">)</span>
+            <span class="n">f0</span> <span class="o">=</span> <span class="n">WorldImageShot</span><span class="p">(</span><span class="n">shot_adjust</span><span class="p">,</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">shot_adjust</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
+                                <span class="p">)</span><span class="o">.</span><span class="n">world_to_image</span><span class="p">(</span><span class="n">pt_world</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">type_z_data</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">)</span>
 
             <span class="c1"># Calculate residual vector B</span>
             <span class="n">v_res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">obs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">f0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">obs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">f0</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">pt_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">1</span><span class="p">)</span>
@@ -334,14 +349,15 @@
             <span class="n">new_pos_eucli</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">shot_adjust</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                                       <span class="n">shot_adjust</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                                       <span class="n">shot_adjust</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
-            <span class="n">new_mat_eucli</span> <span class="o">=</span> <span class="n">shot_adjust</span><span class="o">.</span><span class="n">mat_rot_eucli</span> <span class="o">@</span> <span class="n">Rotation</span><span class="o">.</span><span class="n">from_rotvec</span><span class="p">(</span><span class="n">dx</span><span class="p">[</span><span class="mi">3</span><span class="p">:])</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span>
+            <span class="n">new_mat_eucli</span> <span class="o">=</span> <span class="n">shot_adjust</span><span class="o">.</span><span class="n">mat_rot_eucli</span> <span class="o">@</span> <span class="n">R</span><span class="o">.</span><span class="n">from_rotvec</span><span class="p">(</span><span class="n">dx</span><span class="p">[</span><span class="mi">3</span><span class="p">:])</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span>
 
             <span class="c1"># Creation of new shot with new parameter</span>
             <span class="n">imc_new_adjust</span> <span class="o">=</span> <span class="n">Shot</span><span class="o">.</span><span class="n">from_param_euclidean</span><span class="p">(</span><span class="n">shot_adjust</span><span class="o">.</span><span class="n">name_shot</span><span class="p">,</span> <span class="n">new_pos_eucli</span><span class="p">,</span>
                                                        <span class="n">new_mat_eucli</span><span class="p">,</span> <span class="n">shot_adjust</span><span class="o">.</span><span class="n">name_cam</span><span class="p">,</span>
                                                        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">unit_angle</span><span class="p">,</span>
-                                                       <span class="n">shot_adjust</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">)</span>
-            <span class="n">imc_new_adjust</span><span class="o">.</span><span class="n">set_z_nadir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">z_nadir</span><span class="p">)</span>
+                                                       <span class="n">shot_adjust</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">,</span>
+                                                       <span class="n">shot_adjust</span><span class="o">.</span><span class="n">approxeucli</span><span class="p">)</span>
+            <span class="n">imc_new_adjust</span><span class="o">.</span><span class="n">set_z_nadir</span><span class="p">(</span><span class="n">shot_adjust</span><span class="o">.</span><span class="n">z_nadir</span><span class="p">)</span>
 
             <span class="c1"># Look difference to know if you want to stop the calculation</span>
             <span class="n">diff_coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">imc_new_adjust</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">shot_adjust</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">])</span>
@@ -357,7 +373,7 @@
 
 
 <div class="viewcode-block" id="SpaceResection.mat_obs_axia">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.space_resection.SpaceResection.mat_obs_axia">[docs]</a>
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection.mat_obs_axia">[docs]</a>
     <span class="k">def</span> <span class="nf">mat_obs_axia</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">imc_adjust</span><span class="p">:</span> <span class="n">Shot</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Setting up the mat_a matrix to solve the system by axiator.</span>
@@ -380,7 +396,8 @@
         <span class="n">a_axiator</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">vect_a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">a_axiator</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">vect_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="n">mat_a</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">focal</span> <span class="o">/</span> <span class="n">vect_u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">cam</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">imc_adjust</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
+        <span class="n">mat_a</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">focal</span> <span class="o">/</span> <span class="n">vect_u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
         <span class="n">mat_a</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">*=</span> <span class="p">(</span><span class="n">mat_v</span> <span class="o">@</span> <span class="n">imc_adjust</span><span class="o">.</span><span class="n">mat_rot_eucli</span><span class="p">)</span>
 
         <span class="n">mat_a</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">:]</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;lij, ljk-&gt;lik&#39;</span><span class="p">,</span>
@@ -392,11 +409,14 @@
 
 
 <div class="viewcode-block" id="SpaceResection.seed_20_point">
-<a class="viewcode-back" href="../../../../src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.space_resection.SpaceResection.seed_20_point">[docs]</a>
-    <span class="k">def</span> <span class="nf">seed_20_point</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection.seed_20_point">[docs]</a>
+    <span class="k">def</span> <span class="nf">seed_20_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cam</span><span class="p">:</span> <span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Positioning of 20 points on an image by percentage position on width and height.</span>
 <span class="sd">        The z-world position is given by fixed values.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cam (Camera): Camera of the shot.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            np.array: Tuple of 3 elements (position column obs, position line obs, z world).</span>
@@ -407,8 +427,8 @@
                                <span class="mi">60</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span> <span class="o">/</span> <span class="mi">100</span>
         <span class="n">z_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">200</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">330</span><span class="p">,</span> <span class="mi">335</span><span class="p">,</span> <span class="mi">340</span><span class="p">,</span> <span class="mi">330</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span>
                           <span class="mi">360</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">370</span><span class="p">,</span> <span class="mi">355</span><span class="p">,</span> <span class="mi">380</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">])</span>
-        <span class="n">c_obs</span> <span class="o">=</span> <span class="n">pourcent_x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">width</span>
-        <span class="n">l_obs</span> <span class="o">=</span> <span class="n">pourcent_y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">height</span>
+        <span class="n">c_obs</span> <span class="o">=</span> <span class="n">pourcent_x</span> <span class="o">*</span> <span class="n">cam</span><span class="o">.</span><span class="n">width</span>
+        <span class="n">l_obs</span> <span class="o">=</span> <span class="n">pourcent_y</span> <span class="o">*</span> <span class="n">cam</span><span class="o">.</span><span class="n">height</span>
 
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c_obs</span><span class="p">,</span> <span class="n">l_obs</span><span class="p">]),</span> <span class="n">z_obs</span></div>
 </div>

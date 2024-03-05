@@ -19,10 +19,10 @@ def test_calculate_image_world_by_intersection_onecop_multiimg():
     work.add_co_point('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_co_point('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
     work.add_co_point('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_dtm(PATH_DTM, "height")
+    work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     ImageWorldWork(work).manage_image_world(type_process = "intersection")
     print(abs(work.co_pts_world['"1003"'][0] - 815601.510),abs(work.co_pts_world['"1003"'][1] - 6283629.280),abs(work.co_pts_world['"1003"'][2] - 54.960))
     assert abs(work.co_pts_world['"1003"'][0] - 815601.510) < 1
@@ -40,10 +40,10 @@ def test_calculate_image_world_by_least_square_onecop_multiimg():
     work.add_co_point('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_co_point('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
     work.add_co_point('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_dtm(PATH_DTM, "height")
+    work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     ImageWorldWork(work).manage_image_world(type_process = "least_square")
     print(abs(work.co_pts_world['"1003"'][0] - 815601.510),abs(work.co_pts_world['"1003"'][1] - 6283629.280),abs(work.co_pts_world['"1003"'][2] - 54.960))
     assert abs(work.co_pts_world['"1003"'][0] - 815601.510) < 1
@@ -61,10 +61,10 @@ def test_calculate_image_world_by_intersection_onecopwithoneimg():
     work.add_co_point('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_co_point('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
     work.add_co_point('"1004"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_dtm(PATH_DTM, "height")
+    work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     ImageWorldWork(work).manage_image_world(type_process = "intersection")
     assert len(list(work.co_pts_world)) == 1
     assert '"1003"' in work.co_pts_world.keys()
@@ -99,10 +99,10 @@ def test_calculate_image_world_by_intersection_allgipoint():
     work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
-    work.add_dtm(PATH_DTM, "height")
+    work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "intersection")
     print(abs(work.img_pts_world['"1003"'][0] - 815601.510),abs(work.img_pts_world['"1003"'][1] - 6283629.280),abs(work.img_pts_world['"1003"'][2] - 54.960))
     print(abs(work.img_pts_world['"1005"'][0] - 833670.940),abs(work.img_pts_world['"1005"'][1] - 6281965.400),abs(work.img_pts_world['"1005"'][2] - 52.630))
@@ -130,10 +130,10 @@ def test_calculate_image_world_by_intersection_gipoint13type():
     work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
-    work.add_dtm(PATH_DTM, "height")
+    work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_z_nadir_shot()
+    work.set_param_shot(False)
     ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "intersection", control_type=[13])
     assert len(list(work.img_pts_world)) == 1
     assert '"1003"' in work.img_pts_world.keys()

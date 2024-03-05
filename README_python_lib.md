@@ -24,11 +24,11 @@ Once the object has been created, you can add other data to it:
 
 * Field points (GCPs) with `read_gcp([pathfile], worksite)`. Adds control and support terrain points in .app file format, can read multiple files. In addition, the z data type 'height' and 'altitude' must be added to worksite `worksite.type_z_data = 'altitude'` same variable than before. 
 
-* Add Dtm to your worksite `work.add_dtm(path_dtm, type_dtm)`, It converts z data between gcp and acquisition position if these are not in the same unit (one in altitude and one in height). `type_dtm` is the unit of the dtm 'altitude' or 'height'.
+* Add Dtm to your worksite `work.set_dtm(path_dtm, type_dtm)`, It converts z data between gcp and acquisition position if these are not in the same unit (one in altitude and one in height). `type_dtm` is the unit of the dtm 'altitude' or 'height'.
 
 ## Different process
 
-* Setup z_nadir of shot, this is recommended if the z shot is corrected by linear alteration and you supply a dtm `work.set_z_nadir_shot()`.
+* Set different parameters for shots (projection system of shot and z_nadir), mandatory if data is to be processed afterwards. `work.set_param_shot()`.
 
 * Can calculate the position of image points in world with `ImageWorldWork(worksite).manage_image_world(type_point, type_process, type_control)`.   
     * `type_point` is the type of point you want to calcule `co_points` or `ground_img_pts`.   
@@ -39,7 +39,7 @@ Once the object has been created, you can add other data to it:
 
 * Can calculate the position of terrain points in images with `WorldImageWork(work).calculate_world_to_image(type_control)` with `type_control` egal None by default, is used if the type_point = ground_img_pts and if you want just one type code point, else None to process on all point. . The result can be found in `worksite.shots['name_shot'].gcps['name_gcp']` for each image and each gcps.
 
-* Can calculate spatial resection for each shot in worksite with `work.shootings_position(add_pixel = (0,0))`. `add_pixel` is used to add a deviation to the position of the points to modify the shot's 6 external parameters for data conversion, for example.
+* Can calculate spatial resection for each shot in worksite with `SpaceResection(work).space_resection_worksite(add_pixel = (0,0))`. `add_pixel` is used to add a deviation to the position of the points to modify the shot's 6 external parameters for data conversion, for example.
 
 * You can calculate some control point statistics to see how accurate your site is `stat = Stat(work, pathreturn, control_type)` to init the object and run for all stat with `stat.main_stat_and_save()`. Make stat on function image to world and world to image, if there are data. And save result on *pathreturn/Stat_{Name_worksite}.txt*.
 
@@ -57,6 +57,7 @@ from src.reader.reader_gcp import read_gcp
 from src.writer.manage_writer import manager_reader
 from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
 from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
+from src.transform_world_image.transform_worksite.space_resection import SpaceResection
 from src.stat.statistics import Stat
 
 
@@ -128,10 +129,10 @@ read_gcp(path_gcps, work)
 work.type_z_data = type_z_data
 
 # Add Dtm to the worksite
-work.add_dtm(path_dtm, type_dtm)
+work.set_dtm(path_dtm, type_dtm)
 
-# Setup z_nadir of shot, recommended if z shot is corrected by the linear alteration
-work.set_z_nadir_shot()
+# Setup parameters of shot (projection system of shot and z_nadir)
+work.set_param_shot()
 
 # Calculate world coordinate of "co_points" or "ground_image_pts"
 # Type control isn't mandatory, take all points if not specified 
@@ -142,7 +143,7 @@ ImageWorldWork(work).manage_image_world("ground_img_pts", type_process,type_cont
 WorldImageWork(work).calculate_world_to_image(type_control)
 
 # Calculate shooting position with a factor pixel, to change projection for example
-work.shootings_position(add_pixel = (0,0))
+SpaceResection(work).space_resection_worksite(add_pixel = (0,0))
 
 # Calculate stat on world_to_image and image_to_world
 stat = Stat(work, pathreturn, type_control)

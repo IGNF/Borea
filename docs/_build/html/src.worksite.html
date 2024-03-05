@@ -232,7 +232,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="src.worksite.worksite.Worksite">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.worksite.worksite.</span></span><span class="sig-name descname"><span class="pre">Worksite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.datastruct.html#src.datastruct.workdata.Workdata" title="src.datastruct.workdata.Workdata"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workdata</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="src.datastruct.html#src.datastruct.workshot.Workshot" title="src.datastruct.workshot.Workshot"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workshot</span></code></a></p>
 <p>Worksite class, class main of the tools.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -249,6 +249,91 @@
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.get_point_image_pandas">
+<span class="sig-name descname"><span class="pre">get_point_image_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.get_point_image_pandas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.get_point_image_pandas" title="Link to this definition">#</a></dt>
+<dd><p>Retrieves id_pt, id_img, column, line in a pandas of the requested point type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “ground_img_pts” depending on what you want to get.</p></li>
+<li><p><strong>control_type</strong> (<em>list</em>) – Type controle for gcp.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pandas table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.get_point_world_pandas">
+<span class="sig-name descname"><span class="pre">get_point_world_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.get_point_world_pandas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.get_point_world_pandas" title="Link to this definition">#</a></dt>
+<dd><p>Retrieves id_pt, x, y, z in a pandas of the requested point type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “ground_img_pts” depending on what you want to get.</p></li>
+<li><p><strong>control_type</strong> (<em>list</em>) – Type controle for gcp.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pandas table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.getatt">
+<span class="sig-name descname"><span class="pre">getatt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attsrt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">any</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.getatt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.getatt" title="Link to this definition">#</a></dt>
+<dd><p>Get attribut by str name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attstr</strong> (<em>str</em>) – String attribute.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The attribute of the class.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.set_point_image_pandas">
+<span class="sig-name descname"><span class="pre">set_point_image_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pd_mes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.set_point_image_pandas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.set_point_image_pandas" title="Link to this definition">#</a></dt>
+<dd><p>Set requested point type by pandas table id_pt, id_img, column, line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pd_mes</strong> (<em>pd</em>) – Pandas table of data.</p></li>
+<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “ground_img_pts” depending on what you want to set.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.set_point_world_pandas">
+<span class="sig-name descname"><span class="pre">set_point_world_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pd_mes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.set_point_world_pandas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.set_point_world_pandas" title="Link to this definition">#</a></dt>
+<dd><p>Set requested point type by pandas table id_pt, x, y, z.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pd_mes</strong> (<em>pd</em>) – Pandas table of data.</p></li>
+<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “ground_img_pts” depending on what you want to set.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -334,6 +419,11 @@ For all shot with a variation pixel.</p>
 <li><a class="reference internal" href="#module-src.worksite.worksite">src.worksite.worksite module</a><ul>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite"><code class="docutils literal notranslate"><span class="pre">Worksite</span></code></a><ul>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite.calculate_barycentre"><code class="docutils literal notranslate"><span class="pre">Worksite.calculate_barycentre()</span></code></a></li>
+<li><a class="reference internal" href="#src.worksite.worksite.Worksite.get_point_image_pandas"><code class="docutils literal notranslate"><span class="pre">Worksite.get_point_image_pandas()</span></code></a></li>
+<li><a class="reference internal" href="#src.worksite.worksite.Worksite.get_point_world_pandas"><code class="docutils literal notranslate"><span class="pre">Worksite.get_point_world_pandas()</span></code></a></li>
+<li><a class="reference internal" href="#src.worksite.worksite.Worksite.getatt"><code class="docutils literal notranslate"><span class="pre">Worksite.getatt()</span></code></a></li>
+<li><a class="reference internal" href="#src.worksite.worksite.Worksite.set_point_image_pandas"><code class="docutils literal notranslate"><span class="pre">Worksite.set_point_image_pandas()</span></code></a></li>
+<li><a class="reference internal" href="#src.worksite.worksite.Worksite.set_point_world_pandas"><code class="docutils literal notranslate"><span class="pre">Worksite.set_point_world_pandas()</span></code></a></li>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite.shootings_position"><code class="docutils literal notranslate"><span class="pre">Worksite.shootings_position()</span></code></a></li>
 </ul>
 </li>

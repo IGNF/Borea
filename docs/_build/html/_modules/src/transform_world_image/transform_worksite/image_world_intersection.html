@@ -227,7 +227,8 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">src.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
 <span class="kn">from</span> <span class="nn">src.datastruct.shot</span> <span class="kn">import</span> <span class="n">Shot</span>
-<span class="kn">from</span> <span class="nn">src.geodesy.euclidean_proj</span> <span class="kn">import</span> <span class="n">EuclideanProj</span>
+<span class="kn">from</span> <span class="nn">src.geodesy.local_euclidean_proj</span> <span class="kn">import</span> <span class="n">LocalEuclideanProj</span>
+<span class="kn">from</span> <span class="nn">src.geodesy.approx_euclidean_proj</span> <span class="kn">import</span> <span class="n">ApproxEuclideanProj</span>
 <span class="kn">from</span> <span class="nn">src.transform_world_image.transform_shot.conversion_coor_shot</span> <span class="kn">import</span> <span class="n">conv_z_shot_to_z_data</span>
 <span class="kn">from</span> <span class="nn">src.transform_world_image.transform_shot.image_world_shot</span> <span class="kn">import</span> <span class="n">ImageWorldShot</span>
 
@@ -331,15 +332,18 @@
 
         <span class="c1"># Setting up a Euclidean projection centered on the two images.</span>
         <span class="n">bary</span> <span class="o">=</span> <span class="p">(</span><span class="n">shot1</span><span class="o">.</span><span class="n">pos_shot</span> <span class="o">+</span> <span class="n">shot2</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
-        <span class="n">projeucli</span> <span class="o">=</span> <span class="n">EuclideanProj</span><span class="p">(</span><span class="n">bary</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bary</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">shot1</span><span class="o">.</span><span class="n">approxeucli</span><span class="p">:</span>
+            <span class="n">projeucli</span> <span class="o">=</span> <span class="n">ApproxEuclideanProj</span><span class="p">(</span><span class="n">bary</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bary</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">projeucli</span> <span class="o">=</span> <span class="n">LocalEuclideanProj</span><span class="p">(</span><span class="n">bary</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bary</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
         <span class="c1"># Calculates data specific to Euclidean projection.</span>
         <span class="n">mat_eucli1</span> <span class="o">=</span> <span class="n">projeucli</span><span class="o">.</span><span class="n">mat_to_mat_eucli</span><span class="p">(</span><span class="n">shot1</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shot1</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shot1</span><span class="o">.</span><span class="n">mat_rot</span><span class="p">)</span>
         <span class="n">mat_eucli2</span> <span class="o">=</span> <span class="n">projeucli</span><span class="o">.</span><span class="n">mat_to_mat_eucli</span><span class="p">(</span><span class="n">shot2</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shot2</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shot2</span><span class="o">.</span><span class="n">mat_rot</span><span class="p">)</span>
         <span class="n">pos_eucli1</span> <span class="o">=</span> <span class="n">conv_z_shot_to_z_data</span><span class="p">(</span><span class="n">shot1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">type_z_data</span><span class="p">)</span>
         <span class="n">pos_eucli2</span> <span class="o">=</span> <span class="n">conv_z_shot_to_z_data</span><span class="p">(</span><span class="n">shot2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">type_z_data</span><span class="p">)</span>
-        <span class="n">pos_eucli1</span> <span class="o">=</span> <span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_euclidean</span><span class="p">(</span><span class="n">pos_eucli1</span><span class="p">)</span>
-        <span class="n">pos_eucli2</span> <span class="o">=</span> <span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_euclidean</span><span class="p">(</span><span class="n">pos_eucli2</span><span class="p">)</span>
+        <span class="n">pos_eucli1</span> <span class="o">=</span> <span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_eucli</span><span class="p">(</span><span class="n">pos_eucli1</span><span class="p">)</span>
+        <span class="n">pos_eucli2</span> <span class="o">=</span> <span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_eucli</span><span class="p">(</span><span class="n">pos_eucli2</span><span class="p">)</span>
 
         <span class="c1"># Calculates the director vectors of the point bundles in the Euclidean reference system.</span>
         <span class="n">vect1</span> <span class="o">=</span> <span class="n">mat_eucli1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ImageWorldShot</span><span class="p">(</span><span class="n">shot1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">shot1</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
@@ -351,7 +355,7 @@
         <span class="n">pt_inter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">intersection_line_3d</span><span class="p">(</span><span class="n">vect1</span><span class="p">,</span> <span class="n">pos_eucli1</span><span class="p">,</span> <span class="n">vect2</span><span class="p">,</span> <span class="n">pos_eucli2</span><span class="p">)</span>
 
         <span class="c1"># Converting the point to the world system.</span>
-        <span class="n">pt_inter</span> <span class="o">=</span> <span class="n">projeucli</span><span class="o">.</span><span class="n">euclidean_to_world</span><span class="p">(</span><span class="n">pt_inter</span><span class="p">)</span>
+        <span class="n">pt_inter</span> <span class="o">=</span> <span class="n">projeucli</span><span class="o">.</span><span class="n">eucli_to_world</span><span class="p">(</span><span class="n">pt_inter</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pt_inter</span></div>
 
 

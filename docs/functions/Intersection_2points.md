@@ -146,6 +146,9 @@ work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
 work.add_co_point('"1003"',"shot1",24042.25,14781.17)
 work.add_co_point('"1003"',"shot2",24120.2,10329.3)
 
+# Setup projection system and z_nadir of shot
+work.set_param_shot()
+
 # Calculate eucliean coordinate of intersection
 # manage_image_world(type_point, type_process)
 ImageWorldWork(work).manage_image_world("co_points", "intersection")

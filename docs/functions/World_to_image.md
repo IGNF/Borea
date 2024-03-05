@@ -114,8 +114,8 @@ work.add_gcp('gcp_test3', 13, np.array([815601.510, 6283629.280, 54.960]))
 # The dtm is mandatory for the function image to world
 work.add_dtm('MNT_France_25m_h_crop.tif','height')
 
-# Setup z_nadir of shot
-work.set_z_nadir_shot()
+# Setup projection system and z_nadir of shot
+work.set_param_shot()
 
 # Calculate coordinate image gcp for gcp with code 13
 WorldImageWork(work).calculate_world_to_image([13])

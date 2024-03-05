@@ -19,7 +19,7 @@ def test_calculate_image_world_by_intersection_onecop_multiimg():
     work.add_co_point('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_co_point('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
     work.add_co_point('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_dtm(PATH_DTM, "height")
+    work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(False)
@@ -40,7 +40,7 @@ def test_calculate_image_world_by_least_square_onecop_multiimg():
     work.add_co_point('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_co_point('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
     work.add_co_point('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_dtm(PATH_DTM, "height")
+    work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(False)
@@ -61,7 +61,7 @@ def test_calculate_image_world_by_intersection_onecopwithoneimg():
     work.add_co_point('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
     work.add_co_point('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
     work.add_co_point('"1004"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_dtm(PATH_DTM, "height")
+    work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(False)
@@ -99,7 +99,7 @@ def test_calculate_image_world_by_intersection_allgipoint():
     work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
-    work.add_dtm(PATH_DTM, "height")
+    work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(False)
@@ -130,7 +130,7 @@ def test_calculate_image_world_by_intersection_gipoint13type():
     work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
-    work.add_dtm(PATH_DTM, "height")
+    work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(False)

@@ -24,7 +24,7 @@ Once the object has been created, you can add other data to it:
 
 * Field points (GCPs) with `read_gcp([pathfile], worksite)`. Adds control and support terrain points in .app file format, can read multiple files. In addition, the z data type 'height' and 'altitude' must be added to worksite `worksite.type_z_data = 'altitude'` same variable than before. 
 
-* Add Dtm to your worksite `work.add_dtm(path_dtm, type_dtm)`, It converts z data between gcp and acquisition position if these are not in the same unit (one in altitude and one in height). `type_dtm` is the unit of the dtm 'altitude' or 'height'.
+* Add Dtm to your worksite `work.set_dtm(path_dtm, type_dtm)`, It converts z data between gcp and acquisition position if these are not in the same unit (one in altitude and one in height). `type_dtm` is the unit of the dtm 'altitude' or 'height'.
 
 ## Different process
 
@@ -128,7 +128,7 @@ read_gcp(path_gcps, work)
 work.type_z_data = type_z_data
 
 # Add Dtm to the worksite
-work.add_dtm(path_dtm, type_dtm)
+work.set_dtm(path_dtm, type_dtm)
 
 # Setup parameters of shot (projection system of shot and z_nadir)
 work.set_param_shot()

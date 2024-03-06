@@ -247,7 +247,8 @@
 
 <div class="viewcode-block" id="WorldIntersection.calculate_image_world_by_intersection">
 <a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_intersection.WorldIntersection.calculate_image_world_by_intersection">[docs]</a>
-    <span class="k">def</span> <span class="nf">calculate_image_world_by_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control_type</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">calculate_image_world_by_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                                              <span class="n">control_type</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates the ground position of connecting point by intersection with</span>
 <span class="sd">        the most distance between two shots or ground image point.</span>
@@ -259,6 +260,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s1">&#39;co_points&#39;</span><span class="p">:</span>
             <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;co_pts_world&quot;</span>
+            <span class="n">control_type</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;img_pts_world&quot;</span>
 

@@ -230,6 +230,7 @@
 <span class="kn">from</span> <span class="nn">src.datastruct.shot</span> <span class="kn">import</span> <span class="n">Shot</span>
 <span class="kn">from</span> <span class="nn">src.transform_world_image.transform_shot.world_image_shot</span> <span class="kn">import</span> <span class="n">WorldImageShot</span>
 <span class="kn">from</span> <span class="nn">src.transform_world_image.transform_shot.image_world_shot</span> <span class="kn">import</span> <span class="n">ImageWorldShot</span>
+<span class="kn">from</span> <span class="nn">src.transform_world_image.transform_worksite.image_world_intersection</span> <span class="kn">import</span> <span class="n">WorldIntersection</span>
 <span class="kn">from</span> <span class="nn">src.math.param_bundle</span> <span class="kn">import</span> <span class="n">param_bundle_diff</span>
 
 
@@ -275,18 +276,10 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            Shot: Adjusted shot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cam</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
-
-        <span class="c1"># Initialization of 20 points for shooting position</span>
-        <span class="n">obs</span><span class="p">,</span> <span class="n">z_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed_20_point</span><span class="p">(</span><span class="n">cam</span><span class="p">)</span>
-
-        <span class="c1"># Calculate world position</span>
-        <span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ImageWorldShot</span><span class="p">(</span><span class="n">shot</span><span class="p">,</span>
-                                             <span class="n">cam</span><span class="p">)</span><span class="o">.</span><span class="n">image_z_to_world</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span>
-                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">,</span> <span class="n">z_world</span><span class="p">)</span>
+        <span class="c1"># Initialization observation point</span>
+        <span class="n">obs</span><span class="p">,</span> <span class="n">pt_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">take_obs</span><span class="p">(</span><span class="n">shot</span><span class="p">)</span>
 
         <span class="c1"># Calculate euclidean position</span>
-        <span class="n">pt_world</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span><span class="p">])</span>
         <span class="n">pt_eucli</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_eucli</span><span class="p">(</span><span class="n">pt_world</span><span class="p">)</span>
 
         <span class="c1"># Add factor</span>
@@ -406,6 +399,52 @@
                                   <span class="n">a_axiator</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">mat_a</span></div>
+
+
+<div class="viewcode-block" id="SpaceResection.take_obs">
+<a class="viewcode-back" href="../../../../src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection.take_obs">[docs]</a>
+    <span class="k">def</span> <span class="nf">take_obs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shot</span><span class="p">:</span> <span class="n">Shot</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check co point on the shot to use in observation.</span>
+<span class="sd">        If there aren&#39;t enough points, add 20 random observation points.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            shot (Shot): The shot to adjust.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: np.array(obs_image), np.array(pt_world).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">add_pt</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">shot</span><span class="o">.</span><span class="n">co_points</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">co_pts_world</span><span class="p">:</span>
+                <span class="n">WorldIntersection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="p">)</span><span class="o">.</span><span class="n">calculate_image_world_by_intersection</span><span class="p">(</span><span class="s2">&quot;co_points&quot;</span><span class="p">)</span>
+            <span class="n">obs</span><span class="p">,</span> <span class="n">pt_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">get_points_shot_numpy</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">name_shot</span><span class="p">,</span> <span class="s2">&quot;co_points&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">obs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">7</span><span class="p">:</span>
+                <span class="n">add_pt</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">add_pt</span><span class="p">:</span>
+            <span class="n">cam</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
+            <span class="c1"># Initialization of 20 points for shooting position</span>
+            <span class="n">obs_random</span><span class="p">,</span> <span class="n">z_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed_20_point</span><span class="p">(</span><span class="n">cam</span><span class="p">)</span>
+            <span class="c1"># Calculate world position</span>
+            <span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ImageWorldShot</span><span class="p">(</span><span class="n">shot</span><span class="p">,</span>
+                                                 <span class="n">cam</span>
+                                                 <span class="p">)</span><span class="o">.</span><span class="n">image_z_to_world</span><span class="p">(</span><span class="n">obs_random</span><span class="p">,</span>
+                                                                    <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">,</span>
+                                                                    <span class="n">z_world</span><span class="p">)</span>
+            <span class="n">pt_world_random</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">add_pt</span> <span class="ow">and</span> <span class="n">shot</span><span class="o">.</span><span class="n">co_points</span><span class="p">:</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">obs</span><span class="p">,</span> <span class="n">obs_random</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">pt_world</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">350</span>  <span class="c1"># 350 is the mean of z_obs in seed_20_point</span>
+            <span class="n">pt_world</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">pt_world</span><span class="p">,</span> <span class="n">pt_world_random</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">add_pt</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">add_pt</span><span class="p">:</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">obs_random</span>
+            <span class="n">pt_world</span> <span class="o">=</span> <span class="n">pt_world_random</span>
+
+        <span class="k">return</span> <span class="n">obs</span><span class="p">,</span> <span class="n">pt_world</span></div>
 
 
 <div class="viewcode-block" id="SpaceResection.seed_20_point">

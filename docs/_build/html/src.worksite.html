@@ -294,6 +294,26 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.get_points_shot_numpy">
+<span class="sig-name descname"><span class="pre">get_points_shot_numpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.get_points_shot_numpy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.get_points_shot_numpy" title="Link to this definition">#</a></dt>
+<dd><p>Recovers image and terrain data for all link points in the image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name_shot</strong> (<em>str</em>) – Name of shot to take.</p></li>
+<li><p><strong>type_point</strong> (<em>str</em>) – Type point to take “co_points” or “ground_img_pts”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.array(obs_image), np.array(pt_world).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="src.worksite.worksite.Worksite.getatt">
 <span class="sig-name descname"><span class="pre">getatt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attsrt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">any</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.getatt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.getatt" title="Link to this definition">#</a></dt>
 <dd><p>Get attribut by str name.</p>
@@ -408,6 +428,7 @@
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite.calculate_barycentre"><code class="docutils literal notranslate"><span class="pre">Worksite.calculate_barycentre()</span></code></a></li>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite.get_point_image_pandas"><code class="docutils literal notranslate"><span class="pre">Worksite.get_point_image_pandas()</span></code></a></li>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite.get_point_world_pandas"><code class="docutils literal notranslate"><span class="pre">Worksite.get_point_world_pandas()</span></code></a></li>
+<li><a class="reference internal" href="#src.worksite.worksite.Worksite.get_points_shot_numpy"><code class="docutils literal notranslate"><span class="pre">Worksite.get_points_shot_numpy()</span></code></a></li>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite.getatt"><code class="docutils literal notranslate"><span class="pre">Worksite.getatt()</span></code></a></li>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite.set_point_image_pandas"><code class="docutils literal notranslate"><span class="pre">Worksite.set_point_image_pandas()</span></code></a></li>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite.set_point_world_pandas"><code class="docutils literal notranslate"><span class="pre">Worksite.set_point_world_pandas()</span></code></a></li>

@@ -8,6 +8,7 @@ from src.datastruct.camera import Camera
 from src.datastruct.shot import Shot
 from src.transform_world_image.transform_shot.world_image_shot import WorldImageShot
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
+from src.transform_world_image.transform_worksite.image_world_intersection import WorldIntersection
 from src.math.param_bundle import param_bundle_diff
 
 
@@ -46,18 +47,10 @@ class SpaceResection:
         Returns:
             Shot: Adjusted shot.
         """
-        cam = self.work.cameras[shot.name_cam]
-
-        # Initialization of 20 points for shooting position
-        obs, z_world = self.seed_20_point(cam)
-
-        # Calculate world position
-        x_world, y_world, _ = ImageWorldShot(shot,
-                                             cam).image_z_to_world(obs,
-                                                                   self.work.type_z_shot, z_world)
+        # Initialization observation point
+        obs, pt_world = self.take_obs(shot)
 
         # Calculate euclidean position
-        pt_world = np.array([x_world, y_world, z_world])
         pt_eucli = shot.projeucli.world_to_eucli(pt_world)
 
         # Add factor
@@ -171,6 +164,49 @@ class SpaceResection:
                                   a_axiator.reshape(-1, 3, 3)).reshape(-1, 3)
 
         return mat_a
+
+    def take_obs(self, shot: Shot) -> tuple:
+        """
+        Check co point on the shot to use in observation.
+        If there aren't enough points, add 20 random observation points.
+
+        Args:
+            shot (Shot): The shot to adjust.
+
+        Returns:
+            tuple: np.array(obs_image), np.array(pt_world).
+        """
+        add_pt = True
+        if shot.co_points:
+            if not self.work.co_pts_world:
+                WorldIntersection(self.work).calculate_image_world_by_intersection("co_points")
+            obs, pt_world = self.work.get_points_shot_numpy(shot.name_shot, "co_points")
+            if obs.shape[1] >= 7:
+                add_pt = False
+
+        if add_pt:
+            cam = self.work.cameras[shot.name_cam]
+            # Initialization of 20 points for shooting position
+            obs_random, z_world = self.seed_20_point(cam)
+            # Calculate world position
+            x_world, y_world, _ = ImageWorldShot(shot,
+                                                 cam
+                                                 ).image_z_to_world(obs_random,
+                                                                    self.work.type_z_shot,
+                                                                    z_world)
+            pt_world_random = np.array([x_world, y_world, z_world])
+
+        if add_pt and shot.co_points:
+            obs = np.concatenate((obs, obs_random), axis=1)
+            pt_world[2] += 350  # 350 is the mean of z_obs in seed_20_point
+            pt_world = np.concatenate((pt_world, pt_world_random), axis=1)
+            add_pt = False
+
+        if add_pt:
+            obs = obs_random
+            pt_world = pt_world_random
+
+        return obs, pt_world
 
     def seed_20_point(self, cam: Camera) -> tuple:
         """

@@ -363,6 +363,44 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">getatt</span><span class="p">(</span><span class="n">out_pt</span><span class="p">)[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id_pt&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]])</span></div>
 
 
+<div class="viewcode-block" id="Worksite.get_points_shot_numpy">
+<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.get_points_shot_numpy">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_points_shot_numpy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recovers image and terrain data for all link points in the image.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name_shot (str): Name of shot to take.</span>
+<span class="sd">            type_point (str): Type point to take &quot;co_points&quot; or &quot;ground_img_pts&quot;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: np.array(obs_image), np.array(pt_world).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;co_points&#39;</span><span class="p">,</span> <span class="s1">&#39;ground_img_pts&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect.[&#39;co_points&#39;,&#39;ground_img_pts&#39;]&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s1">&#39;co_points&#39;</span><span class="p">:</span>
+            <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;co_pts_world&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;img_pts_world&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">getatt</span><span class="p">(</span><span class="n">out_pt</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attribut </span><span class="si">{</span><span class="n">out_pt</span><span class="si">}</span><span class="s2"> in worksite is empty.&quot;</span><span class="p">)</span>
+
+        <span class="n">co_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">getatt</span><span class="p">(</span><span class="n">type_point</span><span class="p">)</span>
+        <span class="n">world_pt</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">img_pt</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key_pt</span><span class="p">,</span> <span class="n">img_coor</span> <span class="ow">in</span> <span class="n">co_point</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">pt_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getatt</span><span class="p">(</span><span class="n">out_pt</span><span class="p">)[</span><span class="n">key_pt</span><span class="p">]</span>
+                <span class="n">world_pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pt_world</span><span class="p">)</span>
+                <span class="n">img_pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img_coor</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Point </span><span class="si">{</span><span class="n">key_pt</span><span class="si">}</span><span class="s2">, doesn&#39;t have world coordinate, perhaps a single point.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">img_pt</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">world_pt</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="Worksite.calculate_barycentre">
 <a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.calculate_barycentre">[docs]</a>
     <span class="k">def</span> <span class="nf">calculate_barycentre</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>

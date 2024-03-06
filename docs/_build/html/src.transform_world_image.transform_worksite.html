@@ -241,7 +241,7 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.image_world_intersection.WorldIntersection.calculate_image_world_by_intersection">
-<span class="sig-name descname"><span class="pre">calculate_image_world_by_intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">control_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/image_world_intersection.html#WorldIntersection.calculate_image_world_by_intersection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.image_world_intersection.WorldIntersection.calculate_image_world_by_intersection" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">calculate_image_world_by_intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/image_world_intersection.html#WorldIntersection.calculate_image_world_by_intersection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.image_world_intersection.WorldIntersection.calculate_image_world_by_intersection" title="Link to this definition">#</a></dt>
 <dd><p>Calculates the ground position of connecting point by intersection with
 the most distance between two shots or ground image point.</p>
 <dl class="field-list simple">
@@ -569,6 +569,24 @@ For all shot with a variation pixel.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.space_resection.SpaceResection.take_obs">
+<span class="sig-name descname"><span class="pre">take_obs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/space_resection.html#SpaceResection.take_obs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.take_obs" title="Link to this definition">#</a></dt>
+<dd><p>Check co point on the shot to use in observation.
+If there aren’t enough points, add 20 random observation points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>shot</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><em>Shot</em></a>) – The shot to adjust.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.array(obs_image), np.array(pt_world).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -704,6 +722,7 @@ in the images they appear in.</p>
 <li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.seed_20_point"><code class="docutils literal notranslate"><span class="pre">SpaceResection.seed_20_point()</span></code></a></li>
 <li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection"><code class="docutils literal notranslate"><span class="pre">SpaceResection.space_resection()</span></code></a></li>
 <li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_worksite"><code class="docutils literal notranslate"><span class="pre">SpaceResection.space_resection_worksite()</span></code></a></li>
+<li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.take_obs"><code class="docutils literal notranslate"><span class="pre">SpaceResection.take_obs()</span></code></a></li>
 </ul>
 </li>
 </ul>

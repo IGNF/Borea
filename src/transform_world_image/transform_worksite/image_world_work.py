@@ -41,8 +41,8 @@ class ImageWorldWork:
             control_type = []
 
         if type_process == "intersection":
-            WorldIntersection(self.work).calculate_image_world_by_intersection(control_type,
-                                                                               type_point)
+            WorldIntersection(self.work).calculate_image_world_by_intersection(type_point,
+                                                                               control_type)
 
         if type_process == "least_square":
             WorldLeastSquare(self.work).compute_image_world_least_square(type_point, control_type)

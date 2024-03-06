@@ -21,7 +21,8 @@ class WorldIntersection:
     """
     work: Worksite
 
-    def calculate_image_world_by_intersection(self, control_type: list, type_point: str) -> None:
+    def calculate_image_world_by_intersection(self, type_point: str,
+                                              control_type: list = None) -> None:
         """
         Calculates the ground position of connecting point by intersection with
         the most distance between two shots or ground image point.
@@ -33,6 +34,7 @@ class WorldIntersection:
         """
         if type_point == 'co_points':
             out_pt = "co_pts_world"
+            control_type = []
         else:
             out_pt = "img_pts_world"
 

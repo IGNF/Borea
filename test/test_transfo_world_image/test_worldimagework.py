@@ -7,6 +7,9 @@ from src.transform_world_image.transform_worksite.world_image_work import WorldI
 
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
+TYPE_POINT = [3]
+TYPE_CONTROL_POINT = [13]
+ALL_POINT = []
 
 
 def test_calculate_world_to_image_base():
@@ -19,8 +22,8 @@ def test_calculate_world_to_image_base():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
-    WorldImageWork(work).calculate_world_to_image([3])
+    work.set_param_shot(approx=False)
+    WorldImageWork(work).calculate_world_to_image(TYPE_POINT)
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
     assert len(work.shots['shot_test'].gcps) == 1
@@ -37,8 +40,8 @@ def test_calculate_world_to_image_addpointunknow():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
-    WorldImageWork(work).calculate_world_to_image([3])
+    work.set_param_shot(approx=False)
+    WorldImageWork(work).calculate_world_to_image(TYPE_POINT)
     print("The print is normal")
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
@@ -57,8 +60,8 @@ def test_calculate_world_to_image_testcode():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
-    WorldImageWork(work).calculate_world_to_image([13])
+    work.set_param_shot(approx=False)
+    WorldImageWork(work).calculate_world_to_image(TYPE_CONTROL_POINT)
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
     assert len(work.shots['shot_test'].gcps) == 1
@@ -76,8 +79,8 @@ def test_calculate_world_to_image_testcodeNone():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
-    WorldImageWork(work).calculate_world_to_image([])
+    work.set_param_shot(approx=False)
+    WorldImageWork(work).calculate_world_to_image(ALL_POINT)
     assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
     assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
     assert len(work.shots['shot_test'].gcps) == 2

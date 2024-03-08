@@ -33,7 +33,7 @@ def test_shootings_position():
     work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
+    work.set_param_shot()
     SpaceResection(work).space_resection_worksite()
     assert abs(work.shots["23FD1305x00026_01306"].pos_shot[0] - 814975.925) < 0.02
     assert abs(work.shots["23FD1305x00026_01306"].pos_shot[1] - 6283986.148) < 0.02
@@ -48,7 +48,7 @@ def test_space_resection():
     cam = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     Proj_singleton(2154, {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}, "./dataset/")
     Dtm_singleton("./dataset/MNT_France_25m_h_crop.tif", "height")
-    shot.set_param_eucli_shot(False)
+    shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
     work = Worksite("Test")

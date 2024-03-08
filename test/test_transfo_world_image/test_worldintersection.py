@@ -20,7 +20,7 @@ def test_eucli_intersection_2p():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
+    work.set_param_shot(approx=False)
     actual = WorldIntersection(work).intersection_pt_in_2shot('"1003"', work.shots["shot1"], work.shots["shot2"])
     print(abs(actual[0] - 815601.510),abs(actual[1] - 6283629.280),abs(actual[2] - 54.960))
     assert abs(actual[0] - 815601.510) < 1

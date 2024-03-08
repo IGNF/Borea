@@ -39,7 +39,7 @@ def test_image_to_world():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
-    shot.set_param_eucli_shot(False)
+    shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
     shot.set_z_nadir(z_nadir)
     actual = ImageWorldShot(shot, cam).image_to_world(point_image, DATA_TYPE_Z, SHOT_TYPE_Z)
@@ -55,7 +55,7 @@ def test_image_to_world_sametype_withoutgeoid():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITHOUT_G)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
-    shot.set_param_eucli_shot(False)
+    shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
     shot.set_z_nadir(z_nadir)
     actual = ImageWorldShot(shot,cam).image_to_world(point_image, DATA_TYPE_Z, DATA_TYPE_Z)
@@ -67,7 +67,7 @@ def test_image_to_world_withoutdtm():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     Dtm_singleton(None, None)
-    shot.set_param_eucli_shot(False)
+    shot.set_param_eucli_shot(approx=False)
     with pytest.raises(ValueError) as e_info:
         z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
         shot.set_z_nadir(z_nadir)
@@ -81,7 +81,7 @@ def test_image_to_world_multipoint():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
-    shot.set_param_eucli_shot(False)
+    shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
     shot.set_z_nadir(z_nadir)
     actual = ImageWorldShot(shot,cam).image_to_world(np.array([c, l]), DATA_TYPE_Z, SHOT_TYPE_Z)
@@ -98,9 +98,7 @@ def test_image_to_world_approx():
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
-    shot.set_param_eucli_shot(True)
-    # z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
-    # shot.set_z_nadir(z_nadir)
+    shot.set_param_eucli_shot(approx=True)
     actual = ImageWorldShot(shot, cam).image_to_world(point_image, DATA_TYPE_Z, SHOT_TYPE_Z)
     print(abs(actual[0] - 815601.510),abs(actual[1] - 6283629.280),abs(actual[2] - 54.960))
     assert abs(actual[0] - 815601.510) < 1

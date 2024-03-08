@@ -47,7 +47,7 @@ def test_set_param_eucli():
     shot = copy.copy(SHOT)
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     projeucli = LocalEuclideanProj(814975.925, 6283986.148)
-    shot.set_param_eucli_shot(False)
+    shot.set_param_eucli_shot(approx=False)
     pos_expected = projeucli.mat_to_mat_eucli(814975.925, 6283986.148, shot.mat_rot)
     assert np.all(shot.mat_rot_eucli == pos_expected)
 
@@ -56,7 +56,7 @@ def test_set_param_eucli_withoutgeoid():
     shot = copy.copy(SHOT)
     Proj_singleton(EPSG, DICT_PROJ_WITHOUT_G)
     projeucli = LocalEuclideanProj(814975.925, 6283986.148)
-    shot.set_param_eucli_shot(False)
+    shot.set_param_eucli_shot(approx=False)
     pos_expected = projeucli.mat_to_mat_eucli(814975.925, 6283986.148, shot.mat_rot)
     assert np.all(shot.mat_rot_eucli == pos_expected)
 
@@ -64,7 +64,7 @@ def test_set_param_eucli_withoutgeoid():
 def test_from_shot_eucli():
     shot = copy.copy(SHOT)
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    shot.set_param_eucli_shot(False)
+    shot.set_param_eucli_shot(approx=False)
     projeucli = LocalEuclideanProj(814975.925, 6283986.148)
     pos_shot_eucli = projeucli.world_to_eucli(np.array([814975.925, 6283986.148, 1771.280]))
     mat_rot_eucli = projeucli.mat_to_mat_eucli(814975.925, 6283986.148, shot.mat_rot)
@@ -108,19 +108,19 @@ def test_set_unit_angle_same():
 def test_set_type_z():
     shot = copy.copy(SHOT)
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    shot.set_param_eucli_shot(False)
+    shot.set_param_eucli_shot(approx=False)
     shot.set_type_z("height")
 
 
 def test_set_linear_alteration_False():
     shot = copy.copy(SHOT)
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    shot.set_param_eucli_shot(False)
+    shot.set_param_eucli_shot(approx=False)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     cam = CAM
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
-    shot.set_linear_alteration(False)
+    shot.set_linear_alteration(linear_alteration=False)
     assert shot.linear_alteration == False
 
 
@@ -128,11 +128,11 @@ def test_set_linear_alteration_True():
     shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
-    shot.set_param_eucli_shot(False)
+    shot.set_param_eucli_shot(approx=False)
     cam = CAM
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
-    shot.set_linear_alteration(True)
+    shot.set_linear_alteration(linear_alteration=True)
     assert shot.linear_alteration == True
     assert shot.pos_shot[2] == 1771.280
 
@@ -145,7 +145,7 @@ def test_set_z_nadir():
 def test_approx_eucli_system():
     setup_test()
     shot = copy.copy(SHOT)
-    shot.set_param_eucli_shot(True)
+    shot.set_param_eucli_shot(approx=True)
     assert shot.approxeucli == True
     assert shot.projeucli.earth_raduis == 6366000
     assert (shot.projeucli.pt_central == np.array([814975.925,6283986.148,0])).all()

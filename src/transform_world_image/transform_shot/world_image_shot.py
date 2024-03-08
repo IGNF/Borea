@@ -7,7 +7,6 @@ from src.datastruct.camera import Camera
 from src.datastruct.dtm import Dtm
 from src.geodesy.proj_engine import ProjEngine
 from src.transform_world_image.transform_shot.conversion_coor_shot import conv_z_shot_to_z_data
-from src.utils.change_dim import change_dim
 
 
 class WorldImageShot():
@@ -45,17 +44,12 @@ class WorldImageShot():
             print("The results will not be accurate because the data are not corrected by"
                   " linear alteration and you are using an approximate system.")
 
-        if isinstance(coor_world[0], np.ndarray):
-            dim = np.shape(coor_world[0])
-        else:
-            dim = ()
-
         p_eucli = self.shot.projeucli.world_to_eucli(coor_world)
 
         # Convert coordinate in bundle system to image system
-        x_col, y_line = self.eucli_to_image(p_eucli, type_z_data, type_z_shot)
+        coor_image = self.eucli_to_image(p_eucli, type_z_data, type_z_shot)
 
-        return np.array([change_dim(x_col, dim), change_dim(y_line, dim)])
+        return coor_image
 
     def eucli_to_image(self, p_eucli: np.ndarray,
                        type_z_data: str, type_z_shot: str) -> np.ndarray:
@@ -76,7 +70,7 @@ class WorldImageShot():
         # Convert coordinate in bundle system to image system
         x_col, y_line = self.bundle_to_image(p_bundle)
 
-        return x_col, y_line
+        return np.array([x_col, y_line])
 
     def eucli_to_bundle(self, p_eucli: np.ndarray,
                         type_z_data: str, type_z_shot: str) -> np.ndarray:

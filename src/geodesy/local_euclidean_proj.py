@@ -6,7 +6,6 @@ from scipy.spatial.transform import Rotation as R
 from src.geodesy.proj_engine import ProjEngine
 from src.geodesy.euclidean_proj import EuclideanProj
 from src.utils.check.check_array import check_array_transfo
-from src.utils.change_dim import change_dim
 
 
 class LocalEuclideanProj(EuclideanProj):
@@ -91,11 +90,6 @@ class LocalEuclideanProj(EuclideanProj):
         Returns:
             np.array: x, y, z in the Euclidean coordinate reference system.
         """
-        if isinstance(coor[0], np.ndarray):
-            dim = np.shape(coor[0])
-        else:
-            dim = ()
-
         coor = check_array_transfo(coor[0], coor[1], coor[2])
 
         coor_geoc = np.array(ProjEngine().carto_to_geoc(coor[0], coor[1], coor[2]))
@@ -105,11 +99,8 @@ class LocalEuclideanProj(EuclideanProj):
         dr = np.vstack([coor_geoc[0] - central_geoc[0],
                         coor_geoc[1] - central_geoc[1],
                         coor_geoc[2] - central_geoc[2]])
-        point_eucli = (self.rot_to_euclidean_local @ dr) + np.array([self.pt_central]).T
-        x_r = change_dim(np.array([point_eucli[0]]), dim)
-        y_r = change_dim(np.array([point_eucli[1]]), dim)
-        z_r = change_dim(np.array([point_eucli[2]]), dim)
-        return np.array([x_r, y_r, z_r])
+        point_eucli = np.squeeze((self.rot_to_euclidean_local @ dr) + np.array([self.pt_central]).T)
+        return point_eucli
 
     def eucli_to_world(self, coor: np.ndarray) -> np.ndarray:
         """
@@ -122,10 +113,7 @@ class LocalEuclideanProj(EuclideanProj):
         Returns:
             np.array: x, y, z in the world coordinate reference system.
         """
-        if isinstance(coor[0], np.ndarray):
-            dim = np.shape(coor[0])
-        else:
-            dim = ()
+        coor = np.squeeze(coor)
 
         central_geoc = np.array(ProjEngine().carto_to_geoc(self.pt_central[0],
                                                            self.pt_central[1],
@@ -133,10 +121,7 @@ class LocalEuclideanProj(EuclideanProj):
         dr = np.vstack([coor[0] - self.pt_central[0],
                         coor[1] - self.pt_central[1],
                         coor[2] - self.pt_central[2]])
-        point_geoc = (self.rot_to_euclidean_local.T @ dr) + np.array([central_geoc]).T
+        point_geoc = np.squeeze((self.rot_to_euclidean_local.T @ dr) + np.array([central_geoc]).T)
         x_gc, y_gc, z_gc = check_array_transfo(point_geoc[0], point_geoc[1], point_geoc[2])
         tup = ProjEngine().geoc_to_carto(x_gc, y_gc, z_gc)
-        x_r = change_dim(np.array([tup[0]]), dim)
-        y_r = change_dim(np.array([tup[1]]), dim)
-        z_r = change_dim(np.array([tup[2]]), dim)
-        return np.array([x_r, y_r, z_r])
+        return np.array([tup[0], tup[1], tup[2]])

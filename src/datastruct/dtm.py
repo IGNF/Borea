@@ -5,7 +5,6 @@ from pathlib import Path, PureWindowsPath
 import numpy as np
 from osgeo import gdal
 from scipy import ndimage
-from src.utils.change_dim import change_dim
 from src.transform_world_image.transform_dtm.world_image_dtm import WorldImageDtm
 from src.utils.singleton.singleton import Singleton
 gdal.UseExceptions()
@@ -99,11 +98,6 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
         Returns:
             np.array: z value.
         """
-        if isinstance(coor_2d[0], np.ndarray):
-            dim = np.shape(coor_2d[0])
-        else:
-            dim = ()
-
         if self.path_dtm is None:
             return np.zeros_like(coor_2d[0])
         col, line = self.world_to_image(coor_2d)
@@ -122,7 +116,4 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
         if np.any(np.isnan(z)):
             raise IndexError(f"Out dtm {coor_2d[0]} {coor_2d[1]}")
 
-        if dim == ():
-            z = z[0]
-        z = change_dim(np.array(z, dtype=float), dim)
-        return np.round(z, 3)
+        return np.round(np.array(z, dtype=float), 3)

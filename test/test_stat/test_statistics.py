@@ -13,6 +13,9 @@ from src.transform_world_image.transform_worksite.world_image_work import WorldI
 OUTPUT = "./test/tmp"
 FILENAME = "Test"
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
+TYPE_CONTROL_POINT = [13]
+ALL_POINT = []
+
 
 def setup_module(module): # run before the first test
     try:  # Clean folder test if exists
@@ -32,9 +35,9 @@ def test_stat_world_to_image():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
-    WorldImageWork(work).calculate_world_to_image([13])
-    stat = Stat(work, "./", [13])
+    work.set_param_shot(approx=False)
+    WorldImageWork(work).calculate_world_to_image(TYPE_CONTROL_POINT)
+    stat = Stat(work, "./", TYPE_CONTROL_POINT)
     stat.stat_world_to_image()
     assert stat.res_world_image[0][0][0] == 'gcp_test'
     assert stat.res_world_image[0][0][1] == 'shot_test'
@@ -49,7 +52,7 @@ def test_stat_world_to_image_withoutdata():
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_ground_img_pt('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
-    stat = Stat(work, "./", [13])
+    stat = Stat(work, "./", TYPE_CONTROL_POINT)
     stat.stat_world_to_image()
     assert stat.res_world_image == []
 
@@ -72,9 +75,9 @@ def test_stat_image_to_world_type13():
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
-    work.set_param_shot(False)
+    work.set_param_shot(approx=False)
     ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
-    stat = Stat(work, "./", [13])
+    stat = Stat(work, "./", TYPE_CONTROL_POINT)
     stat.stat_image_to_world()
     assert stat.res_image_world[0][0][0] == '"1003"'
     assert np.all(stat.res_image_world[0][1]<1) 
@@ -99,9 +102,9 @@ def test_stat_image_to_world_alltype():
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
-    work.set_param_shot(False)
+    work.set_param_shot(approx=False)
     ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
-    stat = Stat(work, "./", [])
+    stat = Stat(work, "./",ALL_POINT)
     stat.stat_image_to_world()
     assert stat.res_image_world[0][0][0] == '"1003"'
     assert np.all(stat.res_image_world[0][1]<1)
@@ -117,14 +120,14 @@ def test_stat_image_to_world_withoutdata():
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
     work.add_ground_img_pt('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
-    stat = Stat(work, "./", [13])
+    stat = Stat(work, "./",TYPE_CONTROL_POINT)
     stat.stat_image_to_world()
     assert stat.res_image_world == []
 
 
 def test_stat_list_world1():
     work = Worksite(FILENAME)
-    stat = Stat(work, "./", [])
+    stat = Stat(work, "./", ALL_POINT)
     list_data = [[["p1"], np.array([1,1,1])],
                  [["p2"], np.array([3,0,4])],
                  [["p3"], np.array([2,2,2])],
@@ -151,7 +154,7 @@ def test_stat_list_world1():
 
 def test_stat_list_image1():
     work = Worksite(FILENAME)
-    stat = Stat(work, "./", [])
+    stat = Stat(work, "./", ALL_POINT)
     list_data = [[["p1", "s1"], np.array([1,1])],
                  [["p2", "s2"], np.array([3,0])],
                  [["p3", "s3"], np.array([2,2])],
@@ -194,9 +197,9 @@ def test_stat_list_world2():
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
-    work.set_param_shot(False)
+    work.set_param_shot(approx=False)
     ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
-    stat = Stat(work, "./", [])
+    stat = Stat(work, "./", ALL_POINT)
     stat.stat_image_to_world()
     dict_stat = stat.stat_list(stat.res_image_world)
     assert len(dict_stat.keys()) == 12
@@ -220,10 +223,10 @@ def test_stat_list_image2():
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
-    work.set_param_shot(False)
+    work.set_param_shot(approx=False)
     work.set_dtm(PATH_DTM,"height")
-    WorldImageWork(work).calculate_world_to_image([])
-    stat = Stat(work, "./", [])
+    WorldImageWork(work).calculate_world_to_image(ALL_POINT)
+    stat = Stat(work, "./", ALL_POINT)
     stat.stat_world_to_image()
     dict_stat = stat.stat_list(stat.res_world_image)
     assert len(dict_stat.keys()) == 12
@@ -231,7 +234,7 @@ def test_stat_list_image2():
 
 def test_save_txt():
     work = Worksite(FILENAME)
-    stat = Stat(work, OUTPUT, [])
+    stat = Stat(work, OUTPUT, ALL_POINT)
     stat.res_image_world = [[["p1"], np.array([1,1,1])],
                             [["p2"], np.array([3,0,4])],
                             [["p3"], np.array([2,2,2])],
@@ -267,9 +270,9 @@ def test_main():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
-    WorldImageWork(work).calculate_world_to_image([])
+    work.set_param_shot(approx=False)
+    WorldImageWork(work).calculate_world_to_image(ALL_POINT)
     ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
-    stat = Stat(work, OUTPUT, [])
+    stat = Stat(work, OUTPUT, ALL_POINT)
     stat.main_stat_and_save()
     assert os.path.exists(f"{OUTPUT}/Stat_residu_world_to_image_{FILENAME}.txt")

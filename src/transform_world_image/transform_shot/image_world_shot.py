@@ -8,7 +8,6 @@ from src.datastruct.dtm import Dtm
 from src.geodesy.proj_engine import ProjEngine
 from src.transform_world_image.transform_shot.conversion_coor_shot import conv_z_shot_to_z_data
 from src.transform_world_image.transform_shot.conversion_coor_shot import conv_output_z_type
-from src.utils.change_dim import change_dim
 
 
 class ImageWorldShot():
@@ -44,18 +43,12 @@ class ImageWorldShot():
         if not Dtm().path_dtm:
             raise ValueError("Missing dtm")
 
-        if isinstance(img_coor[0], np.ndarray):
-            dim = np.shape(img_coor[0])
-        else:
-            dim = ()
-
+        img_coor = np.squeeze(img_coor)
         coor_world = self.image_world_iter(img_coor, type_z_shot, nonadir)
 
-        x_world, y_world, z_world = conv_output_z_type(coor_world, Dtm().type_dtm, type_z_data)
-        x_world = change_dim(x_world, dim)
-        y_world = change_dim(y_world, dim)
-        z_world = change_dim(z_world, dim)
-        return np.array([x_world, y_world, z_world])
+        coor_world = conv_output_z_type(coor_world, Dtm().type_dtm, type_z_data)
+
+        return coor_world
 
     def image_world_iter(self, img_coor: np.ndarray,
                          type_z_shot: str, nonadir: bool = True) -> np.ndarray:
@@ -76,7 +69,7 @@ class ImageWorldShot():
         nbr_iter = 0
         iter_max = 10
         while not precision_reached and nbr_iter < iter_max:
-            z_world = Dtm().get_z_world(coor_world[0:2])
+            z_world = np.squeeze(Dtm().get_z_world(coor_world[0:2]))
             coor_new_world = self.image_z_to_world(img_coor, type_z_shot, z_world, nonadir)
             x_diff = (coor_new_world[0] - coor_world[0]) ** 2
             y_diff = (coor_new_world[1] - coor_world[1]) ** 2
@@ -103,11 +96,9 @@ class ImageWorldShot():
             np.array: Cartographique coordinate [x,y,z].
         """
         if isinstance(img_coor[0], np.ndarray):
-            dim = np.shape(img_coor[0])
             if np.all(z == 0):
                 z = np.full_like(img_coor[0], 0)
-        else:
-            dim = ()
+
         pt_bundle = self.image_to_bundle(img_coor)
 
         pos_shot_new_z = conv_z_shot_to_z_data(self.shot, type_z_shot, Dtm().type_dtm,
@@ -118,7 +109,11 @@ class ImageWorldShot():
         pt_eucli = self.local_to_eucli(pt_bundle, pos_eucli, z)
 
         pt_world = self.shot.projeucli.eucli_to_world(pt_eucli)
-        return np.array([change_dim(pt_world[0], dim), change_dim(pt_world[1], dim), z])
+        try:
+            np.array([pt_world[0], pt_world[1], z])
+        except ValueError:
+            print(pt_world, z)
+        return np.array([pt_world[0], pt_world[1], z])
 
     def image_to_bundle(self, img_coor: np.ndarray) -> np.ndarray:
         """

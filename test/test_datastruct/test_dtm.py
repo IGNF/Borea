@@ -27,14 +27,21 @@ def test_init_dtm():
     assert hasattr(dtm, 'gt')
 
 def test_dtm_get_one():
-    Dtm_singleton(PATH_DTM, "height")
+    Dtm_singleton(PATH_DTM, type_dtm="height")
     dtm = Dtm()
     z = dtm.get_z_world(np.array([800000, 6280000]))
     assert z == 49.533
 
 
+def test_dtm_get_oneplusshape():
+    Dtm_singleton(PATH_DTM, type_dtm="height")
+    dtm = Dtm()
+    z = dtm.get_z_world(np.array([[800000], [6280000]]))
+    assert z == 49.533
+
+
 def test_dtm_get_multi():
-    Dtm_singleton(PATH_DTM, "height")
+    Dtm_singleton(PATH_DTM, type_dtm="height")
     dtm = Dtm()
     z = dtm.get_z_world(np.array([[800000,800000,800000],[6280000,6280000,6280000]]))
     assert (z == np.array([49.533,49.533,49.533])).all

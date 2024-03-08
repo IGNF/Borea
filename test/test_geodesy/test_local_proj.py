@@ -20,6 +20,7 @@ def test_world_to_eucli_withfloat():
     Proj_singleton(2154, {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}, "./dataset/")
     euproj = LocalEuclideanProj(0,0)
     x,y,z = euproj.world_to_eucli(np.array([0,0,0]))
+    print(x, y, z)
     assert round(x) == 0
     assert round(y) == 0
     assert round(z) == 0
@@ -40,12 +41,12 @@ def test_world_to_eucli_witharray1():
     Proj_singleton(2154, {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}, "./dataset/")
     euproj = LocalEuclideanProj(0,0)
     x,y,z = euproj.world_to_eucli(pt)
-    assert round(x[0]) == 0
-    assert round(y[0]) == 0
-    assert round(z[0]) == 0
+    assert round(x) == 0
+    assert round(y) == 0
+    assert round(z) == 0
 
 
-def test_eucli_to_world1_withfloat():
+def test_eucli_to_world_withfloat():
     pt = np.array([0.0,0.0,0.0])
     Proj_singleton(2154, {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}, "./dataset/")
     euproj = LocalEuclideanProj(0.0,0.0)
@@ -70,6 +71,6 @@ def test_eucli_to_world_witharray1():
     Proj_singleton(2154, {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}, "./dataset/")
     euproj = LocalEuclideanProj(0.0,0.0)
     x,y,z = euproj.eucli_to_world(pt)
-    assert round(x[0]) == 0
-    assert round(y[0]) == 0
-    assert round(z[0]) == 0
+    assert round(x) == 0
+    assert round(y) == 0
+    assert round(z) == 0

@@ -79,7 +79,7 @@ class WorldLeastSquare:
             shot = self.work.shots[id_shot]
             cam = self.work.cameras[shot.name_cam]
             coor_img = np.array([pd_mes_pnt["column"].to_numpy(), pd_mes_pnt["line"].to_numpy()])
-            z_world = np.full(pd_mes_pnt.shape[0], Dtm().get_z_world(shot.pos_shot[:2]))
+            z_world = np.squeeze(np.full(pd_mes_pnt.shape[0], Dtm().get_z_world(shot.pos_shot[:2])))
 
             # Calculation of world coordinate for all points in this shot
             coor_world = ImageWorldShot(shot, cam).image_z_to_world(coor_img,

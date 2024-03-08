@@ -22,7 +22,7 @@ def test_calculate_image_world_by_intersection_onecop_multiimg():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
+    work.set_param_shot(approx=False)
     ImageWorldWork(work).manage_image_world(type_process = "intersection")
     print(abs(work.co_pts_world['"1003"'][0] - 815601.510),abs(work.co_pts_world['"1003"'][1] - 6283629.280),abs(work.co_pts_world['"1003"'][2] - 54.960))
     assert abs(work.co_pts_world['"1003"'][0] - 815601.510) < 1
@@ -43,7 +43,7 @@ def test_calculate_image_world_by_least_square_onecop_multiimg():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
+    work.set_param_shot(approx=False)
     ImageWorldWork(work).manage_image_world(type_process = "least_square")
     print(abs(work.co_pts_world['"1003"'][0] - 815601.510),abs(work.co_pts_world['"1003"'][1] - 6283629.280),abs(work.co_pts_world['"1003"'][2] - 54.960))
     assert abs(work.co_pts_world['"1003"'][0] - 815601.510) < 1
@@ -64,7 +64,7 @@ def test_calculate_image_world_by_intersection_onecopwithoneimg():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
+    work.set_param_shot(approx=False)
     ImageWorldWork(work).manage_image_world(type_process = "intersection")
     assert len(list(work.co_pts_world)) == 1
     assert '"1003"' in work.co_pts_world.keys()
@@ -102,7 +102,7 @@ def test_calculate_image_world_by_intersection_allgipoint():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
+    work.set_param_shot(approx=False)
     ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "intersection")
     print(abs(work.img_pts_world['"1003"'][0] - 815601.510),abs(work.img_pts_world['"1003"'][1] - 6283629.280),abs(work.img_pts_world['"1003"'][2] - 54.960))
     print(abs(work.img_pts_world['"1005"'][0] - 833670.940),abs(work.img_pts_world['"1005"'][1] - 6281965.400),abs(work.img_pts_world['"1005"'][2] - 52.630))
@@ -133,7 +133,7 @@ def test_calculate_image_world_by_intersection_gipoint13type():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
-    work.set_param_shot(False)
+    work.set_param_shot(approx=False)
     ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "intersection", control_type=[13])
     assert len(list(work.img_pts_world)) == 1
     assert '"1003"' in work.img_pts_world.keys()

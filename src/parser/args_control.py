@@ -20,12 +20,12 @@ def args_control(parser: argparse) -> argparse:
     Returns:
         argsparse: Parser with argument.
     """
-    parser.add_argument('-t', '--ground_points',
-                        type=str, default=None, nargs='*',
-                        help='Files paths of ground points in images (.mes).')
-    parser.add_argument('-g', '--gcp',
-                        type=str, default=None, nargs='*',
-                        help='Files paths of GCP (.app).')
+    parser.add_argument('-t', '--gcp2d',
+                        type=str, default=None,
+                        help='File path of ground control points in images.')
+    parser.add_argument('-g', '--gcp3d',
+                        type=str, default=None,
+                        help='File path of ground control points in ground.')
     parser.add_argument('-d', '--control_type',
                         type=int, default=[], nargs='*',
                         help='Type of gcp to control.')

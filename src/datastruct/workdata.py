@@ -60,14 +60,14 @@ class Workdata:
                                      unit_angle=unit_angle,
                                      linear_alteration=linear_alteration)
 
-    def set_proj(self, epsg: int, file_epsg: str = None, path_geotiff: str = None) -> None:
+    def set_proj(self, epsg: int, file_epsg: str = None, path_geoid: str = None) -> None:
         """
         Setup a projection system to the worksite.
 
         Args:
             epsg (int): Code epsg of the porjection ex: 2154.
             file_epsg (str): Path to the json which list projection.
-            path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.
+            path_geoid (str): List of GeoTIFF which represents the geoid in grid form.
         """
         ProjEngine.clear()
         try:  # Check if the epsg exist

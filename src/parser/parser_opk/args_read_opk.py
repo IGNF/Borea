@@ -41,7 +41,7 @@ def args_reading_opk(parser: argparse) -> argparse:
                         type=bool, default=True,
                         help="True if z shot corrected by linear alteration.")
     parser.add_argument('-f', '--first_line',
-                        type=int, default=None,
+                        type=int, default=1,
                         help='Line number to start file playback.'
                              ' Does not take file header into account.')
     parser.add_argument('-z', '--last_line',

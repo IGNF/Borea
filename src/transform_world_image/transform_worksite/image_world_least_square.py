@@ -30,7 +30,7 @@ class WorldLeastSquare:
         Calculates the mean of the result x y z of the point for each shot where it's visible.
 
         Args:
-            type_point (str): "co_points" or "ground_img_pts"
+            type_point (str): "co_points" or "gcp2d"
                               depending on what you want to calculate.
             control_type (list): List of code gcp to take.
                                  To take all points or co_point, control_type = [].

@@ -32,14 +32,14 @@ class Worksite(Workshot):
         Retrieves id_pt, id_img, column, line in a pandas of the requested point type.
 
         Args:
-            type_point (str): "co_points" or "ground_img_pts" depending on what you want to get.
+            type_point (str): "co_points" or "gcp2d" depending on what you want to get.
             control_type (list): Type controle for gcp.
 
         Returns:
             pandas: Pandas table.
         """
-        if type_point not in ["co_points", "ground_img_pts"]:
-            raise ValueError(f"type_point {type_point} is incorrect,['co_points','ground_img_pts']")
+        if type_point not in ["co_points", "gcp2d"]:
+            raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d']")
 
         if type_point == "co_points":
             control_type = []
@@ -65,10 +65,10 @@ class Worksite(Workshot):
 
         Args:
             pd_mes (pd): Pandas table of data.
-            type_point (str): "co_points" or "ground_img_pts" depending on what you want to set.
+            type_point (str): "co_points" or "gcp2d" depending on what you want to set.
         """
-        if type_point not in ["co_points", "ground_img_pts"]:
-            raise ValueError(f"type_point {type_point} is incorrect,['co_points','ground_img_pts']")
+        if type_point not in ["co_points", "gcp2d"]:
+            raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d']")
 
         for _, row in pd_mes.iterrows():
             self.shots[row['id_img']].getatt(type_point)[row['id_pt']] = np.array([row['column'],
@@ -79,14 +79,14 @@ class Worksite(Workshot):
         Retrieves id_pt, x, y, z in a pandas of the requested point type.
 
         Args:
-            type_point (str): "co_points" or "ground_img_pts" depending on what you want to get.
+            type_point (str): "co_points" or "gcp2d" depending on what you want to get.
             control_type (list): Type controle for gcp.
 
         Returns:
             pandas: Pandas table.
         """
-        if type_point not in ["co_points", "ground_img_pts"]:
-            raise ValueError(f"type_point {type_point} is incorrect,['co_points','ground_img_pts']")
+        if type_point not in ["co_points", "gcp2d"]:
+            raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d']")
 
         if type_point == 'co_points':
             out_pt = "co_pts_world"
@@ -111,10 +111,10 @@ class Worksite(Workshot):
 
         Args:
             pd_mes (pd): Pandas table of data.
-            type_point (str): "co_points" or "ground_img_pts" depending on what you want to set.
+            type_point (str): "co_points" or "gcp2d" depending on what you want to set.
         """
-        if type_point not in ["co_points", "ground_img_pts"]:
-            raise ValueError(f"type_point {type_point} is incorrect,['co_points','ground_img_pts']")
+        if type_point not in ["co_points", "gcp2d"]:
+            raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d']")
 
         if type_point == 'co_points':
             out_pt = "co_pts_world"
@@ -130,13 +130,13 @@ class Worksite(Workshot):
 
         Args:
             name_shot (str): Name of shot to take.
-            type_point (str): Type point to take "co_points" or "ground_img_pts".
+            type_point (str): Type point to take "co_points" or "gcp2d".
 
         Returns:
             tuple: np.array(obs_image), np.array(pt_world).
         """
-        if type_point not in ['co_points', 'ground_img_pts']:
-            raise ValueError(f"type point {type_point} is incorrect.['co_points','ground_img_pts']")
+        if type_point not in ['co_points', 'gcp2d']:
+            raise ValueError(f"type point {type_point} is incorrect.['co_points','gcp2d']")
 
         if type_point == 'co_points':
             out_pt = "co_pts_world"

@@ -23,15 +23,15 @@ class ImageWorldWork:
         Process to calcule image coordinate to world coordinate.
 
         Args:
-            type_point (str): "co_points" or "ground_img_pts"
+            type_point (str): "co_points" or "gcp2d"
                               depending on what you want to calculate.
             type_process (str): Type of process you want to use.
                                 * "inter" by intersect bundle of point in each shot.
                                 * "square" take all point and do methode least square.
             control_type (list): Type controle for gcp.
         """
-        if type_point not in ["co_points", "ground_img_pts"]:
-            raise ValueError(f"type_point {type_point} is incorrect,['co_points','ground_img_pts']")
+        if type_point not in ["co_points", "gcp2d"]:
+            raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d']")
 
         if type_process not in ["inter", "square"]:
             raise ValueError(f"type_process {type_process} is incorrect, "

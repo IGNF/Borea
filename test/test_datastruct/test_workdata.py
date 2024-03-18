@@ -162,12 +162,12 @@ def test_add_ground_img_pt():
     obj.add_ground_img_pt("p0", "t2", 40, 40)
     obj.add_ground_img_pt("p1", "t1", 70, 10)
     obj.add_ground_img_pt("p1", "t3", 50, 90)
-    assert obj.ground_img_pts["p0"] == ["t1", "t2"]
-    assert obj.ground_img_pts["p1"] == ["t1", "t3"]
-    assert obj.shots["t1"].ground_img_pts["p0"] == [50, 30]
-    assert obj.shots["t1"].ground_img_pts["p1"] == [70, 10]
-    assert obj.shots["t2"].ground_img_pts["p0"] == [40, 40]
-    assert obj.shots["t3"].ground_img_pts["p1"] == [50, 90]
+    assert obj.gcp2d["p0"] == ["t1", "t2"]
+    assert obj.gcp2d["p1"] == ["t1", "t3"]
+    assert obj.shots["t1"].gcp2d["p0"] == [50, 30]
+    assert obj.shots["t1"].gcp2d["p1"] == [70, 10]
+    assert obj.shots["t2"].gcp2d["p0"] == [40, 40]
+    assert obj.shots["t3"].gcp2d["p1"] == [50, 90]
 
 
 def test_add_gcp():
@@ -255,7 +255,7 @@ def test_get_point_panda_groundimgpt():
     obj.add_ground_img_pt("p1", "t3", 50, 90)
     obj.add_gcp('p0', 13, np.array([1,2,3]))
     obj.add_gcp('p1', 3, np.array([1,2,3]))
-    pd = obj.get_point_image_pandas("ground_img_pts", [13])
+    pd = obj.get_point_image_pandas("gcp2d", [13])
     assert (pd["id_pt"].to_numpy() == np.array(["p0", "p0"])).all()
     assert (pd["id_img"].to_numpy() == np.array(["t1","t2"])).all()
     assert (pd["column"].to_numpy() == np.array([50,40])).all()

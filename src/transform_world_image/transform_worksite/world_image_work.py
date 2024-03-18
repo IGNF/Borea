@@ -24,11 +24,11 @@ class WorldImageWork:
         Args:
             lcode (list): gcp code.
         """
-        if self.work.gcps and self.work.ground_img_pts:
+        if self.work.gcps and self.work.gcp2d:
             for name_gcp, gcp in self.work.gcps.items():
                 if gcp.code in lcode or lcode == []:
                     try:
-                        list_shots = self.work.ground_img_pts[name_gcp]
+                        list_shots = self.work.gcp2d[name_gcp]
                         for name_shot in list_shots:
                             shot = self.work.shots[name_shot]
                             cam = self.work.cameras[shot.name_cam]

@@ -103,7 +103,7 @@ def test_calculate_image_world_by_intersection_allgipoint():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
-    ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "inter")
+    ImageWorldWork(work).manage_image_world(type_point = "gcp2d", type_process = "inter")
     print(abs(work.gcp2d_in_world['"1003"'][0] - 815601.510),abs(work.gcp2d_in_world['"1003"'][1] - 6283629.280),abs(work.gcp2d_in_world['"1003"'][2] - 54.960))
     print(abs(work.gcp2d_in_world['"1005"'][0] - 833670.940),abs(work.gcp2d_in_world['"1005"'][1] - 6281965.400),abs(work.gcp2d_in_world['"1005"'][2] - 52.630))
     assert len(list(work.gcp2d_in_world)) == 2
@@ -134,7 +134,7 @@ def test_calculate_image_world_by_intersection_gipoint13type():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
-    ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "inter", control_type=[13])
+    ImageWorldWork(work).manage_image_world(type_point = "gcp2d", type_process = "inter", control_type=[13])
     assert len(list(work.gcp2d_in_world)) == 1
     assert '"1003"' in work.gcp2d_in_world.keys()
     assert '"1005"' not in work.gcp2d_in_world.keys()

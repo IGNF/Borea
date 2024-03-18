@@ -76,7 +76,7 @@ def test_stat_image_to_world_type13():
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.set_param_shot(approx=False)
-    ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
+    ImageWorldWork(work).manage_image_world(type_point="gcp2d")
     stat = Stat(work, "./", TYPE_CONTROL_POINT)
     stat.stat_image_to_world()
     assert stat.res_image_world[0][0][0] == '"1003"'
@@ -103,7 +103,7 @@ def test_stat_image_to_world_alltype():
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.set_param_shot(approx=False)
-    ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
+    ImageWorldWork(work).manage_image_world(type_point="gcp2d")
     stat = Stat(work, "./",ALL_POINT)
     stat.stat_image_to_world()
     assert stat.res_image_world[0][0][0] == '"1003"'
@@ -198,7 +198,7 @@ def test_stat_list_world2():
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.set_param_shot(approx=False)
-    ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
+    ImageWorldWork(work).manage_image_world(type_point="gcp2d")
     stat = Stat(work, "./", ALL_POINT)
     stat.stat_image_to_world()
     dict_stat = stat.stat_list(stat.res_image_world)
@@ -272,7 +272,7 @@ def test_main():
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
     WorldImageWork(work).calculate_world_to_image(ALL_POINT)
-    ImageWorldWork(work).manage_image_world(type_point="ground_img_pts")
+    ImageWorldWork(work).manage_image_world(type_point="gcp2d")
     stat = Stat(work, OUTPUT, ALL_POINT)
     stat.main_stat_and_save()
     assert os.path.exists(f"{OUTPUT}/Stat_residu_world_to_image_{FILENAME}.txt")

@@ -63,12 +63,12 @@ class Stat:
         Calculates residual of controle point for world to image.
         residual = image's ground point - calculated image's ground point
         """
-        for name_gcp, l_shot in self.work.ground_img_pts.items():
+        for name_gcp, l_shot in self.work.gcp2d.items():
             try:
                 if self.work.gcps[name_gcp].code in self.type_point or self.type_point == []:
                     for shot in l_shot:
                         try:
-                            img_coor = self.work.shots[shot].ground_img_pts[name_gcp]
+                            img_coor = self.work.shots[shot].gcp2d[name_gcp]
                             img_coor_calculated = self.work.shots[shot].gcps[name_gcp]
                             l_data = [[name_gcp, shot], img_coor - img_coor_calculated]
                             self.res_world_image.append(l_data)
@@ -82,7 +82,7 @@ class Stat:
         Calculates residual of controle point for image to world.
         residual = ground control point - calculated ground control point
         """
-        for name_gcp in list(self.work.ground_img_pts):
+        for name_gcp in list(self.work.gcp2d):
             try:
                 if self.work.gcps[name_gcp].code in self.type_point or self.type_point == []:
                     try:

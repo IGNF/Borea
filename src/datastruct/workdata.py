@@ -30,7 +30,7 @@ class Workdata:
         self.shots = {}
         self.cameras = {}
         self.co_points = {}
-        self.ground_img_pts = {}
+        self.gcp2d = {}
         self.gcps = {}
         self.co_pts_world = {}
         self.gcp2d_in_world = {}
@@ -167,9 +167,9 @@ class Workdata:
     def add_ground_img_pt(self, name_point: str, name_shot: str, x: float, y: float) -> None:
         """
         Add linking point between acquisition in two part.
-        One in self.ground_img_pts a dict with name_point the key
+        One in self.gcp2d a dict with name_point the key
         and list of acquisition the result.
-        And One in self.shot[name_shot].ground_img_pts a dict whit
+        And One in self.shot[name_shot].gcp2d a dict whit
         name_point the key and list of coordinate x (column) y (line) the result in list.
 
         Agrs:
@@ -183,20 +183,20 @@ class Workdata:
         except KeyError as e_info:
             raise ValueError(f"The shot {name_shot} doesn't exist in list of shots.") from e_info
 
-        if name_point not in self.ground_img_pts:
-            self.ground_img_pts[name_point] = []
+        if name_point not in self.gcp2d:
+            self.gcp2d[name_point] = []
 
-        if name_point not in self.shots[name_shot].ground_img_pts:
-            self.shots[name_shot].ground_img_pts[name_point] = [x, y]
+        if name_point not in self.shots[name_shot].gcp2d:
+            self.shots[name_shot].gcp2d[name_point] = [x, y]
         else:
             print("\n :--------------------------:")
             print("Warning : connecting point duplicate.")
             print(f"The point {name_point} already exists in the shot {name_shot}.")
             print("Keep first point with coordinates " +
-                  f"{self.shots[name_shot].ground_img_pts[name_point]}.")
+                  f"{self.shots[name_shot].gcp2d[name_point]}.")
             print(":--------------------------:")
 
-        self.ground_img_pts[name_point].append(name_shot)
+        self.gcp2d[name_point].append(name_shot)
 
     def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np.ndarray) -> None:
         """

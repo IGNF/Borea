@@ -30,10 +30,10 @@ class Workdata:
         self.shots = {}
         self.cameras = {}
         self.co_points = {}
-        self.ground_img_pts = {}
-        self.gcps = {}
+        self.gcp2d = {}
+        self.gcp3d = {}
         self.co_pts_world = {}
-        self.img_pts_world = {}
+        self.gcp2d_in_world = {}
         self.type_z_data = None
         self.type_z_shot = None
         self.approxeucli = False
@@ -60,14 +60,14 @@ class Workdata:
                                      unit_angle=unit_angle,
                                      linear_alteration=linear_alteration)
 
-    def set_proj(self, epsg: int, file_epsg: str = None, path_geotiff: str = None) -> None:
+    def set_proj(self, epsg: int, file_epsg: str = None, path_geoid: str = None) -> None:
         """
         Setup a projection system to the worksite.
 
         Args:
             epsg (int): Code epsg of the porjection ex: 2154.
             file_epsg (str): Path to the json which list projection.
-            path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.
+            path_geoid (str): List of GeoTIFF which represents the geoid in grid form.
         """
         ProjEngine.clear()
         try:  # Check if the epsg exist
@@ -76,9 +76,9 @@ class Workdata:
         except exceptions.CRSError as e_info:
             raise exceptions.CRSError(f"Your EPSG:{epsg} doesn't exist") from e_info
 
-        path_geotiff = Path(PureWindowsPath(path_geotiff)) if path_geotiff else None
+        path_geoid = Path(PureWindowsPath(path_geoid)) if path_geoid else None
         if not file_epsg:
-            self.known_projection(epsg, path_geotiff)
+            self.known_projection(epsg, path_geoid)
         else:
             try:
                 with open(Path(PureWindowsPath(file_epsg)), 'r', encoding="utf-8") as json_file:
@@ -86,19 +86,19 @@ class Workdata:
                     json_file.close()
                 try:
                     dict_epsg = projection_list[f"EPSG:{epsg}"]
-                    ProjEngine().set_epsg(epsg, dict_epsg, path_geotiff)
+                    ProjEngine().set_epsg(epsg, dict_epsg, path_geoid)
                 except KeyError:
-                    self.known_projection(epsg, path_geotiff)
+                    self.known_projection(epsg, path_geoid)
             except FileNotFoundError as e:
                 raise FileNotFoundError(f"The path {file_epsg} is incorrect !!!") from e
 
-    def known_projection(self, epsg: int = 2154, path_geotiff: Path = None) -> None:
+    def known_projection(self, epsg: int = 2154, path_geoid: Path = None) -> None:
         """
         Setup a projection system to the worksite.
 
         Args:
             epsg (int): Code epsg of the porjection ex: "EPSG:2154".
-            path_geotiff (Path): List of GeoTIFF which represents the ellipsoid in grid form.
+            path_geoid (Path): List of GeoTIFF which represents the geoid in grid form.
         """
         path_data = os.path.join(os.path.dirname(__file__), "..", "..",
                                  "resources", "projection_list.json")
@@ -107,7 +107,7 @@ class Workdata:
             json_file.close()
         try:
             dict_epsg = projection_list[f"EPSG:{epsg}"]
-            ProjEngine().set_epsg(epsg, dict_epsg, path_geotiff)
+            ProjEngine().set_epsg(epsg, dict_epsg, path_geoid)
         except KeyError:
             ProjEngine().set_epsg(epsg)
 
@@ -164,12 +164,12 @@ class Workdata:
 
         self.co_points[name_point].append(name_shot)
 
-    def add_ground_img_pt(self, name_point: str, name_shot: str, x: float, y: float) -> None:
+    def add_gcp2d(self, name_point: str, name_shot: str, x: float, y: float) -> None:
         """
         Add linking point between acquisition in two part.
-        One in self.ground_img_pts a dict with name_point the key
+        One in self.gcp2d a dict with name_point the key
         and list of acquisition the result.
-        And One in self.shot[name_shot].ground_img_pts a dict whit
+        And One in self.shot[name_shot].gcp2d a dict whit
         name_point the key and list of coordinate x (column) y (line) the result in list.
 
         Agrs:
@@ -183,20 +183,20 @@ class Workdata:
         except KeyError as e_info:
             raise ValueError(f"The shot {name_shot} doesn't exist in list of shots.") from e_info
 
-        if name_point not in self.ground_img_pts:
-            self.ground_img_pts[name_point] = []
+        if name_point not in self.gcp2d:
+            self.gcp2d[name_point] = []
 
-        if name_point not in self.shots[name_shot].ground_img_pts:
-            self.shots[name_shot].ground_img_pts[name_point] = [x, y]
+        if name_point not in self.shots[name_shot].gcp2d:
+            self.shots[name_shot].gcp2d[name_point] = [x, y]
         else:
             print("\n :--------------------------:")
             print("Warning : connecting point duplicate.")
             print(f"The point {name_point} already exists in the shot {name_shot}.")
             print("Keep first point with coordinates " +
-                  f"{self.shots[name_shot].ground_img_pts[name_point]}.")
+                  f"{self.shots[name_shot].gcp2d[name_point]}.")
             print(":--------------------------:")
 
-        self.ground_img_pts[name_point].append(name_shot)
+        self.gcp2d[name_point].append(name_shot)
 
     def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np.ndarray) -> None:
         """
@@ -209,7 +209,7 @@ class Workdata:
                             1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.
             coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].
         """
-        self.gcps[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
+        self.gcp3d[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
 
     def set_dtm(self, path_dtm: str, type_dtm: str) -> None:
         """

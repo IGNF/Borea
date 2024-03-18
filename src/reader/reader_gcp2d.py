@@ -5,7 +5,7 @@ from pathlib import Path, PureWindowsPath
 from src.worksite.worksite import Worksite
 
 
-def read_ground_image_points(file: str, work: Worksite) -> None:
+def read_gcp2d(file: str, work: Worksite) -> None:
     """
     Read file of connecting points.
 
@@ -18,7 +18,7 @@ def read_ground_image_points(file: str, work: Worksite) -> None:
             for gipoint in file_gipoints.readlines():
                 if gipoint != '\n':
                     name_point, name_shot, x, y = gipoint.split()
-                    work.add_ground_img_pt(name_point, name_shot, float(x), float(y))
+                    work.add_gcp2d(name_point, name_shot, float(x), float(y))
             file_gipoints.close()
     except FileNotFoundError as e:
         raise FileNotFoundError(f"The path {file} is incorrect !!!") from e

@@ -92,26 +92,26 @@ def test_calculate_image_world_by_intersection_allgipoint():
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
-    work.add_ground_img_pt('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
-    work.add_ground_img_pt('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
-    work.add_ground_img_pt('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_ground_img_pt('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
-    work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
+    work.add_gcp2d('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
+    work.add_gcp2d('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
+    work.add_gcp2d('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
+    work.add_gcp2d('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
+    work.add_gcp2d('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
-    ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "inter")
-    print(abs(work.img_pts_world['"1003"'][0] - 815601.510),abs(work.img_pts_world['"1003"'][1] - 6283629.280),abs(work.img_pts_world['"1003"'][2] - 54.960))
-    print(abs(work.img_pts_world['"1005"'][0] - 833670.940),abs(work.img_pts_world['"1005"'][1] - 6281965.400),abs(work.img_pts_world['"1005"'][2] - 52.630))
-    assert len(list(work.img_pts_world)) == 2
-    assert '"1003"' in work.img_pts_world.keys()
-    assert '"1005"' in work.img_pts_world.keys()
-    assert abs(work.img_pts_world['"1003"'][0] - 815601.510) < 1
-    assert abs(work.img_pts_world['"1003"'][1] - 6283629.280) < 1
-    assert abs(work.img_pts_world['"1003"'][2] - 54.960) < 1
+    ImageWorldWork(work).manage_image_world(type_point = "gcp2d", type_process = "inter")
+    print(abs(work.gcp2d_in_world['"1003"'][0] - 815601.510),abs(work.gcp2d_in_world['"1003"'][1] - 6283629.280),abs(work.gcp2d_in_world['"1003"'][2] - 54.960))
+    print(abs(work.gcp2d_in_world['"1005"'][0] - 833670.940),abs(work.gcp2d_in_world['"1005"'][1] - 6281965.400),abs(work.gcp2d_in_world['"1005"'][2] - 52.630))
+    assert len(list(work.gcp2d_in_world)) == 2
+    assert '"1003"' in work.gcp2d_in_world.keys()
+    assert '"1005"' in work.gcp2d_in_world.keys()
+    assert abs(work.gcp2d_in_world['"1003"'][0] - 815601.510) < 1
+    assert abs(work.gcp2d_in_world['"1003"'][1] - 6283629.280) < 1
+    assert abs(work.gcp2d_in_world['"1003"'][2] - 54.960) < 1
 
 
 def test_calculate_image_world_by_intersection_gipoint13type():
@@ -123,18 +123,18 @@ def test_calculate_image_world_by_intersection_gipoint13type():
     work.add_shot("23FD1305x00054_05681",np.array([833123.958,6282051.774,1761.056]),np.array([-0.222610811997,-0.045739865938,0.163818133681]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
-    work.add_ground_img_pt('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
-    work.add_ground_img_pt('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
-    work.add_ground_img_pt('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
-    work.add_ground_img_pt('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
-    work.add_ground_img_pt('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
+    work.add_gcp2d('"1003"',"23FD1305x00026_01306",24042.25,14781.17)
+    work.add_gcp2d('"1003"',"23FD1305x00026_01307",24120.2,10329.3)
+    work.add_gcp2d('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
+    work.add_gcp2d('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
+    work.add_gcp2d('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
     work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
     work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
-    ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "inter", control_type=[13])
-    assert len(list(work.img_pts_world)) == 1
-    assert '"1003"' in work.img_pts_world.keys()
-    assert '"1005"' not in work.img_pts_world.keys()
+    ImageWorldWork(work).manage_image_world(type_point = "gcp2d", type_process = "inter", control_type=[13])
+    assert len(list(work.gcp2d_in_world)) == 1
+    assert '"1003"' in work.gcp2d_in_world.keys()
+    assert '"1005"' not in work.gcp2d_in_world.keys()

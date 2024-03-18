@@ -4,7 +4,6 @@ Script test for module workdata
 import pytest
 import pyproj
 import numpy as np
-import pandas as pd
 from src.worksite.worksite import Worksite
 from src.geodesy.proj_engine import ProjEngine
 from src.datastruct.dtm import Dtm
@@ -36,7 +35,7 @@ def test_set_proj_Lambertbase():
     work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
-    work.set_proj(2154, path_geotiff="./dataset/")
+    work.set_proj(2154, path_geoid="./dataset/")
     work.set_param_shot(approx=False)
     assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
@@ -48,7 +47,7 @@ def test_set_proj_Lambertbase_pathfolder():
     work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
-    work.set_proj(2154, path_geotiff="dataset/")
+    work.set_proj(2154, path_geoid="dataset/")
     work.set_param_shot(approx=False)
     assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
@@ -60,7 +59,7 @@ def test_set_proj_Lambertbase_pathfolderwin():
     work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
-    work.set_proj(2154, path_geotiff="dataset\\")
+    work.set_proj(2154, path_geoid="dataset\\")
     work.set_param_shot(approx=False)
     assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
@@ -153,29 +152,29 @@ def test_add_co_point():
     assert obj.shots["t3"].co_points["p1"] == [50, 90]
 
 
-def test_add_ground_img_pt():
+def test_add_gcp2d():
     obj = Worksite(name = "Test")
     obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_ground_img_pt("p0", "t1", 50, 30)
-    obj.add_ground_img_pt("p0", "t2", 40, 40)
-    obj.add_ground_img_pt("p1", "t1", 70, 10)
-    obj.add_ground_img_pt("p1", "t3", 50, 90)
-    assert obj.ground_img_pts["p0"] == ["t1", "t2"]
-    assert obj.ground_img_pts["p1"] == ["t1", "t3"]
-    assert obj.shots["t1"].ground_img_pts["p0"] == [50, 30]
-    assert obj.shots["t1"].ground_img_pts["p1"] == [70, 10]
-    assert obj.shots["t2"].ground_img_pts["p0"] == [40, 40]
-    assert obj.shots["t3"].ground_img_pts["p1"] == [50, 90]
+    obj.add_gcp2d("p0", "t1", 50, 30)
+    obj.add_gcp2d("p0", "t2", 40, 40)
+    obj.add_gcp2d("p1", "t1", 70, 10)
+    obj.add_gcp2d("p1", "t3", 50, 90)
+    assert obj.gcp2d["p0"] == ["t1", "t2"]
+    assert obj.gcp2d["p1"] == ["t1", "t3"]
+    assert obj.shots["t1"].gcp2d["p0"] == [50, 30]
+    assert obj.shots["t1"].gcp2d["p1"] == [70, 10]
+    assert obj.shots["t2"].gcp2d["p0"] == [40, 40]
+    assert obj.shots["t3"].gcp2d["p1"] == [50, 90]
 
 
 def test_add_gcp():
     obj = Worksite(name = "Test")
     obj.add_gcp('"1003"', 13, np.array([1,2,3]))
-    assert obj.gcps['"1003"'].name_gcp == '"1003"'
-    assert obj.gcps['"1003"'].code == 13
-    assert (obj.gcps['"1003"'].coor == np.array([1,2,3])).all()
+    assert obj.gcp3d['"1003"'].name_gcp == '"1003"'
+    assert obj.gcp3d['"1003"'].code == 13
+    assert (obj.gcp3d['"1003"'].coor == np.array([1,2,3])).all()
 
 
 def test_set_z_nadir_shot():
@@ -226,70 +225,3 @@ def test_set_unit_shot_sameunit():
     assert work.shots["shot1"].linear_alteration == True
     assert (work.shots["shot1"].ori_shot == np.array([180,0,360])).all()
     assert work.type_z_shot == "altitude"
-
-
-def test_get_point_panda_copoints():
-    obj = Worksite("Test")
-    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_co_point("p0", "t1", 50, 30)
-    obj.add_co_point("p0", "t2", 40, 40)
-    obj.add_co_point("p1", "t1", 70, 10)
-    obj.add_co_point("p1", "t3", 50, 90)
-    pd = obj.get_point_image_pandas("co_points", [])
-    assert (pd["id_pt"].to_numpy() == np.array(["p0", "p0", "p1", "p1"])).all()
-    assert (pd["id_img"].to_numpy() == np.array(["t1","t2","t1","t3"])).all()
-    assert (pd["column"].to_numpy() == np.array([50,40,70,50])).all()
-    assert (pd["line"].to_numpy() == np.array([30,40,10,90])).all()
-
-
-def test_get_point_panda_groundimgpt():
-    obj = Worksite("Test")
-    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_ground_img_pt("p0", "t1", 50, 30)
-    obj.add_ground_img_pt("p0", "t2", 40, 40)
-    obj.add_ground_img_pt("p1", "t1", 70, 10)
-    obj.add_ground_img_pt("p1", "t3", 50, 90)
-    obj.add_gcp('p0', 13, np.array([1,2,3]))
-    obj.add_gcp('p1', 3, np.array([1,2,3]))
-    pd = obj.get_point_image_pandas("ground_img_pts", [13])
-    assert (pd["id_pt"].to_numpy() == np.array(["p0", "p0"])).all()
-    assert (pd["id_img"].to_numpy() == np.array(["t1","t2"])).all()
-    assert (pd["column"].to_numpy() == np.array([50,40])).all()
-    assert (pd["line"].to_numpy() == np.array([30,40])).all()
-
-
-def test_set_point_panda():
-    obj = Worksite("Test")
-    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_co_point("p0", "t1", 50, 30)
-    obj.add_co_point("p0", "t2", 40, 40)
-    obj.add_co_point("p1", "t1", 70, 10)
-    obj.add_co_point("p1", "t3", 50, 90)
-    id_pt = ["p0", "p0", "p1", "p1"]
-    id_img = ["t1","t2","t1","t3"]
-    c = [51,41,71,51]
-    l = [27,38,11,89]
-    pd_mes = pd.DataFrame({"id_pt": id_pt, "id_img": id_img, "column": c, "line": l})
-    obj.set_point_image_pandas(pd_mes, "co_points")
-    assert (obj.shots["t1"].co_points["p0"] == np.array([51, 27])).all()
-    assert (obj.shots["t1"].co_points["p1"] == np.array([71, 11])).all()
-    assert (obj.shots["t2"].co_points["p0"] == np.array([41, 38])).all()
-    assert (obj.shots["t3"].co_points["p1"] == np.array([51, 89])).all()
-
-
-def test_get_point_world_panda_copoints():
-    obj = Worksite("Test")
-    obj.co_pts_world = {"a": np.array([10,20,30]),
-                        "b": np.array([40,90,10]),
-                        "c": np.array([30,60,20]),}
-    pd = obj.get_point_world_pandas("co_points", [])
-    assert (pd["id_pt"].to_numpy() == np.array(["a", "b", "c"])).all()
-    assert (pd["x"].to_numpy() == np.array([10,40,30])).all()
-    assert (pd["y"].to_numpy() == np.array([20,90,60])).all()
-    assert (pd["z"].to_numpy() == np.array([30,10,20])).all()

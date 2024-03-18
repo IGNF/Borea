@@ -54,7 +54,7 @@ def args_reading_opk(parser: argparse) -> argparse:
     parser.add_argument('-j', '--pathepsg',
                         type=str, default=None,
                         help='Path to the json file which list the code epsg, you use.')
-    parser.add_argument('-y', '--pathgeotiff',
+    parser.add_argument('-y', '--pathgeoid',
                         type=str, default=None,
                         help='Path to the folder which contains pyproj GeoTIFF of the geoid '
                              'e.g../test/data/ or they must be in usr/share/proj or '
@@ -97,7 +97,7 @@ def process_args_read_opk(args: argparse) -> Worksite:
 
     # Add a projection to the worksite
     if args.epsg is not None:
-        work.set_proj(args.epsg, args.pathepsg, args.pathgeotiff)
+        work.set_proj(args.epsg, args.pathepsg, args.pathgeoid)
         print(f"Projection set-up with EPSG:{args.epsg}.")
     else:
         print("There is no given projection.")

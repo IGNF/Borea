@@ -30,7 +30,7 @@ class WorldLeastSquare:
         Calculates the mean of the result x y z of the point for each shot where it's visible.
 
         Args:
-            type_point (str): "co_points" or "ground_img_pts"
+            type_point (str): "co_points" or "gcp2d"
                               depending on what you want to calculate.
             control_type (list): List of code gcp to take.
                                  To take all points or co_point, control_type = [].
@@ -43,7 +43,7 @@ class WorldLeastSquare:
             eucliproj = LocalEuclideanProj(bary[0], bary[1])
 
         # Retrieving point data from images.
-        pd_mes = self.work.get_point_image_pandas(type_point, control_type)
+        pd_mes = self.work.get_point_image_dataframe(type_point, control_type)
         pd_mes = pd_mes[pd_mes.duplicated(subset=['id_pt'], keep=False)]
 
         # Initialization of euclidean points.
@@ -59,7 +59,7 @@ class WorldLeastSquare:
         pd_pnt["x"] = xw
         pd_pnt["y"] = yw
         pd_pnt["z"] = zw
-        self.work.set_point_world_pandas(pd_pnt, type_point)
+        self.work.set_point_world_dataframe(pd_pnt, type_point)
 
     def init_eucli_points(self, pd_mes: pd.DataFrame) -> pd.DataFrame:
         """

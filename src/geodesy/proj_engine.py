@@ -34,7 +34,7 @@ class ProjEngine(TransformGeodesy, metaclass=Singleton):
         Args:
             epsg (int): Code epsg of the porjection ex: "EPSG:2154".
             projection_list (dict): Dictionnary of the projection json.
-            path_geoid (Path): Path to the forlder of GeoTIFF.
+            path_geoid (Path): Path to the forlder of geoid to the GeoTIFF format.
         """
         self.epsg = epsg
         self.projection_list = proj_list

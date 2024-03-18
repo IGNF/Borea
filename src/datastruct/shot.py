@@ -33,8 +33,8 @@ class Shot:
         self.name_cam = name_cam
         self.z_nadir = None
         self.co_points = {}
-        self.ground_img_pts = {}
-        self.gcps = {}
+        self.gcp2d = {}
+        self.gcp3d = {}
         self.mat_rot = self.set_rot_shot()
         self.mat_rot_eucli = None
         self.projeucli = None
@@ -73,8 +73,8 @@ class Shot:
         unitori = shot.unit_angle == "degree"
         shot.pos_shot = shot.projeucli.eucli_to_world(pos_eucli)
         shot.co_points = {}
-        shot.gcps = {}
-        shot.ground_img_pts = {}
+        shot.gcp3d = {}
+        shot.gcp2d = {}
         shot.mat_rot = shot.projeucli.mat_eucli_to_mat(shot.pos_shot[0], shot.pos_shot[1],
                                                        mat_ori_eucli)
         shot.mat_rot_eucli = mat_ori_eucli
@@ -164,7 +164,7 @@ class Shot:
             else:
                 self.pos_shot[2] = self.get_z_remove_scale_factor()
 
-    def getatt(self, attsrt: str) -> any:
+    def getattr(self, attsrt: str) -> any:
         """
         Get attribut by str name.
 

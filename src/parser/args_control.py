@@ -3,7 +3,7 @@ Args of parser to control file
 """
 import argparse
 from src.worksite.worksite import Worksite
-from src.reader.reader_ground_img_pts import read_ground_image_points
+from src.reader.reader_gcp2d import read_gcp2d
 from src.reader.reader_gcp import read_gcp
 from src.stat.statistics import Stat
 from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
@@ -55,7 +55,7 @@ def process_args_control(args, work: Worksite) -> None:
     """
     # Reading ground point image
     if args.gcp2d is not None:
-        read_ground_image_points(args.gcp2d, work)
+        read_gcp2d(args.gcp2d, work)
         if args.fg in ["altitude", "height"]:
             work.type_z_data = args.fg
         else:
@@ -63,9 +63,9 @@ def process_args_control(args, work: Worksite) -> None:
                              'or misspelled --fg altitude or height')
         print("Connecting point reading done.")
         count = 0
-        for k in work.ground_img_pts.values():
+        for k in work.gcp2d.values():
             count += len(k)
-        print(f"Number of ground points of image: {len(work.ground_img_pts)}")
+        print(f"Number of ground points of image: {len(work.gcp2d)}")
         print(f"Number of image with ground point.s: {count}")
 
     # Reading GCP
@@ -77,10 +77,10 @@ def process_args_control(args, work: Worksite) -> None:
             raise ValueError('Information on terrain point format is missing '
                              'or misspelled --fg altitude or height')
         print("GCP reading done.")
-        print(f"Number of gcp: {len(work.gcps)}")
+        print(f"Number of gcp: {len(work.gcp3d)}")
 
     # Calculate ground coordinate of conneting point by intersection
-    ImageWorldWork(work).manage_image_world(type_point="ground_img_pts",
+    ImageWorldWork(work).manage_image_world(type_point="gcp2d",
                                             type_process=args.process,
                                             control_type=args.control_type)
 

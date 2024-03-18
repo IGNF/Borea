@@ -104,14 +104,14 @@ def test_calculate_image_world_by_intersection_allgipoint():
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
     ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "inter")
-    print(abs(work.img_pts_world['"1003"'][0] - 815601.510),abs(work.img_pts_world['"1003"'][1] - 6283629.280),abs(work.img_pts_world['"1003"'][2] - 54.960))
-    print(abs(work.img_pts_world['"1005"'][0] - 833670.940),abs(work.img_pts_world['"1005"'][1] - 6281965.400),abs(work.img_pts_world['"1005"'][2] - 52.630))
-    assert len(list(work.img_pts_world)) == 2
-    assert '"1003"' in work.img_pts_world.keys()
-    assert '"1005"' in work.img_pts_world.keys()
-    assert abs(work.img_pts_world['"1003"'][0] - 815601.510) < 1
-    assert abs(work.img_pts_world['"1003"'][1] - 6283629.280) < 1
-    assert abs(work.img_pts_world['"1003"'][2] - 54.960) < 1
+    print(abs(work.gcp2d_in_world['"1003"'][0] - 815601.510),abs(work.gcp2d_in_world['"1003"'][1] - 6283629.280),abs(work.gcp2d_in_world['"1003"'][2] - 54.960))
+    print(abs(work.gcp2d_in_world['"1005"'][0] - 833670.940),abs(work.gcp2d_in_world['"1005"'][1] - 6281965.400),abs(work.gcp2d_in_world['"1005"'][2] - 52.630))
+    assert len(list(work.gcp2d_in_world)) == 2
+    assert '"1003"' in work.gcp2d_in_world.keys()
+    assert '"1005"' in work.gcp2d_in_world.keys()
+    assert abs(work.gcp2d_in_world['"1003"'][0] - 815601.510) < 1
+    assert abs(work.gcp2d_in_world['"1003"'][1] - 6283629.280) < 1
+    assert abs(work.gcp2d_in_world['"1003"'][2] - 54.960) < 1
 
 
 def test_calculate_image_world_by_intersection_gipoint13type():
@@ -135,6 +135,6 @@ def test_calculate_image_world_by_intersection_gipoint13type():
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
     ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "inter", control_type=[13])
-    assert len(list(work.img_pts_world)) == 1
-    assert '"1003"' in work.img_pts_world.keys()
-    assert '"1005"' not in work.img_pts_world.keys()
+    assert len(list(work.gcp2d_in_world)) == 1
+    assert '"1003"' in work.gcp2d_in_world.keys()
+    assert '"1005"' not in work.gcp2d_in_world.keys()

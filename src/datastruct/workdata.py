@@ -33,7 +33,7 @@ class Workdata:
         self.ground_img_pts = {}
         self.gcps = {}
         self.co_pts_world = {}
-        self.img_pts_world = {}
+        self.gcp2d_in_world = {}
         self.type_z_data = None
         self.type_z_shot = None
         self.approxeucli = False

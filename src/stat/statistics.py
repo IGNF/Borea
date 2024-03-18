@@ -87,7 +87,7 @@ class Stat:
                 if self.work.gcps[name_gcp].code in self.type_point or self.type_point == []:
                     try:
                         gcp_coor = self.work.gcps[name_gcp].coor
-                        gcp_coor_calculated = self.work.img_pts_world[name_gcp]
+                        gcp_coor_calculated = self.work.gcp2d_in_world[name_gcp]
                         l_data = [[name_gcp], gcp_coor - gcp_coor_calculated]
                         self.res_image_world.append(l_data)
                     except KeyError:

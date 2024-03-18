@@ -141,7 +141,7 @@ class Worksite(Workshot):
         if type_point == 'co_points':
             out_pt = "co_pts_world"
         else:
-            out_pt = "img_pts_world"
+            out_pt = "gcp2d_in_world"
 
         if not self.getatt(out_pt):
             raise ValueError(f"Attribut {out_pt} in worksite is empty.")

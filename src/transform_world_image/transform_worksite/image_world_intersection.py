@@ -36,7 +36,7 @@ class WorldIntersection:
             out_pt = "co_pts_world"
             control_type = []
         else:
-            out_pt = "img_pts_world"
+            out_pt = "gcp2d_in_world"
 
         for name_pt, list_shot in self.work.getatt(type_point).items():  # Loop on points
             if control_type != [] and self.work.gcps[name_pt].code not in control_type:

@@ -48,7 +48,7 @@ class Worksite(Workshot):
         id_img = []
         coor = []
         for name_pt, list_shot in self.getatt(type_point).items():
-            if control_type != [] and self.gcps[name_pt].code not in control_type:
+            if control_type != [] and self.gcp3d[name_pt].code not in control_type:
                 continue
             for name_shot in list_shot:
                 id_pt.append(name_pt)
@@ -97,7 +97,7 @@ class Worksite(Workshot):
         id_pt = []
         coor = []
         for name_pt, coor_pt in self.getatt(out_pt).items():
-            if control_type != [] and self.gcps[name_pt].code not in control_type:
+            if control_type != [] and self.gcp3d[name_pt].code not in control_type:
                 continue
             id_pt.append(name_pt)
             coor.append(coor_pt)

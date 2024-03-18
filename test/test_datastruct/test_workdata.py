@@ -173,9 +173,9 @@ def test_add_gcp2d():
 def test_add_gcp():
     obj = Worksite(name = "Test")
     obj.add_gcp('"1003"', 13, np.array([1,2,3]))
-    assert obj.gcps['"1003"'].name_gcp == '"1003"'
-    assert obj.gcps['"1003"'].code == 13
-    assert (obj.gcps['"1003"'].coor == np.array([1,2,3])).all()
+    assert obj.gcp3d['"1003"'].name_gcp == '"1003"'
+    assert obj.gcp3d['"1003"'].code == 13
+    assert (obj.gcp3d['"1003"'].coor == np.array([1,2,3])).all()
 
 
 def test_set_z_nadir_shot():

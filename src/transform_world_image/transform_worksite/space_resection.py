@@ -68,7 +68,7 @@ class SpaceResection:
 
         shot_adjust.co_points = shot.co_points
         shot_adjust.gcp2d = shot.gcp2d
-        shot_adjust.gcps = shot.gcps
+        shot_adjust.gcp3d = shot.gcp3d
 
         return shot_adjust
 

@@ -77,7 +77,7 @@ def process_args_control(args, work: Worksite) -> None:
             raise ValueError('Information on terrain point format is missing '
                              'or misspelled --fg altitude or height')
         print("GCP reading done.")
-        print(f"Number of gcp: {len(work.gcps)}")
+        print(f"Number of gcp: {len(work.gcp3d)}")
 
     # Calculate ground coordinate of conneting point by intersection
     ImageWorldWork(work).manage_image_world(type_point="gcp2d",

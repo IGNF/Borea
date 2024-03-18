@@ -65,11 +65,11 @@ class Stat:
         """
         for name_gcp, l_shot in self.work.gcp2d.items():
             try:
-                if self.work.gcps[name_gcp].code in self.type_point or self.type_point == []:
+                if self.work.gcp3d[name_gcp].code in self.type_point or self.type_point == []:
                     for shot in l_shot:
                         try:
                             img_coor = self.work.shots[shot].gcp2d[name_gcp]
-                            img_coor_calculated = self.work.shots[shot].gcps[name_gcp]
+                            img_coor_calculated = self.work.shots[shot].gcp3d[name_gcp]
                             l_data = [[name_gcp, shot], img_coor - img_coor_calculated]
                             self.res_world_image.append(l_data)
                         except KeyError:
@@ -84,9 +84,9 @@ class Stat:
         """
         for name_gcp in list(self.work.gcp2d):
             try:
-                if self.work.gcps[name_gcp].code in self.type_point or self.type_point == []:
+                if self.work.gcp3d[name_gcp].code in self.type_point or self.type_point == []:
                     try:
-                        gcp_coor = self.work.gcps[name_gcp].coor
+                        gcp_coor = self.work.gcp3d[name_gcp].coor
                         gcp_coor_calculated = self.work.gcp2d_in_world[name_gcp]
                         l_data = [[name_gcp], gcp_coor - gcp_coor_calculated]
                         self.res_image_world.append(l_data)

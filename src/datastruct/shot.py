@@ -34,7 +34,7 @@ class Shot:
         self.z_nadir = None
         self.co_points = {}
         self.gcp2d = {}
-        self.gcps = {}
+        self.gcp3d = {}
         self.mat_rot = self.set_rot_shot()
         self.mat_rot_eucli = None
         self.projeucli = None
@@ -73,7 +73,7 @@ class Shot:
         unitori = shot.unit_angle == "degree"
         shot.pos_shot = shot.projeucli.eucli_to_world(pos_eucli)
         shot.co_points = {}
-        shot.gcps = {}
+        shot.gcp3d = {}
         shot.gcp2d = {}
         shot.mat_rot = shot.projeucli.mat_eucli_to_mat(shot.pos_shot[0], shot.pos_shot[1],
                                                        mat_ori_eucli)

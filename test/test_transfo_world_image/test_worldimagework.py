@@ -24,9 +24,9 @@ def test_calculate_world_to_image_base():
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
     WorldImageWork(work).calculate_world_to_image(TYPE_POINT)
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
-    assert len(work.shots['shot_test'].gcps) == 1
+    assert abs(work.shots['shot_test'].gcp3d['gcp_test'][0] - 24042.25) < 1
+    assert abs(work.shots['shot_test'].gcp3d['gcp_test'][1] - 14781.17) < 1
+    assert len(work.shots['shot_test'].gcp3d) == 1
 
 
 def test_calculate_world_to_image_addpointunknow():
@@ -43,9 +43,9 @@ def test_calculate_world_to_image_addpointunknow():
     work.set_param_shot(approx=False)
     WorldImageWork(work).calculate_world_to_image(TYPE_POINT)
     print("The print is normal")
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
-    assert len(work.shots['shot_test'].gcps) == 1
+    assert abs(work.shots['shot_test'].gcp3d['gcp_test'][0] - 24042.25) < 1
+    assert abs(work.shots['shot_test'].gcp3d['gcp_test'][1] - 14781.17) < 1
+    assert len(work.shots['shot_test'].gcp3d) == 1
 
 
 def test_calculate_world_to_image_testcode():
@@ -62,9 +62,9 @@ def test_calculate_world_to_image_testcode():
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
     WorldImageWork(work).calculate_world_to_image(TYPE_CONTROL_POINT)
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
-    assert len(work.shots['shot_test'].gcps) == 1
+    assert abs(work.shots['shot_test'].gcp3d['gcp_test'][0] - 24042.25) < 1
+    assert abs(work.shots['shot_test'].gcp3d['gcp_test'][1] - 14781.17) < 1
+    assert len(work.shots['shot_test'].gcp3d) == 1
 
 
 def test_calculate_world_to_image_testcodeNone():
@@ -81,6 +81,6 @@ def test_calculate_world_to_image_testcodeNone():
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
     WorldImageWork(work).calculate_world_to_image(ALL_POINT)
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][0] - 24042.25) < 1
-    assert abs(work.shots['shot_test'].gcps['gcp_test'][1] - 14781.17) < 1
-    assert len(work.shots['shot_test'].gcps) == 2
+    assert abs(work.shots['shot_test'].gcp3d['gcp_test'][0] - 24042.25) < 1
+    assert abs(work.shots['shot_test'].gcp3d['gcp_test'][1] - 14781.17) < 1
+    assert len(work.shots['shot_test'].gcp3d) == 2

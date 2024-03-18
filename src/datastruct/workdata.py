@@ -31,7 +31,7 @@ class Workdata:
         self.cameras = {}
         self.co_points = {}
         self.gcp2d = {}
-        self.gcps = {}
+        self.gcp3d = {}
         self.co_pts_world = {}
         self.gcp2d_in_world = {}
         self.type_z_data = None
@@ -209,7 +209,7 @@ class Workdata:
                             1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.
             coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].
         """
-        self.gcps[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
+        self.gcp3d[name_gcp] = GCP(name_gcp, code_gcp, coor_gcp)
 
     def set_dtm(self, path_dtm: str, type_dtm: str) -> None:
         """

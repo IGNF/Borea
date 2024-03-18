@@ -76,9 +76,9 @@ class Workdata:
         except exceptions.CRSError as e_info:
             raise exceptions.CRSError(f"Your EPSG:{epsg} doesn't exist") from e_info
 
-        path_geotiff = Path(PureWindowsPath(path_geotiff)) if path_geotiff else None
+        path_geoid = Path(PureWindowsPath(path_geoid)) if path_geoid else None
         if not file_epsg:
-            self.known_projection(epsg, path_geotiff)
+            self.known_projection(epsg, path_geoid)
         else:
             try:
                 with open(Path(PureWindowsPath(file_epsg)), 'r', encoding="utf-8") as json_file:
@@ -86,19 +86,19 @@ class Workdata:
                     json_file.close()
                 try:
                     dict_epsg = projection_list[f"EPSG:{epsg}"]
-                    ProjEngine().set_epsg(epsg, dict_epsg, path_geotiff)
+                    ProjEngine().set_epsg(epsg, dict_epsg, path_geoid)
                 except KeyError:
-                    self.known_projection(epsg, path_geotiff)
+                    self.known_projection(epsg, path_geoid)
             except FileNotFoundError as e:
                 raise FileNotFoundError(f"The path {file_epsg} is incorrect !!!") from e
 
-    def known_projection(self, epsg: int = 2154, path_geotiff: Path = None) -> None:
+    def known_projection(self, epsg: int = 2154, path_geoid: Path = None) -> None:
         """
         Setup a projection system to the worksite.
 
         Args:
             epsg (int): Code epsg of the porjection ex: "EPSG:2154".
-            path_geotiff (Path): List of GeoTIFF which represents the ellipsoid in grid form.
+            path_geoid (Path): List of GeoTIFF which represents the geoid in grid form.
         """
         path_data = os.path.join(os.path.dirname(__file__), "..", "..",
                                  "resources", "projection_list.json")
@@ -107,7 +107,7 @@ class Workdata:
             json_file.close()
         try:
             dict_epsg = projection_list[f"EPSG:{epsg}"]
-            ProjEngine().set_epsg(epsg, dict_epsg, path_geotiff)
+            ProjEngine().set_epsg(epsg, dict_epsg, path_geoid)
         except KeyError:
             ProjEngine().set_epsg(epsg)
 

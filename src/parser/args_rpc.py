@@ -16,7 +16,6 @@ def args_writing_rpc(parser: argparse) -> argparse:
     Returns:
         argsparse: Parser with argument.
     """
-    # pylint: disable=duplicate-code
     parser.add_argument('-n', '--name',
                         type=str, default="",
                         help='Name of the new file.')
@@ -31,7 +30,7 @@ def args_writing_rpc(parser: argparse) -> argparse:
                         help="Size of the grid to calculate Rpc.")
     parser.add_argument('-l', '--fact_rpc',
                         type=float, default=1e-6,
-                        help="Factor Rpc for pyproj convertion")
+                        help="Factor Rpc for pyproj convertion.")
     return parser
 
 

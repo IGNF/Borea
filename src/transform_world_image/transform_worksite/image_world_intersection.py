@@ -38,7 +38,7 @@ class WorldIntersection:
         else:
             out_pt = "gcp2d_in_world"
 
-        for name_pt, list_shot in self.work.getatt(type_point).items():  # Loop on points
+        for name_pt, list_shot in self.work.getattr(type_point).items():  # Loop on points
             if control_type != [] and self.work.gcp3d[name_pt].code not in control_type:
                 continue
             if len(list_shot) == 1:
@@ -46,7 +46,7 @@ class WorldIntersection:
 
             coor = self.comput_inter_in_2_more_distant_shot(name_pt, list_shot)
 
-            self.work.getatt(out_pt)[name_pt] = coor
+            self.work.getattr(out_pt)[name_pt] = coor
 
     def comput_inter_in_2_more_distant_shot(self, name_pt: str, list_shot: list) -> np.ndarray:
         """

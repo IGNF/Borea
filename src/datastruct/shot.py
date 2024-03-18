@@ -164,7 +164,7 @@ class Shot:
             else:
                 self.pos_shot[2] = self.get_z_remove_scale_factor()
 
-    def getatt(self, attsrt: str) -> any:
+    def getattr(self, attsrt: str) -> any:
         """
         Get attribut by str name.
 

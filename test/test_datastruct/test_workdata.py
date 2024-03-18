@@ -153,15 +153,15 @@ def test_add_co_point():
     assert obj.shots["t3"].co_points["p1"] == [50, 90]
 
 
-def test_add_ground_img_pt():
+def test_add_gcp2d():
     obj = Worksite(name = "Test")
     obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_ground_img_pt("p0", "t1", 50, 30)
-    obj.add_ground_img_pt("p0", "t2", 40, 40)
-    obj.add_ground_img_pt("p1", "t1", 70, 10)
-    obj.add_ground_img_pt("p1", "t3", 50, 90)
+    obj.add_gcp2d("p0", "t1", 50, 30)
+    obj.add_gcp2d("p0", "t2", 40, 40)
+    obj.add_gcp2d("p1", "t1", 70, 10)
+    obj.add_gcp2d("p1", "t3", 50, 90)
     assert obj.gcp2d["p0"] == ["t1", "t2"]
     assert obj.gcp2d["p1"] == ["t1", "t3"]
     assert obj.shots["t1"].gcp2d["p0"] == [50, 30]
@@ -249,10 +249,10 @@ def test_get_point_panda_groundimgpt():
     obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_ground_img_pt("p0", "t1", 50, 30)
-    obj.add_ground_img_pt("p0", "t2", 40, 40)
-    obj.add_ground_img_pt("p1", "t1", 70, 10)
-    obj.add_ground_img_pt("p1", "t3", 50, 90)
+    obj.add_gcp2d("p0", "t1", 50, 30)
+    obj.add_gcp2d("p0", "t2", 40, 40)
+    obj.add_gcp2d("p1", "t1", 70, 10)
+    obj.add_gcp2d("p1", "t3", 50, 90)
     obj.add_gcp('p0', 13, np.array([1,2,3]))
     obj.add_gcp('p1', 3, np.array([1,2,3]))
     pd = obj.get_point_image_pandas("gcp2d", [13])

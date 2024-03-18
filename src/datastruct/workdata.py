@@ -164,7 +164,7 @@ class Workdata:
 
         self.co_points[name_point].append(name_shot)
 
-    def add_ground_img_pt(self, name_point: str, name_shot: str, x: float, y: float) -> None:
+    def add_gcp2d(self, name_point: str, name_shot: str, x: float, y: float) -> None:
         """
         Add linking point between acquisition in two part.
         One in self.gcp2d a dict with name_point the key

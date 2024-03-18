@@ -116,4 +116,5 @@ def process_args_read_opk(args: argparse) -> Worksite:
     else:
         print("Not Dtm in the worksite.")
 
+    work.set_param_shot()
     return work

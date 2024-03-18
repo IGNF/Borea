@@ -65,8 +65,8 @@ name = UCE-M3-f120-s06
 ppax = 13210.00
 ppay = 8502.00
 focal = 30975.00
-width = 26460.00
-height = 17004.00
+width = 26460
+height = 17004
 ```
 An example file can be found in *./dataset/Camera1.txt*.
 

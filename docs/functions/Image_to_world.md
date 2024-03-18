@@ -11,7 +11,7 @@ It is built into the shot object to calculate the coordinates of the point in th
 4. type_z_data: type of z you want in output 'altitude', 'height' 
 5. type_z_shot: type of z there are in shot's position 'altitude' or 'height'. 
 
-The Camera object is the camera used for acquisition, defined by a name, its ppax, ppay and focal.
+The Camera object is the camera used for acquisition, defined by a name, its ppax, ppay, focal and width and height of the image in pixel.
 
 The dtm allows a first estimate z terrain, and converts the data they have linear alteration.
 
@@ -134,7 +134,7 @@ work.set_proj(2154, "test/data/proj.json", "./test/data/")
 # Add camera information
 # add_camera(name_cam, ppax, ppay, focal, width, height)
 # ppax and ppay image center in pixel with distortion
-work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
 
 # Add connecting points in each shot
 # add_co_point(name_point, name_shot, column, line)

@@ -14,10 +14,12 @@ class Camera:
         ppax (float): Center of distortion in x.
         ppay (float): Center of distortion in y.
         focal (float): Focal of the camera.
+        width (int): Width of the image in pixel.
+        height (int): Height of the image in pixel.
     """
     name_camera: str
     ppax: float
     ppay: float
     focal: float
-    width: float
-    height: float
+    width: int
+    height: int

@@ -129,7 +129,7 @@ def test_set_proj_badepsg2():
 
 def test_add_cam():
     obj = Worksite(name = "Test")
-    obj.add_camera("test_cam", 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+    obj.add_camera("test_cam", 13210.00, 8502.00, 30975.00, 26460, 17004)
     assert obj.cameras["test_cam"].name_camera == "test_cam"
     assert obj.cameras["test_cam"].ppax == 13210.00
     assert obj.cameras["test_cam"].ppay == 8502.00
@@ -182,7 +182,7 @@ def test_set_z_nadir_shot():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
-    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.set_param_shot(approx=False)
@@ -205,7 +205,7 @@ def test_set_unit_shot():
     work = Worksite("Test")
     work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([180,0,360]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
-    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.set_param_shot(approx=False)
@@ -219,7 +219,7 @@ def test_set_unit_shot():
 def test_set_unit_shot_sameunit():
     work = Worksite("Test")
     work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([180,0,360]),"cam_test","degree",True)
-    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.type_z_shot = "altitude"
     work.set_unit_shot("altitude", "degree", linear_alteration=True)
     assert work.shots["shot1"].unit_angle == "degree"

@@ -139,7 +139,7 @@ work.set_proj(2154, "test/data/proj.json", "./test/data/")
 # Add camera information
 # add_camera(name_cam, ppax, ppay, focal, width, height)
 # ppax and ppay image center in pixel with distortion
-work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
 
 # Add connecting points in each shot
 # add_co_point(name_point, name_shot, column, line)

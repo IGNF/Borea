@@ -16,7 +16,7 @@ def test_write_rpc():
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree",True)
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
-    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
@@ -33,7 +33,7 @@ def test_write_rpc_name():
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree",True)
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
-    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"

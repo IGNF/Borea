@@ -23,7 +23,7 @@ def args_writing_rpc(parser: argparse) -> argparse:
                         type=str, default='./',
                         help='Conversion path e.g. test/tmp/.')
     parser.add_argument('-o', '--order',
-                        type=int, choices=[1, 2, 3],
+                        type=int, default=3, choices=[1, 2, 3],
                         help="Degree of the polynomial of the rpc (1, 2, 3)")
     parser.add_argument('-d', '--size_grid',
                         type=int, default=100,

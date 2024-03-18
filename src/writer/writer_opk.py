@@ -1,5 +1,5 @@
 """
-Photogrammetry site file reader module.
+Photogrammetry worksite to writing in rpc.
 """
 import os
 from pathlib import Path, PureWindowsPath

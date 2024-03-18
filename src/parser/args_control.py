@@ -79,7 +79,6 @@ def process_args_control(args, work: Worksite) -> None:
         print("GCP reading done.")
         print(f"Number of gcp: {len(work.gcps)}")
 
-    work.set_param_shot()
     # Calculate ground coordinate of conneting point by intersection
     ImageWorldWork(work).manage_image_world(type_point="ground_img_pts",
                                             type_process=args.process,

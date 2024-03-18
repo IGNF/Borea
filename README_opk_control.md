@@ -30,7 +30,7 @@ The parameters are:
 | -g | Files paths of ground control point (.app) | None | X |
 | -d | Type of gcp to control. | [] | X |
 | --fg | Format of GCP and ground image points "altitude" or "height". | None | X, unless gcp and gip is given |
-| -p | Type of process for the function image to world, "intersection" or "least_square" | "intersection" | X |
+| -p | Type of process for the function image to world, "inter" ofr intersection or "square" for least-square | "inter" | X |
 | -x | To use an approximate system. | False | X |
 | -w | Path stat e.g. "./" | "./" | X |
 

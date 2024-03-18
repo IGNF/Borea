@@ -16,8 +16,8 @@ def test_read_camera_txt():
     assert work.cameras["UCE-M3-f120-s06"].ppax == 13210.00
     assert work.cameras["UCE-M3-f120-s06"].ppay == 8502.00
     assert work.cameras["UCE-M3-f120-s06"].focal == 30975.00
-    assert work.cameras["UCE-M3-f120-s06"].width == 26460.00
-    assert work.cameras["UCE-M3-f120-s06"].height == 17004.00
+    assert work.cameras["UCE-M3-f120-s06"].width == 26460
+    assert work.cameras["UCE-M3-f120-s06"].height == 17004
 
 
 def test_read_camera():
@@ -27,11 +27,11 @@ def test_read_camera():
     assert work.cameras["UCE-M3-f120-s07"].ppax == 13230.00
     assert work.cameras["UCE-M3-f120-s07"].ppay == 8502.00
     assert work.cameras["UCE-M3-f120-s07"].focal == 30975.00
-    assert work.cameras["UCE-M3-f120-s07"].width == 26460.00
-    assert work.cameras["UCE-M3-f120-s07"].height == 17004.00
+    assert work.cameras["UCE-M3-f120-s07"].width == 26460
+    assert work.cameras["UCE-M3-f120-s07"].height == 17004
     assert work.cameras["UCE-M3-f120-s06"].name_camera == "UCE-M3-f120-s06"
     assert work.cameras["UCE-M3-f120-s06"].ppax == 13210.00
     assert work.cameras["UCE-M3-f120-s06"].ppay == 8502.00
     assert work.cameras["UCE-M3-f120-s06"].focal == 30975.00
-    assert work.cameras["UCE-M3-f120-s06"].width == 26460.00
-    assert work.cameras["UCE-M3-f120-s06"].height == 17004.00
+    assert work.cameras["UCE-M3-f120-s06"].width == 26460
+    assert work.cameras["UCE-M3-f120-s06"].height == 17004

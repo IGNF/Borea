@@ -12,7 +12,7 @@ It takes in parameters :
 3. projeucli: Euclidean projection system of the site
 4. add_pixel: Pixel to be added to the change maker
 
-The Camera object is the camera used for acquisition, defined by a name, its ppax, ppay and focal length.
+The Camera object is the camera used for acquisition, defined by a name, its ppax, ppay, focal length and width and height of the image in pixel.
 
 The EuclidieanProj object, defined by two coordinates x and y, which are the barycentre of the construction site, and a ProjEngine object.
 
@@ -230,7 +230,7 @@ work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
 # Add camera information
 # add_camera(name_cam, ppax, ppay, focal, width, height)
 # ppax and ppay image center in pixel with distortion
-work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
 
 # Setup projection system and z_nadir of shot
 work.set_param_shot()

@@ -2,5 +2,5 @@ Name = UCE-M3-f120-s07
 PPAx = 13230.00
 PPAy = 8502.00
 focal = 30975.00
-width = 26460.00
-height = 17004.00
+width = 26460
+height = 17004

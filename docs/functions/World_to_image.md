@@ -12,7 +12,7 @@ It takes as parameters :
 4. type_z_data: type of z you want in output 'altitude', 'height'.
 5. type_z_shot: type of z there are in shot's position 'altitude', 'height'. 
 
-The Camera object is the camera used for acquisition, defined by a name, its ppax, ppay and focal length, width and height.
+The Camera object is the camera used for acquisition, defined by a name, its ppax, ppay and focal length, width and height of the image in pixel.
 
 The dtm allows to convert the data they have linear alteration. it's not mandatory if type_z_data equal type_z_shot or don't need tranfo to add or remove linear alteration
 
@@ -94,7 +94,7 @@ work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
 # Add camera information
 # add_camera(name_cam, ppax, ppay, focal, width, height)
 # ppax and ppay image center in pixel with distortion
-work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
 
 # Add connecting points
 # add_ground_img_pt(name_point, name_shot, column, line)

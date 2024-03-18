@@ -13,7 +13,7 @@ ARGS = {"interval": [2, None],
 
 def test_read_co_points():
     work = reader_orientation(INPUT_OPK, ARGS)
-    read_co_points([INPUT_LIAISONS], work)
+    read_co_points(INPUT_LIAISONS, work)
     assert work.co_points["MES_674214"] == ["23FD1305x00026_01306", "23FD1305x00026_01307", "23FD1305x00026_01308"]
     assert work.co_points["MES_674219"] == ["23FD1305x00026_01306", "23FD1305x00026_01307", "23FD1305x00026_01308"]
     assert work.co_points["MES_264193"] == ["23FD1305x00062_07727", "23FD1305x00062_07728"]

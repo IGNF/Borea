@@ -14,7 +14,7 @@ ARGS = {"interval": [2, None],
 
 def test_read_gcp():
     work_gcp = reader_orientation(INPUT_OPK, ARGS)
-    read_gcp([INPUT_GCP], work_gcp)
+    read_gcp(INPUT_GCP, work_gcp)
     assert list(work_gcp.gcps) == ['"1003"','"1005"','"1006"']
     assert work_gcp.gcps['"1003"'].name_gcp == '"1003"'
     assert work_gcp.gcps['"1003"'].code == 13

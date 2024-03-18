@@ -23,7 +23,7 @@ def test_calculate_image_world_by_intersection_onecop_multiimg():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
-    ImageWorldWork(work).manage_image_world(type_process = "intersection")
+    ImageWorldWork(work).manage_image_world(type_process = "inter")
     print(abs(work.co_pts_world['"1003"'][0] - 815601.510),abs(work.co_pts_world['"1003"'][1] - 6283629.280),abs(work.co_pts_world['"1003"'][2] - 54.960))
     assert abs(work.co_pts_world['"1003"'][0] - 815601.510) < 1
     assert abs(work.co_pts_world['"1003"'][1] - 6283629.280) < 1
@@ -44,7 +44,7 @@ def test_calculate_image_world_by_least_square_onecop_multiimg():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
-    ImageWorldWork(work).manage_image_world(type_process = "least_square")
+    ImageWorldWork(work).manage_image_world(type_process = "square")
     print(abs(work.co_pts_world['"1003"'][0] - 815601.510),abs(work.co_pts_world['"1003"'][1] - 6283629.280),abs(work.co_pts_world['"1003"'][2] - 54.960))
     assert abs(work.co_pts_world['"1003"'][0] - 815601.510) < 1
     assert abs(work.co_pts_world['"1003"'][1] - 6283629.280) < 1
@@ -65,7 +65,7 @@ def test_calculate_image_world_by_intersection_onecopwithoneimg():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
-    ImageWorldWork(work).manage_image_world(type_process = "intersection")
+    ImageWorldWork(work).manage_image_world(type_process = "inter")
     assert len(list(work.co_pts_world)) == 1
     assert '"1003"' in work.co_pts_world.keys()
     assert not('"1004"' in work.co_pts_world.keys())
@@ -78,7 +78,7 @@ def test_calculate_image_world_by_intersection_withzeropoint():
     work.add_shot("23FD1305x00026_01308",np.array([814978.586,6283482.827,1771.799]),np.array([-0.181570631296, 0.001583051432,0.493526899473]),"cam_test","degree",True)
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
-    ImageWorldWork(work).manage_image_world(type_process = "intersection")
+    ImageWorldWork(work).manage_image_world(type_process = "inter")
     print("The print is normal")
     assert work.co_pts_world == {}
 
@@ -103,7 +103,7 @@ def test_calculate_image_world_by_intersection_allgipoint():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
-    ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "intersection")
+    ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "inter")
     print(abs(work.img_pts_world['"1003"'][0] - 815601.510),abs(work.img_pts_world['"1003"'][1] - 6283629.280),abs(work.img_pts_world['"1003"'][2] - 54.960))
     print(abs(work.img_pts_world['"1005"'][0] - 833670.940),abs(work.img_pts_world['"1005"'][1] - 6281965.400),abs(work.img_pts_world['"1005"'][2] - 52.630))
     assert len(list(work.img_pts_world)) == 2
@@ -134,7 +134,7 @@ def test_calculate_image_world_by_intersection_gipoint13type():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot(approx=False)
-    ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "intersection", control_type=[13])
+    ImageWorldWork(work).manage_image_world(type_point = "ground_img_pts", type_process = "inter", control_type=[13])
     assert len(list(work.img_pts_world)) == 1
     assert '"1003"' in work.img_pts_world.keys()
     assert '"1005"' not in work.img_pts_world.keys()

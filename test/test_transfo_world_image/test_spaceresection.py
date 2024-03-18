@@ -71,7 +71,7 @@ def test_take_obs():
     read_camera(["./dataset/Camera1.txt"], work)
     work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
     work.set_param_shot()
-    read_co_points(["./dataset/liaisons_test.mes"], work)
+    read_co_points("./dataset/liaisons_test.mes", work)
     actual_obs, actual_ptw = SpaceResection(work).take_obs(work.shots["23FD1305x00026_01306"])
     assert (actual_obs[:,0:3] == np.array([[3885.75, 6033.01,3896.99],[14969.14,16208.41,13858.47]])).all()
     assert (np.round(actual_ptw[:,0:3],0) == np.array([[814451,814574,814450],[6283601,6283532,6283665],[401,399,401]])).all()
@@ -103,7 +103,7 @@ def test_space_resection_withcopoints():
     read_camera(["./dataset/Camera1.txt"], work)
     work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
     work.set_param_shot()
-    read_co_points(["./test/data/dataset2/all_liaisons2.mes"], work)
+    read_co_points("./test/data/dataset2/all_liaisons2.mes", work)
     actual_shot = SpaceResection(work).space_resection(work.shots["23FD1305x00054_05677"])
     SpaceResection(work).space_resection_worksite()
     assert abs(work.shots["23FD1305x00054_05677"].pos_shot[0] - 833127.599) < 0.02

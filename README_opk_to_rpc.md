@@ -28,7 +28,7 @@ The parameters are:
 | -m | DEM of the worksite. | None | X |
 | --fm | Format of Dem "altitude" or "height". | None | X, unless dem is given |
 | -w | Conversion path e.g. "./" | "./" | X |
-| -o | Degree of the polynomial of the rpc (1, 2, 3) | [1,2,3] | V |
+| -o | Degree of the polynomial of the rpc (1, 2, 3) | 3 | X |
 | -d | Size of the grid to calculate Rpc. | 100 | X |
 | -l | Factor Rpc for pyproj convertion. | 1e-6 | X |
 

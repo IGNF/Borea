@@ -13,7 +13,7 @@ ARGS = {"interval": [2, None],
 
 def test_read_ground_img_pts():
     work = reader_orientation(INPUT_OPK, ARGS)
-    read_ground_image_points([INPUT_TERRAIN], work)
+    read_ground_image_points(INPUT_TERRAIN, work)
     assert work.ground_img_pts['"1003"'] == ["23FD1305x00026_01306", "23FD1305x00026_01307", "23FD1305x00026_01308"]
     assert work.ground_img_pts['"1005"'] == ["23FD1305x00054_05680", "23FD1305x00054_05681"]
     assert work.ground_img_pts['"1006"'] == ["23FD1305x00062_07727", "23FD1305x00062_07728"]

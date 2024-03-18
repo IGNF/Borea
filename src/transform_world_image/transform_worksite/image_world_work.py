@@ -17,7 +17,7 @@ class ImageWorldWork:
     """
     work: Worksite
 
-    def manage_image_world(self, type_point: str = "co_points", type_process: str = "intersection",
+    def manage_image_world(self, type_point: str = "co_points", type_process: str = "inter",
                            control_type: list = None) -> None:
         """
         Process to calcule image coordinate to world coordinate.
@@ -26,23 +26,23 @@ class ImageWorldWork:
             type_point (str): "co_points" or "ground_img_pts"
                               depending on what you want to calculate.
             type_process (str): Type of process you want to use.
-                                * "intersection" by intersect bundle of point in each shot.
-                                * "least_square" take all point and do methode.
+                                * "inter" by intersect bundle of point in each shot.
+                                * "square" take all point and do methode least square.
             control_type (list): Type controle for gcp.
         """
         if type_point not in ["co_points", "ground_img_pts"]:
             raise ValueError(f"type_point {type_point} is incorrect,['co_points','ground_img_pts']")
 
-        if type_process not in ["intersection", "least_square"]:
+        if type_process not in ["inter", "square"]:
             raise ValueError(f"type_process {type_process} is incorrect, "
-                             "['intersection','least_square']")
+                             "['inter','square']")
 
         if control_type is None or type_point == "co_points":
             control_type = []
 
-        if type_process == "intersection":
+        if type_process == "inter":
             WorldIntersection(self.work).calculate_image_world_by_intersection(type_point,
                                                                                control_type)
 
-        if type_process == "least_square":
+        if type_process == "square":
             WorldLeastSquare(self.work).compute_image_world_least_square(type_point, control_type)

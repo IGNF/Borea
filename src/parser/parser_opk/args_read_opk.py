@@ -35,19 +35,19 @@ def args_reading_opk(parser: argparse) -> argparse:
                         'K: kappa rotation angle'
                         'C: name of the camera')
     parser.add_argument('-u', '--unit_angle',
-                        type=str, default="degree",
+                        type=str, default="degree", choices=['degree', 'radian'],
                         help="Unit of the angle of shooting, 'degree' or 'radian'")
     parser.add_argument('-a', '--linear_alteration',
                         type=bool, default=True,
                         help="True if z shot corrected by linear alteration.")
     parser.add_argument('-f', '--first_line',
-                        type=int, default=None,
-                        help='Line number to start file playback.'
+                        type=int, default=1,
+                        help='Line number to start file playback. First line in the file is 1.'
                              ' Does not take file header into account.')
     parser.add_argument('-z', '--last_line',
                         type=int, default=None,
                         help='Line number to end file playback.'
-                             ' If not set, all lines below -l will be read.')
+                             ' If not set, all lines below -f will be read.')
     parser.add_argument('-e', '--epsg',
                         type=int, default=None,
                         help='EPSG codifier number of the reference system used e.g. "2154".')

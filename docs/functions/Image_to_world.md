@@ -146,7 +146,7 @@ work.set_param_shot()
 
 # Calculate world coordinate by least square.
 # manage_image_world(type_point, type_process)
-ImageWorldWork(work).manage_image_world("co_points", "least_square")
+ImageWorldWork(work).manage_image_world("co_points", "square")
 
 # Transform euclidiean coordinate to world coordinate 
 coor_world = work.co_pts_world['"1003"']

@@ -151,7 +151,7 @@ work.set_param_shot()
 
 # Calculate eucliean coordinate of intersection
 # manage_image_world(type_point, type_process)
-ImageWorldWork(work).manage_image_world("co_points", "intersection")
+ImageWorldWork(work).manage_image_world("co_points", "inter")
 
 # Transform euclidiean coordinate to world coordinate 
 coor_world = work.co_pts_world['"1003"']

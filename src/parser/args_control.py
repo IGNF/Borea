@@ -30,10 +30,10 @@ def args_control(parser: argparse) -> argparse:
                         type=int, default=[], nargs='*',
                         help='Type of gcp to control.')
     parser.add_argument('--fg', '--format_gcp',
-                        type=str, default=None,
+                        type=str, default=None, choices=["altitude", "height"],
                         help='Format of GCP and ground image point "altitude" or "height".')
     parser.add_argument('-p', '--process',
-                        type=str, default="intersection",
+                        type=str, default="inter", choices=["inter", "square"],
                         help="Type of process for the function image to world,"
                              "intersection or least_square")
     parser.add_argument('-x', '--approx_system',
@@ -54,10 +54,10 @@ def process_args_control(args, work: Worksite) -> None:
         work (Worksite): Data.
     """
     # Reading ground point image
-    if args.ground_points is not None:
-        read_ground_image_points(args.ground_points, work)
+    if args.gcp2d is not None:
+        read_ground_image_points(args.gcp2d, work)
         if args.fg in ["altitude", "height"]:
-            work.type_z_data = "h" if args.fg == "height" else "a"
+            work.type_z_data = args.fg
         else:
             raise ValueError('Information on terrain point format is missing '
                              'or misspelled --fg altitude or height')
@@ -69,10 +69,10 @@ def process_args_control(args, work: Worksite) -> None:
         print(f"Number of image with ground point.s: {count}")
 
     # Reading GCP
-    if args.gcp is not None:
-        read_gcp(args.gcp, work)
+    if args.gcp3d is not None:
+        read_gcp(args.gcp3d, work)
         if args.fg in ["altitude", "height"]:
-            work.type_z_data = "h" if args.fg == "height" else "a"
+            work.type_z_data = args.fg
         else:
             raise ValueError('Information on terrain point format is missing '
                              'or misspelled --fg altitude or height')

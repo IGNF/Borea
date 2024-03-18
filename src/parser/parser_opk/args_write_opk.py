@@ -37,7 +37,7 @@ def args_writing_opk(parser: argparse) -> argparse:
                         'K: kappa rotation angle'
                         'C: name of the camera')
     parser.add_argument('-d', '--output_unit_angle',
-                        type=str, default="degree",
+                        type=str, default="degree", choices=["degree", "radian"],
                         help="Unit of the angle of shooting, 'degree' or 'radian'")
     parser.add_argument('-l', '--output_linear_alteration',
                         type=bool, default=True,

@@ -15,7 +15,7 @@ class Rpc:
     A class for computing RPC geometries.
 
     .. note::
-        A RPC is always describing a transformation from 
+        A RPC is always describing a transformation from
         geographical coordinates to images coordinates.
     """
     def __init__(self) -> None:
@@ -31,7 +31,7 @@ class Rpc:
             shot (Shot): Shot to calculate rpc.
             cam (Camera): Camera of the shot.
             param_rpc (dict): Dictionary of parameters for rpc calculation.
-            key; 
+            key;
             "size_grid"; size of the grip to calcule rpc.
             "order"; order of the polynome of the rpc.
             "fact_rpc"; rpc factor for world coordinate when src is not WGS84.
@@ -137,7 +137,7 @@ class Rpc:
         self.param_rpc["HEIGHT_SCALE"] = z_n_o_s[2]
 
         coor_img = np.array([col_n_o_s[0], lin_n_o_s[0]])
-        coor_world  = np.array([x_n_o_s[0], y_n_o_s[0], z_n_o_s[0]])
+        coor_world = np.array([x_n_o_s[0], y_n_o_s[0], z_n_o_s[0]])
 
         return coor_img, coor_world
 
@@ -150,7 +150,7 @@ class Rpc:
             img_norm (np.array): Normalize coordinates column or line of point in image.
             world_norm (np.array): Normalize coordinate of world grid.
             polynomial_degree (int): Degree of the polynomial of the rpc (1, 2, 3).
-        
+
         Returns:
             np.array: Rpc coefficients.
         """
@@ -184,81 +184,62 @@ class Rpc:
             img_norm (np.array): Normalize coordinates column or line of point in image.
             world_norm (np.array): Normalize coordinate of world grid.
             polynomial_degree (int): Degree of the polynomial of the rpc (1, 2, 3).
-        
+
         Returns:
             np.array: Observation matrix of the Rpc.
         """
-        if polynomial_degree == 1:
-            mat_a = np.ones((len(img_norm), 7))
-            mat_a[:, 1] *= world_norm[0]
-            mat_a[:, 2] *= world_norm[1]
-            mat_a[:, 3] *= world_norm[2]
-            mat_a[:, 4] *= -img_norm * world_norm[0]
-            mat_a[:, 5] *= -img_norm * world_norm[1]
-            mat_a[:, 6] *= -img_norm * world_norm[2]
+        mat_a1 = []
+        mat_a2 = []
+        ligne_a = np.ones((len(img_norm)))
+        mat_a1.append(ligne_a)
 
-        elif polynomial_degree == 2:
-            mat_a = np.ones((len(img_norm), 19))
-            mat_a[:, 1] *= world_norm[0]
-            mat_a[:, 2] *= world_norm[1]
-            mat_a[:, 3] *= world_norm[2]
-            mat_a[:, 4] *= world_norm[0] * world_norm[1]
-            mat_a[:, 5] *= world_norm[0] * world_norm[2]
-            mat_a[:, 6] *= world_norm[1] * world_norm[2]
-            mat_a[:, 7] *= world_norm[0] * world_norm[0]
-            mat_a[:, 8] *= world_norm[1] * world_norm[1]
-            mat_a[:, 9] *= world_norm[2] * world_norm[2]
-            mat_a[:, 10] *= -img_norm * world_norm[0]
-            mat_a[:, 11] *= -img_norm * world_norm[1]
-            mat_a[:, 12] *= -img_norm * world_norm[2]
-            mat_a[:, 13] *= -img_norm * world_norm[0] * world_norm[1]
-            mat_a[:, 14] *= -img_norm * world_norm[0] * world_norm[2]
-            mat_a[:, 15] *= -img_norm * world_norm[1] * world_norm[2]
-            mat_a[:, 16] *= -img_norm * world_norm[0] * world_norm[0]
-            mat_a[:, 17] *= -img_norm * world_norm[1] * world_norm[1]
-            mat_a[:, 18] *= -img_norm * world_norm[2] * world_norm[2]
+        if polynomial_degree in [1, 2, 3]:
+            mat_a1.append(ligne_a * world_norm[0])
+            mat_a1.append(ligne_a * world_norm[1])
+            mat_a1.append(ligne_a * world_norm[2])
 
-        elif polynomial_degree == 3:
-            mat_a = np.ones((len(img_norm), 39))
-            mat_a[:, 1] *= world_norm[0]
-            mat_a[:, 2] *= world_norm[1]
-            mat_a[:, 3] *= world_norm[2]
-            mat_a[:, 4] *= world_norm[0] * world_norm[1]
-            mat_a[:, 5] *= world_norm[0] * world_norm[2]
-            mat_a[:, 6] *= world_norm[1] * world_norm[2]
-            mat_a[:, 7] *= world_norm[0] * world_norm[0]
-            mat_a[:, 8] *= world_norm[1] * world_norm[1]
-            mat_a[:, 9] *= world_norm[2] * world_norm[2]
-            mat_a[:, 10] *= world_norm[0] * world_norm[1] * world_norm[2]
-            mat_a[:, 11] *= world_norm[0] * world_norm[0] * world_norm[0]
-            mat_a[:, 12] *= world_norm[0] * world_norm[1] * world_norm[1]
-            mat_a[:, 13] *= world_norm[0] * world_norm[2] * world_norm[2]
-            mat_a[:, 14] *= world_norm[0] * world_norm[0] * world_norm[1]
-            mat_a[:, 15] *= world_norm[1] * world_norm[1] * world_norm[1]
-            mat_a[:, 16] *= world_norm[1] * world_norm[2] * world_norm[2]
-            mat_a[:, 17] *= world_norm[0] * world_norm[0] * world_norm[2]
-            mat_a[:, 18] *= world_norm[1] * world_norm[1] * world_norm[2]
-            mat_a[:, 19] *= world_norm[2] * world_norm[2] * world_norm[2]
-            mat_a[:, 20] *= -img_norm * world_norm[0]
-            mat_a[:, 21] *= -img_norm * world_norm[1]
-            mat_a[:, 22] *= -img_norm * world_norm[2]
-            mat_a[:, 23] *= -img_norm * world_norm[0] * world_norm[1]
-            mat_a[:, 24] *= -img_norm * world_norm[0] * world_norm[2]
-            mat_a[:, 25] *= -img_norm * world_norm[1] * world_norm[2]
-            mat_a[:, 26] *= -img_norm * world_norm[0] * world_norm[0]
-            mat_a[:, 27] *= -img_norm * world_norm[1] * world_norm[1]
-            mat_a[:, 28] *= -img_norm * world_norm[2] * world_norm[2]
-            mat_a[:, 29] *= -img_norm * world_norm[0] * world_norm[1] * world_norm[2]
-            mat_a[:, 30] *= -img_norm * world_norm[0] * world_norm[0] * world_norm[0]
-            mat_a[:, 31] *= -img_norm * world_norm[0] * world_norm[1] * world_norm[1]
-            mat_a[:, 32] *= -img_norm * world_norm[0] * world_norm[2] * world_norm[2]
-            mat_a[:, 33] *= -img_norm * world_norm[0] * world_norm[0] * world_norm[1]
-            mat_a[:, 34] *= -img_norm * world_norm[1] * world_norm[1] * world_norm[1]
-            mat_a[:, 35] *= -img_norm * world_norm[1] * world_norm[2] * world_norm[2]
-            mat_a[:, 36] *= -img_norm * world_norm[0] * world_norm[0] * world_norm[2]
-            mat_a[:, 37] *= -img_norm * world_norm[1] * world_norm[1] * world_norm[2]
-            mat_a[:, 38] *= -img_norm * world_norm[2] * world_norm[2] * world_norm[2]
+            mat_a2.append(ligne_a * -img_norm * world_norm[0])
+            mat_a2.append(ligne_a * -img_norm * world_norm[1])
+            mat_a2.append(ligne_a * -img_norm * world_norm[2])
         else:
-            raise ValueError("Le degré du polynome doit être 1, 2 ou 3")
+            raise ValueError("The degree of the polynomial must be 1, 2 or 3")
 
-        return mat_a
+        if polynomial_degree in [2, 3]:
+            mat_a1.append(ligne_a * world_norm[0] * world_norm[1])
+            mat_a1.append(ligne_a * world_norm[0] * world_norm[2])
+            mat_a1.append(ligne_a * world_norm[1] * world_norm[2])
+            mat_a1.append(ligne_a * world_norm[0] * world_norm[0])
+            mat_a1.append(ligne_a * world_norm[1] * world_norm[1])
+            mat_a1.append(ligne_a * world_norm[2] * world_norm[2])
+
+            mat_a2.append(ligne_a * -img_norm * world_norm[0] * world_norm[1])
+            mat_a2.append(ligne_a * -img_norm * world_norm[0] * world_norm[2])
+            mat_a2.append(ligne_a * -img_norm * world_norm[1] * world_norm[2])
+            mat_a2.append(ligne_a * -img_norm * world_norm[0] * world_norm[0])
+            mat_a2.append(ligne_a * -img_norm * world_norm[1] * world_norm[1])
+            mat_a2.append(ligne_a * -img_norm * world_norm[2] * world_norm[2])
+
+        if polynomial_degree == 3:
+            mat_a1.append(ligne_a * world_norm[0] * world_norm[1] * world_norm[2])
+            mat_a1.append(ligne_a * world_norm[0] * world_norm[0] * world_norm[0])
+            mat_a1.append(ligne_a * world_norm[0] * world_norm[1] * world_norm[1])
+            mat_a1.append(ligne_a * world_norm[0] * world_norm[2] * world_norm[2])
+            mat_a1.append(ligne_a * world_norm[0] * world_norm[0] * world_norm[1])
+            mat_a1.append(ligne_a * world_norm[1] * world_norm[1] * world_norm[1])
+            mat_a1.append(ligne_a * world_norm[1] * world_norm[2] * world_norm[2])
+            mat_a1.append(ligne_a * world_norm[0] * world_norm[0] * world_norm[2])
+            mat_a1.append(ligne_a * world_norm[1] * world_norm[1] * world_norm[2])
+            mat_a1.append(ligne_a * world_norm[2] * world_norm[2] * world_norm[2])
+
+            mat_a2.append(ligne_a * -img_norm * world_norm[0] * world_norm[1] * world_norm[2])
+            mat_a2.append(ligne_a * -img_norm * world_norm[0] * world_norm[0] * world_norm[0])
+            mat_a2.append(ligne_a * -img_norm * world_norm[0] * world_norm[1] * world_norm[1])
+            mat_a2.append(ligne_a * -img_norm * world_norm[0] * world_norm[2] * world_norm[2])
+            mat_a2.append(ligne_a * -img_norm * world_norm[0] * world_norm[0] * world_norm[1])
+            mat_a2.append(ligne_a * -img_norm * world_norm[1] * world_norm[1] * world_norm[1])
+            mat_a2.append(ligne_a * -img_norm * world_norm[1] * world_norm[2] * world_norm[2])
+            mat_a2.append(ligne_a * -img_norm * world_norm[0] * world_norm[0] * world_norm[2])
+            mat_a2.append(ligne_a * -img_norm * world_norm[1] * world_norm[1] * world_norm[2])
+            mat_a2.append(ligne_a * -img_norm * world_norm[2] * world_norm[2] * world_norm[2])
+
+        return np.concatenate((np.array(mat_a1), np.array(mat_a2)), axis=0).T

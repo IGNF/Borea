@@ -27,7 +27,7 @@ class Worksite(Workshot):
         # pylint: disable-next=unnecessary-dunder-call
         return self.__getattribute__(attsrt)
 
-    def get_point_image_pandas(self, type_point: str, control_type: list) -> pd.DataFrame:
+    def get_point_image_dataframe(self, type_point: str, control_type: list) -> pd.DataFrame:
         """
         Retrieves id_pt, id_img, column, line in a pandas of the requested point type.
 
@@ -59,7 +59,7 @@ class Worksite(Workshot):
         return pd.DataFrame({"id_pt": id_pt, "id_img": id_img,
                              "column": coor[:, 0], "line": coor[:, 1]})
 
-    def set_point_image_pandas(self, pd_mes: pd.DataFrame, type_point: str) -> None:
+    def set_point_image_dataframe(self, pd_mes: pd.DataFrame, type_point: str) -> None:
         """
         Set requested point type by pandas table id_pt, id_img, column, line.
 
@@ -74,7 +74,7 @@ class Worksite(Workshot):
             self.shots[row['id_img']].getattr(type_point)[row['id_pt']] = np.array([row['column'],
                                                                                    row['line']])
 
-    def get_point_world_pandas(self, type_point: str, control_type: list) -> pd.DataFrame:
+    def get_point_world_dataframe(self, type_point: str, control_type: list) -> pd.DataFrame:
         """
         Retrieves id_pt, x, y, z in a pandas of the requested point type.
 
@@ -105,7 +105,7 @@ class Worksite(Workshot):
         coor = np.array(coor)
         return pd.DataFrame({"id_pt": id_pt, "x": coor[:, 0], "y": coor[:, 1], "z": coor[:, 2]})
 
-    def set_point_world_pandas(self, pd_mes: pd.DataFrame, type_point: str) -> None:
+    def set_point_world_dataframe(self, pd_mes: pd.DataFrame, type_point: str) -> None:
         """
         Set requested point type by pandas table id_pt, x, y, z.
 

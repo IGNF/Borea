@@ -43,7 +43,7 @@ class WorldLeastSquare:
             eucliproj = LocalEuclideanProj(bary[0], bary[1])
 
         # Retrieving point data from images.
-        pd_mes = self.work.get_point_image_pandas(type_point, control_type)
+        pd_mes = self.work.get_point_image_dataframe(type_point, control_type)
         pd_mes = pd_mes[pd_mes.duplicated(subset=['id_pt'], keep=False)]
 
         # Initialization of euclidean points.
@@ -59,7 +59,7 @@ class WorldLeastSquare:
         pd_pnt["x"] = xw
         pd_pnt["y"] = yw
         pd_pnt["z"] = zw
-        self.work.set_point_world_pandas(pd_pnt, type_point)
+        self.work.set_point_world_dataframe(pd_pnt, type_point)
 
     def init_eucli_points(self, pd_mes: pd.DataFrame) -> pd.DataFrame:
         """

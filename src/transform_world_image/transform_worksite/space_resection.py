@@ -180,7 +180,7 @@ class SpaceResection:
         if shot.co_points:
             if not self.work.co_pts_world:
                 WorldIntersection(self.work).calculate_image_world_by_intersection("co_points")
-            obs, pt_world = self.work.get_points_shot_numpy(shot.name_shot, "co_points")
+            obs, pt_world = self.work.get_coor_pt_img_and_world(shot.name_shot, "co_points")
             if obs.shape[1] >= 7:
                 add_pt = False
 

@@ -27,7 +27,7 @@ def test_get_copts_img_world():
     work.add_co_point("do", "shot1", 50, 14)
     work.co_pts_world["la"] = np.array([20, 30, 50])
     work.co_pts_world["do"] = np.array([40, 35, 19])
-    img, world = work.get_points_shot_numpy("shot1", "co_points")
+    img, world = work.get_coor_pt_img_and_world("shot1", "co_points")
     assert (img == np.array([[10, 50], [10, 14]])).all()
     assert (world == np.array([[20, 40], [30, 35], [50, 19]])).all()
 
@@ -39,7 +39,7 @@ def test_get_gcp_img_world():
     work.add_gcp2d("do", "shot1", 50, 14)
     work.gcp2d_in_world["la"] = np.array([20, 30, 50])
     work.gcp2d_in_world["do"] = np.array([40, 35, 19])
-    img, world = work.get_points_shot_numpy("shot1", "gcp2d")
+    img, world = work.get_coor_pt_img_and_world("shot1", "gcp2d")
     assert (img == np.array([[10, 50], [10, 14]])).all()
     assert (world == np.array([[20, 40], [30, 35], [50, 19]])).all()
 

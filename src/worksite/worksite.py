@@ -124,7 +124,7 @@ class Worksite(Workshot):
         for _, row in pd_mes.iterrows():
             self.getattr(out_pt)[row['id_pt']] = np.array([row['x'], row['y'], row['z']])
 
-    def get_points_shot_numpy(self, name_shot: str, type_point: str) -> tuple:
+    def get_coor_pt_img_and_world(self, name_shot: str, type_point: str) -> tuple:
         """
         Recovers image and terrain data for all link points in the image.
 

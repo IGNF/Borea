@@ -30,8 +30,8 @@ jobs:
 
     - name: Analysing the code with pylint
       run: |
-        pylint opk_to_opk.py opk_control.py
-        pylint src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/args_control.py
+        pylint opk_to_opk.py opk_control.py opk_to_rpc.py
+        pylint src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/args_control.py src/parser/args_rpc.py
         pylint src/geodesy/proj_engine.py src/geodesy/euclidean_proj.py src/geodesy/transform_geodesy.py src/geodesy/approx_euclidean_proj.py src/geodesy/local_euclidean_proj.py
         pylint src/reader/reader_camera.py src/reader/reader_co_points.py src/reader/reader_gcp.py src/reader/reader_ground_img_pts.py
         pylint src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py
@@ -49,8 +49,8 @@ jobs:
 
     - name: Analysing the code with flake8
       run: |
-        flake8  --max-line-length 100 opk_to_opk.py opk_control.py
-        flake8  --max-line-length 100 src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/args_control.py
+        flake8  --max-line-length 100 opk_to_opk.py opk_control.py opk_to_rpc.py
+        flake8  --max-line-length 100 src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/args_control.py src/parser/args_rpc.py
         flake8  --max-line-length 100 src/geodesy/proj_engine.py src/geodesy/euclidean_proj.py src/geodesy/transform_geodesy.py src/geodesy/approx_euclidean_proj.py src/geodesy/local_euclidean_proj.py
         flake8  --max-line-length 100 src/reader/reader_camera.py src/reader/reader_co_points.py src/reader/reader_gcp.py src/reader/reader_ground_img_pts.py
         flake8  --max-line-length 100 src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py

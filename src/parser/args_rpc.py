@@ -43,6 +43,7 @@ def process_args_write_rpc(args: argparse, work: Worksite) -> None:
         work (Worksite): Data.
     """
     # Writing data
+    print("Writing Rpc.")
     args_writing = {"order": args.order,
                     "size_grid": args.size_grid,
                     "fact_rpc": args.fact_rpc}

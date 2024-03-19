@@ -18,17 +18,17 @@ class WorldImageWork:
 
     def calculate_world_to_image(self, lcode: list) -> None:
         """
-        Calculates the position of gcps which corresponds to the data code
+        Calculates the position of gcp3d which corresponds to the data code
         in the images they appear in.
 
         Args:
             lcode (list): gcp code.
         """
-        if self.work.gcps and self.work.ground_img_pts:
-            for name_gcp, gcp in self.work.gcps.items():
+        if self.work.gcp3d and self.work.gcp2d:
+            for name_gcp, gcp in self.work.gcp3d.items():
                 if gcp.code in lcode or lcode == []:
                     try:
-                        list_shots = self.work.ground_img_pts[name_gcp]
+                        list_shots = self.work.gcp2d[name_gcp]
                         for name_shot in list_shots:
                             shot = self.work.shots[name_shot]
                             cam = self.work.cameras[shot.name_cam]
@@ -36,7 +36,7 @@ class WorldImageWork:
                                                       cam).world_to_image(gcp.coor,
                                                                           self.work.type_z_data,
                                                                           self.work.type_z_shot)
-                            self.work.shots[name_shot].gcps[name_gcp] = coor_img
+                            self.work.shots[name_shot].gcp3d[name_gcp] = coor_img
                     except KeyError:
                         print(f"Warning: id point {name_gcp} is present "
                               "in gcp but not in image control points.")

@@ -257,8 +257,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">name_cam</span> <span class="o">=</span> <span class="n">name_cam</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">z_nadir</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">co_points</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ground_img_pts</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gcps</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gcp2d</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gcp3d</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mat_rot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_rot_shot</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mat_rot_eucli</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">projeucli</span> <span class="o">=</span> <span class="kc">None</span>
@@ -299,8 +299,8 @@
         <span class="n">unitori</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">unit_angle</span> <span class="o">==</span> <span class="s2">&quot;degree&quot;</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">eucli_to_world</span><span class="p">(</span><span class="n">pos_eucli</span><span class="p">)</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">co_points</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">shot</span><span class="o">.</span><span class="n">gcps</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">shot</span><span class="o">.</span><span class="n">ground_img_pts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">shot</span><span class="o">.</span><span class="n">gcp3d</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">shot</span><span class="o">.</span><span class="n">gcp2d</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">mat_rot</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">mat_eucli_to_mat</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                                                        <span class="n">mat_ori_eucli</span><span class="p">)</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">mat_rot_eucli</span> <span class="o">=</span> <span class="n">mat_ori_eucli</span>
@@ -409,9 +409,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_z_remove_scale_factor</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="Shot.getatt">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.getatt">[docs]</a>
-    <span class="k">def</span> <span class="nf">getatt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attsrt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">any</span><span class="p">:</span>
+<div class="viewcode-block" id="Shot.getattr">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.getattr">[docs]</a>
+    <span class="k">def</span> <span class="nf">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attsrt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get attribut by str name.</span>
 

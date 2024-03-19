@@ -35,26 +35,26 @@ def args_reading_opk(parser: argparse) -> argparse:
                         'K: kappa rotation angle'
                         'C: name of the camera')
     parser.add_argument('-u', '--unit_angle',
-                        type=str, default="degree",
+                        type=str, default="degree", choices=['degree', 'radian'],
                         help="Unit of the angle of shooting, 'degree' or 'radian'")
     parser.add_argument('-a', '--linear_alteration',
                         type=bool, default=True,
                         help="True if z shot corrected by linear alteration.")
     parser.add_argument('-f', '--first_line',
-                        type=int, default=None,
-                        help='Line number to start file playback.'
+                        type=int, default=1,
+                        help='Line number to start file playback. First line in the file is 1.'
                              ' Does not take file header into account.')
     parser.add_argument('-z', '--last_line',
                         type=int, default=None,
                         help='Line number to end file playback.'
-                             ' If not set, all lines below -l will be read.')
+                             ' If not set, all lines below -f will be read.')
     parser.add_argument('-e', '--epsg',
                         type=int, default=None,
                         help='EPSG codifier number of the reference system used e.g. "2154".')
     parser.add_argument('-j', '--pathepsg',
                         type=str, default=None,
                         help='Path to the json file which list the code epsg, you use.')
-    parser.add_argument('-y', '--pathgeotiff',
+    parser.add_argument('-y', '--pathgeoid',
                         type=str, default=None,
                         help='Path to the folder which contains pyproj GeoTIFF of the geoid '
                              'e.g../test/data/ or they must be in usr/share/proj or '
@@ -97,7 +97,7 @@ def process_args_read_opk(args: argparse) -> Worksite:
 
     # Add a projection to the worksite
     if args.epsg is not None:
-        work.set_proj(args.epsg, args.pathepsg, args.pathgeotiff)
+        work.set_proj(args.epsg, args.pathepsg, args.pathgeoid)
         print(f"Projection set-up with EPSG:{args.epsg}.")
     else:
         print("There is no given projection.")
@@ -116,4 +116,5 @@ def process_args_read_opk(args: argparse) -> Worksite:
     else:
         print("Not Dtm in the worksite.")
 
+    work.set_param_shot()
     return work

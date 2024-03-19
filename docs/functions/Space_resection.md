@@ -7,16 +7,27 @@ It is built in the src.orientation.shot_pos.py module.
 ## Parameters
 
 It takes in parameters :
-1. shot : shot to recalculate 6 external parameters
-2. cam: Camera for the shot
-3. projeucli: Euclidean projection system of the site
-4. add_pixel: Pixel to be added to the change maker
+1. **shot** : shot to recalculate 6 external parameters
+2. **cam**: Camera for the shot
+3. **projeucli**: Euclidean projection system of the site
+4. **add_pixel**: Pixel to be added to the change maker
 
-The Camera object is the camera used for acquisition, defined by a name, its ppax, ppay and focal length.
+The **Camera** object is the camera used for acquisition, defined by a **name**, its **ppax**, **ppay**, **focal** length and **width** and **height** of the image in pixel. Ppax and ppay are the main points of image deformation in x and y directions.s
 
-The EuclidieanProj object, defined by two coordinates x and y, which are the barycentre of the construction site, and a ProjEngine object.
+The **EuclidieanProj** object, defined by two coordinates **x** and **y**, which are the barycentre of the construction site.
 
-The add_pixel object is a tuple of dimension 2, used to add a number of pixels in columns and rows. Used to convert certain photogrammetric data formats.
+The **add_pixel** object is a tuple of dimension 2, **used to add a number of pixels in columns and rows**. Used to convert certain photogrammetric data formats.
+
+Object to instantiate before calculation :
+
+* The **Dtm** allows a first estimate z terrain, and converts the data they have linear alteration.
+
+* The **ProjEngine** object is defined by a string giving the ESPG code of the site's map projection, e.g. "EPSG:2154", followed by a dictionary found in src.data.projection_list.json, which contains 3 important tags:
+  * "geoc" returns the EPSG code of the geocentric projection on site.
+  * "geog" returns the EPSG code of the geographic projection on the building site.
+  * "geoid" returns a list of GeoTIFF names for the site.
+
+  These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj or you can give in argument the path to the GeoTIFF forlder.
 
 ## Calculation step
 
@@ -230,7 +241,7 @@ work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
 # Add camera information
 # add_camera(name_cam, ppax, ppay, focal, width, height)
 # ppax and ppay image center in pixel with distortion
-work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460.00, 17004.00)
+work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
 
 # Setup projection system and z_nadir of shot
 work.set_param_shot()

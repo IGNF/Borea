@@ -67,8 +67,8 @@ class SpaceResection:
         shot_adjust = self.least_square_shot(shot_adjust, obs, pt_eucli, pt_world)
 
         shot_adjust.co_points = shot.co_points
-        shot_adjust.ground_img_pts = shot.ground_img_pts
-        shot_adjust.gcps = shot.gcps
+        shot_adjust.gcp2d = shot.gcp2d
+        shot_adjust.gcp3d = shot.gcp3d
 
         return shot_adjust
 
@@ -180,7 +180,7 @@ class SpaceResection:
         if shot.co_points:
             if not self.work.co_pts_world:
                 WorldIntersection(self.work).calculate_image_world_by_intersection("co_points")
-            obs, pt_world = self.work.get_points_shot_numpy(shot.name_shot, "co_points")
+            obs, pt_world = self.work.get_coor_pt_img_and_world(shot.name_shot, "co_points")
             if obs.shape[1] >= 7:
                 add_pt = False
 

@@ -1,6 +1,6 @@
-# README to convert opk to opk
+# README to control an opk
 
-Converts an opk file into an opk file by changing column order, rotation angle units, a transformation of z into altitude or height with or without correction for linear alteration
+Control opk position using gcp and image function, with 4 output statistics files. 2 files for residuals (terrain to image and image to terrain) 2 files for residual statistics (mean, max, min, median).
 
 ## Utilisation
 
@@ -30,13 +30,13 @@ The parameters are:
 | -g | Files paths of ground control point (.app) | None | X |
 | -d | Type of gcp to control. | [] | X |
 | --fg | Format of GCP and ground image points "altitude" or "height". | None | X, unless gcp and gip is given |
-| -p | Type of process for the function image to world, "intersection" or "least_square" | "intersection" | X |
+| -p | Type of process for the function image to world, "inter" ofr intersection or "square" for least-square | "inter" | X |
 | -x | To use an approximate system. | False | X |
 | -w | Path stat e.g. "./" | "./" | X |
 
 E.G.
 ```
-python3 ./opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i "N X Y Z O P K C" -f 2 -c ./dataset/Camera1.txt -e 2154 -j ./dataset/proj.json -y ./dataset/ -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p intersection
+python3 ./opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i "N X Y Z O P K C" -f 2 -c ./dataset/Camera1.txt -e 2154 -j ./dataset/proj.json -y ./dataset/ -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p inter
 ```
 
 #### Detail for the header of file -i
@@ -57,16 +57,16 @@ Type is:
 
 ### Camera file format
 
-The camera file is a txt file, containing 6 pieces of information about the camera : its name, ppax, ppay, focal and image size, width and height in pixels.
-Ppax and ppay are the main points of image deformation in x and y directions.
-Each line of the file corresponds to a piece of information, starting with the type = info.
+The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float) and image size, **width** (int) and **height** (int) in pixels.  
+Ppax and ppay are the main points of image deformation in x and y directions.  
+Each line of the file corresponds to a piece of information, starting with the **type = info**.
 ```
 name = UCE-M3-f120-s06
 ppax = 13210.00
 ppay = 8502.00
 focal = 30975.00
-width = 26460.00
-height = 17004.00
+width = 26460
+height = 17004
 ```
 An example file can be found in *./dataset/Camera1.txt*.
 
@@ -82,7 +82,7 @@ This library requires different projection data to transform coordinates from te
   "comment": "Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93"}
 }
 ```
-The important tags are : the first is the epsg code ("EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection ("geoc") with its epsg code at the site location. The geographic projection ("geog") with its epsg code at the site location, and the geoid ("geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the *usr/share/proj* folder, which is native to pyproj, or in the *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj* folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
+The important tags are : the first is the epsg code (attribut:"EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection (attribut:"geoc") with its epsg code at the site location. The geographic projection (attribut:"geog") with its epsg code at the site location, and the geoid (attribut:"geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the *usr/share/proj* folder, which is native to pyproj, or in the *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj* folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
 
 You can contribute by putting your structure in the *projection_list.json* file in *./resources/*.
 

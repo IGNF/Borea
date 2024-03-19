@@ -157,6 +157,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.format.html">src.format package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -233,12 +234,12 @@
 </li>
         <li><a href="src.datastruct.html#src.datastruct.workdata.Workdata.add_gcp">add_gcp() (src.datastruct.workdata.Workdata method)</a>
 </li>
-        <li><a href="src.datastruct.html#src.datastruct.workdata.Workdata.add_ground_img_pt">add_ground_img_pt() (src.datastruct.workdata.Workdata method)</a>
+        <li><a href="src.datastruct.html#src.datastruct.workdata.Workdata.add_gcp2d">add_gcp2d() (src.datastruct.workdata.Workdata method)</a>
+</li>
+        <li><a href="src.datastruct.html#src.datastruct.workdata.Workdata.add_shot">add_shot() (src.datastruct.workdata.Workdata method)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="src.datastruct.html#src.datastruct.workdata.Workdata.add_shot">add_shot() (src.datastruct.workdata.Workdata method)</a>
-</li>
         <li><a href="src.geodesy.html#src.geodesy.approx_euclidean_proj.ApproxEuclideanProj">ApproxEuclideanProj (class in src.geodesy.approx_euclidean_proj)</a>
 </li>
         <li><a href="src.parser.html#src.parser.args_control.args_control">args_control() (in module src.parser.args_control)</a>
@@ -246,6 +247,8 @@
         <li><a href="src.parser.parser_opk.html#src.parser.parser_opk.args_read_opk.args_reading_opk">args_reading_opk() (in module src.parser.parser_opk.args_read_opk)</a>
 </li>
         <li><a href="src.parser.parser_opk.html#src.parser.parser_opk.args_write_opk.args_writing_opk">args_writing_opk() (in module src.parser.parser_opk.args_write_opk)</a>
+</li>
+        <li><a href="src.parser.html#src.parser.args_rpc.args_writing_rpc">args_writing_rpc() (in module src.parser.args_rpc)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -279,14 +282,12 @@
 </li>
         <li><a href="src.geodesy.html#src.geodesy.transform_geodesy.TransformGeodesy.carto_to_geog">carto_to_geog (src.geodesy.transform_geodesy.TransformGeodesy attribute)</a>
 </li>
-        <li><a href="src.utils.html#src.utils.change_dim.change_dim">change_dim() (in module src.utils.change_dim)</a>
-</li>
         <li><a href="src.utils.check.html#src.utils.check.check_args_opk.check_args_opk">check_args_opk() (in module src.utils.check.check_args_opk)</a>
+</li>
+        <li><a href="src.utils.check.html#src.utils.check.check_array.check_array_transfo">check_array_transfo() (in module src.utils.check.check_array)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="src.utils.check.html#src.utils.check.check_array.check_array_transfo">check_array_transfo() (in module src.utils.check.check_array)</a>
-</li>
         <li><a href="src.utils.check.html#src.utils.check.check_args_opk.check_header_file">check_header_file() (in module src.utils.check.check_args_opk)</a>
 </li>
         <li><a href="src.utils.singleton.html#src.utils.singleton.singleton.Singleton.clear">clear() (src.utils.singleton.singleton.Singleton method)</a>
@@ -302,6 +303,8 @@
         <li><a href="src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.conversion_coor_shot.conv_z_shot_to_z_data">conv_z_shot_to_z_data() (in module src.transform_world_image.transform_shot.conversion_coor_shot)</a>
 </li>
         <li><a href="src.datastruct.html#src.datastruct.gcp.GCP.coor">coor (src.datastruct.gcp.GCP attribute)</a>
+</li>
+        <li><a href="src.format.html#src.format.rpc.Rpc.create_grid_rpc">create_grid_rpc() (src.format.rpc.Rpc method)</a>
 </li>
         <li><a href="src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_square.WorldLeastSquare.create_mat_a_and_vect_residu">create_mat_a_and_vect_residu() (src.transform_world_image.transform_worksite.image_world_least_square.WorldLeastSquare method)</a>
 </li>
@@ -353,6 +356,8 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="src.datastruct.html#src.datastruct.shot.Shot.from_param_euclidean">from_param_euclidean() (src.datastruct.shot.Shot class method)</a>
 </li>
+        <li><a href="src.format.html#src.format.rpc.Rpc.from_shot">from_shot() (src.format.rpc.Rpc class method)</a>
+</li>
     </ul></td>
   </tr></table>
 </section>
@@ -371,15 +376,15 @@
 </li>
         <li><a href="src.geodesy.html#src.geodesy.transform_geodesy.TransformGeodesy.geoid_to_geog">geoid_to_geog (src.geodesy.transform_geodesy.TransformGeodesy attribute)</a>
 </li>
+        <li><a href="src.worksite.html#src.worksite.worksite.Worksite.get_coor_pt_img_and_world">get_coor_pt_img_and_world() (src.worksite.worksite.Worksite method)</a>
+</li>
         <li><a href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine.get_meridian_convergence">get_meridian_convergence() (src.geodesy.proj_engine.ProjEngine method)</a>
 </li>
-        <li><a href="src.worksite.html#src.worksite.worksite.Worksite.get_point_image_pandas">get_point_image_pandas() (src.worksite.worksite.Worksite method)</a>
-</li>
-        <li><a href="src.worksite.html#src.worksite.worksite.Worksite.get_point_world_pandas">get_point_world_pandas() (src.worksite.worksite.Worksite method)</a>
+        <li><a href="src.worksite.html#src.worksite.worksite.Worksite.get_point_image_dataframe">get_point_image_dataframe() (src.worksite.worksite.Worksite method)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="src.worksite.html#src.worksite.worksite.Worksite.get_points_shot_numpy">get_points_shot_numpy() (src.worksite.worksite.Worksite method)</a>
+        <li><a href="src.worksite.html#src.worksite.worksite.Worksite.get_point_world_dataframe">get_point_world_dataframe() (src.worksite.worksite.Worksite method)</a>
 </li>
         <li><a href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine.get_scale_factor">get_scale_factor() (src.geodesy.proj_engine.ProjEngine method)</a>
 </li>
@@ -391,10 +396,10 @@
 </li>
         <li><a href="src.datastruct.html#src.datastruct.dtm.Dtm.get_z_world">get_z_world() (src.datastruct.dtm.Dtm method)</a>
 </li>
-        <li><a href="src.datastruct.html#src.datastruct.shot.Shot.getatt">getatt() (src.datastruct.shot.Shot method)</a>
+        <li><a href="src.datastruct.html#src.datastruct.shot.Shot.getattr">getattr() (src.datastruct.shot.Shot method)</a>
 
         <ul>
-          <li><a href="src.worksite.html#src.worksite.worksite.Worksite.getatt">(src.worksite.worksite.Worksite method)</a>
+          <li><a href="src.worksite.html#src.worksite.worksite.Worksite.getattr">(src.worksite.worksite.Worksite method)</a>
 </li>
         </ul></li>
     </ul></td>
@@ -461,10 +466,12 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_square.WorldLeastSquare.least_square_intersect">least_square_intersect() (src.transform_world_image.transform_worksite.image_world_least_square.WorldLeastSquare method)</a>
 </li>
-        <li><a href="src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection.least_square_shot">least_square_shot() (src.transform_world_image.transform_worksite.space_resection.SpaceResection method)</a>
+        <li><a href="src.format.html#src.format.rpc.Rpc.least_square_rpc">least_square_rpc() (src.format.rpc.Rpc method)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.space_resection.SpaceResection.least_square_shot">least_square_shot() (src.transform_world_image.transform_worksite.space_resection.SpaceResection method)</a>
+</li>
         <li><a href="src.transform_world_image.transform_shot.html#src.transform_world_image.transform_shot.image_world_shot.ImageWorldShot.local_to_eucli">local_to_eucli() (src.transform_world_image.transform_shot.image_world_shot.ImageWorldShot method)</a>
 </li>
         <li><a href="src.geodesy.html#src.geodesy.local_euclidean_proj.LocalEuclideanProj">LocalEuclideanProj (class in src.geodesy.local_euclidean_proj)</a>
@@ -523,6 +530,10 @@
 </li>
           <li><a href="src.datastruct.html#module-src.datastruct.workshot">src.datastruct.workshot</a>
 </li>
+          <li><a href="src.format.html#module-src.format">src.format</a>
+</li>
+          <li><a href="src.format.html#module-src.format.rpc">src.format.rpc</a>
+</li>
           <li><a href="src.geodesy.html#module-src.geodesy">src.geodesy</a>
 </li>
           <li><a href="src.geodesy.html#module-src.geodesy.approx_euclidean_proj">src.geodesy.approx_euclidean_proj</a>
@@ -537,6 +548,8 @@
 </li>
           <li><a href="src.math.html#module-src.math">src.math</a>
 </li>
+          <li><a href="src.math.html#module-src.math.normalize">src.math.normalize</a>
+</li>
           <li><a href="src.math.html#module-src.math.param_bundle">src.math.param_bundle</a>
 </li>
           <li><a href="src.math.html#module-src.math.sparse">src.math.sparse</a>
@@ -544,6 +557,8 @@
           <li><a href="src.parser.html#module-src.parser">src.parser</a>
 </li>
           <li><a href="src.parser.html#module-src.parser.args_control">src.parser.args_control</a>
+</li>
+          <li><a href="src.parser.html#module-src.parser.args_rpc">src.parser.args_rpc</a>
 </li>
           <li><a href="src.parser.parser_opk.html#module-src.parser.parser_opk">src.parser.parser_opk</a>
 </li>
@@ -565,7 +580,7 @@
 </li>
           <li><a href="src.reader.html#module-src.reader.reader_gcp">src.reader.reader_gcp</a>
 </li>
-          <li><a href="src.reader.html#module-src.reader.reader_ground_img_pts">src.reader.reader_ground_img_pts</a>
+          <li><a href="src.reader.html#module-src.reader.reader_gcp2d">src.reader.reader_gcp2d</a>
 </li>
           <li><a href="src.stat.html#module-src.stat">src.stat</a>
 </li>
@@ -599,8 +614,6 @@
 </li>
           <li><a href="src.utils.html#module-src.utils">src.utils</a>
 </li>
-          <li><a href="src.utils.html#module-src.utils.change_dim">src.utils.change_dim</a>
-</li>
           <li><a href="src.utils.check.html#module-src.utils.check">src.utils.check</a>
 </li>
           <li><a href="src.utils.check.html#module-src.utils.check.check_args_opk">src.utils.check.check_args_opk</a>
@@ -621,6 +634,8 @@
 </li>
           <li><a href="src.writer.html#module-src.writer.writer_opk">src.writer.writer_opk</a>
 </li>
+          <li><a href="src.writer.html#module-src.writer.writer_rpc">src.writer.writer_rpc</a>
+</li>
         </ul></li>
     </ul></td>
   </tr></table>
@@ -632,9 +647,13 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="src.datastruct.html#src.datastruct.camera.Camera.name_camera">name_camera (src.datastruct.camera.Camera attribute)</a>
 </li>
+        <li><a href="src.datastruct.html#src.datastruct.gcp.GCP.name_gcp">name_gcp (src.datastruct.gcp.GCP attribute)</a>
+</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="src.datastruct.html#src.datastruct.gcp.GCP.name_gcp">name_gcp (src.datastruct.gcp.GCP attribute)</a>
+        <li><a href="src.math.html#src.math.normalize.normalize">normalize() (in module src.math.normalize)</a>
+</li>
+        <li><a href="src.format.html#src.format.rpc.Rpc.normalize_data">normalize_data() (src.format.rpc.Rpc method)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -652,13 +671,15 @@
 </li>
         <li><a href="src.datastruct.html#src.datastruct.camera.Camera.ppay">ppay (src.datastruct.camera.Camera attribute)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="src.parser.html#src.parser.args_control.process_args_control">process_args_control() (in module src.parser.args_control)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="src.parser.parser_opk.html#src.parser.parser_opk.args_read_opk.process_args_read_opk">process_args_read_opk() (in module src.parser.parser_opk.args_read_opk)</a>
 </li>
         <li><a href="src.parser.parser_opk.html#src.parser.parser_opk.args_write_opk.process_args_write_opk">process_args_write_opk() (in module src.parser.parser_opk.args_write_opk)</a>
+</li>
+        <li><a href="src.parser.html#src.parser.args_rpc.process_args_write_rpc">process_args_write_rpc() (in module src.parser.args_rpc)</a>
 </li>
         <li><a href="src.geodesy.html#src.geodesy.proj_engine.ProjEngine.projection_list">projection_list (src.geodesy.proj_engine.ProjEngine attribute)</a>
 </li>
@@ -682,9 +703,11 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="src.reader.html#src.reader.reader_gcp.read_gcp">read_gcp() (in module src.reader.reader_gcp)</a>
 </li>
-        <li><a href="src.reader.html#src.reader.reader_ground_img_pts.read_ground_image_points">read_ground_image_points() (in module src.reader.reader_ground_img_pts)</a>
+        <li><a href="src.reader.html#src.reader.reader_gcp2d.read_gcp2d">read_gcp2d() (in module src.reader.reader_gcp2d)</a>
 </li>
         <li><a href="src.reader.orientation.html#src.reader.orientation.manage_reader.reader_orientation">reader_orientation() (in module src.reader.orientation.manage_reader)</a>
+</li>
+        <li><a href="src.format.html#src.format.rpc.Rpc">Rpc (class in src.format.rpc)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -720,9 +743,9 @@
 </li>
         <li><a href="src.datastruct.html#src.datastruct.workshot.Workshot.set_param_shot">set_param_shot() (src.datastruct.workshot.Workshot method)</a>
 </li>
-        <li><a href="src.worksite.html#src.worksite.worksite.Worksite.set_point_image_pandas">set_point_image_pandas() (src.worksite.worksite.Worksite method)</a>
+        <li><a href="src.worksite.html#src.worksite.worksite.Worksite.set_point_image_dataframe">set_point_image_dataframe() (src.worksite.worksite.Worksite method)</a>
 </li>
-        <li><a href="src.worksite.html#src.worksite.worksite.Worksite.set_point_world_pandas">set_point_world_pandas() (src.worksite.worksite.Worksite method)</a>
+        <li><a href="src.worksite.html#src.worksite.worksite.Worksite.set_point_world_dataframe">set_point_world_dataframe() (src.worksite.worksite.Worksite method)</a>
 </li>
         <li><a href="src.datastruct.html#src.datastruct.workdata.Workdata.set_proj">set_proj() (src.datastruct.workdata.Workdata method)</a>
 </li>
@@ -735,6 +758,8 @@
         <li><a href="src.datastruct.html#src.datastruct.workshot.Workshot.set_unit_shot">set_unit_shot() (src.datastruct.workshot.Workshot method)</a>
 </li>
         <li><a href="src.datastruct.html#src.datastruct.shot.Shot.set_z_nadir">set_z_nadir() (src.datastruct.shot.Shot method)</a>
+</li>
+        <li><a href="src.format.html#src.format.rpc.Rpc.setup_matrix_obs_rpc">setup_matrix_obs_rpc() (src.format.rpc.Rpc method)</a>
 </li>
         <li><a href="src.datastruct.html#src.datastruct.shot.Shot">Shot (class in src.datastruct.shot)</a>
 </li>
@@ -803,6 +828,20 @@
 </li>
         </ul></li>
         <li>
+    src.format
+
+        <ul>
+          <li><a href="src.format.html#module-src.format">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.format.rpc
+
+        <ul>
+          <li><a href="src.format.html#module-src.format.rpc">module</a>
+</li>
+        </ul></li>
+        <li>
     src.geodesy
 
         <ul>
@@ -852,6 +891,13 @@
 </li>
         </ul></li>
         <li>
+    src.math.normalize
+
+        <ul>
+          <li><a href="src.math.html#module-src.math.normalize">module</a>
+</li>
+        </ul></li>
+        <li>
     src.math.param_bundle
 
         <ul>
@@ -880,6 +926,13 @@
 </li>
         </ul></li>
         <li>
+    src.parser.args_rpc
+
+        <ul>
+          <li><a href="src.parser.html#module-src.parser.args_rpc">module</a>
+</li>
+        </ul></li>
+        <li>
     src.parser.parser_opk
 
         <ul>
@@ -893,6 +946,8 @@
           <li><a href="src.parser.parser_opk.html#module-src.parser.parser_opk.args_read_opk">module</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     src.parser.parser_opk.args_write_opk
 
@@ -907,8 +962,6 @@
           <li><a href="src.reader.html#module-src.reader">module</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     src.reader.orientation
 
@@ -952,10 +1005,10 @@
 </li>
         </ul></li>
         <li>
-    src.reader.reader_ground_img_pts
+    src.reader.reader_gcp2d
 
         <ul>
-          <li><a href="src.reader.html#module-src.reader.reader_ground_img_pts">module</a>
+          <li><a href="src.reader.html#module-src.reader.reader_gcp2d">module</a>
 </li>
         </ul></li>
         <li>
@@ -1071,13 +1124,6 @@
 </li>
         </ul></li>
         <li>
-    src.utils.change_dim
-
-        <ul>
-          <li><a href="src.utils.html#module-src.utils.change_dim">module</a>
-</li>
-        </ul></li>
-        <li>
     src.utils.check
 
         <ul>
@@ -1145,6 +1191,13 @@
 
         <ul>
           <li><a href="src.writer.html#module-src.writer.writer_opk">module</a>
+</li>
+        </ul></li>
+        <li>
+    src.writer.writer_rpc
+
+        <ul>
+          <li><a href="src.writer.html#module-src.writer.writer_rpc">module</a>
 </li>
         </ul></li>
         <li><a href="src.stat.html#src.stat.statistics.Stat">Stat (class in src.stat.statistics)</a>
@@ -1226,7 +1279,11 @@
         <li><a href="src.transform_world_image.transform_worksite.html#src.transform_world_image.transform_worksite.image_world_least_square.WorldLeastSquare">WorldLeastSquare (class in src.transform_world_image.transform_worksite.image_world_least_square)</a>
 </li>
         <li><a href="src.writer.html#src.writer.writer_opk.write">write() (in module src.writer.writer_opk)</a>
+
+        <ul>
+          <li><a href="src.writer.html#src.writer.writer_rpc.write">(in module src.writer.writer_rpc)</a>
 </li>
+        </ul></li>
         <li><a href="src.stat.html#src.stat.statistics.Stat.write_stat">write_stat() (src.stat.statistics.Stat method)</a>
 </li>
     </ul></td>

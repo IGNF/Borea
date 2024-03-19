@@ -296,8 +296,8 @@
         <span class="n">shot_adjust</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">least_square_shot</span><span class="p">(</span><span class="n">shot_adjust</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">pt_eucli</span><span class="p">,</span> <span class="n">pt_world</span><span class="p">)</span>
 
         <span class="n">shot_adjust</span><span class="o">.</span><span class="n">co_points</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">co_points</span>
-        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">ground_img_pts</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">ground_img_pts</span>
-        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">gcps</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">gcps</span>
+        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">gcp2d</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">gcp2d</span>
+        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">gcp3d</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">gcp3d</span>
 
         <span class="k">return</span> <span class="n">shot_adjust</span></div>
 
@@ -418,7 +418,7 @@
         <span class="k">if</span> <span class="n">shot</span><span class="o">.</span><span class="n">co_points</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">co_pts_world</span><span class="p">:</span>
                 <span class="n">WorldIntersection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="p">)</span><span class="o">.</span><span class="n">calculate_image_world_by_intersection</span><span class="p">(</span><span class="s2">&quot;co_points&quot;</span><span class="p">)</span>
-            <span class="n">obs</span><span class="p">,</span> <span class="n">pt_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">get_points_shot_numpy</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">name_shot</span><span class="p">,</span> <span class="s2">&quot;co_points&quot;</span><span class="p">)</span>
+            <span class="n">obs</span><span class="p">,</span> <span class="n">pt_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">get_coor_pt_img_and_world</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">name_shot</span><span class="p">,</span> <span class="s2">&quot;co_points&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">obs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">7</span><span class="p">:</span>
                 <span class="n">add_pt</span> <span class="o">=</span> <span class="kc">False</span>
 

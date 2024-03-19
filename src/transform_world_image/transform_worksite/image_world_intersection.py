@@ -29,24 +29,24 @@ class WorldIntersection:
 
         Args:
             control_type (list): Type controle for gcp.
-            type_point (str): "co_points" or "ground_img_pts"
+            type_point (str): "co_points" or "gcp2d"
                               depending on what you want to calculate.
         """
         if type_point == 'co_points':
             out_pt = "co_pts_world"
             control_type = []
         else:
-            out_pt = "img_pts_world"
+            out_pt = "gcp2d_in_world"
 
-        for name_pt, list_shot in self.work.getatt(type_point).items():  # Loop on points
-            if control_type != [] and self.work.gcps[name_pt].code not in control_type:
+        for name_pt, list_shot in self.work.getattr(type_point).items():  # Loop on points
+            if control_type != [] and self.work.gcp3d[name_pt].code not in control_type:
                 continue
             if len(list_shot) == 1:
                 continue
 
             coor = self.comput_inter_in_2_more_distant_shot(name_pt, list_shot)
 
-            self.work.getatt(out_pt)[name_pt] = coor
+            self.work.getattr(out_pt)[name_pt] = coor
 
     def comput_inter_in_2_more_distant_shot(self, name_pt: str, list_shot: list) -> np.ndarray:
         """
@@ -97,8 +97,8 @@ class WorldIntersection:
             p_img1 = shot1.co_points[name_point]
             p_img2 = shot2.co_points[name_point]
         else:
-            p_img1 = shot1.ground_img_pts[name_point]
-            p_img2 = shot2.ground_img_pts[name_point]
+            p_img1 = shot1.gcp2d[name_point]
+            p_img2 = shot2.gcp2d[name_point]
 
         # Setting up a Euclidean projection centered on the two images.
         bary = (shot1.pos_shot + shot2.pos_shot)/2

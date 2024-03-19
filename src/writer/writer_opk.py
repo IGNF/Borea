@@ -55,7 +55,7 @@ def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:
                     else:
                         line_writing += "\n"
 
-                file.write(line_writing)
-            file.close()
+            file.write(line_writing)
+        file.close()
     except FileNotFoundError as e:
         raise ValueError("The path doesn't exist !!!", e) from e

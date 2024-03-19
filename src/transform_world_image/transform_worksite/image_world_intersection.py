@@ -39,7 +39,10 @@ class WorldIntersection:
             out_pt = "gcp2d_in_world"
 
         for name_pt, list_shot in self.work.getattr(type_point).items():  # Loop on points
-            if control_type != [] and self.work.gcp3d[name_pt].code not in control_type:
+            try:
+                if control_type != [] and self.work.gcp3d[name_pt].code not in control_type:
+                    continue
+            except KeyError:
                 continue
             if len(list_shot) == 1:
                 continue

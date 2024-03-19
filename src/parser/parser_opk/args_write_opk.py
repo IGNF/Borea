@@ -54,6 +54,7 @@ def process_args_write_opk(args: argparse, work: Worksite) -> None:
         work (Worksite): Data.
     """
     # Writing data
+    print("Writing OPK.")
     if args.name is not None:
         if args.output_header is not None:
             args_writing = {"header": args.output_header,

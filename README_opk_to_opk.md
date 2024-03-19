@@ -55,9 +55,9 @@ Type is:
 
 ### Camera file format
 
-The camera file is a txt file, containing 6 pieces of information about the camera : its name, ppax, ppay, focal and image size, width and height in pixels.
-Ppax and ppay are the main points of image deformation in x and y directions.
-Each line of the file corresponds to a piece of information, starting with the type = info.
+The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float) and image size, **width** (int) and **height** (int) in pixels. .  
+Ppax and ppay are the main points of image deformation in x and y directions.  
+Each line of the file corresponds to a piece of information, starting with the **type = info**.
 ```
 name = UCE-M3-f120-s06
 ppax = 13210.00
@@ -80,7 +80,7 @@ This library requires different projection data to transform coordinates from te
   "comment": "Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93"}
 }
 ```
-The important tags are : the first is the epsg code ("EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection ("geoc") with its epsg code at the site location. The geographic projection ("geog") with its epsg code at the site location, and the geoid ("geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the *usr/share/proj* folder, which is native to pyproj, or in the *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj* folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
+The important tags are : the first is the epsg code (attribut:"EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection (attribut:"geoc") with its epsg code at the site location. The geographic projection (attribut:"geog") with its epsg code at the site location, and the geoid (attribut:"geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the *usr/share/proj* folder, which is native to pyproj, or in the *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj* folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
 
 You can contribute by putting your structure in the *projection_list.json* file in *resources*.
 

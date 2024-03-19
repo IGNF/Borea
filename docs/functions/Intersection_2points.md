@@ -4,11 +4,20 @@ Function to calculate the Euclidean coordinates of a point, visible on two acqui
 
 ## Parameters
 
-1. name_copoint: the name of the link point you wish to calculate its field position, in str format.
-2. shot1: first acquisition where the point is visible and its image coordinates are known, Shot object format.
-3. shot2: second acquisition where the point is visible and its image coordinates are known, Shot object format.
+1. **name_copoint**: the name of the link point you wish to calculate its field position, in str format.
+2. **shot1**: first acquisition where the point is visible and its image coordinates are known, Shot object format.
+3. **shot2**: second acquisition where the point is visible and its image coordinates are known, Shot object format.
 
-The Shot object is an object for an acquisition that defines it, with a name, position, rotation angles and camera name.
+The **Shot** object is an object for an acquisition that defines it, with a **name** (str), **position** (array), **rotation angles** (array), **camera name** (str), **unit angle** (str "degree" or "radian") and **linear alteration** (bool).
+
+Object to instantiate before calculation :
+
+* The **ProjEngine** object is defined by a string giving the ESPG code of the site's map projection, e.g. "EPSG:2154", followed by a dictionary found in src.data.projection_list.json, which contains 3 important tags:
+  * "geoc" returns the EPSG code of the geocentric projection on site.
+  * "geog" returns the EPSG code of the geographic projection on the building site.
+  * "geoid" returns a list of GeoTIFF names for the site.
+
+  These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj or you can give in argument the path to the GeoTIFF forlder.
 
 ## Calculation step
 

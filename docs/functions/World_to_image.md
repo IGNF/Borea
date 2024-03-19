@@ -6,24 +6,23 @@ It is built into the shot object to calculate the coordinates of the point in th
 ## Parameters
 
 It takes as parameters :
-1. coor: [X, Y, Z]
-2. cam: a Camera object.
-3. dtm: Dtm of the worksite.
-4. type_z_data: type of z you want in output 'altitude', 'height'.
-5. type_z_shot: type of z there are in shot's position 'altitude', 'height'. 
+1. **coor**: [X, Y, Z]
+2. **cam**: a Camera object.
+3. **type_z_data**: type of z you want in output 'altitude', 'height'.
+4. **type_z_shot**: type of z there are in shot's position 'altitude', 'height'. 
 
-The Camera object is the camera used for acquisition, defined by a name, its ppax, ppay and focal length, width and height of the image in pixel.
+The **Camera** object is the camera used for acquisition, defined by a **name**, its **ppax**, **ppay** and **focal** length, **width** and **height** of the image in pixel. Ppax and ppay are the main points of image deformation in x and y directions.
 
-The dtm allows to convert the data they have linear alteration. it's not mandatory if type_z_data equal type_z_shot or don't need tranfo to add or remove linear alteration
+Object to instantiate before calculation :
 
-recall:  
-The ProjEngine object is defined by a string giving the ESPG code of the site's map projection, e.g. "EPSG:2154", followed by a dictionary found in src.data.projection_list.json, which groups together 3 important tags:
- * "geoc" returns the EPSG code of the geocentric projection on site.
- * "geog" returns the EPSG code of the geographic projection on the building site.
- * "geoid" returns a list of GeoTIFF names at site level.
+* The **Dtm** allows to convert the data they have **linear alteration**. it's not mandatory if **type_z_data** equal **type_z_shot** or don't need tranfo to add or remove **linear alteration**.
 
-These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj.  
-it's not mandatory if there ara not tranfo between altitude and height.
+* The **ProjEngine** object is defined by a string giving the ESPG code of the site's map projection, e.g. "EPSG:2154", followed by a dictionary found in src.data.projection_list.json, which contains 3 important tags:
+  * "geoc" returns the EPSG code of the geocentric projection on site.
+  * "geog" returns the EPSG code of the geographic projection on the building site.
+  * "geoid" returns a list of GeoTIFF names for the site.
+
+  These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj or you can give in argument the path to the GeoTIFF forlder.
 
 ## Calculation step
 

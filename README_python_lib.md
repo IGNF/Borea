@@ -20,7 +20,7 @@ Once the object has been created, you can add other data to it:
 
 * Link points with `read_co_points([filepath], worksite)`. Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files.
 
-* Link points with `read_ground_img_pts([filepath], worksite)`. Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files. In addition, the z data type 'height' or 'altitude' must be added to worksite `worksite.type_z_data = 'altitude'`. 
+* Link points with `read_gcp2d([filepath], worksite)`. Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files. In addition, the z data type 'height' or 'altitude' must be added to worksite `worksite.type_z_data = 'altitude'`. 
 
 * Field points (GCPs) with `read_gcp([pathfile], worksite)`. Adds control and support terrain points in .app file format, can read multiple files. In addition, the z data type 'height' and 'altitude' must be added to worksite `worksite.type_z_data = 'altitude'` same variable than before. 
 
@@ -31,13 +31,13 @@ Once the object has been created, you can add other data to it:
 * Set different parameters for shots (projection system of shot and z_nadir), mandatory if data is to be processed afterwards. `work.set_param_shot()`.
 
 * Can calculate the position of image points in world with `ImageWorldWork(worksite).manage_image_world(type_point, type_process, type_control)`.   
-    * `type_point` is the type of point you want to calcule `co_points` or `ground_img_pts`.   
-    * `type_process` is the type of process you want to use `intersection` or `least_square`.  
-    * `type_control` egal None by default, is used if the type_point = ground_img_pts and if you want just one type code point, else None to process on all point.  
+    * `type_point` is the type of point you want to calcule `co_points` or `gcp2d`.   
+    * `type_process` is the type of process you want to use intersection with key `inter` or least square methode with key `square`.  
+    * `type_control` egal None by default, is used if the type_point = gcp2d and if you want just one type code point, else None to process on all point.  
 
-    The result can be found in `worksite.co_pts_world['name_point']` when type_point = co_points or `worksite.img_pts_world['name_point]` when type_point = ground_img_pts.
+    The result can be found in `worksite.co_pts_world['name_point']` when type_point = co_points or `worksite.img_pts_world['name_point]` when type_point = gcp2d.
 
-* Can calculate the position of terrain points in images with `WorldImageWork(work).calculate_world_to_image(type_control)` with `type_control` egal None by default, is used if the type_point = ground_img_pts and if you want just one type code point, else None to process on all point. . The result can be found in `worksite.shots['name_shot'].gcps['name_gcp']` for each image and each gcps.
+* Can calculate the position of terrain points in images with `WorldImageWork(work).calculate_world_to_image(type_control)` with `type_control` egal None by default, is used if the type_point = gcp2d and if you want just one type code point, else None to process on all point. . The result can be found in `worksite.shots['name_shot'].gcps['name_gcp']` for each image and each gcps.
 
 * Can calculate spatial resection for each shot in worksite with `SpaceResection(work).space_resection_worksite(add_pixel = (0,0))`. `add_pixel` is used to add a deviation to the position of the points to modify the shot's 6 external parameters for data conversion, for example.
 
@@ -84,7 +84,7 @@ path_camera = ["dataset/Camera1.txt"]
 path_co_points = ["dataset/liaisons_test.mes"]
 
 # path(s) to image ground control points file
-path_ground_img_pts = ["dataset/terrain_test.mes"]
+path_gcp2d= ["dataset/terrain_test.mes"]
 
 # path(s) to ground control points file with unit of z and code of control point
 path_gcps = ["dataset/GCP_test.app"]
@@ -95,10 +95,10 @@ type_control = [13]
 path_dtm = "dataset/MNT_France_25m_h_crop.tif"
 type_dtm = "height"
 
-# type process for function image to world "intersection or "least_square"
-type_process = "intersection"
+# type process for function image to world "inter or "square"
+type_process = "inter"
 
-# type of output file
+# type of output file (opk or rpc)
 writer = "opk"
 
 # folder path for the output
@@ -122,7 +122,7 @@ read_camera(path_camera, work)
 read_co_points(path_co_points, work)
 
 # Reading ground controle point in image
-read_ground_img_pts(path_ground_img_pts, work)
+read_gcp2d(path_gcp2d, work)
 
 # Reading GCP
 read_gcp(path_gcps, work)
@@ -136,7 +136,7 @@ work.set_param_shot()
 
 # Calculate world coordinate of "co_points" or "ground_image_pts"
 # Type control isn't mandatory, take all points if not specified 
-ImageWorldWork(work).manage_image_world("ground_img_pts", type_process,type_control)
+ImageWorldWork(work).manage_image_world("gcp2d", type_process,type_control)
 
 # Calculate image coordinate of GCP if they exist for 2 type
 # Type control isn't mandatory, take all points if not specified 
@@ -174,9 +174,9 @@ Type is:
 
 ## Camera file format
 
-The camera file is a txt file, containing 6 pieces of information about the camera : its name, ppax, ppay, focal and image size, width and height in pixels.
-Ppax and ppay are the main points of image deformation in x and y directions.
-Each line of the file corresponds to a piece of information, starting with the type = info.
+The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float) and image size, **width** (int) and **height** (int) in pixels. .  
+Ppax and ppay are the main points of image deformation in x and y directions.  
+Each line of the file corresponds to a piece of information, starting with the **type = info**.
 ```
 name = UCE-M3-f120-s06
 ppax = 13210.00
@@ -199,7 +199,7 @@ This library requires different projection data to transform coordinates from te
   "comment": "Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93"}
 }
 ```
-The important tags are : the first is the epsg code ("EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection ("geoc") with its epsg code at the site location. The geographic projection ("geog") with its epsg code at the site location, and the geoid ("geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the *usr/share/proj* folder, which is native to pyproj, or in the *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj* folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
+The important tags are : the first is the epsg code (attribut:"EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection (attribut:"geoc") with its epsg code at the site location. The geographic projection (attribut:"geog") with its epsg code at the site location, and the geoid (attribut:"geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the *usr/share/proj* folder, which is native to pyproj, or in the *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj* folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
 
 You can contribute by putting your structure in the *projection_list.json* file in *./resources/*.
 

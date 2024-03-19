@@ -159,6 +159,7 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">src</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="src.html">src package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.format.html">src.format package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -225,6 +226,27 @@
 <h1>src.math package<a class="headerlink" href="#src-math-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-src.math.normalize">
+<span id="src-math-normalize-module"></span><h2>src.math.normalize module<a class="headerlink" href="#module-src.math.normalize" title="Link to this heading">#</a></h2>
+<p>Function to normalize data.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.math.normalize.normalize">
+<span class="sig-prename descclassname"><span class="pre">src.math.normalize.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/math/normalize.html#normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.math.normalize.normalize" title="Link to this definition">#</a></dt>
+<dd><p>Normalize array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>array</strong> (<em>np.array</em>) – Array data to normalize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>data normalize, offset of data and scale of data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-src.math.param_bundle">
 <span id="src-math-param-bundle-module"></span><h2>src.math.param_bundle module<a class="headerlink" href="#module-src.math.param_bundle" title="Link to this heading">#</a></h2>
@@ -340,6 +362,10 @@ M euclidean point, S euclidean position shot, R rotation matrix euclidean to ima
             <ul>
 <li><a class="reference internal" href="#">src.math package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.math.normalize">src.math.normalize module</a><ul>
+<li><a class="reference internal" href="#src.math.normalize.normalize"><code class="docutils literal notranslate"><span class="pre">normalize()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-src.math.param_bundle">src.math.param_bundle module</a><ul>
 <li><a class="reference internal" href="#src.math.param_bundle.param_bundle_diff"><code class="docutils literal notranslate"><span class="pre">param_bundle_diff()</span></code></a></li>
 </ul>

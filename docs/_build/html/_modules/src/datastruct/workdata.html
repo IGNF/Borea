@@ -254,10 +254,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">shots</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">co_points</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ground_img_pts</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gcps</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gcp2d</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gcp3d</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">co_pts_world</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">img_pts_world</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gcp2d_in_world</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">approxeucli</span> <span class="o">=</span> <span class="kc">False</span>
@@ -289,14 +289,14 @@
 
 <div class="viewcode-block" id="Workdata.set_proj">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.set_proj">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_proj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsg</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">file_epsg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">path_geotiff</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_proj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsg</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">file_epsg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">path_geoid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Setup a projection system to the worksite.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            epsg (int): Code epsg of the porjection ex: 2154.</span>
 <span class="sd">            file_epsg (str): Path to the json which list projection.</span>
-<span class="sd">            path_geotiff (str): List of GeoTIFF which represents the ellipsoid in grid form.</span>
+<span class="sd">            path_geoid (str): List of GeoTIFF which represents the geoid in grid form.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ProjEngine</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>  <span class="c1"># Check if the epsg exist</span>
@@ -305,9 +305,9 @@
         <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">CRSError</span> <span class="k">as</span> <span class="n">e_info</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">CRSError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your EPSG:</span><span class="si">{</span><span class="n">epsg</span><span class="si">}</span><span class="s2"> doesn&#39;t exist&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e_info</span>
 
-        <span class="n">path_geotiff</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="n">path_geotiff</span><span class="p">))</span> <span class="k">if</span> <span class="n">path_geotiff</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">path_geoid</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="n">path_geoid</span><span class="p">))</span> <span class="k">if</span> <span class="n">path_geoid</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">file_epsg</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">known_projection</span><span class="p">(</span><span class="n">epsg</span><span class="p">,</span> <span class="n">path_geotiff</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">known_projection</span><span class="p">(</span><span class="n">epsg</span><span class="p">,</span> <span class="n">path_geoid</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="n">file_epsg</span><span class="p">)),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
@@ -315,22 +315,22 @@
                     <span class="n">json_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">dict_epsg</span> <span class="o">=</span> <span class="n">projection_list</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;EPSG:</span><span class="si">{</span><span class="n">epsg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
-                    <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">set_epsg</span><span class="p">(</span><span class="n">epsg</span><span class="p">,</span> <span class="n">dict_epsg</span><span class="p">,</span> <span class="n">path_geotiff</span><span class="p">)</span>
+                    <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">set_epsg</span><span class="p">(</span><span class="n">epsg</span><span class="p">,</span> <span class="n">dict_epsg</span><span class="p">,</span> <span class="n">path_geoid</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">known_projection</span><span class="p">(</span><span class="n">epsg</span><span class="p">,</span> <span class="n">path_geotiff</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">known_projection</span><span class="p">(</span><span class="n">epsg</span><span class="p">,</span> <span class="n">path_geoid</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The path </span><span class="si">{</span><span class="n">file_epsg</span><span class="si">}</span><span class="s2"> is incorrect !!!&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span></div>
 
 
 <div class="viewcode-block" id="Workdata.known_projection">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.known_projection">[docs]</a>
-    <span class="k">def</span> <span class="nf">known_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsg</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2154</span><span class="p">,</span> <span class="n">path_geotiff</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">known_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsg</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2154</span><span class="p">,</span> <span class="n">path_geoid</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Setup a projection system to the worksite.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            epsg (int): Code epsg of the porjection ex: &quot;EPSG:2154&quot;.</span>
-<span class="sd">            path_geotiff (Path): List of GeoTIFF which represents the ellipsoid in grid form.</span>
+<span class="sd">            path_geoid (Path): List of GeoTIFF which represents the geoid in grid form.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">path_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span>
                                  <span class="s2">&quot;resources&quot;</span><span class="p">,</span> <span class="s2">&quot;projection_list.json&quot;</span><span class="p">)</span>
@@ -339,7 +339,7 @@
             <span class="n">json_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">dict_epsg</span> <span class="o">=</span> <span class="n">projection_list</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;EPSG:</span><span class="si">{</span><span class="n">epsg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
-            <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">set_epsg</span><span class="p">(</span><span class="n">epsg</span><span class="p">,</span> <span class="n">dict_epsg</span><span class="p">,</span> <span class="n">path_geotiff</span><span class="p">)</span>
+            <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">set_epsg</span><span class="p">(</span><span class="n">epsg</span><span class="p">,</span> <span class="n">dict_epsg</span><span class="p">,</span> <span class="n">path_geoid</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">set_epsg</span><span class="p">(</span><span class="n">epsg</span><span class="p">)</span></div>
 
@@ -403,14 +403,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">co_points</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_shot</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Workdata.add_ground_img_pt">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.add_ground_img_pt">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_ground_img_pt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Workdata.add_gcp2d">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.add_gcp2d">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_gcp2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add linking point between acquisition in two part.</span>
-<span class="sd">        One in self.ground_img_pts a dict with name_point the key</span>
+<span class="sd">        One in self.gcp2d a dict with name_point the key</span>
 <span class="sd">        and list of acquisition the result.</span>
-<span class="sd">        And One in self.shot[name_shot].ground_img_pts a dict whit</span>
+<span class="sd">        And One in self.shot[name_shot].gcp2d a dict whit</span>
 <span class="sd">        name_point the key and list of coordinate x (column) y (line) the result in list.</span>
 
 <span class="sd">        Agrs:</span>
@@ -424,20 +424,20 @@
         <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e_info</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The shot </span><span class="si">{</span><span class="n">name_shot</span><span class="si">}</span><span class="s2"> doesn&#39;t exist in list of shots.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e_info</span>
 
-        <span class="k">if</span> <span class="n">name_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ground_img_pts</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ground_img_pts</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">name_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">if</span> <span class="n">name_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">ground_img_pts</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">ground_img_pts</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">name_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> :--------------------------:&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning : connecting point duplicate.&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The point </span><span class="si">{</span><span class="n">name_point</span><span class="si">}</span><span class="s2"> already exists in the shot </span><span class="si">{</span><span class="n">name_shot</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Keep first point with coordinates &quot;</span> <span class="o">+</span>
-                  <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">ground_img_pts</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+                  <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;:--------------------------:&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ground_img_pts</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_shot</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_shot</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Workdata.add_gcp">
@@ -453,7 +453,7 @@
 <span class="sd">                            1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.</span>
 <span class="sd">            coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gcps</span><span class="p">[</span><span class="n">name_gcp</span><span class="p">]</span> <span class="o">=</span> <span class="n">GCP</span><span class="p">(</span><span class="n">name_gcp</span><span class="p">,</span> <span class="n">code_gcp</span><span class="p">,</span> <span class="n">coor_gcp</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gcp3d</span><span class="p">[</span><span class="n">name_gcp</span><span class="p">]</span> <span class="o">=</span> <span class="n">GCP</span><span class="p">(</span><span class="n">name_gcp</span><span class="p">,</span> <span class="n">code_gcp</span><span class="p">,</span> <span class="n">coor_gcp</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Workdata.set_dtm">

@@ -20,6 +20,14 @@ src.writer.writer\_opk module
    :undoc-members:
    :show-inheritance:
 
+src.writer.writer\_rpc module
+-----------------------------
+
+.. automodule:: src.writer.writer_rpc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

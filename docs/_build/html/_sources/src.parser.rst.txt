@@ -20,6 +20,14 @@ src.parser.args\_control module
    :undoc-members:
    :show-inheritance:
 
+src.parser.args\_rpc module
+---------------------------
+
+.. automodule:: src.parser.args_rpc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

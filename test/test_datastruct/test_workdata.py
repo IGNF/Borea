@@ -37,7 +37,7 @@ def test_set_proj_Lambertbase():
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(2154, path_geoid="./dataset/")
     work.set_param_shot(approx=False)
-    assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
+    assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : System=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
     assert round(work.shots["t1"].projeucli.pt_central[1], 3) == 6283986.148
 
@@ -49,7 +49,7 @@ def test_set_proj_Lambertbase_pathfolder():
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(2154, path_geoid="dataset/")
     work.set_param_shot(approx=False)
-    assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
+    assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : System=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
     assert round(work.shots["t1"].projeucli.pt_central[1], 3) == 6283986.148
 
@@ -61,7 +61,7 @@ def test_set_proj_Lambertbase_pathfolderwin():
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(2154, path_geoid="dataset\\")
     work.set_param_shot(approx=False)
-    assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
+    assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : System=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
     assert round(work.shots["t1"].projeucli.pt_central[1], 3) == 6283986.148
 
@@ -73,7 +73,7 @@ def test_set_proj_Lambertbase_withEPSG():
     work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
     work.set_proj(2154, "dataset/proj.json", "dataset/")
     work.set_param_shot(approx=False)
-    assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93'}
+    assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : System=RGF93 - Projection=Lambert93'}
     assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
     assert round(work.shots["t1"].projeucli.pt_central[1], 3) == 6283986.148
 

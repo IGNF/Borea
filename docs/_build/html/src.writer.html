@@ -159,6 +159,7 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">src</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="src.html">src package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.format.html">src.format package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -249,7 +250,7 @@
 </section>
 <section id="module-src.writer.writer_opk">
 <span id="src-writer-writer-opk-module"></span><h2>src.writer.writer_opk module<a class="headerlink" href="#module-src.writer.writer_opk" title="Link to this heading">#</a></h2>
-<p>Photogrammetry site file reader module.</p>
+<p>Photogrammetry worksite to writing in rpc.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.writer.writer_opk.write">
 <span class="sig-prename descclassname"><span class="pre">src.writer.writer_opk.</span></span><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_opk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_opk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/writer/writer_opk.html#write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.writer.writer_opk.write" title="Link to this definition">#</a></dt>
@@ -265,6 +266,30 @@ keys:
 “unit_angle” (str): Unit of angle ‘degrees’ or ‘radian’.
 “line_writingar_alteration” (bool): True if data corrected by
 line_writingar alteration.</p></li>
+<li><p><strong>work</strong> (<a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><em>Worksite</em></a>) – The site to be recorded.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.writer.writer_rpc">
+<span id="src-writer-writer-rpc-module"></span><h2>src.writer.writer_rpc module<a class="headerlink" href="#module-src.writer.writer_rpc" title="Link to this heading">#</a></h2>
+<p>Photogrammetry worksite to writing in rpc.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.writer.writer_rpc.write">
+<span class="sig-prename descclassname"><span class="pre">src.writer.writer_rpc.</span></span><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_rpc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_rpc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/writer/writer_rpc.html#write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.writer.writer_rpc.write" title="Link to this definition">#</a></dt>
+<dd><p>Converte Worksite in RPC class and save it in txt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of file begin.</p></li>
+<li><p><strong>folder_rpc</strong> (<em>str</em>) – Path of folder to registration file .txt.</p></li>
+<li><p><strong>param_rpc</strong> (<em>dict</em>) – Dictionary of parameters for rpc calculation.</p></li>
+<li><p><strong>key;</strong> – </p></li>
+<li><p><strong>rpc.</strong> (<em>&quot;order&quot;; order</em><em> of </em><em>the polynome</em><em> of </em><em>the</em>) – </p></li>
+<li><p><strong>rpc.</strong> – </p></li>
+<li><p><strong>WGS84.</strong> (<em>&quot;fact_rpc&quot;; rpc factor for world coordinate when src is not</em>) – </p></li>
 <li><p><strong>work</strong> (<a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><em>Worksite</em></a>) – The site to be recorded.</p></li>
 </ul>
 </dd>
@@ -332,6 +357,10 @@ line_writingar alteration.</p></li>
 </li>
 <li><a class="reference internal" href="#module-src.writer.writer_opk">src.writer.writer_opk module</a><ul>
 <li><a class="reference internal" href="#src.writer.writer_opk.write"><code class="docutils literal notranslate"><span class="pre">write()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.writer.writer_rpc">src.writer.writer_rpc module</a><ul>
+<li><a class="reference internal" href="#src.writer.writer_rpc.write"><code class="docutils literal notranslate"><span class="pre">write()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-src.writer">Module contents</a></li>

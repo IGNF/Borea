@@ -159,6 +159,7 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">src</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="src.html">src package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.format.html">src.format package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -248,7 +249,7 @@ the most distance between two shots or ground image point.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>control_type</strong> (<em>list</em>) – Type controle for gcp.</p></li>
-<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “ground_img_pts”
+<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “gcp2d”
 depending on what you want to calculate.</p></li>
 </ul>
 </dd>
@@ -347,7 +348,7 @@ to calculate the point’s position.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “ground_img_pts”
+<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “gcp2d”
 depending on what you want to calculate.</p></li>
 <li><p><strong>control_type</strong> (<em>list</em>) – List of code gcp to take.
 To take all points or co_point, control_type = [].</p></li>
@@ -437,16 +438,16 @@ To take all points or co_point, control_type = [].</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.image_world_work.ImageWorldWork.manage_image_world">
-<span class="sig-name descname"><span class="pre">manage_image_world</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'co_points'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'intersection'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/image_world_work.html#ImageWorldWork.manage_image_world"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.image_world_work.ImageWorldWork.manage_image_world" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">manage_image_world</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'co_points'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'inter'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/image_world_work.html#ImageWorldWork.manage_image_world"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.image_world_work.ImageWorldWork.manage_image_world" title="Link to this definition">#</a></dt>
 <dd><p>Process to calcule image coordinate to world coordinate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “ground_img_pts”
+<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “gcp2d”
 depending on what you want to calculate.</p></li>
 <li><p><strong>type_process</strong> (<em>str</em>) – Type of process you want to use.
-* “intersection” by intersect bundle of point in each shot.
-* “least_square” take all point and do methode.</p></li>
+* “inter” by intersect bundle of point in each shot.
+* “square” take all point and do methode least square.</p></li>
 <li><p><strong>control_type</strong> (<em>list</em>) – Type controle for gcp.</p></li>
 </ul>
 </dd>
@@ -606,7 +607,7 @@ If there aren’t enough points, add 20 random observation points.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.world_image_work.WorldImageWork.calculate_world_to_image">
 <span class="sig-name descname"><span class="pre">calculate_world_to_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lcode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/world_image_work.html#WorldImageWork.calculate_world_to_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.world_image_work.WorldImageWork.calculate_world_to_image" title="Link to this definition">#</a></dt>
-<dd><p>Calculates the position of gcps which corresponds to the data code
+<dd><p>Calculates the position of gcp3d which corresponds to the data code
 in the images they appear in.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

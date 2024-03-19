@@ -238,9 +238,9 @@
 <span class="sd">        name (str): Name of the worksite.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Worksite.getatt">
-<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.getatt">[docs]</a>
-    <span class="k">def</span> <span class="nf">getatt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attsrt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">any</span><span class="p">:</span>
+<div class="viewcode-block" id="Worksite.getattr">
+<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.getattr">[docs]</a>
+    <span class="k">def</span> <span class="nf">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attsrt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get attribut by str name.</span>
 
@@ -254,21 +254,21 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">attsrt</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Worksite.get_point_image_pandas">
-<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.get_point_image_pandas">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_point_image_pandas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">control_type</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="Worksite.get_point_image_dataframe">
+<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.get_point_image_dataframe">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_point_image_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">control_type</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves id_pt, id_img, column, line in a pandas of the requested point type.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            type_point (str): &quot;co_points&quot; or &quot;ground_img_pts&quot; depending on what you want to get.</span>
+<span class="sd">            type_point (str): &quot;co_points&quot; or &quot;gcp2d&quot; depending on what you want to get.</span>
 <span class="sd">            control_type (list): Type controle for gcp.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            pandas: Pandas table.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_points&quot;</span><span class="p">,</span> <span class="s2">&quot;ground_img_pts&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect,[&#39;co_points&#39;,&#39;ground_img_pts&#39;]&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_points&quot;</span><span class="p">,</span> <span class="s2">&quot;gcp2d&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect,[&#39;co_points&#39;,&#39;gcp2d&#39;]&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s2">&quot;co_points&quot;</span><span class="p">:</span>
             <span class="n">control_type</span> <span class="o">=</span> <span class="p">[]</span>
@@ -276,52 +276,52 @@
         <span class="n">id_pt</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">id_img</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">coor</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">name_pt</span><span class="p">,</span> <span class="n">list_shot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getatt</span><span class="p">(</span><span class="n">type_point</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">control_type</span> <span class="o">!=</span> <span class="p">[]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcps</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span><span class="o">.</span><span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">control_type</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">name_pt</span><span class="p">,</span> <span class="n">list_shot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">type_point</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">control_type</span> <span class="o">!=</span> <span class="p">[]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcp3d</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span><span class="o">.</span><span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">control_type</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="k">for</span> <span class="n">name_shot</span> <span class="ow">in</span> <span class="n">list_shot</span><span class="p">:</span>
                 <span class="n">id_pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_pt</span><span class="p">)</span>
                 <span class="n">id_img</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_shot</span><span class="p">)</span>
-                <span class="n">coor</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">getatt</span><span class="p">(</span><span class="n">type_point</span><span class="p">)[</span><span class="n">name_pt</span><span class="p">])</span>
+                <span class="n">coor</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">type_point</span><span class="p">)[</span><span class="n">name_pt</span><span class="p">])</span>
 
         <span class="n">coor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coor</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;id_pt&quot;</span><span class="p">:</span> <span class="n">id_pt</span><span class="p">,</span> <span class="s2">&quot;id_img&quot;</span><span class="p">:</span> <span class="n">id_img</span><span class="p">,</span>
                              <span class="s2">&quot;column&quot;</span><span class="p">:</span> <span class="n">coor</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;line&quot;</span><span class="p">:</span> <span class="n">coor</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]})</span></div>
 
 
-<div class="viewcode-block" id="Worksite.set_point_image_pandas">
-<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.set_point_image_pandas">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_point_image_pandas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pd_mes</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Worksite.set_point_image_dataframe">
+<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.set_point_image_dataframe">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_point_image_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pd_mes</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set requested point type by pandas table id_pt, id_img, column, line.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            pd_mes (pd): Pandas table of data.</span>
-<span class="sd">            type_point (str): &quot;co_points&quot; or &quot;ground_img_pts&quot; depending on what you want to set.</span>
+<span class="sd">            type_point (str): &quot;co_points&quot; or &quot;gcp2d&quot; depending on what you want to set.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_points&quot;</span><span class="p">,</span> <span class="s2">&quot;ground_img_pts&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect,[&#39;co_points&#39;,&#39;ground_img_pts&#39;]&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_points&quot;</span><span class="p">,</span> <span class="s2">&quot;gcp2d&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect,[&#39;co_points&#39;,&#39;gcp2d&#39;]&quot;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">pd_mes</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id_img&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">getatt</span><span class="p">(</span><span class="n">type_point</span><span class="p">)[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id_pt&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;column&#39;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id_img&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">type_point</span><span class="p">)[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id_pt&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;column&#39;</span><span class="p">],</span>
                                                                                    <span class="n">row</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]])</span></div>
 
 
-<div class="viewcode-block" id="Worksite.get_point_world_pandas">
-<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.get_point_world_pandas">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_point_world_pandas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">control_type</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="Worksite.get_point_world_dataframe">
+<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.get_point_world_dataframe">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_point_world_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">control_type</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves id_pt, x, y, z in a pandas of the requested point type.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            type_point (str): &quot;co_points&quot; or &quot;ground_img_pts&quot; depending on what you want to get.</span>
+<span class="sd">            type_point (str): &quot;co_points&quot; or &quot;gcp2d&quot; depending on what you want to get.</span>
 <span class="sd">            control_type (list): Type controle for gcp.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            pandas: Pandas table.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_points&quot;</span><span class="p">,</span> <span class="s2">&quot;ground_img_pts&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect,[&#39;co_points&#39;,&#39;ground_img_pts&#39;]&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_points&quot;</span><span class="p">,</span> <span class="s2">&quot;gcp2d&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect,[&#39;co_points&#39;,&#39;gcp2d&#39;]&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s1">&#39;co_points&#39;</span><span class="p">:</span>
             <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;co_pts_world&quot;</span>
@@ -331,8 +331,8 @@
 
         <span class="n">id_pt</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">coor</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">name_pt</span><span class="p">,</span> <span class="n">coor_pt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getatt</span><span class="p">(</span><span class="n">out_pt</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">control_type</span> <span class="o">!=</span> <span class="p">[]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcps</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span><span class="o">.</span><span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">control_type</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">name_pt</span><span class="p">,</span> <span class="n">coor_pt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">out_pt</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">control_type</span> <span class="o">!=</span> <span class="p">[]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcp3d</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span><span class="o">.</span><span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">control_type</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">id_pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_pt</span><span class="p">)</span>
             <span class="n">coor</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coor_pt</span><span class="p">)</span>
@@ -341,18 +341,18 @@
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;id_pt&quot;</span><span class="p">:</span> <span class="n">id_pt</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">coor</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">coor</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="n">coor</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]})</span></div>
 
 
-<div class="viewcode-block" id="Worksite.set_point_world_pandas">
-<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.set_point_world_pandas">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_point_world_pandas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pd_mes</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Worksite.set_point_world_dataframe">
+<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.set_point_world_dataframe">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_point_world_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pd_mes</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set requested point type by pandas table id_pt, x, y, z.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            pd_mes (pd): Pandas table of data.</span>
-<span class="sd">            type_point (str): &quot;co_points&quot; or &quot;ground_img_pts&quot; depending on what you want to set.</span>
+<span class="sd">            type_point (str): &quot;co_points&quot; or &quot;gcp2d&quot; depending on what you want to set.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_points&quot;</span><span class="p">,</span> <span class="s2">&quot;ground_img_pts&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect,[&#39;co_points&#39;,&#39;ground_img_pts&#39;]&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_points&quot;</span><span class="p">,</span> <span class="s2">&quot;gcp2d&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect,[&#39;co_points&#39;,&#39;gcp2d&#39;]&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s1">&#39;co_points&#39;</span><span class="p">:</span>
             <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;co_pts_world&quot;</span>
@@ -360,39 +360,39 @@
             <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;img_pts_world&quot;</span>
 
         <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">pd_mes</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">getatt</span><span class="p">(</span><span class="n">out_pt</span><span class="p">)[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id_pt&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]])</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">out_pt</span><span class="p">)[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id_pt&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]])</span></div>
 
 
-<div class="viewcode-block" id="Worksite.get_points_shot_numpy">
-<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.get_points_shot_numpy">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_points_shot_numpy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<div class="viewcode-block" id="Worksite.get_coor_pt_img_and_world">
+<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.get_coor_pt_img_and_world">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_coor_pt_img_and_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Recovers image and terrain data for all link points in the image.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            name_shot (str): Name of shot to take.</span>
-<span class="sd">            type_point (str): Type point to take &quot;co_points&quot; or &quot;ground_img_pts&quot;.</span>
+<span class="sd">            type_point (str): Type point to take &quot;co_points&quot; or &quot;gcp2d&quot;.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            tuple: np.array(obs_image), np.array(pt_world).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;co_points&#39;</span><span class="p">,</span> <span class="s1">&#39;ground_img_pts&#39;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect.[&#39;co_points&#39;,&#39;ground_img_pts&#39;]&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;co_points&#39;</span><span class="p">,</span> <span class="s1">&#39;gcp2d&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect.[&#39;co_points&#39;,&#39;gcp2d&#39;]&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s1">&#39;co_points&#39;</span><span class="p">:</span>
             <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;co_pts_world&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;img_pts_world&quot;</span>
+            <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;gcp2d_in_world&quot;</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">getatt</span><span class="p">(</span><span class="n">out_pt</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">out_pt</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attribut </span><span class="si">{</span><span class="n">out_pt</span><span class="si">}</span><span class="s2"> in worksite is empty.&quot;</span><span class="p">)</span>
 
-        <span class="n">co_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">getatt</span><span class="p">(</span><span class="n">type_point</span><span class="p">)</span>
+        <span class="n">co_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">type_point</span><span class="p">)</span>
         <span class="n">world_pt</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">img_pt</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">key_pt</span><span class="p">,</span> <span class="n">img_coor</span> <span class="ow">in</span> <span class="n">co_point</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">pt_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getatt</span><span class="p">(</span><span class="n">out_pt</span><span class="p">)[</span><span class="n">key_pt</span><span class="p">]</span>
+                <span class="n">pt_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">out_pt</span><span class="p">)[</span><span class="n">key_pt</span><span class="p">]</span>
                 <span class="n">world_pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pt_world</span><span class="p">)</span>
                 <span class="n">img_pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img_coor</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>

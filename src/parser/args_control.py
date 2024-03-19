@@ -65,8 +65,8 @@ def process_args_control(args, work: Worksite) -> None:
         count = 0
         for k in work.gcp2d.values():
             count += len(k)
-        print(f"Number of ground points of image: {len(work.gcp2d)}")
-        print(f"Number of image with ground point.s: {count}")
+        print(f"Number of gcp 2D in image: {len(work.gcp2d)}")
+        print(f"Number of image with gcp 2D: {count}")
 
     # Reading GCP
     if args.gcp3d is not None:
@@ -80,14 +80,17 @@ def process_args_control(args, work: Worksite) -> None:
         print(f"Number of gcp: {len(work.gcp3d)}")
 
     # Calculate ground coordinate of conneting point by intersection
+    print("Calculation of data image to world.")
     ImageWorldWork(work).manage_image_world(type_point="gcp2d",
                                             type_process=args.process,
                                             control_type=args.control_type)
 
     # Calculate image coordinate of GCP if they exist
+    print("Calculation of data world to image.")
     WorldImageWork(work).calculate_world_to_image(args.control_type)
 
     # Statistics
+    print("Make statistics.")
     stat = Stat(work, args.pathreturn, args.control_type)
     stat.main_stat_and_save()
     print("Statistics on control point, if there are,")

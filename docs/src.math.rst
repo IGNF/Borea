@@ -4,6 +4,14 @@ src.math package
 Submodules
 ----------
 
+src.math.normalize module
+-------------------------
+
+.. automodule:: src.math.normalize
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 src.math.param\_bundle module
 -----------------------------
 

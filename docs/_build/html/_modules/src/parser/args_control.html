@@ -225,7 +225,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">from</span> <span class="nn">src.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
-<span class="kn">from</span> <span class="nn">src.reader.reader_ground_img_pts</span> <span class="kn">import</span> <span class="n">read_ground_image_points</span>
+<span class="kn">from</span> <span class="nn">src.reader.reader_gcp2d</span> <span class="kn">import</span> <span class="n">read_gcp2d</span>
 <span class="kn">from</span> <span class="nn">src.reader.reader_gcp</span> <span class="kn">import</span> <span class="n">read_gcp</span>
 <span class="kn">from</span> <span class="nn">src.stat.statistics</span> <span class="kn">import</span> <span class="n">Stat</span>
 <span class="kn">from</span> <span class="nn">src.transform_world_image.transform_worksite.image_world_work</span> <span class="kn">import</span> <span class="n">ImageWorldWork</span>
@@ -244,20 +244,20 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        argsparse: Parser with argument.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="s1">&#39;--ground_points&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Files paths of ground points in images (.mes).&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-g&#39;</span><span class="p">,</span> <span class="s1">&#39;--gcp&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Files paths of GCP (.app).&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="s1">&#39;--gcp2d&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;File path of ground control points in images.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-g&#39;</span><span class="p">,</span> <span class="s1">&#39;--gcp3d&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;File path of ground control points in ground.&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--control_type&#39;</span><span class="p">,</span>
                         <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Type of gcp to control.&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--fg&#39;</span><span class="p">,</span> <span class="s1">&#39;--format_gcp&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;altitude&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span>
                         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Format of GCP and ground image point &quot;altitude&quot; or &quot;height&quot;.&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--process&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;intersection&quot;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;inter&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;inter&quot;</span><span class="p">,</span> <span class="s2">&quot;square&quot;</span><span class="p">],</span>
                         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Type of process for the function image to world,&quot;</span>
                              <span class="s2">&quot;intersection or least_square&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-x&#39;</span><span class="p">,</span> <span class="s1">&#39;--approx_system&#39;</span><span class="p">,</span>
@@ -281,34 +281,33 @@
 <span class="sd">        work (Worksite): Data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Reading ground point image</span>
-    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">ground_points</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">read_ground_image_points</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">ground_points</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">gcp2d</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">read_gcp2d</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">fg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;altitude&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">]:</span>
-            <span class="n">work</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="s2">&quot;h&quot;</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">fg</span> <span class="o">==</span> <span class="s2">&quot;height&quot;</span> <span class="k">else</span> <span class="s2">&quot;a&quot;</span>
+            <span class="n">work</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">fg</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Information on terrain point format is missing &#39;</span>
                              <span class="s1">&#39;or misspelled --fg altitude or height&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connecting point reading done.&quot;</span><span class="p">)</span>
         <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">work</span><span class="o">.</span><span class="n">ground_img_pts</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">work</span><span class="o">.</span><span class="n">gcp2d</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">count</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of ground points of image: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">ground_img_pts</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of ground points of image: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of image with ground point.s: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Reading GCP</span>
-    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">gcp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">read_gcp</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gcp</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">gcp3d</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">read_gcp</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gcp3d</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">fg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;altitude&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">]:</span>
-            <span class="n">work</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="s2">&quot;h&quot;</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">fg</span> <span class="o">==</span> <span class="s2">&quot;height&quot;</span> <span class="k">else</span> <span class="s2">&quot;a&quot;</span>
+            <span class="n">work</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">fg</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Information on terrain point format is missing &#39;</span>
                              <span class="s1">&#39;or misspelled --fg altitude or height&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GCP reading done.&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of gcp: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">gcps</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of gcp: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">gcp3d</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="n">work</span><span class="o">.</span><span class="n">set_param_shot</span><span class="p">()</span>
     <span class="c1"># Calculate ground coordinate of conneting point by intersection</span>
-    <span class="n">ImageWorldWork</span><span class="p">(</span><span class="n">work</span><span class="p">)</span><span class="o">.</span><span class="n">manage_image_world</span><span class="p">(</span><span class="n">type_point</span><span class="o">=</span><span class="s2">&quot;ground_img_pts&quot;</span><span class="p">,</span>
+    <span class="n">ImageWorldWork</span><span class="p">(</span><span class="n">work</span><span class="p">)</span><span class="o">.</span><span class="n">manage_image_world</span><span class="p">(</span><span class="n">type_point</span><span class="o">=</span><span class="s2">&quot;gcp2d&quot;</span><span class="p">,</span>
                                             <span class="n">type_process</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">process</span><span class="p">,</span>
                                             <span class="n">control_type</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">control_type</span><span class="p">)</span>
 

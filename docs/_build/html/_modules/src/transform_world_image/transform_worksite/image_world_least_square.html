@@ -256,7 +256,7 @@
 <span class="sd">        Calculates the mean of the result x y z of the point for each shot where it&#39;s visible.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            type_point (str): &quot;co_points&quot; or &quot;ground_img_pts&quot;</span>
+<span class="sd">            type_point (str): &quot;co_points&quot; or &quot;gcp2d&quot;</span>
 <span class="sd">                              depending on what you want to calculate.</span>
 <span class="sd">            control_type (list): List of code gcp to take.</span>
 <span class="sd">                                 To take all points or co_point, control_type = [].</span>
@@ -269,7 +269,7 @@
             <span class="n">eucliproj</span> <span class="o">=</span> <span class="n">LocalEuclideanProj</span><span class="p">(</span><span class="n">bary</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bary</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
         <span class="c1"># Retrieving point data from images.</span>
-        <span class="n">pd_mes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">get_point_image_pandas</span><span class="p">(</span><span class="n">type_point</span><span class="p">,</span> <span class="n">control_type</span><span class="p">)</span>
+        <span class="n">pd_mes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">get_point_image_dataframe</span><span class="p">(</span><span class="n">type_point</span><span class="p">,</span> <span class="n">control_type</span><span class="p">)</span>
         <span class="n">pd_mes</span> <span class="o">=</span> <span class="n">pd_mes</span><span class="p">[</span><span class="n">pd_mes</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id_pt&#39;</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
 
         <span class="c1"># Initialization of euclidean points.</span>
@@ -285,7 +285,7 @@
         <span class="n">pd_pnt</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xw</span>
         <span class="n">pd_pnt</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">yw</span>
         <span class="n">pd_pnt</span><span class="p">[</span><span class="s2">&quot;z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">zw</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">set_point_world_pandas</span><span class="p">(</span><span class="n">pd_pnt</span><span class="p">,</span> <span class="n">type_point</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">set_point_world_dataframe</span><span class="p">(</span><span class="n">pd_pnt</span><span class="p">,</span> <span class="n">type_point</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="WorldLeastSquare.init_eucli_points">
@@ -308,7 +308,7 @@
             <span class="n">shot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">id_shot</span><span class="p">]</span>
             <span class="n">cam</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
             <span class="n">coor_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pd_mes_pnt</span><span class="p">[</span><span class="s2">&quot;column&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">pd_mes_pnt</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()])</span>
-            <span class="n">z_world</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">pd_mes_pnt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Dtm</span><span class="p">()</span><span class="o">.</span><span class="n">get_z_world</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[:</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="n">z_world</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">pd_mes_pnt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Dtm</span><span class="p">()</span><span class="o">.</span><span class="n">get_z_world</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[:</span><span class="mi">2</span><span class="p">])))</span>
 
             <span class="c1"># Calculation of world coordinate for all points in this shot</span>
             <span class="n">coor_world</span> <span class="o">=</span> <span class="n">ImageWorldShot</span><span class="p">(</span><span class="n">shot</span><span class="p">,</span> <span class="n">cam</span><span class="p">)</span><span class="o">.</span><span class="n">image_z_to_world</span><span class="p">(</span><span class="n">coor_img</span><span class="p">,</span>

@@ -36,10 +36,10 @@ src.reader.reader\_gcp module
    :undoc-members:
    :show-inheritance:
 
-src.reader.reader\_ground\_img\_pts module
-------------------------------------------
+src.reader.reader\_gcp2d module
+-------------------------------
 
-.. automodule:: src.reader.reader_ground_img_pts
+.. automodule:: src.reader.reader_gcp2d
    :members:
    :undoc-members:
    :show-inheritance:

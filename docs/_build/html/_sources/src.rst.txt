@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    src.datastruct
+   src.format
    src.geodesy
    src.math
    src.parser

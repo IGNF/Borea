@@ -229,7 +229,6 @@
 <span class="kn">from</span> <span class="nn">src.datastruct.dtm</span> <span class="kn">import</span> <span class="n">Dtm</span>
 <span class="kn">from</span> <span class="nn">src.geodesy.proj_engine</span> <span class="kn">import</span> <span class="n">ProjEngine</span>
 <span class="kn">from</span> <span class="nn">src.transform_world_image.transform_shot.conversion_coor_shot</span> <span class="kn">import</span> <span class="n">conv_z_shot_to_z_data</span>
-<span class="kn">from</span> <span class="nn">src.utils.change_dim</span> <span class="kn">import</span> <span class="n">change_dim</span>
 
 
 <div class="viewcode-block" id="WorldImageShot">
@@ -271,17 +270,12 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The results will not be accurate because the data are not corrected by&quot;</span>
                   <span class="s2">&quot; linear alteration and you are using an approximate system.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">coor_world</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">coor_world</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">dim</span> <span class="o">=</span> <span class="p">()</span>
-
         <span class="n">p_eucli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">world_to_eucli</span><span class="p">(</span><span class="n">coor_world</span><span class="p">)</span>
 
         <span class="c1"># Convert coordinate in bundle system to image system</span>
-        <span class="n">x_col</span><span class="p">,</span> <span class="n">y_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eucli_to_image</span><span class="p">(</span><span class="n">p_eucli</span><span class="p">,</span> <span class="n">type_z_data</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">)</span>
+        <span class="n">coor_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eucli_to_image</span><span class="p">(</span><span class="n">p_eucli</span><span class="p">,</span> <span class="n">type_z_data</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">change_dim</span><span class="p">(</span><span class="n">x_col</span><span class="p">,</span> <span class="n">dim</span><span class="p">),</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">y_line</span><span class="p">,</span> <span class="n">dim</span><span class="p">)])</span></div>
+        <span class="k">return</span> <span class="n">coor_image</span></div>
 
 
 <div class="viewcode-block" id="WorldImageShot.eucli_to_image">
@@ -305,7 +299,7 @@
         <span class="c1"># Convert coordinate in bundle system to image system</span>
         <span class="n">x_col</span><span class="p">,</span> <span class="n">y_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bundle_to_image</span><span class="p">(</span><span class="n">p_bundle</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">x_col</span><span class="p">,</span> <span class="n">y_line</span></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_col</span><span class="p">,</span> <span class="n">y_line</span><span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="WorldImageShot.eucli_to_bundle">

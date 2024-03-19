@@ -10,17 +10,6 @@ Subpackages
    src.utils.check
    src.utils.singleton
 
-Submodules
-----------
-
-src.utils.change\_dim module
-----------------------------
-
-.. automodule:: src.utils.change_dim
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 

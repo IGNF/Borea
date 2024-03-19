@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src.writer package" href="src.writer.html" /><link rel="prev" title="src.utils.singleton package" href="src.utils.singleton.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src.geodesy package" href="src.geodesy.html" /><link rel="prev" title="src.datastruct package" href="src.datastruct.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.worksite package - Pink_Lady 1.0.0 documentation</title>
+        <title>src.format package - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -159,7 +159,7 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">src</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="src.html">src package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="src.datastruct.html">src.datastruct package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="src.format.html">src.format package</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">src.format package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -182,7 +182,7 @@
 <li class="toctree-l4"><a class="reference internal" href="src.utils.singleton.html">src.utils.singleton package</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">src.worksite package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.worksite.html">src.worksite package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.writer.html">src.writer package</a></li>
 </ul>
 </li>
@@ -222,51 +222,42 @@
           </label>
         </div>
         <article role="main">
-          <section id="src-worksite-package">
-<h1>src.worksite package<a class="headerlink" href="#src-worksite-package" title="Link to this heading">#</a></h1>
+          <section id="src-format-package">
+<h1>src.format package<a class="headerlink" href="#src-format-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="module-src.worksite.worksite">
-<span id="src-worksite-worksite-module"></span><h2>src.worksite.worksite module<a class="headerlink" href="#module-src.worksite.worksite" title="Link to this heading">#</a></h2>
-<p>Worksite data class module.</p>
+<section id="module-src.format.rpc">
+<span id="src-format-rpc-module"></span><h2>src.format.rpc module<a class="headerlink" href="#module-src.format.rpc" title="Link to this heading">#</a></h2>
+<p>Class module for Rpc</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="src.worksite.worksite.Worksite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.worksite.worksite.</span></span><span class="sig-name descname"><span class="pre">Worksite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.datastruct.html#src.datastruct.workshot.Workshot" title="src.datastruct.workshot.Workshot"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workshot</span></code></a></p>
-<p>Worksite class, class main of the tools.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Name of the worksite.</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="src.format.rpc.Rpc">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.format.rpc.</span></span><span class="sig-name descname"><span class="pre">Rpc</span></span><a class="reference internal" href="_modules/src/format/rpc.html#Rpc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.format.rpc.Rpc" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class for computing RPC geometries.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A RPC is always describing a transformation from
+geographical coordinates to images coordinates.</p>
+</div>
 <dl class="py method">
-<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.calculate_barycentre">
-<span class="sig-name descname"><span class="pre">calculate_barycentre</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.calculate_barycentre"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.calculate_barycentre" title="Link to this definition">#</a></dt>
-<dd><p>Calculate barycentre of the worksite.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The barycentre [X, Y, Z].</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>np.array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.get_coor_pt_img_and_world">
-<span class="sig-name descname"><span class="pre">get_coor_pt_img_and_world</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.get_coor_pt_img_and_world"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.get_coor_pt_img_and_world" title="Link to this definition">#</a></dt>
-<dd><p>Recovers image and terrain data for all link points in the image.</p>
+<dt class="sig sig-object py" id="src.format.rpc.Rpc.create_grid_rpc">
+<span class="sig-name descname"><span class="pre">create_grid_rpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/format/rpc.html#Rpc.create_grid_rpc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.format.rpc.Rpc.create_grid_rpc" title="Link to this definition">#</a></dt>
+<dd><p>Creation of a grid on a size_grid buffer around the acquisition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name_shot</strong> (<em>str</em>) – Name of shot to take.</p></li>
-<li><p><strong>type_point</strong> (<em>str</em>) – Type point to take “co_points” or “gcp2d”.</p></li>
+<li><p><strong>shot</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><em>Shot</em></a>) – The shot to create the grid.</p></li>
+<li><p><strong>cam</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><em>Camera</em></a>) – The camera of the shot.</p></li>
+<li><p><strong>unit_data</strong> (<em>dict</em>) – Dictionary of data unity.</p></li>
+<li><p><strong>key;</strong> – </p></li>
+<li><p><strong>data.</strong> (<em>&quot;unit_z_data&quot;; Unity</em><em> of </em><em>z</em>) – </p></li>
+<li><p><strong>shot.</strong> (<em>&quot;unit_z_shot&quot;; Unity</em><em> of </em><em>z</em>) – </p></li>
+<li><p><strong>size_grid</strong> (<em>int</em>) – The size of the grid to add around the shot.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>np.array(obs_image), np.array(pt_world).</p>
+<dd class="field-even"><p>Image coordinates [col, line] and world coordinates [X, Y, Z] of the grid.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tuple</p>
@@ -275,86 +266,92 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.get_point_image_dataframe">
-<span class="sig-name descname"><span class="pre">get_point_image_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.get_point_image_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.get_point_image_dataframe" title="Link to this definition">#</a></dt>
-<dd><p>Retrieves id_pt, id_img, column, line in a pandas of the requested point type.</p>
+<dt class="sig sig-object py" id="src.format.rpc.Rpc.from_shot">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_rpc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/format/rpc.html#Rpc.from_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.format.rpc.Rpc.from_shot" title="Link to this definition">#</a></dt>
+<dd><p>Calculate RPC of the shot.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “gcp2d” depending on what you want to get.</p></li>
-<li><p><strong>control_type</strong> (<em>list</em>) – Type controle for gcp.</p></li>
+<li><p><strong>shot</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><em>Shot</em></a>) – Shot to calculate rpc.</p></li>
+<li><p><strong>cam</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><em>Camera</em></a>) – Camera of the shot.</p></li>
+<li><p><strong>param_rpc</strong> (<em>dict</em>) – Dictionary of parameters for rpc calculation.</p></li>
+<li><p><strong>key;</strong> – </p></li>
+<li><p><strong>rpc.</strong> (<em>&quot;order&quot;; order</em><em> of </em><em>the polynome</em><em> of </em><em>the</em>) – </p></li>
+<li><p><strong>rpc.</strong> – </p></li>
+<li><p><strong>WGS84.</strong> (<em>&quot;fact_rpc&quot;; rpc factor for world coordinate when src is not</em>) – </p></li>
+<li><p><strong>unit_data</strong> (<em>dict</em>) – Dictionary of data unity.</p></li>
+<li><p><strong>key;</strong> – </p></li>
+<li><p><strong>data.</strong> (<em>&quot;unit_z_data&quot;; Unity</em><em> of </em><em>z</em>) – </p></li>
+<li><p><strong>shot.</strong> (<em>&quot;unit_z_shot&quot;; Unity</em><em> of </em><em>z</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Pandas table.</p>
+<dd class="field-even"><p>The object rpc.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pandas</p>
+<dd class="field-odd"><p><a class="reference internal" href="#src.format.rpc.Rpc" title="src.format.rpc.Rpc">Rpc</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.get_point_world_dataframe">
-<span class="sig-name descname"><span class="pre">get_point_world_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.get_point_world_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.get_point_world_dataframe" title="Link to this definition">#</a></dt>
-<dd><p>Retrieves id_pt, x, y, z in a pandas of the requested point type.</p>
+<dt class="sig sig-object py" id="src.format.rpc.Rpc.least_square_rpc">
+<span class="sig-name descname"><span class="pre">least_square_rpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img_norm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_norm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polynomial_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/format/rpc.html#Rpc.least_square_rpc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.format.rpc.Rpc.least_square_rpc" title="Link to this definition">#</a></dt>
+<dd><p>Calcule Rpc of the shot by least square methode for one image coordinate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “gcp2d” depending on what you want to get.</p></li>
-<li><p><strong>control_type</strong> (<em>list</em>) – Type controle for gcp.</p></li>
+<li><p><strong>img_norm</strong> (<em>np.array</em>) – Normalize coordinates column or line of point in image.</p></li>
+<li><p><strong>world_norm</strong> (<em>np.array</em>) – Normalize coordinate of world grid.</p></li>
+<li><p><strong>polynomial_degree</strong> (<em>int</em>) – Degree of the polynomial of the rpc (1, 2, 3).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Pandas table.</p>
+<dd class="field-even"><p>Rpc coefficients.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pandas</p>
+<dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.getattr">
-<span class="sig-name descname"><span class="pre">getattr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attsrt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">any</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.getattr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.getattr" title="Link to this definition">#</a></dt>
-<dd><p>Get attribut by str name.</p>
+<dt class="sig sig-object py" id="src.format.rpc.Rpc.normalize_data">
+<span class="sig-name descname"><span class="pre">normalize_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_img</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_world</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/format/rpc.html#Rpc.normalize_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.format.rpc.Rpc.normalize_data" title="Link to this definition">#</a></dt>
+<dd><p>Normalize data grid to calculate Rpc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>attstr</strong> (<em>str</em>) – String attribute.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid_img</strong> (<em>np.array</em>) – Image coordinates [c, l] of the grid.</p></li>
+<li><p><strong>grid_world</strong> (<em>np.array</em>) – World coordinates [x, y, z] of the grid.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The attribute of the class.</p>
+<dd class="field-even"><p>grid image normalize and grid world normalize.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
+<dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.set_point_image_dataframe">
-<span class="sig-name descname"><span class="pre">set_point_image_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pd_mes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.set_point_image_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.set_point_image_dataframe" title="Link to this definition">#</a></dt>
-<dd><p>Set requested point type by pandas table id_pt, id_img, column, line.</p>
+<dt class="sig sig-object py" id="src.format.rpc.Rpc.setup_matrix_obs_rpc">
+<span class="sig-name descname"><span class="pre">setup_matrix_obs_rpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img_norm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_norm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polynomial_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/format/rpc.html#Rpc.setup_matrix_obs_rpc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.format.rpc.Rpc.setup_matrix_obs_rpc" title="Link to this definition">#</a></dt>
+<dd><p>Setup observation matrix of the rpc for least square methode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pd_mes</strong> (<em>pd</em>) – Pandas table of data.</p></li>
-<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “gcp2d” depending on what you want to set.</p></li>
+<li><p><strong>img_norm</strong> (<em>np.array</em>) – Normalize coordinates column or line of point in image.</p></li>
+<li><p><strong>world_norm</strong> (<em>np.array</em>) – Normalize coordinate of world grid.</p></li>
+<li><p><strong>polynomial_degree</strong> (<em>int</em>) – Degree of the polynomial of the rpc (1, 2, 3).</p></li>
 </ul>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.set_point_world_dataframe">
-<span class="sig-name descname"><span class="pre">set_point_world_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pd_mes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.set_point_world_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.set_point_world_dataframe" title="Link to this definition">#</a></dt>
-<dd><p>Set requested point type by pandas table id_pt, x, y, z.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>pd_mes</strong> (<em>pd</em>) – Pandas table of data.</p></li>
-<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “gcp2d” depending on what you want to set.</p></li>
-</ul>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Observation matrix of the Rpc.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -362,8 +359,8 @@
 </dd></dl>
 
 </section>
-<section id="module-src.worksite">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.worksite" title="Link to this heading">#</a></h2>
+<section id="module-src.format">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.format" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -372,23 +369,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="src.writer.html">
+          <a class="next-page" href="src.geodesy.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">src.writer package</div>
+                <div class="title">src.geodesy package</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="src.utils.singleton.html">
+          <a class="prev-page" href="src.datastruct.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">src.utils.singleton package</div>
+                <div class="title">src.datastruct package</div>
                 
               </div>
             </a>
@@ -422,22 +419,20 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">src.worksite package</a><ul>
+<li><a class="reference internal" href="#">src.format package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-src.worksite.worksite">src.worksite.worksite module</a><ul>
-<li><a class="reference internal" href="#src.worksite.worksite.Worksite"><code class="docutils literal notranslate"><span class="pre">Worksite</span></code></a><ul>
-<li><a class="reference internal" href="#src.worksite.worksite.Worksite.calculate_barycentre"><code class="docutils literal notranslate"><span class="pre">Worksite.calculate_barycentre()</span></code></a></li>
-<li><a class="reference internal" href="#src.worksite.worksite.Worksite.get_coor_pt_img_and_world"><code class="docutils literal notranslate"><span class="pre">Worksite.get_coor_pt_img_and_world()</span></code></a></li>
-<li><a class="reference internal" href="#src.worksite.worksite.Worksite.get_point_image_dataframe"><code class="docutils literal notranslate"><span class="pre">Worksite.get_point_image_dataframe()</span></code></a></li>
-<li><a class="reference internal" href="#src.worksite.worksite.Worksite.get_point_world_dataframe"><code class="docutils literal notranslate"><span class="pre">Worksite.get_point_world_dataframe()</span></code></a></li>
-<li><a class="reference internal" href="#src.worksite.worksite.Worksite.getattr"><code class="docutils literal notranslate"><span class="pre">Worksite.getattr()</span></code></a></li>
-<li><a class="reference internal" href="#src.worksite.worksite.Worksite.set_point_image_dataframe"><code class="docutils literal notranslate"><span class="pre">Worksite.set_point_image_dataframe()</span></code></a></li>
-<li><a class="reference internal" href="#src.worksite.worksite.Worksite.set_point_world_dataframe"><code class="docutils literal notranslate"><span class="pre">Worksite.set_point_world_dataframe()</span></code></a></li>
+<li><a class="reference internal" href="#module-src.format.rpc">src.format.rpc module</a><ul>
+<li><a class="reference internal" href="#src.format.rpc.Rpc"><code class="docutils literal notranslate"><span class="pre">Rpc</span></code></a><ul>
+<li><a class="reference internal" href="#src.format.rpc.Rpc.create_grid_rpc"><code class="docutils literal notranslate"><span class="pre">Rpc.create_grid_rpc()</span></code></a></li>
+<li><a class="reference internal" href="#src.format.rpc.Rpc.from_shot"><code class="docutils literal notranslate"><span class="pre">Rpc.from_shot()</span></code></a></li>
+<li><a class="reference internal" href="#src.format.rpc.Rpc.least_square_rpc"><code class="docutils literal notranslate"><span class="pre">Rpc.least_square_rpc()</span></code></a></li>
+<li><a class="reference internal" href="#src.format.rpc.Rpc.normalize_data"><code class="docutils literal notranslate"><span class="pre">Rpc.normalize_data()</span></code></a></li>
+<li><a class="reference internal" href="#src.format.rpc.Rpc.setup_matrix_obs_rpc"><code class="docutils literal notranslate"><span class="pre">Rpc.setup_matrix_obs_rpc()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-src.worksite">Module contents</a></li>
+<li><a class="reference internal" href="#module-src.format">Module contents</a></li>
 </ul>
 </li>
 </ul>

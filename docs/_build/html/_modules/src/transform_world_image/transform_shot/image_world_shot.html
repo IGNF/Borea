@@ -230,7 +230,6 @@
 <span class="kn">from</span> <span class="nn">src.geodesy.proj_engine</span> <span class="kn">import</span> <span class="n">ProjEngine</span>
 <span class="kn">from</span> <span class="nn">src.transform_world_image.transform_shot.conversion_coor_shot</span> <span class="kn">import</span> <span class="n">conv_z_shot_to_z_data</span>
 <span class="kn">from</span> <span class="nn">src.transform_world_image.transform_shot.conversion_coor_shot</span> <span class="kn">import</span> <span class="n">conv_output_z_type</span>
-<span class="kn">from</span> <span class="nn">src.utils.change_dim</span> <span class="kn">import</span> <span class="n">change_dim</span>
 
 
 <div class="viewcode-block" id="ImageWorldShot">
@@ -270,18 +269,12 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Dtm</span><span class="p">()</span><span class="o">.</span><span class="n">path_dtm</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing dtm&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">img_coor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">img_coor</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">dim</span> <span class="o">=</span> <span class="p">()</span>
-
+        <span class="n">img_coor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">img_coor</span><span class="p">)</span>
         <span class="n">coor_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_world_iter</span><span class="p">(</span><span class="n">img_coor</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">,</span> <span class="n">nonadir</span><span class="p">)</span>
 
-        <span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span> <span class="o">=</span> <span class="n">conv_output_z_type</span><span class="p">(</span><span class="n">coor_world</span><span class="p">,</span> <span class="n">Dtm</span><span class="p">()</span><span class="o">.</span><span class="n">type_dtm</span><span class="p">,</span> <span class="n">type_z_data</span><span class="p">)</span>
-        <span class="n">x_world</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">x_world</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-        <span class="n">y_world</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">y_world</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-        <span class="n">z_world</span> <span class="o">=</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">z_world</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_world</span><span class="p">,</span> <span class="n">y_world</span><span class="p">,</span> <span class="n">z_world</span><span class="p">])</span></div>
+        <span class="n">coor_world</span> <span class="o">=</span> <span class="n">conv_output_z_type</span><span class="p">(</span><span class="n">coor_world</span><span class="p">,</span> <span class="n">Dtm</span><span class="p">()</span><span class="o">.</span><span class="n">type_dtm</span><span class="p">,</span> <span class="n">type_z_data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">coor_world</span></div>
 
 
 <div class="viewcode-block" id="ImageWorldShot.image_world_iter">
@@ -305,7 +298,7 @@
         <span class="n">nbr_iter</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">iter_max</span> <span class="o">=</span> <span class="mi">10</span>
         <span class="k">while</span> <span class="ow">not</span> <span class="n">precision_reached</span> <span class="ow">and</span> <span class="n">nbr_iter</span> <span class="o">&lt;</span> <span class="n">iter_max</span><span class="p">:</span>
-            <span class="n">z_world</span> <span class="o">=</span> <span class="n">Dtm</span><span class="p">()</span><span class="o">.</span><span class="n">get_z_world</span><span class="p">(</span><span class="n">coor_world</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">z_world</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">Dtm</span><span class="p">()</span><span class="o">.</span><span class="n">get_z_world</span><span class="p">(</span><span class="n">coor_world</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]))</span>
             <span class="n">coor_new_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_z_to_world</span><span class="p">(</span><span class="n">img_coor</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">,</span> <span class="n">z_world</span><span class="p">,</span> <span class="n">nonadir</span><span class="p">)</span>
             <span class="n">x_diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">coor_new_world</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">coor_world</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
             <span class="n">y_diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">coor_new_world</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">coor_world</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
@@ -335,11 +328,9 @@
 <span class="sd">            np.array: Cartographique coordinate [x,y,z].</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">img_coor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="n">dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">img_coor</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">z</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
                 <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">img_coor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">dim</span> <span class="o">=</span> <span class="p">()</span>
+
         <span class="n">pt_bundle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_to_bundle</span><span class="p">(</span><span class="n">img_coor</span><span class="p">)</span>
 
         <span class="n">pos_shot_new_z</span> <span class="o">=</span> <span class="n">conv_z_shot_to_z_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">,</span> <span class="n">Dtm</span><span class="p">()</span><span class="o">.</span><span class="n">type_dtm</span><span class="p">,</span>
@@ -350,7 +341,11 @@
         <span class="n">pt_eucli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_to_eucli</span><span class="p">(</span><span class="n">pt_bundle</span><span class="p">,</span> <span class="n">pos_eucli</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 
         <span class="n">pt_world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">eucli_to_world</span><span class="p">(</span><span class="n">pt_eucli</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">change_dim</span><span class="p">(</span><span class="n">pt_world</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dim</span><span class="p">),</span> <span class="n">change_dim</span><span class="p">(</span><span class="n">pt_world</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dim</span><span class="p">),</span> <span class="n">z</span><span class="p">])</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pt_world</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pt_world</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">z</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">pt_world</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pt_world</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pt_world</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">z</span><span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="ImageWorldShot.image_to_bundle">

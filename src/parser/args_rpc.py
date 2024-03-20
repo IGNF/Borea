@@ -16,9 +16,6 @@ def args_writing_rpc(parser: argparse) -> argparse:
     Returns:
         argsparse: Parser with argument.
     """
-    parser.add_argument('-n', '--name',
-                        type=str, default="",
-                        help='Name of the new file.')
     parser.add_argument('-w', '--pathreturn',
                         type=str, default='./',
                         help='Conversion path e.g. test/tmp/.')
@@ -29,7 +26,7 @@ def args_writing_rpc(parser: argparse) -> argparse:
                         type=int, default=100,
                         help="Size of the grid to calculate Rpc.")
     parser.add_argument('-l', '--fact_rpc',
-                        type=float, default=1e-6,
+                        type=float, default=None,
                         help="Factor Rpc for pyproj convertion.")
     return parser
 
@@ -47,5 +44,5 @@ def process_args_write_rpc(args: argparse, work: Worksite) -> None:
     args_writing = {"order": args.order,
                     "size_grid": args.size_grid,
                     "fact_rpc": args.fact_rpc}
-    manager_writer("rpc", args.name, args.pathreturn, args_writing, work)
+    manager_writer("rpc", None, args.pathreturn, args_writing, work)
     print(f"File written in folder {args.pathreturn} .txt.")

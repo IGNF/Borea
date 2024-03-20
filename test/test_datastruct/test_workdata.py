@@ -171,7 +171,7 @@ def test_add_gcp2d():
 
 def test_add_gcp():
     obj = Worksite(name = "Test")
-    obj.add_gcp('"1003"', 13, np.array([1,2,3]))
+    obj.add_gcp3d('"1003"', 13, np.array([1,2,3]))
     assert obj.gcp3d['"1003"'].name_gcp == '"1003"'
     assert obj.gcp3d['"1003"'].code == 13
     assert (obj.gcp3d['"1003"'].coor == np.array([1,2,3])).all()

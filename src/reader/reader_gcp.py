@@ -19,7 +19,7 @@ def read_gcp(file: str, work: Worksite) -> None:
             for gcp in file_gcp.readlines():
                 if gcp != '\n':
                     name_gcp, code_gcp, x, y, z = gcp.split()
-                    work.add_gcp(name_gcp, int(code_gcp), np.array([float(x),
+                    work.add_gcp3d(name_gcp, int(code_gcp), np.array([float(x),
                                                                     float(y),
                                                                     float(z)]))
             file_gcp.close()

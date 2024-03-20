@@ -196,7 +196,7 @@ class Workdata:
 
         self.gcp2d[name_point].append(name_shot)
 
-    def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np.ndarray) -> None:
+    def add_gcp3d(self, name_gcp: str, code_gcp: int, coor_gcp: np.ndarray) -> None:
         """
         Add GCP in the Worksite.
 

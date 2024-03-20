@@ -18,7 +18,7 @@ def test_calculate_world_to_image_base():
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('gcp_test', 'shot_test', 24042.25, 14781.17)
-    work.add_gcp('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
+    work.add_gcp3d('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
@@ -35,8 +35,8 @@ def test_calculate_world_to_image_addpointunknow():
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('gcp_test', 'shot_test', 24042.25, 14781.17)
-    work.add_gcp('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
-    work.add_gcp('gcp_test_test', 3, np.array([0,0,0]))
+    work.add_gcp3d('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
+    work.add_gcp3d('gcp_test_test', 3, np.array([0,0,0]))
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
@@ -55,8 +55,8 @@ def test_calculate_world_to_image_testcode():
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.add_gcp2d('gcp_test_test', 'shot_test', 24042.25, 14781.17)
-    work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
-    work.add_gcp('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
+    work.add_gcp3d('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
+    work.add_gcp3d('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
@@ -74,8 +74,8 @@ def test_calculate_world_to_image_testcodeNone():
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('gcp_test', 'shot_test', 24042.25, 14781.17)
     work.add_gcp2d('gcp_test_test', 'shot_test', 24042.25, 14781.17)
-    work.add_gcp('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
-    work.add_gcp('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
+    work.add_gcp3d('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
+    work.add_gcp3d('gcp_test_test', 3, np.array([815601.510, 6283629.280, 54.960]))
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"

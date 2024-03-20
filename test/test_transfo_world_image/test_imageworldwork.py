@@ -96,8 +96,8 @@ def test_calculate_image_world_by_intersection_allgipoint():
     work.add_gcp2d('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
     work.add_gcp2d('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
     work.add_gcp2d('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
-    work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
-    work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
+    work.add_gcp3d('"1003"',13,np.array([815601.510,6283629.280,54.960]))
+    work.add_gcp3d('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
@@ -127,8 +127,8 @@ def test_calculate_image_world_by_intersection_gipoint13type():
     work.add_gcp2d('"1003"',"23FD1305x00026_01308",24161.49,5929.37)
     work.add_gcp2d('"1005"',"23FD1305x00054_05680",22796.05,14371.27)
     work.add_gcp2d('"1005"',"23FD1305x00054_05681",22817.4,9930.73)
-    work.add_gcp('"1003"',13,np.array([815601.510,6283629.280,54.960]))
-    work.add_gcp('"1005"',3,np.array([833670.940,6281965.400,52.630]))
+    work.add_gcp3d('"1003"',13,np.array([815601.510,6283629.280,54.960]))
+    work.add_gcp3d('"1005"',3,np.array([833670.940,6281965.400,52.630]))
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"

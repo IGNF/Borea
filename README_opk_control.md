@@ -24,8 +24,8 @@ The parameters are:
 | -j | Path to the json file which list the code epsg, you use | None | X |
 | -y | Path to the folder which contains GeoTIFF | None | X |
 | -c | Files paths of cameras (.xml or .txt) | None | X |
-| -m | DEM of the worksite. | None | X |
-| --fm | Format of Dem "altitude" or "height". | None | X, unless dem is given |
+| -m | DTM of the worksite. | None | X |
+| --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
 | -t | Files paths of ground image points (.mes) | None | X |
 | -g | Files paths of ground control point (.app) | None | X |
 | -d | Type of gcp to control. | [] | X |

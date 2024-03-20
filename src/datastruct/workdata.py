@@ -2,7 +2,6 @@
 Workdata data class module.
 """
 import os
-import sys
 import json
 from pathlib import Path, PureWindowsPath
 import numpy as np
@@ -146,8 +145,7 @@ class Workdata:
             y (float): Pixel position of the point in line.
         """
         if name_shot not in self.shots:
-            print(f"The shot {name_shot} doesn't exist in list of shots.")
-            sys.exit()
+            raise ValueError(f"The shot {name_shot} doesn't exist in list of shots.")
 
         if name_point not in self.co_points:
             self.co_points[name_point] = []

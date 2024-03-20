@@ -189,10 +189,9 @@ class Shot:
                                                          self.pos_shot[1])
             new_z = (self.pos_shot[2] + scale_factor * self.z_nadir) / (1 + scale_factor)
         else:
-            print(f"No removing linear alteration of the z shot {self.name_shot},")
-            print("because no dtm or no set z_nadir of shot")
-            print("For setting z_nadir of shots make dtm or add work.set_z_nadir_shot()")
-            new_z = self.pos_shot[2]
+            raise ValueError(f"No removing linear alteration of the z shot {self.name_shot}, "
+                             "because no dtm or no set z_nadir of shot. For setting z_nadir "
+                             "of shots make dtm or add work.set_z_nadir_shot()")
 
         return new_z
 
@@ -208,9 +207,8 @@ class Shot:
                                                          self.pos_shot[1])
             new_z = self.pos_shot[2] + scale_factor * (self.pos_shot[2] - self.z_nadir)
         else:
-            print(f"No adding linear alteration of the z shot {self.name_shot},")
-            print("because no dtm or no set z_nadir of shot.")
-            print("For setting z_nadir of shots make dtm or add work.set_z_nadir_shot()")
-            new_z = self.pos_shot[2]
+            raise ValueError(f"No adding linear alteration of the z shot {self.name_shot}, "
+                             "because no dtm or no set z_nadir of shot. For setting z_nadir "
+                             "of shots make dtm or add work.set_z_nadir_shot()")
 
         return new_z

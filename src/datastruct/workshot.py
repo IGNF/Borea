@@ -26,12 +26,10 @@ class Workshot(Workdata):
         check_dtm = True
         if not Dtm().path_dtm:
             check_dtm = False
-            print("No correction or de-correction of the linear alteration, because no dtm.")
 
-        if self.type_z_shot == self.type_z_data and not ProjEngine().projection_list:
-            print("you have not entered all the information required to set up"
-                  " the projection system. You switch to an approximate system.")
-            approx = True
+        if not ProjEngine().projection_list:
+            raise ValueError("you have not entered all the information required to set up"
+                             " the projection system. Because type z shot != type z data.")
 
         self.approxeucli = approx
         for shot in self.shots.values():

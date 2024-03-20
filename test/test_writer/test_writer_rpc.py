@@ -2,12 +2,18 @@
 Script to test function write of rpc.
 """
 import os
+import shutil
 import numpy as np
 from src.worksite.worksite import Worksite
 from src.writer.writer_rpc import write
 
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
+OUTPUT = "./test/tmp"
+
+
+def setup_module(module): # run before the first test
+    os.makedirs(OUTPUT, exist_ok=True)
 
 
 def test_write_rpc():
@@ -21,7 +27,7 @@ def test_write_rpc():
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot()
-    write("","./test/tmp/", {"size_grid":100, "order":3, "fact_rpc":None}, work)
+    write(None,OUTPUT, {"size_grid":100, "order":3, "fact_rpc":None}, work)
     assert os.path.exists("./test/tmp/23FD1305x00026_01306_RPC.TXT")
     assert os.path.exists("./test/tmp/23FD1305x00026_01307_RPC.TXT")
     assert os.path.exists("./test/tmp/23FD1305x00026_01308_RPC.TXT")

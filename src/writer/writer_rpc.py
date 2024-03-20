@@ -5,6 +5,7 @@ import os
 from pathlib import Path, PureWindowsPath
 from src.format.rpc import Rpc
 from src.worksite.worksite import Worksite
+from src.datastruct.dtm import Dtm
 
 
 def write(name: str, folder_rpc: str, param_rpc: dict, work: Worksite) -> None:
@@ -21,12 +22,13 @@ def write(name: str, folder_rpc: str, param_rpc: dict, work: Worksite) -> None:
         "fact_rpc"; rpc factor for world coordinate when src is not WGS84.
         work (Worksite): The site to be recorded.
     """
+    _ = name
     keys = ["ERR_BIAS", "ERR_RAND", "LINE_OFF", "SAMP_OFF",
             "LAT_OFF", "LONG_OFF", "HEIGHT_OFF", "LINE_SCALE",
             "SAMP_SCALE", "LAT_SCALE", "LONG_SCALE",
             "HEIGHT_SCALE"]
-    if name != "":
-        name += "_"
+
+    work.set_unit_shot(type_z=Dtm().type_dtm)
 
     for name_shot, shot in work.shots.items():
         cam = work.cameras[shot.name_cam]
@@ -49,5 +51,5 @@ def write(name: str, folder_rpc: str, param_rpc: dict, work: Worksite) -> None:
             list_txt_rpc += [f"SAMP_DEN_COEFF_{idx + 1}: {val}"]
 
         path_rpc = os.path.join(Path(PureWindowsPath(folder_rpc)),
-                                f"{name}{name_shot}_RPC.txt")
+                                f"{name_shot}_RPC.TXT")
         Path(path_rpc).write_text("\n".join(list_txt_rpc), encoding="UTF-8")

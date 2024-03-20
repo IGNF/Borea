@@ -42,10 +42,10 @@ def test_rpc_order1():
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
     shot.set_z_nadir(z_nadir)
-    param_rpc = {"size_grid":100,"order":1,"fact_rpc":1e-6}
+    param_rpc = {"size_grid":100,"order":1,"fact_rpc":None}
     unit_data = {"unit_z_data":DATA_TYPE_Z, "unit_z_shot":SHOT_TYPE_Z}
     rpc = Rpc.from_shot(shot, cam, param_rpc, unit_data)
-    assert rpc.fact_rpc == 1e-6
+    assert rpc.fact_rpc == None
     assert rpc.param_rpc["ERR_BIAS"] == -1
     assert rpc.param_rpc["ERR_RAND"] == -1
     assert (rpc.param_rpc["SAMP_NUM_COEFF"] == np.array([0.26100828,248.01054402,2.49737154,-0.26101961,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.])).all

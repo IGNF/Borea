@@ -93,10 +93,9 @@ class TransformGeodesy():
             new_z = self.geog_to_carto(coor_geog[0],
                                        coor_geog[1],
                                        coor_geog[2])[2]
-        except AttributeError:
-            print("Warning: the geoid has not been entered, the z transformation from altitude "
-                  f"to height has not been performed, return z altitude {coor[2]}")
-            new_z = coor[2]
+        except AttributeError as info:
+            raise ValueError("The geoid has not been entered, "
+                             "cannot transform z altitude to height.") from info
 
         if new_z == np.inf:
             raise ValueError("out geoid")
@@ -120,10 +119,9 @@ class TransformGeodesy():
             new_z = self.geog_to_carto(coor_geog[0],
                                        coor_geog[1],
                                        coor_geog[2])[2]
-        except AttributeError:
-            print("Warning: the geoid has not been entered, the z transformation from height "
-                  f"to altitude has not been performed, return z height {coor[2]}")
-            new_z = coor[2]
+        except AttributeError as info:
+            raise ValueError("The geoid has not been entered, "
+                             "cannot transform z height to altitude.") from info
 
         if np.all(new_z == np.inf):
             raise ValueError("out geoid")

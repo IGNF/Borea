@@ -41,8 +41,8 @@ class WorldImageShot():
             raise ValueError("Missing dtm")
 
         if self.shot.approxeucli and not self.shot.linear_alteration:
-            print("The results will not be accurate because the data are not corrected by"
-                  " linear alteration and you are using an approximate system.")
+            raise ValueError("The data are not corrected by linear alteration "
+                             "and you are using an approximate system.")
 
         p_eucli = self.shot.projeucli.world_to_eucli(coor_world)
 

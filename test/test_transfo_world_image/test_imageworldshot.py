@@ -61,6 +61,19 @@ def test_image_to_world_sametype_withoutgeoid():
     actual = ImageWorldShot(shot,cam).image_to_world(point_image, DATA_TYPE_Z, DATA_TYPE_Z)
 
 
+def test_image_to_world_notsametype_withoutgeoid():
+    point_image = np.array([24042.25, 14781.17])
+    shot = copy.copy(SHOT)
+    cam = CAM
+    Proj_singleton(EPSG, DICT_PROJ_WITHOUT_G)
+    Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
+    shot.set_param_eucli_shot(approx=False)
+    z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
+    shot.set_z_nadir(z_nadir)
+    with pytest.raises(ValueError) as e_info:
+        actual = ImageWorldShot(shot,cam).image_to_world(point_image, DATA_TYPE_Z, SHOT_TYPE_Z)
+
+
 def test_image_to_world_withoutdtm():
     point_image = np.array([24042.25, 14781.17])
     shot = copy.copy(SHOT)

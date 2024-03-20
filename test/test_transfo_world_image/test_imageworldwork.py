@@ -79,7 +79,6 @@ def test_calculate_image_world_by_intersection_withzeropoint():
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     ImageWorldWork(work).manage_image_world(type_process = "inter")
-    print("The print is normal")
     assert work.co_pts_world == {}
 
 

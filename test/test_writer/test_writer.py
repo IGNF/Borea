@@ -22,10 +22,6 @@ OUTPUT_ARGS = {"header": "N O P K C X Y Z",
 
 
 def setup_module(module): # run before the first test
-    try:  # Clean folder test if exists
-        shutil.rmtree(OUTPUT)
-    except FileNotFoundError:
-        pass
     os.makedirs(OUTPUT, exist_ok=True)
 
 

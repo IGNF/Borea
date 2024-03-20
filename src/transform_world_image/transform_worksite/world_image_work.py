@@ -39,5 +39,5 @@ class WorldImageWork:
                             self.work.shots[name_shot].gcp3d[name_gcp] = coor_img
                     except KeyError:
                         print(f"Warning: id point {name_gcp} is present "
-                              "in gcp but not in image control points.")
+                              "in gcp3d but not in gcp2d.")
                         continue

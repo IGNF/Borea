@@ -53,7 +53,7 @@ class Rpc:
         img_norm, world_norm = obj.normalize_data(grid_img, grid_world)
 
         coeffx = obj.least_square_rpc(img_norm[0], world_norm, param_rpc["order"])
-        coeffy = obj.least_square_rpc(img_norm[0], world_norm, param_rpc["order"])
+        coeffy = obj.least_square_rpc(img_norm[1], world_norm, param_rpc["order"])
 
         # Save param
         obj.param_rpc["SAMP_NUM_COEFF"] = coeffx[0:20]  # X numerator

@@ -1,6 +1,7 @@
 # README to convert opk to Rpc
 
-Converts an opk file into a rational polynomial coefficients.
+Converts an opk file into a rational polynomial coefficients in QGIS GDAL format. If the file is in the same directory as the image, it will be read automatically and taken into account by the software.
+The z unit of the shots is the same as that of the DTM set as a parameter, so that RPCs can be used in QGIS or GDAL with the same DTM as here.
 
 ## Utilisation
 
@@ -16,7 +17,6 @@ The parameters are:
 | :----: | :------ | :-----: | :-------: |
 | -r | File path of the workfile | | V |
 | -i | Type of each column in the site file. e.g. "N X Y Z O P K C" |  | V |
-| -n | Name of worksite output file | "" | V |
 | -u | Unit of the angle of shooting, 'degree' or 'radian' | degree | X |
 | -a | True if z shot corrected by linear alteration | True | X |
 | -f | Line number to start file playback. Does not take file header into account. | None | X |
@@ -30,7 +30,7 @@ The parameters are:
 | -w | Conversion path e.g. "./" | "./" | X |
 | -o | Degree of the polynomial of the rpc (1, 2, 3) | 3 | X |
 | -d | Size of the grid to calculate Rpc. | 100 | X |
-| -l | Factor Rpc for pyproj convertion. | 1e-6 | X |
+| -l | Factor Rpc to replace pyproj convertion. | None | X |
 
 E.G.
 ```

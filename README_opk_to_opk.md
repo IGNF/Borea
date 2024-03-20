@@ -26,8 +26,8 @@ The parameters are:
 | -j | Path to the json file which list the code epsg, you use | None | X |
 | -y | Path to the folder which contains GeoTIFF | None | X |
 | -c | Files paths of cameras (.xml or .txt) | None | X |
-| -m | DEM of the worksite. | None | X |
-| --fm | Format of Dem "altitude" or "height". | None | X, unless dem is given |
+| -m | DTM of the worksite. | None | X |
+| --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
 | -w | Conversion path e.g. "./" | "./" | X |
 | -d | Unit of the angle of shooting, 'degree' or 'radian' | "degree" | X |
 | -l | True if z shot corrected by linear alteration. | True | X |

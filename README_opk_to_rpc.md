@@ -25,8 +25,8 @@ The parameters are:
 | -j | Path to the json file which list the code epsg, you use | None | X |
 | -y | Path to the folder which contains GeoTIFF | None | X |
 | -c | Files paths of cameras (.xml or .txt) | None | X |
-| -m | DEM of the worksite. | None | X |
-| --fm | Format of Dem "altitude" or "height". | None | X, unless dem is given |
+| -m | DTM of the worksite. | None | X |
+| --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
 | -w | Conversion path e.g. "./" | "./" | X |
 | -o | Degree of the polynomial of the rpc (1, 2, 3) | 3 | X |
 | -d | Size of the grid to calculate Rpc. | 100 | X |

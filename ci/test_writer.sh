@@ -1,0 +1,1 @@
+python -m pytest -s ./test/test_writer/test_writer.py -v

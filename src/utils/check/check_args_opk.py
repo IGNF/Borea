@@ -1,6 +1,7 @@
 """
 A script for verification header str in manage reader.
 """
+from src.utils.check.check_header import check_head
 
 
 def check_args_opk(args: dict) -> tuple:
@@ -23,7 +24,7 @@ def check_args_opk(args: dict) -> tuple:
         raise ValueError(f"Unit angles is incorrect {args['unit_angle']},"
                          "correct writing is degree or radian.")
 
-    if args["interval"][0] is not None:
+    if args["interval"][0] is not None and args["interval"][0] > 0:
         args["interval"][0] -= 1
     if args["interval"][1] is not None:
         args["interval"][1] -= 1
@@ -44,25 +45,8 @@ def check_header_file(header: list) -> tuple:
         tuple: Header without type, type of z, type of angle.
     """
     list_letter = ['S', 'N', 'X', 'Y', 'Z', 'H', 'O', 'P', 'K', 'C']
-    bad_head = False
-    ms_error_letter = ""
-    symbol = set()
-    head = []
 
-    for l_type in header:
-        if l_type[0] in list_letter:
-            if l_type[0] not in head or l_type[0] == "S":
-                head.append(l_type[0])
-                if l_type[0] != "S":
-                    symbol.add(l_type[0])
-            else:
-                bad_head = True
-                ms_error_letter += f"Symbol {l_type[0]} appears several times, "
-                ms_error_letter += "this is incorrect, must appear only once\n"
-        else:
-            bad_head = True
-            ms_error_letter += f"Symbol {l_type[0]} is not recognized, "
-            ms_error_letter += f"list of symbol recognized {list_letter}\n"
+    bad_head, ms_error_letter, head, symbol = check_head(header, list_letter)
 
     misss = set(list_letter[1:]) - symbol
     if misss != {"Z"} and misss != {"H"} and misss != set():

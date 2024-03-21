@@ -1,1 +1,1 @@
-python3 -m pytest -s ./test/test_utils/test_changedim.py -v
+python -m pytest -s ./test/test_utils/test_changedim.py -v

@@ -279,45 +279,18 @@
 </dd></dl>
 
 </section>
-<section id="module-src.reader.reader_co_points">
-<span id="src-reader-reader-co-points-module"></span><h2>src.reader.reader_co_points module<a class="headerlink" href="#module-src.reader.reader_co_points" title="Link to this heading">#</a></h2>
-<p>Script to read connecting point mes.</p>
+<section id="module-src.reader.reader_point">
+<span id="src-reader-reader-point-module"></span><h2>src.reader.reader_point module<a class="headerlink" href="#module-src.reader.reader_point" title="Link to this heading">#</a></h2>
+<p>Script to read point (connecting point, gcp2d gcp3d) format
+.txt/.mes/.app with data arranged in columns.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="src.reader.reader_co_points.read_co_points">
-<span class="sig-prename descclassname"><span class="pre">src.reader.reader_co_points.</span></span><span class="sig-name descname"><span class="pre">read_co_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/reader/reader_co_points.html#read_co_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.reader_co_points.read_co_points" title="Link to this definition">#</a></dt>
-<dd><p>Read file of connecting points.</p>
+<dt class="sig sig-object py" id="src.reader.reader_point.read_file_pt">
+<span class="sig-prename descclassname"><span class="pre">src.reader.reader_point.</span></span><span class="sig-name descname"><span class="pre">read_file_pt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/reader/reader_point.html#read_file_pt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.reader_point.read_file_pt" title="Link to this definition">#</a></dt>
+<dd><p>Read file of points.</p>
 <dl class="simple">
-<dt>Agrs:</dt><dd><p>file (list): Path of file connecting points.
-work (Worksite): Worksite which needs connecting points.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-src.reader.reader_gcp">
-<span id="src-reader-reader-gcp-module"></span><h2>src.reader.reader_gcp module<a class="headerlink" href="#module-src.reader.reader_gcp" title="Link to this heading">#</a></h2>
-<p>Script to read GCP app.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.reader.reader_gcp.read_gcp">
-<span class="sig-prename descclassname"><span class="pre">src.reader.reader_gcp.</span></span><span class="sig-name descname"><span class="pre">read_gcp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/reader/reader_gcp.html#read_gcp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.reader_gcp.read_gcp" title="Link to this definition">#</a></dt>
-<dd><p>Read file gcp.</p>
-<dl class="simple">
-<dt>Agrs:</dt><dd><p>file (str): Path of file gcp.
-work (Worksite): Worksite which needs gcp.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-src.reader.reader_gcp2d">
-<span id="src-reader-reader-gcp2d-module"></span><h2>src.reader.reader_gcp2d module<a class="headerlink" href="#module-src.reader.reader_gcp2d" title="Link to this heading">#</a></h2>
-<p>Script to read ground points in image .mes.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.reader.reader_gcp2d.read_gcp2d">
-<span class="sig-prename descclassname"><span class="pre">src.reader.reader_gcp2d.</span></span><span class="sig-name descname"><span class="pre">read_gcp2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/reader/reader_gcp2d.html#read_gcp2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.reader_gcp2d.read_gcp2d" title="Link to this definition">#</a></dt>
-<dd><p>Read file of connecting points.</p>
-<dl class="simple">
-<dt>Agrs:</dt><dd><p>file (str): Path of file connecting points.
+<dt>Agrs:</dt><dd><p>file (str): Path of points file.
+header (list): Header of file to read column.
+type_point (str): Type of point is reading (co_point, gcp2d, gcp3d).
 work (Worksite): Worksite which needs connecting points.</p>
 </dd>
 </dl>
@@ -392,16 +365,8 @@ work (Worksite): Worksite which needs connecting points.</p>
 <li><a class="reference internal" href="#src.reader.reader_camera.read_camera"><code class="docutils literal notranslate"><span class="pre">read_camera()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-src.reader.reader_co_points">src.reader.reader_co_points module</a><ul>
-<li><a class="reference internal" href="#src.reader.reader_co_points.read_co_points"><code class="docutils literal notranslate"><span class="pre">read_co_points()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.reader.reader_gcp">src.reader.reader_gcp module</a><ul>
-<li><a class="reference internal" href="#src.reader.reader_gcp.read_gcp"><code class="docutils literal notranslate"><span class="pre">read_gcp()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.reader.reader_gcp2d">src.reader.reader_gcp2d module</a><ul>
-<li><a class="reference internal" href="#src.reader.reader_gcp2d.read_gcp2d"><code class="docutils literal notranslate"><span class="pre">read_gcp2d()</span></code></a></li>
+<li><a class="reference internal" href="#module-src.reader.reader_point">src.reader.reader_point module</a><ul>
+<li><a class="reference internal" href="#src.reader.reader_point.read_file_pt"><code class="docutils literal notranslate"><span class="pre">read_file_pt()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-src.reader">Module contents</a></li>

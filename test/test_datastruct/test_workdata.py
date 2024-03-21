@@ -140,16 +140,16 @@ def test_add_co_point():
     obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_co_point("p0", "t1", 50, 30)
-    obj.add_co_point("p0", "t2", 40, 40)
-    obj.add_co_point("p1", "t1", 70, 10)
-    obj.add_co_point("p1", "t3", 50, 90)
+    obj.add_co_point("p0", "t1", np.array([50, 30]))
+    obj.add_co_point("p0", "t2", np.array([40, 40]))
+    obj.add_co_point("p1", "t1", np.array([70, 10]))
+    obj.add_co_point("p1", "t3", np.array([50, 90]))
     assert obj.co_points["p0"] == ["t1", "t2"]
     assert obj.co_points["p1"] == ["t1", "t3"]
-    assert obj.shots["t1"].co_points["p0"] == [50, 30]
-    assert obj.shots["t1"].co_points["p1"] == [70, 10]
-    assert obj.shots["t2"].co_points["p0"] == [40, 40]
-    assert obj.shots["t3"].co_points["p1"] == [50, 90]
+    assert (obj.shots["t1"].co_points["p0"] == [50, 30]).all()
+    assert (obj.shots["t1"].co_points["p1"] == [70, 10]).all()
+    assert (obj.shots["t2"].co_points["p0"] == [40, 40]).all()
+    assert (obj.shots["t3"].co_points["p1"] == [50, 90]).all()
 
 
 def test_add_gcp2d():
@@ -157,23 +157,23 @@ def test_add_gcp2d():
     obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
     obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_gcp2d("p0", "t1", 50, 30)
-    obj.add_gcp2d("p0", "t2", 40, 40)
-    obj.add_gcp2d("p1", "t1", 70, 10)
-    obj.add_gcp2d("p1", "t3", 50, 90)
+    obj.add_gcp2d("p0", "t1", np.array([50, 30]))
+    obj.add_gcp2d("p0", "t2", np.array([40, 40]))
+    obj.add_gcp2d("p1", "t1", np.array([70, 10]))
+    obj.add_gcp2d("p1", "t3", np.array([50, 90]))
     assert obj.gcp2d["p0"] == ["t1", "t2"]
     assert obj.gcp2d["p1"] == ["t1", "t3"]
-    assert obj.shots["t1"].gcp2d["p0"] == [50, 30]
-    assert obj.shots["t1"].gcp2d["p1"] == [70, 10]
-    assert obj.shots["t2"].gcp2d["p0"] == [40, 40]
-    assert obj.shots["t3"].gcp2d["p1"] == [50, 90]
+    assert (obj.shots["t1"].gcp2d["p0"] == [50, 30]).all()
+    assert (obj.shots["t1"].gcp2d["p1"] == [70, 10]).all()
+    assert (obj.shots["t2"].gcp2d["p0"] == [40, 40]).all()
+    assert (obj.shots["t3"].gcp2d["p1"] == [50, 90]).all()
 
 
 def test_add_gcp():
     obj = Worksite(name = "Test")
-    obj.add_gcp('"1003"', 13, np.array([1,2,3]))
+    obj.add_gcp3d('"1003"', "13", np.array([1,2,3]))
     assert obj.gcp3d['"1003"'].name_gcp == '"1003"'
-    assert obj.gcp3d['"1003"'].code == 13
+    assert obj.gcp3d['"1003"'].code == "13"
     assert (obj.gcp3d['"1003"'].coor == np.array([1,2,3])).all()
 
 

@@ -16,6 +16,9 @@ The parameters are:
 | :----: | :------ | :-----: | :-------: |
 | -r | File path of the workfile | | V |
 | -i | Type of each column in the site file. e.g. "N X Y Z O P K C" |  | V |
+| -t | Files paths of ground image points |  | V |
+| -g | Files paths of ground control point |  | V |
+| --fg | Format of GCP and ground image points "altitude" or "height". |  | V |
 | -u | Unit of the angle of shooting, 'degree' or 'radian' | degree | X |
 | -a | True if z shot corrected by linear alteration | True | X |
 | -f | Line number to start file playback. Does not take file header into account. | None | X |
@@ -26,10 +29,9 @@ The parameters are:
 | -c | Files paths of cameras (.xml or .txt) | None | X |
 | -m | DTM of the worksite. | None | X |
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
-| -t | Files paths of ground image points (.mes) | None | X |
-| -g | Files paths of ground control point (.app) | None | X |
+| -k | Header of the file gcp2d. | PNXY | X |
+| -l | Header of the file gcp3d. | PTXYZ | X |
 | -d | Type of gcp to control. | [] | X |
-| --fg | Format of GCP and ground image points "altitude" or "height". | None | X, unless gcp and gip is given |
 | -p | Type of process for the function image to world, "inter" ofr intersection or "square" for least-square | "inter" | X |
 | -x | To use an approximate system. | False | X |
 | -w | Path stat e.g. "./" | "./" | X |
@@ -54,6 +56,19 @@ Type is:
 | P | phi rotation angle |
 | K | kappa rotation angle |
 | C | name of the camera |
+
+#### Detail for the header of point file -k and -l
+`header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
+Type is:
+| Symbol | Details |
+| :----: | :------ |
+| S | to ignore the column |
+| P | name of the point |
+| N | name of shot |
+| T | type of point |
+| X | coordinate x of the shot position |
+| Y | coordinate y of the shot position |
+| Z | coordinate z altitude of the shot position |
 
 ### Camera file format
 

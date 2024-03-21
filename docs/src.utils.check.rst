@@ -20,6 +20,22 @@ src.utils.check.check\_array module
    :undoc-members:
    :show-inheritance:
 
+src.utils.check.check\_head\_file\_pt module
+--------------------------------------------
+
+.. automodule:: src.utils.check.check_head_file_pt
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+src.utils.check.check\_header module
+------------------------------------
+
+.. automodule:: src.utils.check.check_header
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

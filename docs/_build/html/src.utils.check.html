@@ -316,6 +316,48 @@ possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
 </dd></dl>
 
 </section>
+<section id="module-src.utils.check.check_head_file_pt">
+<span id="src-utils-check-check-head-file-pt-module"></span><h2>src.utils.check.check_head_file_pt module<a class="headerlink" href="#module-src.utils.check.check_head_file_pt" title="Link to this heading">#</a></h2>
+<p>A script for verification header str in read file point.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.utils.check.check_head_file_pt.check_header_file">
+<span class="sig-prename descclassname"><span class="pre">src.utils.check.check_head_file_pt.</span></span><span class="sig-name descname"><span class="pre">check_header_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/utils/check/check_head_file_pt.html#check_header_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.utils.check.check_head_file_pt.check_header_file" title="Link to this definition">#</a></dt>
+<dd><p>Check if the header of the file is good.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>header</strong> (<em>list</em>) – List of column type file.</p></li>
+<li><p><strong>type_point</strong> (<em>str</em>) – Type of point is reading (co_point, gcp2d, gcp3d).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.utils.check.check_header">
+<span id="src-utils-check-check-header-module"></span><h2>src.utils.check.check_header module<a class="headerlink" href="#module-src.utils.check.check_header" title="Link to this heading">#</a></h2>
+<p>A script for verification header list str.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.utils.check.check_header.check_head">
+<span class="sig-prename descclassname"><span class="pre">src.utils.check.check_header.</span></span><span class="sig-name descname"><span class="pre">check_head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_letter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/utils/check/check_header.html#check_head"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.utils.check.check_header.check_head" title="Link to this definition">#</a></dt>
+<dd><p>Checks that the header contains all the letters in the check letter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>header</strong> (<em>list</em>) – List of column type file.</p></li>
+<li><p><strong>check_letter</strong> (<em>list</em>) – List of good letter in header.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>bad_head, ms_error, head, symbol</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-src.utils.check">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.utils.check" title="Link to this heading">#</a></h2>
 </section>
@@ -386,6 +428,14 @@ possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
 </li>
 <li><a class="reference internal" href="#module-src.utils.check.check_array">src.utils.check.check_array module</a><ul>
 <li><a class="reference internal" href="#src.utils.check.check_array.check_array_transfo"><code class="docutils literal notranslate"><span class="pre">check_array_transfo()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.utils.check.check_head_file_pt">src.utils.check.check_head_file_pt module</a><ul>
+<li><a class="reference internal" href="#src.utils.check.check_head_file_pt.check_header_file"><code class="docutils literal notranslate"><span class="pre">check_header_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.utils.check.check_header">src.utils.check.check_header module</a><ul>
+<li><a class="reference internal" href="#src.utils.check.check_header.check_head"><code class="docutils literal notranslate"><span class="pre">check_head()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-src.utils.check">Module contents</a></li>

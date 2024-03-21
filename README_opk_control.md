@@ -42,6 +42,7 @@ python3 ./opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c 
 ```
 
 #### Detail for the header of file -i
+
 `header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
 Type is:
 | Symbol | Details |
@@ -58,6 +59,7 @@ Type is:
 | C | name of the camera |
 
 #### Detail for the header of point file -k and -l
+
 `header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
 Type is:
 | Symbol | Details |
@@ -69,6 +71,12 @@ Type is:
 | X | coordinate x of the shot position |
 | Y | coordinate y of the shot position |
 | Z | coordinate z altitude of the shot position |
+
+### Detail for reading files
+
+To read the opk file, you can select a line interval to be read using the -f parameter for the first line and -z for the last line. If not set, the entire file will be read. Please note that the header in the file is not taken into account and must therefore either be skipped with the -f parameter or commented out with a # at the beginning of the line. You can therefore add comments to the file with a # at the beginning of the line.
+
+Connecting point files, gcp in the field and gcp in images must not have a file header in the file, or the header must be commented out with a # in front of it. You can therefore add comments to the file with a # at the beginning of the line.
 
 ### Camera file format
 
@@ -83,6 +91,7 @@ focal = 30975.00
 width = 26460
 height = 17004
 ```
+Only these 6 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool.
 An example file can be found in *./dataset/Camera1.txt*.
 
 ### File projection JSON format

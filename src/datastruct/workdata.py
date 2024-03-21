@@ -131,7 +131,7 @@ class Workdata:
                                            width=width,
                                            height=height)
 
-    def add_co_point(self, name_point: str, name_shot: str, x: float, y: float) -> None:
+    def add_co_point(self, name_point: str, name_shot: str, coor2d: np.ndarray) -> None:
         """
         Add linking point between acquisition in two part.
         One in self.co_points a dict with name_point the key and list of acquisition the result.
@@ -141,8 +141,7 @@ class Workdata:
         Agrs:
             name_point (str): Name of the connecting point.
             name_shot (str): Name of the acquisition.
-            x (float): Pixel position of the point in column.
-            y (float): Pixel position of the point in line.
+            coor2d (array): Pixel position in the shot [x, y] = [column, line]
         """
         if name_shot not in self.shots:
             raise ValueError(f"The shot {name_shot} doesn't exist in list of shots.")
@@ -151,7 +150,7 @@ class Workdata:
             self.co_points[name_point] = []
 
         if name_point not in self.shots[name_shot].co_points:
-            self.shots[name_shot].co_points[name_point] = [x, y]
+            self.shots[name_shot].co_points[name_point] = coor2d
         else:
             print("\n :--------------------------:")
             print("Warning : connecting point duplicate.")
@@ -162,7 +161,7 @@ class Workdata:
 
         self.co_points[name_point].append(name_shot)
 
-    def add_gcp2d(self, name_point: str, name_shot: str, x: float, y: float) -> None:
+    def add_gcp2d(self, name_point: str, name_shot: str, coor2d: np.ndarray) -> None:
         """
         Add linking point between acquisition in two part.
         One in self.gcp2d a dict with name_point the key
@@ -173,8 +172,7 @@ class Workdata:
         Agrs:
             name_point (str): Name of the connecting point.
             name_shot (str): Name of the acquisition.
-            x (float): Pixel position of the point in column.
-            y (float): Pixel position of the point in line.
+            coor2d (array): Pixel position in the shot [x, y] = [column, line]
         """
         try:
             self.shots[name_shot]
@@ -185,7 +183,7 @@ class Workdata:
             self.gcp2d[name_point] = []
 
         if name_point not in self.shots[name_shot].gcp2d:
-            self.shots[name_shot].gcp2d[name_point] = [x, y]
+            self.shots[name_shot].gcp2d[name_point] = coor2d
         else:
             print("\n :--------------------------:")
             print("Warning : connecting point duplicate.")
@@ -196,13 +194,13 @@ class Workdata:
 
         self.gcp2d[name_point].append(name_shot)
 
-    def add_gcp3d(self, name_gcp: str, code_gcp: int, coor_gcp: np.ndarray) -> None:
+    def add_gcp3d(self, name_gcp: str, code_gcp: str, coor_gcp: np.ndarray) -> None:
         """
         Add GCP in the Worksite.
 
         Args:
             name_gcp (str): Name of the gcp.
-            code_gcp (int): IGN code to differentiate between support points (1, 2, 3)
+            code_gcp (str): IGN code to differentiate between support points (1, 2, 3)
                             and control points (11, 12, 13).
                             1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.
             coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].

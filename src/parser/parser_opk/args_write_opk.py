@@ -24,9 +24,9 @@ def args_writing_opk(parser: argparse) -> argparse:
                         type=str, default='./',
                         help='Conversion path e.g. test/tmp/.')
     parser.add_argument('-o', '--output_header',
-                        type=str,
+                        type=str, default="NXYZOPKC",
                         help='Type of each column in the site file.'
-                        'e.g. "N X Y Z O P K C"'
+                        'e.g. NXYZOPKC'
                         'N: name of shot'
                         'X: coordinate x of the shot position'
                         'Y: coordinate y of the shot position'
@@ -57,7 +57,7 @@ def process_args_write_opk(args: argparse, work: Worksite) -> None:
     print("Writing OPK.")
     if args.name is not None:
         if args.output_header is not None:
-            args_writing = {"header": args.output_header,
+            args_writing = {"header": list(args.output_header.upper()),
                             "unit_angle": args.output_unit_angle,
                             "linear_alteration": args.output_linear_alteration}
             manager_writer("opk", args.name, args.pathreturn, args_writing, work)

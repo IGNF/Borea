@@ -15,7 +15,7 @@ The parameters are:
 | Symbol | Details | Default | Mandatory |
 | :----: | :------ | :-----: | :-------: |
 | -r | File path of the workfile | | V |
-| -i | Type of each column in the site file. e.g. "N X Y Z O P K C" |  | V |
+| -i | Type of each column in the site file. e.g. NXYZOPKC | NXYZOPKC | X |
 | -t | Files paths of ground image points |  | V |
 | -g | Files paths of ground control point |  | V |
 | --fg | Format of GCP and ground image points "altitude" or "height". |  | V |
@@ -38,7 +38,7 @@ The parameters are:
 
 E.G.
 ```
-python3 ./opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i "N X Y Z O P K C" -f 2 -c ./dataset/Camera1.txt -e 2154 -j ./dataset/proj.json -y ./dataset/ -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p inter
+python3 ./opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -j ./dataset/proj.json -y ./dataset/ -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p inter
 ```
 
 #### Detail for the header of file -i

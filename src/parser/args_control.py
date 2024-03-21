@@ -73,7 +73,7 @@ def process_args_control(args, work: Worksite) -> None:
     """
     # Reading ground point image
     if args.gcp2d is not None:
-        read_file_pt(args.gcp2d, args.head_gcp2d, "gcp2d", work)
+        read_file_pt(args.gcp2d, list(args.head_gcp2d.upper()), "gcp2d", work)
         if args.fg in ["altitude", "height"]:
             work.type_z_data = args.fg
         else:
@@ -88,7 +88,7 @@ def process_args_control(args, work: Worksite) -> None:
 
     # Reading GCP
     if args.gcp3d is not None:
-        read_file_pt(args.gcp3d, args.head_gcp3d, "gcp3d", work)
+        read_file_pt(args.gcp3d, list(args.head_gcp3d.upper()), "gcp3d", work)
         if args.fg in ["altitude", "height"]:
             work.type_z_data = args.fg
         else:

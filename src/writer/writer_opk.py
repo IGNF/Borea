@@ -25,7 +25,7 @@ def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:
     """
     path_opk = os.path.join(Path(PureWindowsPath(path_opk)), f"{name_opk}.opk")
 
-    header, type_z = check_header_file(args["header"].split())
+    header, type_z = check_header_file(args["header"])
 
     if "S" in header:
         raise ValueError("Letter S doesn't existe in writing header opk.")
@@ -34,7 +34,7 @@ def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:
 
     try:
         with open(path_opk, "w", encoding="utf-8") as file:
-            file.write(args["header"])
+            file.write(str(header))
             file.write("\n")
             keys = np.sort(list(work.shots))
             line_writing = ""

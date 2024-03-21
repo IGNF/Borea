@@ -64,7 +64,7 @@ def test_space_resection():
 def test_take_obs():
     work = reader_orientation("./dataset/23FD1305_alt_test.OPK",
                               {"interval": [2, None],
-                              "header": "N X Y Z O P K C",
+                              "header": list("NXYZOPKC"),
                               "unit_angle": "degree",
                               "linear_alteration": True})
     work.set_proj(2154, "./dataset/proj.json", "./dataset")
@@ -80,7 +80,7 @@ def test_take_obs():
 def test_space_resection_othershot():
     work = reader_orientation("./test/data/dataset2/23FD1305_alt_2.OPK",
                               {"interval": [2, None],
-                              "header": "N X Y Z O P K C",
+                              "header": list("NXYZOPKC"),
                               "unit_angle": "degree",
                               "linear_alteration": True})
     work.set_proj(2154, "./dataset/proj.json", "./dataset")
@@ -96,7 +96,7 @@ def test_space_resection_othershot():
 def test_space_resection_withcopoints():
     work = reader_orientation("./test/data/dataset2/23FD1305_alt_2.OPK",
                             {"interval": [2, None],
-                            "header": "N X Y Z O P K C",
+                            "header": list("NXYZOPKC"),
                             "unit_angle": "degree",
                             "linear_alteration": True})
     work.set_proj(2154, "./dataset/proj.json", "./dataset")

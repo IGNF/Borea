@@ -12,13 +12,17 @@ from src.reader.orientation.manage_reader import reader_orientation
 OUTPUT = "./test/tmp"
 FILENAME = "Test"
 ARGS = {"interval": [2, None],
-        "header": "N O P K C X Y Z",
+        "header": list("NXYZOPKC"),
         "unit_angle": "radian",
         "linear_alteration":True}
 OUTPUT_NAME = "Test_output"
-OUTPUT_ARGS = {"header": "N O P K C X Y Z",
+OUTPUT_ARGS = {"header": list("NOPKCXYZ"),
                "unit_angle": "radian",
                "linear_alteration":True}
+INPUT_OUTPUT_ARGS = {"interval": [2, None],
+                     "header": list("NOPKCXYZ"),
+                     "unit_angle": "radian",
+                     "linear_alteration":True}
 
 
 def setup_module(module): # run before the first test
@@ -31,7 +35,7 @@ def test_writer():
     obj.add_camera("test_cam",0,0,0,0,0)
     obj.type_z_shot = "altitude"
     write(OUTPUT_NAME,OUTPUT,OUTPUT_ARGS,obj)
-    obj2 = reader_orientation(f"{OUTPUT}/{OUTPUT_NAME}.opk", ARGS)
+    obj2 = reader_orientation(f"{OUTPUT}/{OUTPUT_NAME}.opk", INPUT_OUTPUT_ARGS)
     assert obj2.name == "Test_output"
     assert obj2.shots["test_shot"].name_shot == "test_shot"
     assert obj2.shots["test_shot"].pos_shot[0] == 1

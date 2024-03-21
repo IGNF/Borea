@@ -29,7 +29,7 @@ def check_args_opk(args: dict) -> tuple:
     if args["interval"][1] is not None:
         args["interval"][1] -= 1
 
-    header, type_z = check_header_file(args["header"].split())
+    header, type_z = check_header_file(args["header"])
 
     return args, header, type_z
 

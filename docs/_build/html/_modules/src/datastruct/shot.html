@@ -229,6 +229,7 @@
 <span class="kn">from</span> <span class="nn">src.geodesy.proj_engine</span> <span class="kn">import</span> <span class="n">ProjEngine</span>
 <span class="kn">from</span> <span class="nn">src.geodesy.approx_euclidean_proj</span> <span class="kn">import</span> <span class="n">ApproxEuclideanProj</span>
 <span class="kn">from</span> <span class="nn">src.geodesy.local_euclidean_proj</span> <span class="kn">import</span> <span class="n">LocalEuclideanProj</span>
+<span class="kn">from</span> <span class="nn">src.utils.check.check_order_axe</span> <span class="kn">import</span> <span class="n">check_order_axe</span>
 
 
 <span class="c1"># pylint: disable=too-many-instance-attributes too-many-arguments</span>
@@ -245,10 +246,12 @@
 <span class="sd">        name_cam (str): Name of the camera.</span>
 <span class="sd">        unit_angle (str): Unit of angle &#39;degrees&#39;, &#39;radian&#39;.</span>
 <span class="sd">        linear_alteration (bool): True if z shot is correct of linear alteration.</span>
+<span class="sd">        order_axe (str): Order of rotation matrix axes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
                  <span class="n">ori_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">name_cam</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                 <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                 <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+                 <span class="n">order_axe</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name_shot</span> <span class="o">=</span> <span class="n">name_shot</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span> <span class="o">=</span> <span class="n">pos_shot</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot_eucli</span> <span class="o">=</span> <span class="kc">None</span>
@@ -256,6 +259,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ori_shot</span> <span class="o">=</span> <span class="n">ori_shot</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unit_angle</span> <span class="o">=</span> <span class="n">unit_angle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name_cam</span> <span class="o">=</span> <span class="n">name_cam</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order_axe</span> <span class="o">=</span> <span class="n">order_axe</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">z_nadir</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">co_points</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gcp2d</span> <span class="o">=</span> <span class="p">{}</span>
@@ -273,7 +277,7 @@
     <span class="k">def</span> <span class="nf">from_param_euclidean</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
                              <span class="n">mat_ori_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">name_cam</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                              <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-                             <span class="n">approx</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                             <span class="n">order_axe</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">approx</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construction of a shot object using the Euclidean position.</span>
 
@@ -284,13 +288,14 @@
 <span class="sd">            name_cam (str): Name of the camera.</span>
 <span class="sd">            unit_angle (str): Unit of angle &#39;degrees&#39;, &#39;radian&#39;.</span>
 <span class="sd">            linear_alteration (bool): True if z shot is correct of linear alteration.</span>
+<span class="sd">            order_axe (str): Order of rotation matrix axes.</span>
 <span class="sd">            approx (bool): True if you want to use approx euclidean system.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Shot: The shot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">shot</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name_shot</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
-                   <span class="n">name_cam</span><span class="p">,</span> <span class="n">unit_angle</span><span class="p">,</span> <span class="n">linear_alteration</span><span class="p">)</span>
+                   <span class="n">name_cam</span><span class="p">,</span> <span class="n">unit_angle</span><span class="p">,</span> <span class="n">linear_alteration</span><span class="p">,</span> <span class="n">order_axe</span><span class="p">)</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot_eucli</span> <span class="o">=</span> <span class="n">pos_eucli</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">approxeucli</span> <span class="o">=</span> <span class="n">approx</span>
         <span class="k">if</span> <span class="n">approx</span><span class="p">:</span>
@@ -305,8 +310,9 @@
         <span class="n">shot</span><span class="o">.</span><span class="n">mat_rot</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">projeucli</span><span class="o">.</span><span class="n">mat_eucli_to_mat</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                                                        <span class="n">mat_ori_eucli</span><span class="p">)</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">mat_rot_eucli</span> <span class="o">=</span> <span class="n">mat_ori_eucli</span>
+        <span class="n">order_xyz</span> <span class="o">=</span> <span class="n">check_order_axe</span><span class="p">(</span><span class="n">order_axe</span><span class="p">)</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">ori_shot</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span>
-                          <span class="n">R</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">mat_rot</span><span class="p">))</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="n">unitori</span><span class="p">)</span>
+                          <span class="n">R</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">mat_rot</span><span class="p">))</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="n">order_xyz</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="n">unitori</span><span class="p">)</span>
 
         <span class="n">shot</span><span class="o">.</span><span class="n">f_sys</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x_shot</span><span class="p">,</span> <span class="n">y_shot</span><span class="p">,</span> <span class="n">z_shot</span><span class="p">:</span> <span class="p">(</span><span class="n">x_shot</span><span class="p">,</span> <span class="n">y_shot</span><span class="p">,</span> <span class="n">z_shot</span><span class="p">)</span>
         <span class="n">shot</span><span class="o">.</span><span class="n">f_sys_inv</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x_shot</span><span class="p">,</span> <span class="n">y_shot</span><span class="p">,</span> <span class="n">z_shot</span><span class="p">:</span> <span class="p">(</span><span class="n">x_shot</span><span class="p">,</span> <span class="n">y_shot</span><span class="p">,</span> <span class="n">z_shot</span><span class="p">)</span>
@@ -323,7 +329,8 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            np.array: The rotation matrix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">rot</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ori_shot</span><span class="p">),</span> <span class="n">degrees</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unit_angle</span> <span class="o">==</span> <span class="s2">&quot;degree&quot;</span><span class="p">)</span>
+        <span class="n">order_xyz</span> <span class="o">=</span> <span class="n">check_order_axe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">order_axe</span><span class="p">)</span>
+        <span class="n">rot</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="n">order_xyz</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ori_shot</span><span class="p">),</span> <span class="n">degrees</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unit_angle</span> <span class="o">==</span> <span class="s2">&quot;degree&quot;</span><span class="p">)</span>
         <span class="n">rot</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">rot</span>
         <span class="k">return</span> <span class="n">rot</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span></div>
 
@@ -408,6 +415,23 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_z_add_scale_factor</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_z_remove_scale_factor</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Shot.set_order_axe">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.shot.Shot.set_order_axe">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_order_axe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order_axe</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows to change order of axe for the matrice and angle.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            order_axe (str): New order axe.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">order_axe</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">order_axe</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">order_axe</span> <span class="o">=</span> <span class="n">order_axe</span>
+            <span class="n">order_xyz</span> <span class="o">=</span> <span class="n">check_order_axe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">order_axe</span><span class="p">)</span>
+            <span class="n">unitori</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_angle</span> <span class="o">==</span> <span class="s2">&quot;degree&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ori_shot</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span>
+                              <span class="n">R</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mat_rot</span><span class="p">))</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="n">order_xyz</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="n">unitori</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Shot.getattr">

@@ -272,12 +272,15 @@
 <div class="viewcode-block" id="Workshot.set_unit_shot">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workshot.Workshot.set_unit_shot">[docs]</a>
     <span class="k">def</span> <span class="nf">set_unit_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_z</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                      <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                      <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">order_axe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Allows you to change the orientation angle unit.</span>
+<span class="sd">        Allows you to change unit or parameter of shots.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            unit_angle (str): Unit angle.</span>
+<span class="sd">            type_z (str): Unit of z shot you want.</span>
+<span class="sd">            unit_angle (str): Unit angle you want.</span>
+<span class="sd">            linear_alteration (bool): True if you want data corrected.</span>
+<span class="sd">            order_axe (str): Order of rotation matrice you want in your angle.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">unit_angle</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">,</span> <span class="s2">&quot;radian&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unit_angle: </span><span class="si">{</span><span class="n">unit_angle</span><span class="si">}</span><span class="s2"> is not recognized,&quot;</span>
@@ -298,7 +301,9 @@
             <span class="k">if</span> <span class="n">type_z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">shot</span><span class="o">.</span><span class="n">set_type_z</span><span class="p">(</span><span class="n">type_z</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">linear_alteration</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">shot</span><span class="o">.</span><span class="n">set_linear_alteration</span><span class="p">(</span><span class="n">linear_alteration</span><span class="p">)</span></div>
+                <span class="n">shot</span><span class="o">.</span><span class="n">set_linear_alteration</span><span class="p">(</span><span class="n">linear_alteration</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">order_axe</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">shot</span><span class="o">.</span><span class="n">set_order_axe</span><span class="p">(</span><span class="n">order_axe</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

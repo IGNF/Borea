@@ -57,7 +57,7 @@ def process_args_write_opk(args: argparse, work: Worksite) -> None:
     print("Writing OPK.")
     if args.name is not None:
         if args.output_header is not None:
-            args_writing = {"header": list(args.output_header),
+            args_writing = {"header": list(args.output_header.upper()),
                             "unit_angle": args.output_unit_angle,
                             "linear_alteration": args.output_linear_alteration}
             manager_writer("opk", args.name, args.pathreturn, args_writing, work)

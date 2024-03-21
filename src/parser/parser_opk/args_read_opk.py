@@ -85,7 +85,7 @@ def process_args_read_opk(args: argparse) -> Worksite:
     if args.filepath is not None:
         if args.header is not None:
             work = reader_orientation(args.filepath, {"interval": [args.first_line, args.last_line],
-                                                      "header": list(args.header),
+                                                      "header": list(args.header.upper()),
                                                       "unit_angle": args.unit_angle,
                                                       "linear_alteration": args.linear_alteration})
             print("Orientation file reading done.")

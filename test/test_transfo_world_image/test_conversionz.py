@@ -11,7 +11,7 @@ from src.transform_world_image.transform_shot.conversion_coor_shot import conv_z
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 
 
-SHOT = Shot("test_shot", np.array([814975.925,6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True)
+SHOT = Shot("test_shot", np.array([814975.925,6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True,'opk')
 CAM = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460, 17004)
 EPSG = 2154
 DICT_PROJ_WITH_G = {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}

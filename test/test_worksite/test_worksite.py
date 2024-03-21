@@ -10,10 +10,10 @@ PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
 
 def test_barycentre():
     work = Worksite("Test")
-    work.add_shot("shot1", np.array([1,8,2]), np.array([1,1,1]), 'cam_test',"degree",True)
-    work.add_shot("shot2", np.array([3,6,6]), np.array([1,1,1]), 'cam_test',"degree",True)
-    work.add_shot("shot3", np.array([2,8,10]), np.array([1,1,1]), 'cam_test',"degree",True)
-    work.add_shot("shot4", np.array([2,10,14]), np.array([1,1,1]), 'cam_test',"degree",True)
+    work.add_shot("shot1", np.array([1,8,2]), np.array([1,1,1]), 'cam_test',"degree",True,"opk")
+    work.add_shot("shot2", np.array([3,6,6]), np.array([1,1,1]), 'cam_test',"degree",True,"opk")
+    work.add_shot("shot3", np.array([2,8,10]), np.array([1,1,1]), 'cam_test',"degree",True,"opk")
+    work.add_shot("shot4", np.array([2,10,14]), np.array([1,1,1]), 'cam_test',"degree",True,"opk")
     bary = work.calculate_barycentre()
     assert bary[0] == 2
     assert bary[1] == 8
@@ -22,7 +22,7 @@ def test_barycentre():
 
 def test_get_copts_img_world():
     work = Worksite("Test")
-    work.add_shot("shot1", np.array([1,8,2]), np.array([1,1,1]), 'cam_test',"degree",True)
+    work.add_shot("shot1", np.array([1,8,2]), np.array([1,1,1]), 'cam_test',"degree",True,"opk")
     work.add_co_point("la", "shot1", np.array([10, 10]))
     work.add_co_point("do", "shot1", np.array([50, 14]))
     work.co_pts_world["la"] = np.array([20, 30, 50])
@@ -34,7 +34,7 @@ def test_get_copts_img_world():
 
 def test_get_gcp_img_world():
     work = Worksite("Test")
-    work.add_shot("shot1", np.array([1,8,2]), np.array([1,1,1]), 'cam_test',"degree",True)
+    work.add_shot("shot1", np.array([1,8,2]), np.array([1,1,1]), 'cam_test',"degree",True,"opk")
     work.add_gcp2d("la", "shot1", np.array([10, 10]))
     work.add_gcp2d("do", "shot1", np.array([50, 14]))
     work.gcp2d_in_world["la"] = np.array([20, 30, 50])
@@ -46,9 +46,9 @@ def test_get_gcp_img_world():
 
 def test_get_point_dataframe_copoints():
     obj = Worksite("Test")
-    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
+    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,"opk")
+    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,"opk")
+    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,"opk")
     obj.add_co_point("p0", "t1", np.array([50, 30]))
     obj.add_co_point("p0", "t2", np.array([40, 40]))
     obj.add_co_point("p1", "t1", np.array([70, 10]))
@@ -62,9 +62,9 @@ def test_get_point_dataframe_copoints():
 
 def test_get_point_dataframe_groundimgpt():
     obj = Worksite("Test")
-    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
+    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,"opk")
+    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,"opk")
+    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,"opk")
     obj.add_gcp2d("p0", "t1", np.array([50, 30]))
     obj.add_gcp2d("p0", "t2", np.array([40, 40]))
     obj.add_gcp2d("p1", "t1", np.array([70, 10]))
@@ -80,9 +80,9 @@ def test_get_point_dataframe_groundimgpt():
 
 def test_set_point_dataframe():
     obj = Worksite("Test")
-    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
+    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,"opk")
+    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,"opk")
+    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,"opk")
     obj.add_co_point("p0", "t1", np.array([50, 30]))
     obj.add_co_point("p0", "t2", np.array([40, 40]))
     obj.add_co_point("p1", "t1", np.array([70, 10]))

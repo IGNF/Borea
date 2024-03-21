@@ -13,7 +13,7 @@ from src.transform_world_image.transform_shot.world_image_shot import WorldImage
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 
 
-SHOT = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True)
+SHOT = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True,'opk')
 CAM = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460, 17004)
 EPSG = 2154
 DICT_PROJ_WITH_G = {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}
@@ -123,7 +123,7 @@ def test_world_to_image_sametypewithl_withoutdtm():
 
 def test_world_to_image_sametypewithoutl():
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
-    shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',False)
+    shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',False,'opk')
     cam = CAM
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     Dtm_singleton(None, None)
@@ -146,7 +146,7 @@ def test_world_to_image_approx():
 
 def test_world_to_image_approx():
     Dtm.clear()
-    shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',False)
+    shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',False,'opk')
     Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
     cam = CAM

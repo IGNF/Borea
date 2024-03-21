@@ -241,9 +241,6 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        argsparse: Parser with argument.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;--name&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Name of the new file.&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-w&#39;</span><span class="p">,</span> <span class="s1">&#39;--pathreturn&#39;</span><span class="p">,</span>
                         <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;./&#39;</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Conversion path e.g. test/tmp/.&#39;</span><span class="p">)</span>
@@ -254,7 +251,7 @@
                         <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Size of the grid to calculate Rpc.&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--fact_rpc&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Factor Rpc for pyproj convertion.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">parser</span></div>
 
@@ -271,10 +268,11 @@
 <span class="sd">        work (Worksite): Data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Writing data</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Writing Rpc.&quot;</span><span class="p">)</span>
     <span class="n">args_writing</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">order</span><span class="p">,</span>
                     <span class="s2">&quot;size_grid&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">size_grid</span><span class="p">,</span>
                     <span class="s2">&quot;fact_rpc&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">fact_rpc</span><span class="p">}</span>
-    <span class="n">manager_writer</span><span class="p">(</span><span class="s2">&quot;rpc&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">pathreturn</span><span class="p">,</span> <span class="n">args_writing</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
+    <span class="n">manager_writer</span><span class="p">(</span><span class="s2">&quot;rpc&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">pathreturn</span><span class="p">,</span> <span class="n">args_writing</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File written in folder </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">pathreturn</span><span class="si">}</span><span class="s2"> .txt.&quot;</span><span class="p">)</span></div>
 
 </pre></div>

@@ -10,7 +10,7 @@ class TestReaderFilePt:
     def setup_class(cls):
         INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
         ARGS = {"interval": [2, None],
-                "header": "N X Y Z O P K C",
+                "header": list("NXYZOPKC"),
                 "unit_angle": "degree",
                 "linear_alteration":True}
         cls.work = reader_orientation(INPUT_OPK, ARGS)

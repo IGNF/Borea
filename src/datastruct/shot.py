@@ -6,6 +6,7 @@ from scipy.spatial.transform import Rotation as R
 from src.geodesy.proj_engine import ProjEngine
 from src.geodesy.approx_euclidean_proj import ApproxEuclideanProj
 from src.geodesy.local_euclidean_proj import LocalEuclideanProj
+from src.utils.check.check_order_axe import check_order_axe
 
 
 # pylint: disable=too-many-instance-attributes too-many-arguments
@@ -20,10 +21,12 @@ class Shot:
         name_cam (str): Name of the camera.
         unit_angle (str): Unit of angle 'degrees', 'radian'.
         linear_alteration (bool): True if z shot is correct of linear alteration.
+        order_axe (str): Order of rotation matrix axes.
     """
     def __init__(self, name_shot: str, pos_shot: np.ndarray,
                  ori_shot: np.ndarray, name_cam: str,
-                 unit_angle: str, linear_alteration: bool) -> None:
+                 unit_angle: str, linear_alteration: bool,
+                 order_axe: str) -> None:
         self.name_shot = name_shot
         self.pos_shot = pos_shot
         self.pos_shot_eucli = None
@@ -31,6 +34,7 @@ class Shot:
         self.ori_shot = ori_shot
         self.unit_angle = unit_angle
         self.name_cam = name_cam
+        self.order_axe = order_axe
         self.z_nadir = None
         self.co_points = {}
         self.gcp2d = {}
@@ -46,7 +50,7 @@ class Shot:
     def from_param_euclidean(cls, name_shot: str, pos_eucli: np.ndarray,
                              mat_ori_eucli: np.ndarray, name_cam: str,
                              unit_angle: str, linear_alteration: bool,
-                             approx: bool) -> None:
+                             order_axe: str, approx: bool) -> None:
         """
         Construction of a shot object using the Euclidean position.
 
@@ -57,13 +61,14 @@ class Shot:
             name_cam (str): Name of the camera.
             unit_angle (str): Unit of angle 'degrees', 'radian'.
             linear_alteration (bool): True if z shot is correct of linear alteration.
+            order_axe (str): Order of rotation matrix axes.
             approx (bool): True if you want to use approx euclidean system.
 
         Returns:
             Shot: The shot.
         """
         shot = cls(name_shot, np.array([0, 0, 0]), np.array([0, 0, 0]),
-                   name_cam, unit_angle, linear_alteration)
+                   name_cam, unit_angle, linear_alteration, order_axe)
         shot.pos_shot_eucli = pos_eucli
         shot.approxeucli = approx
         if approx:
@@ -78,8 +83,9 @@ class Shot:
         shot.mat_rot = shot.projeucli.mat_eucli_to_mat(shot.pos_shot[0], shot.pos_shot[1],
                                                        mat_ori_eucli)
         shot.mat_rot_eucli = mat_ori_eucli
+        order_xyz = check_order_axe(order_axe)
         shot.ori_shot = -(R.from_euler("x", np.pi) *
-                          R.from_matrix(shot.mat_rot)).as_euler("xyz", degrees=unitori)
+                          R.from_matrix(shot.mat_rot)).as_euler(order_xyz, degrees=unitori)
 
         shot.f_sys = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
         shot.f_sys_inv = lambda x_shot, y_shot, z_shot: (x_shot, y_shot, z_shot)
@@ -93,7 +99,8 @@ class Shot:
         Returns:
             np.array: The rotation matrix.
         """
-        rot = R.from_euler("xyz", -np.array(self.ori_shot), degrees=self.unit_angle == "degree")
+        order_xyz = check_order_axe(self.order_axe)
+        rot = R.from_euler(order_xyz, -np.array(self.ori_shot), degrees=self.unit_angle == "degree")
         rot = R.from_euler("x", np.pi) * rot
         return rot.as_matrix()
 
@@ -163,6 +170,20 @@ class Shot:
                 self.pos_shot[2] = self.get_z_add_scale_factor()
             else:
                 self.pos_shot[2] = self.get_z_remove_scale_factor()
+
+    def set_order_axe(self, order_axe: str) -> None:
+        """
+        Allows to change order of axe for the matrice and angle.
+
+        Args:
+            order_axe (str): New order axe.
+        """
+        if order_axe != self.order_axe:
+            self.order_axe = order_axe
+            order_xyz = check_order_axe(self.order_axe)
+            unitori = self.unit_angle == "degree"
+            self.ori_shot = -(R.from_euler("x", np.pi) *
+                              R.from_matrix(self.mat_rot)).as_euler(order_xyz, degrees=unitori)
 
     def getattr(self, attsrt: str) -> any:
         """

@@ -59,7 +59,7 @@ class SpaceResection:
 
         # Initialization of adjusted shot
         shot_adjust = Shot(shot.name_shot, shot.pos_shot, shot.ori_shot,
-                           shot.name_cam, shot.unit_angle, shot.linear_alteration)
+                           shot.name_cam, shot.unit_angle, shot.linear_alteration, shot.order_axe)
         shot_adjust.set_param_eucli_shot(shot.approxeucli)
         shot_adjust.set_z_nadir(shot.z_nadir)
 
@@ -117,6 +117,7 @@ class SpaceResection:
                                                        new_mat_eucli, shot_adjust.name_cam,
                                                        shot_adjust.unit_angle,
                                                        shot_adjust.linear_alteration,
+                                                       shot_adjust.order_axe,
                                                        shot_adjust.approxeucli)
             imc_new_adjust.set_z_nadir(shot_adjust.z_nadir)
 

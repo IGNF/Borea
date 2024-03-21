@@ -40,7 +40,8 @@ class Workdata:
     # pylint: disable-next=too-many-arguments
     def add_shot(self, name_shot: str, pos_shot: np.ndarray,
                  ori_shot: np.ndarray, name_cam: str,
-                 unit_angle: str, linear_alteration: bool) -> None:
+                 unit_angle: str, linear_alteration: bool,
+                 order_axe: str) -> None:
         """
         Add Shot to the attribut Shots.
 
@@ -51,13 +52,15 @@ class Workdata:
             name_cam (str): Name of the camera.
             unit_angle (str): Unit of angle 'degrees', 'radian'.
             linear_alteration (bool): True if z shot is correct of linear alteration.
+            order_axe (str): Order of rotation matrix axes,
         """
         self.shots[name_shot] = Shot(name_shot=name_shot,
                                      pos_shot=pos_shot,
                                      ori_shot=ori_shot,
                                      name_cam=name_cam,
                                      unit_angle=unit_angle,
-                                     linear_alteration=linear_alteration)
+                                     linear_alteration=linear_alteration,
+                                     order_axe=order_axe)
 
     def set_proj(self, epsg: int, file_epsg: str = None, path_geoid: str = None) -> None:
         """

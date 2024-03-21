@@ -34,9 +34,12 @@ def args_reading_opk(parser: argparse) -> argparse:
                         'P: phi rotation angle'
                         'K: kappa rotation angle'
                         'C: name of the camera')
+    parser.add_argument('-b', '--axe_angle',
+                        type=str, default="opk",
+                        help="Order of rotation matrix axes.")
     parser.add_argument('-u', '--unit_angle',
                         type=str, default="degree", choices=['degree', 'radian'],
-                        help="Unit of the angle of shooting, 'degree' or 'radian'")
+                        help="Unit of the angle of shooting, 'degree' or 'radian'.")
     parser.add_argument('-a', '--linear_alteration',
                         type=bool, default=True,
                         help="True if z shot corrected by linear alteration.")
@@ -68,6 +71,9 @@ def args_reading_opk(parser: argparse) -> argparse:
     parser.add_argument('--fm', '--format_dtm',
                         type=str, default=None,
                         help='Format of Dtm "altitude" or "height".')
+    parser.add_argument('-x', '--approx_system',
+                        type=bool, default=False,
+                        help="To use an approximate system.")
     return parser
 
 
@@ -84,7 +90,8 @@ def process_args_read_opk(args: argparse) -> Worksite:
     # Readind data
     if args.filepath is not None:
         if args.header is not None:
-            work = reader_orientation(args.filepath, {"interval": [args.first_line, args.last_line],
+            work = reader_orientation(args.filepath, {"order_axe": args.axe_angle.lower(),
+                                                      "interval": [args.first_line, args.last_line],
                                                       "header": list(args.header.upper()),
                                                       "unit_angle": args.unit_angle,
                                                       "linear_alteration": args.linear_alteration})
@@ -116,5 +123,5 @@ def process_args_read_opk(args: argparse) -> Worksite:
     else:
         print("Not Dtm in the worksite.")
 
-    work.set_param_shot()
+    work.set_param_shot(args.approx_system)
     return work

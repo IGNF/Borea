@@ -53,6 +53,10 @@ Type is:
 | K | kappa rotation angle |
 | C | name of the camera |
 
+### Detail for reading files
+
+To read the opk file, you can select a line interval to be read using the -f parameter for the first line and -z for the last line. If not set, the entire file will be read. Please note that the header in the file is not taken into account and must therefore either be skipped with the -f parameter or commented out with a # at the beginning of the line. You can therefore add comments to the file with a # at the beginning of the line.
+
 ### Camera file format
 
 The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float) and image size, **width** (int) and **height** (int) in pixels. .  
@@ -66,6 +70,7 @@ focal = 30975.00
 width = 26460
 height = 17004
 ```
+Only these 6 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool.
 An example file can be found in *./dataset/Camera1.txt*.
 
 ### File projection JSON format

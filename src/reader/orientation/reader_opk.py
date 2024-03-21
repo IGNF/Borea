@@ -31,22 +31,21 @@ def read(file: Path, args: dict, work: Worksite) -> Worksite:
     try:
         with open(file, 'r', encoding="utf-8") as file_opk:
             for item_opk in file_opk.readlines()[args["interval"][0]:args["interval"][1]]:
-                item_shot = item_opk.split()
-                if len(item_shot) != len(header):
-                    raise ValueError(f"The number of columns in your file {len(item_shot)}"
-                                     " is different from the number of columns in your input"
-                                     f" format {len(header)}.")
-                work.add_shot(item_shot[header.index("N")],
-                              np.array([
-                                   float(item_shot[header.index("X")]),
-                                   float(item_shot[header.index("Y")]),
-                                   float(item_shot[header.index("Z")])], dtype=float),
-                              np.array([
-                                   float(item_shot[header.index("O")]),
-                                   float(item_shot[header.index("P")]),
-                                   float(item_shot[header.index("K")])], dtype=float),
-                              item_shot[header.index("C")],
-                              args["unit_angle"], args["linear_alteration"])
+                if item_opk != '\n' and item_opk[0] != '#':
+                    item_shot = item_opk.split()
+                    if len(item_shot) != len(header):
+                        raise ValueError(f"The number of columns in your file {len(item_shot)}"
+                                         " is different from the number of columns in your input"
+                                         f" format {len(header)}.")
+                    work.add_shot(item_shot[header.index("N")],
+                                  np.array([float(item_shot[header.index("X")]),
+                                            float(item_shot[header.index("Y")]),
+                                            float(item_shot[header.index("Z")])], dtype=float),
+                                  np.array([float(item_shot[header.index("O")]),
+                                            float(item_shot[header.index("P")]),
+                                            float(item_shot[header.index("K")])], dtype=float),
+                                  item_shot[header.index("C")],
+                                  args["unit_angle"], args["linear_alteration"])
             file_opk.close()
     except FileNotFoundError as e:
         raise FileNotFoundError(f"The path {file} is incorrect !!! "

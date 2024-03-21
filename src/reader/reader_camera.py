@@ -29,9 +29,10 @@ def camera_txt(file: Path, work: Worksite) -> None:
     try:
         with open(file, 'r', encoding="utf-8") as file_cam:
             for info_cam in file_cam.readlines():
-                # Camera info retrieval
-                info_name, info_data = info_cam.split(" = ")
-                dict_info[info_name.lower()] = info_data[:-1]
+                if info_cam != '\n' and info_cam[0] != '#':
+                    # Camera info retrieval
+                    info_name, info_data = info_cam.split(" = ")
+                    dict_info[info_name.lower()] = info_data[:-1]
 
             # Add to worksite
             work.add_camera(dict_info["name"],

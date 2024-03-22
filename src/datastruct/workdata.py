@@ -218,11 +218,13 @@ class Workdata:
             path_dtm (str): Path to the dtm.
             type (str): Type of the dtm "altitude" or "height".
         """
-        if type_dtm not in ["altitude", "height", "a", "h"]:
-            raise ValueError(f"The dtm's type {type_dtm} isn't correct ('altitude' or 'height')")
+        if path_dtm:
+            if type_dtm not in ["altitude", "height"]:
+                raise ValueError(f"The dtm's type {type_dtm} isn't correct"
+                                 " ('altitude' or 'height')")
 
-        Dtm.clear()
-        Dtm().set_dtm(path_dtm, type_dtm)
+            Dtm.clear()
+            Dtm().set_dtm(path_dtm, type_dtm)
 
     def set_approx_eucli_proj(self, approx: bool) -> None:
         """

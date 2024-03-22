@@ -58,7 +58,7 @@ def process_args_write_opk(args: argparse, work: Worksite) -> None:
     """
     if args.order_axe_output:
         args.order_axe_output = args.order_axe_output.lower()
-    
+
     if args.output_header:
         args.output_header = list(args.output_header.upper())
 

@@ -34,7 +34,7 @@ def args_reading_opk(parser: argparse) -> argparse:
                         'P: phi rotation angle'
                         'K: kappa rotation angle'
                         'C: name of the camera')
-    parser.add_argument('-b', '--axe_angle',
+    parser.add_argument('-b', '--order_axe_input',
                         type=str, default="opk",
                         help="Order of rotation matrix axes.")
     parser.add_argument('-u', '--unit_angle',
@@ -90,7 +90,7 @@ def process_args_read_opk(args: argparse) -> Worksite:
     # Readind data
     if args.filepath is not None:
         if args.header is not None:
-            work = reader_orientation(args.filepath, {"order_axe": args.axe_angle.lower(),
+            work = reader_orientation(args.filepath, {"order_axe": args.order_axe_input.lower(),
                                                       "interval": [args.first_line, args.last_line],
                                                       "header": list(args.header.upper()),
                                                       "unit_angle": args.unit_angle,

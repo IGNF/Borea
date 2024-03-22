@@ -3,8 +3,7 @@ Args of parser to control file
 """
 import argparse
 from src.worksite.worksite import Worksite
-from src.reader.reader_gcp2d import read_gcp2d
-from src.reader.reader_gcp import read_gcp
+from src.reader.reader_point import read_file_pt
 from src.stat.statistics import Stat
 from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
 from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
@@ -23,11 +22,30 @@ def args_control(parser: argparse) -> argparse:
     parser.add_argument('-t', '--gcp2d',
                         type=str, default=None,
                         help='File path of ground control points in images.')
+    parser.add_argument('-k', '--head_gcp2d',
+                        type=str, default="PNXY",
+                        help='Header of the file gcp2d.'
+                        'e.g. PNXY'
+                        'S: to ignore the column'
+                        'P: name of point'
+                        'N: name of shot'
+                        'X: coordinate x (column) in the image'
+                        'Y: coordinate y (column) in the image')
     parser.add_argument('-g', '--gcp3d',
                         type=str, default=None,
                         help='File path of ground control points in ground.')
+    parser.add_argument('-l', '--head_gcp3d',
+                        type=str, default="PTXYZ",
+                        help='Header of the file gcp2d.'
+                        'e.g. PTXYZ'
+                        'S: to ignore the column'
+                        'P: name of point'
+                        'T: Type of gcp to control.'
+                        'X: coordinate x of the shot position'
+                        'Y: coordinate y of the shot position'
+                        'Z: coordinate z of the shot position')
     parser.add_argument('-d', '--control_type',
-                        type=int, default=[], nargs='*',
+                        type=str, default=[], nargs='*',
                         help='Type of gcp to control.')
     parser.add_argument('--fg', '--format_gcp',
                         type=str, default=None, choices=["altitude", "height"],
@@ -36,9 +54,6 @@ def args_control(parser: argparse) -> argparse:
                         type=str, default="inter", choices=["inter", "square"],
                         help="Type of process for the function image to world,"
                              "intersection or least_square")
-    parser.add_argument('-x', '--approx_system',
-                        type=bool, default=False,
-                        help="To use an approximate system.")
     parser.add_argument('-w', '--pathreturn',
                         type=str, default='./',
                         help='Conversion path e.g. test/tmp/.')
@@ -55,7 +70,7 @@ def process_args_control(args, work: Worksite) -> None:
     """
     # Reading ground point image
     if args.gcp2d is not None:
-        read_gcp2d(args.gcp2d, work)
+        read_file_pt(args.gcp2d, list(args.head_gcp2d.upper()), "gcp2d", work)
         if args.fg in ["altitude", "height"]:
             work.type_z_data = args.fg
         else:
@@ -70,7 +85,7 @@ def process_args_control(args, work: Worksite) -> None:
 
     # Reading GCP
     if args.gcp3d is not None:
-        read_gcp(args.gcp3d, work)
+        read_file_pt(args.gcp3d, list(args.head_gcp3d.upper()), "gcp3d", work)
         if args.fg in ["altitude", "height"]:
             work.type_z_data = args.fg
         else:

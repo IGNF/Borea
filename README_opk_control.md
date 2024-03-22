@@ -15,7 +15,11 @@ The parameters are:
 | Symbol | Details | Default | Mandatory |
 | :----: | :------ | :-----: | :-------: |
 | -r | File path of the workfile | | V |
-| -i | Type of each column in the site file. e.g. "N X Y Z O P K C" |  | V |
+| -i | Type of each column in the site file. e.g. NXYZOPKC with Z in altitude | NXYZOPKC | X |
+| -t | Files paths of ground image points |  | V |
+| -g | Files paths of ground control point |  | V |
+| --fg | Format of GCP and ground image points "altitude" or "height". |  | V |
+| -b | Order of rotation matrix axes. | opk | X |
 | -u | Unit of the angle of shooting, 'degree' or 'radian' | degree | X |
 | -a | True if z shot corrected by linear alteration | True | X |
 | -f | Line number to start file playback. Does not take file header into account. | None | X |
@@ -26,20 +30,20 @@ The parameters are:
 | -c | Files paths of cameras (.xml or .txt) | None | X |
 | -m | DTM of the worksite. | None | X |
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
-| -t | Files paths of ground image points (.mes) | None | X |
-| -g | Files paths of ground control point (.app) | None | X |
-| -d | Type of gcp to control. | [] | X |
-| --fg | Format of GCP and ground image points "altitude" or "height". | None | X, unless gcp and gip is given |
-| -p | Type of process for the function image to world, "inter" ofr intersection or "square" for least-square | "inter" | X |
 | -x | To use an approximate system. | False | X |
+| -k | Header of the file gcp2d. | PNXY | X |
+| -l | Header of the file gcp3d. | PTXYZ | X |
+| -d | Type of gcp to control. | [] | X |
+| -p | Type of process for the function image to world, "inter" ofr intersection or "square" for least-square | "inter" | X |
 | -w | Path stat e.g. "./" | "./" | X |
 
 E.G.
 ```
-python3 ./opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i "N X Y Z O P K C" -f 2 -c ./dataset/Camera1.txt -e 2154 -j ./dataset/proj.json -y ./dataset/ -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p inter
+python3 ./opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -j ./dataset/proj.json -y ./dataset/ -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p inter
 ```
 
 #### Detail for the header of file -i
+
 `header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
 Type is:
 | Symbol | Details |
@@ -55,6 +59,26 @@ Type is:
 | K | kappa rotation angle |
 | C | name of the camera |
 
+#### Detail for the header of point file -k and -l
+
+`header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
+Type is:
+| Symbol | Details |
+| :----: | :------ |
+| S | to ignore the column |
+| P | name of the point |
+| N | name of shot |
+| T | type of point |
+| X | coordinate x of the shot position |
+| Y | coordinate y of the shot position |
+| Z | coordinate z altitude of the shot position |
+
+### Detail for reading files
+
+To read the opk file, you can select a line interval to be read using the -f parameter for the first line and -z for the last line. If not set, the entire file will be read. Please note that the header in the file is not taken into account and must therefore either be skipped with the -f parameter or commented out with a # at the beginning of the line. You can therefore add comments to the file with a # at the beginning of the line.
+
+Connecting point files, gcp in the field and gcp in images must not have a file header in the file, or the header must be commented out with a # in front of it. You can therefore add comments to the file with a # at the beginning of the line.
+
 ### Camera file format
 
 The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float) and image size, **width** (int) and **height** (int) in pixels.  
@@ -68,6 +92,7 @@ focal = 30975.00
 width = 26460
 height = 17004
 ```
+Only these 6 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool.
 An example file can be found in *./dataset/Camera1.txt*.
 
 ### File projection JSON format

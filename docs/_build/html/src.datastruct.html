@@ -377,14 +377,14 @@ If None raise an error for any point outside the dtm or Nodata.</p>
 <p>Ground Control Point (GCP) class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.datastruct.gcp.GCP">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.datastruct.gcp.</span></span><span class="sig-name descname"><span class="pre">GCP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_gcp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/datastruct/gcp.html#GCP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.gcp.GCP" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.datastruct.gcp.</span></span><span class="sig-name descname"><span class="pre">GCP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_gcp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/datastruct/gcp.html#GCP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.gcp.GCP" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Ground Control Point class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name_gcp</strong> (<em>str</em>) – Name of the gcp.</p></li>
-<li><p><strong>code</strong> (<em>int</em>) – IGN code to differentiate between support points (1, 2, 3)
+<li><p><strong>code</strong> (<em>str</em>) – IGN code to differentiate between support points (1, 2, 3)
 and control points (11, 12, 13)
 1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.</p></li>
 <li><p><strong>coor</strong> (<em>numpy.array</em>) – Array of ground coordinate [X, Y, Z].</p></li>
@@ -393,7 +393,7 @@ and control points (11, 12, 13)
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.datastruct.gcp.GCP.code">
-<span class="sig-name descname"><span class="pre">code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#src.datastruct.gcp.GCP.code" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#src.datastruct.gcp.GCP.code" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -414,7 +414,7 @@ and control points (11, 12, 13)
 <p>Acquisition data class module.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.datastruct.shot.Shot">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.datastruct.shot.</span></span><span class="sig-name descname"><span class="pre">Shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ori_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_alteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/datastruct/shot.html#Shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.shot.Shot" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.datastruct.shot.</span></span><span class="sig-name descname"><span class="pre">Shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ori_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_alteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_axe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/datastruct/shot.html#Shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.shot.Shot" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Shot class definition.</p>
 <dl class="field-list simple">
@@ -426,12 +426,13 @@ and control points (11, 12, 13)
 <li><p><strong>name_cam</strong> (<em>str</em>) – Name of the camera.</p></li>
 <li><p><strong>unit_angle</strong> (<em>str</em>) – Unit of angle ‘degrees’, ‘radian’.</p></li>
 <li><p><strong>linear_alteration</strong> (<em>bool</em>) – True if z shot is correct of linear alteration.</p></li>
+<li><p><strong>order_axe</strong> (<em>str</em>) – Order of rotation matrix axes.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.datastruct.shot.Shot.from_param_euclidean">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_param_euclidean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat_ori_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_alteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/shot.html#Shot.from_param_euclidean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.shot.Shot.from_param_euclidean" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_param_euclidean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat_ori_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_alteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_axe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/shot.html#Shot.from_param_euclidean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.shot.Shot.from_param_euclidean" title="Link to this definition">#</a></dt>
 <dd><p>Construction of a shot object using the Euclidean position.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -442,6 +443,7 @@ and control points (11, 12, 13)
 <li><p><strong>name_cam</strong> (<em>str</em>) – Name of the camera.</p></li>
 <li><p><strong>unit_angle</strong> (<em>str</em>) – Unit of angle ‘degrees’, ‘radian’.</p></li>
 <li><p><strong>linear_alteration</strong> (<em>bool</em>) – True if z shot is correct of linear alteration.</p></li>
+<li><p><strong>order_axe</strong> (<em>str</em>) – Order of rotation matrix axes.</p></li>
 <li><p><strong>approx</strong> (<em>bool</em>) – True if you want to use approx euclidean system.</p></li>
 </ul>
 </dd>
@@ -506,6 +508,17 @@ and control points (11, 12, 13)
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>linear_alteration</strong> (<em>bool</em>) – Linear alteration boolean.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.shot.Shot.set_order_axe">
+<span class="sig-name descname"><span class="pre">set_order_axe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order_axe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/shot.html#Shot.set_order_axe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.shot.Shot.set_order_axe" title="Link to this definition">#</a></dt>
+<dd><p>Allows to change order of axe for the matrice and angle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>order_axe</strong> (<em>str</em>) – New order axe.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -599,7 +612,7 @@ and control points (11, 12, 13)
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.add_co_point">
-<span class="sig-name descname"><span class="pre">add_co_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.add_co_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.add_co_point" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_co_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coor2d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.add_co_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.add_co_point" title="Link to this definition">#</a></dt>
 <dd><p>Add linking point between acquisition in two part.
 One in self.co_points a dict with name_point the key and list of acquisition the result.
 And One in self.shot[name_shot].co_points a dict whit
@@ -607,21 +620,36 @@ name_point the key and list of coordinate x (column) y (line) the result in list
 <dl class="simple">
 <dt>Agrs:</dt><dd><p>name_point (str): Name of the connecting point.
 name_shot (str): Name of the acquisition.
-x (float): Pixel position of the point in column.
-y (float): Pixel position of the point in line.</p>
+coor2d (array): Pixel position in the shot [x, y] = [column, line]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.add_gcp">
-<span class="sig-name descname"><span class="pre">add_gcp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_gcp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_gcp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coor_gcp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.add_gcp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.add_gcp" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.add_gcp2d">
+<span class="sig-name descname"><span class="pre">add_gcp2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coor2d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.add_gcp2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.add_gcp2d" title="Link to this definition">#</a></dt>
+<dd><p>Add linking point between acquisition in two part.
+One in self.gcp2d a dict with name_point the key
+and list of acquisition the result.
+And One in self.shot[name_shot].gcp2d a dict whit
+name_point the key and list of coordinate x (column) y (line) the result in list.</p>
+<dl class="simple">
+<dt>Agrs:</dt><dd><p>name_point (str): Name of the connecting point.
+name_shot (str): Name of the acquisition.
+coor2d (array): Pixel position in the shot [x, y] = [column, line]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.add_gcp3d">
+<span class="sig-name descname"><span class="pre">add_gcp3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_gcp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_gcp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coor_gcp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.add_gcp3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.add_gcp3d" title="Link to this definition">#</a></dt>
 <dd><p>Add GCP in the Worksite.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name_gcp</strong> (<em>str</em>) – Name of the gcp.</p></li>
-<li><p><strong>code_gcp</strong> (<em>int</em>) – IGN code to differentiate between support points (1, 2, 3)
+<li><p><strong>code_gcp</strong> (<em>str</em>) – IGN code to differentiate between support points (1, 2, 3)
 and control points (11, 12, 13).
 1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.</p></li>
 <li><p><strong>coor_gcp</strong> (<em>numpy.array</em>) – Array of ground coordinate [X, Y, Z].</p></li>
@@ -631,25 +659,8 @@ and control points (11, 12, 13).
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.add_gcp2d">
-<span class="sig-name descname"><span class="pre">add_gcp2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.add_gcp2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.add_gcp2d" title="Link to this definition">#</a></dt>
-<dd><p>Add linking point between acquisition in two part.
-One in self.gcp2d a dict with name_point the key
-and list of acquisition the result.
-And One in self.shot[name_shot].gcp2d a dict whit
-name_point the key and list of coordinate x (column) y (line) the result in list.</p>
-<dl class="simple">
-<dt>Agrs:</dt><dd><p>name_point (str): Name of the connecting point.
-name_shot (str): Name of the acquisition.
-x (float): Pixel position of the point in column.
-y (float): Pixel position of the point in line.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.add_shot">
-<span class="sig-name descname"><span class="pre">add_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ori_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_alteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.add_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.add_shot" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ori_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_alteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_axe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.add_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.add_shot" title="Link to this definition">#</a></dt>
 <dd><p>Add Shot to the attribut Shots.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -660,6 +671,7 @@ y (float): Pixel position of the point in line.</p>
 <li><p><strong>name_cam</strong> (<em>str</em>) – Name of the camera.</p></li>
 <li><p><strong>unit_angle</strong> (<em>str</em>) – Unit of angle ‘degrees’, ‘radian’.</p></li>
 <li><p><strong>linear_alteration</strong> (<em>bool</em>) – True if z shot is correct of linear alteration.</p></li>
+<li><p><strong>order_axe</strong> (<em>str</em>) – Order of rotation matrix axes,</p></li>
 </ul>
 </dd>
 </dl>
@@ -748,11 +760,16 @@ y (float): Pixel position of the point in line.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.datastruct.workshot.Workshot.set_unit_shot">
-<span class="sig-name descname"><span class="pre">set_unit_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_alteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workshot.html#Workshot.set_unit_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workshot.Workshot.set_unit_shot" title="Link to this definition">#</a></dt>
-<dd><p>Allows you to change the orientation angle unit.</p>
+<span class="sig-name descname"><span class="pre">set_unit_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_alteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_axe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workshot.html#Workshot.set_unit_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workshot.Workshot.set_unit_shot" title="Link to this definition">#</a></dt>
+<dd><p>Allows you to change unit or parameter of shots.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>unit_angle</strong> (<em>str</em>) – Unit angle.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type_z</strong> (<em>str</em>) – Unit of z shot you want.</p></li>
+<li><p><strong>unit_angle</strong> (<em>str</em>) – Unit angle you want.</p></li>
+<li><p><strong>linear_alteration</strong> (<em>bool</em>) – True if you want data corrected.</p></li>
+<li><p><strong>order_axe</strong> (<em>str</em>) – Order of rotation matrice you want in your angle.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -861,6 +878,7 @@ y (float): Pixel position of the point in line.</p>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.get_z_remove_scale_factor"><code class="docutils literal notranslate"><span class="pre">Shot.get_z_remove_scale_factor()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.getattr"><code class="docutils literal notranslate"><span class="pre">Shot.getattr()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.set_linear_alteration"><code class="docutils literal notranslate"><span class="pre">Shot.set_linear_alteration()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.shot.Shot.set_order_axe"><code class="docutils literal notranslate"><span class="pre">Shot.set_order_axe()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.set_param_eucli_shot"><code class="docutils literal notranslate"><span class="pre">Shot.set_param_eucli_shot()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.set_rot_shot"><code class="docutils literal notranslate"><span class="pre">Shot.set_rot_shot()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.set_type_z"><code class="docutils literal notranslate"><span class="pre">Shot.set_type_z()</span></code></a></li>
@@ -874,8 +892,8 @@ y (float): Pixel position of the point in line.</p>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata"><code class="docutils literal notranslate"><span class="pre">Workdata</span></code></a><ul>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.add_camera"><code class="docutils literal notranslate"><span class="pre">Workdata.add_camera()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.add_co_point"><code class="docutils literal notranslate"><span class="pre">Workdata.add_co_point()</span></code></a></li>
-<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.add_gcp"><code class="docutils literal notranslate"><span class="pre">Workdata.add_gcp()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.add_gcp2d"><code class="docutils literal notranslate"><span class="pre">Workdata.add_gcp2d()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.add_gcp3d"><code class="docutils literal notranslate"><span class="pre">Workdata.add_gcp3d()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.add_shot"><code class="docutils literal notranslate"><span class="pre">Workdata.add_shot()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.known_projection"><code class="docutils literal notranslate"><span class="pre">Workdata.known_projection()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_approx_eucli_proj"><code class="docutils literal notranslate"><span class="pre">Workdata.set_approx_eucli_proj()</span></code></a></li>

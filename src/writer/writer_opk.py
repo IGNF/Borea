@@ -17,6 +17,7 @@ def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:
         path_opk (str): Path of folder to registration file .opk.
         args (dict): Information for writing an opk file.
                      keys:
+                     "order_axe" (str): Order of rotation matrix axes,
                      "header" (list): List of column type file.
                      "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
                      "line_writingar_alteration" (bool): True if data corrected by
@@ -25,16 +26,24 @@ def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:
     """
     path_opk = os.path.join(Path(PureWindowsPath(path_opk)), f"{name_opk}.opk")
 
-    header, type_z = check_header_file(args["header"].split())
+    if args["header"]:
+        header, type_z = check_header_file(args["header"])
+    else:
+        header = ['N', 'X', 'Y', 'Z', 'O', 'P', 'K', 'C']
+        type_z = work.type_z_shot
 
     if "S" in header:
         raise ValueError("Letter S doesn't existe in writing header opk.")
 
-    work.set_unit_shot(type_z, args["unit_angle"], args["linear_alteration"])
+    work.set_unit_shot(type_z, args["unit_angle"], args["linear_alteration"], args["order_axe"])
+
+    header_file = ""
+    for i in header:
+        header_file += i + "   "
 
     try:
         with open(path_opk, "w", encoding="utf-8") as file:
-            file.write(args["header"])
+            file.write(header_file)
             file.write("\n")
             keys = np.sort(list(work.shots))
             line_writing = ""

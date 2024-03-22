@@ -2,7 +2,6 @@
 Workdata data class module.
 """
 import os
-import sys
 import json
 from pathlib import Path, PureWindowsPath
 import numpy as np
@@ -41,7 +40,8 @@ class Workdata:
     # pylint: disable-next=too-many-arguments
     def add_shot(self, name_shot: str, pos_shot: np.ndarray,
                  ori_shot: np.ndarray, name_cam: str,
-                 unit_angle: str, linear_alteration: bool) -> None:
+                 unit_angle: str, linear_alteration: bool,
+                 order_axe: str) -> None:
         """
         Add Shot to the attribut Shots.
 
@@ -52,13 +52,15 @@ class Workdata:
             name_cam (str): Name of the camera.
             unit_angle (str): Unit of angle 'degrees', 'radian'.
             linear_alteration (bool): True if z shot is correct of linear alteration.
+            order_axe (str): Order of rotation matrix axes,
         """
         self.shots[name_shot] = Shot(name_shot=name_shot,
                                      pos_shot=pos_shot,
                                      ori_shot=ori_shot,
                                      name_cam=name_cam,
                                      unit_angle=unit_angle,
-                                     linear_alteration=linear_alteration)
+                                     linear_alteration=linear_alteration,
+                                     order_axe=order_axe)
 
     def set_proj(self, epsg: int, file_epsg: str = None, path_geoid: str = None) -> None:
         """
@@ -132,7 +134,7 @@ class Workdata:
                                            width=width,
                                            height=height)
 
-    def add_co_point(self, name_point: str, name_shot: str, x: float, y: float) -> None:
+    def add_co_point(self, name_point: str, name_shot: str, coor2d: np.ndarray) -> None:
         """
         Add linking point between acquisition in two part.
         One in self.co_points a dict with name_point the key and list of acquisition the result.
@@ -142,18 +144,16 @@ class Workdata:
         Agrs:
             name_point (str): Name of the connecting point.
             name_shot (str): Name of the acquisition.
-            x (float): Pixel position of the point in column.
-            y (float): Pixel position of the point in line.
+            coor2d (array): Pixel position in the shot [x, y] = [column, line]
         """
         if name_shot not in self.shots:
-            print(f"The shot {name_shot} doesn't exist in list of shots.")
-            sys.exit()
+            raise ValueError(f"The shot {name_shot} doesn't exist in list of shots.")
 
         if name_point not in self.co_points:
             self.co_points[name_point] = []
 
         if name_point not in self.shots[name_shot].co_points:
-            self.shots[name_shot].co_points[name_point] = [x, y]
+            self.shots[name_shot].co_points[name_point] = coor2d
         else:
             print("\n :--------------------------:")
             print("Warning : connecting point duplicate.")
@@ -164,7 +164,7 @@ class Workdata:
 
         self.co_points[name_point].append(name_shot)
 
-    def add_gcp2d(self, name_point: str, name_shot: str, x: float, y: float) -> None:
+    def add_gcp2d(self, name_point: str, name_shot: str, coor2d: np.ndarray) -> None:
         """
         Add linking point between acquisition in two part.
         One in self.gcp2d a dict with name_point the key
@@ -175,8 +175,7 @@ class Workdata:
         Agrs:
             name_point (str): Name of the connecting point.
             name_shot (str): Name of the acquisition.
-            x (float): Pixel position of the point in column.
-            y (float): Pixel position of the point in line.
+            coor2d (array): Pixel position in the shot [x, y] = [column, line]
         """
         try:
             self.shots[name_shot]
@@ -187,7 +186,7 @@ class Workdata:
             self.gcp2d[name_point] = []
 
         if name_point not in self.shots[name_shot].gcp2d:
-            self.shots[name_shot].gcp2d[name_point] = [x, y]
+            self.shots[name_shot].gcp2d[name_point] = coor2d
         else:
             print("\n :--------------------------:")
             print("Warning : connecting point duplicate.")
@@ -198,13 +197,13 @@ class Workdata:
 
         self.gcp2d[name_point].append(name_shot)
 
-    def add_gcp(self, name_gcp: str, code_gcp: int, coor_gcp: np.ndarray) -> None:
+    def add_gcp3d(self, name_gcp: str, code_gcp: str, coor_gcp: np.ndarray) -> None:
         """
         Add GCP in the Worksite.
 
         Args:
             name_gcp (str): Name of the gcp.
-            code_gcp (int): IGN code to differentiate between support points (1, 2, 3)
+            code_gcp (str): IGN code to differentiate between support points (1, 2, 3)
                             and control points (11, 12, 13).
                             1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.
             coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].
@@ -219,11 +218,13 @@ class Workdata:
             path_dtm (str): Path to the dtm.
             type (str): Type of the dtm "altitude" or "height".
         """
-        if type_dtm not in ["altitude", "height", "a", "h"]:
-            raise ValueError(f"The dtm's type {type_dtm} isn't correct ('altitude' or 'height')")
+        if path_dtm:
+            if type_dtm not in ["altitude", "height"]:
+                raise ValueError(f"The dtm's type {type_dtm} isn't correct"
+                                 " ('altitude' or 'height')")
 
-        Dtm.clear()
-        Dtm().set_dtm(path_dtm, type_dtm)
+            Dtm.clear()
+            Dtm().set_dtm(path_dtm, type_dtm)
 
     def set_approx_eucli_proj(self, approx: bool) -> None:
         """

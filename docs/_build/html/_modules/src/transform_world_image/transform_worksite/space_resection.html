@@ -158,6 +158,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.datastruct.html">src.datastruct package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../src.format.html">src.format package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -288,7 +289,7 @@
 
         <span class="c1"># Initialization of adjusted shot</span>
         <span class="n">shot_adjust</span> <span class="o">=</span> <span class="n">Shot</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">name_shot</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">ori_shot</span><span class="p">,</span>
-                           <span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">unit_angle</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">)</span>
+                           <span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">unit_angle</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">,</span> <span class="n">shot</span><span class="o">.</span><span class="n">order_axe</span><span class="p">)</span>
         <span class="n">shot_adjust</span><span class="o">.</span><span class="n">set_param_eucli_shot</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">approxeucli</span><span class="p">)</span>
         <span class="n">shot_adjust</span><span class="o">.</span><span class="n">set_z_nadir</span><span class="p">(</span><span class="n">shot</span><span class="o">.</span><span class="n">z_nadir</span><span class="p">)</span>
 
@@ -349,6 +350,7 @@
                                                        <span class="n">new_mat_eucli</span><span class="p">,</span> <span class="n">shot_adjust</span><span class="o">.</span><span class="n">name_cam</span><span class="p">,</span>
                                                        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">unit_angle</span><span class="p">,</span>
                                                        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">,</span>
+                                                       <span class="n">shot_adjust</span><span class="o">.</span><span class="n">order_axe</span><span class="p">,</span>
                                                        <span class="n">shot_adjust</span><span class="o">.</span><span class="n">approxeucli</span><span class="p">)</span>
             <span class="n">imc_new_adjust</span><span class="o">.</span><span class="n">set_z_nadir</span><span class="p">(</span><span class="n">shot_adjust</span><span class="o">.</span><span class="n">z_nadir</span><span class="p">)</span>
 

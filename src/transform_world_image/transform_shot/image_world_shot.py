@@ -109,10 +109,8 @@ class ImageWorldShot():
         pt_eucli = self.local_to_eucli(pt_bundle, pos_eucli, z)
 
         pt_world = self.shot.projeucli.eucli_to_world(pt_eucli)
-        try:
-            np.array([pt_world[0], pt_world[1], z])
-        except ValueError:
-            print(pt_world, z)
+        np.array([pt_world[0], pt_world[1], z])
+
         return np.array([pt_world[0], pt_world[1], z])
 
     def image_to_bundle(self, img_coor: np.ndarray) -> np.ndarray:

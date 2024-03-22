@@ -269,6 +269,7 @@
 <li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot.get_z_remove_scale_factor"><code class="docutils literal notranslate"><span class="pre">Shot.get_z_remove_scale_factor()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot.getattr"><code class="docutils literal notranslate"><span class="pre">Shot.getattr()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot.set_linear_alteration"><code class="docutils literal notranslate"><span class="pre">Shot.set_linear_alteration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot.set_order_axe"><code class="docutils literal notranslate"><span class="pre">Shot.set_order_axe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot.set_param_eucli_shot"><code class="docutils literal notranslate"><span class="pre">Shot.set_param_eucli_shot()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot.set_rot_shot"><code class="docutils literal notranslate"><span class="pre">Shot.set_rot_shot()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot.set_type_z"><code class="docutils literal notranslate"><span class="pre">Shot.set_type_z()</span></code></a></li>
@@ -282,8 +283,8 @@
 <li class="toctree-l3"><a class="reference internal" href="src.datastruct.html#src.datastruct.workdata.Workdata"><code class="docutils literal notranslate"><span class="pre">Workdata</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.workdata.Workdata.add_camera"><code class="docutils literal notranslate"><span class="pre">Workdata.add_camera()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.workdata.Workdata.add_co_point"><code class="docutils literal notranslate"><span class="pre">Workdata.add_co_point()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.workdata.Workdata.add_gcp"><code class="docutils literal notranslate"><span class="pre">Workdata.add_gcp()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.workdata.Workdata.add_gcp2d"><code class="docutils literal notranslate"><span class="pre">Workdata.add_gcp2d()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.workdata.Workdata.add_gcp3d"><code class="docutils literal notranslate"><span class="pre">Workdata.add_gcp3d()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.workdata.Workdata.add_shot"><code class="docutils literal notranslate"><span class="pre">Workdata.add_shot()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.workdata.Workdata.known_projection"><code class="docutils literal notranslate"><span class="pre">Workdata.known_projection()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.datastruct.html#src.datastruct.workdata.Workdata.set_approx_eucli_proj"><code class="docutils literal notranslate"><span class="pre">Workdata.set_approx_eucli_proj()</span></code></a></li>
@@ -440,16 +441,8 @@
 <li class="toctree-l3"><a class="reference internal" href="src.reader.html#src.reader.reader_camera.read_camera"><code class="docutils literal notranslate"><span class="pre">read_camera()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="src.reader.html#module-src.reader.reader_co_points">src.reader.reader_co_points module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="src.reader.html#src.reader.reader_co_points.read_co_points"><code class="docutils literal notranslate"><span class="pre">read_co_points()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="src.reader.html#module-src.reader.reader_gcp">src.reader.reader_gcp module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="src.reader.html#src.reader.reader_gcp.read_gcp"><code class="docutils literal notranslate"><span class="pre">read_gcp()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="src.reader.html#module-src.reader.reader_gcp2d">src.reader.reader_gcp2d module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="src.reader.html#src.reader.reader_gcp2d.read_gcp2d"><code class="docutils literal notranslate"><span class="pre">read_gcp2d()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.reader.html#module-src.reader.reader_point">src.reader.reader_point module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.reader.html#src.reader.reader_point.read_file_pt"><code class="docutils literal notranslate"><span class="pre">read_file_pt()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="src.reader.html#module-src.reader">Module contents</a></li>
@@ -511,6 +504,9 @@
 <li class="toctree-l4"><a class="reference internal" href="src.utils.check.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.utils.check.html#module-src.utils.check.check_args_opk">src.utils.check.check_args_opk module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.utils.check.html#module-src.utils.check.check_array">src.utils.check.check_array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.utils.check.html#module-src.utils.check.check_head_file_pt">src.utils.check.check_head_file_pt module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.utils.check.html#module-src.utils.check.check_header">src.utils.check.check_header module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.utils.check.html#module-src.utils.check.check_order_axe">src.utils.check.check_order_axe module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.utils.check.html#module-src.utils.check">Module contents</a></li>
 </ul>
 </li>

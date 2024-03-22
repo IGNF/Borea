@@ -158,6 +158,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.datastruct.html">src.datastruct package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.format.html">src.format package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -224,7 +225,6 @@
 <span class="sd">Workdata data class module.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">PureWindowsPath</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -267,7 +267,8 @@
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.add_shot">[docs]</a>
     <span class="k">def</span> <span class="nf">add_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
                  <span class="n">ori_shot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">name_cam</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                 <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                 <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+                 <span class="n">order_axe</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add Shot to the attribut Shots.</span>
 
@@ -278,13 +279,15 @@
 <span class="sd">            name_cam (str): Name of the camera.</span>
 <span class="sd">            unit_angle (str): Unit of angle &#39;degrees&#39;, &#39;radian&#39;.</span>
 <span class="sd">            linear_alteration (bool): True if z shot is correct of linear alteration.</span>
+<span class="sd">            order_axe (str): Order of rotation matrix axes,</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span> <span class="o">=</span> <span class="n">Shot</span><span class="p">(</span><span class="n">name_shot</span><span class="o">=</span><span class="n">name_shot</span><span class="p">,</span>
                                      <span class="n">pos_shot</span><span class="o">=</span><span class="n">pos_shot</span><span class="p">,</span>
                                      <span class="n">ori_shot</span><span class="o">=</span><span class="n">ori_shot</span><span class="p">,</span>
                                      <span class="n">name_cam</span><span class="o">=</span><span class="n">name_cam</span><span class="p">,</span>
                                      <span class="n">unit_angle</span><span class="o">=</span><span class="n">unit_angle</span><span class="p">,</span>
-                                     <span class="n">linear_alteration</span><span class="o">=</span><span class="n">linear_alteration</span><span class="p">)</span></div>
+                                     <span class="n">linear_alteration</span><span class="o">=</span><span class="n">linear_alteration</span><span class="p">,</span>
+                                     <span class="n">order_axe</span><span class="o">=</span><span class="n">order_axe</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Workdata.set_proj">
@@ -370,7 +373,7 @@
 
 <div class="viewcode-block" id="Workdata.add_co_point">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.add_co_point">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_co_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_co_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">coor2d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add linking point between acquisition in two part.</span>
 <span class="sd">        One in self.co_points a dict with name_point the key and list of acquisition the result.</span>
@@ -380,18 +383,16 @@
 <span class="sd">        Agrs:</span>
 <span class="sd">            name_point (str): Name of the connecting point.</span>
 <span class="sd">            name_shot (str): Name of the acquisition.</span>
-<span class="sd">            x (float): Pixel position of the point in column.</span>
-<span class="sd">            y (float): Pixel position of the point in line.</span>
+<span class="sd">            coor2d (array): Pixel position in the shot [x, y] = [column, line]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name_shot</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The shot </span><span class="si">{</span><span class="n">name_shot</span><span class="si">}</span><span class="s2"> doesn&#39;t exist in list of shots.&quot;</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The shot </span><span class="si">{</span><span class="n">name_shot</span><span class="si">}</span><span class="s2"> doesn&#39;t exist in list of shots.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">name_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">co_points</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">co_points</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">if</span> <span class="n">name_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">co_points</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">co_points</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">co_points</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span> <span class="o">=</span> <span class="n">coor2d</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> :--------------------------:&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning : connecting point duplicate.&quot;</span><span class="p">)</span>
@@ -405,7 +406,7 @@
 
 <div class="viewcode-block" id="Workdata.add_gcp2d">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.add_gcp2d">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_gcp2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_gcp2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">coor2d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add linking point between acquisition in two part.</span>
 <span class="sd">        One in self.gcp2d a dict with name_point the key</span>
@@ -416,8 +417,7 @@
 <span class="sd">        Agrs:</span>
 <span class="sd">            name_point (str): Name of the connecting point.</span>
 <span class="sd">            name_shot (str): Name of the acquisition.</span>
-<span class="sd">            x (float): Pixel position of the point in column.</span>
-<span class="sd">            y (float): Pixel position of the point in line.</span>
+<span class="sd">            coor2d (array): Pixel position in the shot [x, y] = [column, line]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span>
@@ -428,7 +428,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">if</span> <span class="n">name_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span> <span class="o">=</span> <span class="n">coor2d</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> :--------------------------:&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning : connecting point duplicate.&quot;</span><span class="p">)</span>
@@ -440,15 +440,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">[</span><span class="n">name_point</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_shot</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Workdata.add_gcp">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.add_gcp">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_gcp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_gcp</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">code_gcp</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">coor_gcp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Workdata.add_gcp3d">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.add_gcp3d">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_gcp3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_gcp</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">code_gcp</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">coor_gcp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add GCP in the Worksite.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            name_gcp (str): Name of the gcp.</span>
-<span class="sd">            code_gcp (int): IGN code to differentiate between support points (1, 2, 3)</span>
+<span class="sd">            code_gcp (str): IGN code to differentiate between support points (1, 2, 3)</span>
 <span class="sd">                            and control points (11, 12, 13).</span>
 <span class="sd">                            1 means precision in Z, 2 in X and Y and 3 in X, Y, Z.</span>
 <span class="sd">            coor_gcp (numpy.array): Array of ground coordinate [X, Y, Z].</span>

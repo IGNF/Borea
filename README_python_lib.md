@@ -68,6 +68,8 @@ path_opk = "dataset/23FD1305_alt_test.OPK"
 
 # line taken and header
 line_taken = [2, None]
+header = list('NXYZOPKC')
+# or
 header = ['N', 'X', 'Y', 'Z', 'O', 'P', 'K', 'C']
 unit_angle = 'degree' # or "radian"
 linear_alteration = True # If z shot is corrected by linear alteration
@@ -185,6 +187,7 @@ focal = 30975.00
 width = 26460
 height = 17004
 ```
+Only these 6 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool.
 An example file can be found in *./dataset/Camera1.txt*.
 
 ## File projection JSON format

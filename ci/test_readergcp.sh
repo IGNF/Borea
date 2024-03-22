@@ -1,1 +1,0 @@
-python -m pytest -s ./test/test_reader/test_readergcp.py -v

@@ -12,7 +12,7 @@ from src.datastruct.dtm import Dtm
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 
 
-SHOT = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True)
+SHOT = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True,'opk')
 CAM = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460, 17004)
 EPSG = 2154
 DICT_PROJ_WITH_G = {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}
@@ -59,6 +59,19 @@ def test_image_to_world_sametype_withoutgeoid():
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
     shot.set_z_nadir(z_nadir)
     actual = ImageWorldShot(shot,cam).image_to_world(point_image, DATA_TYPE_Z, DATA_TYPE_Z)
+
+
+def test_image_to_world_notsametype_withoutgeoid():
+    point_image = np.array([24042.25, 14781.17])
+    shot = copy.copy(SHOT)
+    cam = CAM
+    Proj_singleton(EPSG, DICT_PROJ_WITHOUT_G)
+    Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
+    shot.set_param_eucli_shot(approx=False)
+    z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
+    shot.set_z_nadir(z_nadir)
+    with pytest.raises(ValueError) as e_info:
+        actual = ImageWorldShot(shot,cam).image_to_world(point_image, DATA_TYPE_Z, SHOT_TYPE_Z)
 
 
 def test_image_to_world_withoutdtm():

@@ -1,1 +1,1 @@
-python3 -m pytest -s ./test/test_reader/test_readercopoints.py -v
+python -m pytest -s ./test/test_reader/test_readercopoints.py -v

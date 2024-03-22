@@ -3,7 +3,7 @@ Main to convert opk file to Rpc
 """
 import argparse
 from src.parser.parser_opk.args_read_opk import args_reading_opk, process_args_read_opk
-from src.parser.args_rpc import args_writing_rpc, process_args_write_rpc
+from src.parser.parser_format.args_rpc import args_writing_rpc, process_args_write_rpc
 
 
 parser = argparse.ArgumentParser(description='Photogrammetric site conversion'

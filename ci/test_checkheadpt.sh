@@ -1,1 +1,1 @@
-python3 -m pytest -s ./test/test_utils/test_checkheadpt.py -v
+python -m pytest -s ./test/test_utils/test_checkheadpt.py -v

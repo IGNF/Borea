@@ -9,7 +9,8 @@ class TestReaderFilePt:
     @classmethod
     def setup_class(cls):
         INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
-        ARGS = {"interval": [2, None],
+        ARGS = {"order_axe":'opk',
+                "interval": [2, None],
                 "header": list("NXYZOPKC"),
                 "unit_angle": "degree",
                 "linear_alteration":True}

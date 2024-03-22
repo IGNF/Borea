@@ -16,7 +16,8 @@ The parameters are:
 | Symbol | Details | Default | Mandatory |
 | :----: | :------ | :-----: | :-------: |
 | -r | File path of the workfile | | V |
-| -i | Type of each column in the site file. e.g. NXYZOPKC | NXYZOPKC | X |
+| -i | Type of each column in the site file. e.g. NXYZOPKC with Z in altitude | NXYZOPKC | X |
+| -b | Order of rotation matrix axes. | opk | X |
 | -u | Unit of the angle of shooting, 'degree' or 'radian' | degree | X |
 | -a | True if z shot corrected by linear alteration | True | X |
 | -f | Line number to start file playback. Does not take file header into account. | None | X |
@@ -27,6 +28,7 @@ The parameters are:
 | -c | Files paths of cameras (.xml or .txt) | None | X |
 | -m | DTM of the worksite. | None | X |
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
+| -x | To use an approximate system. | False | X |
 | -w | Conversion path e.g. "./" | "./" | X |
 | -o | Degree of the polynomial of the rpc (1, 2, 3) | 3 | X |
 | -d | Size of the grid to calculate Rpc. | 100 | X |

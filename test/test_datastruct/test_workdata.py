@@ -19,7 +19,7 @@ def setup_module(module): # run before the first test
 
 def test_add_shot():
     obj = Worksite(name = "Test")
-    obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam", 'degree',True)
+    obj.add_shot("test_shot", np.array([1,2,3]), np.array([3,2,1]), "test_cam", 'degree',True,'opk')
     assert obj.shots["test_shot"].name_shot == "test_shot"
     assert obj.shots["test_shot"].pos_shot[0] == 1
     assert obj.shots["test_shot"].pos_shot[1] == 2
@@ -32,9 +32,9 @@ def test_add_shot():
 
 def test_set_proj_Lambertbase():
     work = Worksite(name = "Test")
-    work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
+    work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True,'opk')
     work.set_proj(2154, path_geoid="./dataset/")
     work.set_param_shot(approx=False)
     assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : System=RGF93 - Projection=Lambert93'}
@@ -44,9 +44,9 @@ def test_set_proj_Lambertbase():
 
 def test_set_proj_Lambertbase_pathfolder():
     work = Worksite(name = "Test")
-    work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
+    work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True,'opk')
     work.set_proj(2154, path_geoid="dataset/")
     work.set_param_shot(approx=False)
     assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : System=RGF93 - Projection=Lambert93'}
@@ -56,9 +56,9 @@ def test_set_proj_Lambertbase_pathfolder():
 
 def test_set_proj_Lambertbase_pathfolderwin():
     work = Worksite(name = "Test")
-    work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
+    work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True,'opk')
     work.set_proj(2154, path_geoid="dataset\\")
     work.set_param_shot(approx=False)
     assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : System=RGF93 - Projection=Lambert93'}
@@ -68,9 +68,9 @@ def test_set_proj_Lambertbase_pathfolderwin():
 
 def test_set_proj_Lambertbase_withEPSG():
     work = Worksite(name = "Test")
-    work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True)
+    work.add_shot("t1", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t2", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t3", np.array([814975.925, 6283986.148,1771.280]), np.array([3,2,1]), "test_cam","degree",True,'opk')
     work.set_proj(2154, "dataset/proj.json", "dataset/")
     work.set_param_shot(approx=False)
     assert ProjEngine().projection_list == {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"], 'comment': 'Projection of French metropolis : System=RGF93 - Projection=Lambert93'}
@@ -80,9 +80,9 @@ def test_set_proj_Lambertbase_withEPSG():
 
 def test_set_proj_withjsonandepsg():
     work = Worksite(name = "Test")
-    work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
+    work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
     work.set_proj(4339, "dataset/proj.json")
     work.set_param_shot(approx=False)
     assert ProjEngine().projection_list == {"geoc": "EPSG:4340", "geog": "EPSG:4176", "comment": "Projection of Australian Antartic"}
@@ -92,36 +92,36 @@ def test_set_proj_withjsonandepsg():
 
 def test_set_proj_epsgnojson():
     work = Worksite(name = "Test")
-    work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
+    work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
     work.set_proj(4339)
     assert ProjEngine().epsg == 4339
 
 
 def test_set_proj_otherepsgandnotgoodjson():
     work = Worksite(name = "Test")
-    work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
+    work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
     work.set_proj(4326, "dataset/proj.json")
     assert ProjEngine().epsg == 4326
 
 
 def test_set_proj_badepsg():
     work = Worksite(name = "Test")
-    work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
+    work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
     with pytest.raises(pyproj.exceptions.CRSError) as e_info:
         work.set_proj(1111)
 
 
 def test_set_proj_badepsg2():
     work = Worksite(name = "Test")
-    work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
+    work.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    work.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
     with pytest.raises(pyproj.exceptions.CRSError) as e_info:
         work.set_proj(1111)
 
@@ -137,9 +137,9 @@ def test_add_cam():
 
 def test_add_co_point():
     obj = Worksite(name = "Test")
-    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
+    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
     obj.add_co_point("p0", "t1", np.array([50, 30]))
     obj.add_co_point("p0", "t2", np.array([40, 40]))
     obj.add_co_point("p1", "t1", np.array([70, 10]))
@@ -154,9 +154,9 @@ def test_add_co_point():
 
 def test_add_gcp2d():
     obj = Worksite(name = "Test")
-    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
-    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True)
+    obj.add_shot("t1", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    obj.add_shot("t2", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
+    obj.add_shot("t3", np.array([1,2,3]), np.array([3,2,1]), "test_cam","degree",True,'opk')
     obj.add_gcp2d("p0", "t1", np.array([50, 30]))
     obj.add_gcp2d("p0", "t2", np.array([40, 40]))
     obj.add_gcp2d("p1", "t1", np.array([70, 10]))
@@ -179,7 +179,7 @@ def test_add_gcp():
 
 def test_set_z_nadir_shot():
     work = Worksite("test")
-    work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"degree",True)
+    work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"degree",True,'opk')
     work.set_proj(2154, "dataset/proj.json", "./dataset/")
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.set_dtm(PATH_DTM, "height")

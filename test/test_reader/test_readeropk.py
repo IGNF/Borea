@@ -12,7 +12,7 @@ UNIT_ANGLE = "degree"
 
 def test_reader_opk_ubupath():
     work = Worksite("23FD1305_alt_test")
-    obj = read_opk(INPUT_OPK_UBU, {"interval": [2, None],"header": list("NXYZOPKC"),"unit_angle": UNIT_ANGLE,"linear_alteration":True}, work)
+    obj = read_opk(INPUT_OPK_UBU, {"order_axe":'opk',"interval": [2, None],"header": list("NXYZOPKC"),"unit_angle": UNIT_ANGLE,"linear_alteration":True}, work)
     assert obj.name == "23FD1305_alt_test"
     assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
     assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925
@@ -37,9 +37,9 @@ def test_reader_opk_winpath():
     work = Worksite("23FD1305_alt_test")
     if platform.system() in ['Linux','Darwin']:
         with pytest.raises(FileNotFoundError) as e_info:
-            obj = read_opk(INPUT_OPK_WIN, {"interval": [2, None],"header": list("NXYZOPKC"),"unit_angle": UNIT_ANGLE,"linear_alteration":True}, work)
+            obj = read_opk(INPUT_OPK_WIN, {"order_axe":'opk',"interval": [2, None],"header": list("NXYZOPKC"),"unit_angle": UNIT_ANGLE,"linear_alteration":True}, work)
     else:
-        obj = read_opk(INPUT_OPK_WIN, {"interval": [2, None],"header": list("NXYZOPKC"),"unit_angle": UNIT_ANGLE,"linear_alteration":True}, work)
+        obj = read_opk(INPUT_OPK_WIN, {"order_axe":'opk',"interval": [2, None],"header": list("NXYZOPKC"),"unit_angle": UNIT_ANGLE,"linear_alteration":True}, work)
         assert obj.name == "23FD1305_alt_test"
         assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
         assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925
@@ -63,18 +63,18 @@ def test_reader_opk_winpath():
 def test_reader_opk_bad_header_add_column():
     work = Worksite("23FD1305_alt_test")
     with pytest.raises(ValueError) as e_info:
-        obj = read_opk(INPUT_OPK_UBU, {"interval": [2, None],"header": list("NXYZOPKCS"),"unit_angle": UNIT_ANGLE,"linear_alteration":True}, work)
+        obj = read_opk(INPUT_OPK_UBU, {"order_axe":'opk',"interval": [2, None],"header": list("NXYZOPKCS"),"unit_angle": UNIT_ANGLE,"linear_alteration":True}, work)
 
 
 def test_reader_opk_bad_header_miss_column():
     work = Worksite("23FD1305_alt_test")
     with pytest.raises(ValueError) as e_info:
-        obj = read_opk(INPUT_OPK_UBU, {"interval": [2, None],"header": list("NXYZOPK"),"unit_angle": UNIT_ANGLE,"linear_alteration":True}, work)
+        obj = read_opk(INPUT_OPK_UBU, {"order_axe":'opk',"interval": [2, None],"header": list("NXYZOPK"),"unit_angle": UNIT_ANGLE,"linear_alteration":True}, work)
 
 
 def test_reader_opk_diffheader():
     work = Worksite("23FD1305_alt_test")
-    obj = read_opk("test/data/dataset1/23FD1305_alt_NCPOKXYZ.OPK", {"interval": [2, None],"header": list("SNCPOKXYZ"),"unit_angle": UNIT_ANGLE,"linear_alteration":True}, work)
+    obj = read_opk("test/data/dataset1/23FD1305_alt_NCPOKXYZ.OPK", {"order_axe":'opk',"interval": [2, None],"header": list("SNCPOKXYZ"),"unit_angle": UNIT_ANGLE,"linear_alteration":True}, work)
     assert obj.name == "23FD1305_alt_test"
     assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
     assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925

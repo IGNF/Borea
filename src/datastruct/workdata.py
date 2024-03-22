@@ -40,7 +40,8 @@ class Workdata:
     # pylint: disable-next=too-many-arguments
     def add_shot(self, name_shot: str, pos_shot: np.ndarray,
                  ori_shot: np.ndarray, name_cam: str,
-                 unit_angle: str, linear_alteration: bool) -> None:
+                 unit_angle: str, linear_alteration: bool,
+                 order_axe: str) -> None:
         """
         Add Shot to the attribut Shots.
 
@@ -51,13 +52,15 @@ class Workdata:
             name_cam (str): Name of the camera.
             unit_angle (str): Unit of angle 'degrees', 'radian'.
             linear_alteration (bool): True if z shot is correct of linear alteration.
+            order_axe (str): Order of rotation matrix axes,
         """
         self.shots[name_shot] = Shot(name_shot=name_shot,
                                      pos_shot=pos_shot,
                                      ori_shot=ori_shot,
                                      name_cam=name_cam,
                                      unit_angle=unit_angle,
-                                     linear_alteration=linear_alteration)
+                                     linear_alteration=linear_alteration,
+                                     order_axe=order_axe)
 
     def set_proj(self, epsg: int, file_epsg: str = None, path_geoid: str = None) -> None:
         """
@@ -215,11 +218,13 @@ class Workdata:
             path_dtm (str): Path to the dtm.
             type (str): Type of the dtm "altitude" or "height".
         """
-        if type_dtm not in ["altitude", "height", "a", "h"]:
-            raise ValueError(f"The dtm's type {type_dtm} isn't correct ('altitude' or 'height')")
+        if path_dtm:
+            if type_dtm not in ["altitude", "height"]:
+                raise ValueError(f"The dtm's type {type_dtm} isn't correct"
+                                 " ('altitude' or 'height')")
 
-        Dtm.clear()
-        Dtm().set_dtm(path_dtm, type_dtm)
+            Dtm.clear()
+            Dtm().set_dtm(path_dtm, type_dtm)
 
     def set_approx_eucli_proj(self, approx: bool) -> None:
         """

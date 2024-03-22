@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.reader.orientation.reader_opk - Pink_Lady 1.0.0 documentation</title>
+        <title>src.utils.check.check_order_axe - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -220,67 +220,62 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.reader.orientation.reader_opk</h1><div class="highlight"><pre>
+          <h1>Source code for src.utils.check.check_order_axe</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">A script to read opk file.</span>
+<span class="sd">Script to check order axe and return axe for scipy</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">platform</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">src.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
-<span class="kn">from</span> <span class="nn">src.utils.check.check_args_opk</span> <span class="kn">import</span> <span class="n">check_args_opk</span>
+<span class="kn">from</span> <span class="nn">src.utils.check.check_header</span> <span class="kn">import</span> <span class="n">check_head</span>
 
 
-<div class="viewcode-block" id="read">
-<a class="viewcode-back" href="../../../../src.reader.orientation.html#src.reader.orientation.reader_opk.read">[docs]</a>
-<span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">work</span><span class="p">:</span> <span class="n">Worksite</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Worksite</span><span class="p">:</span>
+<div class="viewcode-block" id="check_order_axe">
+<a class="viewcode-back" href="../../../../src.utils.check.html#src.utils.check.check_order_axe.check_order_axe">[docs]</a>
+<span class="k">def</span> <span class="nf">check_order_axe</span><span class="p">(</span><span class="n">order_axe</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Reads an opk file to transform it into a Workside object.</span>
+<span class="sd">    Check if code is good and convert for scipy rotation.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        file (Path): Path to the worksite.</span>
-<span class="sd">        args (dict): Information for reading an opk file.</span>
-<span class="sd">                     keys:</span>
-<span class="sd">                     &quot;order_axe&quot; (str): Order of rotation matrix axes,</span>
-<span class="sd">                     &quot;interval&quot; (list): Interval of lines taken into account,</span>
-<span class="sd">                     [i, j] if i or j is None = :. e.g. [1, None] = [1:].</span>
-<span class="sd">                     &quot;header&quot; (list): List of column type file.</span>
-<span class="sd">                     &quot;unit_angle&quot; (str): Unit of angle &#39;degrees&#39; or &#39;radian&#39;.</span>
-<span class="sd">                     &quot;linear_alteration&quot; (bool): True if data corrected by linear alteration.</span>
-<span class="sd">        work (Worksite): Worksite to add shot.</span>
+<span class="sd">        order_axe (str): Order of rotation matrix axes.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        Worksite: The worksite.</span>
+<span class="sd">    Retuns:</span>
+<span class="sd">        str: Order of ratation matrix axe for scipy.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">args</span><span class="p">,</span> <span class="n">header</span><span class="p">,</span> <span class="n">type_z</span> <span class="o">=</span> <span class="n">check_args_opk</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">list_val</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">]</span>
 
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_opk</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">item_opk</span> <span class="ow">in</span> <span class="n">file_opk</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]]:</span>
-                <span class="k">if</span> <span class="n">item_opk</span> <span class="o">!=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="ow">and</span> <span class="n">item_opk</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;#&#39;</span><span class="p">:</span>
-                    <span class="n">item_shot</span> <span class="o">=</span> <span class="n">item_opk</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_shot</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">header</span><span class="p">):</span>
-                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The number of columns in your file </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">item_shot</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-                                         <span class="s2">&quot; is different from the number of columns in your input&quot;</span>
-                                         <span class="sa">f</span><span class="s2">&quot; format </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">header</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-                    <span class="n">work</span><span class="o">.</span><span class="n">add_shot</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)],</span>
-                                  <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)]),</span>
-                                            <span class="nb">float</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)]),</span>
-                                            <span class="nb">float</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;Z&quot;</span><span class="p">)])],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span>
-                                  <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;O&quot;</span><span class="p">)]),</span>
-                                            <span class="nb">float</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">)]),</span>
-                                            <span class="nb">float</span><span class="p">(</span><span class="n">item_shot</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;K&quot;</span><span class="p">)])],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span>
-                                  <span class="n">item_shot</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">)],</span>
-                                  <span class="n">args</span><span class="p">[</span><span class="s2">&quot;unit_angle&quot;</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;linear_alteration&quot;</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;order_axe&quot;</span><span class="p">])</span>
-            <span class="n">file_opk</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The path </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2"> is incorrect !!! &quot;</span>
-                                <span class="sa">f</span><span class="s2">&quot;or your os is </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="si">}</span><span class="s2">.&quot;</span>
-                                <span class="s2">&quot;For Windows path is </span><span class="se">\\</span><span class="s2">,&quot;</span>
-                                <span class="s2">&quot; for Linux and MacOS (Darwin) is / .&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+    <span class="n">bad_head</span><span class="p">,</span> <span class="n">ms_error_letter</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">symbol</span> <span class="o">=</span> <span class="n">check_head</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">order_axe</span><span class="p">),</span> <span class="n">list_val</span><span class="p">)</span>
 
-    <span class="n">work</span><span class="o">.</span><span class="n">type_z_shot</span> <span class="o">=</span> <span class="n">type_z</span>
-    <span class="k">return</span> <span class="n">work</span></div>
+    <span class="n">misss</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">list_val</span><span class="p">)</span> <span class="o">-</span> <span class="n">symbol</span>
+    <span class="k">if</span> <span class="n">misss</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">():</span>
+        <span class="n">bad_head</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">ms_error_letter</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;The letters </span><span class="si">{</span><span class="n">misss</span><span class="si">}</span><span class="s2"> are missing.</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+    <span class="n">ms_error</span> <span class="o">=</span> <span class="s2">&quot;Your order axe is not correct.</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">ms_error</span> <span class="o">+=</span> <span class="n">ms_error_letter</span>
+    <span class="k">if</span> <span class="n">bad_head</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">ms_error</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">convert_opk_to_xyz</span><span class="p">(</span><span class="n">order_axe</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="convert_opk_to_xyz">
+<a class="viewcode-back" href="../../../../src.utils.check.html#src.utils.check.check_order_axe.convert_opk_to_xyz">[docs]</a>
+<span class="k">def</span> <span class="nf">convert_opk_to_xyz</span><span class="p">(</span><span class="n">order_axe</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert for scipy formalism.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        order_axe (str): Order of rotation matrix axes.</span>
+
+<span class="sd">    Retuns:</span>
+<span class="sd">        str: Order of ratation matrix axe for scipy.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">letter_conv</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;o&quot;</span><span class="p">:</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">:</span> <span class="s2">&quot;z&quot;</span><span class="p">}</span>
+
+    <span class="n">form_xyz</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">order_axe</span><span class="p">:</span>
+        <span class="n">form_xyz</span> <span class="o">+=</span> <span class="n">letter_conv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">form_xyz</span></div>
 
 </pre></div>
         </article>

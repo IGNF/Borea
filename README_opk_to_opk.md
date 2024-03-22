@@ -15,9 +15,9 @@ The parameters are:
 | Symbol | Details | Default | Mandatory |
 | :----: | :------ | :-----: | :-------: |
 | -r | File path of the workfile | | V |
-| -i | Type of each column in the site file. e.g. NXYZOPKC | NXYZOPKC | X |
+| -i | Type of each column in the site file. e.g. NXYZOPKC with Z in altitude | NXYZOPKC | X |
 | -n | Name of worksite output file |  | V |
-| -o | Type of each column in the site file. e.g. NXYZOPKC | NXYZOPKC | X |
+| -b | Order of rotation matrix axes. | opk | X |
 | -u | Unit of the angle of shooting, 'degree' or 'radian' | degree | X |
 | -a | True if z shot corrected by linear alteration | True | X |
 | -f | Line number to start file playback. Does not take file header into account. | None | X |
@@ -28,7 +28,10 @@ The parameters are:
 | -c | Files paths of cameras (.xml or .txt) | None | X |
 | -m | DTM of the worksite. | None | X |
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
+| -x | To use an approximate system. | False | X |
 | -w | Conversion path e.g. "./" | "./" | X |
+| -o | Type of each column in the site file. e.g. NXYZOPKC with Z origin | NXY(Z/H)OPKC | X |
+| -k | Order of rotation matrix axes you want in output. | None | X |
 | -d | Unit of the angle of shooting, 'degree' or 'radian' | "degree" | X |
 | -l | True if z shot corrected by linear alteration. | True | X |
 

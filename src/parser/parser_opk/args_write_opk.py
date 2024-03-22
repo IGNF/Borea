@@ -24,7 +24,7 @@ def args_writing_opk(parser: argparse) -> argparse:
                         type=str, default='./',
                         help='Conversion path e.g. test/tmp/.')
     parser.add_argument('-o', '--output_header',
-                        type=str, default="NXYZOPKC",
+                        type=str, default=None,
                         help='Type of each column in the site file.'
                         'e.g. NXYZOPKC'
                         'N: name of shot'
@@ -36,11 +36,14 @@ def args_writing_opk(parser: argparse) -> argparse:
                         'P: phi rotation angle'
                         'K: kappa rotation angle'
                         'C: name of the camera')
+    parser.add_argument('-k', '--order_axe_output',
+                        type=str, default=None,
+                        help="Order of rotation matrix axes you want in output.")
     parser.add_argument('-d', '--output_unit_angle',
-                        type=str, default="degree", choices=["degree", "radian"],
+                        type=str, default=None, choices=["degree", "radian", None],
                         help="Unit of the angle of shooting, 'degree' or 'radian'")
     parser.add_argument('-l', '--output_linear_alteration',
-                        type=bool, default=True,
+                        type=bool, default=None,
                         help="True if z shot corrected by linear alteration.")
     return parser
 
@@ -53,16 +56,20 @@ def process_args_write_opk(args: argparse, work: Worksite) -> None:
         args (argparse): Arg to apply on worksite (data).
         work (Worksite): Data.
     """
+    if args.order_axe_output:
+        args.order_axe_output = args.order_axe_output.lower()
+
+    if args.output_header:
+        args.output_header = list(args.output_header.upper())
+
     # Writing data
     print("Writing OPK.")
     if args.name is not None:
-        if args.output_header is not None:
-            args_writing = {"header": list(args.output_header.upper()),
-                            "unit_angle": args.output_unit_angle,
-                            "linear_alteration": args.output_linear_alteration}
-            manager_writer("opk", args.name, args.pathreturn, args_writing, work)
-            print(f"File written in {args.pathreturn + args.name}.opk.")
-        else:
-            raise ValueError("The output header file is missing -o.")
+        args_writing = {"order_axe": args.order_axe_output,
+                        "header": args.output_header,
+                        "unit_angle": args.output_unit_angle,
+                        "linear_alteration": args.output_linear_alteration}
+        manager_writer("opk", args.name, args.pathreturn, args_writing, work)
+        print(f"File written in {args.pathreturn + args.name}.opk.")
     else:
         raise ValueError("The name of the saving file is missing -n.")

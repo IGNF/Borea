@@ -42,12 +42,15 @@ class Workshot(Workdata):
                 shot.set_z_nadir(z_nadir)
 
     def set_unit_shot(self, type_z: str = None, unit_angle: str = None,
-                      linear_alteration: bool = None) -> None:
+                      linear_alteration: bool = None, order_axe: str = None) -> None:
         """
-        Allows you to change the orientation angle unit.
+        Allows you to change unit or parameter of shots.
 
         Args:
-            unit_angle (str): Unit angle.
+            type_z (str): Unit of z shot you want.
+            unit_angle (str): Unit angle you want.
+            linear_alteration (bool): True if you want data corrected.
+            order_axe (str): Order of rotation matrice you want in your angle.
         """
         if unit_angle not in ["degree", "radian", None]:
             raise ValueError(f"unit_angle: {unit_angle} is not recognized,"
@@ -69,3 +72,5 @@ class Workshot(Workdata):
                 shot.set_type_z(type_z)
             if linear_alteration is not None:
                 shot.set_linear_alteration(linear_alteration)
+            if order_axe is not None:
+                shot.set_order_axe(order_axe)

@@ -16,6 +16,7 @@ def read(file: Path, args: dict, work: Worksite) -> Worksite:
         file (Path): Path to the worksite.
         args (dict): Information for reading an opk file.
                      keys:
+                     "order_axe" (str): Order of rotation matrix axes,
                      "interval" (list): Interval of lines taken into account,
                      [i, j] if i or j is None = :. e.g. [1, None] = [1:].
                      "header" (list): List of column type file.
@@ -45,7 +46,7 @@ def read(file: Path, args: dict, work: Worksite) -> Worksite:
                                             float(item_shot[header.index("P")]),
                                             float(item_shot[header.index("K")])], dtype=float),
                                   item_shot[header.index("C")],
-                                  args["unit_angle"], args["linear_alteration"])
+                                  args["unit_angle"], args["linear_alteration"], args["order_axe"])
             file_opk.close()
     except FileNotFoundError as e:
         raise FileNotFoundError(f"The path {file} is incorrect !!! "

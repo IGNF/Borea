@@ -254,7 +254,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Dtm</span><span class="p">()</span><span class="o">.</span><span class="n">path_dtm</span><span class="p">:</span>
             <span class="n">check_dtm</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">projection_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">geoid</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;you have not entered all the information required to set up&quot;</span>
                              <span class="s2">&quot; the projection system. Because type z shot != type z data.&quot;</span><span class="p">)</span>
 

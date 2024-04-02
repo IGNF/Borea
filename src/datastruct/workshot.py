@@ -27,7 +27,7 @@ class Workshot(Workdata):
         if not Dtm().path_dtm:
             check_dtm = False
 
-        if not ProjEngine().projection_list:
+        if not ProjEngine().geoid:
             raise ValueError("you have not entered all the information required to set up"
                              " the projection system. Because type z shot != type z data.")
 

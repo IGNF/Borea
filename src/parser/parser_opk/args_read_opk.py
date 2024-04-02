@@ -2,6 +2,7 @@
 Args of parser for reading opk file
 """
 import argparse
+import pyproj
 from src.worksite.worksite import Worksite
 from src.reader.reader_camera import read_camera
 from src.reader.orientation.manage_reader import reader_orientation
@@ -54,14 +55,11 @@ def args_reading_opk(parser: argparse) -> argparse:
     parser.add_argument('-e', '--epsg',
                         type=int, default=None,
                         help='EPSG codifier number of the reference system used e.g. "2154".')
-    parser.add_argument('-j', '--pathepsg',
-                        type=str, default=None,
-                        help='Path to the json file which list the code epsg, you use.')
     parser.add_argument('-y', '--pathgeoid',
-                        type=str, default=None,
-                        help='Path to the folder which contains pyproj GeoTIFF of the geoid '
-                             'e.g../test/data/ or they must be in usr/share/proj or '
-                             'env_name/lib/python3.10/site-packages/pyproj/proj_dir/share/proj.')
+                        type=str, nargs='*', default=None,
+                        help='Path to the pyproj GeoTIFF of the geoid e.g../test/data/geoid.tif'
+                             f' or they must be in {pyproj.datadir.get_data_dir()} and just'
+                             ' need name of file e.g. geoid.tif.')
     parser.add_argument('-c', '--camera',
                         type=str, nargs='*',
                         help='Files paths of cameras (xml or txt).')
@@ -104,7 +102,7 @@ def process_args_read_opk(args: argparse) -> Worksite:
 
     # Add a projection to the worksite
     if args.epsg is not None:
-        work.set_proj(args.epsg, args.pathepsg, args.pathgeoid)
+        work.set_proj(args.epsg, args.pathgeoid)
         print(f"Projection set-up with EPSG:{args.epsg}.")
     else:
         print("There is no given projection.")

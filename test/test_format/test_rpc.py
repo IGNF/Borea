@@ -16,9 +16,8 @@ from src.transform_world_image.transform_shot.image_world_shot import ImageWorld
 SHOT = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True,'opk')
 CAM = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460, 17004)
 EPSG = 2154
-DICT_PROJ_WITH_G = {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}
-DICT_PROJ_WITHOUT_G = {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084'}
-PATH_GEOID = Path(PureWindowsPath("./dataset/"))
+LIST_GEOID = ["./dataset/fr_ign_RAF20.tif"]
+LIST_NO_GEOID = None
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
 DATA_TYPE_Z = "height"
 SHOT_TYPE_Z = "altitude"
@@ -29,15 +28,15 @@ def Dtm_singleton(path, type_dtm):
     Dtm().set_dtm(path, type_dtm)
 
 
-def Proj_singleton(epsg, proj_list = None, path_geoid = None):
+def Proj_singleton(epsg, geoid = None):
     ProjEngine.clear()
-    ProjEngine().set_epsg(epsg, proj_list, path_geoid)
+    ProjEngine().set_epsg(epsg, geoid)
 
 
 def test_rpc_order1():
     shot = copy.copy(SHOT)
     cam = CAM
-    Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    Proj_singleton(EPSG, LIST_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
@@ -54,7 +53,7 @@ def test_rpc_order1():
 def test_rpc_order2():
     shot = copy.copy(SHOT)
     cam = CAM
-    Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    Proj_singleton(EPSG, LIST_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
@@ -71,7 +70,7 @@ def test_rpc_order2():
 def test_rpc_order3():
     shot = copy.copy(SHOT)
     cam = CAM
-    Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    Proj_singleton(EPSG, LIST_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]
@@ -88,7 +87,7 @@ def test_rpc_order3():
 def test_rpc_errororder():
     shot = copy.copy(SHOT)
     cam = CAM
-    Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    Proj_singleton(EPSG, LIST_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', False)[2]

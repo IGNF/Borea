@@ -19,16 +19,16 @@ def Dtm_singleton(path, type_dtm):
     Dtm().set_dtm(path, type_dtm)
 
 
-def Proj_singleton(epsg, proj_list = None, path_geoid = None):
+def Proj_singleton(epsg, path_geoid = None):
     ProjEngine.clear()
-    ProjEngine().set_epsg(epsg, proj_list, path_geoid)
+    ProjEngine().set_epsg(epsg, path_geoid)
 
 
 def test_shootings_position():
     work = Worksite("Test")
     work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree",True,"opk")
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree",True,"opk")
-    work.set_proj(2154, "dataset/proj.json", "./dataset/")
+    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
     work.type_z_shot = "altitude"
@@ -46,7 +46,7 @@ def test_shootings_position():
 def test_space_resection():
     shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam","degree", True,"opk")
     cam = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460, 17004)
-    Proj_singleton(2154, {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}, "./dataset/")
+    Proj_singleton(2154, ["./dataset/fr_ign_RAF20.tif"])
     Dtm_singleton("./dataset/MNT_France_25m_h_crop.tif", "height")
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
@@ -68,7 +68,7 @@ def test_take_obs():
                                "header": list("NXYZOPKC"),
                                "unit_angle": "degree",
                                "linear_alteration": True})
-    work.set_proj(2154, "./dataset/proj.json", "./dataset")
+    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
     read_camera(["./dataset/Camera1.txt"], work)
     work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
     work.set_param_shot()
@@ -85,7 +85,7 @@ def test_space_resection_othershot():
                                "header": list("NXYZOPKC"),
                                "unit_angle": "degree",
                                "linear_alteration": True})
-    work.set_proj(2154, "./dataset/proj.json", "./dataset")
+    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
     read_camera(["./dataset/Camera1.txt"], work)
     work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
     work.set_param_shot()
@@ -102,7 +102,7 @@ def test_space_resection_withcopoints():
                              "header": list("NXYZOPKC"),
                              "unit_angle": "degree",
                              "linear_alteration": True})
-    work.set_proj(2154, "./dataset/proj.json", "./dataset")
+    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
     read_camera(["./dataset/Camera1.txt"], work)
     work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
     work.set_param_shot()

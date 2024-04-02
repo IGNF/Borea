@@ -13,7 +13,6 @@ dependencies:
   - conda-forge:furo
   - conda-forge:importlib-resources
   - dataclasses
-  - conda-forge:jsons
   - pyproj
   - scipy
   - pandas

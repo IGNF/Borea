@@ -17,12 +17,9 @@ Object to instantiate before calculation :
 
 * The **Dtm** allows to convert the data they have **linear alteration**. it's not mandatory if **type_z_data** equal **type_z_shot** or don't need tranfo to add or remove **linear alteration**.
 
-* The **ProjEngine** object is defined by a string giving the ESPG code of the site's map projection, e.g. "EPSG:2154", followed by a dictionary found in src.data.projection_list.json, which contains 3 important tags:
-  * "geoc" returns the EPSG code of the geocentric projection on site.
-  * "geog" returns the EPSG code of the geographic projection on the building site.
-  * "geoid" returns a list of GeoTIFF names for the site.
+* The **ProjEngine** object is defined by a string giving the ESPG code of the site's map projection, e.g. 2154, followed by a list of pyproj GeoTIFF of geoid.
 
-  These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj or you can give in argument the path to the GeoTIFF forlder.
+  These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj.
 
 ## Calculation step
 
@@ -86,9 +83,9 @@ work.add_shot("shot_test1", np.array([814975.925, 6283986.148,1771.280]), np.arr
 work.add_shot("shot_test2", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test', "d")
 
 # Setup projection
-# set_epsg(epsg, proj_json, folder_geoid)
+# set_epsg(epsg, path_geoid)
 # the geoid is mandatory if type_z_data and type_z_shot are different
-work.set_proj("EPSG:2154", "test/data/proj.json", "./test/data/")
+work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
 
 # Add camera information
 # add_camera(name_cam, ppax, ppay, focal, width, height)

@@ -225,6 +225,7 @@
 <span class="sd">Args of parser for reading opk file</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">pyproj</span>
 <span class="kn">from</span> <span class="nn">src.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
 <span class="kn">from</span> <span class="nn">src.reader.reader_camera</span> <span class="kn">import</span> <span class="n">read_camera</span>
 <span class="kn">from</span> <span class="nn">src.reader.orientation.manage_reader</span> <span class="kn">import</span> <span class="n">reader_orientation</span>
@@ -259,7 +260,7 @@
                         <span class="s1">&#39;P: phi rotation angle&#39;</span>
                         <span class="s1">&#39;K: kappa rotation angle&#39;</span>
                         <span class="s1">&#39;C: name of the camera&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-b&#39;</span><span class="p">,</span> <span class="s1">&#39;--axe_angle&#39;</span><span class="p">,</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-b&#39;</span><span class="p">,</span> <span class="s1">&#39;--order_axe_input&#39;</span><span class="p">,</span>
                         <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;opk&quot;</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Order of rotation matrix axes.&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="s1">&#39;--unit_angle&#39;</span><span class="p">,</span>
@@ -279,14 +280,11 @@
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;--epsg&#39;</span><span class="p">,</span>
                         <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;EPSG codifier number of the reference system used e.g. &quot;2154&quot;.&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-j&#39;</span><span class="p">,</span> <span class="s1">&#39;--pathepsg&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the json file which list the code epsg, you use.&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-y&#39;</span><span class="p">,</span> <span class="s1">&#39;--pathgeoid&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the folder which contains pyproj GeoTIFF of the geoid &#39;</span>
-                             <span class="s1">&#39;e.g../test/data/ or they must be in usr/share/proj or &#39;</span>
-                             <span class="s1">&#39;env_name/lib/python3.10/site-packages/pyproj/proj_dir/share/proj.&#39;</span><span class="p">)</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the pyproj GeoTIFF of the geoid e.g../test/data/geoid.tif&#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39; or they must be in </span><span class="si">{</span><span class="n">pyproj</span><span class="o">.</span><span class="n">datadir</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">()</span><span class="si">}</span><span class="s1"> and just&#39;</span>
+                             <span class="s1">&#39; need name of file e.g. geoid.tif.&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--camera&#39;</span><span class="p">,</span>
                         <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Files paths of cameras (xml or txt).&#39;</span><span class="p">)</span>
@@ -318,7 +316,7 @@
     <span class="c1"># Readind data</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">filepath</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">header</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">work</span> <span class="o">=</span> <span class="n">reader_orientation</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;order_axe&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">axe_angle</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+            <span class="n">work</span> <span class="o">=</span> <span class="n">reader_orientation</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;order_axe&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">order_axe_input</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
                                                       <span class="s2">&quot;interval&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">first_line</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">last_line</span><span class="p">],</span>
                                                       <span class="s2">&quot;header&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">upper</span><span class="p">()),</span>
                                                       <span class="s2">&quot;unit_angle&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">unit_angle</span><span class="p">,</span>
@@ -332,7 +330,7 @@
 
     <span class="c1"># Add a projection to the worksite</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">epsg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">work</span><span class="o">.</span><span class="n">set_proj</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">epsg</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">pathepsg</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">pathgeoid</span><span class="p">)</span>
+        <span class="n">work</span><span class="o">.</span><span class="n">set_proj</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">epsg</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">pathgeoid</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Projection set-up with EPSG:</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">epsg</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There is no given projection.&quot;</span><span class="p">)</span>

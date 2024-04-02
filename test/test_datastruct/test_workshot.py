@@ -20,7 +20,7 @@ def setup_module(module): # run before the first test
 def test_set_param_shot():
     work = Worksite("Test")
     work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([180,0,360]),"cam_test","degree",True,'opk')
-    work.set_proj(2154, "dataset/proj.json", "./dataset/")
+    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
@@ -57,7 +57,7 @@ def test_set_param_shot_nodtm():
     Dtm.clear()
     work = Worksite("Test")
     work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([180,0,360]),"cam_test","degree",True,'opk')
-    work.set_proj(2154, "dataset/proj.json", "./dataset/")
+    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.type_z_shot = "altitude"
     work.set_param_shot()
@@ -68,7 +68,7 @@ def test_set_param_shot_nodtm():
 def test_set_unit_shot():
     work = Worksite("Test")
     work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([180,0,360]),"cam_test","degree",True,'opk')
-    work.set_proj(2154, "dataset/proj.json", "./dataset/")
+    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"

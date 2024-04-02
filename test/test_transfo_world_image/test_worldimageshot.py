@@ -16,9 +16,8 @@ from src.transform_world_image.transform_shot.image_world_shot import ImageWorld
 SHOT = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',True,'opk')
 CAM = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460, 17004)
 EPSG = 2154
-DICT_PROJ_WITH_G = {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}
-DICT_PROJ_WITHOUT_G = {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084'}
-PATH_GEOID = Path(PureWindowsPath("./dataset/"))
+LIST_GEOID = ["./dataset/fr_ign_RAF20.tif"]
+LIST_NO_GEOID = None
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
 DATA_TYPE_Z = "height"
 SHOT_TYPE_Z = "altitude"
@@ -29,16 +28,16 @@ def Dtm_singleton(path, type_dtm):
     Dtm().set_dtm(path, type_dtm)
 
 
-def Proj_singleton(epsg, proj_list = None, path_geoid = None):
+def Proj_singleton(epsg, path_geoid = None):
     ProjEngine.clear()
-    ProjEngine().set_epsg(epsg, proj_list, path_geoid)
+    ProjEngine().set_epsg(epsg, path_geoid)
 
 
 def test_world_to_image():
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
     shot = copy.copy(SHOT)
     cam = CAM
-    Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    Proj_singleton(EPSG, LIST_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', nonadir=False)[2]
@@ -55,7 +54,7 @@ def test_world_to_image_multipoints():
                               [54.960,54.960,54.960]])
     shot = copy.copy(SHOT)
     cam = CAM
-    Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    Proj_singleton(EPSG, LIST_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', nonadir=False)[2]
@@ -74,7 +73,7 @@ def test_world_to_image_withoutgeoid():
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
     shot = copy.copy(SHOT)
     cam = CAM
-    Proj_singleton(EPSG, DICT_PROJ_WITHOUT_G)
+    Proj_singleton(EPSG, LIST_NO_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(approx=False)
     with pytest.raises(ValueError) as e_info:
@@ -87,7 +86,7 @@ def test_world_to_image_sametypea():
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
     shot = copy.copy(SHOT)
     cam = CAM
-    Proj_singleton(EPSG, DICT_PROJ_WITHOUT_G)
+    Proj_singleton(EPSG, LIST_NO_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'height', 'height', nonadir=False)[2]
@@ -99,7 +98,7 @@ def test_world_to_image_sametypewithl():
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
     shot = copy.copy(SHOT)
     cam = CAM
-    Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    Proj_singleton(EPSG, LIST_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', nonadir=False)[2]
@@ -111,7 +110,7 @@ def test_world_to_image_sametypewithl_withoutdtm():
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
     shot = copy.copy(SHOT)
     cam = CAM
-    Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    Proj_singleton(EPSG, LIST_GEOID)
     Dtm_singleton(PATH_DTM,DATA_TYPE_Z)
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot,cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', nonadir=False)[2]
@@ -125,7 +124,7 @@ def test_world_to_image_sametypewithoutl():
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
     shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',False,'opk')
     cam = CAM
-    Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    Proj_singleton(EPSG, LIST_GEOID)
     Dtm_singleton(None, None)
     shot.set_param_eucli_shot(approx=False)
     WorldImageShot(shot,cam).world_to_image(point_terrain, 'altitude', 'altitude')
@@ -134,7 +133,7 @@ def test_world_to_image_sametypewithoutl():
 def test_world_to_image_approx():
     Dtm.clear()
     shot = copy.copy(SHOT)
-    Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    Proj_singleton(EPSG, LIST_GEOID)
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
     cam = CAM
     shot.set_param_eucli_shot(approx=True)
@@ -147,7 +146,7 @@ def test_world_to_image_approx():
 def test_world_to_image_approx():
     Dtm.clear()
     shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam", 'degree',False,'opk')
-    Proj_singleton(EPSG, DICT_PROJ_WITH_G, PATH_GEOID)
+    Proj_singleton(EPSG, LIST_GEOID)
     point_terrain = np.array([815601.510, 6283629.280, 54.960])
     cam = CAM
     shot.set_param_eucli_shot(approx=True)

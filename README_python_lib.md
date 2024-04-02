@@ -11,10 +11,9 @@ Creation of a worksite object from a worksite file (.opk) to be read by `reader_
 
 Once the object has been created, you can add other data to it:
 
-* Setup the projection of the worksite `work.set_proj(epsg, proj_json, folder_geoid)`, with:
+* Setup the projection of the worksite `work.set_proj(epsg, path_geoid)`, with:
     * `epsg` the code epsg e.g. 2154
-    * `proj_json` path to the json file detail below
-    * `folder_geoid` path to the folder which contains geoid.tif
+    * `path_geoid` path to the file pyproj GeoTIFF of geoid
 
 * The camera with `read_camera([filepath], worksite)`, this function only reads txt and xml files referencing camera data, and can take several camera files if there are several.
 
@@ -76,8 +75,7 @@ linear_alteration = True # If z shot is corrected by linear alteration
 
 # info in epsg and epsg data
 epsg = "EPSG:2154"
-proj_json = "dataset/proj.json"
-folder_geoid = "dataset/"
+path_geoid = ["dataset/fr_ign_RAF20.tif"]
 
 # path(s) to camera's file
 path_camera = ["dataset/Camera1.txt"]
@@ -115,7 +113,7 @@ work = reader_orientation(path_opk, {"interval": line_taken,
                                      "linear_alteration": linear_alteration})
 
 # Add a projection to the worksite
-work.set_proj(epsg, proj_json, folder_geoid)
+work.set_proj(epsg, path_geoid)
 
 # Reading camera file
 read_camera(path_camera, work)
@@ -192,17 +190,10 @@ An example file can be found in *./dataset/Camera1.txt*.
 
 ## File projection JSON format
 
-This library requires different projection data to transform coordinates from terrain to image and image to terrain. To do this, a JSON file containing the various projections and epsg code required is requested as input if you want to perform transformations, bearings or an aerial triangulation data, example of JSON structure:
-```
-{
-"EPSG:2154": {
-  "geoc": "EPSG:4964", 
-  "geog": "EPSG:7084",
-  "geoid": ["fr_ign_RAF20"],
-  "comment": "Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93"}
-}
-```
-The important tags are : the first is the epsg code (attribut:"EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection (attribut:"geoc") with its epsg code at the site location. The geographic projection (attribut:"geog") with its epsg code at the site location, and the geoid (attribut:"geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the *usr/share/proj* folder, which is native to pyproj, or in the *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj* folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
+This library can transform and process 3D data with a z in altitude or height. This is done by the pyproj library, which needs the geoid at site level to change units.
+
+The varaible in example for adding a geoid is path_geoid, a list which contains paths of geoids, where you can enter the paths to the various geoids. If the file is stored in pyproj's native folder (pyproj.datadir.get_data_dir(), *usr/share/proj* or *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj*) the file name is sufficient pyproj will find it on its own. 
+Geoids file can be found on pyproj's github (https://github.com/OSGeo/PROJ-data).
 
 You can contribute by putting your structure in the *projection_list.json* file in *./resources/*.
 

@@ -23,8 +23,7 @@ The parameters are:
 | -f | Line number to start file playback. Does not take file header into account. | None | X |
 | -z | Line number to end file playback. If not set, all lines below -l will be read. | None | X |
 | -e | EPSG codifier number of the reference system used e.g. 2154 | 2154 | X |
-| -j | Path to the json file which list the code epsg, you use | None | X |
-| -y | Path to the folder which contains GeoTIFF | None | X |
+| -y | Path to the file pyproj GeoTIFF of geoid. | None | X |
 | -c | Files paths of cameras (.xml or .txt) | None | X |
 | -m | DTM of the worksite. | None | X |
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
@@ -36,7 +35,7 @@ The parameters are:
 
 E.G.
 ```
-python3 ./opk_to_rpc.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -j ./dataset/proj.json -y ./dataset/ -m ./dataset/MNT_France_25m_h_crop.tif --fm height -o 3
+python3 ./opk_to_rpc.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -o 3
 ```
 
 #### Detail for the header of file -i and -o
@@ -75,19 +74,12 @@ height = 17004
 Only these 6 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool.
 An example file can be found in *./dataset/Camera1.txt*.
 
-### File projection JSON format
+### Detail for projection
 
-This library requires different projection data to transform coordinates from terrain to image and image to terrain. To do this, a JSON file containing the various projections and epsg code required is requested as input if you want to perform transformations, bearings or an aerial triangulation data, example of JSON structure:
-```
-{
-"EPSG:2154": {
-  "geoc": "EPSG:4964", 
-  "geog": "EPSG:7084",
-  "geoid": ["fr_ign_RAF20"],
-  "comment": "Projection of French metropolis : Systeme=RGF93 - Projection=Lambert93"}
-}
-```
-The important tags are : the first is the epsg code (attribut:"EPSG:2154") of the site's map projection, which refers to another dictionary that groups together the geocentric projection (attribut:"geoc") with its epsg code at the site location. The geographic projection (attribut:"geog") with its epsg code at the site location, and the geoid (attribut:"geoid"), which lists the names of the geotifs used by pyproj to obtain the value of the geoid on the site. Geoids can be found on pyproj's github (https://github.com/OSGeo/PROJ-data), then put in the *usr/share/proj* folder, which is native to pyproj, or in the *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj* folder if you're using a special environment, or you can give in argument the path to the GeoTIFF forlder. You don't have to add the last "comment" tag.
+This library can transform and process 3D data with a z in altitude or height. This is done by the pyproj library, which needs the geoid at site level to change units.
+
+The command for adding a geoid is -y, where you can enter the paths to the various geoids. If the file is stored in pyproj's native folder (pyproj.datadir.get_data_dir(), *usr/share/proj* or *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj*) the file name is sufficient pyproj will find it on its own. 
+Geoids file can be found on pyproj's github (https://github.com/OSGeo/PROJ-data).
 
 You can contribute by putting your structure in the *projection_list.json* file in *resources*.
 

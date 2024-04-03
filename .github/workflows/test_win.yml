@@ -40,3 +40,11 @@ jobs:
     - name: Run regression test opk to rpc
       shell: bash -el {0}
       run: python ./opk_to_rpc.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -o 3
+
+    - name: Run regression test calc pt image
+      shell: bash -el {0}
+      run: python ./calc_onept_image.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 24042.25 14781.17 -d height
+
+    - name: Run regression test calc pt world
+      shell: bash -el {0}
+      run: python ./calc_onept_world.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 815601.510 6283629.280 54.960 -d height

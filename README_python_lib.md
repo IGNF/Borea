@@ -195,6 +195,4 @@ This library can transform and process 3D data with a z in altitude or height. T
 The varaible in example for adding a geoid is path_geoid, a list which contains paths of geoids, where you can enter the paths to the various geoids. If the file is stored in pyproj's native folder (pyproj.datadir.get_data_dir(), *usr/share/proj* or *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj*) the file name is sufficient pyproj will find it on its own. 
 Geoids file can be found on pyproj's github (https://github.com/OSGeo/PROJ-data).
 
-You can contribute by putting your structure in the *projection_list.json* file in *./resources/*.
-
 ![logo ign](docs/logo/logo_ign.png) ![logo fr](docs/logo/Republique_Francaise_Logo.png)

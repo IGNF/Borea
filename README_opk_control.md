@@ -6,7 +6,7 @@ Control opk position using gcp and image function, with 4 output statistics file
 
 ### Terminal use
 
-Call the function in a terminal located in the directory of the pink_lady.py file. To view the information on the various parameters you can do : 
+Call the function in a terminal located in the directory of the opk_control.py file. To view the information on the various parameters you can do : 
 
 ```python opk_control.py -h``` 
 
@@ -100,8 +100,6 @@ This library can transform and process 3D data with a z in altitude or height. T
 
 The command for adding a geoid is -y, where you can enter the paths to the various geoids. If the file is stored in pyproj's native folder (pyproj.datadir.get_data_dir(), *usr/share/proj* or *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj*) the file name is sufficient pyproj will find it on its own. 
 Geoids file can be found on pyproj's github (https://github.com/OSGeo/PROJ-data).
-
-You can contribute by putting your structure in the *projection_list.json* file in *./resources/*.
 
 ### Detail for process
 

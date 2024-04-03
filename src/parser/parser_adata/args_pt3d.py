@@ -35,10 +35,7 @@ def process_world_image(args: argparse, work: Worksite) -> None:
         args (argparse): Arg to apply on worksite (data).
         work (Worksite): Worksite to work on.
     """
-    if args.unit_z_data:
-        work.type_z_data = args.unit_z_data
-    else:
-        work.type_z_data = work.type_z_shot
+    work.set_unit_z_data(args.unit_z_data)
 
     coor2d = WorldImageShot(work.shots[args.name_shot],
                             work.cameras[list(work.cameras.keys())[0]]

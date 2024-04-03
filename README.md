@@ -8,6 +8,8 @@ Why Pink Lady? Pink Lady is a B-17 owned by IGN France, originally used in the a
 * Conversion OPK to OPK: [README_opk_to_opk.md](./README_opk_to_opk.md)
 * Control OPK file: [README_opk_control.md](./README_opk_control.md)
 * Convertion OPK to RPC: [README_opk_to_rpc.md](./README_opk_to_rpc.md)
+* Calculate image coordinate of one ground point: [README_calc_pt_image.md](./README_calc_pt_image.md)
+* Calculate world coordinate of one image point: [README_calc_pt_world.md](./README_calc_pt_world.md)
 * Python lib: [README_python_lib.md](./README_python_lib.md)
 
 ## Installation

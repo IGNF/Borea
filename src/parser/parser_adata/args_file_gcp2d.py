@@ -38,18 +38,13 @@ def process_gcp2d(args, work: Worksite) -> Worksite:
     Args:
         args (argparse): Arg to apply on worksite (data).
         work (Worksite): Data.
-    
+
     Returns:
         Worksite: data
     """
     # Reading ground point image
     if args.gcp2d is not None:
         read_file_pt(args.gcp2d, list(args.head_gcp2d.upper()), "gcp2d", work)
-        if args.fg in ["altitude", "height"]:
-            work.type_z_data = args.fg
-        else:
-            raise ValueError('Information on terrain point format is missing '
-                             'or misspelled --fg altitude or height')
         print("Connecting point reading done.")
         count = 0
         for k in work.gcp2d.values():

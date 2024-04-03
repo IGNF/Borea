@@ -42,7 +42,7 @@ def process_gcp3d(args, work: Worksite) -> Worksite:
     Args:
         args (argparse): Arg to apply on worksite (data).
         work (Worksite): Data.
-    
+
     Returns:
         Worksite: data
     """

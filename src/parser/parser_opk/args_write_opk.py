@@ -2,6 +2,7 @@
 Args of parser for writing opk file
 """
 import argparse
+from src.parser.parser_adata.args_unit_shot import args_output_shot
 from src.worksite.worksite import Worksite
 from src.writer.manage_writer import manager_writer
 
@@ -36,15 +37,7 @@ def args_writing_opk(parser: argparse) -> argparse:
                         'P: phi rotation angle'
                         'K: kappa rotation angle'
                         'C: name of the camera')
-    parser.add_argument('-k', '--order_axe_output',
-                        type=str, default=None,
-                        help="Order of rotation matrix axes you want in output.")
-    parser.add_argument('-d', '--output_unit_angle',
-                        type=str, default=None, choices=["degree", "radian", None],
-                        help="Unit of the angle of shooting, 'degree' or 'radian'")
-    parser.add_argument('-l', '--output_linear_alteration',
-                        type=bool, default=None,
-                        help="True if z shot corrected by linear alteration.")
+    parser = args_output_shot(parser)
     return parser
 
 

@@ -197,3 +197,15 @@ class Workdata:
             apprx (bool): True if there are not projengine
         """
         self.approxeucli = approx
+
+    def set_unit_z_data(self, unit_z_data: str) -> None:
+        """
+        Setup unit_z_data with one condition if is None.
+
+        Args:
+            unit_z_data (str): altitude or height
+        """
+        if unit_z_data:
+            self.type_z_data = unit_z_data
+        else:
+            self.type_z_data = self.type_z_shot

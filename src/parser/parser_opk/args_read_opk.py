@@ -35,15 +35,6 @@ def args_reading_opk(parser: argparse) -> argparse:
                         'P: phi rotation angle'
                         'K: kappa rotation angle'
                         'C: name of the camera')
-    parser.add_argument('-b', '--order_axe_input',
-                        type=str, default="opk",
-                        help="Order of rotation matrix axes.")
-    parser.add_argument('-u', '--unit_angle',
-                        type=str, default="degree", choices=['degree', 'radian'],
-                        help="Unit of the angle of shooting, 'degree' or 'radian'.")
-    parser.add_argument('-a', '--linear_alteration',
-                        type=bool, default=True,
-                        help="True if z shot corrected by linear alteration.")
     parser.add_argument('-f', '--first_line',
                         type=int, default=1,
                         help='Line number to start file playback. First line in the file is 1.'

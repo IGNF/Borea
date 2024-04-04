@@ -162,6 +162,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_format.html">src.parser.parser_format package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_func.html">src.parser.parser_func package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
@@ -445,6 +448,21 @@
 <span class="sd">            apprx (bool): True if there are not projengine</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">approxeucli</span> <span class="o">=</span> <span class="n">approx</span></div>
+
+
+<div class="viewcode-block" id="Workdata.set_unit_z_data">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.set_unit_z_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_unit_z_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_z_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setup unit_z_data with one condition if is None.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            unit_z_data (str): altitude or height</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">unit_z_data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="n">unit_z_data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span></div>
 </div>
 
 </pre></div>

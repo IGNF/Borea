@@ -162,6 +162,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_format.html">src.parser.parser_format package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_func.html">src.parser.parser_func package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
@@ -268,17 +271,19 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            pandas: Pandas table.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_points&quot;</span><span class="p">,</span> <span class="s2">&quot;gcp2d&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect,[&#39;co_points&#39;,&#39;gcp2d&#39;]&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_points&quot;</span><span class="p">,</span> <span class="s2">&quot;gcp2d&quot;</span><span class="p">,</span> <span class="s2">&quot;gcp3d&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect,[&#39;co_points&#39;,&#39;gcp2d&#39;,&#39;gcp3d&#39;]&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s2">&quot;co_points&quot;</span><span class="p">:</span>
             <span class="n">control_type</span> <span class="o">=</span> <span class="p">[]</span>
 
+        <span class="n">type_iter</span> <span class="o">=</span> <span class="n">type_point</span> <span class="k">if</span> <span class="n">type_point</span> <span class="o">!=</span> <span class="s2">&quot;gcp3d&quot;</span> <span class="k">else</span> <span class="s2">&quot;gcp2d&quot;</span>
+
         <span class="n">id_pt</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">id_img</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">coor</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">name_pt</span><span class="p">,</span> <span class="n">list_shot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">type_point</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">control_type</span> <span class="o">!=</span> <span class="p">[]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcp3d</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span><span class="o">.</span><span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">control_type</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">name_pt</span><span class="p">,</span> <span class="n">list_shot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">type_iter</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">control_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcp3d</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span><span class="o">.</span><span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">control_type</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="k">for</span> <span class="n">name_shot</span> <span class="ow">in</span> <span class="n">list_shot</span><span class="p">:</span>
                 <span class="n">id_pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_pt</span><span class="p">)</span>
@@ -328,12 +333,12 @@
             <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;co_pts_world&quot;</span>
             <span class="n">control_type</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;img_pts_world&quot;</span>
+            <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;gcp2d_in_world&quot;</span>
 
         <span class="n">id_pt</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">coor</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">name_pt</span><span class="p">,</span> <span class="n">coor_pt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">out_pt</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">control_type</span> <span class="o">!=</span> <span class="p">[]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcp3d</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span><span class="o">.</span><span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">control_type</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">control_type</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcp3d</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span><span class="o">.</span><span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">control_type</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">id_pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_pt</span><span class="p">)</span>
             <span class="n">coor</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coor_pt</span><span class="p">)</span>
@@ -358,7 +363,7 @@
         <span class="k">if</span> <span class="n">type_point</span> <span class="o">==</span> <span class="s1">&#39;co_points&#39;</span><span class="p">:</span>
             <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;co_pts_world&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;img_pts_world&quot;</span>
+            <span class="n">out_pt</span> <span class="o">=</span> <span class="s2">&quot;gcp2d_in_world&quot;</span>
 
         <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">pd_mes</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">out_pt</span><span class="p">)[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id_pt&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]])</span></div>

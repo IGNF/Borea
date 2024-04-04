@@ -7,26 +7,10 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   src.parser.parser_adata
+   src.parser.parser_format
+   src.parser.parser_func
    src.parser.parser_opk
-
-Submodules
-----------
-
-src.parser.args\_control module
--------------------------------
-
-.. automodule:: src.parser.args_control
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-src.parser.args\_rpc module
----------------------------
-
-.. automodule:: src.parser.args_rpc
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 Module contents
 ---------------

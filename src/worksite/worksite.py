@@ -38,17 +38,19 @@ class Worksite(Workshot):
         Returns:
             pandas: Pandas table.
         """
-        if type_point not in ["co_points", "gcp2d"]:
-            raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d']")
+        if type_point not in ["co_points", "gcp2d", "gcp3d"]:
+            raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d','gcp3d']")
 
         if type_point == "co_points":
             control_type = []
 
+        type_iter = type_point if type_point != "gcp3d" else "gcp2d"
+
         id_pt = []
         id_img = []
         coor = []
-        for name_pt, list_shot in self.getattr(type_point).items():
-            if control_type != [] and self.gcp3d[name_pt].code not in control_type:
+        for name_pt, list_shot in self.getattr(type_iter).items():
+            if control_type and self.gcp3d[name_pt].code not in control_type:
                 continue
             for name_shot in list_shot:
                 id_pt.append(name_pt)
@@ -92,12 +94,12 @@ class Worksite(Workshot):
             out_pt = "co_pts_world"
             control_type = []
         else:
-            out_pt = "img_pts_world"
+            out_pt = "gcp2d_in_world"
 
         id_pt = []
         coor = []
         for name_pt, coor_pt in self.getattr(out_pt).items():
-            if control_type != [] and self.gcp3d[name_pt].code not in control_type:
+            if control_type and self.gcp3d[name_pt].code not in control_type:
                 continue
             id_pt.append(name_pt)
             coor.append(coor_pt)
@@ -119,7 +121,7 @@ class Worksite(Workshot):
         if type_point == 'co_points':
             out_pt = "co_pts_world"
         else:
-            out_pt = "img_pts_world"
+            out_pt = "gcp2d_in_world"
 
         for _, row in pd_mes.iterrows():
             self.getattr(out_pt)[row['id_pt']] = np.array([row['x'], row['y'], row['z']])

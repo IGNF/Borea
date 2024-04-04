@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.parser.args_rpc - Pink_Lady 1.0.0 documentation</title>
+        <title>src.writer.writer_df_to_txt - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -162,6 +162,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_format.html">src.parser.parser_format package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_func.html">src.parser.parser_func package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
@@ -220,60 +223,41 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.parser.args_rpc</h1><div class="highlight"><pre>
+          <h1>Source code for src.writer.writer_df_to_txt</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Args of parser for writing Rpc file</span>
+<span class="sd">Photogrammetry worksite to writing dataframe to txt.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">argparse</span>
-<span class="kn">from</span> <span class="nn">src.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
-<span class="kn">from</span> <span class="nn">src.writer.manage_writer</span> <span class="kn">import</span> <span class="n">manager_writer</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">PureWindowsPath</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 
-<div class="viewcode-block" id="args_writing_rpc">
-<a class="viewcode-back" href="../../../src.parser.html#src.parser.args_rpc.args_writing_rpc">[docs]</a>
-<span class="k">def</span> <span class="nf">args_writing_rpc</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="p">:</span>
+<div class="viewcode-block" id="write_df_to_txt">
+<a class="viewcode-back" href="../../../src.writer.html#src.writer.writer_df_to_txt.write_df_to_txt">[docs]</a>
+<span class="k">def</span> <span class="nf">write_df_to_txt</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pathreturn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Args for writing rpc file.</span>
+<span class="sd">    Writing DataFrame to txt in column.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        parser (argparse): Parser to add argument.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        argsparse: Parser with argument.</span>
+<span class="sd">        name (str): Name of the file.</span>
+<span class="sd">        pathreturn (str): Path to save the file.</span>
+<span class="sd">        df (pd.DataFrame): DataFrame to save.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-w&#39;</span><span class="p">,</span> <span class="s1">&#39;--pathreturn&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;./&#39;</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Conversion path e.g. test/tmp/.&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--order&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Degree of the polynomial of the rpc (1, 2, 3)&quot;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--size_grid&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Size of the grid to calculate Rpc.&quot;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--fact_rpc&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Factor Rpc for pyproj convertion.&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">parser</span></div>
+    <span class="n">path_txt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="n">pathreturn</span><span class="p">)),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="p">)</span>
 
+    <span class="n">name_column</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
-
-<div class="viewcode-block" id="process_args_write_rpc">
-<a class="viewcode-back" href="../../../src.parser.html#src.parser.args_rpc.process_args_write_rpc">[docs]</a>
-<span class="k">def</span> <span class="nf">process_args_write_rpc</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="p">,</span> <span class="n">work</span><span class="p">:</span> <span class="n">Worksite</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Processing args with data.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        args (argparse): Arg to apply on worksite (data).</span>
-<span class="sd">        work (Worksite): Data.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Writing data</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Writing Rpc.&quot;</span><span class="p">)</span>
-    <span class="n">args_writing</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">order</span><span class="p">,</span>
-                    <span class="s2">&quot;size_grid&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">size_grid</span><span class="p">,</span>
-                    <span class="s2">&quot;fact_rpc&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">fact_rpc</span><span class="p">}</span>
-    <span class="n">manager_writer</span><span class="p">(</span><span class="s2">&quot;rpc&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">pathreturn</span><span class="p">,</span> <span class="n">args_writing</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File written in folder </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">pathreturn</span><span class="si">}</span><span class="s2"> .txt.&quot;</span><span class="p">)</span></div>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_txt</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">wline</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">id_col</span> <span class="ow">in</span> <span class="n">name_column</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">id_col</span><span class="p">],</span> <span class="nb">float</span><span class="p">):</span>
+                    <span class="n">wline</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="n">id_col</span><span class="p">]</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">wline</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">id_col</span><span class="p">],</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
+            <span class="n">wline</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">wline</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 </pre></div>
         </article>

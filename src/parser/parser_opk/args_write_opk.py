@@ -53,12 +53,12 @@ def process_args_write_opk(args: argparse, work: Worksite) -> None:
 
     # Writing data
     print("Writing OPK.")
-    if args.name is not None:
+    if args.namereturn is not None:
         args_writing = {"order_axe": args.order_axe_output,
                         "header": args.output_header,
                         "unit_angle": args.output_unit_angle,
                         "linear_alteration": args.output_linear_alteration}
-        manager_writer("opk", args.name, args.pathreturn, args_writing, work)
-        print(f"File written in {args.pathreturn + args.name}.opk.")
+        manager_writer("opk", args.namereturn, args.pathreturn, args_writing, work)
+        print(f"File written in {args.pathreturn + args.namereturn}.opk.")
     else:
         raise ValueError("The name of the saving file is missing -n.")

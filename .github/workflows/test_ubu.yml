@@ -43,3 +43,9 @@ jobs:
 
     - name: Run regression test calc pt world
       run: python3 ./calc_onept_world.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 815601.510 6283629.280 54.960 -d height
+
+    - name: Run regression test calc file pt image
+      run: python3 ./calc_pt_image_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test0.mes -g ./dataset/GCP_test.app --fg height -n Coor2d_pt_terrain -w ./test/tmp/
+
+    - name: Run regression test calc file pt world
+      run: python3 ./calc_pt_world_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -p square -n Coor3d_pt_image -w ./test/tmp/

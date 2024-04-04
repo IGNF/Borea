@@ -24,15 +24,15 @@ jobs:
 
     - name: Analysing the code with pylint
       run: |
-        pylint opk_to_opk.py opk_control.py opk_to_rpc.py calc_onept_image.py calc_onept_world.py
+        pylint opk_to_opk.py opk_control.py opk_to_rpc.py calc_onept_image.py calc_onept_world.py calc_pt_image_opk.py calc_pt_world_opk.py
         pylint src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/parser_format/args_rpc.py
-        pylint src/parser/parser_func/args_control.py
-        pylint src/parser/parser_adata/args_gen_param.py src/parser/parser_adata/args_unit_shot.py src/parser/parser_adata/args_add_shot.py src/parser/parser_adata/args_pt2d.py src/parser/parser_adata/args_pt3d.py src/parser/parser_adata/args_file_gcp2d.py src/parser/parser_adata/args_file_gcp3d.py
+        pylint src/parser/parser_func/args_control.py src/parser/parser_func/args_image_world.py src/parser/parser_func/args_world_image.py
+        pylint src/parser/parser_adata/args_write.py src/parser/parser_adata/args_gen_param.py src/parser/parser_adata/args_unit_shot.py src/parser/parser_adata/args_add_shot.py src/parser/parser_adata/args_pt2d.py src/parser/parser_adata/args_pt3d.py src/parser/parser_adata/args_file_gcp2d.py src/parser/parser_adata/args_file_gcp3d.py
         pylint src/geodesy/proj_engine.py src/geodesy/euclidean_proj.py src/geodesy/transform_geodesy.py src/geodesy/approx_euclidean_proj.py src/geodesy/local_euclidean_proj.py
         pylint src/reader/reader_camera.py src/reader/reader_point.py
         pylint src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py
         pylint src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/workdata.py src/datastruct/workshot.py src/datastruct/camera.py src/datastruct/dtm.py
-        pylint src/writer/writer_opk.py src/writer/manage_writer.py src/writer/writer_rpc.py
+        pylint src/writer/writer_opk.py src/writer/manage_writer.py src/writer/writer_rpc.py src/writer/writer_df_to_txt.py
         pylint src/utils/check/check_args_opk.py src/utils/check/check_array.py src/utils/singleton/singleton.py src/utils/check/check_head_file_pt.py src/utils/check/check_header.py src/utils/check/check_order_axe.py
         pylint src/worksite/worksite.py
         pylint src/transform_world_image/transform_worksite/world_image_work.py src/transform_world_image/transform_worksite/image_world_work.py
@@ -45,15 +45,15 @@ jobs:
 
     - name: Analysing the code with flake8
       run: |
-        flake8  --max-line-length 100 opk_to_opk.py opk_control.py opk_to_rpc.py calc_onept_image.py calc_onept_world.py
+        flake8  --max-line-length 100 opk_to_opk.py opk_control.py opk_to_rpc.py calc_onept_image.py calc_onept_world.py calc_pt_image_opk.py calc_pt_world_opk.py
         flake8  --max-line-length 100 src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/parser_format/args_rpc.py
-        flake8  --max-line-length 100 src/parser/parser_func/args_control.py
-        flake8  --max-line-length 100 src/parser/parser_adata/args_gen_param.py src/parser/parser_adata/args_unit_shot.py src/parser/parser_adata/args_add_shot.py src/parser/parser_adata/args_pt2d.py src/parser/parser_adata/args_pt3d.py src/parser/parser_adata/args_file_gcp2d.py src/parser/parser_adata/args_file_gcp3d.py
+        flake8  --max-line-length 100 src/parser/parser_func/args_control.py src/parser/parser_func/args_image_world.py src/parser/parser_func/args_world_image.py
+        flake8  --max-line-length 100 src/parser/parser_adata/args_write.py src/parser/parser_adata/args_gen_param.py src/parser/parser_adata/args_unit_shot.py src/parser/parser_adata/args_add_shot.py src/parser/parser_adata/args_pt2d.py src/parser/parser_adata/args_pt3d.py src/parser/parser_adata/args_file_gcp2d.py src/parser/parser_adata/args_file_gcp3d.py
         flake8  --max-line-length 100 src/geodesy/proj_engine.py src/geodesy/euclidean_proj.py src/geodesy/transform_geodesy.py src/geodesy/approx_euclidean_proj.py src/geodesy/local_euclidean_proj.py
         flake8  --max-line-length 100 src/reader/reader_camera.py src/reader/reader_point.py
         flake8  --max-line-length 100 src/reader/orientation/manage_reader.py src/reader/orientation/reader_opk.py
         flake8  --max-line-length 100 src/datastruct/shot.py src/datastruct/gcp.py src/datastruct/workdata.py src/datastruct/workshot.py src/datastruct/camera.py src/datastruct/dtm.py
-        flake8  --max-line-length 100 src/writer/writer_opk.py src/writer/manage_writer.py src/writer/writer_rpc.py
+        flake8  --max-line-length 100 src/writer/writer_opk.py src/writer/manage_writer.py src/writer/writer_rpc.py src/writer/writer_df_to_txt.py
         flake8  --max-line-length 100 src/utils/check/check_args_opk.py src/utils/check/check_array.py src/utils/singleton/singleton.py src/utils/check/check_head_file_pt.py src/utils/check/check_header.py src/utils/check/check_order_axe.py
         flake8  --max-line-length 100 src/worksite/worksite.py
         flake8  --max-line-length 100 src/transform_world_image/transform_worksite/world_image_work.py src/transform_world_image/transform_worksite/image_world_work.py src/transform_world_image/transform_worksite/space_resection.py

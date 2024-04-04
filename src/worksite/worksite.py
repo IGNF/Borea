@@ -38,16 +38,18 @@ class Worksite(Workshot):
         Returns:
             pandas: Pandas table.
         """
-        if type_point not in ["co_points", "gcp2d"]:
-            raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d']")
+        if type_point not in ["co_points", "gcp2d", "gcp3d"]:
+            raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d','gcp3d']")
 
         if type_point == "co_points":
             control_type = []
 
+        type_iter = type_point if type_point != "gcp3d" else "gcp2d"
+
         id_pt = []
         id_img = []
         coor = []
-        for name_pt, list_shot in self.getattr(type_point).items():
+        for name_pt, list_shot in self.getattr(type_iter).items():
             if control_type and self.gcp3d[name_pt].code not in control_type:
                 continue
             for name_shot in list_shot:

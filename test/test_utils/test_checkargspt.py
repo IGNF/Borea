@@ -2,7 +2,7 @@
 Script test for module check_head_file_pt
 """
 import pytest
-from src.utils.check.check_head_file_pt import check_header_file
+from src.utils.check.check_args_reader_pt import check_header_file
 
 
 def test_head_file_pt3d():

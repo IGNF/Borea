@@ -3,6 +3,7 @@ Args of parser for writing opk file
 """
 import argparse
 from src.parser.parser_adata.args_unit_shot import args_output_shot
+from src.parser.parser_adata.args_write import args_writer
 from src.worksite.worksite import Worksite
 from src.writer.manage_writer import manager_writer
 
@@ -18,12 +19,7 @@ def args_writing_opk(parser: argparse) -> argparse:
         argsparse: Parser with argument.
     """
     # pylint: disable=duplicate-code
-    parser.add_argument('-n', '--name',
-                        type=str,
-                        help='Name of the new file.')
-    parser.add_argument('-w', '--pathreturn',
-                        type=str, default='./',
-                        help='Conversion path e.g. test/tmp/.')
+    parser = args_writer(parser)
     parser.add_argument('-o', '--output_header',
                         type=str, default=None,
                         help='Type of each column in the site file.'

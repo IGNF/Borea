@@ -2,9 +2,11 @@
 Args of parser to calcule world coordinate.
 """
 import argparse
+from src.parser.parser_adata.args_write import args_writer
 from src.worksite.worksite import Worksite
 from src.parser.parser_adata.args_file_gcp2d import args_gcp2d, process_gcp2d
 from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
+from src.writer.writer_df_to_txt import write_df_to_txt
 
 
 def args_image_world(parser: argparse) -> argparse:
@@ -18,16 +20,11 @@ def args_image_world(parser: argparse) -> argparse:
         argsparse: Parser with argument.
     """
     parser = args_gcp2d(parser)
-    parser.add_argument('-d', '--control_type',
-                        type=str, default=[], nargs='*',
-                        help='Type of gcp to control.')
     parser.add_argument('-p', '--process',
                         type=str, default="inter", choices=["inter", "square"],
                         help="Type of process for the function image to world,"
                              "intersection or least_square")
-    parser.add_argument('-w', '--pathreturn',
-                        type=str, default='./',
-                        help='Conversion path e.g. test/tmp/.')
+    parser = args_writer(parser)
     return parser
 
 
@@ -46,4 +43,6 @@ def process_image_world(args, work: Worksite) -> None:
     print("Calculation of data image to world.")
     ImageWorldWork(work).manage_image_world(type_point="gcp2d",
                                             type_process=args.process,
-                                            control_type=args.control_type)
+                                            control_type=None)
+    df3d = work.get_point_world_dataframe("gcp2d", [])
+    write_df_to_txt(args.namereturn, args.pathreturn, df3d)

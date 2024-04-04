@@ -1,5 +1,5 @@
 """
-Photogrammetry worksite to writing in rpc.
+Photogrammetry worksite to writing in opk.
 """
 import os
 from pathlib import Path, PureWindowsPath

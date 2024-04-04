@@ -16,9 +16,6 @@ The parameters are:
 | :----: | :------ | :-----: | :-------: |
 | -r | File path of the workfile | | V |
 | -i | Type of each column in the site file. e.g. NXYZOPKC with Z in altitude | NXYZOPKC | X |
-| -t | Files paths of ground image points |  | V |
-| -g | Files paths of ground control point |  | V |
-| --fg | Format of GCP and ground image points "altitude" or "height". |  | V |
 | -b | Order of rotation matrix axes. | opk | X |
 | -u | Unit of the angle of shooting, 'degree' or 'radian' | degree | X |
 | -a | True if z shot corrected by linear alteration | True | X |
@@ -30,10 +27,13 @@ The parameters are:
 | -m | DTM of the worksite. | None | X |
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
 | -x | To use an approximate system. | False | X |
+| -t | Files paths of ground image points |  | V |
 | -k | Header of the file gcp2d. | PNXY | X |
+| -g | Files paths of ground control point |  | V |
 | -l | Header of the file gcp3d. | PTXYZ | X |
+| --fg | Format of GCP and ground image points "altitude" or "height". |  | V |
 | -d | Type of gcp to control. | [] | X |
-| -p | Type of process for the function image to world, "inter" ofr intersection or "square" for least-square | "inter" | X |
+| -p | Type of process for the function image to world, "inter" for intersection or "square" for least-square | "inter" | X |
 | -w | Path stat e.g. "./" | "./" | X |
 
 E.G.

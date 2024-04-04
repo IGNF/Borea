@@ -92,7 +92,7 @@ class Worksite(Workshot):
             out_pt = "co_pts_world"
             control_type = []
         else:
-            out_pt = "img_pts_world"
+            out_pt = "gcp2d_in_world"
 
         id_pt = []
         coor = []
@@ -119,7 +119,7 @@ class Worksite(Workshot):
         if type_point == 'co_points':
             out_pt = "co_pts_world"
         else:
-            out_pt = "img_pts_world"
+            out_pt = "gcp2d_in_world"
 
         for _, row in pd_mes.iterrows():
             self.getattr(out_pt)[row['id_pt']] = np.array([row['x'], row['y'], row['z']])

@@ -30,13 +30,13 @@ The parameters are:
 | -x | To use an approximate system. | False | X |
 | -w | Conversion path e.g. "./" | "./" | X |
 | -o | Type of each column in the site file. e.g. NXYZOPKC with Z origin | NXY(Z/H)OPKC | X |
-| -k | Order of rotation matrix axes you want in output. | None | X |
-| -d | Unit of the angle of shooting, 'degree' or 'radian' | "degree" | X |
-| -l | True if z shot corrected by linear alteration. | True | X |
+| -ob | Order of rotation matrix axes you want in output. | None | X |
+| -ou | Unit of the angle of shooting, 'degree' or 'radian' | "degree" | X |
+| -oa | True if z shot corrected by linear alteration. | True | X |
 
 E.G.
 ```
-python3 ./opk_to_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -n Test -o NXYZOPKC -d radian -l False
+python3 ./opk_to_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -n Test -o NXYZOPKC -ou radian -oa False
 ```
 
 #### Detail for the header of file -i and -o

@@ -24,7 +24,7 @@ def check_header_file(header: list, type_pt: str) -> None:
 
     Args:
         header (list): List of column type file.
-        type_point (str): Type of point is reading (co_point, gcp2d, gcp3d).
+        type_pt (str): Type of point is reading (co_point, gcp2d, gcp3d).
     """
     list_letter = ['S', 'N', 'X', 'Y', 'Z', 'P', 'T']
 

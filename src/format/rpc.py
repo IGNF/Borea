@@ -8,7 +8,7 @@ from src.geodesy.proj_engine import ProjEngine
 from src.datastruct.dtm import Dtm
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 from src.transform_world_image.transform_shot.world_image_shot import WorldImageShot
-from src.math.normalize import normalize
+from src.math.math import normalize
 
 
 class Rpc:

@@ -163,4 +163,4 @@ ImageWorldWork(work).manage_image_world("co_points", "inter")
 coor_world = work.co_pts_world['"1003"']
 ```
 
-![logo ign](../logo/logo_ign.png) ![logo fr](../logo/Republique_Francaise_Logo.png)
+![logo ign](../image/logo_ign.png) ![logo fr](../image/Republique_Francaise_Logo.png)

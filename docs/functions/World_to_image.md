@@ -121,4 +121,4 @@ point_gcp2 = work.shots["shot_test1"].gcps["gcp_test2"]
 point_gcp3 = work.shots["shot_test2"].gcps["gcp_test3"]
 ```
 
-![logo ign](../logo/logo_ign.png) ![logo fr](../logo/Republique_Francaise_Logo.png)
+![logo ign](../image/logo_ign.png) ![logo fr](../image/Republique_Francaise_Logo.png)

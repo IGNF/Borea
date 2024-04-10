@@ -76,11 +76,12 @@ from src.transform_world_image.transform_worksite.world_image_work import WorldI
 work = Worksite("test")
 
 # Add one or multiples shots
-# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration)
+# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration,order_axe)
 # unit_angle = "degree" or "radian".
 # linear_alteration True if z shot is corrected by linear alteration.
-work.add_shot("shot_test1", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test', "d")
-work.add_shot("shot_test2", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test', "d")
+# order of rotation axe "opk" or "pok" ...
+work.add_shot("shot_test1", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test', "degree", True, "opk")
+work.add_shot("shot_test2", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test', "degree", True, "opk")
 
 # Setup projection
 # set_epsg(epsg, path_geoid)
@@ -93,16 +94,16 @@ work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
 work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
 
 # Add connecting points
-# add_ground_img_pt(name_point, name_shot, column, line)
-work.add_ground_img_pt('gcp_test1', 'shot_test1', 0, 0)
-work.add_ground_img_pt('gcp_test2', 'shot_test1', 0, 0)
-work.add_ground_img_pt('gcp_test3', 'shot_test2', 0, 0)
+# add_gcp2d(name_point, name_shot, column, line)
+work.add_gcp2d('gcp_test1', 'shot_test1', 0, 0)
+work.add_gcp2d('gcp_test2', 'shot_test1', 0, 0)
+work.add_gcp2d('gcp_test3', 'shot_test2', 0, 0)
 
 # Add gcps points
-# add_gcp(name_gcp, code, coor)
-work.add_gcp('gcp_test1', 13, np.array([815601.510, 6283629.280, 54.960]))
-work.add_gcp('gcp_test2', 3, np.array([815601.510, 6283629.280, 54.960]))
-work.add_gcp('gcp_test3', 13, np.array([815601.510, 6283629.280, 54.960]))
+# add_gcp3d(name_gcp, code, coor)
+work.add_gcp3d('gcp_test1', 13, np.array([815601.510, 6283629.280, 54.960]))
+work.add_gcp3d('gcp_test2', 3, np.array([815601.510, 6283629.280, 54.960]))
+work.add_gcp3d('gcp_test3', 13, np.array([815601.510, 6283629.280, 54.960]))
 
 # Add dtm
 # set_dtm(path_dtm, type_dtm)
@@ -116,9 +117,9 @@ work.set_param_shot()
 # Calculate coordinate image gcp for gcp with code 13
 WorldImageWork(work).calculate_world_to_image([13])
 
-point_gcp1 = work.shots["shot_test1"].gcps["gcp_test1"]
-point_gcp2 = work.shots["shot_test1"].gcps["gcp_test2"]
-point_gcp3 = work.shots["shot_test2"].gcps["gcp_test3"]
+point_gcp1 = work.shots["shot_test1"].gcp3d["gcp_test1"]
+point_gcp2 = work.shots["shot_test1"].gcp3d["gcp_test2"]
+point_gcp3 = work.shots["shot_test2"].gcp3d["gcp_test3"]
 ```
 
 ![logo ign](../image/logo_ign.png) ![logo fr](../image/Republique_Francaise_Logo.png)

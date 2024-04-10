@@ -231,7 +231,7 @@ def mat_obs_axia(x_eucli: np.array, y_eucli: np.array, z_eucli: np.array,
 
 ## Example to use
 
-This function is used in SpaceResection class the space_resection_on_worksite() function of the worksite class to loop over all the shots present on the worksite.
+This function is used in SpaceResection class the **space_resection_on_worksite()** function of the worksite class to loop over all the shots present on the worksite.
 ```
 import numpy as np
 from src.datastruct.worksite import Worksite
@@ -241,11 +241,12 @@ from src.transform_world_image.transform_worksite.space_resection import SpaceRe
 work = Worksite("Test")
 
 # Add 2 shots
-# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration)
+# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration, order_axe)
 # unit_angle = "degree" or "radian".
 # linear_alteration True if z shot is corrected by linear alteration.
-work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","d")
-work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","d")
+# order of rotation axe "opk" or "pok" ...
+work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True, "opk")
+work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True, "opk")
 
 # Setup projection of the worksite
 # set_epsg(epsg, path_geoid)
@@ -263,7 +264,7 @@ work.set_param_shot()
 # Recalculate 6 externa parameters of all shots
 SpaceResection(work).space_resection_on_worksite(add_pixel = (0,0))
 ```
-This function is used in SpaceResection class the space_resection_to_worksite() function of the worksite class to calculate 6 externals parameters of shot and implemente him in worksite.
+This function is used in SpaceResection class the **space_resection_to_worksite()** function of the worksite class to calculate 6 externals parameters of shot and implemente him in worksite.
 ```
 import numpy as np
 from src.worksite.worksite import Worksite

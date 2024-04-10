@@ -116,11 +116,12 @@ from src.transform_world_image.transform_worksite.image_world_work import ImageW
 work = Worksite("Test")
 
 # Add two shots
-# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration)
+# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration, order_axe)
 # unit_angle = "degree" or "radian".
 # linear_alteration True if z shot is corrected by linear alteration.
-work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True)
-work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True)
+# order of rotation axe "opk" or "pok" ...
+work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True,"opk")
+work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True,"opk")
 
 # Setup projection
 # set_epsg(epsg, path_geoid)

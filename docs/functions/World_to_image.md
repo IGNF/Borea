@@ -32,35 +32,35 @@ Object to instantiate before calculation :
 ### From Euclidean frame of reference to image frame of reference
 
 * Calculation of the vector between the acquisition position and the terrain point and change of reference frame.
-$$
-p_{bundle} = \left(\begin{array}{cc}x_{bundle}\\y_{bundle}\\z_{bundle}\end{array}\right) = rot_{eucli} * (p_{eucli} – pos_{eucli})
-$$
+```math
+p_{bundle} = \begin{pmatrix}x_{bundle}\\y_{bundle}\\z_{bundle}\end{pmatrix} = rot_{eucli} * (p_{eucli} – pos_{eucli})
+```
 
 * Change from 3d to 2d point in the image frame.
-$$
+```math
 x_{shot} = x_{bundle} * focal / z_{bundle}
-$$
-$$
+```
+```math
 y_{shot} = y_{bundle} * focal / z_{bundle}
-$$
-$$
+```
+```math
 z_{shot} = z_{bundle}
-$$
+```
 
 
 * Application of systematizations, if any (distortion correction function).
-$$
+```math
 x_{shot}, y_{shot}, z_{shot} = f_{sys}(x_{shot}, y_{shot}, z_{shot})
-$$
+```
 if there is no distortion or it has already been corrected f_sys() is an identity function.
 
 * From vector to image point.
-$$
+```math
 x_{col} = ppax + x_{shot}
-$$
-$$
+```
+```math
 y_{line} = ppay + y_{shot}
-$$
+```
 
 * Returns $x_{col}$ and $y_{line}$ in an array (2,).
 

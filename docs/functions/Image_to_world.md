@@ -26,80 +26,80 @@ Object to instantiate before calculation :
 ## Calculation step
 
 * Creation of 3d vector in image frame minus perceptual center.
-$$
+```math
 x_{shot} = col - ppax
-$$
-$$
+```
+```math
 y_{shot} = line - ppay
-$$
-$$
+```
+```math
 z_{shot} = focal
-$$
+```
 
 * Application of inverse systematizations if available (inverse distortion correction function).
-$$
+```math
 x_{shot}, y_{shot}, z_{shot} = f_{sys inv}(x_{shot}, y_{shot}, z_{shot})
-$$
+```
 if there is no distortion or it has already been corrected $f_{sys inv}()$ is an identity function.
 
 * Passage through the beam marker.
-$$
+```math
 x_{bundle} = x_{shot} / focal * z_{shot}
-$$
-$$
+```
+```math
 y_{bundle} = y_{shot} / focal * z_{shot}
-$$
-$$
+```
+```math
 z_{bundle} = z_{shot}
-$$
+```
 
 * Transition to the Euclidean reference frame.
-$$
-\left(\begin{array}{cc} 
+```math
+\begin{pmatrix} 
 x_{local}\\
 y_{local}\\
 z_{local}
-\end{array}\right) = rot_{eucli}^T * 
-\left(\begin{array}{cc} 
+\end{pmatrix} = rot_{eucli}^T * 
+\begin{pmatrix} 
 x_{bundle}\\
 y_{bundle}\\
 z_{bundle}
-\end{array}\right)
-$$
+\end{pmatrix}
+```
 With proj.rot_to_euclidean_local the rotation matrix of the Euclidean frame of reference set up from the site's barycentre.
 
 * Converting the acquisition position to the Euclidean reference frame. With projeucli's world_to_eucliean() function. Warning: $z_{posShot}$ must be de-corrected for linear alteration and must be of the same unit as the others (altitude or height).
 
 * Addition of local point acquisition.
-$$
-\left(\begin{array}{cc} 
+```math
+\begin{pmatrix} 
 x_{local}\\
 y_{local}\\
 z_{local}
-\end{array}\right) = 
-\left(\begin{array}{cc} 
+\end{pmatrix} = 
+\begin{pmatrix} 
 x_{local}\\
 y_{local}\\
 z_{local}
-\end{array}\right) + 
-\left(\begin{array}{cc} 
+\end{pmatrix} + 
+\begin{pmatrix}
 x_{posEucli}\\
 y_{posEucli}\\
 z_{posEucli}
-\end{array}\right)
-$$
+\end{pmatrix}
+```
 
 
 * Create lambda to convert local point into Euclidean point.
-$$
+```math
 lamb = (z - z_{posEucli})/(z_{local} - z_{posEucli})
-$$
-$$
+```
+```math
 x_{local} = x_{posEucli} + (x_{local} - x_{posEucli}) * lamb
-$$
-$$
+```
+```math
 y_{local} = y_{posEucli} + (y_{local} - y_{posEucli}) * lamb
-$$
+```
 
 * Convert Euclidean point to terrain point, using proj's euclidean_to_world(x, y, z) function.
 

@@ -70,7 +70,7 @@ class TestReaderFilePt:
     
 
     def test_read_file_pt_dataframe_co_point(self):
-        df = read_file_pt_dataframe(self.INPUT_LIAISONS,list("PNXY"),"co_point")
+        df = read_file_pt_dataframe(self.INPUT_LIAISONS,list("PNXY"),"pt2d")
         assert (df == pd.DataFrame({"id_pt":["MES_674214","MES_674214","MES_674214","MES_674216","MES_674216","MES_674216","MES_674219","MES_674219","MES_674219","MES_145568","MES_145568","MES_145570","MES_145570","MES_264192","MES_264192","MES_264193","MES_264193"],
                                     "id_shot":["23FD1305x00026_01306","23FD1305x00026_01307","23FD1305x00026_01308","23FD1305x00026_01306","23FD1305x00026_01307","23FD1305x00026_01308","23FD1305x00026_01306","23FD1305x00026_01307","23FD1305x00026_01308","23FD1305x00054_05680","23FD1305x00054_05681","23FD1305x00054_05680","23FD1305x00054_05681","23FD1305x00062_07727","23FD1305x00062_07728","23FD1305x00062_07727","23FD1305x00062_07728"],
                                     "column":[3885.75,3952.47,3987.46,6033.01,6105.62,6142.4,3896.99,3958.87,3992.63,559.85,562.3,436.4,438.06,4009.15,4105.73,1956.18,2053.55],
@@ -78,7 +78,7 @@ class TestReaderFilePt:
         
     
     def test_read_file_pt_dataframe_gcp3d(self):
-        df = read_file_pt_dataframe(self.INPUT_GCP,list("PTXYZ"),"gcp3d")
+        df = read_file_pt_dataframe(self.INPUT_GCP,list("PTXYZ"),"pt3d")
         assert (df == pd.DataFrame({"id_pt":["1003","1005","1006"],
                                     "type":[13,3,13],
                                     "x":[815601.510,833670.940,838561.350],
@@ -87,7 +87,7 @@ class TestReaderFilePt:
     
 
     def test_read_file_pt_dataframe_gcp3dt(self):
-        df = read_file_pt_dataframe(self.INPUT_GCP,list("PXYZ"),"gcp3d")
+        df = read_file_pt_dataframe(self.INPUT_GCP,list("PXYZ"),"pt3d")
         assert (df == pd.DataFrame({"id_pt":["1003","1005","1006"],
                                     "type":None,
                                     "x":[815601.510,833670.940,838561.350],

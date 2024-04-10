@@ -20,6 +20,14 @@ src.parser.parser\_func.args\_image\_world module
    :undoc-members:
    :show-inheritance:
 
+src.parser.parser\_func.args\_spaceresection module
+---------------------------------------------------
+
+.. automodule:: src.parser.parser_func.args_spaceresection
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 src.parser.parser\_func.args\_world\_image module
 -------------------------------------------------
 

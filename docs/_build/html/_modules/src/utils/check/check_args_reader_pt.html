@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.utils.check.check_head_file_pt - Pink_Lady 1.0.0 documentation</title>
+        <title>src.utils.check.check_args_reader_pt - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -223,22 +223,39 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.utils.check.check_head_file_pt</h1><div class="highlight"><pre>
+          <h1>Source code for src.utils.check.check_args_reader_pt</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">A script for verification header str in read file point.</span>
+<span class="sd">A script for verification args to read a point file.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">src.utils.check.check_header</span> <span class="kn">import</span> <span class="n">check_head</span>
 
 
+<div class="viewcode-block" id="check_args_reader_pt">
+<a class="viewcode-back" href="../../../../src.utils.check.html#src.utils.check.check_args_reader_pt.check_args_reader_pt">[docs]</a>
+<span class="k">def</span> <span class="nf">check_args_reader_pt</span><span class="p">(</span><span class="n">header</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if args for function reader file pt is good.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        header (list): List of column type file.</span>
+<span class="sd">        type_point (str): Type of point is reading (co_point, gcp2d, gcp3d).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_point&quot;</span><span class="p">,</span> <span class="s2">&quot;gcp2d&quot;</span><span class="p">,</span> <span class="s2">&quot;gcp3d&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> in incorrect. [&#39;co_point&#39;, &#39;gcp2d&#39;, &#39;gcp3d&#39;]&quot;</span><span class="p">)</span>
+
+    <span class="n">check_header_file</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">type_point</span><span class="p">)</span></div>
+
+
+
 <div class="viewcode-block" id="check_header_file">
-<a class="viewcode-back" href="../../../../src.utils.check.html#src.utils.check.check_head_file_pt.check_header_file">[docs]</a>
+<a class="viewcode-back" href="../../../../src.utils.check.html#src.utils.check.check_args_reader_pt.check_header_file">[docs]</a>
 <span class="k">def</span> <span class="nf">check_header_file</span><span class="p">(</span><span class="n">header</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">type_pt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if the header of the file is good.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        header (list): List of column type file.</span>
-<span class="sd">        type_point (str): Type of point is reading (co_point, gcp2d, gcp3d).</span>
+<span class="sd">        type_pt (str): Type of point is reading (co_point, gcp2d, gcp3d).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">list_letter</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">]</span>
 
@@ -250,7 +267,7 @@
         <span class="n">ll_type</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">]</span>
 
     <span class="n">misss</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">ll_type</span><span class="p">)</span> <span class="o">-</span> <span class="n">symbol</span>
-    <span class="k">if</span> <span class="n">misss</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">misss</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">()</span> <span class="ow">and</span> <span class="n">misss</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">):</span>
         <span class="n">bad_head</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">ms_error_letter</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;The letters </span><span class="si">{</span><span class="n">misss</span><span class="si">}</span><span class="s2"> are missing.</span><span class="se">\n</span><span class="s2">&quot;</span>
 

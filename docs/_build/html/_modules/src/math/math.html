@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.math.normalize - Pink_Lady 1.0.0 documentation</title>
+        <title>src.math.math - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -223,7 +223,7 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.math.normalize</h1><div class="highlight"><pre>
+          <h1>Source code for src.math.math</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Function to normalize data.</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -231,8 +231,8 @@
 
 
 <div class="viewcode-block" id="normalize">
-<a class="viewcode-back" href="../../../src.math.html#src.math.normalize.normalize">[docs]</a>
-<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+<a class="viewcode-back" href="../../../src.math.html#src.math.math.normalize">[docs]</a>
+<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Normalize array.</span>
 
@@ -246,6 +246,78 @@
     <span class="n">scale</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">array</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
     <span class="n">array_norm</span> <span class="o">=</span> <span class="p">(</span><span class="n">array</span> <span class="o">-</span> <span class="n">offset</span><span class="p">)</span> <span class="o">/</span> <span class="n">scale</span>
     <span class="k">return</span> <span class="n">array_norm</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">scale</span></div>
+
+
+
+<div class="viewcode-block" id="dist_2pts">
+<a class="viewcode-back" href="../../../src.math.html#src.math.math.dist_2pts">[docs]</a>
+<span class="k">def</span> <span class="nf">dist_2pts</span><span class="p">(</span><span class="n">pt1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pt2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the distance of two points.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pt1 (np.array): Coordinates of the first point.</span>
+<span class="sd">        pt2 (np.array): Coordinates of the second point.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: The distance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">pt1</span> <span class="o">-</span> <span class="n">pt2</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="min_max_pt">
+<a class="viewcode-back" href="../../../src.math.html#src.math.math.min_max_pt">[docs]</a>
+<span class="k">def</span> <span class="nf">min_max_pt</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">type_m</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get min or max of coordinnate 2D in an array of dim (2,n).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        array (np.array): Array data to get min or max.</span>
+<span class="sd">        type_m (str): Type min or max.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: min or max Coordinate of one point and index in array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">type_m</span> <span class="o">==</span> <span class="s2">&quot;min&quot;</span><span class="p">:</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span>
+
+    <span class="n">arg_col</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">arg_lin</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">pt_col</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:,</span> <span class="n">arg_col</span><span class="p">]</span>
+    <span class="n">pt_lin</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:,</span> <span class="n">arg_lin</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">pt_col</span> <span class="o">==</span> <span class="n">pt_lin</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">pt_col</span><span class="p">,</span> <span class="n">arg_col</span>
+
+    <span class="n">d1</span> <span class="o">=</span> <span class="n">dist_2pts</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">pt_col</span><span class="p">)</span>
+    <span class="n">d2</span> <span class="o">=</span> <span class="n">dist_2pts</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">pt_lin</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">d1</span> <span class="o">&lt;=</span> <span class="n">d2</span> <span class="ow">and</span> <span class="n">type_m</span> <span class="o">==</span> <span class="s2">&quot;min&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">d1</span> <span class="o">&gt;=</span> <span class="n">d2</span> <span class="ow">and</span> <span class="n">type_m</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">pt_col</span><span class="p">,</span> <span class="n">arg_col</span>
+
+    <span class="k">return</span> <span class="n">pt_lin</span><span class="p">,</span> <span class="n">arg_lin</span></div>
+
+
+
+<div class="viewcode-block" id="angle_degree_2vect">
+<a class="viewcode-back" href="../../../src.math.html#src.math.math.angle_degree_2vect">[docs]</a>
+<span class="k">def</span> <span class="nf">angle_degree_2vect</span><span class="p">(</span><span class="n">u</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates degree angle between two vectors.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        u (np.array): Fisrt vector.</span>
+<span class="sd">        v (np.array): Second vector.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Degree angle between two vectors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="n">nv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">costheta</span> <span class="o">=</span> <span class="p">(</span><span class="n">u</span> <span class="o">@</span> <span class="n">v</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">nu</span> <span class="o">*</span> <span class="n">nv</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">costheta</span><span class="p">)</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span></div>
 
 </pre></div>
         </article>

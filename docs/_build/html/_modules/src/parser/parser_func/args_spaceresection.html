@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.parser.parser_adata.args_unit_shot - Pink_Lady 1.0.0 documentation</title>
+        <title>src.parser.parser_func.args_spaceresection - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -223,18 +223,28 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.parser.parser_adata.args_unit_shot</h1><div class="highlight"><pre>
+          <h1>Source code for src.parser.parser_func.args_spaceresection</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Args of parser for unit of shot</span>
+<span class="sd">Args of parser to calcule 6 externals parameters of shots.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">src.parser.parser_adata.args_file_gcp2d</span> <span class="kn">import</span> <span class="n">args_gcp2d</span>
+<span class="kn">from</span> <span class="nn">src.parser.parser_adata.args_gen_param</span> <span class="kn">import</span> <span class="n">args_general_param</span><span class="p">,</span> <span class="n">process_args_gen_param</span>
+<span class="kn">from</span> <span class="nn">src.parser.parser_adata.args_pt3d</span> <span class="kn">import</span> <span class="n">args_add_pt3d</span>
+<span class="kn">from</span> <span class="nn">src.reader.reader_point</span> <span class="kn">import</span> <span class="n">read_file_pt_dataframe</span>
+<span class="kn">from</span> <span class="nn">src.transform_world_image.transform_worksite.space_resection</span> <span class="kn">import</span> <span class="n">SpaceResection</span>
+<span class="kn">from</span> <span class="nn">src.utils.check.check_args_opk</span> <span class="kn">import</span> <span class="n">check_header_file</span>
+<span class="kn">from</span> <span class="nn">src.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
+<span class="kn">from</span> <span class="nn">src.parser.parser_adata.args_file_gcp3d</span> <span class="kn">import</span> <span class="n">args_gcp3d</span>
 
-<div class="viewcode-block" id="args_input_shot">
-<a class="viewcode-back" href="../../../../src.parser.parser_adata.html#src.parser.parser_adata.args_unit_shot.args_input_shot">[docs]</a>
-<span class="k">def</span> <span class="nf">args_input_shot</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="p">:</span>
+
+<div class="viewcode-block" id="args_space_resection">
+<a class="viewcode-back" href="../../../../src.parser.parser_func.html#src.parser.parser_func.args_spaceresection.args_space_resection">[docs]</a>
+<span class="k">def</span> <span class="nf">args_space_resection</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Args for reading opk file.</span>
+<span class="sd">    Args to calcule 6 externals parameters of shots.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        parser (argparse): Parser to add argument.</span>
@@ -242,41 +252,35 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        argsparse: Parser with argument.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-b&#39;</span><span class="p">,</span> <span class="s1">&#39;--order_axe_input&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;opk&quot;</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Order of rotation matrix axes.&quot;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="s1">&#39;--unit_angle&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;degree&#39;</span><span class="p">,</span> <span class="s1">&#39;radian&#39;</span><span class="p">],</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Unit of the angle of shooting, &#39;degree&#39; or &#39;radian&#39;.&quot;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-a&#39;</span><span class="p">,</span> <span class="s1">&#39;--linear_alteration&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;True if z shot corrected by linear alteration.&quot;</span><span class="p">)</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">args_add_pt3d</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">args_general_param</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">args_gcp2d</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">args_gcp3d</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">parser</span></div>
 
 
 
-<div class="viewcode-block" id="args_output_shot">
-<a class="viewcode-back" href="../../../../src.parser.parser_adata.html#src.parser.parser_adata.args_unit_shot.args_output_shot">[docs]</a>
-<span class="k">def</span> <span class="nf">args_output_shot</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="p">:</span>
+<div class="viewcode-block" id="process_space_resection">
+<a class="viewcode-back" href="../../../../src.parser.parser_func.html#src.parser.parser_func.args_spaceresection.process_space_resection">[docs]</a>
+<span class="k">def</span> <span class="nf">process_space_resection</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Worksite</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Args for reading opk file.</span>
+<span class="sd">    Processing args with data.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        parser (argparse): Parser to add argument.</span>
+<span class="sd">        args (argparse): Arg to apply on worksite (data).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        argsparse: Parser with argument.</span>
+<span class="sd">        Worksite: data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-ob&#39;</span><span class="p">,</span> <span class="s1">&#39;--order_axe_output&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Order of rotation matrix axes you want in output.&quot;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-ou&#39;</span><span class="p">,</span> <span class="s1">&#39;--output_unit_angle&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">,</span> <span class="s2">&quot;radian&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Unit of the angle of shooting, &#39;degree&#39; or &#39;radian&#39;&quot;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-oa&#39;</span><span class="p">,</span> <span class="s1">&#39;--output_linear_alteration&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;True if z shot corrected by linear alteration.&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">parser</span></div>
+    <span class="n">work</span> <span class="o">=</span> <span class="n">Worksite</span><span class="p">(</span><span class="s2">&quot;Space_Resection&quot;</span><span class="p">)</span>
+    <span class="n">work</span> <span class="o">=</span> <span class="n">process_args_gen_param</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
+    <span class="n">work</span><span class="o">.</span><span class="n">type_z_shot</span> <span class="o">=</span> <span class="n">check_header_file</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output_header</span><span class="o">.</span><span class="n">upper</span><span class="p">()))[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">work</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">fg</span>
+    <span class="n">pt2d</span> <span class="o">=</span> <span class="n">read_file_pt_dataframe</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">head_gcp2d</span><span class="p">,</span> <span class="s2">&quot;gcp2d&quot;</span><span class="p">)</span>
+    <span class="n">pt3d</span> <span class="o">=</span> <span class="n">read_file_pt_dataframe</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gcp3d</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">head_gcp3d</span><span class="p">,</span> <span class="s2">&quot;gcp3d&quot;</span><span class="p">)</span>
+    <span class="n">pinit</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;coor_init&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">point3d</span><span class="p">)}</span>
+    <span class="n">SpaceResection</span><span class="p">(</span><span class="n">work</span><span class="p">)</span><span class="o">.</span><span class="n">space_resection_to_worksite</span><span class="p">(</span><span class="n">pt2d</span><span class="p">,</span> <span class="n">pt3d</span><span class="p">,</span> <span class="n">pinit</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">work</span></div>
 
 </pre></div>
         </article>

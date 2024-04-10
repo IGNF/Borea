@@ -4,10 +4,10 @@ src.math package
 Submodules
 ----------
 
-src.math.normalize module
--------------------------
+src.math.math module
+--------------------
 
-.. automodule:: src.math.normalize
+.. automodule:: src.math.math
    :members:
    :undoc-members:
    :show-inheritance:

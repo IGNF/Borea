@@ -480,6 +480,48 @@ the 3 angles omega, phi, kappa and its position x, y, z.</p>
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.space_resection.SpaceResection.func_least_square">
+<span class="sig-name descname"><span class="pre">func_least_square</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shot_adjust</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt_world</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/space_resection.html#SpaceResection.func_least_square"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.func_least_square" title="Link to this definition">#</a></dt>
+<dd><p>Calculate the least-squares equation dx = (A.T &#64; A)**-1 &#64; A.T &#64; B</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shot_adjust</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><em>Shot</em></a>) – The shot to adjust.</p></li>
+<li><p><strong>obs</strong> (<em>np.array</em>) – Observation of point in image [c_obs, l_obs].</p></li>
+<li><p><strong>pt_eucli</strong> (<em>np.array</em>) – Observation of world point in eucidean system [X, Y, Z].</p></li>
+<li><p><strong>pt_world</strong> (<em>np.array</em>) – Observation of world point [X, Y, Z].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ol class="lowerroman simple" start="510">
+<li></li>
+</ol>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.space_resection.SpaceResection.init_kappa">
+<span class="sig-name descname"><span class="pre">init_kappa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dfpt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/space_resection.html#SpaceResection.init_kappa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.init_kappa" title="Link to this definition">#</a></dt>
+<dd><p>Calculates a kappa angle for acquisition initialization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dfpt</strong> (<em>pd.DataFrame</em>) – Coordonnees of points in image and world.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>kappa angle.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.space_resection.SpaceResection.least_square_shot">
 <span class="sig-name descname"><span class="pre">least_square_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shot_adjust</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt_eucli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt_world</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/space_resection.html#SpaceResection.least_square_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.least_square_shot" title="Link to this definition">#</a></dt>
 <dd><p>Least-square methode to calcule the shot’s 6 external orientation parameters.</p>
@@ -540,8 +582,8 @@ The z-world position is given by fixed values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection">
-<span class="sig-name descname"><span class="pre">space_resection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_pixel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/space_resection.html#SpaceResection.space_resection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_gap">
+<span class="sig-name descname"><span class="pre">space_resection_gap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_pixel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/space_resection.html#SpaceResection.space_resection_gap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_gap" title="Link to this definition">#</a></dt>
 <dd><p>Recalculates the shot’s 6 external orientation parameters,
 the 3 angles omega, phi, kappa and its position x, y, z.</p>
 <dl class="field-list simple">
@@ -561,14 +603,54 @@ the 3 angles omega, phi, kappa and its position x, y, z.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_worksite">
-<span class="sig-name descname"><span class="pre">space_resection_worksite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">add_pixel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/space_resection.html#SpaceResection.space_resection_worksite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_worksite" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_on_worksite">
+<span class="sig-name descname"><span class="pre">space_resection_on_worksite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">add_pixel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/space_resection.html#SpaceResection.space_resection_on_worksite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_on_worksite" title="Link to this definition">#</a></dt>
 <dd><p>Recalculates the shot’s 6 external orientation parameters,
 the 3 angles omega, phi, kappa and its position x, y, z.
 For all shot with a variation pixel.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>add_pixel</strong> (<em>tuple</em>) – Factor (column, line) added on observable point.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_shot">
+<span class="sig-name descname"><span class="pre">space_resection_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt_img</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt_world</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pinit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/space_resection.html#SpaceResection.space_resection_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_shot" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the shot’s 6 external orientation parameters,
+the 3 angles omega, phi, kappa and its position x, y, z.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name_shot</strong> (<em>str</em>) – Name of shot to calculte externa parameters.</p></li>
+<li><p><strong>pt_img</strong> (<em>np.array</em>) – Coordonnees image of points.</p></li>
+<li><p><strong>pt_world</strong> (<em>np.array</em>) – Coordonnees world of points.</p></li>
+<li><p><strong>pinit</strong> (<em>dict</em>) – Dictionnary with 3d coordinate for initialization and kappa.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Adjusted shot.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot">Shot</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_to_worksite">
+<span class="sig-name descname"><span class="pre">space_resection_to_worksite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pt2d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt3d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pinit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/transform_world_image/transform_worksite/space_resection.html#SpaceResection.space_resection_to_worksite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_to_worksite" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the shot’s 6 external orientation parameters,
+the 3 angles omega, phi, kappa and its position x, y, z.
+For all shot with a variation pixel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pt2d</strong> (<em>pd.Dataframe</em>) – Table of image coordinate point with image.</p></li>
+<li><p><strong>pt3d</strong> (<em>pd.Dataframe</em>) – Table of ground coordinate point.</p></li>
+<li><p><strong>pinit</strong> (<em>dict</em>) – Dictionnary with 3d coordinate for initialization “coor_init”.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -721,11 +803,15 @@ in the images they appear in.</p>
 </li>
 <li><a class="reference internal" href="#module-src.transform_world_image.transform_worksite.space_resection">src.transform_world_image.transform_worksite.space_resection module</a><ul>
 <li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection"><code class="docutils literal notranslate"><span class="pre">SpaceResection</span></code></a><ul>
+<li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.func_least_square"><code class="docutils literal notranslate"><span class="pre">SpaceResection.func_least_square()</span></code></a></li>
+<li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.init_kappa"><code class="docutils literal notranslate"><span class="pre">SpaceResection.init_kappa()</span></code></a></li>
 <li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.least_square_shot"><code class="docutils literal notranslate"><span class="pre">SpaceResection.least_square_shot()</span></code></a></li>
 <li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.mat_obs_axia"><code class="docutils literal notranslate"><span class="pre">SpaceResection.mat_obs_axia()</span></code></a></li>
 <li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.seed_20_point"><code class="docutils literal notranslate"><span class="pre">SpaceResection.seed_20_point()</span></code></a></li>
-<li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection"><code class="docutils literal notranslate"><span class="pre">SpaceResection.space_resection()</span></code></a></li>
-<li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_worksite"><code class="docutils literal notranslate"><span class="pre">SpaceResection.space_resection_worksite()</span></code></a></li>
+<li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_gap"><code class="docutils literal notranslate"><span class="pre">SpaceResection.space_resection_gap()</span></code></a></li>
+<li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_on_worksite"><code class="docutils literal notranslate"><span class="pre">SpaceResection.space_resection_on_worksite()</span></code></a></li>
+<li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_shot"><code class="docutils literal notranslate"><span class="pre">SpaceResection.space_resection_shot()</span></code></a></li>
+<li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.space_resection_to_worksite"><code class="docutils literal notranslate"><span class="pre">SpaceResection.space_resection_to_worksite()</span></code></a></li>
 <li><a class="reference internal" href="#src.transform_world_image.transform_worksite.space_resection.SpaceResection.take_obs"><code class="docutils literal notranslate"><span class="pre">SpaceResection.take_obs()</span></code></a></li>
 </ul>
 </li>

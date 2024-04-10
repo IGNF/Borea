@@ -123,4 +123,4 @@ The approximate system is used to set up a local tangent frame of reference for 
 You can also use it with data not in the same Z repository, but you need the data in the .json projection file.  
 However, the calculation is less accurate in the approximate system.
 
-![logo ign](docs/logo/logo_ign.png) ![logo fr](docs/logo/Republique_Francaise_Logo.png)
+![logo ign](docs/image/logo_ign.png) ![logo fr](docs/image/Republique_Francaise_Logo.png)

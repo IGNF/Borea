@@ -230,12 +230,72 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="module-src.math.normalize">
-<span id="src-math-normalize-module"></span><h2>src.math.normalize module<a class="headerlink" href="#module-src.math.normalize" title="Link to this heading">#</a></h2>
+<section id="module-src.math.math">
+<span id="src-math-math-module"></span><h2>src.math.math module<a class="headerlink" href="#module-src.math.math" title="Link to this heading">#</a></h2>
 <p>Function to normalize data.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="src.math.normalize.normalize">
-<span class="sig-prename descclassname"><span class="pre">src.math.normalize.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/math/normalize.html#normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.math.normalize.normalize" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.math.math.angle_degree_2vect">
+<span class="sig-prename descclassname"><span class="pre">src.math.math.</span></span><span class="sig-name descname"><span class="pre">angle_degree_2vect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/src/math/math.html#angle_degree_2vect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.math.math.angle_degree_2vect" title="Link to this definition">#</a></dt>
+<dd><p>Calculates degree angle between two vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>np.array</em>) – Fisrt vector.</p></li>
+<li><p><strong>v</strong> (<em>np.array</em>) – Second vector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Degree angle between two vectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.math.math.dist_2pts">
+<span class="sig-prename descclassname"><span class="pre">src.math.math.</span></span><span class="sig-name descname"><span class="pre">dist_2pts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pt1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/src/math/math.html#dist_2pts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.math.math.dist_2pts" title="Link to this definition">#</a></dt>
+<dd><p>Calculate the distance of two points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pt1</strong> (<em>np.array</em>) – Coordinates of the first point.</p></li>
+<li><p><strong>pt2</strong> (<em>np.array</em>) – Coordinates of the second point.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The distance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.math.math.min_max_pt">
+<span class="sig-prename descclassname"><span class="pre">src.math.math.</span></span><span class="sig-name descname"><span class="pre">min_max_pt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/math/math.html#min_max_pt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.math.math.min_max_pt" title="Link to this definition">#</a></dt>
+<dd><p>Get min or max of coordinnate 2D in an array of dim (2,n).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>np.array</em>) – Array data to get min or max.</p></li>
+<li><p><strong>type_m</strong> (<em>str</em>) – Type min or max.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>min or max Coordinate of one point and index in array.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.math.math.normalize">
+<span class="sig-prename descclassname"><span class="pre">src.math.math.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/math/math.html#normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.math.math.normalize" title="Link to this definition">#</a></dt>
 <dd><p>Normalize array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -365,8 +425,11 @@ M euclidean point, S euclidean position shot, R rotation matrix euclidean to ima
             <ul>
 <li><a class="reference internal" href="#">src.math package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-src.math.normalize">src.math.normalize module</a><ul>
-<li><a class="reference internal" href="#src.math.normalize.normalize"><code class="docutils literal notranslate"><span class="pre">normalize()</span></code></a></li>
+<li><a class="reference internal" href="#module-src.math.math">src.math.math module</a><ul>
+<li><a class="reference internal" href="#src.math.math.angle_degree_2vect"><code class="docutils literal notranslate"><span class="pre">angle_degree_2vect()</span></code></a></li>
+<li><a class="reference internal" href="#src.math.math.dist_2pts"><code class="docutils literal notranslate"><span class="pre">dist_2pts()</span></code></a></li>
+<li><a class="reference internal" href="#src.math.math.min_max_pt"><code class="docutils literal notranslate"><span class="pre">min_max_pt()</span></code></a></li>
+<li><a class="reference internal" href="#src.math.math.normalize"><code class="docutils literal notranslate"><span class="pre">normalize()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-src.math.param_bundle">src.math.param_bundle module</a><ul>

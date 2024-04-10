@@ -1,33 +1,32 @@
-# README to convert opk to opk
+# README to calculate position and orientation of shot with point coordinate
 
-Converts an opk file into an opk file by changing column order, rotation angle units, a transformation of z into altitude or height with or without correction for linear alteration
+Calculate the 6 external parameters of an acquisition, X, Y, Z for its position and O, P, K for the 3 angles of orientation. To do this, we use least squares on points whose positions in the image and on the ground are known.
 
 ## Utilisation
 
 ### Terminal use
 
-Call the function in a terminal located in the directory of the opk_to_opk.py file. To view the information on the various parameters you can do : 
+Call the function in a terminal located in the directory of the spaceresection_opk.py file. To view the information on the various parameters you can do : 
 
-```python opk_to_opk.py -h``` 
+```python spaceresection_opk.py -h``` 
 
 The parameters are:
 
 | Symbol | Details | Default | Mandatory |
 | :----: | :------ | :-----: | :-------: |
-| -r | File path of the workfile | | V |
-| -i | Type of each column in the site file. e.g. NXYZOPKC with Z in altitude | NXYZOPKC | X |
-| -n | Name of worksite output file |  | V |
-| -b | Order of rotation matrix axes. | opk | X |
-| -u | Unit of the angle of shooting, 'degree' or 'radian' | degree | X |
-| -a | True if z shot corrected by linear alteration | True | X |
-| -f | Line number to start file playback. Does not take file header into account. | None | X |
-| -z | Line number to end file playback. If not set, all lines below -l will be read. | None | X |
+| -p | 3d coordinates of a point on the site at an approximate flying height to initialize the calculation. |  | V |
+| -d | Unit of the z of the 3D point. |  | V |
+| -t | File path of ground control points in images. |  | V |
+| -k | Header of the file gcp2d. |  | V |
+| -g | File path of ground control points in ground. |  | V |
+| -l | Header of the file gcp3d. |  | V |
 | -e | EPSG codifier number of the reference system used e.g. 2154 | 2154 | X |
 | -y | Path to the file pyproj GeoTIFF of geoid. | None | X |
 | -c | Files paths of cameras (.xml or .txt) | None | X |
 | -m | DTM of the worksite. | None | X |
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
 | -x | To use an approximate system. | False | X |
+| -n | Name of worksite output file |  | V |
 | -w | Conversion path e.g. "./" | "./" | X |
 | -o | Type of each column in the site file. e.g. NXYZOPKC with Z origin | NXY(Z/H)OPKC | X |
 | -ob | Order of rotation matrix axes you want in output. | None | X |
@@ -36,10 +35,10 @@ The parameters are:
 
 E.G.
 ```
-python3 ./opk_to_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -n Test -o NXYZOPKC -ou radian -oa False
+python3 ./spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./test/data/dataset2/all_liaisons2.mes -g ./test/data/dataset2/all_liaisons2_world.mes -l PXYZ --fg height -n SpaceResection -w ./test/tmp/ -o NXYZOPKC -ou degree -oa True
 ```
 
-#### Detail for the header of file -i and -o
+#### Detail for the header of file -o
 `header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
 Type is:
 | Symbol | Details |
@@ -55,9 +54,19 @@ Type is:
 | K | kappa rotation angle |
 | C | name of the camera |
 
-### Detail for reading files
+#### Detail for the header of point file -k and -l
 
-To read the opk file, you can select a line interval to be read using the -f parameter for the first line and -z for the last line. If not set, the entire file will be read. Please note that the header in the file is not taken into account and must therefore either be skipped with the -f parameter or commented out with a # at the beginning of the line. You can therefore add comments to the file with a # at the beginning of the line.
+`header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
+Type is:
+| Symbol | Details |
+| :----: | :------ |
+| S | to ignore the column |
+| P | name of the point |
+| N | name of shot |
+| T | type of point |
+| X | coordinate x of the shot position |
+| Y | coordinate y of the shot position |
+| Z | coordinate z altitude of the shot position |
 
 ### Camera file format
 

@@ -12,6 +12,7 @@ Why Pink Lady? Pink Lady is a B-17 owned by IGN France, originally used in the a
 * Calculate world coordinate of one image point: [README_calc_onept_world.md](./README_calc_onept_world.md)
 * Calculate image coordinate of a file of ground points: [README_calc_pt_image_opk.md](./README_calc_pt_image_opk.md)
 * Calculate world coordinate of a file of image points: [README_calc_pt_world_opk.md](./README_calc_pt_world_opk.md)
+* Calculate opk by space resection: [README_spaceresection_opk.md](./README_spaceresection_opk.md)
 * Python lib: [README_python_lib.md](./README_python_lib.md)
 
 ## Installation
@@ -51,4 +52,8 @@ pip install GDAL==<GDAL VERSION FROM OGRINFO>
 
 You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html) .
 
-![logo ign](docs/logo/logo_ign.png) ![logo fr](docs/logo/Republique_Francaise_Logo.png)
+## Contributing
+
+link: [CONTRIBUTING.md](./CONTRIBUTING.md)
+
+![logo ign](docs/image/logo_ign.png) ![logo fr](docs/image/Republique_Francaise_Logo.png)

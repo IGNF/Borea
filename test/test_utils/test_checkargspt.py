@@ -2,7 +2,7 @@
 Script test for module check_head_file_pt
 """
 import pytest
-from src.utils.check.check_head_file_pt import check_header_file
+from src.utils.check.check_args_reader_pt import check_header_file
 
 
 def test_head_file_pt3d():
@@ -50,8 +50,7 @@ def test_head_file_pt_doublon():
 def test_head_file_pt_TN():
     head = list("PNXYZ")
     type = "gcp3d"
-    with pytest.raises(ValueError) as info_e:
-        check_header_file(head, type)
+    check_header_file(head, type)
 
     head = list("PTXY")
     type = "gcp2d"

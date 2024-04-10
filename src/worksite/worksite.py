@@ -73,8 +73,12 @@ class Worksite(Workshot):
             raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d']")
 
         for _, row in pd_mes.iterrows():
-            self.shots[row['id_img']].getattr(type_point)[row['id_pt']] = np.array([row['column'],
-                                                                                   row['line']])
+            try:
+                self.shots[row['id_img']
+                           ].getattr(type_point)[row['id_pt']] = np.array([row['column'],
+                                                                           row['line']])
+            except KeyError:
+                continue
 
     def get_point_world_dataframe(self, type_point: str, control_type: list) -> pd.DataFrame:
         """

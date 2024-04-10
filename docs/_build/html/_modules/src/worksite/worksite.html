@@ -309,8 +309,12 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_point </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> is incorrect,[&#39;co_points&#39;,&#39;gcp2d&#39;]&quot;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">pd_mes</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id_img&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">type_point</span><span class="p">)[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id_pt&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;column&#39;</span><span class="p">],</span>
-                                                                                   <span class="n">row</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]])</span></div>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id_img&#39;</span><span class="p">]</span>
+                           <span class="p">]</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="n">type_point</span><span class="p">)[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id_pt&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;column&#39;</span><span class="p">],</span>
+                                                                           <span class="n">row</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]])</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">continue</span></div>
 
 
 <div class="viewcode-block" id="Worksite.get_point_world_dataframe">

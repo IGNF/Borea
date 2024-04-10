@@ -1,8 +1,10 @@
 """
 Module for recalculate shooting position
 """
+import pandas as pd
 import numpy as np
 from scipy.spatial.transform import Rotation as R
+from src.math.math import angle_degree_2vect, min_max_pt, normalize
 from src.worksite.worksite import Worksite
 from src.datastruct.camera import Camera
 from src.datastruct.shot import Shot
@@ -23,7 +25,41 @@ class SpaceResection:
     def __init__(self, work: Worksite) -> None:
         self.work = work
 
-    def space_resection_worksite(self, add_pixel: tuple = (0, 0)) -> None:
+    def space_resection_to_worksite(self, pt2d: pd.DataFrame, pt3d: pd.DataFrame,
+                                    pinit: dict) -> None:
+        """
+        Calculates the shot's 6 external orientation parameters,
+        the 3 angles omega, phi, kappa and its position x, y, z.
+        For all shot with a variation pixel.
+
+        Args:
+            pt2d (pd.Dataframe): Table of image coordinate point with image.
+            pt3d (pd.Dataframe): Table of ground coordinate point.
+            pinit (dict): Dictionnary with 3d coordinate for initialization "coor_init".
+        """
+        for name_shot, group in pt2d.groupby("id_shot"):
+            if group.shape[0] < 3:
+                print(f"Shot {name_shot} has fewer than three points,"
+                      " so it cannot calculate its position and orientation.")
+                continue
+
+            dfm = group.merge(pt3d, how="inner", on="id_pt")
+            obs_img = np.array([dfm["column"].to_numpy(), dfm["line"].to_numpy()])
+            obs_world = np.array([dfm["x"].to_numpy(), dfm["y"].to_numpy(), dfm["z"].to_numpy()])
+
+            pinit["kappa"] = self.init_kappa(dfm)
+            self.work.shots[name_shot] = self.space_resection_shot(name_shot, obs_img,
+                                                                   obs_world, pinit)
+        self.work.set_param_shot(self.work.approxeucli)
+
+        if pt3d["type"].iloc[0]:
+            type_pt = "gcp2d"
+        else:
+            type_pt = "co_points"
+        self.work.set_point_image_dataframe(pt2d, type_pt)
+        self.work.set_point_world_dataframe(pt3d, type_pt)
+
+    def space_resection_on_worksite(self, add_pixel: tuple = (0, 0)) -> None:
         """
         Recalculates the shot's 6 external orientation parameters,
         the 3 angles omega, phi, kappa and its position x, y, z.
@@ -33,9 +69,64 @@ class SpaceResection:
             add_pixel (tuple): Factor (column, line) added on observable point.
         """
         for key_shot, item_shot in self.work.shots.items():
-            self.work.shots[key_shot] = self.space_resection(item_shot, add_pixel)
+            self.work.shots[key_shot] = self.space_resection_gap(item_shot, add_pixel)
 
-    def space_resection(self, shot: Shot, add_pixel: tuple = (0, 0)) -> Shot:
+    def space_resection_shot(self, name_shot: str, pt_img: np.ndarray,
+                             pt_world: np.ndarray, pinit: dict) -> Shot:
+        """
+        Calculates the shot's 6 external orientation parameters,
+        the 3 angles omega, phi, kappa and its position x, y, z.
+
+        Args:
+            name_shot (str): Name of shot to calculte externa parameters.
+            pt_img (np.array): Coordonnees image of points.
+            pt_world (np.array): Coordonnees world of points.
+            pinit (dict): Dictionnary with 3d coordinate for initialization and kappa.
+
+        Returns:
+            Shot: Adjusted shot.
+        """
+        # Initialization of adjusted shot
+        cam = self.work.cameras[list(self.work.cameras.keys())[0]]
+        shot_adjust = Shot(name_shot, pinit["coor_init"], np.array([0, 0, pinit["kappa"]]),
+                           cam.name_camera, "degree", False, "opk")
+        shot_adjust.set_param_eucli_shot(self.work.approxeucli)
+        z_nadir = ImageWorldShot(shot_adjust, cam).image_to_world(np.array([cam.ppax, cam.ppay]),
+                                                                  self.work.type_z_shot,
+                                                                  self.work.type_z_shot, False)[2]
+        shot_adjust.set_z_nadir(z_nadir)
+
+        # Calculate euclidean position
+        pt_eucli = shot_adjust.projeucli.world_to_eucli(pt_world)
+
+        # Least-square methode
+        shot_adjust = self.least_square_shot(shot_adjust, pt_img, pt_eucli, pt_world)
+
+        return shot_adjust
+
+    def init_kappa(self, dfpt: pd.DataFrame) -> float:
+        """
+        Calculates a kappa angle for acquisition initialization.
+
+        Args:
+            dfpt (pd.DataFrame): Coordonnees of points in image and world.
+
+        Returns:
+            float: kappa angle.
+        """
+        pt_img = np.array([dfpt["column"].to_numpy(), dfpt["line"].to_numpy()])
+        pt_mini, arg_min = min_max_pt(pt_img, "min")
+        pt_maxi, arg_max = min_max_pt(pt_img, "max")
+        pt_minw = dfpt.iloc[arg_min].get(["x", "y"]).to_numpy()
+        pt_maxw = dfpt.iloc[arg_max].get(["x", "y"]).to_numpy()
+        vect_i = pt_maxi - pt_mini
+        vect_w = pt_maxw - pt_minw
+        norm_vi = normalize(vect_i)[0]
+        norm_vw = normalize(vect_w)[0]
+        kappa = angle_degree_2vect(norm_vi, norm_vw)
+        return np.floor(kappa)
+
+    def space_resection_gap(self, shot: Shot, add_pixel: tuple = (0, 0)) -> Shot:
         """
         Recalculates the shot's 6 external orientation parameters,
         the 3 angles omega, phi, kappa and its position x, y, z.
@@ -91,20 +182,7 @@ class SpaceResection:
         while bool_iter:
             count_iter += 1
 
-            # Calculate position column and line with new shot f(x0)
-            f0 = WorldImageShot(shot_adjust,
-                                self.work.cameras[shot_adjust.name_cam]
-                                ).world_to_image(pt_world,
-                                                 self.work.type_z_data,
-                                                 self.work.type_z_shot)
-
-            # Calculate residual vector B
-            v_res = np.c_[obs[0] - f0[0], obs[1] - f0[1]].reshape(2 * len(pt_eucli[0]), 1)
-
-            # Creation of A with mat_obs_axia
-            # Calculate dx = (A.T @ A)**-1 @ A.T @ B
-            dx = np.squeeze(np.linalg.lstsq(self.mat_obs_axia(pt_eucli, shot_adjust),
-                                            v_res, rcond=None)[0])
+            dx = self.func_least_square(shot_adjust, obs, pt_eucli, pt_world)
 
             # Calculate new x = x0 + dx for position and rotation matrix
             new_pos_eucli = np.array([shot_adjust.pos_shot[0] + dx[0],
@@ -125,13 +203,44 @@ class SpaceResection:
             diff_coord = np.array([imc_new_adjust.pos_shot]) - np.array([shot_adjust.pos_shot])
             diff_opk = np.array([imc_new_adjust.ori_shot]) - np.array([shot_adjust.ori_shot])
 
-            if (np.all(diff_coord < 10 ** -3) and np.all(diff_opk < 10 ** -6)) or count_iter > 10:
+            if (np.all(diff_coord < 10 ** -3) and np.all(diff_opk < 10 ** -6)) or count_iter > 100:
+                # print(count_iter)
                 bool_iter = False
 
             # Replace adjusted place
             shot_adjust = imc_new_adjust
 
         return shot_adjust
+
+    def func_least_square(self, shot_adjust: Shot, obs: np.ndarray,
+                          pt_eucli: np.ndarray, pt_world: np.ndarray) -> np.ndarray:
+        """
+        Calculate the least-squares equation dx = (A.T @ A)**-1 @ A.T @ B
+
+        Args:
+            shot_adjust (Shot): The shot to adjust.
+            obs (np.array): Observation of point in image [c_obs, l_obs].
+            pt_eucli (np.array): Observation of world point in eucidean system [X, Y, Z].
+            pt_world (np.array): Observation of world point [X, Y, Z].
+
+        Returns:
+            np.array: dx.
+        """
+        cam = self.work.cameras[shot_adjust.name_cam]
+        # Calculate position column and line with new shot f(x0)
+        f0 = WorldImageShot(shot_adjust,
+                            cam
+                            ).world_to_image(pt_world,
+                                             self.work.type_z_data,
+                                             self.work.type_z_shot)
+
+        # Calculate residual vector B
+        v_res = np.c_[obs[0] - f0[0], obs[1] - f0[1]].reshape(2 * len(pt_eucli[0]), 1)
+
+        # Creation of A with mat_obs_axia
+        # Calculate dx = (A.T @ A)**-1 @ A.T @ B
+        return np.squeeze(np.linalg.lstsq(self.mat_obs_axia(pt_eucli, shot_adjust),
+                                          v_res, rcond=None)[0])
 
     def mat_obs_axia(self, pt_eucli: np.ndarray, imc_adjust: Shot) -> np.ndarray:
         """

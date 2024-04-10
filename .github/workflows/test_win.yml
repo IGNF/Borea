@@ -31,7 +31,7 @@ jobs:
 
     - name: Run regression test conv opk
       shell: bash -el {0}
-      run: python ./opk_to_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -n Test -w ./test/tmp/ -o NXYHPOKC -d radian -l False
+      run: python ./opk_to_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -n Test -w ./test/tmp/ -o NXYHPOKC -ou radian -oa False
 
     - name: Run regression test control opk
       shell: bash -el {0}
@@ -56,3 +56,7 @@ jobs:
     - name: Run regression test calc file pt world
       shell: bash -el {0}
       run: python ./calc_pt_world_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -p square -n Coor3d_pt_image -w ./test/tmp/
+
+    - name: Run regression test spaceresection opk
+      shell: bash -el {0}
+      run: python ./spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./test/data/dataset2/all_liaisons2.mes -g ./test/data/dataset2/all_liaisons2_world.mes -l PXYZ --fg height -n SpaceResection -w ./test/tmp/ -o NXYZOPKC -ou degree -oa True

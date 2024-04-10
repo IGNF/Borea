@@ -6,7 +6,7 @@ from pathlib import Path, PureWindowsPath
 import pandas as pd
 import numpy as np
 from src.worksite.worksite import Worksite
-from src.utils.check.check_args_reader_pt import check_args_reader_pt
+from src.utils.check.check_args_reader_pt import check_header_file
 
 
 def read_file_pt(path: str, header: list, type_point: str, work: Worksite) -> None:
@@ -19,7 +19,10 @@ def read_file_pt(path: str, header: list, type_point: str, work: Worksite) -> No
         type_point (str): Type of point is reading (co_point, gcp2d, gcp3d).
         work (Worksite): Worksite which needs connecting points.
     """
-    check_args_reader_pt(header, type_point)
+    if type_point not in ["co_point", "gcp2d", "gcp3d"]:
+        raise ValueError(f"type {type_point} in incorrect. ['co_point', 'gcp2d', 'gcp3d']")
+
+    check_header_file(header, type_point)
 
     try:
         with open(Path(PureWindowsPath(path)), 'r', encoding="utf-8") as file_pts:
@@ -56,12 +59,15 @@ def read_file_pt_dataframe(path: str, header: list, type_point: str) -> pd.DataF
     Agrs:
         file (str): Path of points file.
         header (list): Header of file to read column.
-        type_point (str): Type of point is reading (co_point, gcp2d, gcp3d).
+        type_point (str): Type of point is reading (pt2d, pt3d).
 
     Returns:
         pd.Dataframe: Dataframe of data.
     """
-    check_args_reader_pt(header, type_point)
+    if type_point not in ["pt2d", "pt3d"]:
+        raise ValueError(f"type {type_point} in incorrect. ['pt2d', 'pt3d']")
+
+    check_header_file(header, type_point)
 
     id_pt = []
     ttype = []
@@ -72,7 +78,7 @@ def read_file_pt_dataframe(path: str, header: list, type_point: str) -> pd.DataF
                 if pt != '\n' and pt[0] != '#':
                     info = pt.split()
 
-                    if type_point == "gcp3d":
+                    if type_point == "pt3d":
                         coor.append([float(info[header.index("X")]),
                                      float(info[header.index("Y")]),
                                      float(info[header.index("Z")])])
@@ -92,7 +98,7 @@ def read_file_pt_dataframe(path: str, header: list, type_point: str) -> pd.DataF
         raise FileNotFoundError(f"The path {path} is incorrect !!!") from e
 
     coor = np.array(coor)
-    if type_point == "gcp3d":
+    if type_point == "pt3d":
         df = pd.DataFrame({"id_pt": id_pt,
                            "type": ttype if ttype else None,
                            "x": coor[:, 0],

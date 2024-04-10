@@ -122,14 +122,13 @@ def test_space_resection_to_worksite():
     work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
     read_camera(["./dataset/Camera1.txt"], work)
     work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
-    pt2d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2.mes",list("PNXY"),"gcp2d")
-    pt3d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2_world.mes",list("PXYZ"),"gcp3d")
+    pt2d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2.mes",list("PNXY"),"pt2d")
+    pt3d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2_world.mes",list("PXYZ"),"pt3d")
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.approxeucli = False
     pinit = {"coor_init":np.array([825439, 6289034, 1500])}
     SpaceResection(work).space_resection_to_worksite(pt2d, pt3d, pinit)
-    print(work.shots["23FD1305x00027_01495"].pos_shot)
     assert (work.shots["23FD1305x00027_01495"].pos_shot - np.array([815630.519,6283987.569,1760.904]) < 0.01).all()
     assert (work.shots["23FD1305x00027_01495"].ori_shot - np.array([0.213018802034,-0.005320804811,179.933728024748]) < 0.001).all()
     assert (work.shots["23FD1305x00054_05677"].pos_shot - np.array([833127.599,6283057.326,1765.554]) < 0.01).all()
@@ -140,8 +139,8 @@ def test_space_resection_to_worksite():
 
 def test_init_kappa():
     work = Worksite("Test")
-    pt2d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2.mes",list("PNXY"),"gcp2d")
-    pt3d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2_world.mes",list("PXYZ"),"gcp3d")
+    pt2d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2.mes",list("PNXY"),"pt2d")
+    pt3d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2_world.mes",list("PXYZ"),"pt3d")
     kappa = []
     for name_shot, group in pt2d.groupby("id_shot"):
         if name_shot not in ["23FD1305x00027_01495","23FD1305x00054_05677","23FD1305x00055_05930"]:

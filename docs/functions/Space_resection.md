@@ -127,7 +127,15 @@ The number of points in the image is set to a minimum of 3 for calculation. If t
 ### Colinearity equation
 <p align="center"> <img src="../image/schema_repere.png"> </p>
 
-$M = \left(\begin{array}{cc}X_M\\Y_M\\Z_M\end{array}\right)$ $S = \left(\begin{array}{cc}X_S\\Y_S\\Z_S\end{array}\right)$ $F = \left(\begin{array}{cc}x_c\\y_c\\p\end{array}\right)$ $m = \left(\begin{array}{cc}x\\y\\0\end{array}\right)$ $K = \left(\begin{array}{cc}0\\0\\1\end{array}\right)$ $R$ the rotation matrix
+```math
+M = \begin{pmatrix} X_M \\ Y_M \\ Z_M \end{pmatrix},~
+S = \begin{pmatrix} X_S \\ Y_S \\ Z_S\end{pmatrix},~
+F = \begin{pmatrix} x_c \\ y_c \\ p \end{pmatrix},~
+m = \begin{pmatrix} x \\ y \\ 0 \end{pmatrix},~
+K = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix},~
+R~the~rotation~matrix
+```
+
 
 m is image coordinate of M. K the unit vector orthogonal to the shot.
 
@@ -143,26 +151,35 @@ $dm = dF - \frac{K^tdFU}{K^tU} - (\frac{K^tF}{K^tU} - \frac{K^tFUK^t}{(K^tU)²})
 $dU = R(dM-dS)+dRA = r(dM-dS-\tilde{A}d\Theta) $  
 On the other hand, $K^tF$ being a scalar, $K^tFU = UK^tF$ and $K^tdFU = UK^tdF$
 We have: $dm = \frac{K^tU-UK^t}{(K^tU)²}(K^tUdF-K^tFR(dM-dS-\tilde{A}d\Theta))$  
-Let's set $p = K^tF$, $U = \left(\begin{array}{cc}u1&u2&u3\end{array}\right)$ and $V = \left(\begin{array}{cc} u3 & 0 & -u1\\0 & u3 & -u2 \end{array}\right)$  
+Let's set 
+```math
+p = K^tF,~
+U = \begin{pmatrix} u1 & u2 & u3 \end{pmatrix}~and~
+V = \begin{pmatrix} u3 & 0 & -u1 \\ 0 & u3 & -u2 \end{pmatrix}
+```  
+
 which results in: $$dm = \frac{V}{u3} dF + (\frac{p}{u3²}) V R (dS-dM) + (\frac{p}{u3²}) V R \tilde{A}d\Theta$$
 
 ### Construction of the matrix A of least squares
 
 The matrix $mat_A$ depends on the function used and the number of data items. It is defined as $\frac{df}{dx}|_{x0}$, each column representing a derivative of $f(x)$ with respect to a parameter of x0, and the number of rows the number of data.  
-$x0$ is the 6 externals parameters of the shot: position $S = \left(\begin{array}{cc}X_S\\Y_S\\Z_S\end{array}\right)$ and orientation $\Theta = \left(\begin{array}{cc}\omega\\\phi\\\kappa\end{array}\right)$  
+$x0$ is the 6 externals parameters of the shot: 
+```math
+position~S = \begin{pmatrix}X_S \\ Y_S \\ Z_S\end{pmatrix}~and~orientation~ \Theta = \begin{pmatrix}\omega \\ \phi \\ \kappa\end{pmatrix} 
+```
 so:
-$$
-mat_A = \left(\begin{array}{cc} 
-\frac{dfx1}{dX_S} & \frac{dfx1}{dY_S} & \frac{dfx1}{dZ_S} & \frac{dfx1}{d\omega} & \frac{dfx1}{d\phi} & \frac{dfx1}{d\kappa}\\
-\frac{dfx2}{dX_S} & \frac{dfx2}{dY_S} & \frac{dfx2}{dZ_S} & \frac{dfx2}{d\omega} & \frac{dfx2}{d\phi} & \frac{dfx2}{d\kappa}\\
+```math
+mat_A = \begin{pmatrix}
+\frac{dfx1}{dX_S} & \frac{dfx1}{dY_S} & \frac{dfx1}{dZ_S} & \frac{dfx1}{d\omega } & \frac{dfx1}{d\phi } & \frac{dfx1}{d\kappa } \\
+\frac{dfx2}{dX_S} & \frac{dfx2}{dY_S} & \frac{dfx2}{dZ_S} & \frac{dfx2}{d\omega } & \frac{dfx2}{d\phi } & \frac{dfx2}{d\kappa } \\
   ...   &   ...   &   ...   &   ...    &    ...   &    ...  \\
-\frac{dfxn}{dX_S} & \frac{dfxn}{dY_S} & \frac{dfxn}{dZ_S} & \frac{dfxn}{d\omega} & \frac{dfxn}{d\phi} & \frac{dfxn}{d\kappa}\\
-\frac{dfy1}{dX_S} & \frac{dfy1}{dY_S} & \frac{dfy1}{dZ_S} & \frac{dfy1}{d\omega} & \frac{dfy1}{d\phi} & \frac{dfy1}{d\kappa}\\
-\frac{dfy2}{dX_S} & \frac{dfy2}{dY_S} & \frac{dfy2}{dZ_S} & \frac{dfy2}{d\omega} & \frac{dfy2}{d\phi} & \frac{dfy2}{d\kappa}\\
+\frac{dfxn}{dX_S} & \frac{dfxn}{dY_S} & \frac{dfxn}{dZ_S} & \frac{dfxn}{d\omega } & \frac{dfxn}{d\phi } & \frac{dfxn}{d\kappa } \\
+\frac{dfy1}{dX_S} & \frac{dfy1}{dY_S} & \frac{dfy1}{dZ_S} & \frac{dfy1}{d\omega } & \frac{dfy1}{d\phi } & \frac{dfy1}{d\kappa } \\
+\frac{dfy2}{dX_S} & \frac{dfy2}{dY_S} & \frac{dfy2}{dZ_S} & \frac{dfy2}{d\omega } & \frac{dfy2}{d\phi } & \frac{dfy2}{d\kappa } \\
   ...   &   ...   &   ...   &   ...    &    ...   &    ...  \\
-\frac{dfyn}{dX_S} & \frac{dfyn}{dY_S} & \frac{dfyn}{dZ_S} & \frac{dfyn}{d\omega} & \frac{dfyn}{d\phi} & \frac{dfyn}{d\kappa}
-\end{array}\right)
-$$
+\frac{dfyn}{dX_S} & \frac{dfyn}{dY_S} & \frac{dfyn}{dZ_S} & \frac{dfyn}{d\omega } & \frac{dfyn}{d\phi } & \frac{dfyn}{d\kappa }
+\end{pmatrix}
+```
 There are as many lines in mat_a as there are number of points x2.  
 This gives the function :
 
@@ -214,7 +231,7 @@ def mat_obs_axia(x_eucli: np.array, y_eucli: np.array, z_eucli: np.array,
 
 ## Example to use
 
-This function is used in SpaceResection class the space_resection_on_worksite() function of the worksite class to loop over all the shots present on the worksite.
+This function is used in SpaceResection class the **space_resection_on_worksite()** function of the worksite class to loop over all the shots present on the worksite.
 ```
 import numpy as np
 from src.datastruct.worksite import Worksite
@@ -224,11 +241,12 @@ from src.transform_world_image.transform_worksite.space_resection import SpaceRe
 work = Worksite("Test")
 
 # Add 2 shots
-# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration)
+# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration, order_axe)
 # unit_angle = "degree" or "radian".
 # linear_alteration True if z shot is corrected by linear alteration.
-work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","d")
-work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","d")
+# order of rotation axe "opk" or "pok" ...
+work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True, "opk")
+work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True, "opk")
 
 # Setup projection of the worksite
 # set_epsg(epsg, path_geoid)
@@ -246,7 +264,7 @@ work.set_param_shot()
 # Recalculate 6 externa parameters of all shots
 SpaceResection(work).space_resection_on_worksite(add_pixel = (0,0))
 ```
-This function is used in SpaceResection class the space_resection_to_worksite() function of the worksite class to calculate 6 externals parameters of shot and implemente him in worksite.
+This function is used in SpaceResection class the **space_resection_to_worksite()** function of the worksite class to calculate 6 externals parameters of shot and implemente him in worksite.
 ```
 import numpy as np
 from src.worksite.worksite import Worksite

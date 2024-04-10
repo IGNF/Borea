@@ -127,8 +127,12 @@ class Worksite(Workshot):
         else:
             out_pt = "gcp2d_in_world"
 
-        for _, row in pd_mes.iterrows():
-            self.getattr(out_pt)[row['id_pt']] = np.array([row['x'], row['y'], row['z']])
+        if "type" not in list(pd_mes.columns):
+            for _, row in pd_mes.iterrows():
+                self.getattr(out_pt)[row['id_pt']] = np.array([row['x'], row['y'], row['z']])
+        else:
+            for _, row in pd_mes.iterrows():
+                self.add_gcp3d(row['id_pt'], row['type'], np.array([row['x'], row['y'], row['z']]))
 
     def get_coor_pt_img_and_world(self, name_shot: str, type_point: str) -> tuple:
         """

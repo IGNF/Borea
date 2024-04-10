@@ -38,7 +38,26 @@ Once the object has been created, you can add other data to it:
 
 * Can calculate the position of terrain points in images with `WorldImageWork(work).calculate_world_to_image(type_control)` with `type_control` egal None by default, is used if the type_point = gcp2d and if you want just one type code point, else None to process on all point. . The result can be found in `worksite.shots['name_shot'].gcps['name_gcp']` for each image and each gcps.
 
-* Can calculate spatial resection for each shot in worksite with `SpaceResection(work).space_resection_worksite(add_pixel = (0,0))`. `add_pixel` is used to add a deviation to the position of the points to modify the shot's 6 external parameters for data conversion, for example.
+* Can calculate spatial resection for each shot in worksite with `SpaceResection(work).space_resection_on_worksite(add_pixel = (0,0))`. `add_pixel` is used to add a deviation to the position of the points to modify the shot's 6 external parameters for data conversion, for example.
+
+* Can calculate spatial resection in poitn of shot for creating worksite with `SpaceResection(work).space_resection_to_worksite(pt2d, pt3d, pinit)`.  
+The DataFrame **pt2d** is a table with 4 column and n line. The id of column must be:
+    * `id_pt`: the id of the point
+    * `id_shot`: the name of the shot where the point is located
+    * `column`: column coordinate in pixel of the point in the image
+    * `line`: line coordinate in pixel of the point in the image  
+
+    it can be created with the function `read_file_pt_dataframe(path_file_pt,header_file,"pt2d")`  
+The DataFrame **pt3d** is a table with 5 column and n line. The id of column must be:
+    * `id_pt`: the id of the point
+    * `type`: if point is gcp with type else None
+    * `x`: x coordinate in your projection system of the point
+    * `y`: y coordinate in your projection system of the point
+    * `z`: z coordinate in your projection system of the point  
+
+    it can be created with the function `read_file_pt_dataframe(path_file_pt,header_file,"pt3d")`  
+The dictionary **pinit** which give the initialization point X, Y, Z. A point on the worksite with a z at an approximate flying height. The name of the key in the dictionary is `coor_init`.  
+Example at the end of explanation of function [file](./docs/functions/Space_resection.md).
 
 * You can calculate some control point statistics to see how accurate your site is `stat = Stat(work, pathreturn, control_type)` to init the object and run for all stat with `stat.main_stat_and_save()`. Make stat on function image to world and world to image, if there are data. And save result on *pathreturn/Stat_{Name_worksite}.txt*.
 
@@ -143,7 +162,7 @@ ImageWorldWork(work).manage_image_world("gcp2d", type_process,type_control)
 WorldImageWork(work).calculate_world_to_image(type_control)
 
 # Calculate shooting position with a factor pixel, to change projection for example
-SpaceResection(work).space_resection_worksite(add_pixel = (0,0))
+SpaceResection(work).space_resection_on_worksite(add_pixel = (0,0))
 
 # Calculate stat on world_to_image and image_to_world
 stat = Stat(work, pathreturn, type_control)

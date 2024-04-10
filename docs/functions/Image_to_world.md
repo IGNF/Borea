@@ -26,80 +26,80 @@ Object to instantiate before calculation :
 ## Calculation step
 
 * Creation of 3d vector in image frame minus perceptual center.
-$$
+```math
 x_{shot} = col - ppax
-$$
-$$
+```
+```math
 y_{shot} = line - ppay
-$$
-$$
+```
+```math
 z_{shot} = focal
-$$
+```
 
 * Application of inverse systematizations if available (inverse distortion correction function).
-$$
+```math
 x_{shot}, y_{shot}, z_{shot} = f_{sys inv}(x_{shot}, y_{shot}, z_{shot})
-$$
+```
 if there is no distortion or it has already been corrected $f_{sys inv}()$ is an identity function.
 
 * Passage through the beam marker.
-$$
+```math
 x_{bundle} = x_{shot} / focal * z_{shot}
-$$
-$$
+```
+```math
 y_{bundle} = y_{shot} / focal * z_{shot}
-$$
-$$
+```
+```math
 z_{bundle} = z_{shot}
-$$
+```
 
 * Transition to the Euclidean reference frame.
-$$
-\left(\begin{array}{cc} 
+```math
+\begin{pmatrix} 
 x_{local}\\
 y_{local}\\
 z_{local}
-\end{array}\right) = rot_{eucli}^T * 
-\left(\begin{array}{cc} 
+\end{pmatrix} = rot_{eucli}^T * 
+\begin{pmatrix} 
 x_{bundle}\\
 y_{bundle}\\
 z_{bundle}
-\end{array}\right)
-$$
+\end{pmatrix}
+```
 With proj.rot_to_euclidean_local the rotation matrix of the Euclidean frame of reference set up from the site's barycentre.
 
 * Converting the acquisition position to the Euclidean reference frame. With projeucli's world_to_eucliean() function. Warning: $z_{posShot}$ must be de-corrected for linear alteration and must be of the same unit as the others (altitude or height).
 
 * Addition of local point acquisition.
-$$
-\left(\begin{array}{cc} 
+```math
+\begin{pmatrix} 
 x_{local}\\
 y_{local}\\
 z_{local}
-\end{array}\right) = 
-\left(\begin{array}{cc} 
+\end{pmatrix} = 
+\begin{pmatrix} 
 x_{local}\\
 y_{local}\\
 z_{local}
-\end{array}\right) + 
-\left(\begin{array}{cc} 
+\end{pmatrix} + 
+\begin{pmatrix}
 x_{posEucli}\\
 y_{posEucli}\\
 z_{posEucli}
-\end{array}\right)
-$$
+\end{pmatrix}
+```
 
 
 * Create lambda to convert local point into Euclidean point.
-$$
+```math
 lamb = (z - z_{posEucli})/(z_{local} - z_{posEucli})
-$$
-$$
+```
+```math
 x_{local} = x_{posEucli} + (x_{local} - x_{posEucli}) * lamb
-$$
-$$
+```
+```math
 y_{local} = y_{posEucli} + (y_{local} - y_{posEucli}) * lamb
-$$
+```
 
 * Convert Euclidean point to terrain point, using proj's euclidean_to_world(x, y, z) function.
 
@@ -116,11 +116,12 @@ from src.transform_world_image.transform_worksite.image_world_work import ImageW
 work = Worksite("Test")
 
 # Add two shots
-# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration)
+# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration, order_axe)
 # unit_angle = "degree" or "radian".
 # linear_alteration True if z shot is corrected by linear alteration.
-work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True)
-work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True)
+# order of rotation axe "opk" or "pok" ...
+work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True,"opk")
+work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True,"opk")
 
 # Setup projection
 # set_epsg(epsg, path_geoid)

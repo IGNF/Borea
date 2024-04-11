@@ -1,14 +1,14 @@
-# README to calculate file of image point in ground.
+# README to calculate file of ground point in image.
 
-This function calculates the terrain coordinates of an image point file from the images in the opk file.
+This function calculates the image coordinates of a terrain point file from the images in the opk file. A special feature is requested with an image point file, in order to know in which image the points must be calculated. The coordinates in this file can be set to 0, as they are not taken into account.
 
 ## Utilisation
 
 ### Terminal use
 
-Call the function in a terminal located in the directory of the calc_pt_world_opk.py file. To view the information on the various parameters you can do : 
+Call the function in a terminal located in the directory of the ptfile_world_to_image.py file. To view the information on the various parameters you can do : 
 
-```python calc_pt_world_opk.py -h``` 
+```python ptfile_world_to_image.py -h``` 
 
 The parameters are:
 
@@ -29,13 +29,16 @@ The parameters are:
 | -x | To use an approximate system. | False | X |
 | -t | Files paths of ground image points |  | V |
 | -k | Header of the file gcp2d. | PNXY | X |
-| -p | Type of process for the function image to world, "inter" for intersection or "square" for least-square | "inter" | X |
+| -g | Files paths of ground control point |  | V |
+| -l | Header of the file gcp3d. | PTXYZ | X |
+| --fg | Format of GCP and ground image points "altitude" or "height". |  | V |
+| -d | Type of gcp to control. | [] | X |
 | -n | Name of the file to save. |  | V |
 | -w | Path stat e.g. "./" | "./" | X |
 
 E.G.
 ```
-python3 ./calc_pt_world_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -p square -n Coor3d_pt_image -w ./test/tmp/
+python3 ./ptfile_world_to_image.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test0.mes -g ./dataset/GCP_test.app --fg height -n Coor2d_pt_terrain -w ./test/tmp/
 ```
 
 #### Detail for the header of file -i
@@ -69,6 +72,10 @@ Type is:
 | Y | coordinate y of the shot position |
 | Z | coordinate z altitude of the shot position |
 
+#### Detail of file of ground image points
+
+This point file is the coordinate file we're trying to calculate. With the point id, the image name and its column and line coordinates. In this case, we'll use it to find out which image the points are in, so as to know where to calculate them. The coordinates in this file are not taken into account. You can therefore put 2 columns of 0 after the point id and shot id. If you want to check an existing point file, you can put it in the file, as mentioned above, but the coordinate values are not taken into account.  
+
 ### Detail for reading files
 
 To read the opk file, you can select a line interval to be read using the -f parameter for the first line and -z for the last line. If not set, the entire file will be read. Please note that the header in the file is not taken into account and must therefore either be skipped with the -f parameter or commented out with a # at the beginning of the line. You can therefore add comments to the file with a # at the beginning of the line.
@@ -97,25 +104,6 @@ This library can transform and process 3D data with a z in altitude or height. T
 
 The command for adding a geoid is -y, where you can enter the paths to the various geoids. If the file is stored in pyproj's native folder (pyproj.datadir.get_data_dir(), *usr/share/proj* or *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj*) the file name is sufficient pyproj will find it on its own. 
 Geoids file can be found on pyproj's github (https://github.com/OSGeo/PROJ-data).
-
-### Detail for process
-
-#### Intersection
-
-Calculations of world coordinates by intersect bundle of point in 2 more distant shots.  
-Needs:
-* at least one point on two images, otherwise it won't calculate the coordinates.
-
-No needs:
-* DTM (if no dtm and z shot is corrected by the linear alteration the result won't be as good)
-
-#### Least square
-
-Calculations of world coordinates by least square methode.  
-Needs:
-* DTM
-
-`intersection` has a better accuracy than `least_square`.
 
 ### Detail for approx system
 

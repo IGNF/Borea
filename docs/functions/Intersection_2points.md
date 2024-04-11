@@ -8,121 +8,118 @@ Function to calculate the Euclidean coordinates of a point, visible on two acqui
 2. **shot1**: first acquisition where the point is visible and its image coordinates are known, Shot object format.
 3. **shot2**: second acquisition where the point is visible and its image coordinates are known, Shot object format.
 
-The **Shot** object is an object for an acquisition that defines it, with a **name** (str), **position** (array), **rotation angles** (array), **camera name** (str), **unit angle** (str "degree" or "radian") and **linear alteration** (bool).
+The **Shot** object is an object for an acquisition that defines it, with a **name** (str), **position** (pmatrix), **rotation angles** (pmatrix), **camera name** (str), **unit angle** (str "degree" or "radian") and **linear alteration** (bool).
 
 Object to instantiate before calculation :
 
-* The **ProjEngine** object is defined by a string giving the ESPG code of the site's map projection, e.g. "EPSG:2154", followed by a dictionary found in src.data.projection_list.json, which contains 3 important tags:
-  * "geoc" returns the EPSG code of the geocentric projection on site.
-  * "geog" returns the EPSG code of the geographic projection on the building site.
-  * "geoid" returns a list of GeoTIFF names for the site.
+* The **ProjEngine** object is defined by a string giving the ESPG code of the site's map projection, e.g. 2154, followed by a list of pyproj GeoTIFF of geoid.
 
-  These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj or you can give in argument the path to the GeoTIFF forlder.
+  These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj.
 
 ## Calculation step
 
 ### Data recovery
 Recover point position in images
-$$
-p_{img1} = \left(\begin{array}{cc} 
+```math
+p_{img1} = \begin{pmatrix}
 c_{img1}\\
 l_{img1}
-\end{array}\right)
-$$
-$$
-p_{img2} = \left(\begin{array}{cc} 
+\end{pmatrix}
+```
+```math
+p_{img2} = \begin{pmatrix}
 c_{img2}\\
 l_{img2}
-\end{array}\right)
-$$
+\end{pmatrix}
+```
 Recover camera for each image
-$$
-cam_1 = \left(\begin{array}{cc} 
+```math
+cam_1 = \begin{pmatrix}
 ppa_{x1} & ppa_{y1} & focal_1
-\end{array}\right)
-$$
-$$
-cam_2 = \left(\begin{array}{cc} 
+\end{pmatrix}
+```
+```math
+cam_2 = \begin{pmatrix}
 ppa_{x2} & ppa_{y2} & focal_2
-\end{array}\right)
-$$
+\end{pmatrix}
+```
 
 
 ### Converting image data to Euclidean projection
 
 * Conversion of acquisition positions in the Euclidean reference frame
-$$
-pos_{eucli1} = \left(\begin{array}{cc} 
+```math
+pos_{eucli1} = \begin{pmatrix}
 x_{posEucli1}\\y_{posEucli1}\\z_{posEucli1}
-\end{array}\right) = 
+\end{pmatrix} = 
 f_{worldToEuclidean}(x_{posShot1},y_{posShot1},z_{posShot1})
-$$
-$$
-pos_{eucli2} = \left(\begin{array}{cc} 
+```
+```math
+pos_{eucli2} = \begin{pmatrix}
 x_{posEucli2}\\y_{posEucli2}\\z_{posEucli2}
-\end{array}\right) = 
+\end{pmatrix} = 
 f_{worldToEuclidean}(x_{posShot2},y_{posShot2},z_{posShot2})
-$$
+```
 
 * Calculates image-to-Euclidean reference frame change matrices for each shot (rot is the rotation matrix)
-$$
+```math
 rot_{eucli1} = 
 f_{matToMatEucli}(x_{posShot1},y_{posShot1},rot_{shot1})
-$$
-$$
+```
+```math
 rot_{eucli2} = 
 f_{matToMatEucli}(x_{posShot2},y_{posShot2},rot_{shot2})
-$$
+```
 
 ### Euclidean position calculation
 
 * Base calculation
-$$
+```math
 base = pos_{eucli1} - pos_{eucli2}
-$$
+```
 
 * Calculates the vectors of each beam by acquisition
-$$
-vect_1 = rot_{eucli1} * \left(\begin{array}{cc} 
+```math
+vect_1 = rot_{eucli1} * \begin{pmatrix}
 c_{img1} - ppa_{x1}\\l_{img1} - ppa_{y1}\\-focal_1
-\end{array}\right)
-$$
-$$
-vect_2 = rot_{eucli2} * \left(\begin{array}{cc} 
+\end{pmatrix}
+```
+```math
+vect_2 = rot_{eucli2} * \begin{pmatrix}
 c_{img2} - ppa_{x2}\\l_{img2} - ppa_{y2}\\-focal_2
-\end{array}\right)
-$$
+\end{pmatrix}
+```
 
 * Calculates products scalar product
-$$
+```math
 norme_{v1} = vect_1 * vect_1
-$$
-$$
+```
+```math
 norme_{v2} = vect_2 * vect_2
-$$
-$$
+```
+```math
 v_1v_2 = vect_1 * vect_2
-$$
-$$
+```
+```math
 bv_1 = base * vect_1
-$$
-$$
+```
+```math
 bv_2 = base * vect_2
-$$
+```
 
 * Calculates the position of the point on the beam
-$$
+```math
 p_{eucli1} = pos_{eucli1} + \frac{bv_2*v_1v_2 - bv_1*norme_{v1}}{v_1v_2^2 - norme_{v1}*norme_{v2}} * vect_1
-$$
-$$
+```
+```math
 p_{eucli2} = pos_{eucli2} + \frac{bv_2*norme_{v1} - bv_1*v_1v_2}{v_1v_2^2 - norme_{v1}*norme_{v2}} * vect_2
-$$
+```
 
 
 * Return the average position between the two points
-$$
+```math
 p_{world} = 0.5 * (p_{eucli1} + p_{eucli2})
-$$
+```
 
 ##  Example to use
 ```
@@ -134,16 +131,17 @@ from src.transform_world_image.transform_worksite.image_world_work import ImageW
 work = Worksite("Test")
 
 # Add two shots
-# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration)
+# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration, order_axe)
 # unit_angle = "degree" or "radian".
 # linear_alteration True if z shot is corrected by linear alteration.
-work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True)
-work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True)
+# order of rotation axe "opk" or "pok" ...
+work.add_shot("shot1",np.pmatrix([814975.925,6283986.148,1771.280]),np.pmatrix([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True, "opk")
+work.add_shot("shot2",np.pmatrix([814977.593,6283733.183,1771.519]),np.pmatrix([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True, "opk")
 
 # Setup projection
-# set_epsg(epsg, proj_json, folder_geoid)
+# set_epsg(epsg, path_geoid)
 # the geoid is mandatory if type_z_data and type_z_shot are different
-work.set_proj(2154, "test/data/proj.json", "./test/data/")
+work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
 
 # Add camera information
 # add_camera(name_cam, ppax, ppay, focal, width, height)
@@ -166,4 +164,4 @@ ImageWorldWork(work).manage_image_world("co_points", "inter")
 coor_world = work.co_pts_world['"1003"']
 ```
 
-![logo ign](../logo/logo_ign.png) ![logo fr](../logo/Republique_Francaise_Logo.png)
+![logo ign](../image/logo_ign.png) ![logo fr](../image/Republique_Francaise_Logo.png)

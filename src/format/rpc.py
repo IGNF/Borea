@@ -5,9 +5,10 @@ import numpy as np
 from src.datastruct.shot import Shot
 from src.datastruct.camera import Camera
 from src.geodesy.proj_engine import ProjEngine
+from src.datastruct.dtm import Dtm
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 from src.transform_world_image.transform_shot.world_image_shot import WorldImageShot
-from src.math.normalize import normalize
+from src.math.math import normalize
 
 
 class Rpc:
@@ -88,9 +89,7 @@ class Rpc:
         x, y = np.mgrid[int(pt_min[0]):int(pt_max[0]) + size_grid:size_grid,
                         int(pt_min[1]):int(pt_max[1]) + size_grid:size_grid]
         x, y = x.ravel(), y.ravel()
-        z = np.r_[np.full_like(x, 0), np.full_like(x, 500), np.full_like(x, 1000)]
-        x = np.tile(x, 3)
-        y = np.tile(y, 3)
+        z = np.squeeze(Dtm().get_z_world(np.array([x, y])))
         pt_img = WorldImageShot(shot, cam).world_to_image(np.array([x, y, z]),
                                                           unit_data["unit_z_data"],
                                                           unit_data["unit_z_shot"])

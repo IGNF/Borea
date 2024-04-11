@@ -2,8 +2,8 @@
 Main to convert opk file to an other opk file
 """
 import argparse
-from src.parser.parser_opk.args_read_opk import args_reading_opk, process_args_read_opk
-from src.parser.parser_opk.args_write_opk import args_writing_opk, process_args_write_opk
+from src.parser.parser_format.args_read_opk import args_reading_opk, process_args_read_opk
+from src.parser.parser_format.args_write_opk import args_writing_opk, process_args_write_opk
 
 
 parser = argparse.ArgumentParser(description='Photogrammetric site conversion'

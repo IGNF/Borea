@@ -8,6 +8,11 @@ Why Pink Lady? Pink Lady is a B-17 owned by IGN France, originally used in the a
 * Conversion OPK to OPK: [README_opk_to_opk.md](./README_opk_to_opk.md)
 * Control OPK file: [README_opk_control.md](./README_opk_control.md)
 * Convertion OPK to RPC: [README_opk_to_rpc.md](./README_opk_to_rpc.md)
+* Calculates a ground point from an image point: [README_pt_image_to_world.md](./README_pt_image_to_world.md)
+* Calculates a image point from an ground point: [README_pt_world_to_image.md](./README_pt_world_to_image.md)
+* Calculates a ground file points from an image file points: [README_ptfile_image_to_world.md](./README_ptfile_image_to_world.md)
+* Calculates a image file points from an ground file points: [README_ptfile_world_to_image.md](./README_ptfile_world_to_image.md)
+* Calculates opk by space resection: [README_spaceresection_opk.md](./README_spaceresection_opk.md)
 * Python lib: [README_python_lib.md](./README_python_lib.md)
 
 ## Installation
@@ -47,4 +52,8 @@ pip install GDAL==<GDAL VERSION FROM OGRINFO>
 
 You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html) .
 
-![logo ign](docs/logo/logo_ign.png) ![logo fr](docs/logo/Republique_Francaise_Logo.png)
+## Contributing
+
+link: [CONTRIBUTING.md](./CONTRIBUTING.md)
+
+![logo ign](docs/image/logo_ign.png) ![logo fr](docs/image/Republique_Francaise_Logo.png)

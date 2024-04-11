@@ -1,7 +1,6 @@
 """
 Module for manipulating a cartographic system.
 """
-from pathlib import Path
 from typing import Union, List
 from dataclasses import dataclass
 import pyproj
@@ -17,28 +16,25 @@ class ProjEngine(TransformGeodesy, metaclass=Singleton):
     This class provides functions for using a cartographic system.
     """
     epsg: int = None
-    projection_list: dict = None
-    path_geoid: Path = None
+    geoid: list = None
 
     def __post_init__(self) -> None:
-        if self.projection_list is not None:
+        if self.epsg:
             self.crs = pyproj.CRS.from_epsg(self.epsg)
             self.proj = pyproj.Proj(self.crs)
-            TransformGeodesy.__tf_init__(self, self.projection_list, self.path_geoid, self.crs)
+            TransformGeodesy.__tf_init__(self, self.geoid, self.crs)
 
-    def set_epsg(self, epsg: int, proj_list: dict = None, path_geoid: Path = None) -> None:
+    def set_epsg(self, epsg: int, geoid: list = None) -> None:
         """
         Setter of the class ProjEngine.
         Allows to init the class with data.
 
         Args:
             epsg (int): Code epsg of the porjection ex: "EPSG:2154".
-            projection_list (dict): Dictionnary of the projection json.
-            path_geoid (Path): Path to the forlder of geoid to the GeoTIFF format.
+            geoid (list): List of geoid to use.
         """
         self.epsg = epsg
-        self.projection_list = proj_list
-        self.path_geoid = path_geoid
+        self.geoid = geoid
         self.__post_init__()
 
     def get_meridian_convergence(self, x_carto: Union[np.ndarray, List[float], float],

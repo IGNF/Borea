@@ -163,6 +163,9 @@
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_format.html">src.parser.parser_format package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_func.html">src.parser.parser_func package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
@@ -296,6 +299,26 @@ work (Worksite): Worksite which needs connecting points.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="src.reader.reader_point.read_file_pt_dataframe">
+<span class="sig-prename descclassname"><span class="pre">src.reader.reader_point.</span></span><span class="sig-name descname"><span class="pre">read_file_pt_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/reader/reader_point.html#read_file_pt_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.reader.reader_point.read_file_pt_dataframe" title="Link to this definition">#</a></dt>
+<dd><p>Read file of points to save in Dataframe.</p>
+<dl class="simple">
+<dt>Agrs:</dt><dd><p>file (str): Path of points file.
+header (list): Header of file to read column.
+type_point (str): Type of point is reading (pt2d, pt3d).</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dataframe of data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.Dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-src.reader">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.reader" title="Link to this heading">#</a></h2>
@@ -367,6 +390,7 @@ work (Worksite): Worksite which needs connecting points.</p>
 </li>
 <li><a class="reference internal" href="#module-src.reader.reader_point">src.reader.reader_point module</a><ul>
 <li><a class="reference internal" href="#src.reader.reader_point.read_file_pt"><code class="docutils literal notranslate"><span class="pre">read_file_pt()</span></code></a></li>
+<li><a class="reference internal" href="#src.reader.reader_point.read_file_pt_dataframe"><code class="docutils literal notranslate"><span class="pre">read_file_pt_dataframe()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-src.reader">Module contents</a></li>

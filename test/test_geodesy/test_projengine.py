@@ -1,6 +1,8 @@
 """
 Script test for module proj_engine
 """
+import pyproj
+import pytest
 from src.datastruct.dtm import Dtm
 from src.geodesy.proj_engine import ProjEngine
 
@@ -12,28 +14,27 @@ def setup_module(module): # run before the first test
 
 def test_ProjEngine_withpathgeotiff():
     ProjEngine.clear()
-    ProjEngine().set_epsg(2154, {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}, "./dataset/")
+    ProjEngine().set_epsg(2154, ["./dataset/fr_ign_RAF20.tif"])
     proj = ProjEngine()
     assert proj.geog_to_geoid
 
 
 def test_ProjEngine_notgeoid():
     ProjEngine.clear()
-    ProjEngine().set_epsg(2154, {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084'})
+    ProjEngine().set_epsg(2154)
     proj = ProjEngine()
     assert not proj.geog_to_geoid
 
 
 def test_ProjEngine_notgeoidwithpathgeotiff():
     ProjEngine.clear()
-    ProjEngine().set_epsg(2154, {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084'}, "./dataset/")
-    proj = ProjEngine()
-    assert not proj.geog_to_geoid
+    with pytest.raises(pyproj.exceptions.ProjError) as e_info:
+        ProjEngine().set_epsg(2154, ["fr_ign_RAF2.tif"])
 
 
 def test_get_meridian_convergence():
     ProjEngine.clear()
-    ProjEngine().set_epsg(2154, {'geoc': 'EPSG:4964', 'geog': 'EPSG:7084', "geoid": ["fr_ign_RAF20"]}, "./dataset/")
+    ProjEngine().set_epsg(2154, ["./dataset/fr_ign_RAF20.tif"])
     proj = ProjEngine()
     meridian_convergence = proj.get_meridian_convergence(815601, 6283629)
     theorical_value = -1.039350

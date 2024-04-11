@@ -163,6 +163,9 @@
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_format.html">src.parser.parser_format package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_func.html">src.parser.parser_func package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
@@ -502,6 +505,11 @@ the Euclidean coordinate reference system.</p>
 <span class="sig-name descname"><span class="pre">epsg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#src.geodesy.proj_engine.ProjEngine.epsg" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.geodesy.proj_engine.ProjEngine.geoid">
+<span class="sig-name descname"><span class="pre">geoid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#src.geodesy.proj_engine.ProjEngine.geoid" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="src.geodesy.proj_engine.ProjEngine.get_meridian_convergence">
 <span class="sig-name descname"><span class="pre">get_meridian_convergence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_carto</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_carto</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/geodesy/proj_engine.html#ProjEngine.get_meridian_convergence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.proj_engine.ProjEngine.get_meridian_convergence" title="Link to this definition">#</a></dt>
@@ -544,27 +552,16 @@ Values are extracted from pyproj.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.geodesy.proj_engine.ProjEngine.path_geoid">
-<span class="sig-name descname"><span class="pre">path_geoid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#src.geodesy.proj_engine.ProjEngine.path_geoid" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.geodesy.proj_engine.ProjEngine.projection_list">
-<span class="sig-name descname"><span class="pre">projection_list</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#src.geodesy.proj_engine.ProjEngine.projection_list" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="src.geodesy.proj_engine.ProjEngine.set_epsg">
-<span class="sig-name descname"><span class="pre">set_epsg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proj_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/geodesy/proj_engine.html#ProjEngine.set_epsg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.proj_engine.ProjEngine.set_epsg" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_epsg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/geodesy/proj_engine.html#ProjEngine.set_epsg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.proj_engine.ProjEngine.set_epsg" title="Link to this definition">#</a></dt>
 <dd><p>Setter of the class ProjEngine.
 Allows to init the class with data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>epsg</strong> (<em>int</em>) – Code epsg of the porjection ex: “EPSG:2154”.</p></li>
-<li><p><strong>projection_list</strong> (<em>dict</em>) – Dictionnary of the projection json.</p></li>
-<li><p><strong>path_geoid</strong> (<em>Path</em>) – Path to the forlder of geoid to the GeoTIFF format.</p></li>
+<li><p><strong>geoid</strong> (<em>list</em>) – List of geoid to use.</p></li>
 </ul>
 </dd>
 </dl>
@@ -586,8 +583,7 @@ Implemented by ProjEngine.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>projection_list</strong> (<em>dict</em>) – Dictionnary of the projection json.</p></li>
-<li><p><strong>path_geoid</strong> (<em>Path</em>) – Path to the forlder of GeoTIFF.</p></li>
+<li><p><strong>geoid</strong> (<em>list</em>) – List of geoid to use.</p></li>
 <li><p><strong>crs</strong> (<em>pyproj</em>) – CRS pyproj of the worksite.</p></li>
 </ul>
 </dd>
@@ -624,14 +620,11 @@ Implemented by ProjEngine.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.geodesy.transform_geodesy.TransformGeodesy.tf_geoid">
-<span class="sig-name descname"><span class="pre">tf_geoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projection_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/geodesy/transform_geodesy.html#TransformGeodesy.tf_geoid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.transform_geodesy.TransformGeodesy.tf_geoid" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">tf_geoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/geodesy/transform_geodesy.html#TransformGeodesy.tf_geoid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.geodesy.transform_geodesy.TransformGeodesy.tf_geoid" title="Link to this definition">#</a></dt>
 <dd><p>Create attribute transform, to transform geographic coordinates to geoide coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>projection_list</strong> (<em>dict</em>) – Dictionnary of the projection json.</p></li>
-<li><p><strong>path_geotiff</strong> (<em>Path</em>) – Path to the forlder of GeoTIFF.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>geoid</strong> (<em>list</em>) – List of geoid to use.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -767,10 +760,9 @@ Implemented by ProjEngine.</p>
 <li><a class="reference internal" href="#module-src.geodesy.proj_engine">src.geodesy.proj_engine module</a><ul>
 <li><a class="reference internal" href="#src.geodesy.proj_engine.ProjEngine"><code class="docutils literal notranslate"><span class="pre">ProjEngine</span></code></a><ul>
 <li><a class="reference internal" href="#src.geodesy.proj_engine.ProjEngine.epsg"><code class="docutils literal notranslate"><span class="pre">ProjEngine.epsg</span></code></a></li>
+<li><a class="reference internal" href="#src.geodesy.proj_engine.ProjEngine.geoid"><code class="docutils literal notranslate"><span class="pre">ProjEngine.geoid</span></code></a></li>
 <li><a class="reference internal" href="#src.geodesy.proj_engine.ProjEngine.get_meridian_convergence"><code class="docutils literal notranslate"><span class="pre">ProjEngine.get_meridian_convergence()</span></code></a></li>
 <li><a class="reference internal" href="#src.geodesy.proj_engine.ProjEngine.get_scale_factor"><code class="docutils literal notranslate"><span class="pre">ProjEngine.get_scale_factor()</span></code></a></li>
-<li><a class="reference internal" href="#src.geodesy.proj_engine.ProjEngine.path_geoid"><code class="docutils literal notranslate"><span class="pre">ProjEngine.path_geoid</span></code></a></li>
-<li><a class="reference internal" href="#src.geodesy.proj_engine.ProjEngine.projection_list"><code class="docutils literal notranslate"><span class="pre">ProjEngine.projection_list</span></code></a></li>
 <li><a class="reference internal" href="#src.geodesy.proj_engine.ProjEngine.set_epsg"><code class="docutils literal notranslate"><span class="pre">ProjEngine.set_epsg()</span></code></a></li>
 </ul>
 </li>

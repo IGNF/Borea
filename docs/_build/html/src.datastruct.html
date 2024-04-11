@@ -163,6 +163,9 @@
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_format.html">src.parser.parser_format package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_func.html">src.parser.parser_func package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
@@ -678,20 +681,6 @@ and control points (11, 12, 13).
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.known_projection">
-<span class="sig-name descname"><span class="pre">known_projection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2154</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.known_projection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.known_projection" title="Link to this definition">#</a></dt>
-<dd><p>Setup a projection system to the worksite.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>epsg</strong> (<em>int</em>) – Code epsg of the porjection ex: “EPSG:2154”.</p></li>
-<li><p><strong>path_geoid</strong> (<em>Path</em>) – List of GeoTIFF which represents the geoid in grid form.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.set_approx_eucli_proj">
 <span class="sig-name descname"><span class="pre">set_approx_eucli_proj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">approx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.set_approx_eucli_proj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.set_approx_eucli_proj" title="Link to this definition">#</a></dt>
 <dd><p>Setup approxeucli in worksite</p>
@@ -718,58 +707,25 @@ and control points (11, 12, 13).
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.set_proj">
-<span class="sig-name descname"><span class="pre">set_proj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_epsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.set_proj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.set_proj" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_proj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.set_proj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.set_proj" title="Link to this definition">#</a></dt>
 <dd><p>Setup a projection system to the worksite.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>epsg</strong> (<em>int</em>) – Code epsg of the porjection ex: 2154.</p></li>
-<li><p><strong>file_epsg</strong> (<em>str</em>) – Path to the json which list projection.</p></li>
 <li><p><strong>path_geoid</strong> (<em>str</em>) – List of GeoTIFF which represents the geoid in grid form.</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
-</dd></dl>
-
-</section>
-<section id="module-src.datastruct.workshot">
-<span id="src-datastruct-workshot-module"></span><h2>src.datastruct.workshot module<a class="headerlink" href="#module-src.datastruct.workshot" title="Link to this heading">#</a></h2>
-<p>Workshot data shot class module.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.datastruct.workshot.Workshot">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.datastruct.workshot.</span></span><span class="sig-name descname"><span class="pre">Workshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/datastruct/workshot.html#Workshot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workshot.Workshot" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#src.datastruct.workdata.Workdata" title="src.datastruct.workdata.Workdata"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workdata</span></code></a></p>
-<p>Workshot class, class to manage shot data in workdata.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Name of the worksite.</p>
-</dd>
-</dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="src.datastruct.workshot.Workshot.set_param_shot">
-<span class="sig-name descname"><span class="pre">set_param_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">approx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workshot.html#Workshot.set_param_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workshot.Workshot.set_param_shot" title="Link to this definition">#</a></dt>
-<dd><p>Setting up different parameters in shot by data ressources.</p>
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.set_unit_z_data">
+<span class="sig-name descname"><span class="pre">set_unit_z_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_z_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.set_unit_z_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.set_unit_z_data" title="Link to this definition">#</a></dt>
+<dd><p>Setup unit_z_data with one condition if is None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>approx</strong> (<em>bool</em>) – True if you want to use approx euclidean system.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.datastruct.workshot.Workshot.set_unit_shot">
-<span class="sig-name descname"><span class="pre">set_unit_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_alteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_axe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workshot.html#Workshot.set_unit_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workshot.Workshot.set_unit_shot" title="Link to this definition">#</a></dt>
-<dd><p>Allows you to change unit or parameter of shots.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>type_z</strong> (<em>str</em>) – Unit of z shot you want.</p></li>
-<li><p><strong>unit_angle</strong> (<em>str</em>) – Unit angle you want.</p></li>
-<li><p><strong>linear_alteration</strong> (<em>bool</em>) – True if you want data corrected.</p></li>
-<li><p><strong>order_axe</strong> (<em>str</em>) – Order of rotation matrice you want in your angle.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>unit_z_data</strong> (<em>str</em>) – altitude or height</p>
 </dd>
 </dl>
 </dd></dl>
@@ -895,18 +851,10 @@ and control points (11, 12, 13).
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.add_gcp2d"><code class="docutils literal notranslate"><span class="pre">Workdata.add_gcp2d()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.add_gcp3d"><code class="docutils literal notranslate"><span class="pre">Workdata.add_gcp3d()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.add_shot"><code class="docutils literal notranslate"><span class="pre">Workdata.add_shot()</span></code></a></li>
-<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.known_projection"><code class="docutils literal notranslate"><span class="pre">Workdata.known_projection()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_approx_eucli_proj"><code class="docutils literal notranslate"><span class="pre">Workdata.set_approx_eucli_proj()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_dtm"><code class="docutils literal notranslate"><span class="pre">Workdata.set_dtm()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_proj"><code class="docutils literal notranslate"><span class="pre">Workdata.set_proj()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.datastruct.workshot">src.datastruct.workshot module</a><ul>
-<li><a class="reference internal" href="#src.datastruct.workshot.Workshot"><code class="docutils literal notranslate"><span class="pre">Workshot</span></code></a><ul>
-<li><a class="reference internal" href="#src.datastruct.workshot.Workshot.set_param_shot"><code class="docutils literal notranslate"><span class="pre">Workshot.set_param_shot()</span></code></a></li>
-<li><a class="reference internal" href="#src.datastruct.workshot.Workshot.set_unit_shot"><code class="docutils literal notranslate"><span class="pre">Workshot.set_unit_shot()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_unit_z_data"><code class="docutils literal notranslate"><span class="pre">Workdata.set_unit_z_data()</span></code></a></li>
 </ul>
 </li>
 </ul>

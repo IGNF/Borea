@@ -3,10 +3,13 @@ Worksite data class module.
 """
 import numpy as np
 import pandas as pd
-from src.datastruct.workshot import Workshot
+from src.datastruct.dtm import Dtm
+from src.datastruct.workdata import Workdata
+from src.geodesy.proj_engine import ProjEngine
+from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 
 
-class Worksite(Workshot):
+class Worksite(Workdata):
     """
     Worksite class, class main of the tools.
 
@@ -38,17 +41,19 @@ class Worksite(Workshot):
         Returns:
             pandas: Pandas table.
         """
-        if type_point not in ["co_points", "gcp2d"]:
-            raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d']")
+        if type_point not in ["co_points", "gcp2d", "gcp3d"]:
+            raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d','gcp3d']")
 
         if type_point == "co_points":
             control_type = []
 
+        type_iter = type_point if type_point != "gcp3d" else "gcp2d"
+
         id_pt = []
         id_img = []
         coor = []
-        for name_pt, list_shot in self.getattr(type_point).items():
-            if control_type != [] and self.gcp3d[name_pt].code not in control_type:
+        for name_pt, list_shot in self.getattr(type_iter).items():
+            if control_type and self.gcp3d[name_pt].code not in control_type:
                 continue
             for name_shot in list_shot:
                 id_pt.append(name_pt)
@@ -71,8 +76,12 @@ class Worksite(Workshot):
             raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d']")
 
         for _, row in pd_mes.iterrows():
-            self.shots[row['id_img']].getattr(type_point)[row['id_pt']] = np.array([row['column'],
-                                                                                   row['line']])
+            try:
+                self.shots[row['id_img']
+                           ].getattr(type_point)[row['id_pt']] = np.array([row['column'],
+                                                                           row['line']])
+            except KeyError:
+                continue
 
     def get_point_world_dataframe(self, type_point: str, control_type: list) -> pd.DataFrame:
         """
@@ -92,12 +101,12 @@ class Worksite(Workshot):
             out_pt = "co_pts_world"
             control_type = []
         else:
-            out_pt = "img_pts_world"
+            out_pt = "gcp2d_in_world"
 
         id_pt = []
         coor = []
         for name_pt, coor_pt in self.getattr(out_pt).items():
-            if control_type != [] and self.gcp3d[name_pt].code not in control_type:
+            if control_type and self.gcp3d[name_pt].code not in control_type:
                 continue
             id_pt.append(name_pt)
             coor.append(coor_pt)
@@ -119,10 +128,14 @@ class Worksite(Workshot):
         if type_point == 'co_points':
             out_pt = "co_pts_world"
         else:
-            out_pt = "img_pts_world"
+            out_pt = "gcp2d_in_world"
 
-        for _, row in pd_mes.iterrows():
-            self.getattr(out_pt)[row['id_pt']] = np.array([row['x'], row['y'], row['z']])
+        if "type" not in list(pd_mes.columns):
+            for _, row in pd_mes.iterrows():
+                self.getattr(out_pt)[row['id_pt']] = np.array([row['x'], row['y'], row['z']])
+        else:
+            for _, row in pd_mes.iterrows():
+                self.add_gcp3d(row['id_pt'], row['type'], np.array([row['x'], row['y'], row['z']]))
 
     def get_coor_pt_img_and_world(self, name_shot: str, type_point: str) -> tuple:
         """
@@ -158,6 +171,65 @@ class Worksite(Workshot):
                 print(f"Point {key_pt}, doesn't have world coordinate, perhaps a single point.")
 
         return np.stack(img_pt, axis=-1), np.stack(world_pt, axis=-1)
+
+    def set_param_shot(self, approx=False) -> None:
+        """
+        Setting up different parameters in shot by data ressources.
+
+        Args:
+            approx (bool): True if you want to use approx euclidean system.
+        """
+        check_dtm = True
+        if not Dtm().path_dtm:
+            check_dtm = False
+
+        if not ProjEngine().geoid:
+            raise ValueError("you have not entered all the information required to set up"
+                             " the projection system. Because type z shot != type z data.")
+
+        self.approxeucli = approx
+        for shot in self.shots.values():
+            shot.set_param_eucli_shot(approx)
+            if check_dtm:
+                cam = self.cameras[shot.name_cam]
+                z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]),
+                                                                   self.type_z_shot,
+                                                                   self.type_z_shot, False)[2]
+                shot.set_z_nadir(z_nadir)
+
+    def set_unit_shot(self, type_z: str = None, unit_angle: str = None,
+                      linear_alteration: bool = None, order_axe: str = None) -> None:
+        """
+        Allows you to change unit or parameter of shots.
+
+        Args:
+            type_z (str): Unit of z shot you want.
+            unit_angle (str): Unit angle you want.
+            linear_alteration (bool): True if you want data corrected.
+            order_axe (str): Order of rotation matrice you want in your angle.
+        """
+        if unit_angle not in ["degree", "radian", None]:
+            raise ValueError(f"unit_angle: {unit_angle} is not recognized,"
+                             "recognized values are degree and radian.")
+
+        if type_z not in ["height", "altitude", None]:
+            raise ValueError(f"type_z: {type_z} is not recognized,"
+                             "recognized values are altitude and height.")
+
+        if type_z == self.type_z_shot:
+            type_z = None
+        else:
+            self.type_z_shot = type_z
+
+        for shot in self.shots.values():
+            if unit_angle is not None:
+                shot.set_unit_angle(unit_angle)
+            if type_z is not None:
+                shot.set_type_z(type_z)
+            if linear_alteration is not None:
+                shot.set_linear_alteration(linear_alteration)
+            if order_axe is not None:
+                shot.set_order_axe(order_axe)
 
     def calculate_barycentre(self) -> np.ndarray:
         """

@@ -163,6 +163,9 @@
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_format.html">src.parser.parser_format package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_func.html">src.parser.parser_func package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
@@ -248,9 +251,28 @@
 </dd></dl>
 
 </section>
+<section id="module-src.writer.writer_df_to_txt">
+<span id="src-writer-writer-df-to-txt-module"></span><h2>src.writer.writer_df_to_txt module<a class="headerlink" href="#module-src.writer.writer_df_to_txt" title="Link to this heading">#</a></h2>
+<p>Photogrammetry worksite to writing dataframe to txt.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.writer.writer_df_to_txt.write_df_to_txt">
+<span class="sig-prename descclassname"><span class="pre">src.writer.writer_df_to_txt.</span></span><span class="sig-name descname"><span class="pre">write_df_to_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathreturn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/writer/writer_df_to_txt.html#write_df_to_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.writer.writer_df_to_txt.write_df_to_txt" title="Link to this definition">#</a></dt>
+<dd><p>Writing DataFrame to txt in column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the file.</p></li>
+<li><p><strong>pathreturn</strong> (<em>str</em>) – Path to save the file.</p></li>
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – DataFrame to save.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-src.writer.writer_opk">
 <span id="src-writer-writer-opk-module"></span><h2>src.writer.writer_opk module<a class="headerlink" href="#module-src.writer.writer_opk" title="Link to this heading">#</a></h2>
-<p>Photogrammetry worksite to writing in rpc.</p>
+<p>Photogrammetry worksite to writing in opk.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.writer.writer_opk.write">
 <span class="sig-prename descclassname"><span class="pre">src.writer.writer_opk.</span></span><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_opk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_opk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/writer/writer_opk.html#write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.writer.writer_opk.write" title="Link to this definition">#</a></dt>
@@ -354,6 +376,10 @@ line_writingar alteration.</p></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-src.writer.manage_writer">src.writer.manage_writer module</a><ul>
 <li><a class="reference internal" href="#src.writer.manage_writer.manager_writer"><code class="docutils literal notranslate"><span class="pre">manager_writer()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.writer.writer_df_to_txt">src.writer.writer_df_to_txt module</a><ul>
+<li><a class="reference internal" href="#src.writer.writer_df_to_txt.write_df_to_txt"><code class="docutils literal notranslate"><span class="pre">write_df_to_txt()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-src.writer.writer_opk">src.writer.writer_opk module</a><ul>

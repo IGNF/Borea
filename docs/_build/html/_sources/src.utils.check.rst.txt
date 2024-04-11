@@ -12,18 +12,18 @@ src.utils.check.check\_args\_opk module
    :undoc-members:
    :show-inheritance:
 
-src.utils.check.check\_array module
------------------------------------
+src.utils.check.check\_args\_reader\_pt module
+----------------------------------------------
 
-.. automodule:: src.utils.check.check_array
+.. automodule:: src.utils.check.check_args_reader_pt
    :members:
    :undoc-members:
    :show-inheritance:
 
-src.utils.check.check\_head\_file\_pt module
---------------------------------------------
+src.utils.check.check\_array module
+-----------------------------------
 
-.. automodule:: src.utils.check.check_head_file_pt
+.. automodule:: src.utils.check.check_array
    :members:
    :undoc-members:
    :show-inheritance:

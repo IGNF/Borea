@@ -163,6 +163,9 @@
 <li class="toctree-l3"><a class="reference internal" href="src.geodesy.html">src.geodesy package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.math.html">src.math package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.parser.html">src.parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of src.parser package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_format.html">src.parser.parser_format package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_func.html">src.parser.parser_func package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
@@ -289,6 +292,24 @@ and header with the H replaced by a Z.</p>
 </dd></dl>
 
 </section>
+<section id="module-src.utils.check.check_args_reader_pt">
+<span id="src-utils-check-check-args-reader-pt-module"></span><h2>src.utils.check.check_args_reader_pt module<a class="headerlink" href="#module-src.utils.check.check_args_reader_pt" title="Link to this heading">#</a></h2>
+<p>A script for verification args to read a point file.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.utils.check.check_args_reader_pt.check_header_file">
+<span class="sig-prename descclassname"><span class="pre">src.utils.check.check_args_reader_pt.</span></span><span class="sig-name descname"><span class="pre">check_header_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/utils/check/check_args_reader_pt.html#check_header_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.utils.check.check_args_reader_pt.check_header_file" title="Link to this definition">#</a></dt>
+<dd><p>Check if the header of the file is good.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>header</strong> (<em>list</em>) – List of column type file.</p></li>
+<li><p><strong>type_pt</strong> (<em>str</em>) – Type of point is reading (co_point, gcp2d, gcp3d).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-src.utils.check.check_array">
 <span id="src-utils-check-check-array-module"></span><h2>src.utils.check.check_array module<a class="headerlink" href="#module-src.utils.check.check_array" title="Link to this heading">#</a></h2>
 <p>A script combining various data conversion and format verification functions.</p>
@@ -311,24 +332,6 @@ possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-src.utils.check.check_head_file_pt">
-<span id="src-utils-check-check-head-file-pt-module"></span><h2>src.utils.check.check_head_file_pt module<a class="headerlink" href="#module-src.utils.check.check_head_file_pt" title="Link to this heading">#</a></h2>
-<p>A script for verification header str in read file point.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.utils.check.check_head_file_pt.check_header_file">
-<span class="sig-prename descclassname"><span class="pre">src.utils.check.check_head_file_pt.</span></span><span class="sig-name descname"><span class="pre">check_header_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/utils/check/check_head_file_pt.html#check_header_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.utils.check.check_head_file_pt.check_header_file" title="Link to this definition">#</a></dt>
-<dd><p>Check if the header of the file is good.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>header</strong> (<em>list</em>) – List of column type file.</p></li>
-<li><p><strong>type_point</strong> (<em>str</em>) – Type of point is reading (co_point, gcp2d, gcp3d).</p></li>
-</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -460,12 +463,12 @@ possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
 <li><a class="reference internal" href="#src.utils.check.check_args_opk.get_type_z_and_header"><code class="docutils literal notranslate"><span class="pre">get_type_z_and_header()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-src.utils.check.check_array">src.utils.check.check_array module</a><ul>
-<li><a class="reference internal" href="#src.utils.check.check_array.check_array_transfo"><code class="docutils literal notranslate"><span class="pre">check_array_transfo()</span></code></a></li>
+<li><a class="reference internal" href="#module-src.utils.check.check_args_reader_pt">src.utils.check.check_args_reader_pt module</a><ul>
+<li><a class="reference internal" href="#src.utils.check.check_args_reader_pt.check_header_file"><code class="docutils literal notranslate"><span class="pre">check_header_file()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-src.utils.check.check_head_file_pt">src.utils.check.check_head_file_pt module</a><ul>
-<li><a class="reference internal" href="#src.utils.check.check_head_file_pt.check_header_file"><code class="docutils literal notranslate"><span class="pre">check_header_file()</span></code></a></li>
+<li><a class="reference internal" href="#module-src.utils.check.check_array">src.utils.check.check_array module</a><ul>
+<li><a class="reference internal" href="#src.utils.check.check_array.check_array_transfo"><code class="docutils literal notranslate"><span class="pre">check_array_transfo()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-src.utils.check.check_header">src.utils.check.check_header module</a><ul>

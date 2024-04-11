@@ -2,7 +2,7 @@
 Main to calculate image coodinate with opk.
 """
 import argparse
-from src.parser.parser_opk.args_read_opk import args_reading_opk, process_args_read_opk
+from src.parser.parser_format.args_read_opk import args_reading_opk, process_args_read_opk
 from src.parser.parser_func.args_world_image import args_world_image, process_world_image
 
 

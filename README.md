@@ -8,11 +8,11 @@ Why Pink Lady? Pink Lady is a B-17 owned by IGN France, originally used in the a
 * Conversion OPK to OPK: [README_opk_to_opk.md](./README_opk_to_opk.md)
 * Control OPK file: [README_opk_control.md](./README_opk_control.md)
 * Convertion OPK to RPC: [README_opk_to_rpc.md](./README_opk_to_rpc.md)
-* Calculate image coordinate of one ground point: [README_calc_onept_image.md](./README_calc_onept_image.md)
-* Calculate world coordinate of one image point: [README_calc_onept_world.md](./README_calc_onept_world.md)
-* Calculate image coordinate of a file of ground points: [README_calc_pt_image_opk.md](./README_calc_pt_image_opk.md)
-* Calculate world coordinate of a file of image points: [README_calc_pt_world_opk.md](./README_calc_pt_world_opk.md)
-* Calculate opk by space resection: [README_spaceresection_opk.md](./README_spaceresection_opk.md)
+* Calculates a ground point from an image point: [README_pt_image_to_world.md](./README_pt_image_to_world.md)
+* Calculates a image point from an ground point: [README_pt_world_to_image.md](./README_pt_world_to_image.md)
+* Calculates a ground file points from an image file points: [README_ptfile_image_to_world.md](./README_ptfile_image_to_world.md)
+* Calculates a image file points from an ground file points: [README_ptfile_world_to_image.md](./README_ptfile_world_to_image.md)
+* Calculates opk by space resection: [README_spaceresection_opk.md](./README_spaceresection_opk.md)
 * Python lib: [README_python_lib.md](./README_python_lib.md)
 
 ## Installation

@@ -24,7 +24,7 @@ jobs:
 
     - name: Analysing the code with pylint
       run: |
-        pylint opk_to_opk.py opk_control.py opk_to_rpc.py calc_onept_image.py calc_onept_world.py calc_pt_image_opk.py calc_pt_world_opk.py spaceresection_opk.py
+        pylint opk_to_opk.py opk_control.py opk_to_rpc.py pt_image_to_world.py pt_world_to_image.py ptfile_image_to_world.py ptfile_world_to_image.py spaceresection_opk.py
         pylint src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/parser_format/args_rpc.py
         pylint src/parser/parser_func/args_control.py src/parser/parser_func/args_image_world.py src/parser/parser_func/args_world_image.py src/parser/parser_func/args_spaceresection.py
         pylint src/parser/parser_adata/args_write.py src/parser/parser_adata/args_gen_param.py src/parser/parser_adata/args_unit_shot.py src/parser/parser_adata/args_add_shot.py src/parser/parser_adata/args_pt2d.py src/parser/parser_adata/args_pt3d.py src/parser/parser_adata/args_file_gcp2d.py src/parser/parser_adata/args_file_gcp3d.py
@@ -45,7 +45,7 @@ jobs:
 
     - name: Analysing the code with flake8
       run: |
-        flake8  --max-line-length 100 opk_to_opk.py opk_control.py opk_to_rpc.py calc_onept_image.py calc_onept_world.py calc_pt_image_opk.py calc_pt_world_opk.py spaceresection_opk.py
+        flake8  --max-line-length 100 opk_to_opk.py opk_control.py opk_to_rpc.py pt_image_to_world.py pt_world_to_image.py ptfile_image_to_world.py ptfile_world_to_image.py spaceresection_opk.py
         flake8  --max-line-length 100 src/parser/parser_opk/args_read_opk.py src/parser/parser_opk/args_write_opk.py src/parser/parser_format/args_rpc.py
         flake8  --max-line-length 100 src/parser/parser_func/args_control.py src/parser/parser_func/args_image_world.py src/parser/parser_func/args_world_image.py src/parser/parser_func/args_spaceresection.py
         flake8  --max-line-length 100 src/parser/parser_adata/args_write.py src/parser/parser_adata/args_gen_param.py src/parser/parser_adata/args_unit_shot.py src/parser/parser_adata/args_add_shot.py src/parser/parser_adata/args_pt2d.py src/parser/parser_adata/args_pt3d.py src/parser/parser_adata/args_file_gcp2d.py src/parser/parser_adata/args_file_gcp3d.py

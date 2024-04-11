@@ -1,14 +1,14 @@
-# README to calculate world coordinate of image point
+# README to calculate image coordinate of world point
 
-Calculates the world coordinates of a image point in a given image.
+Calculates the image coordinates of a terrain point in a given image.
 
 ## Utilisation
 
 ### Terminal use
 
-Call the function in a terminal located in the directory of the calc_pt_world.py file. To view the information on the various parameters you can do : 
+Call the function in a terminal located in the directory of the pt_world_to_image.py file. To view the information on the various parameters you can do : 
 
-```python calc_pt_world.py -h``` 
+```python pt_world_to_image.py -h``` 
 
 The parameters are:
 
@@ -18,7 +18,7 @@ The parameters are:
 | -s | Position of the shot X Y Z. |  | V |
 | -t | Unit of the z of the shot. "altitude" or "height" |  | V |
 | -o | Orientation of the shot Omega Phi Kappa.|  | V |
-| -p | Coordinate of the 2D point Column Line. |  | V |
+| -p | Coordinate of the 3D point X Y Z. |  | V |
 | -d | Unit of the z of the data. "altitude" or "height". If None same type than z shot. | None | X |
 | -b | Order of rotation matrix axes. | opk | X |
 | -u | Unit of the angle of shooting, 'degree' or 'radian' | degree | X |
@@ -32,7 +32,7 @@ The parameters are:
 
 E.G.
 ```
-python3 ./calc_pt_world.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 815601.510 6283629.280 54.960 -d height
+python3 ./pt_world_to_image.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 24042.25 14781.17 -d height
 ```
 
 ### Camera file format

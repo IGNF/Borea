@@ -56,7 +56,7 @@ Type is:
 
 #### Detail for the header of point file -k and -l
 
-`header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
+`header` is used to describe the format of the point file read. It provides information on what's in each column.   
 Type is:
 | Symbol | Details |
 | :----: | :------ |

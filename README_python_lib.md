@@ -70,8 +70,7 @@ Example at the end of explanation of function [file](./docs/functions/Space_rese
 ```
 from src.reader.orientation.manage_reader import reader_orientation
 from src.reader.reader_camera import read_camera
-from src.reader.reader_co_points import read_co_points
-from src.reader.reader_gcp import read_gcp
+from src.reader.reader_point import read_file_pt
 from src.writer.manage_writer import manager_reader
 from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
 from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
@@ -91,6 +90,7 @@ header = list('NXYZOPKC')
 header = ['N', 'X', 'Y', 'Z', 'O', 'P', 'K', 'C']
 unit_angle = 'degree' # or "radian"
 linear_alteration = True # If z shot is corrected by linear alteration
+order_axe = "opk" # Order of angle to make rotation matrix ("opk", "pok")
 
 # info in epsg and epsg data
 epsg = "EPSG:2154"
@@ -101,12 +101,15 @@ path_camera = ["dataset/Camera1.txt"]
 
 # path(s) to connecting points file
 path_co_points = ["dataset/liaisons_test.mes"]
+head_co_point = "PNXY"
 
 # path(s) to image ground control points file
 path_gcp2d= ["dataset/terrain_test.mes"]
+head_gcp2d = "PNXY"
 
 # path(s) to ground control points file with unit of z and code of control point
 path_gcps = ["dataset/GCP_test.app"]
+head_gcp3d = "PTXYZ"
 type_z_data = 'height'
 type_control = [13]
 
@@ -129,7 +132,8 @@ pathreturn = "./"
 work = reader_orientation(path_opk, {"interval": line_taken,
                                      "header": header,
                                      "unit_angle": unit_angle,
-                                     "linear_alteration": linear_alteration})
+                                     "linear_alteration": linear_alteration,
+                                     "order_axe": order_axe})
 
 # Add a projection to the worksite
 work.set_proj(epsg, path_geoid)
@@ -138,13 +142,13 @@ work.set_proj(epsg, path_geoid)
 read_camera(path_camera, work)
 
 # Reading connecting point
-read_co_points(path_co_points, work)
+read_file_pt(path_co_points, head_co_point, "co_point", work)
 
 # Reading ground controle point in image
-read_gcp2d(path_gcp2d, work)
+read_file_pt(path_gcp2d, head_gcp2d, "gcp2d", work)
 
 # Reading GCP
-read_gcp(path_gcps, work)
+read_file_pt(path_gcps, head_gcp3d, "gcp3d", work)
 work.type_z_data = type_z_data
 
 # Add Dtm to the worksite
@@ -153,7 +157,7 @@ work.set_dtm(path_dtm, type_dtm)
 # Setup parameters of shot (projection system of shot and z_nadir)
 work.set_param_shot()
 
-# Calculate world coordinate of "co_points" or "ground_image_pts"
+# Calculate world coordinate of "co_points" or "gcp2d"
 # Type control isn't mandatory, take all points if not specified 
 ImageWorldWork(work).manage_image_world("gcp2d", type_process,type_control)
 
@@ -175,7 +179,7 @@ Examples of the different formats can be found in *./dataset/*.
 
 ## Detail
 
-### Header of file
+### Header of file opk
 `header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
 Type is:
 | Symbol | Details |
@@ -191,7 +195,21 @@ Type is:
 | K | kappa rotation angle |
 | C | name of the camera |
 
-## Camera file format
+### Header of point file
+
+`header` is used to describe the format of the point file read. It provides information on what's in each column.   
+Type is:
+| Symbol | Details |
+| :----: | :------ |
+| S | to ignore the column |
+| P | name of the point |
+| N | name of shot |
+| T | type of point |
+| X | coordinate x of the shot position |
+| Y | coordinate y of the shot position |
+| Z | coordinate z altitude of the shot position |
+
+### Camera file format
 
 The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float) and image size, **width** (int) and **height** (int) in pixels. .  
 Ppax and ppay are the main points of image deformation in x and y directions.  
@@ -207,7 +225,7 @@ height = 17004
 Only these 6 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool.
 An example file can be found in *./dataset/Camera1.txt*.
 
-## File projection JSON format
+### File projection JSON format
 
 This library can transform and process 3D data with a z in altitude or height. This is done by the pyproj library, which needs the geoid at site level to change units.
 

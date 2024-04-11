@@ -2,7 +2,7 @@
 Main to control opk file
 """
 import argparse
-from src.parser.parser_opk.args_read_opk import args_reading_opk, process_args_read_opk
+from src.parser.parser_format.args_read_opk import args_reading_opk, process_args_read_opk
 from src.parser.parser_func.args_control import args_control, process_args_control
 
 

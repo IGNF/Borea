@@ -1,1 +1,0 @@
-python -m pytest -s ./test/test_datastruct/test_workshot.py -v

@@ -229,12 +229,15 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">src.datastruct.workshot</span> <span class="kn">import</span> <span class="n">Workshot</span>
+<span class="kn">from</span> <span class="nn">src.datastruct.dtm</span> <span class="kn">import</span> <span class="n">Dtm</span>
+<span class="kn">from</span> <span class="nn">src.datastruct.workdata</span> <span class="kn">import</span> <span class="n">Workdata</span>
+<span class="kn">from</span> <span class="nn">src.geodesy.proj_engine</span> <span class="kn">import</span> <span class="n">ProjEngine</span>
+<span class="kn">from</span> <span class="nn">src.transform_world_image.transform_shot.image_world_shot</span> <span class="kn">import</span> <span class="n">ImageWorldShot</span>
 
 
 <div class="viewcode-block" id="Worksite">
 <a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite">[docs]</a>
-<span class="k">class</span> <span class="nc">Worksite</span><span class="p">(</span><span class="n">Workshot</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Worksite</span><span class="p">(</span><span class="n">Workdata</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Worksite class, class main of the tools.</span>
 
@@ -413,6 +416,71 @@
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Point </span><span class="si">{</span><span class="n">key_pt</span><span class="si">}</span><span class="s2">, doesn&#39;t have world coordinate, perhaps a single point.&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">img_pt</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">world_pt</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Worksite.set_param_shot">
+<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.set_param_shot">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_param_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">approx</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setting up different parameters in shot by data ressources.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            approx (bool): True if you want to use approx euclidean system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">check_dtm</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Dtm</span><span class="p">()</span><span class="o">.</span><span class="n">path_dtm</span><span class="p">:</span>
+            <span class="n">check_dtm</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">geoid</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;you have not entered all the information required to set up&quot;</span>
+                             <span class="s2">&quot; the projection system. Because type z shot != type z data.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">approxeucli</span> <span class="o">=</span> <span class="n">approx</span>
+        <span class="k">for</span> <span class="n">shot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">shot</span><span class="o">.</span><span class="n">set_param_eucli_shot</span><span class="p">(</span><span class="n">approx</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">check_dtm</span><span class="p">:</span>
+                <span class="n">cam</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>
+                <span class="n">z_nadir</span> <span class="o">=</span> <span class="n">ImageWorldShot</span><span class="p">(</span><span class="n">shot</span><span class="p">,</span> <span class="n">cam</span><span class="p">)</span><span class="o">.</span><span class="n">image_to_world</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">cam</span><span class="o">.</span><span class="n">ppax</span><span class="p">,</span> <span class="n">cam</span><span class="o">.</span><span class="n">ppay</span><span class="p">]),</span>
+                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">,</span>
+                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">,</span> <span class="kc">False</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">shot</span><span class="o">.</span><span class="n">set_z_nadir</span><span class="p">(</span><span class="n">z_nadir</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Worksite.set_unit_shot">
+<a class="viewcode-back" href="../../../src.worksite.html#src.worksite.worksite.Worksite.set_unit_shot">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_unit_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_z</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                      <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">order_axe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows you to change unit or parameter of shots.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            type_z (str): Unit of z shot you want.</span>
+<span class="sd">            unit_angle (str): Unit angle you want.</span>
+<span class="sd">            linear_alteration (bool): True if you want data corrected.</span>
+<span class="sd">            order_axe (str): Order of rotation matrice you want in your angle.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">unit_angle</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">,</span> <span class="s2">&quot;radian&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unit_angle: </span><span class="si">{</span><span class="n">unit_angle</span><span class="si">}</span><span class="s2"> is not recognized,&quot;</span>
+                             <span class="s2">&quot;recognized values are degree and radian.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">type_z</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type_z: </span><span class="si">{</span><span class="n">type_z</span><span class="si">}</span><span class="s2"> is not recognized,&quot;</span>
+                             <span class="s2">&quot;recognized values are altitude and height.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">type_z</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">:</span>
+            <span class="n">type_z</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span> <span class="o">=</span> <span class="n">type_z</span>
+
+        <span class="k">for</span> <span class="n">shot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">unit_angle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">shot</span><span class="o">.</span><span class="n">set_unit_angle</span><span class="p">(</span><span class="n">unit_angle</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">type_z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">shot</span><span class="o">.</span><span class="n">set_type_z</span><span class="p">(</span><span class="n">type_z</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">linear_alteration</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">shot</span><span class="o">.</span><span class="n">set_linear_alteration</span><span class="p">(</span><span class="n">linear_alteration</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">order_axe</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">shot</span><span class="o">.</span><span class="n">set_order_axe</span><span class="p">(</span><span class="n">order_axe</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Worksite.calculate_barycentre">

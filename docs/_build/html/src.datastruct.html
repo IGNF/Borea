@@ -733,49 +733,6 @@ and control points (11, 12, 13).
 </dd></dl>
 
 </section>
-<section id="module-src.datastruct.workshot">
-<span id="src-datastruct-workshot-module"></span><h2>src.datastruct.workshot module<a class="headerlink" href="#module-src.datastruct.workshot" title="Link to this heading">#</a></h2>
-<p>Workshot data shot class module.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.datastruct.workshot.Workshot">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.datastruct.workshot.</span></span><span class="sig-name descname"><span class="pre">Workshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/datastruct/workshot.html#Workshot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workshot.Workshot" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#src.datastruct.workdata.Workdata" title="src.datastruct.workdata.Workdata"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workdata</span></code></a></p>
-<p>Workshot class, class to manage shot data in workdata.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Name of the worksite.</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.datastruct.workshot.Workshot.set_param_shot">
-<span class="sig-name descname"><span class="pre">set_param_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">approx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workshot.html#Workshot.set_param_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workshot.Workshot.set_param_shot" title="Link to this definition">#</a></dt>
-<dd><p>Setting up different parameters in shot by data ressources.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>approx</strong> (<em>bool</em>) – True if you want to use approx euclidean system.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.datastruct.workshot.Workshot.set_unit_shot">
-<span class="sig-name descname"><span class="pre">set_unit_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_alteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_axe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workshot.html#Workshot.set_unit_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workshot.Workshot.set_unit_shot" title="Link to this definition">#</a></dt>
-<dd><p>Allows you to change unit or parameter of shots.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>type_z</strong> (<em>str</em>) – Unit of z shot you want.</p></li>
-<li><p><strong>unit_angle</strong> (<em>str</em>) – Unit angle you want.</p></li>
-<li><p><strong>linear_alteration</strong> (<em>bool</em>) – True if you want data corrected.</p></li>
-<li><p><strong>order_axe</strong> (<em>str</em>) – Order of rotation matrice you want in your angle.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
 <section id="module-src.datastruct">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.datastruct" title="Link to this heading">#</a></h2>
 </section>
@@ -898,14 +855,6 @@ and control points (11, 12, 13).
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_dtm"><code class="docutils literal notranslate"><span class="pre">Workdata.set_dtm()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_proj"><code class="docutils literal notranslate"><span class="pre">Workdata.set_proj()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_unit_z_data"><code class="docutils literal notranslate"><span class="pre">Workdata.set_unit_z_data()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.datastruct.workshot">src.datastruct.workshot module</a><ul>
-<li><a class="reference internal" href="#src.datastruct.workshot.Workshot"><code class="docutils literal notranslate"><span class="pre">Workshot</span></code></a><ul>
-<li><a class="reference internal" href="#src.datastruct.workshot.Workshot.set_param_shot"><code class="docutils literal notranslate"><span class="pre">Workshot.set_param_shot()</span></code></a></li>
-<li><a class="reference internal" href="#src.datastruct.workshot.Workshot.set_unit_shot"><code class="docutils literal notranslate"><span class="pre">Workshot.set_unit_shot()</span></code></a></li>
 </ul>
 </li>
 </ul>

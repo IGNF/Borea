@@ -2,7 +2,6 @@
 Script to test function write of rpc.
 """
 import os
-import shutil
 import numpy as np
 from src.worksite.worksite import Worksite
 from src.writer.writer_rpc import write

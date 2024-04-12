@@ -41,6 +41,10 @@ def camera_txt(file: Path, work: Worksite) -> None:
                             float(dict_info["focal"]),
                             float(dict_info["width"]),
                             float(dict_info["height"]))
+
+            if "pixel_size" in list(dict_info):
+                work.cameras[dict_info["name"]].pixel_size = float(dict_info["pixel_size"])
+
             file_cam.close()
     except FileNotFoundError as e:
         raise FileNotFoundError(f"The path {file} is incorrect !!!") from e

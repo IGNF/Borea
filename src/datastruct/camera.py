@@ -1,7 +1,7 @@
 """
 Camera data class module.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
@@ -23,3 +23,4 @@ class Camera:
     focal: float
     width: int
     height: int
+    pixel_size: float = field(default=None)

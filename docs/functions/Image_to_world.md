@@ -10,7 +10,7 @@ It is built into the shot object to calculate the coordinates of the point in th
 3. **type_z_data**: type of z you want in output 'altitude', 'height' 
 4. **type_z_shot**: type of z there are in shot's position 'altitude' or 'height'. 
 
-The **Camera** object is the camera used for acquisition, defined by a **name**, its **ppax**, **ppay**, **focal** and **width** and **height** of the image in pixel. Ppax and ppay are the main points of image deformation in x and y directions.
+The **Camera** object is the camera used for acquisition, defined by a **name**, its **ppax**, **ppay**, **focal**, **width** and **height** of the image in pixel and **pizel_size** size of the pixel in meter. Ppax and ppay are the main points of image deformation in x and y directions.
 
 **type_z_data** and **type_z_shot** are used to make the right conversions between different data so that calculations are made in the same system.
 

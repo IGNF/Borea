@@ -56,8 +56,8 @@ To read the opk file, you can select a line interval to be read using the -f par
 
 ### Camera file format
 
-The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float) and image size, **width** (int), **height** (int) in pixels and **pixel_size** (float) size of pixel in meter. 
-Ppax and ppay are the main points of image deformation in x and y directions.  
+The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float), image size: **width** (int) and **height** (int) in pixels and **size_pizel** (float) size of pixel in meter.    
+**Ppax** and **ppay** are the main points of image deformation in x and y directions.  
 Each line of the file corresponds to a piece of information, starting with the **type = info**.
 ```
 name = UCE-M3-f120-s06
@@ -66,10 +66,10 @@ ppay = 8502.00
 focal = 30975.00
 width = 26460
 height = 17004
-pixel_size = 4e-6
+size_pixel = 4e-6
 ```
-Only these 7 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool.
-An example file can be found in *./dataset/Camera1.txt*.
+Only these 7 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool, unless the attribute has been added to the [Camera class](./src/datastruct/camera.py).
+An example file can be found in [./dataset/Camera1.txt](./dataset/Camera1.txt).
 
 ### Info projection
 

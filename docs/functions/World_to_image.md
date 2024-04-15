@@ -11,7 +11,7 @@ It takes as parameters :
 3. **type_z_data**: type of z you want in output 'altitude', 'height'.
 4. **type_z_shot**: type of z there are in shot's position 'altitude', 'height'. 
 
-The **Camera** object is the camera used for acquisition, defined by a **name**, its **ppax**, **ppay** and **focal** length, **width** and **height** of the image in pixel. Ppax and ppay are the main points of image deformation in x and y directions.
+The **Camera** object is the camera used for acquisition, defined by a **name**, its **ppax**, **ppay** and **focal** length, **width** and **height** of the image in pixel and **pizel_size** size of the pixel in meter. Ppax and ppay are the main points of image deformation in x and y directions.
 
 Object to instantiate before calculation :
 

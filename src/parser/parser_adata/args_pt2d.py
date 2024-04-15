@@ -20,7 +20,7 @@ def args_add_pt2d(parser: argparse) -> argparse:
     parser.add_argument('-p', '--point2d',
                         type=float, nargs=2,
                         help='Coordinate of the 2D point Column Line.')
-    parser.add_argument('-d', '--unit_z_data',
+    parser.add_argument('-d', '--type_z_data',
                         type=str, default=None, choices=['altitude', 'height', None],
                         help='Unit of the z of the data in output.')
 
@@ -35,7 +35,7 @@ def process_image_world(args: argparse, work: Worksite) -> None:
         args (argparse): Arg to apply on worksite (data).
         work (Worksite): Worksite to work on.
     """
-    work.set_unit_z_data(args.unit_z_data)
+    work.set_type_z_data(args.type_z_data)
 
     coor3d = ImageWorldShot(work.shots[args.name_shot],
                             work.cameras[list(work.cameras.keys())[0]]

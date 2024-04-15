@@ -20,7 +20,7 @@ def args_add_pt3d(parser: argparse) -> argparse:
     parser.add_argument('-p', '--point3d',
                         type=float, nargs=3,
                         help='Coordinate of the 3D point X Y Z.')
-    parser.add_argument('-d', '--unit_z_data',
+    parser.add_argument('-d', '--type_z_data',
                         type=str, default=None, choices=['altitude', 'height', None],
                         help='Unit of the z of the data.')
 
@@ -35,7 +35,7 @@ def process_world_image(args: argparse, work: Worksite) -> None:
         args (argparse): Arg to apply on worksite (data).
         work (Worksite): Worksite to work on.
     """
-    work.set_unit_z_data(args.unit_z_data)
+    work.set_type_z_data(args.type_z_data)
 
     coor2d = WorldImageShot(work.shots[args.name_shot],
                             work.cameras[list(work.cameras.keys())[0]]

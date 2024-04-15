@@ -220,3 +220,45 @@ class Shot:
                              "of shots make dtm or add work.set_z_nadir_shot()")
 
         return new_z
+
+    @property
+    def x(self) -> float:
+        """
+        Getter to return positon X of shot.
+        """
+        return self.pos_shot[0]
+
+    @property
+    def y(self) -> float:
+        """
+        Getter to return positon Y of shot.
+        """
+        return self.pos_shot[1]
+
+    @property
+    def z(self) -> float:
+        """
+        Getter to return positon Z of shot.
+        """
+        return self.pos_shot[2]
+
+    @property
+    def omega(self) -> float:
+        """
+        Getter to return angle omega of shot.
+        """
+        return self.ori_shot[0]
+
+    @property
+    def phi(self) -> float:
+        """
+        Getter to return angle phi of shot.
+        """
+        return self.ori_shot[1]
+
+    @property
+    def kappa(self) -> float:
+        """
+        Getter to return angle kappa of shot.
+        """
+        return self.ori_shot[2]

@@ -78,7 +78,7 @@ class Workdata:
 
     # pylint: disable-next=too-many-arguments
     def add_camera(self, name_camera: str, ppax: float, ppay: float,
-                   focal: float, width: float, height: float) -> None:
+                   focal: float, width: int, height: int, pixel_size: float = None) -> None:
         """
         Add data camera in the Worksite.
 
@@ -87,15 +87,17 @@ class Workdata:
             ppax (float): Center of distortion in x.
             ppay (float): Center of distortion in y.
             focal (float): Focal of the camera.
-            width (float): Width of the image camera.
-            height (float): Height of the image camera.
+            width (int): Width of the image camera.
+            height (int): Height of the image camera.
+            pixel_size (float): Size of pixel in meter (mandatory if you save in conical file).
         """
         self.cameras[name_camera] = Camera(name_camera=name_camera,
                                            ppax=ppax,
                                            ppay=ppay,
                                            focal=focal,
                                            width=width,
-                                           height=height)
+                                           height=height,
+                                           pixel_size=pixel_size)
 
     def add_co_point(self, name_point: str, name_shot: str, coor2d: np.ndarray) -> None:
         """

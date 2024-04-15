@@ -262,3 +262,39 @@ class Shot:
         Getter to return angle kappa of shot.
         """
         return self.ori_shot[2]
+
+    def get_co_points(self, name_pt: str) -> np.ndarray:
+        """
+        Getter to return the position of the connecting point in the image.
+
+        Args:
+            name_pt (str): Name of point.
+
+        Returns:
+            np.array: The position [X, Y, Z].
+        """
+        return self.co_points[name_pt]
+
+    def get_gcp2d(self, name_pt: str) -> np.ndarray:
+        """
+        Getter to return the position of the gcp2d point in the image.
+
+        Args:
+            name_pt (str): Name of point.
+
+        Returns:
+            np.array: The position [X, Y, Z].
+        """
+        return self.gcp2d[name_pt]
+
+    def get_gcp3d(self, name_pt: str) -> np.ndarray:
+        """
+        Getter to return the position of the gcp3d point in the image.
+
+        Args:
+            name_pt (str): Name of point.
+
+        Returns:
+            np.array: The position [X, Y, Z].
+        """
+        return self.gcp3d[name_pt]

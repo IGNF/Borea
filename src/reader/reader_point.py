@@ -41,9 +41,9 @@ def read_file_pt(path: str, header: list, type_point: str, work: Worksite) -> No
                         type_2args = "N"
 
                     try:
-                        work.getattr("add_" + type_point)(info[header.index("P")],
-                                                          info[header.index(type_2args)],
-                                                          coor)
+                        getattr(work, "add_" + type_point)(info[header.index("P")],
+                                                           info[header.index(type_2args)],
+                                                           coor)
                     except ValueError as e:
                         raise ValueError("The letter T is missing "
                                          "from the header of the file.") from e

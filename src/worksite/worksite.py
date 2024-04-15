@@ -17,19 +17,6 @@ class Worksite(Workdata):
         name (str): Name of the worksite.
     """
 
-    def getattr(self, attsrt: str) -> any:
-        """
-        Get attribut by str name.
-
-        Args:
-            attstr (str): String attribute.
-
-        Returns:
-            Any: The attribute of the class.
-        """
-        # pylint: disable-next=unnecessary-dunder-call
-        return self.__getattribute__(attsrt)
-
     def get_point_image_dataframe(self, type_point: str, control_type: list) -> pd.DataFrame:
         """
         Retrieves id_pt, id_img, column, line in a pandas of the requested point type.
@@ -52,13 +39,13 @@ class Worksite(Workdata):
         id_pt = []
         id_img = []
         coor = []
-        for name_pt, list_shot in self.getattr(type_iter).items():
+        for name_pt, list_shot in getattr(self, type_iter).items():
             if control_type and self.gcp3d[name_pt].code not in control_type:
                 continue
             for name_shot in list_shot:
                 id_pt.append(name_pt)
                 id_img.append(name_shot)
-                coor.append(self.shots[name_shot].getattr(type_point)[name_pt])
+                coor.append(getattr(self.shots[name_shot], type_point)[name_pt])
 
         coor = np.array(coor)
         return pd.DataFrame({"id_pt": id_pt, "id_img": id_img,
@@ -77,9 +64,8 @@ class Worksite(Workdata):
 
         for _, row in pd_mes.iterrows():
             try:
-                self.shots[row['id_img']
-                           ].getattr(type_point)[row['id_pt']] = np.array([row['column'],
-                                                                           row['line']])
+                getattr(self.shots[row['id_img']],
+                        type_point)[row['id_pt']] = np.array([row['column'], row['line']])
             except KeyError:
                 continue
 
@@ -105,7 +91,7 @@ class Worksite(Workdata):
 
         id_pt = []
         coor = []
-        for name_pt, coor_pt in self.getattr(out_pt).items():
+        for name_pt, coor_pt in getattr(self, out_pt).items():
             if control_type and self.gcp3d[name_pt].code not in control_type:
                 continue
             id_pt.append(name_pt)
@@ -132,7 +118,7 @@ class Worksite(Workdata):
 
         if "type" not in list(pd_mes.columns):
             for _, row in pd_mes.iterrows():
-                self.getattr(out_pt)[row['id_pt']] = np.array([row['x'], row['y'], row['z']])
+                getattr(self, out_pt)[row['id_pt']] = np.array([row['x'], row['y'], row['z']])
         else:
             for _, row in pd_mes.iterrows():
                 self.add_gcp3d(row['id_pt'], row['type'], np.array([row['x'], row['y'], row['z']]))
@@ -156,15 +142,15 @@ class Worksite(Workdata):
         else:
             out_pt = "gcp2d_in_world"
 
-        if not self.getattr(out_pt):
+        if not getattr(self, out_pt):
             raise ValueError(f"Attribut {out_pt} in worksite is empty.")
 
-        co_point = self.shots[name_shot].getattr(type_point)
+        co_point = getattr(self.shots[name_shot], type_point)
         world_pt = []
         img_pt = []
         for key_pt, img_coor in co_point.items():
             try:
-                pt_world = self.getattr(out_pt)[key_pt]
+                pt_world = getattr(self, out_pt)[key_pt]
                 world_pt.append(pt_world)
                 img_pt.append(img_coor)
             except KeyError:

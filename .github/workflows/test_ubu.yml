@@ -52,3 +52,6 @@ jobs:
 
     - name: Run regression test spaceresection opk
       run: python3 ./spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./test/data/dataset2/all_liaisons2.mes -g ./test/data/dataset2/all_liaisons2_world.mes -l PXYZ --fg height -n SpaceResection -w ./test/tmp/ -o NXYZOPKC -ou degree -oa True
+
+    - name: Run regression test opk to conical
+      run: python3 ./opk_to_conical.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -w ./test/tmp/

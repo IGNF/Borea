@@ -8,7 +8,7 @@ Function to calculate the Euclidean coordinates of a point, visible on two acqui
 2. **shot1**: first acquisition where the point is visible and its image coordinates are known, Shot object format.
 3. **shot2**: second acquisition where the point is visible and its image coordinates are known, Shot object format.
 
-The **Shot** object is an object for an acquisition that defines it, with a **name** (str), **position** (pmatrix), **rotation angles** (pmatrix), **camera name** (str), **unit angle** (str "degree" or "radian") and **linear alteration** (bool).
+The **Shot** object is an object for an acquisition that defines it, with a **name** (str), **position** (array), **rotation angles** (array), **camera name** (str), **unit angle** (str "degree" or "radian"), **linear alteration** (bool) and **order_axe** (str).
 
 Object to instantiate before calculation :
 
@@ -135,8 +135,8 @@ work = Worksite("Test")
 # unit_angle = "degree" or "radian".
 # linear_alteration True if z shot is corrected by linear alteration.
 # order of rotation axe "opk" or "pok" ...
-work.add_shot("shot1",np.pmatrix([814975.925,6283986.148,1771.280]),np.pmatrix([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True, "opk")
-work.add_shot("shot2",np.pmatrix([814977.593,6283733.183,1771.519]),np.pmatrix([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True, "opk")
+work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True, "opk")
+work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True, "opk")
 
 # Setup projection
 # set_epsg(epsg, path_geoid)

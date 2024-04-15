@@ -8,6 +8,7 @@ Creation of a worksite object from a worksite file (.opk) to be read by `reader_
 * `"header":header` described in the section above, is a list of str e.g. `['N', 'X', 'Y', 'Z', 'O', 'P', 'K', 'C']`, detail letter below. 
 * `"unit_angle": "degree"` degree or radian. 
 * `"linear_alteration": True` boolean saying True if z shots are corrected by linear alteration.
+* `"order_axe: "opk"` string to define the order of angle to calculate rotation matrix.
 
 Once the object has been created, you can add other data to it:
 

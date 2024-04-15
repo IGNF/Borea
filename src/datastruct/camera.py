@@ -16,11 +16,12 @@ class Camera:
         focal (float): Focal of the camera.
         width (int): Width of the image in pixel.
         height (int): Height of the image in pixel.
+        pixel_size (float): Size of pixel in meter (mandatory if you save in conical file).
     """
     name_camera: str
-    ppax: float
-    ppay: float
-    focal: float
-    width: int
-    height: int
+    ppax: float = field(default=None)
+    ppay: float = field(default=None)
+    focal: float = field(default=None)
+    width: int = field(default=None)
+    height: int = field(default=None)
     pixel_size: float = field(default=None)

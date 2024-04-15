@@ -165,13 +165,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_format.html">src.parser.parser_format package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_func.html">src.parser.parser_func package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.rsc.html">src.rsc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.stat.html">src.stat package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.transform_world_image.html">src.transform_world_image package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of src.transform_world_image package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.transform_world_image.transform_dtm.html">src.transform_world_image.transform_dtm package</a></li>
@@ -182,6 +182,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.utils.html">src.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of src.utils package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.utils.check.html">src.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.utils.singleton.html">src.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.utils.xml.html">src.utils.xml package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.worksite.html">src.worksite package</a></li>
@@ -269,9 +270,9 @@
                         <span class="n">type_2args</span> <span class="o">=</span> <span class="s2">&quot;N&quot;</span>
 
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">work</span><span class="o">.</span><span class="n">getattr</span><span class="p">(</span><span class="s2">&quot;add_&quot;</span> <span class="o">+</span> <span class="n">type_point</span><span class="p">)(</span><span class="n">info</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">)],</span>
-                                                          <span class="n">info</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">type_2args</span><span class="p">)],</span>
-                                                          <span class="n">coor</span><span class="p">)</span>
+                        <span class="nb">getattr</span><span class="p">(</span><span class="n">work</span><span class="p">,</span> <span class="s2">&quot;add_&quot;</span> <span class="o">+</span> <span class="n">type_point</span><span class="p">)(</span><span class="n">info</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">)],</span>
+                                                           <span class="n">info</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">type_2args</span><span class="p">)],</span>
+                                                           <span class="n">coor</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The letter T is missing &quot;</span>
                                          <span class="s2">&quot;from the header of the file.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>

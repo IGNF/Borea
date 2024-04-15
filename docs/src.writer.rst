@@ -12,6 +12,14 @@ src.writer.manage\_writer module
    :undoc-members:
    :show-inheritance:
 
+src.writer.writer\_con module
+-----------------------------
+
+.. automodule:: src.writer.writer_con
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 src.writer.writer\_df\_to\_txt module
 -------------------------------------
 

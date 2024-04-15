@@ -166,13 +166,13 @@
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_format.html">src.parser.parser_format package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_func.html">src.parser.parser_func package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="src.rsc.html">src.rsc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.stat.html">src.stat package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.transform_world_image.html">src.transform_world_image package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of src.transform_world_image package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.transform_world_image.transform_dtm.html">src.transform_world_image.transform_dtm package</a></li>
@@ -183,6 +183,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.utils.html">src.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of src.utils package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.utils.check.html">src.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.utils.singleton.html">src.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.utils.xml.html">src.utils.xml package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.worksite.html">src.worksite package</a></li>
@@ -235,7 +236,7 @@
 <p>Camera data class module.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.datastruct.camera.Camera">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.datastruct.camera.</span></span><span class="sig-name descname"><span class="pre">Camera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_camera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/datastruct/camera.html#Camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.camera.Camera" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.datastruct.camera.</span></span><span class="sig-name descname"><span class="pre">Camera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_camera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/datastruct/camera.html#Camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.camera.Camera" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Shot class definition.</p>
 <dl class="field-list simple">
@@ -247,17 +248,18 @@
 <li><p><strong>focal</strong> (<em>float</em>) – Focal of the camera.</p></li>
 <li><p><strong>width</strong> (<em>int</em>) – Width of the image in pixel.</p></li>
 <li><p><strong>height</strong> (<em>int</em>) – Height of the image in pixel.</p></li>
+<li><p><strong>pixel_size</strong> (<em>float</em>) – Size of pixel in meter (mandatory if you save in conical file).</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.datastruct.camera.Camera.focal">
-<span class="sig-name descname"><span class="pre">focal</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.datastruct.camera.Camera.focal" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">focal</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#src.datastruct.camera.Camera.focal" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.datastruct.camera.Camera.height">
-<span class="sig-name descname"><span class="pre">height</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#src.datastruct.camera.Camera.height" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">height</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#src.datastruct.camera.Camera.height" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -266,18 +268,23 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="src.datastruct.camera.Camera.pixel_size">
+<span class="sig-name descname"><span class="pre">pixel_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#src.datastruct.camera.Camera.pixel_size" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="src.datastruct.camera.Camera.ppax">
-<span class="sig-name descname"><span class="pre">ppax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.datastruct.camera.Camera.ppax" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">ppax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#src.datastruct.camera.Camera.ppax" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.datastruct.camera.Camera.ppay">
-<span class="sig-name descname"><span class="pre">ppay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.datastruct.camera.Camera.ppay" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">ppay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#src.datastruct.camera.Camera.ppay" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.datastruct.camera.Camera.width">
-<span class="sig-name descname"><span class="pre">width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#src.datastruct.camera.Camera.width" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#src.datastruct.camera.Camera.width" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -460,6 +467,57 @@ and control points (11, 12, 13)
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.shot.Shot.get_co_points">
+<span class="sig-name descname"><span class="pre">get_co_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/datastruct/shot.html#Shot.get_co_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.shot.Shot.get_co_points" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return the position of the connecting point in the image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name_pt</strong> (<em>str</em>) – Name of point.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The position [X, Y, Z].</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.shot.Shot.get_gcp2d">
+<span class="sig-name descname"><span class="pre">get_gcp2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/datastruct/shot.html#Shot.get_gcp2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.shot.Shot.get_gcp2d" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return the position of the gcp2d point in the image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name_pt</strong> (<em>str</em>) – Name of point.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The position [X, Y, Z].</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.shot.Shot.get_gcp3d">
+<span class="sig-name descname"><span class="pre">get_gcp3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/datastruct/shot.html#Shot.get_gcp3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.shot.Shot.get_gcp3d" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return the position of the gcp3d point in the image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name_pt</strong> (<em>str</em>) – Name of point.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The position [X, Y, Z].</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="src.datastruct.shot.Shot.get_z_add_scale_factor">
 <span class="sig-name descname"><span class="pre">get_z_add_scale_factor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/src/datastruct/shot.html#Shot.get_z_add_scale_factor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.shot.Shot.get_z_add_scale_factor" title="Link to this definition">#</a></dt>
 <dd><p>Return Z after adding the scale factor. The Z of the object is NOT modified.</p>
@@ -487,21 +545,22 @@ and control points (11, 12, 13)
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="src.datastruct.shot.Shot.getattr">
-<span class="sig-name descname"><span class="pre">getattr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attsrt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">any</span></span></span><a class="reference internal" href="_modules/src/datastruct/shot.html#Shot.getattr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.shot.Shot.getattr" title="Link to this definition">#</a></dt>
-<dd><p>Get attribut by str name.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>attstr</strong> (<em>str</em>) – String attribute.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The attribute of the class.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="src.datastruct.shot.Shot.kappa">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kappa</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.datastruct.shot.Shot.kappa" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return angle kappa of shot.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="src.datastruct.shot.Shot.omega">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">omega</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.datastruct.shot.Shot.omega" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return angle omega of shot.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="src.datastruct.shot.Shot.phi">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">phi</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.datastruct.shot.Shot.phi" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return angle phi of shot.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -584,6 +643,24 @@ and control points (11, 12, 13)
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="src.datastruct.shot.Shot.x">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.datastruct.shot.Shot.x" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return positon X of shot.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="src.datastruct.shot.Shot.y">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.datastruct.shot.Shot.y" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return positon Y of shot.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="src.datastruct.shot.Shot.z">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">z</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.datastruct.shot.Shot.z" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return positon Z of shot.</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -597,7 +674,7 @@ and control points (11, 12, 13)
 <p>Workdata class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.add_camera">
-<span class="sig-name descname"><span class="pre">add_camera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_camera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.add_camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.add_camera" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_camera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_camera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.add_camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.add_camera" title="Link to this definition">#</a></dt>
 <dd><p>Add data camera in the Worksite.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -606,8 +683,9 @@ and control points (11, 12, 13)
 <li><p><strong>ppax</strong> (<em>float</em>) – Center of distortion in x.</p></li>
 <li><p><strong>ppay</strong> (<em>float</em>) – Center of distortion in y.</p></li>
 <li><p><strong>focal</strong> (<em>float</em>) – Focal of the camera.</p></li>
-<li><p><strong>width</strong> (<em>float</em>) – Width of the image camera.</p></li>
-<li><p><strong>height</strong> (<em>float</em>) – Height of the image camera.</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – Width of the image camera.</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – Height of the image camera.</p></li>
+<li><p><strong>pixel_size</strong> (<em>float</em>) – Size of pixel in meter (mandatory if you save in conical file).</p></li>
 </ul>
 </dd>
 </dl>
@@ -681,12 +759,131 @@ and control points (11, 12, 13).
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.set_approx_eucli_proj">
-<span class="sig-name descname"><span class="pre">set_approx_eucli_proj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">approx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.set_approx_eucli_proj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.set_approx_eucli_proj" title="Link to this definition">#</a></dt>
-<dd><p>Setup approxeucli in worksite</p>
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.get_camera">
+<span class="sig-name descname"><span class="pre">get_camera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_camera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.get_camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.get_camera" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return camera.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>apprx</strong> (<em>bool</em>) – True if there are not projengine</p>
+<dd class="field-odd"><p><strong>name_camera</strong> (<em>str</em>) – Name of camera to return.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The camera.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera">Camera</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.get_co_points">
+<span class="sig-name descname"><span class="pre">get_co_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.get_co_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.get_co_points" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return list of shot where there is point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name_pt</strong> (<em>str</em>) – Name of point where you want information.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The shots where there is the point.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.get_co_pts_world">
+<span class="sig-name descname"><span class="pre">get_co_pts_world</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.get_co_pts_world"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.get_co_pts_world" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return position X, Y, Z of the connecting point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name_pt</strong> (<em>str</em>) – Name of connecting point.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The position of the point in the world.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.get_gcp2d">
+<span class="sig-name descname"><span class="pre">get_gcp2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.get_gcp2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.get_gcp2d" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return list of shot where there is point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name_pt</strong> (<em>str</em>) – Name of point where you want information.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The shots where there is the point.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.get_gcp2d_in_world">
+<span class="sig-name descname"><span class="pre">get_gcp2d_in_world</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.get_gcp2d_in_world"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.get_gcp2d_in_world" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return position X, Y, Z of the gcp2d point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name_pt</strong> (<em>str</em>) – Name of gcp2d point.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The position of the point in the world.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.get_gcp3d">
+<span class="sig-name descname"><span class="pre">get_gcp3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.datastruct.gcp.GCP" title="src.datastruct.gcp.GCP"><span class="pre">GCP</span></a></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.get_gcp3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.get_gcp3d" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return GCP.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name_pt</strong> (<em>str</em>) – Name of point gcp.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The GCP.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#src.datastruct.gcp.GCP" title="src.datastruct.gcp.GCP">GCP</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.get_shot">
+<span class="sig-name descname"><span class="pre">get_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.get_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.get_shot" title="Link to this definition">#</a></dt>
+<dd><p>Getter to return shot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name_shot</strong> (<em>str</em>) – Name of shot to return.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The shot.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>shot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.set_approx_eucli_proj">
+<span class="sig-name descname"><span class="pre">set_approx_eucli_proj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">approx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.set_approx_eucli_proj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.set_approx_eucli_proj" title="Link to this definition">#</a></dt>
+<dd><p>Setup approxeucli in worksite.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>apprx</strong> (<em>bool</em>) – True if there are not projengine.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -694,7 +891,7 @@ and control points (11, 12, 13).
 <dl class="py method">
 <dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.set_dtm">
 <span class="sig-name descname"><span class="pre">set_dtm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_dtm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_dtm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.set_dtm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.set_dtm" title="Link to this definition">#</a></dt>
-<dd><p>set class DtM to the worksite.</p>
+<dd><p>Set class DtM to the worksite.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -720,12 +917,23 @@ and control points (11, 12, 13).
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.set_unit_z_data">
-<span class="sig-name descname"><span class="pre">set_unit_z_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_z_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.set_unit_z_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.set_unit_z_data" title="Link to this definition">#</a></dt>
-<dd><p>Setup unit_z_data with one condition if is None.</p>
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.set_type_z_data">
+<span class="sig-name descname"><span class="pre">set_type_z_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_z_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.set_type_z_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.set_type_z_data" title="Link to this definition">#</a></dt>
+<dd><p>Setup type_z_data with one condition if is None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>unit_z_data</strong> (<em>str</em>) – altitude or height</p>
+<dd class="field-odd"><p><strong>type_z_data</strong> (<em>str</em>) – altitude or height.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.datastruct.workdata.Workdata.set_type_z_shot">
+<span class="sig-name descname"><span class="pre">set_type_z_shot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_z_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/datastruct/workdata.html#Workdata.set_type_z_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.datastruct.workdata.Workdata.set_type_z_shot" title="Link to this definition">#</a></dt>
+<dd><p>Setup type_z_shot in worksite.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type_z_shot</strong> (<em>str</em>) – altitude or height.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -800,6 +1008,7 @@ and control points (11, 12, 13).
 <li><a class="reference internal" href="#src.datastruct.camera.Camera.focal"><code class="docutils literal notranslate"><span class="pre">Camera.focal</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.camera.Camera.height"><code class="docutils literal notranslate"><span class="pre">Camera.height</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.camera.Camera.name_camera"><code class="docutils literal notranslate"><span class="pre">Camera.name_camera</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.camera.Camera.pixel_size"><code class="docutils literal notranslate"><span class="pre">Camera.pixel_size</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.camera.Camera.ppax"><code class="docutils literal notranslate"><span class="pre">Camera.ppax</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.camera.Camera.ppay"><code class="docutils literal notranslate"><span class="pre">Camera.ppay</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.camera.Camera.width"><code class="docutils literal notranslate"><span class="pre">Camera.width</span></code></a></li>
@@ -830,9 +1039,14 @@ and control points (11, 12, 13).
 <li><a class="reference internal" href="#module-src.datastruct.shot">src.datastruct.shot module</a><ul>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot"><code class="docutils literal notranslate"><span class="pre">Shot</span></code></a><ul>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.from_param_euclidean"><code class="docutils literal notranslate"><span class="pre">Shot.from_param_euclidean()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.shot.Shot.get_co_points"><code class="docutils literal notranslate"><span class="pre">Shot.get_co_points()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.shot.Shot.get_gcp2d"><code class="docutils literal notranslate"><span class="pre">Shot.get_gcp2d()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.shot.Shot.get_gcp3d"><code class="docutils literal notranslate"><span class="pre">Shot.get_gcp3d()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.get_z_add_scale_factor"><code class="docutils literal notranslate"><span class="pre">Shot.get_z_add_scale_factor()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.get_z_remove_scale_factor"><code class="docutils literal notranslate"><span class="pre">Shot.get_z_remove_scale_factor()</span></code></a></li>
-<li><a class="reference internal" href="#src.datastruct.shot.Shot.getattr"><code class="docutils literal notranslate"><span class="pre">Shot.getattr()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.shot.Shot.kappa"><code class="docutils literal notranslate"><span class="pre">Shot.kappa</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.shot.Shot.omega"><code class="docutils literal notranslate"><span class="pre">Shot.omega</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.shot.Shot.phi"><code class="docutils literal notranslate"><span class="pre">Shot.phi</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.set_linear_alteration"><code class="docutils literal notranslate"><span class="pre">Shot.set_linear_alteration()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.set_order_axe"><code class="docutils literal notranslate"><span class="pre">Shot.set_order_axe()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.set_param_eucli_shot"><code class="docutils literal notranslate"><span class="pre">Shot.set_param_eucli_shot()</span></code></a></li>
@@ -840,6 +1054,9 @@ and control points (11, 12, 13).
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.set_type_z"><code class="docutils literal notranslate"><span class="pre">Shot.set_type_z()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.set_unit_angle"><code class="docutils literal notranslate"><span class="pre">Shot.set_unit_angle()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.shot.Shot.set_z_nadir"><code class="docutils literal notranslate"><span class="pre">Shot.set_z_nadir()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.shot.Shot.x"><code class="docutils literal notranslate"><span class="pre">Shot.x</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.shot.Shot.y"><code class="docutils literal notranslate"><span class="pre">Shot.y</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.shot.Shot.z"><code class="docutils literal notranslate"><span class="pre">Shot.z</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -851,10 +1068,18 @@ and control points (11, 12, 13).
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.add_gcp2d"><code class="docutils literal notranslate"><span class="pre">Workdata.add_gcp2d()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.add_gcp3d"><code class="docutils literal notranslate"><span class="pre">Workdata.add_gcp3d()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.add_shot"><code class="docutils literal notranslate"><span class="pre">Workdata.add_shot()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.get_camera"><code class="docutils literal notranslate"><span class="pre">Workdata.get_camera()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.get_co_points"><code class="docutils literal notranslate"><span class="pre">Workdata.get_co_points()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.get_co_pts_world"><code class="docutils literal notranslate"><span class="pre">Workdata.get_co_pts_world()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.get_gcp2d"><code class="docutils literal notranslate"><span class="pre">Workdata.get_gcp2d()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.get_gcp2d_in_world"><code class="docutils literal notranslate"><span class="pre">Workdata.get_gcp2d_in_world()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.get_gcp3d"><code class="docutils literal notranslate"><span class="pre">Workdata.get_gcp3d()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.get_shot"><code class="docutils literal notranslate"><span class="pre">Workdata.get_shot()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_approx_eucli_proj"><code class="docutils literal notranslate"><span class="pre">Workdata.set_approx_eucli_proj()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_dtm"><code class="docutils literal notranslate"><span class="pre">Workdata.set_dtm()</span></code></a></li>
 <li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_proj"><code class="docutils literal notranslate"><span class="pre">Workdata.set_proj()</span></code></a></li>
-<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_unit_z_data"><code class="docutils literal notranslate"><span class="pre">Workdata.set_unit_z_data()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_type_z_data"><code class="docutils literal notranslate"><span class="pre">Workdata.set_type_z_data()</span></code></a></li>
+<li><a class="reference internal" href="#src.datastruct.workdata.Workdata.set_type_z_shot"><code class="docutils literal notranslate"><span class="pre">Workdata.set_type_z_shot()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -166,13 +166,13 @@
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_format.html">src.parser.parser_format package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_func.html">src.parser.parser_func package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="src.rsc.html">src.rsc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.stat.html">src.stat package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.transform_world_image.html">src.transform_world_image package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of src.transform_world_image package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.transform_world_image.transform_dtm.html">src.transform_world_image.transform_dtm package</a></li>
@@ -183,6 +183,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.utils.html">src.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of src.utils package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.utils.check.html">src.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.utils.singleton.html">src.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.utils.xml.html">src.utils.xml package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.worksite.html">src.worksite package</a></li>
@@ -229,6 +230,78 @@
 <h1>src.format package<a class="headerlink" href="#src-format-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-src.format.conical">
+<span id="src-format-conical-module"></span><h2>src.format.conical module<a class="headerlink" href="#module-src.format.conical" title="Link to this heading">#</a></h2>
+<p>Class to write shot in conical IGN format</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.format.conical.Conical">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.format.conical.</span></span><span class="sig-name descname"><span class="pre">Conical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">proj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/format/conical.html#Conical"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.format.conical.Conical" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for conical shot.
+File reading by software Geoview IGN on MacOs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shot</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><em>Shot</em></a>) – Shot to convert in conical file.</p></li>
+<li><p><strong>cam</strong> (<a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><em>Camera</em></a>) – Camera of the shot.</p></li>
+<li><p><strong>proj</strong> (<em>str</em>) – Projection of the shot for GEOVIEW.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.format.conical.Conical.cam">
+<span class="sig-name descname"><span class="pre">cam</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="src.datastruct.html#src.datastruct.camera.Camera" title="src.datastruct.camera.Camera"><span class="pre">Camera</span></a></em><a class="headerlink" href="#src.format.conical.Conical.cam" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.format.conical.Conical.proj">
+<span class="sig-name descname"><span class="pre">proj</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#src.format.conical.Conical.proj" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.format.conical.Conical.save_conical">
+<span class="sig-name descname"><span class="pre">save_conical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_conical</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linalt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/format/conical.html#Conical.save_conical"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.format.conical.Conical.save_conical" title="Link to this definition">#</a></dt>
+<dd><p>Save the shot as light conical file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_conical</strong> (<em>Path</em>) – path to the conical file.</p></li>
+<li><p><strong>linalt</strong> (<em>bool</em>) – If you want z shot corrected by linear alteration.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.format.conical.Conical.set_camera_xml">
+<span class="sig-name descname"><span class="pre">set_camera_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geometry:</span> <span class="pre">&lt;module</span> <span class="pre">'xml.etree.ElementTree'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/xml/etree/ElementTree.py'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/format/conical.html#Conical.set_camera_xml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.format.conical.Conical.set_camera_xml" title="Link to this definition">#</a></dt>
+<dd><p>Setup balise camera of xml.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>geometry</strong> (<em>ET</em>) – The xml.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.format.conical.Conical.set_geometry_xml">
+<span class="sig-name descname"><span class="pre">set_geometry_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ori:</span> <span class="pre">&lt;module</span> <span class="pre">'xml.etree.ElementTree'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/xml/etree/ElementTree.py'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/format/conical.html#Conical.set_geometry_xml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.format.conical.Conical.set_geometry_xml" title="Link to this definition">#</a></dt>
+<dd><p>Setup balise geometry of xml.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ori</strong> (<em>ET</em>) – The xml.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.format.conical.Conical.shot">
+<span class="sig-name descname"><span class="pre">shot</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="src.datastruct.html#src.datastruct.shot.Shot" title="src.datastruct.shot.Shot"><span class="pre">Shot</span></a></em><a class="headerlink" href="#src.format.conical.Conical.shot" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-src.format.rpc">
 <span id="src-format-rpc-module"></span><h2>src.format.rpc module<a class="headerlink" href="#module-src.format.rpc" title="Link to this heading">#</a></h2>
@@ -424,6 +497,18 @@ geographical coordinates to images coordinates.</p>
             <ul>
 <li><a class="reference internal" href="#">src.format package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.format.conical">src.format.conical module</a><ul>
+<li><a class="reference internal" href="#src.format.conical.Conical"><code class="docutils literal notranslate"><span class="pre">Conical</span></code></a><ul>
+<li><a class="reference internal" href="#src.format.conical.Conical.cam"><code class="docutils literal notranslate"><span class="pre">Conical.cam</span></code></a></li>
+<li><a class="reference internal" href="#src.format.conical.Conical.proj"><code class="docutils literal notranslate"><span class="pre">Conical.proj</span></code></a></li>
+<li><a class="reference internal" href="#src.format.conical.Conical.save_conical"><code class="docutils literal notranslate"><span class="pre">Conical.save_conical()</span></code></a></li>
+<li><a class="reference internal" href="#src.format.conical.Conical.set_camera_xml"><code class="docutils literal notranslate"><span class="pre">Conical.set_camera_xml()</span></code></a></li>
+<li><a class="reference internal" href="#src.format.conical.Conical.set_geometry_xml"><code class="docutils literal notranslate"><span class="pre">Conical.set_geometry_xml()</span></code></a></li>
+<li><a class="reference internal" href="#src.format.conical.Conical.shot"><code class="docutils literal notranslate"><span class="pre">Conical.shot</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-src.format.rpc">src.format.rpc module</a><ul>
 <li><a class="reference internal" href="#src.format.rpc.Rpc"><code class="docutils literal notranslate"><span class="pre">Rpc</span></code></a><ul>
 <li><a class="reference internal" href="#src.format.rpc.Rpc.create_grid_rpc"><code class="docutils literal notranslate"><span class="pre">Rpc.create_grid_rpc()</span></code></a></li>

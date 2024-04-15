@@ -166,13 +166,13 @@
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_format.html">src.parser.parser_format package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_func.html">src.parser.parser_func package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="src.rsc.html">src.rsc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.stat.html">src.stat package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.transform_world_image.html">src.transform_world_image package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of src.transform_world_image package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.transform_world_image.transform_dtm.html">src.transform_world_image.transform_dtm package</a></li>
@@ -183,6 +183,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.utils.html">src.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of src.utils package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.utils.check.html">src.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.utils.singleton.html">src.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.utils.xml.html">src.utils.xml package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.worksite.html">src.worksite package</a></li>
@@ -244,6 +245,26 @@
 <li><p><strong>name</strong> (<em>str</em>) – Name of the file.</p></li>
 <li><p><strong>pathreturn</strong> (<em>str</em>) – Path to save the project.</p></li>
 <li><p><strong>args</strong> (<em>dict</em>) – Other information for writing the file.</p></li>
+<li><p><strong>work</strong> (<a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><em>Worksite</em></a>) – The site to be recorded.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.writer.writer_con">
+<span id="src-writer-writer-con-module"></span><h2>src.writer.writer_con module<a class="headerlink" href="#module-src.writer.writer_con" title="Link to this heading">#</a></h2>
+<p>Photogrammetry worksite to writing in rpc.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.writer.writer_con.write">
+<span class="sig-prename descclassname"><span class="pre">src.writer.writer_con.</span></span><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_con</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_con</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><span class="pre">Worksite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/writer/writer_con.html#write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.writer.writer_con.write" title="Link to this definition">#</a></dt>
+<dd><p>Converte Worksite in Conical class and save it in CON.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of file begin.</p></li>
+<li><p><strong>folder_con</strong> (<em>str</em>) – Path of folder to registration file .CON.</p></li>
+<li><p><strong>param_con</strong> (<em>dict</em>) – None.</p></li>
 <li><p><strong>work</strong> (<a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><em>Worksite</em></a>) – The site to be recorded.</p></li>
 </ul>
 </dd>
@@ -376,6 +397,10 @@ line_writingar alteration.</p></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-src.writer.manage_writer">src.writer.manage_writer module</a><ul>
 <li><a class="reference internal" href="#src.writer.manage_writer.manager_writer"><code class="docutils literal notranslate"><span class="pre">manager_writer()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.writer.writer_con">src.writer.writer_con module</a><ul>
+<li><a class="reference internal" href="#src.writer.writer_con.write"><code class="docutils literal notranslate"><span class="pre">write()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-src.writer.writer_df_to_txt">src.writer.writer_df_to_txt module</a><ul>

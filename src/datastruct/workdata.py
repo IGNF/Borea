@@ -177,7 +177,7 @@ class Workdata:
 
     def set_dtm(self, path_dtm: str, type_dtm: str) -> None:
         """
-        set class DtM to the worksite.
+        Set class DtM to the worksite.
 
         Args:
             path_dtm (str): Path to the dtm.
@@ -193,21 +193,114 @@ class Workdata:
 
     def set_approx_eucli_proj(self, approx: bool) -> None:
         """
-        Setup approxeucli in worksite
+        Setup approxeucli in worksite.
 
         Args:
-            apprx (bool): True if there are not projengine
+            apprx (bool): True if there are not projengine.
         """
         self.approxeucli = approx
 
-    def set_unit_z_data(self, unit_z_data: str) -> None:
+    def set_type_z_shot(self, type_z_shot: str) -> None:
         """
-        Setup unit_z_data with one condition if is None.
+        Setup type_z_shot in worksite.
 
         Args:
-            unit_z_data (str): altitude or height
+            type_z_shot (str): altitude or height.
         """
-        if unit_z_data:
-            self.type_z_data = unit_z_data
+        self.type_z_shot = type_z_shot
+
+    def set_type_z_data(self, type_z_data: str) -> None:
+        """
+        Setup type_z_data with one condition if is None.
+
+        Args:
+            type_z_data (str): altitude or height.
+        """
+        if type_z_data:
+            self.type_z_data = type_z_data
         else:
             self.type_z_data = self.type_z_shot
+
+    def get_shot(self, name_shot: str) -> Shot:
+        """
+        Getter to return shot.
+
+        Args:
+            name_shot (str): Name of shot to return.
+
+        Returns:
+            shot: The shot.
+        """
+        return self.shots[name_shot]
+
+    def get_camera(self, name_camera: str) -> Camera:
+        """
+        Getter to return camera.
+
+        Args:
+            name_camera (str): Name of camera to return.
+
+        Returns:
+            Camera: The camera.
+        """
+        return self.cameras[name_camera]
+
+    def get_co_points(self, name_pt: str) -> list:
+        """
+        Getter to return list of shot where there is point.
+
+        Args:
+            name_pt (str): Name of point where you want information.
+
+        Returns:
+            list: The shots where there is the point.
+        """
+        return self.co_points[name_pt]
+
+    def get_gcp2d(self, name_pt: str) -> list:
+        """
+        Getter to return list of shot where there is point.
+
+        Args:
+            name_pt (str): Name of point where you want information.
+
+        Returns:
+            list: The shots where there is the point.
+        """
+        return self.gcp2d[name_pt]
+
+    def get_gcp3d(self, name_pt: str) -> GCP:
+        """
+        Getter to return GCP.
+
+        Args:
+            name_pt (str): Name of point gcp.
+
+        Returns:
+            GCP: The GCP.
+        """
+        return self.gcp3d[name_pt]
+
+    def get_co_pts_world(self, name_pt: str) -> np.ndarray:
+        """
+        Getter to return position X, Y, Z of the connecting point.
+
+        Args:
+            name_pt (str): Name of connecting point.
+
+        Returns:
+            np.array: The position of the point in the world.
+        """
+        return self.co_pts_world[name_pt]
+
+    def get_gcp2d_in_world(self, name_pt: str) -> np.ndarray:
+        """
+        Getter to return position X, Y, Z of the gcp2d point.
+
+        Args:
+            name_pt (str): Name of gcp2d point.
+
+        Returns:
+            np.array: The position of the point in the world.
+        """
+        return self.gcp2d_in_world[name_pt]

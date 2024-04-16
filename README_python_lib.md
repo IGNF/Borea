@@ -5,7 +5,7 @@
 Creation of a worksite object from a worksite file (.opk) to be read by `reader_orientation(pathfile, arg_dict)`.  
 `arg_dict` is a dictionary for different args: 
 * `"interval":[first_line, last_line]` is an list of int that specifies the number of lines you want to read. `first_line` allows you to skip the file header, which must not be taken into account when reading the file, as specified in the `header` variable. If `first_line = None` skips everything up to `last_line`, if `lastline = None` skips everything from `first_line` to the end, and if both are None reads the entire file.
-* `"header":header` described in the section above, is a list of str e.g. `['N', 'X', 'Y', 'Z', 'O', 'P', 'K', 'C']`, detail letter [below](#header-of-file-opk). 
+* `"header":header` described in the section above, is a list of str e.g. `['N', 'X', 'Y', 'Z', 'O', 'P', 'K', 'C'] = list("NXYZOPKC")`, detail of letter [below](#header-of-file-opk). 
 * `"unit_angle": "degree"` degree or radian. 
 * `"linear_alteration": True` boolean saying True if z shots are corrected by linear alteration.
 * `"order_axe: "opk"` string to define the order of angle to calculate rotation matrix.
@@ -18,11 +18,7 @@ Once the object has been created, you can add other data to it:
 
 * The camera with `read_camera([filepath], worksite)`, this function only reads txt and xml files referencing camera data, and can take several camera files if there are several.
 
-* Link points with `read_co_points([filepath], worksite)`. Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files.
-
-* Link points with `read_gcp2d([filepath], worksite)`. Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files. In addition, the z data type 'height' or 'altitude' must be added to worksite `worksite.set_type_z_data('altitude')`. 
-
-* Field points (GCPs) with `read_gcp([pathfile], worksite)`. Adds control and support terrain points in .app file format, can read multiple files. In addition, the z data type 'height' and 'altitude' must be added to worksite `worksite.set_type_z_data('altitude')` same variable than before. 
+* Link points with `read_file_pt(filepath, header, type_point, worksite)`. this function reads all .txt, .mes, .app and other file types, as long as the data structure in the file is column-based and delimited by spaces. The first args is the file path of one file. The second is the column type in the file detail of letter [below](#header-of-point-file). The third is the type of point **'co_points'** for connecting points, **'gcp2d'** for coordinnate of gcp in images and **'gcp3d'** for gcp coordinate in the ground. And the last args is the worksite where data will be save.
 
 * Add Dtm to your worksite `work.set_dtm(path_dtm, type_dtm)`, It converts z data between gcp and acquisition position if these are not in the same unit (one in altitude and one in height). `type_dtm` is the unit of the dtm 'altitude' or 'height'.
 
@@ -64,7 +60,12 @@ Example at the end of explanation of function [file](./docs/functions/Space_rese
 
 ## Write data
 
-* Can write worksite object as .opk. `manager_reader(writer, pathreturn, worksite)` with `writer` the type of output `"opk"`.
+* Can write worksite object as different format OPK, RPC, Conical for GEOVIEW. The function is `manager_reader(writer, name, pathreturn, args, work)`:
+    * `writer` (str), is the type of output `"opk"`, `"rpc"`, `"con"`.
+    * `name` (str), name of file to save, just to save in opk, for other format this args isn't read.
+    * `pathreturn` (str), path of folder where you want to save data.
+    * `args` (dict), Dictionary with different args for the format to save, [detail below](#args-for-writing-file).
+    * `work` (Worksite), the worksite to save.
 
 ## Example
 
@@ -92,6 +93,11 @@ header = ['N', 'X', 'Y', 'Z', 'O', 'P', 'K', 'C']
 unit_angle = 'degree' # or "radian"
 linear_alteration = True # If z shot is corrected by linear alteration
 order_axe = "opk" # Order of angle to make rotation matrix ("opk", "pok")
+args_intup = {"interval": line_taken,
+              "header": header,
+              "unit_angle": unit_angle,
+              "linear_alteration": linear_alteration,
+              "order_axe": order_axe}
 
 # info in epsg and epsg data
 epsg = "EPSG:2154"
@@ -121,20 +127,23 @@ type_dtm = "height"
 # type process for function image to world "inter or "square"
 type_process = "inter"
 
-# type of output file (opk or rpc)
+# type of output file (opk or rpc or con) and name of file 
 writer = "opk"
+name_output = "New_worksite"
 
 # folder path for the output
 pathreturn = "./"
 
+# dictionary of args output
+args_output = {"order_axe" : "opk",
+               "header" : "NXYZOPKC",
+               "unit_angle" : 'degree',
+               "linear_alteration" : True}
+
 ################# Function ###################
 
 # Readind data and create objet worksite
-work = reader_orientation(path_opk, {"interval": line_taken,
-                                     "header": header,
-                                     "unit_angle": unit_angle,
-                                     "linear_alteration": linear_alteration,
-                                     "order_axe": order_axe})
+work = reader_orientation(path_opk, args_input)
 
 # Add a projection to the worksite
 work.set_proj(epsg, path_geoid)
@@ -174,7 +183,7 @@ stat = Stat(work, pathreturn, type_control)
 stat.main_stat_and_save()
 
 # Writing data
-manager_reader(writer, pathreturn, work)
+manager_reader(writer, name_output, pathreturn, args_output, work)
 ```
 Examples of the different formats can be found in *./dataset/*.
 
@@ -234,5 +243,26 @@ This library can transform and process 3D data with a z in altitude or height. T
 
 The varaible in example for adding a geoid is path_geoid, a list which contains paths of geoids, where you can enter the paths to the various geoids. If the file is stored in pyproj's native folder (pyproj.datadir.get_data_dir(), *usr/share/proj* or *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj*) the file name is sufficient pyproj will find it on its own. 
 Geoids file can be found on pyproj's github (https://github.com/OSGeo/PROJ-data).
+
+### Args for writing file
+
+#### OPK
+
+There are 4 keys in the dictionary:
+* "order_axe" (str): Order of rotation matrix axes,
+* "header" (list): List of column type file (same to read opk).
+* "unit_angle" (str): Unit of angle 'degree' or 'radian'.
+* "linear_alteration" (bool): True if data corrected by linear alteration.
+
+#### RPC
+
+There are 3 keys in the dictionary:
+* "size_grid" (int): size of the grip to calcule rpc.
+* "order" (int): order of the polynome of the rpc. [1, 2, 3]
+* "fact_rpc" (float): rpc factor for world coordinate when not src, we recommend None.
+
+#### CON
+
+There is no need for an additional argument, you can set None to the argument.
 
 ![logo ign](docs/image/logo_ign.png) ![logo fr](docs/image/Republique_Francaise_Logo.png)

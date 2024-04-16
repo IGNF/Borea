@@ -5,7 +5,7 @@
 Creation of a worksite object from a worksite file (.opk) to be read by `reader_orientation(pathfile, arg_dict)`.  
 `arg_dict` is a dictionary for different args: 
 * `"interval":[first_line, last_line]` is an list of int that specifies the number of lines you want to read. `first_line` allows you to skip the file header, which must not be taken into account when reading the file, as specified in the `header` variable. If `first_line = None` skips everything up to `last_line`, if `lastline = None` skips everything from `first_line` to the end, and if both are None reads the entire file.
-* `"header":header` described in the section above, is a list of str e.g. `['N', 'X', 'Y', 'Z', 'O', 'P', 'K', 'C']`, detail letter below. 
+* `"header":header` described in the section above, is a list of str e.g. `['N', 'X', 'Y', 'Z', 'O', 'P', 'K', 'C']`, detail letter [below](#header-of-file-opk). 
 * `"unit_angle": "degree"` degree or radian. 
 * `"linear_alteration": True` boolean saying True if z shots are corrected by linear alteration.
 * `"order_axe: "opk"` string to define the order of angle to calculate rotation matrix.
@@ -20,9 +20,9 @@ Once the object has been created, you can add other data to it:
 
 * Link points with `read_co_points([filepath], worksite)`. Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files.
 
-* Link points with `read_gcp2d([filepath], worksite)`. Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files. In addition, the z data type 'height' or 'altitude' must be added to worksite `worksite.type_z_data = 'altitude'`. 
+* Link points with `read_gcp2d([filepath], worksite)`. Add link points (.mes) to worksite. This function is also used to add the position of terrain points to images in .mes format (name_point name_shot col lig), can read several files. In addition, the z data type 'height' or 'altitude' must be added to worksite `worksite.set_type_z_data('altitude')`. 
 
-* Field points (GCPs) with `read_gcp([pathfile], worksite)`. Adds control and support terrain points in .app file format, can read multiple files. In addition, the z data type 'height' and 'altitude' must be added to worksite `worksite.type_z_data = 'altitude'` same variable than before. 
+* Field points (GCPs) with `read_gcp([pathfile], worksite)`. Adds control and support terrain points in .app file format, can read multiple files. In addition, the z data type 'height' and 'altitude' must be added to worksite `worksite.set_type_z_data('altitude')` same variable than before. 
 
 * Add Dtm to your worksite `work.set_dtm(path_dtm, type_dtm)`, It converts z data between gcp and acquisition position if these are not in the same unit (one in altitude and one in height). `type_dtm` is the unit of the dtm 'altitude' or 'height'.
 
@@ -150,7 +150,7 @@ read_file_pt(path_gcp2d, head_gcp2d, "gcp2d", work)
 
 # Reading GCP
 read_file_pt(path_gcps, head_gcp3d, "gcp3d", work)
-work.type_z_data = type_z_data
+work.set_type_z_data(type_z_data)
 
 # Add Dtm to the worksite
 work.set_dtm(path_dtm, type_dtm)

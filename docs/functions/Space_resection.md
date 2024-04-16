@@ -86,9 +86,9 @@ It takes in parameters :
 
 The **worksite** must be created with a name ```work = Worksite("Test")```, and needs 4 additional data:
 * One camera with ```read_camera(["./dataset/Camera1.txt"], work)``` (All images must have the same camera).
-* The data z unit given as input to the function ```work.type_z_data = "height"```.
-* The z unit of the acquisitions to be output ```work.type_z_shot = "altitude"```.
-* The euclidean system you want to use  ```work.approxeucli = False```, False to use the ordinary system and True to use approximate system.
+* The z unit of the acquisitions to be output ```work.set_type_z_shot("altitude")```
+* The data z unit given as input to the function ```work.set_type_z_data("height")```..
+* The euclidean system you want to use  ```work.set_approx_eucli_proj(False)```, False to use the ordinary system and True to use approximate system.
 
 The DataFrame **pt2d** is a table with 4 column and n line. The id of column must be:
 * `id_pt`: the id of the point
@@ -289,9 +289,9 @@ pt2d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2.mes",list("PNX
 pt3d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2_world.mes",list("PXYZ"),"gcp3d")
 
 # Setup unit z data, shot in worksite and euclidean system to use for shot 
-work.type_z_data = "height"
-work.type_z_shot = "altitude"
-work.approxeucli = False
+work.set_type_z_data("height")
+work.set_type_z_shot("altitude")
+work.set_approx_eucli_proj(False)
 
 # Create dictionary of with initialization point
 pinit = {"coor_init":np.array([825439, 6289034, 1500])}

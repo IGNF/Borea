@@ -1,27 +1,10 @@
-# Documentation for the function world_to_image in src/datastruct/shot
+# Formula documentation for the function world_to_image in src/datastruct/shot
 
-Function for calculating the image coordinates of a point, starting from a terrain point.
-It is built into the shot object to calculate the coordinates of the point in the desired acquisition.
+Function to transform the image coordinates of a point, starting from a terrain point.  
+It is built into the WorldImageShot class [src/transform_world_image/transform_shot/world_image_shot.py](../../src/transform_world_image/transform_shot/world_image_shot.py).  
+Tools where transformation is used are : opk_control.py, pt_world_to_image.py and ptfile_world_to_image.py.
 
-## Parameters
-
-It takes as parameters :
-1. **coor**: [X, Y, Z]
-2. **cam**: a Camera object.
-3. **type_z_data**: type of z you want in output 'altitude', 'height'.
-4. **type_z_shot**: type of z there are in shot's position 'altitude', 'height'. 
-
-The **Camera** object is the camera used for acquisition, defined by a **name**, its **ppax**, **ppay** and **focal** length, **width** and **height** of the image in pixel and **pizel_size** size of the pixel in meter. Ppax and ppay are the main points of image deformation in x and y directions.
-
-Object to instantiate before calculation :
-
-* The **Dtm** allows to convert the data they have **linear alteration**. it's not mandatory if **type_z_data** equal **type_z_shot** or don't need tranfo to add or remove **linear alteration**.
-
-* The **ProjEngine** object is defined by a string giving the ESPG code of the site's map projection, e.g. 2154, followed by a list of pyproj GeoTIFF of geoid.
-
-  These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj.
-
-## Calculation step
+## Formula
 
 ### Conversion of terrain data into a Euclidean reference frame (local tangent)
 
@@ -54,7 +37,7 @@ x_{shot}, y_{shot}, z_{shot} = f_{sys}(x_{shot}, y_{shot}, z_{shot})
 ```
 if there is no distortion or it has already been corrected f_sys() is an identity function.
 
-* From vector to image point.
+* From vector image to image point.
 ```math
 x_{col} = ppax + x_{shot}
 ```

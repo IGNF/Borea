@@ -1,48 +1,29 @@
-# Documentation for the function image_to_world in src/transform_world_image/transform_shot/image_world_shot.py
+# Formula documentation for the function image_to_world
 
-Function for calculating the ground coordinates of an image point, starting from a given z.
-It is built into the shot object to calculate the coordinates of the point in the field, based on the desired acquisition.
+Function to transform a terrain coordinates of an image coordinates, starting from a given z.  
+It is built into the ImageWorldShot class [src/transform_world_image/transform_shot/image_world_shot.py](../../src/transform_world_image/transform_shot/image_world_shot.py).  
+Tools where transformation is used are : opk_control.py, pt_image_to_world.py and ptfile_image_to_world.py.
 
-## Parameters
+## Formula
 
-1. **coor_2d**: [column, line]
-2. **cam**: a Camera object.
-3. **type_z_data**: type of z you want in output 'altitude', 'height' 
-4. **type_z_shot**: type of z there are in shot's position 'altitude' or 'height'. 
-
-The **Camera** object is the camera used for acquisition, defined by a **name**, its **ppax**, **ppay**, **focal**, **width** and **height** of the image in pixel and **pizel_size** size of the pixel in meter. Ppax and ppay are the main points of image deformation in x and y directions.
-
-**type_z_data** and **type_z_shot** are used to make the right conversions between different data so that calculations are made in the same system.
-
-Object to instantiate before calculation :
-
-* The **Dtm** allows a first estimate z terrain, and converts the data they have linear alteration.
-
-* The **ProjEngine** object is defined by a string giving the ESPG code of the site's map projection, e.g. 2154, followed by a list of pyproj GeoTIFF of geoid.
-
-  These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj.
-
-
-## Calculation step
-
-* Creation of 3d vector in image frame minus perceptual center.
+* Creation of 3d vector in image frame minus perceptual center. Switches from a 2D image frame to a 3D image frame.
 ```math
-x_{shot} = col - ppax
+x_{shot} = col - ppa_x
 ```
 ```math
-y_{shot} = line - ppay
+y_{shot} = line - ppa_y
 ```
 ```math
 z_{shot} = focal
 ```
-
+ **PPAx** and **PPAy** are the main points of image deformation in x and y directions. **col** and **line** is the image coordinates and **focal** is the focal of the camera.
 * Application of inverse systematizations if available (inverse distortion correction function).
 ```math
 x_{shot}, y_{shot}, z_{shot} = f_{sys inv}(x_{shot}, y_{shot}, z_{shot})
 ```
 if there is no distortion or it has already been corrected $f_{sys inv}()$ is an identity function.
 
-* Passage through the beam marker.
+* Passage through the beam frame.
 ```math
 x_{bundle} = x_{shot} / focal * z_{shot}
 ```
@@ -66,7 +47,7 @@ y_{bundle}\\
 z_{bundle}
 \end{pmatrix}
 ```
-With proj.rot_to_euclidean_local the rotation matrix of the Euclidean frame of reference set up from the site's barycentre.
+With Shot.projeucli.mat_rot_euclidean_local() the rotation matrix of the Euclidean frame of reference set up from the site's barycentre.
 
 * Converting the acquisition position to the Euclidean reference frame. With projeucli's world_to_eucliean() function. Warning: $z_{posShot}$ must be de-corrected for linear alteration and must be of the same unit as the others (altitude or height).
 
@@ -103,7 +84,7 @@ y_{local} = y_{posEucli} + (y_{local} - y_{posEucli}) * lamb
 
 * Convert Euclidean point to terrain point, using proj's euclidean_to_world(x, y, z) function.
 
-* Returns the point as an array (3,).
+* Returns the point as an array (3,). However, the z coordinate is wrong, but with a DTM we can find the Z value with the X and Y position we've just calculated.
 
 ## Example to use
 

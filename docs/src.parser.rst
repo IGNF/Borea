@@ -10,7 +10,6 @@ Subpackages
    src.parser.parser_adata
    src.parser.parser_format
    src.parser.parser_func
-   src.parser.parser_opk
 
 Module contents
 ---------------

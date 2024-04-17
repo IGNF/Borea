@@ -166,13 +166,13 @@
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
 <li class="toctree-l4 current current-page"><a class="current reference internal" href="#">src.parser.parser_format package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.parser.parser_func.html">src.parser.parser_func package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="src.rsc.html">src.rsc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src.stat.html">src.stat package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.transform_world_image.html">src.transform_world_image package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of src.transform_world_image package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.transform_world_image.transform_dtm.html">src.transform_world_image.transform_dtm package</a></li>
@@ -183,6 +183,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="src.utils.html">src.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of src.utils package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.utils.check.html">src.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.utils.singleton.html">src.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.utils.xml.html">src.utils.xml package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.worksite.html">src.worksite package</a></li>
@@ -230,12 +231,120 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="module-src.parser.parser_format.args_rpc">
-<span id="src-parser-parser-format-args-rpc-module"></span><h2>src.parser.parser_format.args_rpc module<a class="headerlink" href="#module-src.parser.parser_format.args_rpc" title="Link to this heading">#</a></h2>
+<section id="module-src.parser.parser_format.args_read_opk">
+<span id="src-parser-parser-format-args-read-opk-module"></span><h2>src.parser.parser_format.args_read_opk module<a class="headerlink" href="#module-src.parser.parser_format.args_read_opk" title="Link to this heading">#</a></h2>
+<p>Args of parser for reading opk file</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.parser.parser_format.args_read_opk.args_reading_opk">
+<span class="sig-prename descclassname"><span class="pre">src.parser.parser_format.args_read_opk.</span></span><span class="sig-name descname"><span class="pre">args_reading_opk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser:</span> <span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></span><a class="reference internal" href="_modules/src/parser/parser_format/args_read_opk.html#args_reading_opk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.parser.parser_format.args_read_opk.args_reading_opk" title="Link to this definition">#</a></dt>
+<dd><p>Args for reading opk file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parser</strong> (<em>argparse</em>) – Parser to add argument.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parser with argument.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>argsparse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.parser.parser_format.args_read_opk.process_args_read_opk">
+<span class="sig-prename descclassname"><span class="pre">src.parser.parser_format.args_read_opk.</span></span><span class="sig-name descname"><span class="pre">process_args_read_opk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args:</span> <span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><span class="pre">Worksite</span></a></span></span><a class="reference internal" href="_modules/src/parser/parser_format/args_read_opk.html#process_args_read_opk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.parser.parser_format.args_read_opk.process_args_read_opk" title="Link to this definition">#</a></dt>
+<dd><p>Processing args with data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>argparse</em>) – Arg to apply on worksite (data)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite">Worksite</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.parser.parser_format.args_write_con">
+<span id="src-parser-parser-format-args-write-con-module"></span><h2>src.parser.parser_format.args_write_con module<a class="headerlink" href="#module-src.parser.parser_format.args_write_con" title="Link to this heading">#</a></h2>
+<p>Args of parser for writing conical file</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.parser.parser_format.args_write_con.args_write_con">
+<span class="sig-prename descclassname"><span class="pre">src.parser.parser_format.args_write_con.</span></span><span class="sig-name descname"><span class="pre">args_write_con</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser:</span> <span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></span><a class="reference internal" href="_modules/src/parser/parser_format/args_write_con.html#args_write_con"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.parser.parser_format.args_write_con.args_write_con" title="Link to this definition">#</a></dt>
+<dd><p>Args for writing conical file of GEOVIEW IGN.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parser</strong> (<em>argparse</em>) – Parser to add argument.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parser with argument.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>argsparse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.parser.parser_format.args_write_con.process_args_write_con">
+<span class="sig-prename descclassname"><span class="pre">src.parser.parser_format.args_write_con.</span></span><span class="sig-name descname"><span class="pre">process_args_write_con</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args:</span> <span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work:</span> <span class="pre">~src.worksite.worksite.Worksite</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/parser/parser_format/args_write_con.html#process_args_write_con"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.parser.parser_format.args_write_con.process_args_write_con" title="Link to this definition">#</a></dt>
+<dd><p>Processing args with data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>argparse</em>) – Arg to apply on worksite (data).</p></li>
+<li><p><strong>work</strong> (<a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><em>Worksite</em></a>) – Data.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.parser.parser_format.args_write_opk">
+<span id="src-parser-parser-format-args-write-opk-module"></span><h2>src.parser.parser_format.args_write_opk module<a class="headerlink" href="#module-src.parser.parser_format.args_write_opk" title="Link to this heading">#</a></h2>
+<p>Args of parser for writing opk file</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.parser.parser_format.args_write_opk.args_writing_opk">
+<span class="sig-prename descclassname"><span class="pre">src.parser.parser_format.args_write_opk.</span></span><span class="sig-name descname"><span class="pre">args_writing_opk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser:</span> <span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></span><a class="reference internal" href="_modules/src/parser/parser_format/args_write_opk.html#args_writing_opk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.parser.parser_format.args_write_opk.args_writing_opk" title="Link to this definition">#</a></dt>
+<dd><p>Args for writing opk file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parser</strong> (<em>argparse</em>) – Parser to add argument.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parser with argument.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>argsparse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.parser.parser_format.args_write_opk.process_args_write_opk">
+<span class="sig-prename descclassname"><span class="pre">src.parser.parser_format.args_write_opk.</span></span><span class="sig-name descname"><span class="pre">process_args_write_opk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args:</span> <span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work:</span> <span class="pre">~src.worksite.worksite.Worksite</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/parser/parser_format/args_write_opk.html#process_args_write_opk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.parser.parser_format.args_write_opk.process_args_write_opk" title="Link to this definition">#</a></dt>
+<dd><p>Processing args with data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>argparse</em>) – Arg to apply on worksite (data).</p></li>
+<li><p><strong>work</strong> (<a class="reference internal" href="src.worksite.html#src.worksite.worksite.Worksite" title="src.worksite.worksite.Worksite"><em>Worksite</em></a>) – Data.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.parser.parser_format.args_write_rpc">
+<span id="src-parser-parser-format-args-write-rpc-module"></span><h2>src.parser.parser_format.args_write_rpc module<a class="headerlink" href="#module-src.parser.parser_format.args_write_rpc" title="Link to this heading">#</a></h2>
 <p>Args of parser for writing Rpc file</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="src.parser.parser_format.args_rpc.args_writing_rpc">
-<span class="sig-prename descclassname"><span class="pre">src.parser.parser_format.args_rpc.</span></span><span class="sig-name descname"><span class="pre">args_writing_rpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser:</span> <span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></span><a class="reference internal" href="_modules/src/parser/parser_format/args_rpc.html#args_writing_rpc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.parser.parser_format.args_rpc.args_writing_rpc" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.parser.parser_format.args_write_rpc.args_writing_rpc">
+<span class="sig-prename descclassname"><span class="pre">src.parser.parser_format.args_write_rpc.</span></span><span class="sig-name descname"><span class="pre">args_writing_rpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser:</span> <span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></span><a class="reference internal" href="_modules/src/parser/parser_format/args_write_rpc.html#args_writing_rpc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.parser.parser_format.args_write_rpc.args_writing_rpc" title="Link to this definition">#</a></dt>
 <dd><p>Args for writing rpc file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -251,8 +360,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="src.parser.parser_format.args_rpc.process_args_write_rpc">
-<span class="sig-prename descclassname"><span class="pre">src.parser.parser_format.args_rpc.</span></span><span class="sig-name descname"><span class="pre">process_args_write_rpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args:</span> <span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work:</span> <span class="pre">~src.worksite.worksite.Worksite</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/parser/parser_format/args_rpc.html#process_args_write_rpc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.parser.parser_format.args_rpc.process_args_write_rpc" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="src.parser.parser_format.args_write_rpc.process_args_write_rpc">
+<span class="sig-prename descclassname"><span class="pre">src.parser.parser_format.args_write_rpc.</span></span><span class="sig-name descname"><span class="pre">process_args_write_rpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args:</span> <span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work:</span> <span class="pre">~src.worksite.worksite.Worksite</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/parser/parser_format/args_write_rpc.html#process_args_write_rpc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.parser.parser_format.args_write_rpc.process_args_write_rpc" title="Link to this definition">#</a></dt>
 <dd><p>Processing args with data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -327,9 +436,24 @@
             <ul>
 <li><a class="reference internal" href="#">src.parser.parser_format package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-src.parser.parser_format.args_rpc">src.parser.parser_format.args_rpc module</a><ul>
-<li><a class="reference internal" href="#src.parser.parser_format.args_rpc.args_writing_rpc"><code class="docutils literal notranslate"><span class="pre">args_writing_rpc()</span></code></a></li>
-<li><a class="reference internal" href="#src.parser.parser_format.args_rpc.process_args_write_rpc"><code class="docutils literal notranslate"><span class="pre">process_args_write_rpc()</span></code></a></li>
+<li><a class="reference internal" href="#module-src.parser.parser_format.args_read_opk">src.parser.parser_format.args_read_opk module</a><ul>
+<li><a class="reference internal" href="#src.parser.parser_format.args_read_opk.args_reading_opk"><code class="docutils literal notranslate"><span class="pre">args_reading_opk()</span></code></a></li>
+<li><a class="reference internal" href="#src.parser.parser_format.args_read_opk.process_args_read_opk"><code class="docutils literal notranslate"><span class="pre">process_args_read_opk()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.parser.parser_format.args_write_con">src.parser.parser_format.args_write_con module</a><ul>
+<li><a class="reference internal" href="#src.parser.parser_format.args_write_con.args_write_con"><code class="docutils literal notranslate"><span class="pre">args_write_con()</span></code></a></li>
+<li><a class="reference internal" href="#src.parser.parser_format.args_write_con.process_args_write_con"><code class="docutils literal notranslate"><span class="pre">process_args_write_con()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.parser.parser_format.args_write_opk">src.parser.parser_format.args_write_opk module</a><ul>
+<li><a class="reference internal" href="#src.parser.parser_format.args_write_opk.args_writing_opk"><code class="docutils literal notranslate"><span class="pre">args_writing_opk()</span></code></a></li>
+<li><a class="reference internal" href="#src.parser.parser_format.args_write_opk.process_args_write_opk"><code class="docutils literal notranslate"><span class="pre">process_args_write_opk()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.parser.parser_format.args_write_rpc">src.parser.parser_format.args_write_rpc module</a><ul>
+<li><a class="reference internal" href="#src.parser.parser_format.args_write_rpc.args_writing_rpc"><code class="docutils literal notranslate"><span class="pre">args_writing_rpc()</span></code></a></li>
+<li><a class="reference internal" href="#src.parser.parser_format.args_write_rpc.process_args_write_rpc"><code class="docutils literal notranslate"><span class="pre">process_args_write_rpc()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-src.parser.parser_format">Module contents</a></li>

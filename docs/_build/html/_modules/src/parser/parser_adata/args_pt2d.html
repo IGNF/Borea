@@ -165,13 +165,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.parser.parser_format.html">src.parser.parser_format package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.parser.parser_func.html">src.parser.parser_func package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../src.rsc.html">src.rsc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.stat.html">src.stat package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../src.transform_world_image.html">src.transform_world_image package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of src.transform_world_image package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.transform_world_image.transform_dtm.html">src.transform_world_image.transform_dtm package</a></li>
@@ -182,6 +182,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../src.utils.html">src.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of src.utils package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.utils.check.html">src.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.utils.singleton.html">src.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.utils.xml.html">src.utils.xml package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.worksite.html">src.worksite package</a></li>
@@ -248,7 +249,7 @@
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--point2d&#39;</span><span class="p">,</span>
                         <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Coordinate of the 2D point Column Line.&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--unit_z_data&#39;</span><span class="p">,</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--type_z_data&#39;</span><span class="p">,</span>
                         <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;altitude&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
                         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Unit of the z of the data in output.&#39;</span><span class="p">)</span>
 
@@ -266,7 +267,7 @@
 <span class="sd">        args (argparse): Arg to apply on worksite (data).</span>
 <span class="sd">        work (Worksite): Worksite to work on.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">work</span><span class="o">.</span><span class="n">set_unit_z_data</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">unit_z_data</span><span class="p">)</span>
+    <span class="n">work</span><span class="o">.</span><span class="n">set_type_z_data</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">type_z_data</span><span class="p">)</span>
 
     <span class="n">coor3d</span> <span class="o">=</span> <span class="n">ImageWorldShot</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">name_shot</span><span class="p">],</span>
                             <span class="n">work</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">cameras</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]]</span>

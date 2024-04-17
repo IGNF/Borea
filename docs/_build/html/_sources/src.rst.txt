@@ -13,6 +13,7 @@ Subpackages
    src.math
    src.parser
    src.reader
+   src.rsc
    src.stat
    src.transform_world_image
    src.utils

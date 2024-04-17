@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.parser.parser_format.args_rpc - Pink_Lady 1.0.0 documentation</title>
+        <title>src.parser.parser_format.args_write_rpc - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -165,13 +165,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.parser.parser_format.html">src.parser.parser_format package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.parser.parser_func.html">src.parser.parser_func package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../src.rsc.html">src.rsc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.stat.html">src.stat package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../src.transform_world_image.html">src.transform_world_image package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of src.transform_world_image package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.transform_world_image.transform_dtm.html">src.transform_world_image.transform_dtm package</a></li>
@@ -182,6 +182,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../src.utils.html">src.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of src.utils package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.utils.check.html">src.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.utils.singleton.html">src.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.utils.xml.html">src.utils.xml package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.worksite.html">src.worksite package</a></li>
@@ -223,7 +224,7 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.parser.parser_format.args_rpc</h1><div class="highlight"><pre>
+          <h1>Source code for src.parser.parser_format.args_write_rpc</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Args of parser for writing Rpc file</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -233,7 +234,7 @@
 
 
 <div class="viewcode-block" id="args_writing_rpc">
-<a class="viewcode-back" href="../../../../src.parser.parser_format.html#src.parser.parser_format.args_rpc.args_writing_rpc">[docs]</a>
+<a class="viewcode-back" href="../../../../src.parser.parser_format.html#src.parser.parser_format.args_write_rpc.args_writing_rpc">[docs]</a>
 <span class="k">def</span> <span class="nf">args_writing_rpc</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Args for writing rpc file.</span>
@@ -261,7 +262,7 @@
 
 
 <div class="viewcode-block" id="process_args_write_rpc">
-<a class="viewcode-back" href="../../../../src.parser.parser_format.html#src.parser.parser_format.args_rpc.process_args_write_rpc">[docs]</a>
+<a class="viewcode-back" href="../../../../src.parser.parser_format.html#src.parser.parser_format.args_write_rpc.process_args_write_rpc">[docs]</a>
 <span class="k">def</span> <span class="nf">process_args_write_rpc</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="p">,</span> <span class="n">work</span><span class="p">:</span> <span class="n">Worksite</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Processing args with data.</span>

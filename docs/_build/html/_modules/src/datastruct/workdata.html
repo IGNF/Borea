@@ -165,13 +165,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_format.html">src.parser.parser_format package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_func.html">src.parser.parser_func package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../src.rsc.html">src.rsc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.stat.html">src.stat package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.transform_world_image.html">src.transform_world_image package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of src.transform_world_image package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.transform_world_image.transform_dtm.html">src.transform_world_image.transform_dtm package</a></li>
@@ -182,6 +182,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../src.utils.html">src.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of src.utils package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.utils.check.html">src.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../src.utils.singleton.html">src.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../src.utils.xml.html">src.utils.xml package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../src.worksite.html">src.worksite package</a></li>
@@ -314,7 +315,7 @@
 <div class="viewcode-block" id="Workdata.add_camera">
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.add_camera">[docs]</a>
     <span class="k">def</span> <span class="nf">add_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_camera</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ppax</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ppay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                   <span class="n">focal</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                   <span class="n">focal</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">pixel_size</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add data camera in the Worksite.</span>
 
@@ -323,15 +324,17 @@
 <span class="sd">            ppax (float): Center of distortion in x.</span>
 <span class="sd">            ppay (float): Center of distortion in y.</span>
 <span class="sd">            focal (float): Focal of the camera.</span>
-<span class="sd">            width (float): Width of the image camera.</span>
-<span class="sd">            height (float): Height of the image camera.</span>
+<span class="sd">            width (int): Width of the image camera.</span>
+<span class="sd">            height (int): Height of the image camera.</span>
+<span class="sd">            pixel_size (float): Size of pixel in meter (mandatory if you save in conical file).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">name_camera</span><span class="p">]</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="n">name_camera</span><span class="o">=</span><span class="n">name_camera</span><span class="p">,</span>
                                            <span class="n">ppax</span><span class="o">=</span><span class="n">ppax</span><span class="p">,</span>
                                            <span class="n">ppay</span><span class="o">=</span><span class="n">ppay</span><span class="p">,</span>
                                            <span class="n">focal</span><span class="o">=</span><span class="n">focal</span><span class="p">,</span>
                                            <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
-                                           <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span></div>
+                                           <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
+                                           <span class="n">pixel_size</span><span class="o">=</span><span class="n">pixel_size</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Workdata.add_co_point">
@@ -423,7 +426,7 @@
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.set_dtm">[docs]</a>
     <span class="k">def</span> <span class="nf">set_dtm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_dtm</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_dtm</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        set class DtM to the worksite.</span>
+<span class="sd">        Set class DtM to the worksite.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            path_dtm (str): Path to the dtm.</span>
@@ -442,27 +445,144 @@
 <a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.set_approx_eucli_proj">[docs]</a>
     <span class="k">def</span> <span class="nf">set_approx_eucli_proj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">approx</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Setup approxeucli in worksite</span>
+<span class="sd">        Setup approxeucli in worksite.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            apprx (bool): True if there are not projengine</span>
+<span class="sd">            apprx (bool): True if there are not projengine.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">approxeucli</span> <span class="o">=</span> <span class="n">approx</span></div>
 
 
-<div class="viewcode-block" id="Workdata.set_unit_z_data">
-<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.set_unit_z_data">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_unit_z_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_z_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Workdata.set_type_z_shot">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.set_type_z_shot">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_type_z_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_z_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Setup unit_z_data with one condition if is None.</span>
+<span class="sd">        Setup type_z_shot in worksite.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            unit_z_data (str): altitude or height</span>
+<span class="sd">            type_z_shot (str): altitude or height.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">unit_z_data</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="n">unit_z_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span> <span class="o">=</span> <span class="n">type_z_shot</span></div>
+
+
+<div class="viewcode-block" id="Workdata.set_type_z_data">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.set_type_z_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_type_z_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_z_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setup type_z_data with one condition if is None.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            type_z_data (str): altitude or height.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">type_z_data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="n">type_z_data</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span></div>
+
+
+<div class="viewcode-block" id="Workdata.get_shot">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.get_shot">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_shot</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Shot</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Getter to return shot.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name_shot (str): Name of shot to return.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            shot: The shot.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="p">[</span><span class="n">name_shot</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Workdata.get_camera">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.get_camera">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_camera</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Camera</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Getter to return camera.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name_camera (str): Name of camera to return.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Camera: The camera.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">name_camera</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Workdata.get_co_points">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.get_co_points">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_co_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_pt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Getter to return list of shot where there is point.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name_pt (str): Name of point where you want information.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: The shots where there is the point.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">co_points</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Workdata.get_gcp2d">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.get_gcp2d">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_gcp2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_pt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Getter to return list of shot where there is point.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name_pt (str): Name of point where you want information.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: The shots where there is the point.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcp2d</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Workdata.get_gcp3d">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.get_gcp3d">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_gcp3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_pt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GCP</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Getter to return GCP.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name_pt (str): Name of point gcp.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            GCP: The GCP.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcp3d</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Workdata.get_co_pts_world">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.get_co_pts_world">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_co_pts_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_pt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Getter to return position X, Y, Z of the connecting point.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name_pt (str): Name of connecting point.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.array: The position of the point in the world.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">co_pts_world</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Workdata.get_gcp2d_in_world">
+<a class="viewcode-back" href="../../../src.datastruct.html#src.datastruct.workdata.Workdata.get_gcp2d_in_world">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_gcp2d_in_world</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_pt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Getter to return position X, Y, Z of the gcp2d point.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name_pt (str): Name of gcp2d point.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.array: The position of the point in the world.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gcp2d_in_world</span><span class="p">[</span><span class="n">name_pt</span><span class="p">]</span></div>
 </div>
 
 </pre></div>

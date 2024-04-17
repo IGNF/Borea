@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>src.parser.parser_opk.args_read_opk - Pink_Lady 1.0.0 documentation</title>
+        <title>src.parser.parser_format.args_write_opk - Pink_Lady 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -165,13 +165,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.parser.parser_adata.html">src.parser.parser_adata package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.parser.parser_format.html">src.parser.parser_format package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.parser.parser_func.html">src.parser.parser_func package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../src.parser.parser_opk.html">src.parser.parser_opk package</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../src.reader.html">src.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of src.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.reader.orientation.html">src.reader.orientation package</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../src.rsc.html">src.rsc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.stat.html">src.stat package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../src.transform_world_image.html">src.transform_world_image package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of src.transform_world_image package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.transform_world_image.transform_dtm.html">src.transform_world_image.transform_dtm package</a></li>
@@ -182,6 +182,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../src.utils.html">src.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of src.utils package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.utils.check.html">src.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.utils.singleton.html">src.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.utils.xml.html">src.utils.xml package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.worksite.html">src.worksite package</a></li>
@@ -223,22 +224,22 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for src.parser.parser_opk.args_read_opk</h1><div class="highlight"><pre>
+          <h1>Source code for src.parser.parser_format.args_write_opk</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Args of parser for reading opk file</span>
+<span class="sd">Args of parser for writing opk file</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
-<span class="kn">from</span> <span class="nn">src.parser.parser_adata.args_gen_param</span> <span class="kn">import</span> <span class="n">args_general_param</span><span class="p">,</span> <span class="n">process_args_gen_param</span>
-<span class="kn">from</span> <span class="nn">src.parser.parser_adata.args_unit_shot</span> <span class="kn">import</span> <span class="n">args_input_shot</span>
+<span class="kn">from</span> <span class="nn">src.parser.parser_adata.args_unit_shot</span> <span class="kn">import</span> <span class="n">args_output_shot</span>
+<span class="kn">from</span> <span class="nn">src.parser.parser_adata.args_write</span> <span class="kn">import</span> <span class="n">args_writer</span>
 <span class="kn">from</span> <span class="nn">src.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
-<span class="kn">from</span> <span class="nn">src.reader.orientation.manage_reader</span> <span class="kn">import</span> <span class="n">reader_orientation</span>
+<span class="kn">from</span> <span class="nn">src.writer.manage_writer</span> <span class="kn">import</span> <span class="n">manager_writer</span>
 
 
-<div class="viewcode-block" id="args_reading_opk">
-<a class="viewcode-back" href="../../../../src.parser.parser_opk.html#src.parser.parser_opk.args_read_opk.args_reading_opk">[docs]</a>
-<span class="k">def</span> <span class="nf">args_reading_opk</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="p">:</span>
+<div class="viewcode-block" id="args_writing_opk">
+<a class="viewcode-back" href="../../../../src.parser.parser_format.html#src.parser.parser_format.args_write_opk.args_writing_opk">[docs]</a>
+<span class="k">def</span> <span class="nf">args_writing_opk</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Args for reading opk file.</span>
+<span class="sd">    Args for writing opk file.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        parser (argparse): Parser to add argument.</span>
@@ -247,13 +248,11 @@
 <span class="sd">        argsparse: Parser with argument.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=duplicate-code</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s1">&#39;--filepath&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;File path of the workfile.&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s1">&#39;--header&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;NXYZOPKC&quot;</span><span class="p">,</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">args_writer</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--output_header&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Type of each column in the site file.&#39;</span>
                         <span class="s1">&#39;e.g. NXYZOPKC&#39;</span>
-                        <span class="s1">&#39;S: to ignore the column&#39;</span>
                         <span class="s1">&#39;N: name of shot&#39;</span>
                         <span class="s1">&#39;X: coordinate x of the shot position&#39;</span>
                         <span class="s1">&#39;Y: coordinate y of the shot position&#39;</span>
@@ -263,50 +262,38 @@
                         <span class="s1">&#39;P: phi rotation angle&#39;</span>
                         <span class="s1">&#39;K: kappa rotation angle&#39;</span>
                         <span class="s1">&#39;C: name of the camera&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;--first_line&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Line number to start file playback. First line in the file is 1.&#39;</span>
-                             <span class="s1">&#39; Does not take file header into account.&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-z&#39;</span><span class="p">,</span> <span class="s1">&#39;--last_line&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Line number to end file playback.&#39;</span>
-                             <span class="s1">&#39; If not set, all lines below -f will be read.&#39;</span><span class="p">)</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">args_input_shot</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">args_general_param</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">args_output_shot</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">parser</span></div>
 
 
 
-<div class="viewcode-block" id="process_args_read_opk">
-<a class="viewcode-back" href="../../../../src.parser.parser_opk.html#src.parser.parser_opk.args_read_opk.process_args_read_opk">[docs]</a>
-<span class="k">def</span> <span class="nf">process_args_read_opk</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Worksite</span><span class="p">:</span>
+<div class="viewcode-block" id="process_args_write_opk">
+<a class="viewcode-back" href="../../../../src.parser.parser_format.html#src.parser.parser_format.args_write_opk.process_args_write_opk">[docs]</a>
+<span class="k">def</span> <span class="nf">process_args_write_opk</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="p">,</span> <span class="n">work</span><span class="p">:</span> <span class="n">Worksite</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Processing args with data.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        args (argparse): Arg to apply on worksite (data)</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Worksite: data</span>
+<span class="sd">        args (argparse): Arg to apply on worksite (data).</span>
+<span class="sd">        work (Worksite): Data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Readind data</span>
-    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">filepath</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">header</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">work</span> <span class="o">=</span> <span class="n">reader_orientation</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;order_axe&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">order_axe_input</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
-                                                      <span class="s2">&quot;interval&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">first_line</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">last_line</span><span class="p">],</span>
-                                                      <span class="s2">&quot;header&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">upper</span><span class="p">()),</span>
-                                                      <span class="s2">&quot;unit_angle&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">unit_angle</span><span class="p">,</span>
-                                                      <span class="s2">&quot;linear_alteration&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">linear_alteration</span><span class="p">})</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Orientation file reading done.&quot;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of image: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">shots</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The header file is missing -i.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">order_axe_output</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">order_axe_output</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">order_axe_output</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">output_header</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">output_header</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output_header</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+
+    <span class="c1"># Writing data</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Writing OPK.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">namereturn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">args_writing</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;order_axe&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">order_axe_output</span><span class="p">,</span>
+                        <span class="s2">&quot;header&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">output_header</span><span class="p">,</span>
+                        <span class="s2">&quot;unit_angle&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">output_unit_angle</span><span class="p">,</span>
+                        <span class="s2">&quot;linear_alteration&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">output_linear_alteration</span><span class="p">}</span>
+        <span class="n">manager_writer</span><span class="p">(</span><span class="s2">&quot;opk&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">namereturn</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">pathreturn</span><span class="p">,</span> <span class="n">args_writing</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File written in </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">pathreturn</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">args</span><span class="o">.</span><span class="n">namereturn</span><span class="si">}</span><span class="s2">.opk.&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The access road to the photogrammetric site is missing -r.&quot;</span><span class="p">)</span>
-
-    <span class="n">work</span> <span class="o">=</span> <span class="n">process_args_gen_param</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">work</span></div>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The name of the saving file is missing -n.&quot;</span><span class="p">)</span></div>
 
 </pre></div>
         </article>

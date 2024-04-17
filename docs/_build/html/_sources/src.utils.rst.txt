@@ -9,6 +9,7 @@ Subpackages
 
    src.utils.check
    src.utils.singleton
+   src.utils.xml
 
 Module contents
 ---------------

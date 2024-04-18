@@ -4,14 +4,14 @@ Args of parser to calcule 6 externals parameters of shots.
 import argparse
 
 import numpy as np
-from src.parser.parser_adata.args_file_gcp2d import args_gcp2d
-from src.parser.parser_adata.args_gen_param import args_general_param, process_args_gen_param
-from src.parser.parser_adata.args_pt3d import args_add_pt3d
+from src.process.p_add_data.p_file_gcp2d import args_gcp2d
+from src.process.p_add_data.p_gen_param import args_general_param, process_args_gen_param
+from src.process.p_add_data.p_pt3d import args_add_pt3d
 from src.reader.reader_point import read_file_pt_dataframe
 from src.transform_world_image.transform_worksite.space_resection import SpaceResection
 from src.utils.check.check_args_opk import check_header_file
 from src.worksite.worksite import Worksite
-from src.parser.parser_adata.args_file_gcp3d import args_gcp3d
+from src.process.p_add_data.p_file_gcp3d import args_gcp3d
 
 
 def args_space_resection(parser: argparse) -> argparse:

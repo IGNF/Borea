@@ -2,8 +2,8 @@
 Main to calculate image coodinate with opk.
 """
 import argparse
-from src.parser.parser_format.args_read_opk import args_reading_opk, process_args_read_opk
-from src.parser.parser_func.args_world_image import args_world_image, process_world_image
+from src.process.p_format.p_read_opk import args_reading_opk, process_args_read_opk
+from src.process.p_func.p_world_image import args_world_image, process_world_image
 
 
 parser = argparse.ArgumentParser(description='Calculate image coodinate of the ground point.')

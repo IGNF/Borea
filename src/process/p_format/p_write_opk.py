@@ -2,8 +2,8 @@
 Args of parser for writing opk file
 """
 import argparse
-from src.parser.parser_adata.args_unit_shot import args_output_shot
-from src.parser.parser_adata.args_write import args_writer
+from src.process.p_add_data.p_unit_shot import args_output_shot
+from src.process.p_add_data.p_write import args_writer
 from src.worksite.worksite import Worksite
 from src.writer.manage_writer import manager_writer
 

@@ -2,8 +2,8 @@
 Args of parser for reading opk file
 """
 import argparse
-from src.parser.parser_adata.args_gen_param import args_general_param, process_args_gen_param
-from src.parser.parser_adata.args_unit_shot import args_input_shot
+from src.process.p_add_data.p_gen_param import args_general_param, process_args_gen_param
+from src.process.p_add_data.p_unit_shot import args_input_shot
 from src.worksite.worksite import Worksite
 from src.reader.orientation.manage_reader import reader_orientation
 

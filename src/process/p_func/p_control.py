@@ -3,8 +3,8 @@ Args of parser to control file
 """
 import argparse
 from src.worksite.worksite import Worksite
-from src.parser.parser_adata.args_file_gcp2d import args_gcp2d, process_gcp2d
-from src.parser.parser_adata.args_file_gcp3d import args_gcp3d, process_gcp3d
+from src.process.p_add_data.p_file_gcp2d import args_gcp2d, process_gcp2d
+from src.process.p_add_data.p_file_gcp3d import args_gcp3d, process_gcp3d
 from src.stat.statistics import Stat
 from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
 from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork

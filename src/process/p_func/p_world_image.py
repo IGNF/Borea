@@ -2,10 +2,10 @@
 Args of parser to calcule image coordinate.
 """
 import argparse
-from src.parser.parser_adata.args_file_gcp2d import args_gcp2d, process_gcp2d
-from src.parser.parser_adata.args_write import args_writer
+from src.process.p_add_data.p_file_gcp2d import args_gcp2d, process_gcp2d
+from src.process.p_add_data.p_write import args_writer
 from src.worksite.worksite import Worksite
-from src.parser.parser_adata.args_file_gcp3d import args_gcp3d, process_gcp3d
+from src.process.p_add_data.p_file_gcp3d import args_gcp3d, process_gcp3d
 from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
 from src.writer.writer_df_to_txt import write_df_to_txt
 

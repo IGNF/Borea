@@ -19,9 +19,9 @@ B_CAM = ["c", "l", "focal"]
 
 
 @dataclass
-class Conical:
+class Conl:
     """
-    Class for conical shot.
+    Class for light conical shot.
     File reading by software Geoview IGN on MacOs.
 
     Args:
@@ -33,12 +33,12 @@ class Conical:
     cam: Camera
     proj: str
 
-    def save_conical(self, path_conical: Path, linalt: bool = True) -> None:
+    def save_conl(self, path_conical: Path, linalt: bool = True) -> None:
         """
         Save the shot as light conical file.
 
         Args:
-            path_conical (Path): path to the conical file.
+            path_conical (Path): path to the light conical file.
             linalt (bool): If you want z shot corrected by linear alteration.
         """
         date_now = datetime.now()

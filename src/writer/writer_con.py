@@ -5,7 +5,7 @@ import os
 from pathlib import Path, PureWindowsPath
 from src.worksite.worksite import Worksite
 from src.geodesy.proj_engine import ProjEngine
-from src.format.conical import Conical
+from src.format.conl import Conl
 from src.geodesy.projectionlist.search_proj import search_info
 
 
@@ -26,4 +26,4 @@ def write(name: str, folder_con: str, param_con: dict, work: Worksite) -> None:
         cam = work.cameras[shot.name_cam]
         path_conical = os.path.join(Path(PureWindowsPath(folder_con)), f"{name_shot}.CON")
 
-        Conical(shot, cam, geoview_proj).save_conical(path_conical)
+        Conl(shot, cam, geoview_proj).save_conl(path_conical)

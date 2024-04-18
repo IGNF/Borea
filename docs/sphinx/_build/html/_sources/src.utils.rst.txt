@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    src.utils.check
+   src.utils.miscellaneous
    src.utils.singleton
    src.utils.xml
 

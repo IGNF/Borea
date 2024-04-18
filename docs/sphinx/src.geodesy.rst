@@ -1,6 +1,14 @@
 src.geodesy package
 ===================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   src.geodesy.projectionlist
+
 Submodules
 ----------
 

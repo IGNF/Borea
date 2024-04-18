@@ -4,10 +4,10 @@ src.format package
 Submodules
 ----------
 
-src.format.conical module
--------------------------
+src.format.conl module
+----------------------
 
-.. automodule:: src.format.conical
+.. automodule:: src.format.conl
    :members:
    :undoc-members:
    :show-inheritance:

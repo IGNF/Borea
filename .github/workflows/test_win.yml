@@ -19,7 +19,7 @@ jobs:
     - name: Install environment
       uses: mamba-org/setup-micromamba@v1.4.3
       with:
-        environment-file: environment.yml
+        environment-file: dependency/environment.yml
         environment-name: pink_lady
         cache-environment: true
         cache-downloads: true

@@ -1,37 +1,22 @@
-# Documentation for the function space_resection in src/transform_world_image/transform_shot/space_resection.py
+# Formula documentation for the function space_resection
 
-Function to re/calculate the 6 external image parameters. 3 parameters for image position and 3 parameters for orientation angles omega, phi, kappa, per least square.
-
-It is built in the src.transform_world_image.transform_worksite.spaceresection.py module.
+Function to re/calculate the 6 external image parameters. 3 parameters for image position and 3 parameters for orientation angles omega, phi, kappa, per least square.  
+It is built in the SpaceResection class [src/transform_world_image/transform_worksite/space_resection.py](../../src/transform_world_image/transform_worksite/space_resection.py).  
+Tools where transformation is used are : opk_by_space_resection.py
 
 ## Functions
 
 There are two main functions in this class.
-* One for spatial bearing on images whose parameters are already known, where you can add a deviation to the image point position if you wish to offset an image. Function is [space_resection_on_worksite()](#f1).
-* The other allows you to calculate the 6 external parameters of an acquisition using the coordinates of points present on the image and in the field. Function is [space_resection_to_worksite()](#f2).
+* One for spatial bearing on images whose parameters are already known, where you can add a deviation to the image point position if you wish to offset an image. Function is [space_resection_on_worksite()](#Space-resection-on-worksite).
+* The other allows you to calculate the 6 external parameters of an acquisition using the coordinates of points present on the image and in the field. Function is [space_resection_to_worksite()](#Space-resection-to-worksite).
 
-## Parameters for space_resection_on_worksite() <a name="f1"></a>
-
-It takes in parameters :
-1. **work**: A worksite object with instantiate shot.
-2. **add_pixel**: Pixel to be added to the change maker.
-
-For instantiate a worksite correctly look [doc python](./../../README_python_lib.md).
-
-The **add_pixel** object is a tuple of dimension 2, **used to add a number of pixels in columns and rows**. Used to convert certain photogrammetric data formats.
-
-Object to instantiate before calculation, if the data have different types and are corrected by linear alteration :
-
-* The **Dtm** allows a first estimate z terrain, and converts the data they have linear alteration.
-
-* The **ProjEngine** object is defined by a string giving the ESPG code of the site's map projection, e.g. 2154, followed by a list of pyproj GeoTIFF of geoid.
-
-  These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj.
-
+## Space resection on worksite
 
 ### Data initialization, l_obs, x0
 
-* Inatialization of 20 points for shooting positions
+The first step is to check the number of connection points entered, and if there are fewer than 7, to add dummy points for calculation.
+
+* Initialization of 20 points for shooting positions
 ```
 c_obs, l_obs, z_world = seed_20_point(cam)
 ```
@@ -76,44 +61,7 @@ shot_adjust = Shot(shot.name_shot, shot.pos_shot, shot.ori_shot, shot.name_cam)
 shot_adjust.set_param_eucli_shot(projeucli)
 ```
 
-## Parameters for space_resection_to_worksite() <a name="f2"></a>
-
-It takes in parameters :
-1. **work**: A worksite object with instantiate camera and no shot.
-2. **pt2d**: DataFrame with image point.
-3. **pt3d**: DataFrame with ground point.
-4. **pinit**: Dictionary with the initialization point.
-
-The **worksite** must be created with a name ```work = Worksite("Test")```, and needs 4 additional data:
-* One camera with ```read_camera(["./dataset/Camera1.txt"], work)``` (All images must have the same camera).
-* The z unit of the acquisitions to be output ```work.set_type_z_shot("altitude")```
-* The data z unit given as input to the function ```work.set_type_z_data("height")```..
-* The euclidean system you want to use  ```work.set_approx_eucli_proj(False)```, False to use the ordinary system and True to use approximate system.
-
-The DataFrame **pt2d** is a table with 4 column and n line. The id of column must be:
-* `id_pt`: the id of the point
-* `id_shot`: the name of the shot where the point is located
-* `column`: column coordinate in pixel of the point in the image
-* `line`: line coordinate in pixel of the point in the image
-it can be created with the function `read_file_pt_dataframe(path_file_pt,header_file,"pt2d")`
-
-The DataFrame **pt3d** is a table with 5 column and n line. The id of column must be:
-* `id_pt`: the id of the point
-* `type`: if point is gcp with type else None
-* `x`: x coordinate in your projection system of the point
-* `y`: y coordinate in your projection system of the point
-* `z`: z coordinate in your projection system of the point
-it can be created with the function `read_file_pt_dataframe(path_file_pt,header_file,"pt3d")`
-
-The dictionary **pinit** which give the initialization point X, Y, Z. A point on the worksite with a z at an approximate flying height. The name of the key in the dictionary is `coor_init`.
-
-Object to instantiate before calculation, if the data have different types and are corrected by linear alteration :
-
-* The **Dtm** allows a first estimate z terrain, and converts the data they have linear alteration. ```work.set_dtm(path_dtm, unit_z_of_dtm)```
-
-* The **ProjEngine** object is defined by a string giving the ESPG code of the site's map projection, e.g. 2154, followed by a list of pyproj GeoTIFF of geoid. ```work.set_proj(epsg, [path_geoid])```
-
-  These GeoTIFFs represent the geoid grid on the site. They can be found on the PROJ-data github (https://github.com/OSGeo/PROJ-data/tree/master ) and will be used by pyproj to calculate the acquisition altitude (so as not to take into account corrections already made to the acquisition coordinates in the original data). For it to be taken into account, it must be added to a proj folder. If you're not using an environment, the path is usr/share/proj; if you are using an environment, the path is env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj.
+## Space resection to worksite()
 
 ### Data initialization
 
@@ -126,6 +74,7 @@ The number of points in the image is set to a minimum of 3 for calculation. If t
 
 ### Colinearity equation
 <p align="center"> <img src="../image/schema_repere.png"> </p>
+<p align="center"><i> by Y.EGELS </i></p>
 
 ```math
 M = \begin{pmatrix} X_M \\ Y_M \\ Z_M \end{pmatrix},~
@@ -181,53 +130,6 @@ mat_A = \begin{pmatrix}
 \end{pmatrix}
 ```
 There are as many lines in mat_a as there are number of points x2.  
-This gives the function :
-
-```
-def mat_obs_axia(x_eucli: np.array, y_eucli: np.array, z_eucli: np.array,
-                 imc_adjust: Shot, cam: Camera) -> np.array:
-    """
-    Setting up the mat_a matrix to solve the system by axiator.
-
-    Args:
-        x_eucli (np.array): Coordinate x euclidean.
-        y_eucli (np.array): Coordinate y euclidean.
-        z_eucli (np.array): Coordinate z euclidean.
-        imc_adjust (Shot): adjusted shot.
-        cam (Camera): Camera of shot.
-
-    Returns:
-        np.array: Matrix A.
-    """
-    vect_a = np.vstack([x_eucli - imc_adjust.pos_shot_eucli[0],
-                        y_eucli - imc_adjust.pos_shot_eucli[1],
-                        z_eucli - imc_adjust.pos_shot_eucli[2]])
-    vect_u = imc_adjust.mat_rot_eucli @ vect_a
-
-    # Axiator of vect_a
-    a_axiator = np.zeros((3 * len(vect_a[0]), 3))
-    a_axiator[0::3, 1] = -vect_a[2]
-    a_axiator[0::3, 2] = vect_a[1]
-    a_axiator[1::3, 0] = vect_a[2]
-    a_axiator[1::3, 2] = -vect_a[0]
-    a_axiator[2::3, 0] = -vect_a[1]
-    a_axiator[2::3, 1] = vect_a[0]
-
-    mat_v = np.zeros((2 * len(vect_u[0]), 3))
-    mat_v[::2, 0] = vect_u[2]
-    mat_v[::2, 2] = -vect_u[0]
-    mat_v[1::2, 1] = vect_u[2]
-    mat_v[1::2, 2] = -vect_u[1]
-
-    mat_a = -np.tile(np.repeat(cam.focal / vect_u[2] ** 2, 2), (6, 1)).T
-    mat_a[:, :3] *= (mat_v @ imc_adjust.mat_rot_eucli)
-
-    mat_a[:, 3:] *= np.einsum('lij, ljk->lik',
-                              (mat_v @ imc_adjust.mat_rot_eucli).reshape(-1, 2, 3),
-                              a_axiator.reshape(-1, 3, 3)).reshape(-1, 3)
-
-    return mat_a
-```
 
 ## Example to use
 

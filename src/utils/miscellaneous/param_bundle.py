@@ -5,7 +5,7 @@ import numpy as np
 from src.datastruct.shot import Shot
 
 
-def param_bundle_diff(shot: Shot, coor_eucli: np.ndarray, uniform_v: bool = False) -> tuple:
+def set_param_bundle_diff(shot: Shot, coor_eucli: np.ndarray, uniform_v: bool = False) -> tuple:
     """
     Setting up the A vector, U vector and V matrix parameters for the differential function
     of beam parameters, in the Euclidean reference frame.

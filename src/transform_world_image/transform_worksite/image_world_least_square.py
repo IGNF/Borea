@@ -12,7 +12,7 @@ from src.datastruct.dtm import Dtm
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 from src.transform_world_image.transform_shot.world_image_shot import WorldImageShot
 from src.utils.miscellaneous.sparse import invert_diag_sparse_matrix_3_3
-from src.utils.miscellaneous.param_bundle import param_bundle_diff
+from src.utils.miscellaneous.param_bundle import set_param_bundle_diff
 
 
 @dataclass
@@ -160,11 +160,11 @@ class WorldLeastSquare:
                                                            self.work.type_z_data,
                                                            self.work.type_z_shot)
 
-            _, vect_u, mat_v = param_bundle_diff(shot,
-                                                 np.array([pd_data["x"].to_numpy(),
-                                                           pd_data["y"].to_numpy(),
-                                                           pd_data["z"].to_numpy()]),
-                                                 uniform_v=True)
+            _, vect_u, mat_v = set_param_bundle_diff(shot,
+                                                     np.array([pd_data["x"].to_numpy(),
+                                                               pd_data["y"].to_numpy(),
+                                                               pd_data["z"].to_numpy()]),
+                                                     uniform_v=True)
 
             coord_i += [np.repeat(2 * pd_data['index_mes'].to_numpy(), 6) +
                         np.tile([0, 0, 0, 1, 1, 1], len(pd_data["x"].to_numpy()))]

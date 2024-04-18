@@ -1,14 +1,12 @@
-# README to calculate position and orientation of shot with point coordinate
+# Transforms position and orientation of shot with point coordinate
 
-Calculate the 6 external parameters of an acquisition, X, Y, Z for its position and O, P, K for the 3 angles of orientation. To do this, we use least squares on points whose positions in the image and on the ground are known.
+**spaceresection_opk** transforms the 6 external parameters of an acquisition, X, Y, Z for its position and O, P, K for the 3 angles of orientation. To do this, we use least squares on points whose positions in the image and on the ground are known.
 
-## Utilisation
+## Application
 
-### Terminal use
+Call the function from a terminal in the depot directory `python implements/spaceresection_opk.py`. To view the information on the various parameters you can do : 
 
-Call the function in a terminal located in the directory of the spaceresection_opk.py file. To view the information on the various parameters you can do : 
-
-```python spaceresection_opk.py -h``` 
+```python implements/spaceresection_opk.py -h``` 
 
 The parameters are:
 
@@ -35,10 +33,10 @@ The parameters are:
 
 E.G.
 ```
-python3 ./spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./test/data/dataset2/all_liaisons2.mes -g ./test/data/dataset2/all_liaisons2_world.mes -l PXYZ --fg height -n SpaceResection -w ./test/tmp/ -o NXYZOPKC -ou degree -oa True
+python ./implements/spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./implements/test/data/dataset2/all_liaisons2.mes -g ./implements/test/data/dataset2/all_liaisons2_world.mes -l PXYZ --fg height -n SpaceResection -o NXYZOPKC -ou degree -oa True
 ```
 
-#### Detail for the header of file -o
+## Detail for the header of file -o
 `header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
 Type is:
 | Symbol | Details |
@@ -54,7 +52,7 @@ Type is:
 | K | kappa rotation angle |
 | C | name of the camera |
 
-#### Detail for the header of point file -k and -l
+## Detail for the header of point file -k and -l
 
 `header` is used to describe the format of the point file read. It provides information on what's in each column.   
 Type is:
@@ -68,7 +66,7 @@ Type is:
 | Y | coordinate y of the shot position |
 | Z | coordinate z altitude of the shot position |
 
-### Camera file format
+## Camera file format
 
 The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float), image size: **width** (int) and **height** (int) in pixels and **size_pizel** (float) size of pixel in meter.  
 **size_pixel** is optional except for conversion to a conical file.  
@@ -86,11 +84,11 @@ size_pixel = 4e-6
 Only these 7 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool, unless the attribute has been added to the [Camera class](./src/datastruct/camera.py).
 An example file can be found in [./dataset/Camera1.txt](./dataset/Camera1.txt).
 
-### Info projection
+## Info projection
 
 This library can transform and process 3D data with a z in altitude or height. This is done by the pyproj library, which needs the geoid at site level to change units.
 
 The command for adding a geoid is -y, where you can enter the paths to the various geoids. If the file is stored in pyproj's native folder (pyproj.datadir.get_data_dir(), *usr/share/proj* or *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj*) the file name is sufficient pyproj will find it on its own. 
 Geoids file can be found on pyproj's github (https://github.com/OSGeo/PROJ-data).
 
-![logo ign](docs/image/logo_ign.png) ![logo fr](docs/image/Republique_Francaise_Logo.png)
+![logo ign](../../docs/image/logo_ign.png) ![logo fr](../../docs/image/Republique_Francaise_Logo.png)

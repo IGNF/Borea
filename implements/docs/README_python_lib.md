@@ -265,4 +265,4 @@ There are 3 keys in the dictionary:
 
 There is no need for an additional argument, you can set None to the argument.
 
-![logo ign](docs/image/logo_ign.png) ![logo fr](docs/image/Republique_Francaise_Logo.png)
+![logo ign](../../docs/image/logo_ign.png) ![logo fr](../../docs/image/Republique_Francaise_Logo.png)

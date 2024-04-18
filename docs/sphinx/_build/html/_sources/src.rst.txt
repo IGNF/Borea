@@ -10,10 +10,8 @@ Subpackages
    src.datastruct
    src.format
    src.geodesy
-   src.math
-   src.parser
+   src.process
    src.reader
-   src.rsc
    src.stat
    src.transform_world_image
    src.utils

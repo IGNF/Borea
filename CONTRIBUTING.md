@@ -91,7 +91,7 @@ make clean
 If you add new file, delete all file .rst in the repertory except index.rst.  
 At the root make:
 ```
-sphinx-apidoc -o docs/sphinx src
+sphinx-apidoc -o docs/sphinx implements/src
 ```
 And in ./docs/sphinx make:
 ```

@@ -1,14 +1,12 @@
-# README to calculate world coordinate of image point
+# Transforms world coordinate of image point
 
-Calculates the world coordinates of a image point in a given image.
+**pt_image_to_world** transforms the world coordinates of a image point in a given image.
 
-## Utilisation
+## Application
 
-### Terminal use
+Call the function from a terminal in the depot directory `python implements/pt_image_to_world.py`. To view the information on the various parameters you can do : 
 
-Call the function in a terminal located in the directory of the pt_image_to_world.py file. To view the information on the various parameters you can do : 
-
-```python pt_image_to_world.py -h``` 
+```python implements/pt_image_to_world.py -h``` 
 
 The parameters are:
 
@@ -32,10 +30,10 @@ The parameters are:
 
 E.G.
 ```
-python3 ./pt_image_to_world.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 815601.510 6283629.280 54.960 -d height
+python ./implements/pt_image_to_world.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 815601.510 6283629.280 54.960 -d height
 ```
 
-### Camera file format
+## Camera file format
 
 The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float), image size: **width** (int) and **height** (int) in pixels and **size_pizel** (float) size of pixel in meter.  
 **size_pixel** is optional except for conversion to a conical file.  
@@ -53,11 +51,11 @@ size_pixel = 4e-6
 Only these 7 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool, unless the attribute has been added to the [Camera class](./src/datastruct/camera.py).
 An example file can be found in [./dataset/Camera1.txt](./dataset/Camera1.txt).
 
-### Info projection
+## Info projection
 
 This library can transform and process 3D data with a z in altitude or height. This is done by the pyproj library, which needs the geoid at site level to change units.
 
 The command for adding a geoid is -y, where you can enter the paths to the various geoids. If the file is stored in pyproj's native folder (pyproj.datadir.get_data_dir(), *usr/share/proj* or *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj*) the file name is sufficient pyproj will find it on its own. 
 Geoids file can be found on pyproj's github (https://github.com/OSGeo/PROJ-data).
 
-![logo ign](docs/image/logo_ign.png) ![logo fr](docs/image/Republique_Francaise_Logo.png)
+![logo ign](../../docs/image/logo_ign.png) ![logo fr](../../docs/image/Republique_Francaise_Logo.png)

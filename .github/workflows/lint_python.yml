@@ -24,7 +24,7 @@ jobs:
 
     - name: Analysing the code with pylint
       run: |
-        pylint opk_to_opk.py opk_control.py opk_to_rpc.py pt_image_to_world.py pt_world_to_image.py ptfile_image_to_world.py ptfile_world_to_image.py spaceresection_opk.py opk_to_conical.py
+        pylint implements/opk_to_opk.py implements/opk_control.py implements/opk_to_rpc.py implements/pt_image_to_world.py implements/pt_world_to_image.py implements/ptfile_image_to_world.py implements/ptfile_world_to_image.py implements/spaceresection_opk.py implements/opk_to_conical.py
         pylint src/process/p_format/p_read_opk.py src/process/p_format/p_write_opk.py src/process/p_format/p_write_rpc.py src/process/p_format/p_write_con.py
         pylint src/process/p_func/p_control.py src/process/p_func/p_image_world.py src/process/p_func/p_world_image.py src/process/p_func/p_spaceresection.py
         pylint src/process/p_add_data/p_write.py src/process/p_add_data/p_gen_param.py src/process/p_add_data/p_unit_shot.py src/process/p_add_data/p_add_shot.py src/process/p_add_data/p_pt2d.py src/process/p_add_data/p_pt3d.py src/process/p_add_data/p_file_gcp2d.py src/process/p_add_data/p_file_gcp3d.py
@@ -46,7 +46,7 @@ jobs:
 
     - name: Analysing the code with flake8
       run: |
-        flake8  --max-line-length 100 opk_to_opk.py opk_control.py opk_to_rpc.py pt_image_to_world.py pt_world_to_image.py ptfile_image_to_world.py ptfile_world_to_image.py spaceresection_opk.py opk_to_conical.py
+        flake8  --max-line-length 100 implements/opk_to_opk.py implements/opk_control.py implements/opk_to_rpc.py implements/pt_image_to_world.py implements/pt_world_to_image.py implements/ptfile_image_to_world.py implements/ptfile_world_to_image.py implements/spaceresection_opk.py implements/opk_to_conical.py
         flake8  --max-line-length 100 src/process/p_format/p_read_opk.py src/process/p_format/p_write_opk.py src/process/p_format/p_write_rpc.py src/process/p_format/p_write_con.py
         flake8  --max-line-length 100 src/process/p_func/p_control.py src/process/p_func/p_image_world.py src/process/p_func/p_world_image.py src/process/p_func/p_spaceresection.py
         flake8  --max-line-length 100 src/process/p_add_data/p_write.py src/process/p_add_data/p_gen_param.py src/process/p_add_data/p_unit_shot.py src/process/p_add_data/p_add_shot.py src/process/p_add_data/p_pt2d.py src/process/p_add_data/p_pt3d.py src/process/p_add_data/p_file_gcp2d.py src/process/p_add_data/p_file_gcp3d.py

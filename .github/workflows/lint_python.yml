@@ -42,7 +42,7 @@ jobs:
         pylint src/stat/statistics.py
         pylint src/utils/miscellaneous/sparse.py src/utils/miscellaneous/param_bundle.py src/utils/miscellaneous/miscellaneous.py
         pylint src/format/rpc.py src/format/conical.py
-        pylint src/rsc/search_proj.py
+        pylint src/geodesy/projectionlist/search_proj.py
 
     - name: Analysing the code with flake8
       run: |
@@ -64,4 +64,4 @@ jobs:
         flake8  --max-line-length 100 src/stat/statistics.py
         flake8  --max-line-length 100 src/utils/miscellaneous/sparse.py src/utils/miscellaneous/param_bundle.py src/utils/miscellaneous/miscellaneous.py
         flake8  --max-line-length 100 src/format/rpc.py src/format/conical.py
-        flake8  --max-line-length 100 src/rsc/search_proj.py
+        flake8  --max-line-length 100 src/geodesy/projectionlist/search_proj.py

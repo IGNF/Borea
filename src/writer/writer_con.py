@@ -6,7 +6,7 @@ from pathlib import Path, PureWindowsPath
 from src.worksite.worksite import Worksite
 from src.geodesy.proj_engine import ProjEngine
 from src.format.conical import Conical
-from src.rsc.search_proj import search_info
+from src.geodesy.projectionlist.search_proj import search_info
 
 
 def write(name: str, folder_con: str, param_con: dict, work: Worksite) -> None:

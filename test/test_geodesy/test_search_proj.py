@@ -2,7 +2,7 @@
 Test the module search_proj.py
 """
 import pytest
-from src.rsc.search_proj import search_info
+from src.geodesy.projectionlist.search_proj import search_info
 
 
 def test_search_info():

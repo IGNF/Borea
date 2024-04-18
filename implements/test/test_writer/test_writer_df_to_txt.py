@@ -8,8 +8,8 @@ from src.reader.reader_point import read_file_pt
 from src.writer.writer_df_to_txt import write_df_to_txt
 
 
-INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
-INPUT_TERRAIN = "./dataset/terrain_test.mes"
+INPUT_OPK = "./../dataset/23FD1305_alt_test.OPK"
+INPUT_TERRAIN = "./../dataset/terrain_test.mes"
 
 
 def test_write_df_txt():

@@ -14,6 +14,13 @@ from src.reader.reader_camera import read_camera
 from src.reader.reader_point import read_file_pt, read_file_pt_dataframe
 
 
+INPUT_OPK = "./../dataset/23FD1305_alt_test.OPK"
+PATH_DTM = "./../dataset/MNT_France_25m_h_crop.tif"
+PATH_GEOID = ["./../dataset/fr_ign_RAF20.tif"]
+PATH_CAM = ["./../dataset/Camera1.txt"]
+PT_LIAISON = "./../dataset/liaisons_test.mes"
+
+
 def Dtm_singleton(path, type_dtm):
     Dtm.clear()
     Dtm().set_dtm(path, type_dtm)
@@ -28,9 +35,9 @@ def test_shootings_position():
     work = Worksite("Test")
     work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree",True,"opk")
     work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree",True,"opk")
-    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
+    work.set_proj(2154, PATH_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
-    work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
+    work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot()
@@ -46,8 +53,8 @@ def test_shootings_position():
 def test_space_resection():
     shot = Shot("test_shot", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), "test_cam","degree", True,"opk")
     cam = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460, 17004)
-    Proj_singleton(2154, ["./dataset/fr_ign_RAF20.tif"])
-    Dtm_singleton("./dataset/MNT_France_25m_h_crop.tif", "height")
+    Proj_singleton(2154, PATH_GEOID)
+    Dtm_singleton(PATH_DTM, "height")
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]), 'altitude', 'altitude', False)[2]
     shot.set_z_nadir(z_nadir)
@@ -62,17 +69,17 @@ def test_space_resection():
 
 
 def test_take_obs():
-    work = reader_orientation("./dataset/23FD1305_alt_test.OPK",
+    work = reader_orientation(INPUT_OPK,
                               {"order_axe":'opk',
                                "interval": [2, None],
                                "header": list("NXYZOPKC"),
                                "unit_angle": "degree",
                                "linear_alteration": True})
-    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
-    read_camera(["./dataset/Camera1.txt"], work)
-    work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
+    work.set_proj(2154, PATH_GEOID)
+    read_camera(PATH_CAM, work)
+    work.set_dtm(PATH_DTM, "height")
     work.set_param_shot()
-    read_file_pt("./dataset/liaisons_test.mes", list("PNXY"), "co_point", work)
+    read_file_pt(PT_LIAISON, list("PNXY"), "co_point", work)
     actual_obs, actual_ptw = SpaceResection(work).take_obs(work.shots["23FD1305x00026_01306"])
     assert (actual_obs[:,0:3] == np.array([[3885.75, 6033.01,3896.99],[14969.14,16208.41,13858.47]])).all()
     assert (np.round(actual_ptw[:,0:3],0) == np.array([[814451,814574,814450],[6283601,6283532,6283665],[401,399,401]])).all()
@@ -85,9 +92,9 @@ def test_space_resection_othershot():
                                "header": list("NXYZOPKC"),
                                "unit_angle": "degree",
                                "linear_alteration": True})
-    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
-    read_camera(["./dataset/Camera1.txt"], work)
-    work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
+    work.set_proj(2154, PATH_GEOID)
+    read_camera(PATH_CAM, work)
+    work.set_dtm(PATH_DTM, "height")
     work.set_param_shot()
     actual_shot = SpaceResection(work).space_resection_gap(work.shots["23FD1305x00054_05677"])
     assert abs(actual_shot.pos_shot[0] - 833127.599) < 0.02
@@ -102,9 +109,9 @@ def test_space_resection_withcopoints():
                              "header": list("NXYZOPKC"),
                              "unit_angle": "degree",
                              "linear_alteration": True})
-    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
-    read_camera(["./dataset/Camera1.txt"], work)
-    work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
+    work.set_proj(2154, PATH_GEOID)
+    read_camera(PATH_CAM, work)
+    work.set_dtm(PATH_DTM, "height")
     work.set_param_shot()
     read_file_pt("./test/data/dataset2/all_liaisons2.mes", list("PNXY"), "co_point", work)
     actual_shot = SpaceResection(work).space_resection_gap(work.shots["23FD1305x00054_05677"])
@@ -119,9 +126,9 @@ def test_space_resection_withcopoints():
 
 def test_space_resection_to_worksite():
     work = Worksite("Test")
-    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
-    read_camera(["./dataset/Camera1.txt"], work)
-    work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
+    work.set_proj(2154, PATH_GEOID)
+    read_camera(PATH_CAM, work)
+    work.set_dtm(PATH_DTM, "height")
     pt2d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2.mes",list("PNXY"),"pt2d")
     pt3d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2_world.mes",list("PXYZ"),"pt3d")
     work.type_z_data = "height"

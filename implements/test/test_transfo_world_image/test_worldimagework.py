@@ -6,7 +6,8 @@ from src.worksite.worksite import Worksite
 from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
 
 
-PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
+PATH_DTM = "./../dataset/MNT_France_25m_h_crop.tif"
+LIST_GEOID = ["./../dataset/fr_ign_RAF20.tif"]
 TYPE_POINT = [3]
 TYPE_CONTROL_POINT = [13]
 ALL_POINT = []
@@ -15,7 +16,7 @@ ALL_POINT = []
 def test_calculate_world_to_image_base():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"degree",True,"opk")
-    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
+    work.set_proj(2154, LIST_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('gcp_test', 'shot_test', np.array([24042.25, 14781.17]))
     work.add_gcp3d('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
@@ -32,7 +33,7 @@ def test_calculate_world_to_image_base():
 def test_calculate_world_to_image_addpointunknow():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"degree",True,"opk")
-    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
+    work.set_proj(2154, LIST_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('gcp_test', 'shot_test', np.array([24042.25, 14781.17]))
     work.add_gcp3d('gcp_test', 3, np.array([815601.510, 6283629.280, 54.960]))
@@ -51,7 +52,7 @@ def test_calculate_world_to_image_addpointunknow():
 def test_calculate_world_to_image_testcode():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"degree",True,"opk")
-    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
+    work.set_proj(2154, LIST_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('gcp_test', 'shot_test', np.array([24042.25, 14781.17]))
     work.add_gcp2d('gcp_test_test', 'shot_test', np.array([24042.25, 14781.17]))
@@ -70,7 +71,7 @@ def test_calculate_world_to_image_testcode():
 def test_calculate_world_to_image_testcodeNone():
     work = Worksite("test")
     work.add_shot("shot_test", np.array([814975.925, 6283986.148,1771.280]), np.array([-0.245070686036,-0.069409621323,0.836320989726]), 'cam_test',"degree",True,"opk")
-    work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
+    work.set_proj(2154, LIST_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('gcp_test', 'shot_test', np.array([24042.25, 14781.17]))
     work.add_gcp2d('gcp_test_test', 'shot_test', np.array([24042.25, 14781.17]))

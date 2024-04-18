@@ -6,8 +6,8 @@ import pytest
 from src.worksite.worksite import Worksite
 from src.reader.orientation.reader_opk import read as read_opk
 
-INPUT_OPK_UBU = "./dataset/23FD1305_alt_test.OPK"
-INPUT_OPK_WIN = ".\\dataset\\23FD1305_alt_test.OPK"
+INPUT_OPK_UBU = "./../dataset/23FD1305_alt_test.OPK"
+INPUT_OPK_WIN = ".\\..\\dataset\\23FD1305_alt_test.OPK"
 UNIT_ANGLE = "degree"
 
 def test_reader_opk_ubupath():

@@ -6,6 +6,7 @@ import pytest
 from src.datastruct.dtm import Dtm
 from src.geodesy.proj_engine import ProjEngine
 
+PATH_GEOID = ["./../dataset/fr_ign_RAF20.tif"]
 
 def setup_module(module): # run before the first test
     Dtm.clear()
@@ -14,7 +15,7 @@ def setup_module(module): # run before the first test
 
 def test_ProjEngine_withpathgeotiff():
     ProjEngine.clear()
-    ProjEngine().set_epsg(2154, ["./dataset/fr_ign_RAF20.tif"])
+    ProjEngine().set_epsg(2154, PATH_GEOID)
     proj = ProjEngine()
     assert proj.geog_to_geoid
 
@@ -34,7 +35,7 @@ def test_ProjEngine_notgeoidwithpathgeotiff():
 
 def test_get_meridian_convergence():
     ProjEngine.clear()
-    ProjEngine().set_epsg(2154, ["./dataset/fr_ign_RAF20.tif"])
+    ProjEngine().set_epsg(2154, PATH_GEOID)
     proj = ProjEngine()
     meridian_convergence = proj.get_meridian_convergence(815601, 6283629)
     theorical_value = -1.039350

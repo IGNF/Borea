@@ -10,16 +10,16 @@ from src.reader.reader_point import read_file_pt, read_file_pt_dataframe
 class TestReaderFilePt:
     @classmethod
     def setup_class(cls):
-        INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
+        INPUT_OPK = "./../dataset/23FD1305_alt_test.OPK"
         ARGS = {"order_axe":'opk',
                 "interval": [2, None],
                 "header": list("NXYZOPKC"),
                 "unit_angle": "degree",
                 "linear_alteration":True}
         cls.work = reader_orientation(INPUT_OPK, ARGS)
-        cls.INPUT_TERRAIN = "./dataset/terrain_test.mes"
-        cls.INPUT_GCP = "./dataset/GCP_test.app"
-        cls.INPUT_LIAISONS = "./dataset/liaisons_test.mes"
+        cls.INPUT_TERRAIN = "./../dataset/terrain_test.mes"
+        cls.INPUT_GCP = "./../dataset/GCP_test.app"
+        cls.INPUT_LIAISONS = "./../dataset/liaisons_test.mes"
 
 
     def test_read_gcp2d(self):

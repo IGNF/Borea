@@ -3,8 +3,8 @@ Script test for module manager_reader
 """
 from src.reader.orientation.manage_reader import reader_orientation
 
-INPUT_OPK_UBU = "./dataset/23FD1305_alt_test.OPK"
-INPUT_OPK_WIN = ".\\dataset\\23FD1305_alt_test.OPK"
+INPUT_OPK_UBU = "./../dataset/23FD1305_alt_test.OPK"
+INPUT_OPK_WIN = ".\\..\\dataset\\23FD1305_alt_test.OPK"
 
 
 def test_reader_file_ubupath():

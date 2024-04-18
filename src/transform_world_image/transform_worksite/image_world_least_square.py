@@ -11,8 +11,8 @@ from src.geodesy.approx_euclidean_proj import ApproxEuclideanProj
 from src.datastruct.dtm import Dtm
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 from src.transform_world_image.transform_shot.world_image_shot import WorldImageShot
-from src.math.sparse import invert_diag_sparse_matrix_3_3
-from src.math.param_bundle import param_bundle_diff
+from src.utils.miscellaneous.sparse import invert_diag_sparse_matrix_3_3
+from src.utils.miscellaneous.param_bundle import param_bundle_diff
 
 
 @dataclass

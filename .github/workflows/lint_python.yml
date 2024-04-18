@@ -40,7 +40,7 @@ jobs:
         pylint src/transform_world_image/transform_shot/world_image_shot.py src/transform_world_image/transform_shot/image_world_shot.py src/transform_world_image/transform_shot/conversion_coor_shot.py
         pylint src/transform_world_image/transform_dtm/world_image_dtm.py
         pylint src/stat/statistics.py
-        pylint src/math/sparse.py src/math/param_bundle.py src/math/math.py
+        pylint src/utils/miscellaneous/sparse.py src/utils/miscellaneous/param_bundle.py src/utils/miscellaneous/miscellaneous.py
         pylint src/format/rpc.py src/format/conical.py
         pylint src/rsc/search_proj.py
 
@@ -62,6 +62,6 @@ jobs:
         flake8  --max-line-length 100 src/transform_world_image/transform_worksite/image_world_intersection.py src/transform_world_image/transform_worksite/image_world_least_square.py
         flake8  --max-line-length 100 src/transform_world_image/transform_dtm/world_image_dtm.py
         flake8  --max-line-length 100 src/stat/statistics.py
-        flake8  --max-line-length 100 src/math/sparse.py src/math/param_bundle.py src/math/math.py
+        flake8  --max-line-length 100 src/utils/miscellaneous/sparse.py src/utils/miscellaneous/param_bundle.py src/utils/miscellaneous/miscellaneous.py
         flake8  --max-line-length 100 src/format/rpc.py src/format/conical.py
         flake8  --max-line-length 100 src/rsc/search_proj.py

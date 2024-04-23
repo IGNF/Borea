@@ -32,6 +32,9 @@ jobs:
         ./ci/test_all.sh
         cd ..
 
+    - name: Run test example
+      run: ./examples/ci/test_example.sh
+
     - name: Run regression test opk to opk
       run: python3 ./implements/opk_to_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -n Test -w ./implements/test/tmp/ -o NXYHPOKC -ou radian -oa False
 

@@ -11,7 +11,6 @@ dependencies:
   - flake8
   - sphinx
   - conda-forge:furo
-  - conda-forge:importlib-resources
   - dataclasses
   - pyproj
   - scipy

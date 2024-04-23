@@ -5,7 +5,6 @@ pytest-shutil
 flake8
 sphinx
 furo
-importlib
 dataclasses
 pyproj
 scipy

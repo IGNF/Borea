@@ -86,48 +86,6 @@ y_{local} = y_{posEucli} + (y_{local} - y_{posEucli}) * lamb
 
 * Returns the point as an array (3,). However, the z coordinate is wrong, but with a DTM we can find the Z value with the X and Y position we've just calculated.
 
-## Example to use
-
-```
-import numpy as np
-from src.datastruct.worksite import Worksite
-from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
-
-# Create worksite with just a name
-work = Worksite("Test")
-
-# Add two shots
-# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration, order_axe)
-# unit_angle = "degree" or "radian".
-# linear_alteration True if z shot is corrected by linear alteration.
-# order of rotation axe "opk" or "pok" ...
-work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True,"opk")
-work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True,"opk")
-
-# Setup projection
-# set_epsg(epsg, path_geoid)
-# the geoid is mandatory if type_z_data and type_z_shot are different
-work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
-
-# Add camera information
-# add_camera(name_cam, ppax, ppay, focal, width, height)
-# ppax and ppay image center in pixel with distortion
-work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
-
-# Add connecting points in each shot
-# add_co_point(name_point, name_shot, column, line)
-work.add_co_point('"1003"',"shot1",24042.25,14781.17)
-work.add_co_point('"1003"',"shot2",24120.2,10329.3)
-
-# Setup projection system of shot and z_nadir of shot
-work.set_param_shot()
-
-# Calculate world coordinate by least square.
-# manage_image_world(type_point, type_process)
-ImageWorldWork(work).manage_image_world("co_points", "square")
-
-# Transform euclidiean coordinate to world coordinate 
-coor_world = work.co_pts_world['"1003"']
-```
+Link to see examples : [./examples/eg_image_to_world](../../examples/eg_image_to_world.py)
 
 ![logo ign](../image/logo_ign.png) ![logo fr](../image/Republique_Francaise_Logo.png)

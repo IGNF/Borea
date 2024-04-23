@@ -133,75 +133,8 @@ There are as many lines in mat_a as there are number of points x2.
 
 ## Example to use
 
-This function is used in SpaceResection class the **space_resection_on_worksite()** function of the worksite class to loop over all the shots present on the worksite.
-```
-import numpy as np
-from src.datastruct.worksite import Worksite
-from src.transform_world_image.transform_worksite.space_resection import SpaceResection
+This function is used in SpaceResection class the **space_resection_on_worksite()** function of the worksite class to loop over all the shots present on the worksite. e.g. link: [./examples/eg_space_resection.py](../../examples/eg_space_resection.py)
 
-# Create worksite
-work = Worksite("Test")
-
-# Add 2 shots
-# Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration, order_axe)
-# unit_angle = "degree" or "radian".
-# linear_alteration True if z shot is corrected by linear alteration.
-# order of rotation axe "opk" or "pok" ...
-work.add_shot("23FD1305x00026_01306",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True, "opk")
-work.add_shot("23FD1305x00026_01307",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True, "opk")
-
-# Setup projection of the worksite
-# set_epsg(epsg, path_geoid)
-# the geoid is mandatory if type_z_data and type_z_shot are different
-work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
-
-# Add camera information
-# add_camera(name_cam, ppax, ppay, focal, width, height)
-# ppax and ppay image center in pixel with distortion
-work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
-
-# Setup projection system and z_nadir of shot
-work.set_param_shot()
-
-# Recalculate 6 externa parameters of all shots
-SpaceResection(work).space_resection_on_worksite(add_pixel = (0,0))
-```
-This function is used in SpaceResection class the **space_resection_to_worksite()** function of the worksite class to calculate 6 externals parameters of shot and implemente him in worksite.
-```
-import numpy as np
-from src.worksite.worksite import Worksite
-from src.reader.reader_camera import read_camera
-from src.reader.reader_point import read_file_pt_dataframe
-from src.transform_world_image.transform_worksite.space_resection import SpaceResection
-
-# Create a Worksite
-work = Worksite("Test")
-
-# Add camera in worksite
-read_camera(["./dataset/Camera1.txt"], work)
-
-# Setup projection of the worksite
-work.set_proj(2154, ["./dataset/fr_ign_RAF20.tif"])
-
-# Add Dtm of the worksite
-work.set_dtm("./dataset/MNT_France_25m_h_crop.tif", "height")
-
-# Read file of point to have in DataFrame format
-pt2d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2.mes",list("PNXY"),"gcp2d")
-pt3d = read_file_pt_dataframe("./test/data/dataset2/all_liaisons2_world.mes",list("PXYZ"),"gcp3d")
-
-# Setup unit z data, shot in worksite and euclidean system to use for shot 
-work.set_type_z_data("height")
-work.set_type_z_shot("altitude")
-work.set_approx_eucli_proj(False)
-
-# Create dictionary of with initialization point
-pinit = {"coor_init":np.array([825439, 6289034, 1500])}
-
-# Run process
-SpaceResection(work).space_resection_to_worksite(pt2d, pt3d, pinit)
-
-# After work have shot created by space resection
-```
+This function is used in SpaceResection class the **space_resection_to_worksite()** function of the worksite class to calculate 6 externals parameters of shot and implemente him in worksite. e.g. link: [./examples/eg_space_resection.py](../../examples/eg_space_resection.py)
 
 ![logo ign](../image/logo_ign.png) ![logo fr](../image/Republique_Francaise_Logo.png)

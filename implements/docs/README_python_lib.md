@@ -69,123 +69,22 @@ Example at the end of explanation of function [file](./docs/functions/Space_rese
 
 ## Example
 
-```
-from src.reader.orientation.manage_reader import reader_orientation
-from src.reader.reader_camera import read_camera
-from src.reader.reader_point import read_file_pt
-from src.writer.manage_writer import manager_reader
-from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
-from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
-from src.transform_world_image.transform_worksite.space_resection import SpaceResection
-from src.stat.statistics import Stat
+All examples are in [./examples](../../examples/):
+* For build main class Worksite with file [eg_build_worksite_by_file.py](../../examples/eg_build_worksite_by_file.py) and with data [eg_build_worksite_by_data.py](../../examples/eg_build_worksite_by_data.py).
+* To make tranformation image to world [eg_image_to_world.py](../../examples/eg_image_to_world.py).
+* To make tranformation world to image [eg_world_to_image.py](../../examples/eg_world_to_image.py).
+* To make space resection on point to determine worksite [eg_space_resection.py](../../examples/eg_space_resection.py).
+* To convert format opk to an other format opk rpc con [eg_opk_to_format.py](../../examples/eg_opk_to_format.py).
 
-
-############# Data ###############
-
-# path to photogrammetric site file
-path_opk = "dataset/23FD1305_alt_test.OPK"
-
-# line taken and header
-line_taken = [2, None]
-header = list('NXYZOPKC')
-# or
-header = ['N', 'X', 'Y', 'Z', 'O', 'P', 'K', 'C']
-unit_angle = 'degree' # or "radian"
-linear_alteration = True # If z shot is corrected by linear alteration
-order_axe = "opk" # Order of angle to make rotation matrix ("opk", "pok")
-args_intup = {"interval": line_taken,
-              "header": header,
-              "unit_angle": unit_angle,
-              "linear_alteration": linear_alteration,
-              "order_axe": order_axe}
-
-# info in epsg and epsg data
-epsg = "EPSG:2154"
-path_geoid = ["dataset/fr_ign_RAF20.tif"]
-
-# path(s) to camera's file
-path_camera = ["dataset/Camera1.txt"]
-
-# path(s) to connecting points file
-path_co_points = ["dataset/liaisons_test.mes"]
-head_co_point = "PNXY"
-
-# path(s) to image ground control points file
-path_gcp2d= ["dataset/terrain_test.mes"]
-head_gcp2d = "PNXY"
-
-# path(s) to ground control points file with unit of z and code of control point
-path_gcps = ["dataset/GCP_test.app"]
-head_gcp3d = "PTXYZ"
-type_z_data = 'height'
-type_control = [13]
-
-# path to dtm file and unit of the dtm
-path_dtm = "dataset/MNT_France_25m_h_crop.tif"
-type_dtm = "height"
-
-# type process for function image to world "inter or "square"
-type_process = "inter"
-
-# type of output file (opk or rpc or con) and name of file 
-writer = "opk"
-name_output = "New_worksite"
-
-# folder path for the output
-pathreturn = "./"
-
-# dictionary of args output
-args_output = {"order_axe" : "opk",
-               "header" : "NXYZOPKC",
-               "unit_angle" : 'degree',
-               "linear_alteration" : True}
-
-################# Function ###################
-
-# Readind data and create objet worksite
-work = reader_orientation(path_opk, args_input)
-
-# Add a projection to the worksite
-work.set_proj(epsg, path_geoid)
-
-# Reading camera file
-read_camera(path_camera, work)
-
-# Reading connecting point
-read_file_pt(path_co_points, head_co_point, "co_point", work)
-
-# Reading ground controle point in image
-read_file_pt(path_gcp2d, head_gcp2d, "gcp2d", work)
-
-# Reading GCP
-read_file_pt(path_gcps, head_gcp3d, "gcp3d", work)
-work.set_type_z_data(type_z_data)
-
-# Add Dtm to the worksite
-work.set_dtm(path_dtm, type_dtm)
-
-# Setup parameters of shot (projection system of shot and z_nadir)
-work.set_param_shot()
-
-# Calculate world coordinate of "co_points" or "gcp2d"
-# Type control isn't mandatory, take all points if not specified 
-ImageWorldWork(work).manage_image_world("gcp2d", type_process,type_control)
-
-# Calculate image coordinate of GCP if they exist for 2 type
-# Type control isn't mandatory, take all points if not specified 
-WorldImageWork(work).calculate_world_to_image(type_control)
-
-# Calculate shooting position with a factor pixel, to change projection for example
-SpaceResection(work).space_resection_on_worksite(add_pixel = (0,0))
-
-# Calculate stat on world_to_image and image_to_world
-stat = Stat(work, pathreturn, type_control)
-stat.main_stat_and_save()
-
-# Writing data
-manager_reader(writer, name_output, pathreturn, args_output, work)
-```
-Examples of the different formats can be found in *./dataset/*.
+Examples of the different formats of file can be found in [./dataset/](../../dataset/):
+* An opk file [23FD1305_alt_test.OPK](../../dataset/23FD1305_alt_test.OPK) with z unit is altitude.
+* Cameras filesformat [Camera1.txt](../../dataset/Camera1.txt) and [Camera2.txt](../../dataset/Camera2.txt).
+* Geotiff of the French geoid for pyproj [fr_ign_RAF20.tif](../../dataset/fr_ign_RAF20.tif) detail [below](#info-projection).
+* Crops geotiff of the French DTM [MNT_France_25m_h_crop.tif](../../dataset/MNT_France_25m_h_crop.tif) in height unit.
+* Ground Control Point (GCP) in terrian [GCP_test.app](../../dataset/GCP_test.app) unit z in height.
+* Ground Control Point (GCP) in image [terrain_test.mes](../../dataset/terrain_test.mes)
+* Connecting points in image [liaisons_test.mes](../../dataset/liaisons_test.mes).
+* Image point to transform terrain coordinates to image coordinates to find out in which image the points are located [terrain_test0.mes](../../dataset/terrain_test0.mes).
 
 ## Detail
 

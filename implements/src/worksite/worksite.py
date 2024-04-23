@@ -83,11 +83,7 @@ class Worksite(Workdata):
         if type_point not in ["co_points", "gcp2d"]:
             raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d']")
 
-        if type_point == 'co_points':
-            out_pt = "co_pts_world"
-            control_type = []
-        else:
-            out_pt = "gcp2d_in_world"
+        out_pt, control_type = self.get_attr_transfo_pt(type_point, control_type)
 
         id_pt = []
         coor = []
@@ -111,10 +107,7 @@ class Worksite(Workdata):
         if type_point not in ["co_points", "gcp2d"]:
             raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d']")
 
-        if type_point == 'co_points':
-            out_pt = "co_pts_world"
-        else:
-            out_pt = "gcp2d_in_world"
+        out_pt, _ = self.get_attr_transfo_pt(type_point, None)
 
         if "type" not in list(pd_mes.columns):
             for _, row in pd_mes.iterrows():
@@ -137,10 +130,7 @@ class Worksite(Workdata):
         if type_point not in ['co_points', 'gcp2d']:
             raise ValueError(f"type point {type_point} is incorrect.['co_points','gcp2d']")
 
-        if type_point == 'co_points':
-            out_pt = "co_pts_world"
-        else:
-            out_pt = "gcp2d_in_world"
+        out_pt, _ = self.get_attr_transfo_pt(type_point, None)
 
         if not getattr(self, out_pt):
             raise ValueError(f"Attribut {out_pt} in worksite is empty.")
@@ -231,3 +221,20 @@ class Worksite(Workdata):
             pos[i, :] = shot.pos_shot
             i += 1
         return np.mean(pos, axis=0)
+
+    def get_attr_transfo_pt(self, type_point: str, control_type: list) -> tuple:
+        """
+        Get string name of attribut where is save transformation image to world point.
+
+        Args:
+            type_point (str):"co_points" or "gcp2d"
+                              depending on what you want.
+            control_type (list): Type controle for gcp.
+        """
+        if type_point == 'co_points':
+            out_pt = "co_pts_world"
+            control_type = []
+        else:
+            out_pt = "gcp2d_in_world"
+
+        return out_pt, control_type

@@ -28,15 +28,12 @@ class WorldIntersection:
         the most distance between two shots or ground image point.
 
         Args:
-            control_type (list): Type controle for gcp.
             type_point (str): "co_points" or "gcp2d"
                               depending on what you want to calculate.
+            control_type (list): Type controle for gcp.
         """
-        if type_point == 'co_points':
-            out_pt = "co_pts_world"
-            control_type = []
-        else:
-            out_pt = "gcp2d_in_world"
+
+        out_pt, control_type = self.work.get_attr_transfo_pt(type_point, control_type)
 
         for name_pt, list_shot in getattr(self.work, type_point).items():  # Loop on points
             try:

@@ -28,13 +28,13 @@ def set_param_bundle_diff(shot: Shot, coor_eucli: np.ndarray, uniform_v: bool = 
                         coor_eucli[2] - shot.pos_shot_eucli[2]])  # vect_a = M-S
     vect_u = shot.mat_rot_eucli @ vect_a  # U = RA
 
+    if uniform_v:
+        vect_u = vect_u/vect_u[2]
+
     mat_v = np.zeros((2 * len(vect_u[0]), 3))
     mat_v[::2, 0] = vect_u[2]
     mat_v[::2, 2] = -vect_u[0]
     mat_v[1::2, 1] = vect_u[2]
     mat_v[1::2, 2] = -vect_u[1]
-
-    if uniform_v:
-        mat_v = mat_v/vect_u[2]
 
     return vect_a, vect_u, mat_v

@@ -17,7 +17,7 @@ class Worksite(Workdata):
         name (str): Name of the worksite.
     """
 
-    def get_point_image_dataframe(self, type_point: str, control_type: list) -> pd.DataFrame:
+    def get_point_image_dataframe(self, type_point: str, control_type: list = None) -> pd.DataFrame:
         """
         Retrieves id_pt, id_img, column, line in a pandas of the requested point type.
 
@@ -31,7 +31,7 @@ class Worksite(Workdata):
         if type_point not in ["co_points", "gcp2d", "gcp3d"]:
             raise ValueError(f"type_point {type_point} is incorrect,['co_points','gcp2d','gcp3d']")
 
-        if type_point == "co_points":
+        if type_point == "co_points" or not control_type:
             control_type = []
 
         type_iter = type_point if type_point != "gcp3d" else "gcp2d"

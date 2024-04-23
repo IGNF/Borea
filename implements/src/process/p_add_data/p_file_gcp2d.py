@@ -27,7 +27,7 @@ def args_gcp2d(parser: argparse) -> argparse:
                         'P: name of point'
                         'N: name of shot'
                         'X: coordinate x (column) in the image'
-                        'Y: coordinate y (column) in the image')
+                        'Y: coordinate y (line) in the image')
     return parser
 
 

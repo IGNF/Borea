@@ -8,5 +8,4 @@ furo
 dataclasses
 pyproj
 scipy
-GDAL
 pandas

@@ -18,8 +18,12 @@ Why Pink Lady? Pink Lady is a B-17 owned by IGN France, originally used in the a
 
 ## Dependency
 
+### Conda/Mamba
 For conda/mamba environment the depencency is [dependency/environment.yml](./dependency/environment.yml).  
-For pip environment (venv) the depencency is [dependency/requirements.txt](./dependency/requirements.txt) and you need to install `libgdal-dev`.
+
+### Pip venv
+For pip environment (venv) the depencency is [dependency/requirements.txt](./dependency/requirements.txt)  
+and you need to install `libgdal-dev` and `GDAL>=3.3.2`.
 
 ## Installation
 
@@ -36,8 +40,17 @@ mamba env create -f ./dependency/environment.yaml
 #### Pip
 ```
 pip install -r ./dependency/requirements.txt
+sudo apt-get install libgdal-dev
 ```
-
+Please note that the `GDAL` version depends on the `libgdal-dev` version.
+```
+apt-cache show libgdal-dev
+# or if you are ogr
+ogrinfo --version
+```
+```
+pip install GDAL==<GDAL VERSION FROM OGRINFO>
+```
 You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html) if you have problems installing GDAL.
 
 ## Contributing

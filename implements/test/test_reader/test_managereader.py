@@ -1,14 +1,18 @@
 """
 Script test for module manager_reader
 """
+# pylint: disable=import-error, missing-function-docstring
 from src.reader.orientation.manage_reader import reader_orientation
+
 
 INPUT_OPK_UBU = "./../dataset/23FD1305_alt_test.OPK"
 INPUT_OPK_WIN = ".\\..\\dataset\\23FD1305_alt_test.OPK"
 
 
 def test_reader_file_ubupath():
-    obj = reader_orientation(INPUT_OPK_UBU, {"order_axe":'opk',"interval": [2, None],"header": list("NXYZOPKC"),"unit_angle": "degree","linear_alteration":True})
+    obj = reader_orientation(INPUT_OPK_UBU, {"order_axe": 'opk', "interval": [2, None],
+                                             "header": list("NXYZOPKC"), "unit_angle": "degree",
+                                             "linear_alteration": True})
     assert obj.name == "23FD1305_alt_test"
     assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
     assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925
@@ -30,7 +34,9 @@ def test_reader_file_ubupath():
 
 
 def test_reader_file_winpath():
-    obj = reader_orientation(INPUT_OPK_WIN, {"order_axe":'opk',"interval": [2, None],"header": list("NXYZOPKC"),"unit_angle": "degree","linear_alteration":True})
+    obj = reader_orientation(INPUT_OPK_WIN, {"order_axe": 'opk', "interval": [2, None],
+                                             "header": list("NXYZOPKC"), "unit_angle": "degree",
+                                             "linear_alteration": True})
     assert obj.name == "23FD1305_alt_test"
     assert obj.shots["23FD1305x00026_01306"].name_shot == "23FD1305x00026_01306"
     assert obj.shots["23FD1305x00026_01306"].pos_shot[0] == 814975.925

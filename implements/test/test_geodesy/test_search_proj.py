@@ -1,6 +1,7 @@
 """
 Test the module search_proj.py
 """
+# pylint: disable=import-error, missing-function-docstring
 import pytest
 from src.geodesy.projectionlist.search_proj import search_info
 

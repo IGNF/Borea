@@ -261,6 +261,21 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="src.worksite.worksite.Worksite.get_attr_transfo_pt">
+<span class="sig-name descname"><span class="pre">get_attr_transfo_pt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.get_attr_transfo_pt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.get_attr_transfo_pt" title="Link to this definition">#</a></dt>
+<dd><p>Get string name of attribut where is save transformation image to world point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type_point</strong> (<em>str</em>) – “co_points” or “gcp2d”
+depending on what you want.</p></li>
+<li><p><strong>control_type</strong> (<em>list</em>) – Type controle for gcp.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="src.worksite.worksite.Worksite.get_coor_pt_img_and_world">
 <span class="sig-name descname"><span class="pre">get_coor_pt_img_and_world</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_shot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.get_coor_pt_img_and_world"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.get_coor_pt_img_and_world" title="Link to this definition">#</a></dt>
 <dd><p>Recovers image and terrain data for all link points in the image.</p>
@@ -282,7 +297,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.worksite.worksite.Worksite.get_point_image_dataframe">
-<span class="sig-name descname"><span class="pre">get_point_image_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.get_point_image_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.get_point_image_dataframe" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_point_image_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/src/worksite/worksite.html#Worksite.get_point_image_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.worksite.worksite.Worksite.get_point_image_dataframe" title="Link to this definition">#</a></dt>
 <dd><p>Retrieves id_pt, id_img, column, line in a pandas of the requested point type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -443,6 +458,7 @@
 <li><a class="reference internal" href="#module-src.worksite.worksite">src.worksite.worksite module</a><ul>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite"><code class="docutils literal notranslate"><span class="pre">Worksite</span></code></a><ul>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite.calculate_barycentre"><code class="docutils literal notranslate"><span class="pre">Worksite.calculate_barycentre()</span></code></a></li>
+<li><a class="reference internal" href="#src.worksite.worksite.Worksite.get_attr_transfo_pt"><code class="docutils literal notranslate"><span class="pre">Worksite.get_attr_transfo_pt()</span></code></a></li>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite.get_coor_pt_img_and_world"><code class="docutils literal notranslate"><span class="pre">Worksite.get_coor_pt_img_and_world()</span></code></a></li>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite.get_point_image_dataframe"><code class="docutils literal notranslate"><span class="pre">Worksite.get_point_image_dataframe()</span></code></a></li>
 <li><a class="reference internal" href="#src.worksite.worksite.Worksite.get_point_world_dataframe"><code class="docutils literal notranslate"><span class="pre">Worksite.get_point_world_dataframe()</span></code></a></li>

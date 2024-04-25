@@ -1,5 +1,5 @@
 # Folder for test
-implements/test/tmp/
+/test/tmp/
 
 # Data for test workflows
 package-lock.json

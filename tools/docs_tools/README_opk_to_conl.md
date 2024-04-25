@@ -1,6 +1,6 @@
 # Convert opk to light conical file for GEOVIEW IGN
 
-**opk_to_conl** Converts an opk file into a light conical file (.CON). This format is an xml format for [GEOVIEW]() **add link ???**, it's a IGN France software to view image.
+**opk_to_conl** Converts an opk file into a light conical file (.CON). This format is an xml format for **GEOVIEW** software used in IGN Space in Toulouse, it's a IGN France software to view image.
 
 ## Application
 

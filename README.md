@@ -1,56 +1,57 @@
 # Welcome to Pink Lady !!!
 
-Pink Lady is a photogrammetric conversion and acquisition program in .OPK format. Open-source with a few tools, such as calculation of the position in the image (l,c) of a terrain point (X,Y,Z), data control with GCP and statistical results. Or convert OPK file to RPC and save to txt.  
+Pink Lady is an open-source tools-box photogrammetric conversion format and transformation coordinate of image and terrain.  
 Why Pink Lady? Pink Lady is a B-17 owned by IGN France, originally used in the army, then used to acquire French territory. Now kept by an association, it became a historic monument in 2012.
 
-## Functionality
+## Tools
 
-* Conversion OPK to OPK: [README_opk_to_opk.md](./README_opk_to_opk.md)
-* Control OPK file: [README_opk_control.md](./README_opk_control.md)
-* Convertion OPK to RPC: [README_opk_to_rpc.md](./README_opk_to_rpc.md)
-* Calculates a ground point from an image point: [README_pt_image_to_world.md](./README_pt_image_to_world.md)
-* Calculates a image point from an ground point: [README_pt_world_to_image.md](./README_pt_world_to_image.md)
-* Calculates a ground file points from an image file points: [README_ptfile_image_to_world.md](./README_ptfile_image_to_world.md)
-* Calculates a image file points from an ground file points: [README_ptfile_world_to_image.md](./README_ptfile_world_to_image.md)
-* Calculates opk by space resection: [README_spaceresection_opk.md](./README_spaceresection_opk.md)
-* Python lib: [README_python_lib.md](./README_python_lib.md)
+* Conversion OPK to OPK: [tools/docs_tools/README_opk_to_opk.md](./tools/docs_tools/README_opk_to_opk.md) (OPK = Omega Phi Kappa)
+* Control OPK file: [tools/docs_tools/README_opk_control.md](./tools/docs_tools/README_opk_control.md)
+* Convertion OPK to RPC: [tools/docs_tools/README_opk_to_rpc.md](./tools/docs_tools/README_opk_to_rpc.md) (RPC = Rational Polynomial Coefficients)
+* Convertion OPK to Conl: [tools/docs_tools/README_opk_to_conl.md](./tools/docs_tools/README_opk_to_conl.md) (Conl = light conical file, IGN France format)
+* Transforms coordinates terrain from image: [tools/docs_tools/README_pt_image_to_world.md](./tools/docs_tools/README_pt_image_to_world.md)
+* Transforms coordinates image from terrain: [tools/docs_tools/README_pt_world_to_image.md](./tools/docs_tools/README_pt_world_to_image.md)
+* Transforms coordinates file terrain from image: [tools/docs_tools/README_ptfile_image_to_world.md](./tools/docs_tools/README_ptfile_image_to_world.md)
+* Transforms coordinates file image from terrain: [tools/docs_tools/README_ptfile_world_to_image.md](./tools/docs_tools/README_ptfile_world_to_image.md)
+* Calculates opk by space resection: [tools/docs_tools/README_spaceresection_opk.md](./tools/docs_tools/README_spaceresection_opk.md)
+* Python lib: [tools/docs_tools/README_python_lib.md](./tools/docs_tools/README_python_lib.md)
+
+## Dependency
+
+### Conda/Mamba
+For conda/mamba environment the depencency is [dependency/environment.yml](./dependency/environment.yml).  
+
+### Pip venv
+For pip environment (venv) the depencency is [dependency/requirements.txt](./dependency/requirements.txt)  
+and you need to install `libgdal-dev` and `GDAL>=3.3.2`.
 
 ## Installation
 
-You need to retrieve the repository on this machine with ```git clone <link html>``` or with ssh key.  
-Then, in an environment or on this machine, install the dependencies with pip or conda/mamba.
-Pull the git repository on your computer and install the environment. By ```conda``` or ```mamba``` with ```environment.yml``` or ```pip``` with ```requirements.txt```.
+You need to retrieve the repository with ```git clone``` and install the environment. By ```conda``` or ```mamba``` with ```environment.yml``` or ```pip``` with ```requirements.txt```.
 
 #### Conda/Mamba
 ```
-conda env create -f environment.yaml
+conda env create -f ./dependency/environment.yaml
 ```
 ```
-mamba env create -f environment.yaml
+mamba env create -f ./dependency/environment.yaml
 ```
 
 #### Pip
 ```
-pip install -r requirements.txt
-```
-
-You may experience errors when installing GDAL with pip.  
-If you are working in an environment where GDAL is already installed on your machine. You need to retrieve the version of your gdal on your machine with ```ogrinfo --version``` then use the same version for ```pip install GDAL=<version>```.  
-If GDAL does not exist, install libgdal-dev with sudo.
-```
+pip install -r ./dependency/requirements.txt
 sudo apt-get install libgdal-dev
 ```
-You’ll also need to export a couple of environment variables for the compiler.
+Please note that the `GDAL` version depends on the `libgdal-dev` version.
 ```
-export CPLUS_INCLUDE_PATH=/usr/include/gdal
-export C_INCLUDE_PATH=/usr/include/gdal
+apt-cache show libgdal-dev
+# or if you are ogr
+ogrinfo --version
 ```
-Now you can use pip to install the Python GDAL bindings ```ogrinfo --version```.
 ```
 pip install GDAL==<GDAL VERSION FROM OGRINFO>
 ```
-
-You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html) .
+You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html) if you have problems installing GDAL.
 
 ## Contributing
 

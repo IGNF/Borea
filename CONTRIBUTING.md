@@ -1,9 +1,11 @@
 # Contributor information to Pink Lady
 
 Make an issue on a new feature or bug found.  
-Or get the repository and code the new functionality you want on a new branch and merge it with dev.
+Or get the repository and code the new functionality you want on a new branch and pull request on dev branch.
 
-## Commit Message Header
+## Commit message header
+
+Based on: https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit
 
 ```
 <type>: <short summary>
@@ -12,7 +14,7 @@ Or get the repository and code the new functionality you want on a new branch an
   │
   └─⫸ Commit Type: build|ci|docs|feat|fix|refactor|test
 ```
-Must be one of the following:
+Type must be one of the following:
 
   * build: Changes that affect the build system or external dependencies (e.g. scopes: gulp, broccoli, npm)
   * ci: Changes to our CI configuration files and scripts (e.g. CircleCi, SauceLabs)
@@ -20,16 +22,51 @@ Must be one of the following:
   * feat: A new feature
   * fix: A bug fix
   * refactor: A code change that neither fixes a bug nor adds a feature
-  * test: Adding missing tests or correcting existing tests
+  * test: Coding tests or correcting existing tests
 
-Based on: https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit
+## Contributing of format reading/writing functions
+
+Restructuring of read files to allow the addition of read files without modifying functions.  
+Same thing with write files.
+- Structure file in reader folder [src/reader/orientation](./src/reader/orientation/):
+    - name : reader_{ext}.py
+    - function : def read(file: str, args: dict, work: **Worksite**) -> **Worksite**:
+- Structure file in writer folder [src/writer](./src/writer/): 
+    - name : writer_{ext}.py
+    - function : def write(name_file: str, path_folder: str, args: dict, work: **Worksite**) -> converted file:
+
+args is a dictionary with different parameter which depends on what you read or write.  
+e.g. to read opk
+```
+args = {"order_axe":'opk',
+        "interval": [2, None],
+        "header": list("NXYZOPKC"),
+        "unit_angle": "degree",
+        "linear_alteration":True}
+```
+
+## Contributing for new function to process Worksite
+
+To add a new feature/function to process a worksite (*Worksite*). Adds a new class to enter a **Worksite**. Its file must be located in the folder corresponding to its theme: 
+* [datastruct](./src/datastruct/): Module for data structure class.
+* [format](./src/format/): Module for specific format class.
+* [geodesy](./src/geodesy/): Module for geodesic and projection class.
+* [process](./src/process/): Module to process of data (detail [below](#adding-a-processing-step)).
+* [reader](./src/reader/): Module for file reading functions.
+* [stat](./src/stat/): Module for statistic class.
+* [transform_world_image](./src/transform_world_image/): Module for transformation world to image and image to world class in different module.
+* [utils](./src/utils/): Various functions.
+* [worksite](./src/worksite/): Module for main class **Worksite**.
+* [writer](./src/writer/): Module for file writing functions.
+
+If it's a new theme, add a new folder with an explicit name.
 
 ## Structure of main class Worksite
 
-Worksite is the main class in the code that stores and manipulates data. It is located in [src/worksite/worksite.py](./src/worksite/worksite.py) and inherits from Workdata in [src/datastruct/workdata.py](./src/datastruct/workdata.py). The worksite class has no constructor; Workdata does. The constructor requires a single attribute, which is the name of the construction site.  
+**Worksite** is the main class in the code that stores and manipulates data. It is located in [src/worksite/worksite.py](./src/worksite/worksite.py) and inherits from Workdata in [src/datastruct/workdata.py](./src/datastruct/workdata.py). The worksite class has no constructor; **Workdata** does. The constructor requires a single attribute, which is the name of the construction site.  
 The class has 11 attributes:
 * **name**: name of worksite
-* **shots**: dictionary of shot {"name_shot": Shot}
+* **shots**: dictionary of shot {"name_shot": **Shot**}
 * **cameras**: dictionary of cameras {"name_camera": Camera}
 * **co_points**: dictionary of connecting point {"name_point": list["names_shots"]} to find out which image they fit into
 * **gcp2d**: dictionary of gcp 2d {"name_gcp2d": list["names_shots"]} to find out which image they fit into
@@ -43,12 +80,13 @@ The class has 11 attributes:
 Function to implement attributes:
 * add_shot() for **shots**
 * add_camera() for **cameras**
-* add_co_point() for **co_points** in Worksite and in Shot (shots needs to implement before co_point)
-* add_gcp2d() for **gcp2d** in Worksite and in Shot (shots needs to implement before gcp2d)
+* add_co_point() for **co_points** in **Worksite** and in **Shot** (shots needs to implement before co_point)
+* add_gcp2d() for **gcp2d** in **Worksite** and in **Shot** (shots needs to implement before gcp2d)
 * add_gcp3d() for **gcp3d**
 * set_approx_eucli_proj() for **approxeucli**
-* set_unit_z_data() for **type_z_data** if None in input type_z_data = type_z_shot (type_z_shot must be implement before)
-* Worksite.type_z_shot = "..." to implement **type_z_shot**
+* set_type_z_shot() for **type_z_shot**
+* set_type_z_data() for **type_z_data** if None in input type_z_data = type_z_shot (type_z_shot must be implement before)
+
 
 **co_pts_world** and **gcp2d_in_world** are only implemented if world to image or image to world functions are used.
 
@@ -56,31 +94,51 @@ The class includes two other functions that implement two other singleton classe
 * **ProjEngine**, with set_proj(), which defines the site projection and lets you change the z-unit of altitude or height data if a geoid is specified.
 * **Dtm**, with set_dtm(), which stores the DTM for linear alteration corrections.
 
-## Structure of format reading/writing functions
+## Adding a processing step
 
-Restructuring of read files to allow the addition of read files without modifying functions.  
-Same thing with write files.
-- Structure file in reader folder [src/reader/orientation](./src/reader/orientation/):
-    - name : reader_{ext}.py
-    - function : def read(file: str, args: dict, work: Worksite) -> Worksite:
-- Structure file in writer folder [src/writer](./src/writer/): 
-    - name : writer_{ext}.py
-    - function : def write(name_file: str, path_folder: str, args: dict, work: Worksite) -> converted file:
+Processing files are used to build [function files](#functionality-file), and are divided into two parts (2 functions):
+* The first function take an argparse in input and return an argparse with new arguments.
+* The second function take argparse.parse_args() in input and **Worksite** or no to make the process of input parameters.
 
-args is a dictionary with different parameter which depends on what you read or write.  
-e.g. to read opk
+Processing files are grouped in [process](./src/process/) folder and divided into 3 categories (3 folders):
+* [p_add_data](./src/process/p_add_data/): Reading files and data.
+* [p_format](./src/process/p_format/): Additional information on the different formats.
+* [p_func](./src/process/p_func/): Data processing, with some specific info sometimes.
+
+If it's a new theme, add a new folder with an explicit name.
+
+## Functionality file
+
+Functionality file are grouped in [process](./tools) with an explicit file name for their function.  
+The construction of such a file normally requires:
+* Only 3 imports (argparse, the processing file to add the data, the processing file to process the data).
+* Creating an argparse `parser = argparse.ArgumentParser(description='descriptif functionality')`.
+* Retrieve arguments.
+* Transforms parser into args `args = parser.parse_args()`.
+* Processing arguments.
+
+Look at the .py files already in [source](./src).
+
+## Re-generating sphinx documentation
+
+In folder *./docs/sphinx/* do:
 ```
-args = {"order_axe":'opk',
-        "interval": [2, None],
-        "header": list("NXYZOPKC"),
-        "unit_angle": "degree",
-        "linear_alteration":True}
+make clean
+```
+If you add new file, delete all file .rst in the repertory *./docs/sphinx/* except index.rst.  
+At the root of the repository do:
+```
+sphinx-apidoc -o docs/sphinx src
+```
+And in *./docs/sphinx/* do:
+```
+make html
 ```
 
 ## More information
 
-Html documentation python in [docs/_build/html/index.hmlt](./docs/_build/html/index.html)  
-Markdown documentation function in [docs/functions/](./docs/functions/)  
+Sphinx html documentation python code in *./docs/sphinx/_build/html/index.html*  
+Mathematics documentation functions in [docs/functions/](./docs/functions/)  
 Diagram of code structure Pink Lady in [docs/diagram/](./docs/diagram/)
 
 ![logo ign](docs/image/logo_ign.png) ![logo fr](docs/image/Republique_Francaise_Logo.png)

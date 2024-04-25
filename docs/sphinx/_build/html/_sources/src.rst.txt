@@ -1,0 +1,27 @@
+src package
+===========
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   src.datastruct
+   src.format
+   src.geodesy
+   src.process
+   src.reader
+   src.stat
+   src.transform_world_image
+   src.utils
+   src.worksite
+   src.writer
+
+Module contents
+---------------
+
+.. automodule:: src
+   :members:
+   :undoc-members:
+   :show-inheritance:

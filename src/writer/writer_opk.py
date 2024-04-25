@@ -19,9 +19,9 @@ def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:
                      keys:
                      "order_axe" (str): Order of rotation matrix axes,
                      "header" (list): List of column type file.
-                     "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
-                     "line_writingar_alteration" (bool): True if data corrected by
-                     line_writingar alteration.
+                     "unit_angle" (str): Unit of angle 'degree' or 'radian'.
+                     "linear_alteration" (bool): True if data corrected by
+                     linear alteration.
         work (Worksite): The site to be recorded.
     """
     path_opk = os.path.join(Path(PureWindowsPath(path_opk)), f"{name_opk}.opk")

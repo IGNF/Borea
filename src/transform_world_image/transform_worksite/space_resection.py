@@ -4,14 +4,14 @@ Module for recalculate shooting position
 import pandas as pd
 import numpy as np
 from scipy.spatial.transform import Rotation as R
-from src.math.math import angle_degree_2vect, min_max_pt, normalize
+from src.utils.miscellaneous.miscellaneous import angle_degree_2vect, min_max_pt, normalize
 from src.worksite.worksite import Worksite
 from src.datastruct.camera import Camera
 from src.datastruct.shot import Shot
 from src.transform_world_image.transform_shot.world_image_shot import WorldImageShot
 from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 from src.transform_world_image.transform_worksite.image_world_intersection import WorldIntersection
-from src.math.param_bundle import param_bundle_diff
+from src.utils.miscellaneous.param_bundle import set_param_bundle_diff
 
 
 class SpaceResection:
@@ -253,7 +253,7 @@ class SpaceResection:
         Returns:
             np.array: Matrix A.
         """
-        vect_a, vect_u, mat_v = param_bundle_diff(imc_adjust, pt_eucli)
+        vect_a, vect_u, mat_v = set_param_bundle_diff(imc_adjust, pt_eucli)
 
         # Axiator of vect_a
         a_axiator = np.zeros((3 * len(vect_a[0]), 3))

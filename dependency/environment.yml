@@ -1,0 +1,17 @@
+name: pink_lady
+channels:
+ - conda-forge
+dependencies:
+  - python==3.10.*
+  - gdal
+  - numpy
+  - pylint
+  - pytest
+  - conda-forge:pytest-shutil
+  - flake8
+  - sphinx
+  - conda-forge:furo
+  - dataclasses
+  - pyproj
+  - scipy
+  - pandas

@@ -2,6 +2,7 @@
 Script to read camera file txt or xml.
 """
 from pathlib import Path, PureWindowsPath
+from src.datastruct.camera import Camera
 from src.worksite.worksite import Worksite
 
 
@@ -34,13 +35,18 @@ def camera_txt(file: Path, work: Worksite) -> None:
                     info_name, info_data = info_cam.split(" = ")
                     dict_info[info_name.lower()] = info_data[:-1]
 
-            # Add to worksite
-            work.add_camera(dict_info["name"],
-                            float(dict_info["ppax"]),
-                            float(dict_info["ppay"]),
-                            float(dict_info["focal"]),
-                            float(dict_info["width"]),
-                            float(dict_info["height"]))
             file_cam.close()
     except FileNotFoundError as e:
         raise FileNotFoundError(f"The path {file} is incorrect !!!") from e
+
+    # Create Camera
+    cam = Camera(dict_info["name"])
+
+    for name_attr, item in dict_info.items():
+        if name_attr != "name":
+            type_item = int if name_attr in ["width", "height"] else float
+            try:
+                setattr(cam, name_attr.lower(), type_item(item))
+            except ValueError:
+                continue
+    work.cameras[dict_info["name"]] = cam

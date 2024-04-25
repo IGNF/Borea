@@ -24,31 +24,37 @@ jobs:
         export CPLUS_INCLUDE_PATH=/usr/include/gdal
         export C_INCLUDE_PATH=/usr/include/gdal
         pip install GDAL==3.4.1
-        pip install -r ./requirements.txt
+        pip install -r ./dependency/requirements.txt
 
     - name: Run unit tests with pytest
-      run: python3 -m pytest -s ./test -v
+      run: ./ci/test_all.sh
+
+    - name: Run test example
+      run: ./ci/test_example.sh
 
     - name: Run regression test opk to opk
-      run: python3 ./opk_to_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -n Test -w ./test/tmp/ -o NXYHPOKC -ou radian -oa False
+      run: python3 ./tools/opk_to_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -n Test -w ./test/tmp/ -o NXYHPOKC -ou radian -oa False
 
     - name: Run regression test control opk
-      run: python3 ./opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p inter -w ./test/tmp/
+      run: python3 ./tools/opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p inter -w ./test/tmp/
 
     - name: Run regression test opk to rpc
-      run: python3 ./opk_to_rpc.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -o 3
+      run: python3 ./tools/opk_to_rpc.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -o 3
 
     - name: Run regression test calc pt image to world
-      run: python3 ./pt_image_to_world.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 24042.25 14781.17 -d height
+      run: python3 ./tools/pt_image_to_world.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 24042.25 14781.17 -d height
 
     - name: Run regression test calc pt world to image
-      run: python3 ./pt_world_to_image.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 815601.510 6283629.280 54.960 -d height
+      run: python3 ./tools/pt_world_to_image.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 815601.510 6283629.280 54.960 -d height
 
     - name: Run regression test calc file pt world to image
-      run: python3 ./ptfile_world_to_image.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test0.mes -g ./dataset/GCP_test.app --fg height -n Coor2d_pt_terrain -w ./test/tmp/
+      run: python3 ./tools/ptfile_world_to_image.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test0.mes -g ./dataset/GCP_test.app --fg height -n Coor2d_pt_terrain -w ./test/tmp/
 
     - name: Run regression test calc file pt image to world
-      run: python3 ./ptfile_image_to_world.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -p square -n Coor3d_pt_image -w ./test/tmp/
+      run: python3 ./tools/ptfile_image_to_world.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -p square -n Coor3d_pt_image -w ./test/tmp/
 
     - name: Run regression test spaceresection opk
-      run: python3 ./spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./test/data/dataset2/all_liaisons2.mes -g ./test/data/dataset2/all_liaisons2_world.mes -l PXYZ --fg height -n SpaceResection -w ./test/tmp/ -o NXYZOPKC -ou degree -oa True
+      run: python3 ./tools/spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./test/data/dataset2/all_liaisons2.mes -g ./test/data/dataset2/all_liaisons2_world.mes -l PXYZ --fg height -n SpaceResection -w ./test/tmp/ -o NXYZOPKC -ou degree -oa True
+
+    - name: Run regression test opk to conical
+      run: python3 ./tools/opk_to_conl.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -w ./test/tmp/

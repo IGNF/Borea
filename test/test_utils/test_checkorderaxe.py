@@ -1,6 +1,7 @@
 """
 Script test for module check_order_axe
 """
+# pylint: disable=import-error, missing-function-docstring
 import pytest
 from src.utils.check.check_order_axe import check_order_axe
 
@@ -15,7 +16,7 @@ def test_orcer_axe():
 
 
 def test_bad_order():
-    with pytest.raises(ValueError) as info_e:
+    with pytest.raises(ValueError):
         check_order_axe("opkp")
-    with pytest.raises(ValueError) as info_e:
+    with pytest.raises(ValueError):
         check_order_axe("opi")

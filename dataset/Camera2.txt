@@ -4,3 +4,4 @@ PPAy = 8502.00
 focal = 30975.00
 width = 26460
 height = 17004
+pixel_size = 0.000004

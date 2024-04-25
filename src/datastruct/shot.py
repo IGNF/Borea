@@ -185,19 +185,6 @@ class Shot:
             self.ori_shot = -(R.from_euler("x", np.pi) *
                               R.from_matrix(self.mat_rot)).as_euler(order_xyz, degrees=unitori)
 
-    def getattr(self, attsrt: str) -> any:
-        """
-        Get attribut by str name.
-
-        Args:
-            attstr (str): String attribute.
-
-        Returns:
-            Any: The attribute of the class.
-        """
-        # pylint: disable-next=unnecessary-dunder-call
-        return self.__getattribute__(attsrt)
-
     def get_z_remove_scale_factor(self) -> float:
         """
         Return Z after removing the scale factor. The Z of the object is NOT modified.

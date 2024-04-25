@@ -1,0 +1,11 @@
+numpy
+pylint
+pytest
+pytest-shutil
+flake8
+sphinx
+furo
+dataclasses
+pyproj
+scipy
+pandas

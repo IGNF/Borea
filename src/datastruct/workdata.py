@@ -78,7 +78,7 @@ class Workdata:
 
     # pylint: disable-next=too-many-arguments
     def add_camera(self, name_camera: str, ppax: float, ppay: float,
-                   focal: float, width: float, height: float) -> None:
+                   focal: float, width: int, height: int, pixel_size: float = None) -> None:
         """
         Add data camera in the Worksite.
 
@@ -87,15 +87,17 @@ class Workdata:
             ppax (float): Center of distortion in x.
             ppay (float): Center of distortion in y.
             focal (float): Focal of the camera.
-            width (float): Width of the image camera.
-            height (float): Height of the image camera.
+            width (int): Width of the image camera.
+            height (int): Height of the image camera.
+            pixel_size (float): Size of pixel in meter (mandatory if you save in conical file).
         """
         self.cameras[name_camera] = Camera(name_camera=name_camera,
                                            ppax=ppax,
                                            ppay=ppay,
                                            focal=focal,
                                            width=width,
-                                           height=height)
+                                           height=height,
+                                           pixel_size=pixel_size)
 
     def add_co_point(self, name_point: str, name_shot: str, coor2d: np.ndarray) -> None:
         """
@@ -175,7 +177,7 @@ class Workdata:
 
     def set_dtm(self, path_dtm: str, type_dtm: str) -> None:
         """
-        set class DtM to the worksite.
+        Set class DtM to the worksite.
 
         Args:
             path_dtm (str): Path to the dtm.
@@ -191,21 +193,30 @@ class Workdata:
 
     def set_approx_eucli_proj(self, approx: bool) -> None:
         """
-        Setup approxeucli in worksite
+        Setup approxeucli in worksite.
 
         Args:
-            apprx (bool): True if there are not projengine
+            apprx (bool): True if there are not projengine.
         """
         self.approxeucli = approx
 
-    def set_unit_z_data(self, unit_z_data: str) -> None:
+    def set_type_z_shot(self, type_z_shot: str) -> None:
         """
-        Setup unit_z_data with one condition if is None.
+        Setup type_z_shot in worksite.
 
         Args:
-            unit_z_data (str): altitude or height
+            type_z_shot (str): altitude or height.
         """
-        if unit_z_data:
-            self.type_z_data = unit_z_data
+        self.type_z_shot = type_z_shot
+
+    def set_type_z_data(self, type_z_data: str) -> None:
+        """
+        Setup type_z_data with one condition if is None.
+
+        Args:
+            type_z_data (str): altitude or height.
+        """
+        if type_z_data:
+            self.type_z_data = type_z_data
         else:
             self.type_z_data = self.type_z_shot

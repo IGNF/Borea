@@ -1,17 +1,21 @@
 """
-Example to use opk control in lib python (main line 38)
+Example to use opk control in lib python (main line 45)
 """
-import sys, os
-
-sys.path.append(os.path.join(os.path.dirname(__file__)[:-8], "implements/"))
-from src.stat.statistics import Stat #type: ignore
-from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork # type: ignore
-from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork # type: ignore
-
+# pylint: disable=import-error, missing-function-docstring
+# pylint: disable=wrong-import-position, pointless-string-statement
+import sys
+import os
 from eg_build_worksite_by_file import worksite_add_gcp2d, worksite_add_gcp3d, worksite_opk
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+from src.stat.statistics import Stat  # noqa: E402
+# pylint: disable-next=line-too-long
+from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork  # noqa: E402, E501
+# pylint: disable-next=line-too-long
+from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork  # noqa: E402, E501
 
-OUTPUT_PATH = "./implements/test/tmp"
+
+OUTPUT_PATH = "./test/tmp"
 
 
 def opk_control(pathreturn: str, type_control: list) -> None:
@@ -42,28 +46,28 @@ if __name__ == "__main__":
     ############################################
     #   Statistics to control position of opk  #
     ############################################
-    # You need path of folder where you want to save statistics file
-    pathreturn = OUTPUT_PATH
+    # You need path of folder where you want to save statistics file OUTPUT_PATH
 
     # Creation of folder
-    os.makedirs(pathreturn, exist_ok=True)
+    os.makedirs(OUTPUT_PATH, exist_ok=True)
 
     # You need the control type of gcp
-    # type_control = [13] # Take just gcp with type 13
-    type_control = [] # Take all gcp of any type 
+    # control_type = [13]  # Take just gcp with type 13
+    control_type = []  # Take all gcp of any type
 
-    print(f"\nControl OPK with statistics file in {pathreturn}")
-    opk_control(pathreturn, type_control)
+    print(f"\nControl OPK with statistics file in {OUTPUT_PATH}")
+    opk_control(OUTPUT_PATH, control_type)
 
     """
     OUTPUT OF THE FUNCTION
-    
+
     There are 4 output files:
     - 2 metrics files:
         - image to world metric (Stat_metric_image_to_world_{name_opk}.txt)
         - world to image metric (Stat_metric_world_to_image_{name_opk}.txt)
-    Give Min, Max, Median, Mean, Var and Sigam ain arthmetic and absolut of residu of transformation coordinates point.
-        
+    Give Min, Max, Median, Mean, Var and Sigam ain arthmetic and absolut
+    of residu of transformation coordinates point.
+
     - 2 residus files
         - image to world residu (Stat_residu_image_to_world_{name_opk}.txt)
         - world to image residu (Stat_residu_world_to_image_{name_opk}.txt)

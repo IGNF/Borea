@@ -1,7 +1,7 @@
 # Formula documentation for the function eucli_intersection_2p
 
 Function to transform the Euclidean coordinates of a point, visible on two acquisitions. Function built in WorldIntersection in [src/transform_world_image/transform_worksite/image_world_intersection.py](../../src/transform_world_image/transform_worksite/image_world_intersection.py).  
-Tools where transformation is used are : opk_control.py and ptfile_image_to_world.py with parameter -p "inter"
+Tools where transformation is used are : **opk_control.py** and **ptfile_image_to_world.py** with parameter -p "inter"
 
 ## Formula
 

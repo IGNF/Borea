@@ -1,11 +1,13 @@
 """
-Example to build worksite with data (main ligne 142)
+Example to build worksite with data (main ligne 155)
 """
-import sys, os
+# pylint: disable=import-error, missing-function-docstring, wrong-import-position
+import sys
+import os
 import numpy as np
 
-sys.path.append(os.path.join(os.path.dirname(__file__)[:-8], "implements/"))
-from src.worksite.worksite import Worksite # type: ignore
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+from src.worksite.worksite import Worksite  # noqa: E402
 
 
 PATH_GEOID = ["./dataset/fr_ign_RAF20.tif"]
@@ -21,8 +23,10 @@ def worksite_1shot() -> Worksite:
     # unit_angle = "degree" or "radian".
     # linear_alteration True if z shot is corrected by linear alteration.
     # order of rotation axe "opk" or "pok" ...
-    work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True,"opk")
-    
+    work.add_shot("shot1", np.array([814975.925, 6283986.148, 1771.280]),
+                  np.array([-0.245070686036, -0.069409621323, 0.836320989726]),
+                  "cam_test", "degree", True, "opk")
+
     # Settup the unit of z shot
     work.set_type_z_shot("altitude")
 
@@ -55,8 +59,12 @@ def worksite_2shots_2copts() -> Worksite:
     # unit_angle = "degree" or "radian".
     # linear_alteration True if z shot is corrected by linear alteration.
     # order of rotation axe "opk" or "pok" ...
-    work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True,"opk")
-    work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True,"opk")
+    work.add_shot("shot1", np.array([814975.925, 6283986.148, 1771.280]),
+                  np.array([-0.245070686036, -0.069409621323, 0.836320989726]),
+                  "cam_test", "degree", True, "opk")
+    work.add_shot("shot2", np.array([814977.593, 6283733.183, 1771.519]),
+                  np.array([-0.190175545509, -0.023695590794, 0.565111690487]),
+                  "cam_test", "degree", True, "opk")
 
     # Settup the unit of z shot
     work.set_type_z_shot("altitude")
@@ -77,7 +85,8 @@ def worksite_2shots_2copts() -> Worksite:
     work.add_co_point('"1003"', "shot2", np.array([24120.2, 10329.3]))
     # you can do the same thing with gcp in images and gcp in the field.
     # work.add_gcp2d(name_point, name_shot, np.array([column, line]))
-    # work.add_gcp3d(name_point, type_gcp, np.array([X, Y, Z]))             type_gcp is the code for whether it's a support or control point.
+    # work.add_gcp3d(name_point, type_gcp, np.array([X, Y, Z]))
+    # type_gcp is the code for whether it's a support or control point.
 
     # Add dtm to remove/add linear alteration or get z of a planimetric point
     # set_dtm(path_dtm, unit_of_dtm) unit is "altitude" or "height"
@@ -98,8 +107,12 @@ def worksite_2shot_3gcp() -> Worksite:
     # unit_angle = "degree" or "radian".
     # linear_alteration True if z shot is corrected by linear alteration.
     # order of rotation axe "opk" or "pok" ...
-    work.add_shot("shot1",np.array([814975.925,6283986.148,1771.280]),np.array([-0.245070686036,-0.069409621323,0.836320989726]),"cam_test","degree", True,"opk")
-    work.add_shot("shot2",np.array([814977.593,6283733.183,1771.519]),np.array([-0.190175545509,-0.023695590794,0.565111690487]),"cam_test","degree", True,"opk")
+    work.add_shot("shot1", np.array([814975.925, 6283986.148, 1771.280]),
+                  np.array([-0.245070686036, -0.069409621323, 0.836320989726]),
+                  "cam_test", "degree", True, "opk")
+    work.add_shot("shot2", np.array([814977.593, 6283733.183, 1771.519]),
+                  np.array([-0.190175545509, -0.023695590794, 0.565111690487]),
+                  "cam_test", "degree", True, "opk")
 
     # Settup the unit of z shot
     work.set_type_z_shot("altitude")
@@ -143,7 +156,7 @@ if __name__ == "__main__":
     # Build worksite with just one shot
     work1 = worksite_1shot()
 
-    # Build worksite with 2 shots and 2 connecting points 
+    # Build worksite with 2 shots and 2 connecting points
     work2 = worksite_2shots_2copts()
 
     # Build worksite with 2 shots and 3 gcp3d and 3 gcp2d0

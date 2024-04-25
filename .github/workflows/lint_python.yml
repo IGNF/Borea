@@ -24,44 +24,12 @@ jobs:
 
     - name: Analysing the code with pylint
       run: |
-        pylint implements/opk_to_opk.py implements/opk_control.py implements/opk_to_rpc.py implements/pt_image_to_world.py implements/pt_world_to_image.py implements/ptfile_image_to_world.py implements/ptfile_world_to_image.py implements/spaceresection_opk.py implements/opk_to_conl.py
-        pylint implements/src/process/p_format/p_read_opk.py implements/src/process/p_format/p_write_opk.py implements/src/process/p_format/p_write_rpc.py implements/src/process/p_format/p_write_con.py
-        pylint implements/src/process/p_func/p_control.py implements/src/process/p_func/p_image_world.py implements/src/process/p_func/p_world_image.py implements/src/process/p_func/p_spaceresection.py
-        pylint implements/src/process/p_add_data/p_write.py implements/src/process/p_add_data/p_gen_param.py implements/src/process/p_add_data/p_unit_shot.py implements/src/process/p_add_data/p_add_shot.py implements/src/process/p_add_data/p_pt2d.py implements/src/process/p_add_data/p_pt3d.py implements/src/process/p_add_data/p_file_gcp2d.py implements/src/process/p_add_data/p_file_gcp3d.py
-        pylint implements/src/geodesy/proj_engine.py implements/src/geodesy/euclidean_proj.py implements/src/geodesy/transform_geodesy.py implements/src/geodesy/approx_euclidean_proj.py implements/src/geodesy/local_euclidean_proj.py
-        pylint implements/src/reader/reader_camera.py implements/src/reader/reader_point.py
-        pylint implements/src/reader/orientation/manage_reader.py implements/src/reader/orientation/reader_opk.py
-        pylint implements/src/datastruct/shot.py implements/src/datastruct/gcp.py implements/src/datastruct/workdata.py implements/src/datastruct/camera.py implements/src/datastruct/dtm.py
-        pylint implements/src/writer/writer_opk.py implements/src/writer/manage_writer.py implements/src/writer/writer_rpc.py implements/src/writer/writer_df_to_txt.py implements/src/writer/writer_con.py
-        pylint implements/src/utils/check/check_args_opk.py implements/src/utils/check/check_array.py implements/src/utils/singleton/singleton.py implements/src/utils/check/check_args_reader_pt.py implements/src/utils/check/check_header.py implements/src/utils/check/check_order_axe.py implements/src/utils/xml/xml.py
-        pylint implements/src/worksite/worksite.py
-        pylint implements/src/transform_world_image/transform_worksite/world_image_work.py implements/src/transform_world_image/transform_worksite/image_world_work.py
-        pylint implements/src/transform_world_image/transform_worksite/image_world_intersection.py implements/src/transform_world_image/transform_worksite/image_world_least_square.py implements/src/transform_world_image/transform_worksite/space_resection.py
-        pylint implements/src/transform_world_image/transform_shot/world_image_shot.py implements/src/transform_world_image/transform_shot/image_world_shot.py implements/src/transform_world_image/transform_shot/conversion_coor_shot.py
-        pylint implements/src/transform_world_image/transform_dtm/world_image_dtm.py
-        pylint implements/src/stat/statistics.py
-        pylint implements/src/utils/miscellaneous/sparse.py implements/src/utils/miscellaneous/param_bundle.py implements/src/utils/miscellaneous/miscellaneous.py
-        pylint implements/src/format/rpc.py implements/src/format/conl.py
-        pylint implements/src/geodesy/projectionlist/search_proj.py
+        pylint ./tools/
+        pylint ./test/
+        pylint ./examples/
 
     - name: Analysing the code with flake8
       run: |
-        flake8  --max-line-length 100 implements/opk_to_opk.py implements/opk_control.py implements/opk_to_rpc.py implements/pt_image_to_world.py implements/pt_world_to_image.py implements/ptfile_image_to_world.py implements/ptfile_world_to_image.py implements/spaceresection_opk.py implements/opk_to_conl.py
-        flake8  --max-line-length 100 implements/src/process/p_format/p_read_opk.py implements/src/process/p_format/p_write_opk.py implements/src/process/p_format/p_write_rpc.py implements/src/process/p_format/p_write_con.py
-        flake8  --max-line-length 100 implements/src/process/p_func/p_control.py implements/src/process/p_func/p_image_world.py implements/src/process/p_func/p_world_image.py implements/src/process/p_func/p_spaceresection.py
-        flake8  --max-line-length 100 implements/src/process/p_add_data/p_write.py implements/src/process/p_add_data/p_gen_param.py implements/src/process/p_add_data/p_unit_shot.py implements/src/process/p_add_data/p_add_shot.py implements/src/process/p_add_data/p_pt2d.py implements/src/process/p_add_data/p_pt3d.py implements/src/process/p_add_data/p_file_gcp2d.py implements/src/process/p_add_data/p_file_gcp3d.py
-        flake8  --max-line-length 100 implements/src/geodesy/proj_engine.py implements/src/geodesy/euclidean_proj.py implements/src/geodesy/transform_geodesy.py implements/src/geodesy/approx_euclidean_proj.py implements/src/geodesy/local_euclidean_proj.py
-        flake8  --max-line-length 100 implements/src/reader/reader_camera.py implements/src/reader/reader_point.py
-        flake8  --max-line-length 100 implements/src/reader/orientation/manage_reader.py implements/src/reader/orientation/reader_opk.py
-        flake8  --max-line-length 100 implements/src/datastruct/shot.py implements/src/datastruct/gcp.py implements/src/datastruct/workdata.py implements/src/datastruct/camera.py implements/src/datastruct/dtm.py
-        flake8  --max-line-length 100 implements/src/writer/writer_opk.py implements/src/writer/manage_writer.py implements/src/writer/writer_rpc.py implements/src/writer/writer_df_to_txt.py implements/src/writer/writer_con.py
-        flake8  --max-line-length 100 implements/src/utils/check/check_args_opk.py implements/src/utils/check/check_array.py implements/src/utils/singleton/singleton.py implements/src/utils/check/check_args_reader_pt.py implements/src/utils/check/check_header.py implements/src/utils/check/check_order_axe.py implements/src/utils/xml/xml.py
-        flake8  --max-line-length 100 implements/src/worksite/worksite.py
-        flake8  --max-line-length 100 implements/src/transform_world_image/transform_worksite/world_image_work.py implements/src/transform_world_image/transform_worksite/image_world_work.py implements/src/transform_world_image/transform_worksite/space_resection.py
-        flake8  --max-line-length 100 implements/src/transform_world_image/transform_shot/world_image_shot.py implements/src/transform_world_image/transform_shot/image_world_shot.py implements/src/transform_world_image/transform_shot/conversion_coor_shot.py
-        flake8  --max-line-length 100 implements/src/transform_world_image/transform_worksite/image_world_intersection.py implements/src/transform_world_image/transform_worksite/image_world_least_square.py
-        flake8  --max-line-length 100 implements/src/transform_world_image/transform_dtm/world_image_dtm.py
-        flake8  --max-line-length 100 implements/src/stat/statistics.py
-        flake8  --max-line-length 100 implements/src/utils/miscellaneous/sparse.py implements/src/utils/miscellaneous/param_bundle.py implements/src/utils/miscellaneous/miscellaneous.py
-        flake8  --max-line-length 100 implements/src/format/rpc.py implements/src/format/conl.py
-        flake8  --max-line-length 100 implements/src/geodesy/projectionlist/search_proj.py
+        flake8  --max-line-length 100 ./tools/
+        flake8  --max-line-length 100 ./test/
+        flake8  --max-line-length 100 ./examples/

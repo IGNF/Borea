@@ -48,16 +48,16 @@ args = {"order_axe":'opk',
 ## Contributing for new function to process Worksite
 
 To add a new feature/function to process a worksite (*Worksite*). Adds a new class to enter a **Worksite**. Its file must be located in the folder corresponding to its theme: 
-* [datastruct](./implements/src/datastruct/): Module for data structure class.
-* [format](./implements/src/format/): Module for specific format class.
-* [geodesy](./implements/src/geodesy/): Module for geodesic and projection class.
-* [process](./implements/src/process/): Module to process of data (detail [below](#adding-a-processing-step)).
-* [reader](./implements/src/reader/): Module for file reading functions.
-* [stat](./implements/src/stat/): Module for statistic class.
-* [transform_world_image](./implements/src/transform_world_image/): Module for transformation world to image and image to world class in different module.
-* [utils](./implements/src/utils/): Various functions.
-* [worksite](./implements/src/worksite/): Module for main class **Worksite**.
-* [writer](./implements/src/writer/): Module for file writing functions.
+* [datastruct](./src/datastruct/): Module for data structure class.
+* [format](./src/format/): Module for specific format class.
+* [geodesy](./src/geodesy/): Module for geodesic and projection class.
+* [process](./src/process/): Module to process of data (detail [below](#adding-a-processing-step)).
+* [reader](./src/reader/): Module for file reading functions.
+* [stat](./src/stat/): Module for statistic class.
+* [transform_world_image](./src/transform_world_image/): Module for transformation world to image and image to world class in different module.
+* [utils](./src/utils/): Various functions.
+* [worksite](./src/worksite/): Module for main class **Worksite**.
+* [writer](./src/writer/): Module for file writing functions.
 
 If it's a new theme, add a new folder with an explicit name.
 
@@ -100,16 +100,16 @@ Processing files are used to build [function files](#functionality-file), and ar
 * The first function take an argparse in input and return an argparse with new arguments.
 * The second function take argparse.parse_args() in input and **Worksite** or no to make the process of input parameters.
 
-Processing files are grouped in [process](./implements/src/process/) folder and divided into 3 categories (3 folders):
-* [p_add_data](./implements/src/process/p_add_data/): Reading files and data.
-* [p_format](./implements/src/process/p_format/): Additional information on the different formats.
-* [p_func](./implements/src/process/p_func/): Data processing, with some specific info sometimes.
+Processing files are grouped in [process](./src/process/) folder and divided into 3 categories (3 folders):
+* [p_add_data](./src/process/p_add_data/): Reading files and data.
+* [p_format](./src/process/p_format/): Additional information on the different formats.
+* [p_func](./src/process/p_func/): Data processing, with some specific info sometimes.
 
 If it's a new theme, add a new folder with an explicit name.
 
 ## Functionality file
 
-Functionality file are grouped in [process](./implements/) with an explicit file name for their function.  
+Functionality file are grouped in [process](./) with an explicit file name for their function.  
 The construction of such a file normally requires:
 * Only 3 imports (argparse, the processing file to add the data, the processing file to process the data).
 * Creating an argparse `parser = argparse.ArgumentParser(description='descriptif functionality')`.
@@ -117,7 +117,7 @@ The construction of such a file normally requires:
 * Transforms parser into args `args = parser.parse_args()`.
 * Processing arguments.
 
-Look at the .py files already in [implements](./implements/).
+Look at the .py files already in [source](./src).
 
 ## Re-generating sphinx documentation
 
@@ -128,7 +128,7 @@ make clean
 If you add new file, delete all file .rst in the repertory *./docs/sphinx/* except index.rst.  
 At the root of the repository do:
 ```
-sphinx-apidoc -o docs/sphinx implements/src
+sphinx-apidoc -o docs/sphinx src
 ```
 And in *./docs/sphinx/* do:
 ```

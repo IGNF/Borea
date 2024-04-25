@@ -5,16 +5,16 @@ Why Pink Lady? Pink Lady is a B-17 owned by IGN France, originally used in the a
 
 ## Tools
 
-* Conversion OPK to OPK: [implements/docs/README_opk_to_opk.md](./implements/docs/README_opk_to_opk.md) (OPK = Omega Phi Kappa)
-* Control OPK file: [implements/docs/README_opk_control.md](./implements/docs/README_opk_control.md)
-* Convertion OPK to RPC: [implements/docs/README_opk_to_rpc.md](./implements/docs/README_opk_to_rpc.md) (RPC = Rational Polynomial Coefficients)
-* Convertion OPK to Conl: [implements/docs/README_opk_to_conical.md](./implements/docs/README_opk_to_conical.md) (Conl = light conical file, IGN France format)
-* Transforms coordinates terrain from image: [implements/docs/README_pt_image_to_world.md](./implements/docs/README_pt_image_to_world.md)
-* Transforms coordinates image from terrain: [implements/docs/README_pt_world_to_image.md](./implements/docs/README_pt_world_to_image.md)
-* Transforms coordinates file terrain from image: [implements/docs/README_ptfile_image_to_world.md](./implements/docs/README_ptfile_image_to_world.md)
-* Transforms coordinates file image from terrain: [implements/docs/README_ptfile_world_to_image.md](./implements/docs/README_ptfile_world_to_image.md)
-* Calculates opk by space resection: [implements/docs/README_spaceresection_opk.md](./implements/docs/README_spaceresection_opk.md)
-* Python lib: [implements/docs/README_python_lib.md](./implements/docs/README_python_lib.md)
+* Conversion OPK to OPK: [tools/docs_tools/README_opk_to_opk.md](./tools/docs_tools/README_opk_to_opk.md) (OPK = Omega Phi Kappa)
+* Control OPK file: [tools/docs_tools/README_opk_control.md](./tools/docs_tools/README_opk_control.md)
+* Convertion OPK to RPC: [tools/docs_tools/README_opk_to_rpc.md](./tools/docs_tools/README_opk_to_rpc.md) (RPC = Rational Polynomial Coefficients)
+* Convertion OPK to Conl: [tools/docs_tools/README_opk_to_conical.md](./tools/docs_tools/README_opk_to_conical.md) (Conl = light conical file, IGN France format)
+* Transforms coordinates terrain from image: [tools/docs_tools/README_pt_image_to_world.md](./tools/docs_tools/README_pt_image_to_world.md)
+* Transforms coordinates image from terrain: [tools/docs_tools/README_pt_world_to_image.md](./tools/docs_tools/README_pt_world_to_image.md)
+* Transforms coordinates file terrain from image: [tools/docs_tools/README_ptfile_image_to_world.md](./tools/docs_tools/README_ptfile_image_to_world.md)
+* Transforms coordinates file image from terrain: [tools/docs_tools/README_ptfile_world_to_image.md](./tools/docs_tools/README_ptfile_world_to_image.md)
+* Calculates opk by space resection: [tools/docs_tools/README_spaceresection_opk.md](./tools/docs_tools/README_spaceresection_opk.md)
+* Python lib: [tools/docs_tools/README_python_lib.md](./tools/docs_tools/README_python_lib.md)
 
 ## Dependency
 

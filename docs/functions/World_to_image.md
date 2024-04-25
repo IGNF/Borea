@@ -2,7 +2,7 @@
 
 Function to transform the image coordinates of a point, starting from a terrain point.  
 It is built into the WorldImageShot class [src/transform_world_image/transform_shot/world_image_shot.py](../../src/transform_world_image/transform_shot/world_image_shot.py).  
-Tools where transformation is used are : opk_control.py, pt_world_to_image.py and ptfile_world_to_image.py.
+Tools where transformation is used are : **opk_control.py**, **pt_world_to_image.py** and **ptfile_world_to_image.py**.
 
 ## Formula
 
@@ -29,7 +29,6 @@ y_{shot} = y_{bundle} * focal / z_{bundle}
 ```math
 z_{shot} = z_{bundle}
 ```
-
 
 * Application of systematizations, if any (distortion correction function).
 ```math

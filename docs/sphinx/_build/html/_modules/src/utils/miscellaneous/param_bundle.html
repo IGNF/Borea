@@ -259,14 +259,14 @@
                         <span class="n">coor_eucli</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot_eucli</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>  <span class="c1"># vect_a = M-S</span>
     <span class="n">vect_u</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">mat_rot_eucli</span> <span class="o">@</span> <span class="n">vect_a</span>  <span class="c1"># U = RA</span>
 
+    <span class="k">if</span> <span class="n">uniform_v</span><span class="p">:</span>
+        <span class="n">vect_u</span> <span class="o">=</span> <span class="n">vect_u</span><span class="o">/</span><span class="n">vect_u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
     <span class="n">mat_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">vect_u</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">3</span><span class="p">))</span>
     <span class="n">mat_v</span><span class="p">[::</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">vect_u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">mat_v</span><span class="p">[::</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">vect_u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">mat_v</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">vect_u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">mat_v</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">vect_u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="k">if</span> <span class="n">uniform_v</span><span class="p">:</span>
-        <span class="n">mat_v</span> <span class="o">=</span> <span class="n">mat_v</span><span class="o">/</span><span class="n">vect_u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">vect_a</span><span class="p">,</span> <span class="n">vect_u</span><span class="p">,</span> <span class="n">mat_v</span></div>
 

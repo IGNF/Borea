@@ -109,7 +109,7 @@ If it's a new theme, add a new folder with an explicit name.
 
 ## Functionality file
 
-Functionality file are grouped in [process](./) with an explicit file name for their function.  
+Functionality file are grouped in [process](./tools) with an explicit file name for their function.  
 The construction of such a file normally requires:
 * Only 3 imports (argparse, the processing file to add the data, the processing file to process the data).
 * Creating an argparse `parser = argparse.ArgumentParser(description='descriptif functionality')`.

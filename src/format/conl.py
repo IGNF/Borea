@@ -15,7 +15,7 @@ B_TIME = ["year", "month", "day", "hour", "minute", "second", "time_system"]
 B_PT3D = ["x", "y", "z"]
 B_ORI = ["easting", "northing", "altitude"]
 B_TCAM = ["width", "height"]
-B_CAM = ["c", "l", "focal"]
+B_CAM = ["c", "l", "focale"]
 
 
 @dataclass
@@ -138,17 +138,17 @@ class Conl:
         add_elem(sensor_size, B_TCAM, [self.cam.width, self.cam.height])
 
         ppa = ET.SubElement(sensor, "ppa")
-        add_elem(ppa, B_CAM, [self.cam.ppax, self.cam.ppay, self.cam.focal])
+        add_elem(ppa, B_CAM, [int(self.cam.ppax), int(self.cam.ppay), int(self.cam.focal)])
 
-        # if self.imc.systematism:
-        #     transfo2d = ET.SubElement(sensor, "transfo2d")
-        #     tr2delem = ET.SubElement(transfo2d, "tr2delem")
-        #     tr2delem.set("Type", self.imc.systematism.type_syst)
-        #     tr2delem.set("isinterne", str(self.imc.systematism.internal).lower())
-        #     tr2delem.set("C0", str(self.imc.systematism.c0))
-        #     tr2delem.set("L0", str(self.imc.systematism.l0))
-        #     tr2delem.set("S1", str(self.imc.systematism.s1))
-        #     tr2delem.set("S2", str(self.imc.systematism.s2))
+        """ if self.shot.f_sys:
+            transfo2d = ET.SubElement(sensor, "transfo2d")
+            tr2delem = ET.SubElement(transfo2d, "tr2delem")
+            tr2delem.set("Type", "systematismeCylindriqueTopAero")
+            tr2delem.set("isinterne", "true")
+            tr2delem.set("C0", "0")
+            tr2delem.set("L0", "0")
+            tr2delem.set("S1", "-7.6213e-06")
+            tr2delem.set("S2", "6.6267e-06") """
 
         if self.cam.pixel_size:
             ET.SubElement(sensor, "pixel_size").text = str(self.cam.pixel_size)

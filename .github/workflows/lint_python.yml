@@ -24,10 +24,12 @@ jobs:
 
     - name: Analysing the code with pylint
       run: |
-        pylint ./implements/
+        pylint ./tools/
         pylint ./test/
+        pylint ./examples/
 
     - name: Analysing the code with flake8
       run: |
-        flake8  --max-line-length 100 ./implements/
+        flake8  --max-line-length 100 ./tools/
         flake8  --max-line-length 100 ./test/
+        flake8  --max-line-length 100 ./examples/

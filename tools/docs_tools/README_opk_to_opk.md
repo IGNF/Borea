@@ -1,12 +1,12 @@
-# Transforms file of ground point in image.
+# Convert opk to opk
 
-**ptfile_world_to_image** transforms the image coordinates of a terrain point file from the images in the opk file. A special feature is requested with an image point file, in order to know in which image the points must be calculated. The coordinates in this file can be set to 0, as they are not taken into account.
+**opk_to_opk** Converts an opk file into an opk file by changing column order, rotation angle units, a transformation of z into altitude or height with or without correction for linear alteration
 
 ## Application
 
-Call the function from a terminal in the depot directory `python implements/ptfile_world_to_image.py`. To view the information on the various parameters you can do : 
+Call the function from a terminal in the depot directory `python tools/opk_to_opk.py`. To view the information on the various parameters you can do : 
 
-```python implements/ptfile_world_to_image.py -h``` 
+```python tools/opk_to_opk.py -h``` 
 
 The parameters are:
 
@@ -14,6 +14,7 @@ The parameters are:
 | :----: | :------ | :-----: | :-------: |
 | -r | File path of the workfile | | V |
 | -i | Type of each column in the site file. e.g. NXYZOPKC with Z in altitude | NXYZOPKC | X |
+| -n | Name of worksite output file |  | V |
 | -b | Order of rotation matrix axes. | opk | X |
 | -u | Unit of the angle of shooting, 'degree' or 'radian' | degree | X |
 | -a | True if z shot corrected by linear alteration | True | X |
@@ -25,27 +26,23 @@ The parameters are:
 | -m | DTM of the worksite. | None | X |
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
 | -x | To use an approximate system. | False | X |
-| -t | Files paths of ground image points |  | V |
-| -k | Header of the file gcp2d. | PNXY | X |
-| -g | Files paths of ground control point |  | V |
-| -l | Header of the file gcp3d. | PTXYZ | X |
-| --fg | Format of GCP and ground image points "altitude" or "height". |  | V |
-| -d | Type of gcp to control. | [] | X |
-| -n | Name of the file to save. |  | V |
-| -w | Path stat e.g. "./" | "./" | X |
+| -w | Conversion path e.g. "./" | "./" | X |
+| -o | Type of each column in the site file. e.g. NXYZOPKC with Z origin | NXY(Z/H)OPKC | X |
+| -ob | Order of rotation matrix axes you want in output. | None | X |
+| -ou | Unit of the angle of shooting, 'degree' or 'radian' | "degree" | X |
+| -oa | True if z shot corrected by linear alteration. | True | X |
 
 E.G.
 ```
-python ./implements/ptfile_world_to_image.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test0.mes -g ./dataset/GCP_test.app --fg height -n Coor2d_pt_terrain
+python ./tools/opk_to_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -n Test -o NXYZOPKC -ou radian -oa False
 ```
 
-## Detail for the header of file -i
-
+## Detail for the header of file -i and -o
 `header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
 Type is:
 | Symbol | Details |
 | :----: | :------ |
-| S | to ignore the column |
+| S | to ignore the column just for -i |
 | N | name of shot |
 | X | coordinate x of the shot position |
 | Y | coordinate y of the shot position |
@@ -56,29 +53,9 @@ Type is:
 | K | kappa rotation angle |
 | C | name of the camera |
 
-## Detail for the header of point file -k and -l
-
-`header` is used to describe the format of the point file read. It provides information on what's in each column.   
-Type is:
-| Symbol | Details |
-| :----: | :------ |
-| S | to ignore the column |
-| P | name of the point |
-| N | name of shot |
-| T | type of point |
-| X | coordinate x of the shot position |
-| Y | coordinate y of the shot position |
-| Z | coordinate z altitude of the shot position |
-
-## Detail of file of ground image points
-
-This point file is the coordinate file we're trying to calculate. With the point id, the image name and its column and line coordinates. In this case, we'll use it to find out which image the points are in, so as to know where to calculate them. The coordinates in this file are not taken into account. You can therefore put 2 columns of 0 after the point id and shot id. If you want to check an existing point file, you can put it in the file, as mentioned above, but the coordinate values are not taken into account.  
-
 ## Detail for reading files
 
 To read the opk file, you can select a line interval to be read using the -f parameter for the first line and -z for the last line. If not set, the entire file will be read. Please note that the header in the file is not taken into account and must therefore either be skipped with the -f parameter or commented out with a # at the beginning of the line. You can therefore add comments to the file with a # at the beginning of the line.
-
-Connecting point files, gcp in the field and gcp in images must not have a file header in the file, or the header must be commented out with a # in front of it. You can therefore add comments to the file with a # at the beginning of the line.
 
 ## Camera file format
 
@@ -104,11 +81,5 @@ This library can transform and process 3D data with a z in altitude or height. T
 
 The command for adding a geoid is -y, where you can enter the paths to the various geoids. If the file is stored in pyproj's native folder (pyproj.datadir.get_data_dir(), *usr/share/proj* or *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj*) the file name is sufficient pyproj will find it on its own. 
 Geoids file can be found on pyproj's github (https://github.com/OSGeo/PROJ-data).
-
-## Detail for approx system
-
-The approximate system is used to set up a local tangent frame of reference for each acquisition in a purely mathematical way, without geodesy. To be used if the **data is corrected by linear alteration**, all data must be in the **same Z coordinate system** (altimetric or height), and there is **no need for the .json projection file**, **nor for DTM** if you are not using the image to world function with least square processing.  
-You can also use it with data not in the same Z repository, but you need the data in the .json projection file.  
-However, the calculation is less accurate in the approximate system.
 
 ![logo ign](../../docs/image/logo_ign.png) ![logo fr](../../docs/image/Republique_Francaise_Logo.png)

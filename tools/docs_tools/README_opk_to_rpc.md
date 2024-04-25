@@ -5,9 +5,9 @@ The z unit of the shots is the same as that of the DTM set as a parameter, so th
 
 ## Application
 
-Call the function from a terminal in the depot directory `python implements/opk_to_rpc.py`. To view the information on the various parameters you can do : 
+Call the function from a terminal in the depot directory `python tools/opk_to_rpc.py`. To view the information on the various parameters you can do : 
 
-```python implements/opk_to_rpc.py -h``` 
+```python tools/opk_to_rpc.py -h``` 
 
 The parameters are:
 
@@ -33,7 +33,7 @@ The parameters are:
 
 E.G.
 ```
-python ./implements/opk_to_rpc.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -o 3
+python ./tools/opk_to_rpc.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -o 3
 ```
 
 ## Detail for the header of file -i and -o

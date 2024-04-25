@@ -4,9 +4,9 @@
 
 ## Application
 
-Call the function from a terminal in the depot directory `python implements/spaceresection_opk.py`. To view the information on the various parameters you can do : 
+Call the function from a terminal in the depot directory `python tools/spaceresection_opk.py`. To view the information on the various parameters you can do : 
 
-```python implements/spaceresection_opk.py -h``` 
+```python tools/spaceresection_opk.py -h``` 
 
 The parameters are:
 
@@ -33,7 +33,7 @@ The parameters are:
 
 E.G.
 ```
-python ./implements/spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./implements/test/data/dataset2/all_liaisons2.mes -g ./implements/test/data/dataset2/all_liaisons2_world.mes -l PXYZ --fg height -n SpaceResection -o NXYZOPKC -ou degree -oa True
+python ./tools/spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./tools/test/data/dataset2/all_liaisons2.mes -g ./tools/test/data/dataset2/all_liaisons2_world.mes -l PXYZ --fg height -n SpaceResection -o NXYZOPKC -ou degree -oa True
 ```
 
 ## Detail for the header of file -o

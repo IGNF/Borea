@@ -54,7 +54,7 @@ The DataFrame **pt3d** is a table with 5 column and n line. The id of column mus
 
     it can be created with the function `read_file_pt_dataframe(path_file_pt,header_file,"pt3d")`  
 The dictionary **pinit** which give the initialization point X, Y, Z. A point on the worksite with a z at an approximate flying height. The name of the key in the dictionary is `coor_init`.  
-Example at the end of explanation of function [file](./docs/functions/Space_resection.md).
+Example at the end of explanation of function [file](../../docs/functions/Space_resection.md).
 
 * You can calculate some control point statistics to see how accurate your site is `stat = Stat(work, pathreturn, control_type)` to init the object and run for all stat with `stat.main_stat_and_save()`. Make stat on function image to world and world to image, if there are data. And save result on *pathreturn/Stat_{Name_worksite}.txt*.
 

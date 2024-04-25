@@ -1,9 +1,14 @@
 """
 Main to calculate image coodinate of the ground point.
 """
+# pylint: disable=import-error, wrong-import-position
 import argparse
-from src.process.p_add_data.p_add_shot import args_add_shot, process_add_shot
-from src.process.p_add_data.p_pt2d import args_add_pt2d, process_image_world
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+from src.process.p_add_data.p_add_shot import args_add_shot, process_add_shot  # noqa: E402
+from src.process.p_add_data.p_pt2d import args_add_pt2d, process_image_world  # noqa: E402
 
 
 parser = argparse.ArgumentParser(description='Calculate image coodinate of the ground point.')

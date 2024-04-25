@@ -4,9 +4,9 @@
 
 ## Application
 
-Call the function from a terminal in the depot directory `python implements/pt_world_to_image.py`. To view the information on the various parameters you can do : 
+Call the function from a terminal in the depot directory `python tools/pt_world_to_image.py`. To view the information on the various parameters you can do : 
 
-```python implements/pt_world_to_image.py -h``` 
+```python tools/pt_world_to_image.py -h``` 
 
 The parameters are:
 
@@ -30,7 +30,7 @@ The parameters are:
 
 E.G.
 ```
-python ./implements/pt_world_to_image.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 24042.25 14781.17 -d height
+python ./tools/pt_world_to_image.py -n Test -s 814975.925 6283986.148 1771.280 -t altitude -o -0.245070686036 -0.069409621323 0.836320989726 -b opk -u degree -a True -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -p 24042.25 14781.17 -d height
 ```
 
 ## Camera file format

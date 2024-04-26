@@ -1,4 +1,4 @@
-# Contributor information to Pink Lady
+# Contributor information to Borea
 
 Make an issue on a new feature or bug found.  
 Or get the repository and code the new functionality you want on a new branch and pull request on dev branch.
@@ -117,7 +117,14 @@ The construction of such a file normally requires:
 * Transforms parser into args `args = parser.parse_args()`.
 * Processing arguments.
 
-Look at the .py files already in [source](./borea).
+Look at the .py files already in [source](./borea_tools).
+
+You can add the functionality in borea pip package, putting the processing under a function and adding 
+```
+if __name__ == "__main__:
+    name_function
+``` 
+at the end of the file and adding in the pyproject.toml file under the tag `[project.scripts]` and `[project.gui-scripts]` the template `name-func = “module.script:name_function”`
 
 ## Re-generating sphinx documentation
 
@@ -126,7 +133,7 @@ In folder *./docs/sphinx/* do:
 make clean
 ```
 If you add new file, delete all file .rst in the repertory *./docs/sphinx/* except index.rst.  
-At the root of the repository do:
+At the root of the repository *./* do:
 ```
 sphinx-apidoc -o docs/sphinx borea
 ```
@@ -135,10 +142,26 @@ And in *./docs/sphinx/* do:
 make html
 ```
 
+## Generating PyPI package
+
+Installing three packages `setuptools`, `build` and `twine` for update PyPI package.
+```
+pip install setuptools build twine
+```
+Run:
+```
+python -m build
+```
+To create dist folder with package .whl and .tar.gz.
+```
+python3 -m twine upload --repository pypi dist/*
+```
+To upload new version of borea.
+
 ## More information
 
 Sphinx html documentation python code in *./docs/sphinx/_build/html/index.html*  
 Mathematics documentation functions in [docs/functions/](./docs/functions/)  
-Diagram of code structure Pink Lady in [docs/diagram/](./docs/diagram/)
+Diagram of code structure Borea in [docs/diagram/](./docs/diagram/)
 
 ![logo ign](docs/image/logo_ign.png) ![logo fr](docs/image/Republique_Francaise_Logo.png)

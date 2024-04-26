@@ -7,8 +7,8 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from src.process.p_add_data.p_add_shot import args_add_shot, process_add_shot  # noqa: E402
-from src.process.p_add_data.p_pt3d import args_add_pt3d, process_world_image  # noqa: E402
+from borea.process.p_add_data.p_add_shot import args_add_shot, process_add_shot  # noqa: E402
+from borea.process.p_add_data.p_pt3d import args_add_pt3d, process_world_image  # noqa: E402
 
 
 parser = argparse.ArgumentParser(description='Calculate world coodinate of the image point.')

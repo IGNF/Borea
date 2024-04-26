@@ -7,8 +7,8 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from src.process.p_format.p_read_opk import args_reading_opk, process_args_read_opk  # noqa: E402
-from src.process.p_func.p_world_image import args_world_image, process_world_image  # noqa: E402
+from borea.process.p_format.p_read_opk import args_reading_opk, process_args_read_opk  # noqa: E402
+from borea.process.p_func.p_world_image import args_world_image, process_world_image  # noqa: E402
 
 
 parser = argparse.ArgumentParser(description='Calculate image coodinate of the ground point.')

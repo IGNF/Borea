@@ -5,9 +5,9 @@ Script test for module workdata
 import pytest
 import pyproj
 import numpy as np
-from src.worksite.worksite import Worksite
-from src.geodesy.proj_engine import ProjEngine
-from src.datastruct.dtm import Dtm
+from borea.worksite.worksite import Worksite
+from borea.geodesy.proj_engine import ProjEngine
+from borea.datastruct.dtm import Dtm
 
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"

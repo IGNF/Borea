@@ -4,9 +4,9 @@ Script test for module writer
 # pylint: disable=import-error, missing-function-docstring, unused-argument
 import os
 import numpy as np
-from src.worksite.worksite import Worksite
-from src.writer.writer_opk import write
-from src.reader.orientation.manage_reader import reader_orientation
+from borea.worksite.worksite import Worksite
+from borea.writer.writer_opk import write
+from borea.reader.orientation.manage_reader import reader_orientation
 
 
 OUTPUT = "./test/tmp"

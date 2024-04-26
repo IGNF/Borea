@@ -7,8 +7,8 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from src.process.p_format.p_read_opk import args_reading_opk, process_args_read_opk  # noqa: E402
-from src.process.p_func.p_control import args_control, process_args_control  # noqa: E402
+from borea.process.p_format.p_read_opk import args_reading_opk, process_args_read_opk  # noqa: E402
+from borea.process.p_func.p_control import args_control, process_args_control  # noqa: E402
 
 
 parser = argparse.ArgumentParser(description='Photogrammetric site control opk file')

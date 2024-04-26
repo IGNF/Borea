@@ -8,7 +8,7 @@ import os
 from eg_build_worksite_by_file import worksite_opk
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from src.writer.manage_writer import manager_writer  # noqa: E402
+from borea.writer.manage_writer import manager_writer  # noqa: E402
 
 OUTPUT_PATH = "./test/tmp"
 

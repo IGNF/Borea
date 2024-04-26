@@ -3,7 +3,7 @@ Script test for module check_order_axe
 """
 # pylint: disable=import-error, missing-function-docstring
 import pytest
-from src.utils.check.check_order_axe import check_order_axe
+from borea.utils.check.check_order_axe import check_order_axe
 
 
 def test_orcer_axe():

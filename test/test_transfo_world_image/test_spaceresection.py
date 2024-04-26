@@ -3,16 +3,16 @@ Script test for module shot_pos
 """
 # pylint: disable=import-error, missing-function-docstring
 import numpy as np
-from src.worksite.worksite import Worksite
-from src.datastruct.camera import Camera
-from src.datastruct.shot import Shot
-from src.geodesy.proj_engine import ProjEngine
-from src.transform_world_image.transform_worksite.space_resection import SpaceResection
-from src.datastruct.dtm import Dtm
-from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
-from src.reader.orientation.manage_reader import reader_orientation
-from src.reader.reader_camera import read_camera
-from src.reader.reader_point import read_file_pt, read_file_pt_dataframe
+from borea.worksite.worksite import Worksite
+from borea.datastruct.camera import Camera
+from borea.datastruct.shot import Shot
+from borea.geodesy.proj_engine import ProjEngine
+from borea.transform_world_image.transform_worksite.space_resection import SpaceResection
+from borea.datastruct.dtm import Dtm
+from borea.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
+from borea.reader.orientation.manage_reader import reader_orientation
+from borea.reader.reader_camera import read_camera
+from borea.reader.reader_point import read_file_pt, read_file_pt_dataframe
 
 
 INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"

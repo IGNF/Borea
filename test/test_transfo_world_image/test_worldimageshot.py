@@ -5,12 +5,12 @@ Script test for module WorldImageShot
 import copy
 import pytest
 import numpy as np
-from src.datastruct.shot import Shot
-from src.datastruct.camera import Camera
-from src.geodesy.proj_engine import ProjEngine
-from src.datastruct.dtm import Dtm
-from src.transform_world_image.transform_shot.world_image_shot import WorldImageShot
-from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
+from borea.datastruct.shot import Shot
+from borea.datastruct.camera import Camera
+from borea.geodesy.proj_engine import ProjEngine
+from borea.datastruct.dtm import Dtm
+from borea.transform_world_image.transform_shot.world_image_shot import WorldImageShot
+from borea.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 
 
 SHOT = Shot("test_shot", np.array([814975.925, 6283986.148, 1771.280]),

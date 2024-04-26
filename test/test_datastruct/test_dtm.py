@@ -4,8 +4,8 @@ Script test for class dtm.
 # pylint: disable=import-error, missing-function-docstring, unused-argument
 from pathlib import Path, PureWindowsPath
 import numpy as np
-from src.geodesy.proj_engine import ProjEngine
-from src.datastruct.dtm import Dtm
+from borea.geodesy.proj_engine import ProjEngine
+from borea.datastruct.dtm import Dtm
 
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"

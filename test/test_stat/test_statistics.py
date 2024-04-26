@@ -5,10 +5,10 @@ Script test for module statistics
 import os
 import shutil
 import numpy as np
-from src.worksite.worksite import Worksite
-from src.stat.statistics import Stat
-from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
-from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
+from borea.worksite.worksite import Worksite
+from borea.stat.statistics import Stat
+from borea.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
+from borea.transform_world_image.transform_worksite.world_image_work import WorldImageWork
 
 
 OUTPUT = "./test/tmp"

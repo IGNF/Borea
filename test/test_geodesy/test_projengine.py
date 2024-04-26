@@ -4,8 +4,8 @@ Script test for module proj_engine
 # pylint: disable=import-error, missing-function-docstring, unused-argument
 import pyproj
 import pytest
-from src.datastruct.dtm import Dtm
-from src.geodesy.proj_engine import ProjEngine
+from borea.datastruct.dtm import Dtm
+from borea.geodesy.proj_engine import ProjEngine
 
 
 PATH_GEOID = ["./dataset/fr_ign_RAF20.tif"]

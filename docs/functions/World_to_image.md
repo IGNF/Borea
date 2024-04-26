@@ -1,7 +1,7 @@
-# Formula documentation for the function world_to_image in src/datastruct/shot
+# Formula documentation for the function world_to_image
 
 Function to transform the image coordinates of a point, starting from a terrain point.  
-It is built into the WorldImageShot class [src/transform_world_image/transform_shot/world_image_shot.py](../../src/transform_world_image/transform_shot/world_image_shot.py).  
+It is built into the WorldImageShot class [borea/transform_world_image/transform_shot/world_image_shot.py](../../borea/transform_world_image/transform_shot/world_image_shot.py).  
 Tools where transformation is used are : **opk_control.py**, **pt_world_to_image.py** and **ptfile_world_to_image.py**.
 
 ## Formula

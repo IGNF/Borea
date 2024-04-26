@@ -1,7 +1,7 @@
 # Formula documentation for the function image_to_world
 
 Function to transform a terrain coordinates of an image coordinates, starting from a given z.  
-It is built into the ImageWorldShot class [src/transform_world_image/transform_shot/image_world_shot.py](../../src/transform_world_image/transform_shot/image_world_shot.py).  
+It is built into the ImageWorldShot class [borea/transform_world_image/transform_shot/image_world_shot.py](../../borea/transform_world_image/transform_shot/image_world_shot.py).  
 Tools where transformation is used are : **opk_control.py**, **pt_image_to_world.py** and **ptfile_image_to_world.py**.
 
 ## Formula

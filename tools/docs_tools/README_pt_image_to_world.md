@@ -48,7 +48,7 @@ width = 26460
 height = 17004
 size_pixel = 4e-6
 ```
-Only these 7 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool, unless the attribute has been added to the [Camera class](../../src/datastruct/camera.py).
+Only these 7 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool, unless the attribute has been added to the [Camera class](../../borea/datastruct/camera.py).
 An example file can be found in [./dataset/Camera1.txt](../../dataset/Camera1.txt).
 
 ## Info projection

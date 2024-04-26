@@ -28,10 +28,10 @@ Type must be one of the following:
 
 Restructuring of read files to allow the addition of read files without modifying functions.  
 Same thing with write files.
-- Structure file in reader folder [src/reader/orientation](./src/reader/orientation/):
+- Structure file in reader folder [borea/reader/orientation](./borea/reader/orientation/):
     - name : reader_{ext}.py
     - function : def read(file: str, args: dict, work: **Worksite**) -> **Worksite**:
-- Structure file in writer folder [src/writer](./src/writer/): 
+- Structure file in writer folder [borea/writer](./borea/writer/): 
     - name : writer_{ext}.py
     - function : def write(name_file: str, path_folder: str, args: dict, work: **Worksite**) -> converted file:
 
@@ -48,22 +48,22 @@ args = {"order_axe":'opk',
 ## Contributing for new function to process Worksite
 
 To add a new feature/function to process a worksite (*Worksite*). Adds a new class to enter a **Worksite**. Its file must be located in the folder corresponding to its theme: 
-* [datastruct](./src/datastruct/): Module for data structure class.
-* [format](./src/format/): Module for specific format class.
-* [geodesy](./src/geodesy/): Module for geodesic and projection class.
-* [process](./src/process/): Module to process of data (detail [below](#adding-a-processing-step)).
-* [reader](./src/reader/): Module for file reading functions.
-* [stat](./src/stat/): Module for statistic class.
-* [transform_world_image](./src/transform_world_image/): Module for transformation world to image and image to world class in different module.
-* [utils](./src/utils/): Various functions.
-* [worksite](./src/worksite/): Module for main class **Worksite**.
-* [writer](./src/writer/): Module for file writing functions.
+* [datastruct](./borea/datastruct/): Module for data structure class.
+* [format](./borea/format/): Module for specific format class.
+* [geodesy](./borea/geodesy/): Module for geodesic and projection class.
+* [process](./borea/process/): Module to process of data (detail [below](#adding-a-processing-step)).
+* [reader](./borea/reader/): Module for file reading functions.
+* [stat](./borea/stat/): Module for statistic class.
+* [transform_world_image](./borea/transform_world_image/): Module for transformation world to image and image to world class in different module.
+* [utils](./borea/utils/): Various functions.
+* [worksite](./borea/worksite/): Module for main class **Worksite**.
+* [writer](./borea/writer/): Module for file writing functions.
 
 If it's a new theme, add a new folder with an explicit name.
 
 ## Structure of main class Worksite
 
-**Worksite** is the main class in the code that stores and manipulates data. It is located in [src/worksite/worksite.py](./src/worksite/worksite.py) and inherits from Workdata in [src/datastruct/workdata.py](./src/datastruct/workdata.py). The worksite class has no constructor; **Workdata** does. The constructor requires a single attribute, which is the name of the construction site.  
+**Worksite** is the main class in the code that stores and manipulates data. It is located in [borea/worksite/worksite.py](./borea/worksite/worksite.py) and inherits from Workdata in [borea/datastruct/workdata.py](./borea/datastruct/workdata.py). The worksite class has no constructor; **Workdata** does. The constructor requires a single attribute, which is the name of the construction site.  
 The class has 11 attributes:
 * **name**: name of worksite
 * **shots**: dictionary of shot {"name_shot": **Shot**}
@@ -100,10 +100,10 @@ Processing files are used to build [function files](#functionality-file), and ar
 * The first function take an argparse in input and return an argparse with new arguments.
 * The second function take argparse.parse_args() in input and **Worksite** or no to make the process of input parameters.
 
-Processing files are grouped in [process](./src/process/) folder and divided into 3 categories (3 folders):
-* [p_add_data](./src/process/p_add_data/): Reading files and data.
-* [p_format](./src/process/p_format/): Additional information on the different formats.
-* [p_func](./src/process/p_func/): Data processing, with some specific info sometimes.
+Processing files are grouped in [process](./borea/process/) folder and divided into 3 categories (3 folders):
+* [p_add_data](./borea/process/p_add_data/): Reading files and data.
+* [p_format](./borea/process/p_format/): Additional information on the different formats.
+* [p_func](./borea/process/p_func/): Data processing, with some specific info sometimes.
 
 If it's a new theme, add a new folder with an explicit name.
 
@@ -117,7 +117,7 @@ The construction of such a file normally requires:
 * Transforms parser into args `args = parser.parse_args()`.
 * Processing arguments.
 
-Look at the .py files already in [source](./src).
+Look at the .py files already in [source](./borea).
 
 ## Re-generating sphinx documentation
 
@@ -128,7 +128,7 @@ make clean
 If you add new file, delete all file .rst in the repertory *./docs/sphinx/* except index.rst.  
 At the root of the repository do:
 ```
-sphinx-apidoc -o docs/sphinx src
+sphinx-apidoc -o docs/sphinx borea
 ```
 And in *./docs/sphinx/* do:
 ```

@@ -9,3 +9,5 @@ dataclasses
 pyproj
 scipy
 pandas
+build
+twine

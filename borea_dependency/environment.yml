@@ -1,0 +1,11 @@
+name: pink_lady
+channels:
+ - conda-forge
+dependencies:
+  - python==3.10.*
+  - gdal
+  - numpy
+  - dataclasses
+  - pyproj
+  - scipy
+  - pandas

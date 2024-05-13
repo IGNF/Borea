@@ -1,12 +1,16 @@
-# Convert opk to opk
+# Convert opk to light conical file for GEOVIEW IGN
 
-**opk_to_opk** Converts an opk file into an opk file by changing column order, rotation angle units, a transformation of z into altitude or height with or without correction for linear alteration
+**opk_to_conl** Converts an opk file into a light conical file (.CON). This format is an xml format for **GEOVIEW** software used in IGN Space in Toulouse, it's a IGN France software to view image.
 
 ## Application
 
-Call the function from a terminal in the depot directory `python tools/opk_to_opk.py`. To view the information on the various parameters you can do : 
+Call the function from a terminal in the depot directory `python borea_tools/opk_to_conl.py`. To view the information on the various parameters you can do : 
 
-```python tools/opk_to_opk.py -h``` 
+```python borea_tools/opk_to_conl.py -h``` 
+
+Or if you install the package by **pip** the commande is:
+
+```opk-to-conl -h```
 
 The parameters are:
 
@@ -14,7 +18,6 @@ The parameters are:
 | :----: | :------ | :-----: | :-------: |
 | -r | File path of the workfile | | V |
 | -i | Type of each column in the site file. e.g. NXYZOPKC with Z in altitude | NXYZOPKC | X |
-| -n | Name of worksite output file |  | V |
 | -b | Order of rotation matrix axes. | opk | X |
 | -u | Unit of the angle of shooting, 'degree' or 'radian' | degree | X |
 | -a | True if z shot corrected by linear alteration | True | X |
@@ -27,14 +30,14 @@ The parameters are:
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
 | -x | To use an approximate system. | False | X |
 | -w | Conversion path e.g. "./" | "./" | X |
-| -o | Type of each column in the site file. e.g. NXYZOPKC with Z origin | NXY(Z/H)OPKC | X |
-| -ob | Order of rotation matrix axes you want in output. | None | X |
-| -ou | Unit of the angle of shooting, 'degree' or 'radian' | "degree" | X |
-| -oa | True if z shot corrected by linear alteration. | True | X |
 
 E.G.
 ```
-python ./tools/opk_to_opk.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height -n Test -o NXYZOPKC -ou radian -oa False
+python ./borea_tools/opk_to_conical.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height
+```
+or pip
+```
+opk-to-conical -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y ./dataset/fr_ign_RAF20.tif -c ./dataset/Camera1.txt -m ./dataset/MNT_France_25m_h_crop.tif --fm height
 ```
 
 ## Detail for the header of file -i and -o
@@ -59,8 +62,7 @@ To read the opk file, you can select a line interval to be read using the -f par
 
 ## Camera file format
 
-The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float), image size: **width** (int) and **height** (int) in pixels and **size_pizel** (float) size of pixel in meter.  
-**size_pixel** is optional except for conversion to a conical file.  
+The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float), image size: **width** (int) and **height** (int) in pixels and **size_pizel** (float) size of pixel in meter.    
 **Ppax** and **ppay** are the main points of image deformation in x and y directions.  
 Each line of the file corresponds to a piece of information, starting with the **type = info**.
 ```

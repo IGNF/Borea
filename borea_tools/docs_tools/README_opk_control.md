@@ -1,12 +1,16 @@
-# Transforms file of image point in ground.
+# Control an opk
 
-**ptfile_image_to_world** transforms the terrain coordinates of an image point file from the images in the opk file.
+**opk_control** control opk position using gcp and image function, with 4 output statistics files. 2 files for residuals (terrain to image and image to terrain) 2 files for residual statistics (mean, max, min, median).
 
 ## Application
 
-Call the function from a terminal in the depot directory `python tools/ptfile_image_to_world.py`. To view the information on the various parameters you can do : 
+Call the function from a terminal in the depot directory `python borea_tools/opk_control.py`. To view the information on the various parameters you can do : 
 
-```python tools/ptfile_image_to_world.py -h``` 
+```python borea_tools/opk_control.py -h``` 
+
+Or if you install the package by **pip** the commande is:
+
+```opk-control -h```
 
 The parameters are:
 
@@ -27,13 +31,20 @@ The parameters are:
 | -x | To use an approximate system. | False | X |
 | -t | Files paths of ground image points |  | V |
 | -k | Header of the file gcp2d. | PNXY | X |
+| -g | Files paths of ground control point |  | V |
+| -l | Header of the file gcp3d. | PTXYZ | X |
+| --fg | Format of GCP and ground image points "altitude" or "height". |  | V |
+| -d | Type of gcp to control. | [] | X |
 | -p | Type of process for the function image to world, "inter" for intersection or "square" for least-square | "inter" | X |
-| -n | Name of the file to save. |  | V |
 | -w | Path stat e.g. "./" | "./" | X |
 
 E.G.
 ```
-python ./tools/ptfile_image_to_world.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -p square -n Coor3d_pt_image
+python ./borea_tools/opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p inter
+```
+or pip
+```
+opk-control -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p inter
 ```
 
 ## Detail for the header of file -i

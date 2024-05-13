@@ -1,42 +1,50 @@
-# Transforms position and orientation of shot with point coordinate
+# Convert opk to Rpc
 
-**spaceresection_opk** transforms the 6 external parameters of an acquisition, X, Y, Z for its position and O, P, K for the 3 angles of orientation. To do this, we use least squares on points whose positions in the image and on the ground are known.
+**opk_to_rpc** Converts an opk file into a rational polynomial coefficients in QGIS GDAL format. If the file is in the same directory as the image, it will be read automatically and taken into account by the software.
+The z unit of the shots is the same as that of the DTM set as a parameter, so that RPCs can be used in QGIS or GDAL with the same DTM as here.
 
 ## Application
 
-Call the function from a terminal in the depot directory `python tools/spaceresection_opk.py`. To view the information on the various parameters you can do : 
+Call the function from a terminal in the depot directory `python borea_tools/opk_to_rpc.py`. To view the information on the various parameters you can do : 
 
-```python tools/spaceresection_opk.py -h``` 
+```python borea_tools/opk_to_rpc.py -h``` 
+
+Or if you install the package by **pip** the commande is:
+
+```opk-to-rpc -h```
 
 The parameters are:
 
 | Symbol | Details | Default | Mandatory |
 | :----: | :------ | :-----: | :-------: |
-| -p | 3d coordinates of a point on the site at an approximate flying height to initialize the calculation. |  | V |
-| -d | Unit of the z of the 3D point. |  | V |
-| -t | File path of ground control points in images. |  | V |
-| -k | Header of the file gcp2d. |  | V |
-| -g | File path of ground control points in ground. |  | V |
-| -l | Header of the file gcp3d. |  | V |
+| -r | File path of the workfile | | V |
+| -i | Type of each column in the site file. e.g. NXYZOPKC with Z in altitude | NXYZOPKC | X |
+| -b | Order of rotation matrix axes. | opk | X |
+| -u | Unit of the angle of shooting, 'degree' or 'radian' | degree | X |
+| -a | True if z shot corrected by linear alteration | True | X |
+| -f | Line number to start file playback. Does not take file header into account. | None | X |
+| -z | Line number to end file playback. If not set, all lines below -l will be read. | None | X |
 | -e | EPSG codifier number of the reference system used e.g. 2154 | 2154 | X |
 | -y | Path to the file pyproj GeoTIFF of geoid. | None | X |
 | -c | Files paths of cameras (.xml or .txt) | None | X |
 | -m | DTM of the worksite. | None | X |
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
 | -x | To use an approximate system. | False | X |
-| -n | Name of worksite output file |  | V |
 | -w | Conversion path e.g. "./" | "./" | X |
-| -o | Type of each column in the site file. e.g. NXYZOPKC with Z origin | NXY(Z/H)OPKC | X |
-| -ob | Order of rotation matrix axes you want in output. | None | X |
-| -ou | Unit of the angle of shooting, 'degree' or 'radian' | "degree" | X |
-| -oa | True if z shot corrected by linear alteration. | True | X |
+| -o | Degree of the polynomial of the rpc (1, 2, 3) | 3 | X |
+| -d | Size of the grid to calculate Rpc. | 100 | X |
+| -l | Factor Rpc to replace pyproj convertion. | None | X |
 
 E.G.
 ```
-python ./tools/spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./tools/test/data/dataset2/all_liaisons2.mes -g ./tools/test/data/dataset2/all_liaisons2_world.mes -l PXYZ --fg height -n SpaceResection -o NXYZOPKC -ou degree -oa True
+python ./borea_tools/opk_to_rpc.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -o 3
+```
+or pip
+```
+opk-to-rpc -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -o 3
 ```
 
-## Detail for the header of file -o
+## Detail for the header of file -i and -o
 `header` is used to describe the format of the opk file read. It provides information on what's in each column, and gives the data unit for Z and angles.   
 Type is:
 | Symbol | Details |
@@ -52,19 +60,9 @@ Type is:
 | K | kappa rotation angle |
 | C | name of the camera |
 
-## Detail for the header of point file -k and -l
+## Detail for reading files
 
-`header` is used to describe the format of the point file read. It provides information on what's in each column.   
-Type is:
-| Symbol | Details |
-| :----: | :------ |
-| S | to ignore the column |
-| P | name of the point |
-| N | name of shot |
-| T | type of point |
-| X | coordinate x of the shot position |
-| Y | coordinate y of the shot position |
-| Z | coordinate z altitude of the shot position |
+To read the opk file, you can select a line interval to be read using the -f parameter for the first line and -z for the last line. If not set, the entire file will be read. Please note that the header in the file is not taken into account and must therefore either be skipped with the -f parameter or commented out with a # at the beginning of the line. You can therefore add comments to the file with a # at the beginning of the line.
 
 ## Camera file format
 
@@ -84,7 +82,7 @@ size_pixel = 4e-6
 Only these 7 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool, unless the attribute has been added to the [Camera class](../../borea/datastruct/camera.py).
 An example file can be found in [./dataset/Camera1.txt](../../dataset/Camera1.txt).
 
-## Info projection
+## Detail for projection
 
 This library can transform and process 3D data with a z in altitude or height. This is done by the pyproj library, which needs the geoid at site level to change units.
 

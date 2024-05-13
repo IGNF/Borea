@@ -4,9 +4,13 @@
 
 ## Application
 
-Call the function from a terminal in the depot directory `python tools/ptfile_world_to_image.py`. To view the information on the various parameters you can do : 
+Call the function from a terminal in the depot directory `python borea_tools/ptfile_world_to_image.py`. To view the information on the various parameters you can do : 
 
-```python tools/ptfile_world_to_image.py -h``` 
+```python borea_tools/ptfile_world_to_image.py -h``` 
+
+Or if you install the package by **pip** the commande is:
+
+```ptfile-world-to-image -h```
 
 The parameters are:
 
@@ -36,7 +40,11 @@ The parameters are:
 
 E.G.
 ```
-python ./tools/ptfile_world_to_image.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test0.mes -g ./dataset/GCP_test.app --fg height -n Coor2d_pt_terrain
+python ./borea_tools/ptfile_world_to_image.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test0.mes -g ./dataset/GCP_test.app --fg height -n Coor2d_pt_terrain
+```
+or pip
+```
+ptfile-world-to-image -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test0.mes -g ./dataset/GCP_test.app --fg height -n Coor2d_pt_terrain
 ```
 
 ## Detail for the header of file -i

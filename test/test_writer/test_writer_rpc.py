@@ -1,7 +1,7 @@
 """
 Script to test function write of rpc.
 """
-# pylint: disable=import-error, missing-function-docstring, unused-argument
+# pylint: disable=import-error, missing-function-docstring, unused-argument, duplicate-code
 import os
 import numpy as np
 from borea.worksite.worksite import Worksite

@@ -1,7 +1,7 @@
 """
 Script test for module workdata
 """
-# pylint: disable=import-error, missing-function-docstring, unused-argument
+# pylint: disable=import-error, missing-function-docstring, unused-argument, duplicate-code
 import pytest
 import pyproj
 import numpy as np

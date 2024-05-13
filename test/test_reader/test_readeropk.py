@@ -1,7 +1,7 @@
 """
 Script test for module reader_opk
 """
-# pylint: disable=import-error, missing-function-docstring
+# pylint: disable=import-error, missing-function-docstring, duplicate-code
 import platform
 import pytest
 from borea.worksite.worksite import Worksite

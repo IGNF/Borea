@@ -1,7 +1,7 @@
 """
 Script test for module statistics
 """
-# pylint: disable=import-error, missing-function-docstring, unused-argument
+# pylint: disable=import-error, missing-function-docstring, unused-argument, duplicate-code
 import os
 import shutil
 import numpy as np

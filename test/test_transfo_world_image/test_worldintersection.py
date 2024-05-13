@@ -1,10 +1,10 @@
 """
 Test module for World Intersection
 """
-# pylint: disable=import-error, missing-function-docstring
+# pylint: disable=import-error, missing-function-docstring, line-too-long
 import numpy as np
 from borea.worksite.worksite import Worksite
-from borea.transform_world_image.transform_worksite.image_world_intersection import WorldIntersection
+from borea.transform_world_image.transform_worksite.image_world_intersection import WorldIntersection  # noqa: E501
 
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"

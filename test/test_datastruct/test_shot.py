@@ -1,7 +1,7 @@
 """
 Script test for module shot
 """
-# pylint: disable=import-error, missing-function-docstring, unused-argument
+# pylint: disable=import-error, missing-function-docstring, unused-argument, duplicate-code
 import copy
 import numpy as np
 from borea.datastruct.shot import Shot

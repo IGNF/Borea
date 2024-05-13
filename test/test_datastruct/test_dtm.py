@@ -1,7 +1,7 @@
 """
 Script test for class dtm.
 """
-# pylint: disable=import-error, missing-function-docstring, unused-argument
+# pylint: disable=import-error, missing-function-docstring, unused-argument, duplicate-code
 from pathlib import Path, PureWindowsPath
 import numpy as np
 from borea.geodesy.proj_engine import ProjEngine

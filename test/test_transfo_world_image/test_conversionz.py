@@ -1,7 +1,7 @@
 """
 Module to test ConversionZ
 """
-# pylint: disable=import-error, missing-function-docstring
+# pylint: disable=import-error, missing-function-docstring, duplicate-code
 import numpy as np
 from borea.datastruct.shot import Shot
 from borea.datastruct.camera import Camera

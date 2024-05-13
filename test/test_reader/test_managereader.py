@@ -1,7 +1,7 @@
 """
 Script test for module manager_reader
 """
-# pylint: disable=import-error, missing-function-docstring
+# pylint: disable=import-error, missing-function-docstring, duplicate-code
 from borea.reader.orientation.manage_reader import reader_orientation
 
 

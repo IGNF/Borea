@@ -1,7 +1,7 @@
 """
 Script test for module ImageWorldWork
 """
-# pylint: disable=import-error, missing-function-docstring
+# pylint: disable=import-error, missing-function-docstring, duplicate-code
 import numpy as np
 from borea.worksite.worksite import Worksite
 from borea.transform_world_image.transform_worksite.image_world_work import ImageWorldWork

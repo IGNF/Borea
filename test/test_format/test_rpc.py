@@ -1,7 +1,7 @@
 """
 Scripte to test class Rpc
 """
-# pylint: disable=import-error, missing-function-docstring, unused-argument
+# pylint: disable=import-error, missing-function-docstring, unused-argument, duplicate-code
 import copy
 import numpy as np
 import pytest

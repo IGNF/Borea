@@ -1,7 +1,7 @@
 """
 Script test for module WorldImageShot
 """
-# pylint: disable=import-error, missing-function-docstring
+# pylint: disable=import-error, missing-function-docstring, duplicate-code
 import copy
 import pytest
 import numpy as np

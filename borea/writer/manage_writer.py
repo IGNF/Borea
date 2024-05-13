@@ -17,7 +17,7 @@ def manager_writer(writer: str, name: str, pathreturn: str, args: dict, work: Wo
         work (Worksite): The site to be recorded.
     """
     try:
-        my_module = importlib.import_module("src.writer.writer_" + writer.lower())
+        my_module = importlib.import_module("borea.writer.writer_" + writer.lower())
         work = my_module.write(name, pathreturn, args, work)
     except ModuleNotFoundError as e:
         raise ValueError(f"{writer} file is not taken into account !!!") from e

@@ -25,7 +25,7 @@ def reader_orientation(file: str, args: dict) -> Worksite:
 
     work = Worksite(name_work)
     try:
-        my_module = importlib.import_module("src.reader.orientation.reader_" + ext.lower())
+        my_module = importlib.import_module("borea.reader.orientation.reader_" + ext.lower())
         work = my_module.read(file, args, work)
     except ModuleNotFoundError as e:
         raise ModuleNotFoundError(f"{ext} file is not taken into account !!!") from e

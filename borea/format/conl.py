@@ -140,6 +140,7 @@ class Conl:
         ppa = ET.SubElement(sensor, "ppa")
         add_elem(ppa, B_CAM, [int(self.cam.ppax), int(self.cam.ppay), int(self.cam.focal)])
 
+        # pylint: disable-next=pointless-string-statement
         """ if self.shot.f_sys:
             transfo2d = ET.SubElement(sensor, "transfo2d")
             tr2delem = ET.SubElement(transfo2d, "tr2delem")

@@ -3,7 +3,8 @@ Image world transformation module for worksite
 """
 from dataclasses import dataclass
 from borea.worksite.worksite import Worksite
-from borea.transform_world_image.transform_worksite.image_world_intersection import WorldIntersection
+# pylint: disable-next=line-too-long
+from borea.transform_world_image.transform_worksite.image_world_intersection import WorldIntersection  # noqa: E501
 from borea.transform_world_image.transform_worksite.image_world_least_square import WorldLeastSquare
 
 

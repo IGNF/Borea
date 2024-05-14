@@ -10,7 +10,8 @@ from borea.datastruct.camera import Camera
 from borea.datastruct.shot import Shot
 from borea.transform_world_image.transform_shot.world_image_shot import WorldImageShot
 from borea.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
-from borea.transform_world_image.transform_worksite.image_world_intersection import WorldIntersection
+# pylint: disable-next=line-too-long
+from borea.transform_world_image.transform_worksite.image_world_intersection import WorldIntersection  # noqa: E501
 from borea.utils.miscellaneous.param_bundle import set_param_bundle_diff
 
 
@@ -287,6 +288,7 @@ class SpaceResection:
             tuple: np.array(obs_image), np.array(pt_world).
         """
         add_pt = True
+        pt_world_random = 0
         if shot.co_points:
             if not self.work.co_pts_world:
                 WorldIntersection(self.work).calculate_image_world_by_intersection("co_points")

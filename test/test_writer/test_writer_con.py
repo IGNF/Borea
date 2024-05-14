@@ -1,11 +1,11 @@
 """
 Script test for module writer
 """
-# pylint: disable=import-error, missing-function-docstring, unused-argument
+# pylint: disable=import-error, missing-function-docstring, unused-argument, duplicate-code
 import os
 import numpy as np
-from src.worksite.worksite import Worksite
-from src.writer.writer_con import write
+from borea.worksite.worksite import Worksite
+from borea.writer.writer_con import write
 
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"

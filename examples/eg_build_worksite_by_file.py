@@ -7,10 +7,10 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from src.worksite.worksite import Worksite  # noqa: E402
-from src.reader.orientation.manage_reader import reader_orientation  # noqa: E402
-from src.reader.reader_camera import read_camera  # noqa: E402
-from src.reader.reader_point import read_file_pt  # noqa: E402
+from borea.worksite.worksite import Worksite  # noqa: E402
+from borea.reader.orientation.manage_reader import reader_orientation  # noqa: E402
+from borea.reader.reader_camera import read_camera  # noqa: E402
+from borea.reader.reader_point import read_file_pt  # noqa: E402
 
 
 PATH_OPK = "./dataset/23FD1305_alt_test.OPK"

@@ -11,11 +11,11 @@ from eg_build_worksite_by_data import worksite_1shot, worksite_2shots_2copts
 from eg_build_worksite_by_file import worksite_opk, worksite_add_co_points, worksite_add_gcp2d  # noqa: F401, E501
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from src.worksite.worksite import Worksite  # noqa: E402
-from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot  # noqa: E402
+from borea.worksite.worksite import Worksite  # noqa: E402
+from borea.transform_world_image.transform_shot.image_world_shot import ImageWorldShot  # noqa: E402
 # pylint: disable-next=line-too-long
-from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork  # noqa: E402, E501
-from src.writer.writer_df_to_txt import write_df_to_txt  # noqa: E402
+from borea.transform_world_image.transform_worksite.image_world_work import ImageWorldWork  # noqa: E402, E501
+from borea.writer.writer_df_to_txt import write_df_to_txt  # noqa: E402
 
 
 OUTPUT_PATH = "./test/tmp"

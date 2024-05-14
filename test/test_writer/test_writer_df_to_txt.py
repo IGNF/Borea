@@ -4,9 +4,9 @@ Script test for module writer df to txt
 # pylint: disable=import-error, missing-function-docstring, unused-argument
 import os
 import pandas as pd
-from src.reader.orientation.manage_reader import reader_orientation
-from src.reader.reader_point import read_file_pt
-from src.writer.writer_df_to_txt import write_df_to_txt
+from borea.reader.orientation.manage_reader import reader_orientation
+from borea.reader.reader_point import read_file_pt
+from borea.writer.writer_df_to_txt import write_df_to_txt
 
 
 INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"

@@ -7,7 +7,7 @@ import os
 import numpy as np
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from src.worksite.worksite import Worksite  # noqa: E402
+from borea.worksite.worksite import Worksite  # noqa: E402
 
 
 PATH_GEOID = ["./dataset/fr_ign_RAF20.tif"]

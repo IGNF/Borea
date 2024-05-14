@@ -1,10 +1,10 @@
 """
 Script test for module ImageWorldWork
 """
-# pylint: disable=import-error, missing-function-docstring
+# pylint: disable=import-error, missing-function-docstring, duplicate-code
 import numpy as np
-from src.worksite.worksite import Worksite
-from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
+from borea.worksite.worksite import Worksite
+from borea.transform_world_image.transform_worksite.image_world_work import ImageWorldWork
 
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"

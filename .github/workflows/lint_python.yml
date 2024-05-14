@@ -20,16 +20,18 @@ jobs:
         export CPLUS_INCLUDE_PATH=/usr/include/gdal
         export C_INCLUDE_PATH=/usr/include/gdal
         pip install GDAL==3.4.1
-        pip install -r ./dependency/requirements.txt
+        pip install -r ./borea_dependency/requirements-dev.txt
 
     - name: Analysing the code with pylint
       run: |
-        pylint ./tools/
-        pylint ./test/
+        pylint ./borea/
+        pylint ./borea_tools/
+        pylint ./test/*/
         pylint ./examples/
 
     - name: Analysing the code with flake8
       run: |
-        flake8  --max-line-length 100 ./tools/
+        flake8  --max-line-length 100 ./borea/
+        flake8  --max-line-length 100 ./borea_tools/
         flake8  --max-line-length 100 ./test/
         flake8  --max-line-length 100 ./examples/

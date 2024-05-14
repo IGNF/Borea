@@ -3,7 +3,7 @@ Script test for module check array
 """
 # pylint: disable=import-error, missing-function-docstring
 import numpy as np
-from src.utils.check.check_array import check_array_transfo
+from borea.utils.check.check_array import check_array_transfo
 
 
 def test_check_array_transfo_floatfloat():

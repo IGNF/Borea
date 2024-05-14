@@ -6,9 +6,9 @@ import os
 from pathlib import Path, PureWindowsPath
 import pytest
 import numpy as np
-from src.format.conl import Conl
-from src.datastruct.shot import Shot
-from src.datastruct.camera import Camera
+from borea.format.conl import Conl
+from borea.datastruct.shot import Shot
+from borea.datastruct.camera import Camera
 
 
 def setup_module(module):  # run before the first test

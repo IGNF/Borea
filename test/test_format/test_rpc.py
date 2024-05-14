@@ -1,16 +1,16 @@
 """
 Scripte to test class Rpc
 """
-# pylint: disable=import-error, missing-function-docstring, unused-argument
+# pylint: disable=import-error, missing-function-docstring, unused-argument, duplicate-code
 import copy
 import numpy as np
 import pytest
-from src.datastruct.dtm import Dtm
-from src.datastruct.shot import Shot
-from src.datastruct.camera import Camera
-from src.format.rpc import Rpc
-from src.geodesy.proj_engine import ProjEngine
-from src.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
+from borea.datastruct.dtm import Dtm
+from borea.datastruct.shot import Shot
+from borea.datastruct.camera import Camera
+from borea.format.rpc import Rpc
+from borea.geodesy.proj_engine import ProjEngine
+from borea.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 
 
 SHOT = Shot("test_shot", np.array([814975.925, 6283986.148, 1771.280]),

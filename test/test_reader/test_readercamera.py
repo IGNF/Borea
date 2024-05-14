@@ -2,8 +2,8 @@
 Script test for module reader_camera
 """
 # pylint: disable=import-error, missing-function-docstring
-from src.reader.reader_camera import read_camera, camera_txt
-from src.worksite.worksite import Worksite
+from borea.reader.reader_camera import read_camera, camera_txt
+from borea.worksite.worksite import Worksite
 
 
 INPUT_CAM1_TXT = "./dataset/Camera1.txt"

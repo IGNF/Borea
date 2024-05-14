@@ -1,0 +1,60 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=61.0"]
+
+[project]
+dynamic = ["dependencies", "optional-dependencies"]
+name = "borea"
+version = "0.1.4"
+authors = [
+  { name="Antoine Cornu", email="antoine.cornu@ign.fr" },
+  { name="Nicolas Laurain", email="nicolas.laurain@ign.fr"}
+]
+description = "A package to manipulate orientation files"
+readme = "README_borea_lib.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.10"
+keywords = ['borea','aero']
+classifiers = [
+    'License :: OSI Approved :: MIT License',
+    'Programming Language :: Python :: 3.10',
+    'Operating System :: Microsoft :: Windows',
+    'Operating System :: Unix',
+    'Operating System :: MacOS'
+]
+
+[project.urls]
+Github = "https://github.com/ACornuIGN/Pink_Lady"
+
+[tool.setuptools.packages.find]
+include = ["borea*","borea_tools*"]
+namespaces = false
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["borea_dependency/requirements.txt"]}
+optional-dependencies = {dev = { file = ["borea_dependency/requirements-dev.txt"] }}
+
+[tool.setuptools.package-data]
+borea = ["*.txt"]
+
+[project.scripts]
+opk-to-opk = "borea_tools.opk_to_opk:opk_to_opk"
+opk-control = "borea_tools.opk_control:opk_control"
+opk-to-rpc = "borea_tools.opk_to_rpc:opk_to_rpc"
+opk-to-conl = "borea_tools.opk_to_conl:opk_to_conl"
+pt-image-to-world = "borea_tools.pt_image_to_world:pt_image_to_world"
+pt-world-to-image = "borea_tools.pt_world_to_image:pt_world_to_image"
+ptfile-image-to-world = "borea_tools.ptfile_image_to_world:ptfile_image_to_world"
+ptfile-world-to-image = "borea_tools.ptfile_world_to_image:ptfile_world_to_image"
+spaceresection-opk = "borea_tools.spaceresection_opk:spaceresection_opk"
+
+[project.gui-scripts]
+opk-to-opk = "borea_tools.opk_to_opk:opk_to_opk"
+opk-control = "borea_tools.opk_control:opk_control"
+opk-to-rpc = "borea_tools.opk_to_rpc:opk_to_rpc"
+opk-to-conl = "borea_tools.opk_to_conl:opk_to_conl"
+pt-image-to-world = "borea_tools.pt_image_to_world:pt_image_to_world"
+pt-world-to-image = "borea_tools.pt_world_to_image:pt_world_to_image"
+ptfile-image-to-world = "borea_tools.ptfile_image_to_world:ptfile_image_to_world"
+ptfile-world-to-image = "borea_tools.ptfile_world_to_image:ptfile_world_to_image"
+spaceresection-opk = "borea_tools.spaceresection_opk:spaceresection_opk"

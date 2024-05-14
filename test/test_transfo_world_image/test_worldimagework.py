@@ -3,8 +3,8 @@ Script test for module WorldImageWork
 """
 # pylint: disable=import-error, missing-function-docstring
 import numpy as np
-from src.worksite.worksite import Worksite
-from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork
+from borea.worksite.worksite import Worksite
+from borea.transform_world_image.transform_worksite.world_image_work import WorldImageWork
 
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"

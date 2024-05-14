@@ -8,11 +8,11 @@ import os
 from eg_build_worksite_by_file import worksite_add_gcp2d, worksite_add_gcp3d, worksite_opk
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from src.stat.statistics import Stat  # noqa: E402
+from borea.stat.statistics import Stat  # noqa: E402
 # pylint: disable-next=line-too-long
-from src.transform_world_image.transform_worksite.image_world_work import ImageWorldWork  # noqa: E402, E501
+from borea.transform_world_image.transform_worksite.image_world_work import ImageWorldWork  # noqa: E402, E501
 # pylint: disable-next=line-too-long
-from src.transform_world_image.transform_worksite.world_image_work import WorldImageWork  # noqa: E402, E501
+from borea.transform_world_image.transform_worksite.world_image_work import WorldImageWork  # noqa: E402, E501
 
 
 OUTPUT_PATH = "./test/tmp"

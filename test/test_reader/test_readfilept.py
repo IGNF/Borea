@@ -5,8 +5,8 @@ Script test for module reader for file point
 import pytest
 import numpy as np
 import pandas as pd
-from src.reader.orientation.manage_reader import reader_orientation
-from src.reader.reader_point import read_file_pt, read_file_pt_dataframe
+from borea.reader.orientation.manage_reader import reader_orientation
+from borea.reader.reader_point import read_file_pt, read_file_pt_dataframe
 
 
 INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"

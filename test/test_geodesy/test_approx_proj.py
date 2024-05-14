@@ -4,9 +4,9 @@ Script to test module approx euclidean system
 # pylint: disable=import-error, missing-function-docstring, unused-argument
 import numpy as np
 import pytest
-from src.datastruct.dtm import Dtm
-from src.geodesy.proj_engine import ProjEngine
-from src.geodesy.approx_euclidean_proj import ApproxEuclideanProj
+from borea.datastruct.dtm import Dtm
+from borea.geodesy.proj_engine import ProjEngine
+from borea.geodesy.approx_euclidean_proj import ApproxEuclideanProj
 
 
 def setup_module(module):  # run before the first test

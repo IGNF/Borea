@@ -1,9 +1,9 @@
 """
 Script test for module check_header
 """
-# pylint: disable=import-error, missing-function-docstring
+# pylint: disable=import-error, missing-function-docstring, line-too-long
 import pytest
-from src.utils.check.check_args_opk import check_args_opk, check_header_file, get_type_z_and_header
+from borea.utils.check.check_args_opk import check_args_opk, check_header_file, get_type_z_and_header  # noqa: E501
 
 
 def test_check_args_opk():

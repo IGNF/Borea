@@ -1,7 +1,7 @@
 # Formula documentation for the function space_resection
 
 Function to re/calculate the 6 external image parameters. 3 parameters for image position and 3 parameters for orientation angles omega, phi, kappa, per least square.  
-It is built in the SpaceResection class [src/transform_world_image/transform_worksite/space_resection.py](../../src/transform_world_image/transform_worksite/space_resection.py).  
+It is built in the SpaceResection class [borea/transform_world_image/transform_worksite/space_resection.py](../../borea/transform_world_image/transform_worksite/space_resection.py).  
 Tools where transformation is used are : **opk_by_space_resection.py**
 
 ## Functions

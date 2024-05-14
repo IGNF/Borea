@@ -1,8 +1,8 @@
 """
 Script test for module manager_reader
 """
-# pylint: disable=import-error, missing-function-docstring
-from src.reader.orientation.manage_reader import reader_orientation
+# pylint: disable=import-error, missing-function-docstring, duplicate-code
+from borea.reader.orientation.manage_reader import reader_orientation
 
 
 INPUT_OPK_UBU = "./dataset/23FD1305_alt_test.OPK"

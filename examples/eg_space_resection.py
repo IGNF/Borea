@@ -9,10 +9,10 @@ import numpy as np
 from eg_build_worksite_by_file import worksite_opk, worksite_without_shot
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from src.worksite.worksite import Worksite  # noqa: E402
+from borea.worksite.worksite import Worksite  # noqa: E402
 # pylint: disable-next=line-too-long
-from src.transform_world_image.transform_worksite.space_resection import SpaceResection  # noqa: E402, E501
-from src.reader.reader_point import read_file_pt_dataframe  # noqa: E402
+from borea.transform_world_image.transform_worksite.space_resection import SpaceResection  # noqa: E402, E501
+from borea.reader.reader_point import read_file_pt_dataframe  # noqa: E402
 
 
 PATH_CO_PT_IMAGE = "./test/data/dataset2/all_liaisons2.mes"

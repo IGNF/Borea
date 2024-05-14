@@ -11,7 +11,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath("../.."))
 
-project = 'Pink_Lady'
+project = 'Borea'
 copyright = '2023, Antoine Cornu et Nicolas Laurain'
 author = 'Antoine Cornu et Nicolas Laurain'
 release = '1.0.0'

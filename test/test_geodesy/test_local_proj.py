@@ -3,9 +3,9 @@ Script test for module euclidean_proj
 """
 # pylint: disable=import-error, missing-function-docstring, unused-argument
 import numpy as np
-from src.geodesy.proj_engine import ProjEngine
-from src.geodesy.local_euclidean_proj import LocalEuclideanProj
-from src.datastruct.dtm import Dtm
+from borea.geodesy.proj_engine import ProjEngine
+from borea.geodesy.local_euclidean_proj import LocalEuclideanProj
+from borea.datastruct.dtm import Dtm
 
 
 PATH_GEOID = ["./dataset/fr_ign_RAF20.tif"]

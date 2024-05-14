@@ -3,7 +3,7 @@ Script test for module check_head_file_pt
 """
 # pylint: disable=import-error, missing-function-docstring
 import pytest
-from src.utils.check.check_args_reader_pt import check_header_file
+from borea.utils.check.check_args_reader_pt import check_header_file
 
 
 def test_head_file_pt3d():

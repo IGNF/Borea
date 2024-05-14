@@ -19,7 +19,7 @@ jobs:
     - name: Install environment
       uses: mamba-org/setup-micromamba@v1.4.3
       with:
-        environment-file: dependency/environment.yml
+        environment-file: borea_dependency/environment-dev.yml
         environment-name: borea
         cache-environment: true
         cache-downloads: true

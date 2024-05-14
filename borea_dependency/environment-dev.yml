@@ -1,4 +1,4 @@
-name: pink_lady
+name: borea
 channels:
  - conda-forge
 dependencies:

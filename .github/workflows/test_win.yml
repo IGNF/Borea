@@ -20,7 +20,7 @@ jobs:
       uses: mamba-org/setup-micromamba@v1.4.3
       with:
         environment-file: dependency/environment.yml
-        environment-name: pink_lady
+        environment-name: borea
         cache-environment: true
         cache-downloads: true
         init-shell: bash

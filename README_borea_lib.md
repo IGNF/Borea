@@ -25,15 +25,15 @@ You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs
 ## Tools
 
 Some tools are already implemented in the library:
-* Conversion OPK to OPK: `opk-to-opk -h` [doc](https://github.com/ACornuIGN/Pink_Lady/blob/dev/tools/docs_tools/README_opk_to_opk.md) (OPK = Omega Phi Kappa)
-* Control OPK file: `opk-control -h` [doc](https://github.com/ACornuIGN/Pink_Lady/blob/dev/tools/docs_tools/README_opk_control.md)
-* Conversion OPK to RPC: `opk-to-rpc -h` [doc](https://github.com/ACornuIGN/Pink_Lady/blob/dev/tools/docs_tools/README_opk_to_rpc.md)
-* Conversion OPK to Conl: `opk-to-conl -h` [doc](https://github.com/ACornuIGN/Pink_Lady/blob/dev/tools/docs_tools/README_opk_to_conl.md) (Conl = light conical file, IGN France format)
-* Transforms coordinates terrain from image: `pt-image-to-world -h` [doc](https://github.com/ACornuIGN/Pink_Lady/blob/dev/tools/docs_tools/README_pt_image_to_world.md)
-* Transforms coordinates image from terrain: `pt-world-to-image -h` [doc](https://github.com/ACornuIGN/Pink_Lady/blob/dev/tools/docs_tools/README_pt_world_to_image.md)
-* Transforms coordinates file terrain from image: `ptfile-image-to-world -h` [doc](https://github.com/ACornuIGN/Pink_Lady/blob/dev/tools/docs_tools/README_ptfile_image_to_world.md)
-* Transforms coordinates file image from terrain: `ptfile-world-to-image -h` [doc](https://github.com/ACornuIGN/Pink_Lady/blob/dev/tools/docs_tools/README_ptfile_world_to_image.md)
-* Calculates opk by space resection: `spaceresection-opk -h` [doc](https://github.com/ACornuIGN/Pink_Lady/blob/dev/tools/docs_tools/README_spaceresection_opk.md)
+* Conversion OPK to OPK: `opk-to-opk -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_opk_to_opk.md) (OPK = Omega Phi Kappa)
+* Control OPK file: `opk-control -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_opk_control.md)
+* Conversion OPK to RPC: `opk-to-rpc -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_opk_to_rpc.md)
+* Conversion OPK to Conl: `opk-to-conl -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_opk_to_conl.md) (Conl = light conical file, IGN France format)
+* Transforms coordinates terrain from image: `pt-image-to-world -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_pt_image_to_world.md)
+* Transforms coordinates image from terrain: `pt-world-to-image -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_pt_world_to_image.md)
+* Transforms coordinates file terrain from image: `ptfile-image-to-world -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_ptfile_image_to_world.md)
+* Transforms coordinates file image from terrain: `ptfile-world-to-image -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_ptfile_world_to_image.md)
+* Calculates opk by space resection: `spaceresection-opk -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_spaceresection_opk.md)
 
 ## Read data and instantiate worksite
 
@@ -91,7 +91,7 @@ The DataFrame **pt3d** is a table with 5 column and n line. The id of column mus
 
     it can be created with the function `read_file_pt_dataframe(path_file_pt,header_file,"pt3d")`  
 The dictionary **pinit** which give the initialization point X, Y, Z. A point on the worksite with a z at an approximate flying height. The name of the key in the dictionary is `coor_init`.  
-Example at the end of explanation of function [file](https://github.com/ACornuIGN/Pink_Lady/blob/main/docs/functions/Space_resection.md).
+Example at the end of explanation of function [file](https://github.com/ACornuIGN/Borea/blob/main/docs/functions/Space_resection.md).
 
 * You can calculate some control point statistics to see how accurate your site is `stat = Stat(work, pathreturn, control_type)` to init the object and run for all stat with `stat.main_stat_and_save()`. Make stat on function image to world and world to image, if there are data. And save result on *pathreturn/Stat_{Name_worksite}.txt*.
 
@@ -110,14 +110,14 @@ Examples in section [examples](#examples) below.
 
 ## Examples
 
-All examples are in [borea github ./examples/](https://github.com/ACornuIGN/Pink_Lady/tree/main/examples):
+All examples are in [borea github ./examples/](https://github.com/ACornuIGN/Borea/tree/main/examples):
 * For build main class Worksite with file **eg_build_worksite_by_file.py** and with data **eg_build_worksite_by_data.py**.
 * To make transformation image to world **eg_image_to_world.py**.
 * To make transformation world to image **eg_world_to_image.py**.
 * To make space resection on point to determine worksite **eg_space_resection.py**.
 * To convert format opk to an other format opk rpc con **eg_opk_to_format.py**.
 
-Examples of the different formats of file can be found in [borea github ./dataset/](https://github.com/ACornuIGN/Pink_Lady/tree/main/dataset):
+Examples of the different formats of file can be found in [borea github ./dataset/](https://github.com/ACornuIGN/Borea/tree/main/dataset):
 * An opk file **23FD1305_alt_test.OPK** with z unit is altitude.
 * Cameras filesformat **Camera1.txt** and **Camera2.txt**.
 * Geotiff of the French geoid for pyproj fr_ign_RAF20.tif** detail at section [info projection](#info-projection) below.

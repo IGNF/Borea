@@ -1,7 +1,7 @@
-src
-===
+borea
+=====
 
 .. toctree::
    :maxdepth: 4
 
-   src
+   borea

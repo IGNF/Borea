@@ -38,6 +38,8 @@ mamba env create -f ./borea_dependency/environment.yaml
 ```
 
 #### Pip
+The package exists on pip with `pip install ign-borea` without GDAL
+
 ```
 pip install -r ./borea_dependency/requirements.txt
 sudo apt-get install libgdal-dev

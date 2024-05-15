@@ -7,33 +7,33 @@ Due to different dependency used installation of the library require `GDAL>=3.3.
 ```
 pip install borea
 ```
-For GDAL installation you need `libgdal-dev`:
+For GDAL installation you need `libgdal-main`:
 ```
-sudo apt-get install libgdal-dev
+sudo apt-get install libgdal-main
 ```
-Please note that the `GDAL` version depends on the `libgdal-dev` version.
+Please note that the `GDAL` version depends on the `libgdal-main` version.
 ```
-apt-cache show libgdal-dev
+apt-cache show libgdal-main
 # or if you are ogr
 ogrinfo --version
 ```
 ```
 pip install GDAL==<GDAL VERSION FROM OGRINFO>
 ```
-You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html) if you have problems installing GDAL.
+You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/mainelopment/how-to/gdal-ubuntu-pkg.html) if you have problems installing GDAL.
 
 ## Tools
 
 Some tools are already implemented in the library:
-* Conversion OPK to OPK: `opk-to-opk -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_opk_to_opk.md) (OPK = Omega Phi Kappa)
-* Control OPK file: `opk-control -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_opk_control.md)
-* Conversion OPK to RPC: `opk-to-rpc -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_opk_to_rpc.md)
-* Conversion OPK to Conl: `opk-to-conl -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_opk_to_conl.md) (Conl = light conical file, IGN France format)
-* Transforms coordinates terrain from image: `pt-image-to-world -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_pt_image_to_world.md)
-* Transforms coordinates image from terrain: `pt-world-to-image -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_pt_world_to_image.md)
-* Transforms coordinates file terrain from image: `ptfile-image-to-world -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_ptfile_image_to_world.md)
-* Transforms coordinates file image from terrain: `ptfile-world-to-image -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_ptfile_world_to_image.md)
-* Calculates opk by space resection: `spaceresection-opk -h` [doc](https://github.com/ACornuIGN/Borea/blob/dev/tools/docs_tools/README_spaceresection_opk.md)
+* Conversion OPK to OPK: `opk-to-opk -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_opk_to_opk.md) (OPK = Omega Phi Kappa)
+* Control OPK file: `opk-control -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_opk_control.md)
+* Conversion OPK to RPC: `opk-to-rpc -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_opk_to_rpc.md)
+* Conversion OPK to Conl: `opk-to-conl -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_opk_to_conl.md) (Conl = light conical file, IGN France format)
+* Transforms coordinates terrain from image: `pt-image-to-world -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_pt_image_to_world.md)
+* Transforms coordinates image from terrain: `pt-world-to-image -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_pt_world_to_image.md)
+* Transforms coordinates file terrain from image: `ptfile-image-to-world -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_ptfile_image_to_world.md)
+* Transforms coordinates file image from terrain: `ptfile-world-to-image -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_ptfile_world_to_image.md)
+* Calculates opk by space resection: `spaceresection-opk -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_spaceresection_opk.md)
 
 ## Read data and instantiate worksite
 
@@ -72,7 +72,7 @@ Examples in section [examples](#examples) below.
 
 * Can calculate the position of terrain points in images with `WorldImageWork(work).calculate_world_to_image(type_control)` in `from borea.transform_world_image.transform_worksite.world_image_work import WorldImageWork`, with `type_control` egal None by default, is used if the type_point = gcp2d and if you want just one type code point, else None to process on all point. . The result can be found in `worksite.shots['name_shot'].gcps['name_gcp']` for each image and each gcps.
 
-* Can calculate spatial resection for each shot in worksite with `SpaceResection(work).space_resection_on_worksite(add_pixel = (0,0))` in `from borea.transform_world_image.transform_worksite.space_resection import SpaceResection`. `add_pixel` is used to add a deviation to the position of the points to modify the shot's 6 external parameters for data conversion.
+* Can calculate spatial resection for each shot in worksite with `SpaceResection(work).space_resection_on_worksite(add_pixel = (0,0))` in `from borea.transform_world_image.transform_worksite.space_resection import SpaceResection`. `add_pixel` is used to add a mainiation to the position of the points to modify the shot's 6 external parameters for data conversion.
 
 * Can calculate spatial resection in poitn of shot for creating worksite with `SpaceResection(work).space_resection_to_worksite(pt2d, pt3d, pinit)` in `from borea.transform_world_image.transform_worksite.space_resection import SpaceResection`.  
 The DataFrame **pt2d** is a table with 4 column and n line. The id of column must be:
@@ -91,7 +91,7 @@ The DataFrame **pt3d** is a table with 5 column and n line. The id of column mus
 
     it can be created with the function `read_file_pt_dataframe(path_file_pt,header_file,"pt3d")`  
 The dictionary **pinit** which give the initialization point X, Y, Z. A point on the worksite with a z at an approximate flying height. The name of the key in the dictionary is `coor_init`.  
-Example at the end of explanation of function [file](https://github.com/ACornuIGN/Borea/blob/main/docs/functions/Space_resection.md).
+Example at the end of explanation of function [file](https://github.com/IGNF/Borea/tree/main/docs/functions/Space_resection.md).
 
 * You can calculate some control point statistics to see how accurate your site is `stat = Stat(work, pathreturn, control_type)` to init the object and run for all stat with `stat.main_stat_and_save()`. Make stat on function image to world and world to image, if there are data. And save result on *pathreturn/Stat_{Name_worksite}.txt*.
 
@@ -110,14 +110,14 @@ Examples in section [examples](#examples) below.
 
 ## Examples
 
-All examples are in [borea github ./examples/](https://github.com/ACornuIGN/Borea/tree/main/examples):
+All examples are in [borea github ./examples/](https://github.com/IGNF/Borea/tree/main/examples):
 * For build main class Worksite with file **eg_build_worksite_by_file.py** and with data **eg_build_worksite_by_data.py**.
 * To make transformation image to world **eg_image_to_world.py**.
 * To make transformation world to image **eg_world_to_image.py**.
 * To make space resection on point to determine worksite **eg_space_resection.py**.
 * To convert format opk to an other format opk rpc con **eg_opk_to_format.py**.
 
-Examples of the different formats of file can be found in [borea github ./dataset/](https://github.com/ACornuIGN/Borea/tree/main/dataset):
+Examples of the different formats of file can be found in [borea github ./dataset/](https://github.com/IGNF/Borea/tree/main/dataset):
 * An opk file **23FD1305_alt_test.OPK** with z unit is altitude.
 * Cameras filesformat **Camera1.txt** and **Camera2.txt**.
 * Geotiff of the French geoid for pyproj fr_ign_RAF20.tif** detail at section [info projection](#info-projection) below.

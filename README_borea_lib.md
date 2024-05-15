@@ -5,22 +5,22 @@ Why Borea? **B** for Box and **orea** is a back slang of aero.
 
 Due to different dependency used installation of the library require `GDAL>=3.3.2`, which is not included in the dependency.
 ```
-pip install borea
+pip install ign-borea
 ```
-For GDAL installation you need `libgdal-main`:
+For GDAL installation you need `libgdal-dev`:
 ```
-sudo apt-get install libgdal-main
+sudo apt-get install libgdal-dev
 ```
-Please note that the `GDAL` version depends on the `libgdal-main` version.
+Please note that the `GDAL` version depends on the `libgdal-dev` version.
 ```
-apt-cache show libgdal-main
+apt-cache show libgdal-dev
 # or if you are ogr
 ogrinfo --version
 ```
 ```
 pip install GDAL==<GDAL VERSION FROM OGRINFO>
 ```
-You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/mainelopment/how-to/gdal-ubuntu-pkg.html) if you have problems installing GDAL.
+You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html) if you have problems installing GDAL.
 
 ## Tools
 

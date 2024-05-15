@@ -1,11 +1,13 @@
 """
-Module dor class singleton
+Module for class singleton
 """
 
 
 class Singleton(type):
     """
-    Class Singletonfor dtm.
+    Class Singleton for Dtm and ProjEngine.
+    It's a design pattern, belonging to the category of creation patterns,
+    whose aim is to restrict the instantiation of a class to a single object.
     """
     _instances = {}
 

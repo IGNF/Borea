@@ -3,6 +3,15 @@
 Make an issue on a new feature or bug found.  
 Or get the repository and code the new functionality you want on a new branch and pull request on dev branch.
 
+## Dependency dev
+
+### Conda/Mamba
+For conda/mamba environment the depencency is [borea_dependency/environment-dev.yml](./borea_dependency/environment-dev.yml).  
+
+### Pip venv
+For pip environment (venv) the depencency is [borea_dependency/requirements-dev.txt](./borea_dependency/requirements-dev.txt)  
+and you need to install `libgdal-dev` and `GDAL>=3.3.2`.
+
 ## Commit message header
 
 Based on: https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit

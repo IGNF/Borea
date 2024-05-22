@@ -1,0 +1,14 @@
+Dockerfile
+Dockerfile copy
+*.md
+pyproject.toml
+ci
+borea_tools/docs_tools
+borea_dependency/*.yml
+borea_dependency/requirements-dev.txt
+dataset
+dist
+docs
+examples
+test
+*.egg-info

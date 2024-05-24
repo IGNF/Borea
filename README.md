@@ -1,4 +1,6 @@
 # Welcome to Borea !!!
+[![IGNF badge](https://img.shields.io/badge/IGNF-8cbd3a)](https://www.ign.fr/) [![PyPI Downloads](https://img.shields.io/pypi/dm/ign-borea.svg?label=PyPI%20downloads)](
+https://pypi.org/project/ign-borea/)
 
 Borea is an open-source tools-box photogrammetric conversion format and transformation coordinate of image and terrain.  
 Why Borea? B for Box and orea is a back slang of aero.

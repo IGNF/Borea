@@ -297,7 +297,8 @@
 <span class="kn">from</span> <span class="nn">borea.datastruct.shot</span> <span class="kn">import</span> <span class="n">Shot</span>
 <span class="kn">from</span> <span class="nn">borea.transform_world_image.transform_shot.world_image_shot</span> <span class="kn">import</span> <span class="n">WorldImageShot</span>
 <span class="kn">from</span> <span class="nn">borea.transform_world_image.transform_shot.image_world_shot</span> <span class="kn">import</span> <span class="n">ImageWorldShot</span>
-<span class="kn">from</span> <span class="nn">borea.transform_world_image.transform_worksite.image_world_intersection</span> <span class="kn">import</span> <span class="n">WorldIntersection</span>
+<span class="c1"># pylint: disable-next=line-too-long</span>
+<span class="kn">from</span> <span class="nn">borea.transform_world_image.transform_worksite.image_world_intersection</span> <span class="kn">import</span> <span class="n">WorldIntersection</span>  <span class="c1"># noqa: E501</span>
 <span class="kn">from</span> <span class="nn">borea.utils.miscellaneous.param_bundle</span> <span class="kn">import</span> <span class="n">set_param_bundle_diff</span>
 
 
@@ -602,6 +603,7 @@
 <span class="sd">            tuple: np.array(obs_image), np.array(pt_world).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">add_pt</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">pt_world_random</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">if</span> <span class="n">shot</span><span class="o">.</span><span class="n">co_points</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">co_pts_world</span><span class="p">:</span>
                 <span class="n">WorldIntersection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="p">)</span><span class="o">.</span><span class="n">calculate_image_world_by_intersection</span><span class="p">(</span><span class="s2">&quot;co_points&quot;</span><span class="p">)</span>

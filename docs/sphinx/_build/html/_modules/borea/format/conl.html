@@ -437,6 +437,7 @@
         <span class="n">ppa</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span> <span class="s2">&quot;ppa&quot;</span><span class="p">)</span>
         <span class="n">add_elem</span><span class="p">(</span><span class="n">ppa</span><span class="p">,</span> <span class="n">B_CAM</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">ppax</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">ppay</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">focal</span><span class="p">)])</span>
 
+        <span class="c1"># pylint: disable-next=pointless-string-statement</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; if self.shot.f_sys:</span>
 <span class="sd">            transfo2d = ET.SubElement(sensor, &quot;transfo2d&quot;)</span>
 <span class="sd">            tr2delem = ET.SubElement(transfo2d, &quot;tr2delem&quot;)</span>

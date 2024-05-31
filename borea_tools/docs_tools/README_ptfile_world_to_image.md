@@ -29,12 +29,12 @@ The parameters are:
 | -m | DTM of the worksite. | None | X |
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
 | -x | To use an approximate system. | False | X |
-| -t | Files paths of ground image points |  | V |
-| -k | Header of the file gcp2d. | PNXY | X |
-| -g | Files paths of ground control point |  | V |
-| -l | Header of the file gcp3d. | PTXYZ | X |
-| --fg | Format of GCP and ground image points "altitude" or "height". |  | V |
-| -d | Type of gcp to control. | [] | X |
+| -t | Files paths of image points with 0 in coordinates |  | V |
+| -k | Header of the file 2d point. | PNXY | X |
+| -g | Files paths of terrain point. |  | V |
+| -l | Header of the file terrain point. | PTXYZ | X |
+| --fg | Format of point and ground image points "altitude" or "height". |  | V |
+| -d | Type of point to calculate if they are. | [] | X |
 | -n | Name of the file to save. |  | V |
 | -w | Path stat e.g. "./" | "./" | X |
 

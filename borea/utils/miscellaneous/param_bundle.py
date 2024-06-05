@@ -5,7 +5,7 @@ import numpy as np
 from borea.datastruct.shot import Shot
 
 
-def set_param_bundle_diff(shot: Shot, coor_eucli: np.ndarray, uniform_v: bool = False) -> tuple:
+def set_param_bundle_diff(shot: Shot, coor_eucli: np.ndarray) -> tuple:
     """
     Setting up the A vector, U vector and V matrix parameters for the differential function
     of beam parameters, in the Euclidean reference frame.
@@ -18,7 +18,6 @@ def set_param_bundle_diff(shot: Shot, coor_eucli: np.ndarray, uniform_v: bool = 
     Args:
         shot (Shot): The shot in which we work.
         coor_eucli (np.array): Euclidean coordinates of the point.
-        uniform (bool): If you want to uniform matrix V, V/u3
 
     Returns:
         tuple: vector A, vector U and matrix V.
@@ -27,9 +26,6 @@ def set_param_bundle_diff(shot: Shot, coor_eucli: np.ndarray, uniform_v: bool = 
                         coor_eucli[1] - shot.pos_shot_eucli[1],
                         coor_eucli[2] - shot.pos_shot_eucli[2]])  # vect_a = M-S
     vect_u = shot.mat_rot_eucli @ vect_a  # U = RA
-
-    if uniform_v:
-        vect_u = vect_u/vect_u[2]
 
     mat_v = np.zeros((2 * len(vect_u[0]), 3))
     mat_v[::2, 0] = vect_u[2]

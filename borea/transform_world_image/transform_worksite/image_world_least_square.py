@@ -163,15 +163,14 @@ class WorldLeastSquare:
             _, vect_u, mat_v = set_param_bundle_diff(shot,
                                                      np.array([pd_data["x"].to_numpy(),
                                                                pd_data["y"].to_numpy(),
-                                                               pd_data["z"].to_numpy()]),
-                                                     uniform_v=True)
+                                                               pd_data["z"].to_numpy()]))
 
             coord_i += [np.repeat(2 * pd_data['index_mes'].to_numpy(), 6) +
                         np.tile([0, 0, 0, 1, 1, 1], len(pd_data["x"].to_numpy()))]
             coord_j += [np.repeat(3 * pd_data['index_pnt'].to_numpy(), 6) +
                         np.tile([0, 1, 2, 0, 1, 2], len(pd_data["y"].to_numpy()))]
 
-            data += [(np.tile(np.repeat(cam.focal / vect_u[2], 2), (3, 1)).T *
+            data += [(np.tile(np.repeat(cam.focal / vect_u[2]**2, 2), (3, 1)).T *
                       mat_v @ shot.mat_rot_eucli).flatten()]
 
             v_res[2 * pd_data['index_mes'].to_numpy()] = pd_data["column"].to_numpy() - pti[0]

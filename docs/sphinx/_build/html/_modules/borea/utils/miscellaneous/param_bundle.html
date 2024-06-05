@@ -294,7 +294,7 @@
 
 <div class="viewcode-block" id="set_param_bundle_diff">
 <a class="viewcode-back" href="../../../../borea.utils.miscellaneous.html#borea.utils.miscellaneous.param_bundle.set_param_bundle_diff">[docs]</a>
-<span class="k">def</span> <span class="nf">set_param_bundle_diff</span><span class="p">(</span><span class="n">shot</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">coor_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">uniform_v</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">set_param_bundle_diff</span><span class="p">(</span><span class="n">shot</span><span class="p">:</span> <span class="n">Shot</span><span class="p">,</span> <span class="n">coor_eucli</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Setting up the A vector, U vector and V matrix parameters for the differential function</span>
 <span class="sd">    of beam parameters, in the Euclidean reference frame.</span>
@@ -307,7 +307,6 @@
 <span class="sd">    Args:</span>
 <span class="sd">        shot (Shot): The shot in which we work.</span>
 <span class="sd">        coor_eucli (np.array): Euclidean coordinates of the point.</span>
-<span class="sd">        uniform (bool): If you want to uniform matrix V, V/u3</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        tuple: vector A, vector U and matrix V.</span>
@@ -316,9 +315,6 @@
                         <span class="n">coor_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot_eucli</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                         <span class="n">coor_eucli</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">shot</span><span class="o">.</span><span class="n">pos_shot_eucli</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>  <span class="c1"># vect_a = M-S</span>
     <span class="n">vect_u</span> <span class="o">=</span> <span class="n">shot</span><span class="o">.</span><span class="n">mat_rot_eucli</span> <span class="o">@</span> <span class="n">vect_a</span>  <span class="c1"># U = RA</span>
-
-    <span class="k">if</span> <span class="n">uniform_v</span><span class="p">:</span>
-        <span class="n">vect_u</span> <span class="o">=</span> <span class="n">vect_u</span><span class="o">/</span><span class="n">vect_u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
     <span class="n">mat_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">vect_u</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">3</span><span class="p">))</span>
     <span class="n">mat_v</span><span class="p">[::</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">vect_u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>

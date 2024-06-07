@@ -116,10 +116,7 @@ def worksite_add_gcp3d(work_opk: Worksite) -> Worksite:
     # Add connecting to the worksite
     # read_file_pt(path_file: str, header: list(str), type_point: str, work: Worksite)
     # "header" : Type of each column in the site file, detail below 2.
-    read_file_pt(PATH_GCP3D, list("PTXYZ"), "gcp3d", work_opk)
-
-    # Settup z unit of gcp terrain "altitude" or "height"
-    work_opk.set_type_z_data("height")
+    read_file_pt(PATH_GCP3D, list("PTXYH"), "gcp3d", work_opk)
 
     return work_opk
 
@@ -179,5 +176,6 @@ X: coordinate x (column) in the image
 Y: coordinate y (line) in the image
 X: coordinate x of the shot position
 Y: coordinate y of the shot position
-Z: coordinate z of the shot position
+Z: coordinate z altitude of the shot position
+H: coordinate z height of the shot position
 """

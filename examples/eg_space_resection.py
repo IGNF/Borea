@@ -47,7 +47,7 @@ def space_resection_on_points_to_shot() -> Worksite:
     # Read file of point to have in DataFrame format
     # read_file_pt_dataframe(path_file, header_file, type_point = choices([pt2d, pt3d])
     pt2d = read_file_pt_dataframe(PATH_CO_PT_IMAGE, list("PNXY"), "pt2d")
-    pt3d = read_file_pt_dataframe(PATH_CO_PT_WORLD, list("PXYZ"), "pt3d")
+    pt3d = read_file_pt_dataframe(PATH_CO_PT_WORLD, list("PXYH"), "pt3d")
 
     # Setup unit z data, shot in worksite and euclidean system to use for shot
     work_noshot.set_type_z_data("height")
@@ -98,5 +98,6 @@ X: coordinate x (column) in the image
 Y: coordinate y (line) in the image
 X: coordinate x of the shot position
 Y: coordinate y of the shot position
-Z: coordinate z of the shot position
+Z: coordinate z altitude of the shot position
+H: coordinate z height of the shot position
 """

@@ -311,7 +311,8 @@
     <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;co_point&quot;</span><span class="p">,</span> <span class="s2">&quot;gcp2d&quot;</span><span class="p">,</span> <span class="s2">&quot;gcp3d&quot;</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> in incorrect. [&#39;co_point&#39;, &#39;gcp2d&#39;, &#39;gcp3d&#39;]&quot;</span><span class="p">)</span>
 
-    <span class="n">check_header_file</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">type_point</span><span class="p">)</span>
+    <span class="n">header</span><span class="p">,</span> <span class="n">type_z</span> <span class="o">=</span> <span class="n">check_header_file</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">type_point</span><span class="p">)</span>
+    <span class="n">work</span><span class="o">.</span><span class="n">type_z_data</span> <span class="o">=</span> <span class="n">type_z</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="n">path</span><span class="p">)),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_pts</span><span class="p">:</span>
@@ -359,7 +360,7 @@
     <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;pt2d&quot;</span><span class="p">,</span> <span class="s2">&quot;pt3d&quot;</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> in incorrect. [&#39;pt2d&#39;, &#39;pt3d&#39;]&quot;</span><span class="p">)</span>
 
-    <span class="n">check_header_file</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">type_point</span><span class="p">)</span>
+    <span class="n">header</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">check_header_file</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">type_point</span><span class="p">)</span>
 
     <span class="n">id_pt</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">ttype</span> <span class="o">=</span> <span class="p">[]</span>

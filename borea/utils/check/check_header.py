@@ -35,3 +35,56 @@ def check_head(header: list, check_letter: list) -> tuple:
             ms_error_letter += f"list of symbol recognized {check_letter}\n"
 
     return bad_head, ms_error_letter, head, symbol
+
+
+def check_h_z(bad_head: bool, misss: set, ms_error_letter: str) -> tuple:
+    """
+    Check letter H and Z in header.
+
+    Args:
+        bad_head (bool): boolean if the header is false.
+        misss (set): Diff between list_letter and symbol.
+        ms_error_letter (str): Error message.
+
+    Returns:
+        tuple: bad_head, ms_error_letter
+    """
+    if misss != {"Z"} and misss != {"H"} and misss != set():
+        bad_head = True
+        if "Z" in misss and "H" in misss:
+            miss = misss.copy()
+            miss.remove("Z")
+            miss.remove("H")
+            ms_error_letter += f"The letters 'Z' or 'H' are missing and lettres {miss}.\n"
+        elif "Z" in misss:
+            misss.remove("Z")
+            ms_error_letter += f"The letters {misss} are missing.\n"
+        else:
+            misss.remove("H")
+            ms_error_letter += f"The letters {misss} are missing.\n"
+
+    if misss == set():
+        bad_head = True
+        ms_error_letter += "The letters Z and H cannot be in the same string.\n"
+
+    return bad_head, ms_error_letter
+
+
+def get_type_z_and_header(header: list) -> tuple:
+    """
+    Return type of z, height if H and altitude if Z
+    and header with the H replaced by a Z.
+
+    Args:
+        header (list): List of column type file.
+
+    Returns:
+        tuple: Header and type_z.
+    """
+    if "H" in header:
+        type_z = "height"
+        header[header.index('H')] = "Z"
+    else:
+        type_z = "altitude"
+
+    return header, type_z

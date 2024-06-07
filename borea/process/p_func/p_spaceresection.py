@@ -44,9 +44,8 @@ def process_space_resection(args: argparse) -> Worksite:
     work = Worksite("Space_Resection")
     work = process_args_gen_param(args, work)
     work.set_type_z_shot(check_header_file(list(args.output_header.upper()))[1])
-    work.set_type_z_data(args.fg)
-    pt2d = read_file_pt_dataframe(args.gcp2d, args.head_gcp2d, "pt2d")
-    pt3d = read_file_pt_dataframe(args.gcp3d, args.head_gcp3d, "pt3d")
+    pt2d = read_file_pt_dataframe(args.gcp2d, list(args.head_gcp2d.upper()), "pt2d")
+    pt3d = read_file_pt_dataframe(args.gcp3d, list(args.head_gcp3d.upper()), "pt3d")
     pinit = {"coor_init": np.array(args.point3d)}
     SpaceResection(work).space_resection_to_worksite(pt2d, pt3d, pinit)
     return work

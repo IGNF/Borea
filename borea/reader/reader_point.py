@@ -22,7 +22,8 @@ def read_file_pt(path: str, header: list, type_point: str, work: Worksite) -> No
     if type_point not in ["co_point", "gcp2d", "gcp3d"]:
         raise ValueError(f"type {type_point} in incorrect. ['co_point', 'gcp2d', 'gcp3d']")
 
-    check_header_file(header, type_point)
+    header, type_z = check_header_file(header, type_point)
+    work.type_z_data = type_z
 
     try:
         with open(Path(PureWindowsPath(path)), 'r', encoding="utf-8") as file_pts:
@@ -67,7 +68,7 @@ def read_file_pt_dataframe(path: str, header: list, type_point: str) -> pd.DataF
     if type_point not in ["pt2d", "pt3d"]:
         raise ValueError(f"type {type_point} in incorrect. ['pt2d', 'pt3d']")
 
-    check_header_file(header, type_point)
+    header, _ = check_header_file(header, type_point)
 
     id_pt = []
     ttype = []

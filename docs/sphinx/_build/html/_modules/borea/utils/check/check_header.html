@@ -325,6 +325,65 @@
 
     <span class="k">return</span> <span class="n">bad_head</span><span class="p">,</span> <span class="n">ms_error_letter</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">symbol</span></div>
 
+
+
+<div class="viewcode-block" id="check_h_z">
+<a class="viewcode-back" href="../../../../borea.utils.check.html#borea.utils.check.check_header.check_h_z">[docs]</a>
+<span class="k">def</span> <span class="nf">check_h_z</span><span class="p">(</span><span class="n">bad_head</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">misss</span><span class="p">:</span> <span class="nb">set</span><span class="p">,</span> <span class="n">ms_error_letter</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check letter H and Z in header.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        bad_head (bool): boolean if the header is false.</span>
+<span class="sd">        misss (set): Diff between list_letter and symbol.</span>
+<span class="sd">        ms_error_letter (str): Error message.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: bad_head, ms_error_letter</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">misss</span> <span class="o">!=</span> <span class="p">{</span><span class="s2">&quot;Z&quot;</span><span class="p">}</span> <span class="ow">and</span> <span class="n">misss</span> <span class="o">!=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">}</span> <span class="ow">and</span> <span class="n">misss</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">():</span>
+        <span class="n">bad_head</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="s2">&quot;Z&quot;</span> <span class="ow">in</span> <span class="n">misss</span> <span class="ow">and</span> <span class="s2">&quot;H&quot;</span> <span class="ow">in</span> <span class="n">misss</span><span class="p">:</span>
+            <span class="n">miss</span> <span class="o">=</span> <span class="n">misss</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">miss</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;Z&quot;</span><span class="p">)</span>
+            <span class="n">miss</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">)</span>
+            <span class="n">ms_error_letter</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;The letters &#39;Z&#39; or &#39;H&#39; are missing and lettres </span><span class="si">{</span><span class="n">miss</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">elif</span> <span class="s2">&quot;Z&quot;</span> <span class="ow">in</span> <span class="n">misss</span><span class="p">:</span>
+            <span class="n">misss</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;Z&quot;</span><span class="p">)</span>
+            <span class="n">ms_error_letter</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;The letters </span><span class="si">{</span><span class="n">misss</span><span class="si">}</span><span class="s2"> are missing.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">misss</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">)</span>
+            <span class="n">ms_error_letter</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;The letters </span><span class="si">{</span><span class="n">misss</span><span class="si">}</span><span class="s2"> are missing.</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+    <span class="k">if</span> <span class="n">misss</span> <span class="o">==</span> <span class="nb">set</span><span class="p">():</span>
+        <span class="n">bad_head</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">ms_error_letter</span> <span class="o">+=</span> <span class="s2">&quot;The letters Z and H cannot be in the same string.</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+    <span class="k">return</span> <span class="n">bad_head</span><span class="p">,</span> <span class="n">ms_error_letter</span></div>
+
+
+
+<div class="viewcode-block" id="get_type_z_and_header">
+<a class="viewcode-back" href="../../../../borea.utils.check.html#borea.utils.check.check_header.get_type_z_and_header">[docs]</a>
+<span class="k">def</span> <span class="nf">get_type_z_and_header</span><span class="p">(</span><span class="n">header</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return type of z, height if H and altitude if Z</span>
+<span class="sd">    and header with the H replaced by a Z.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        header (list): List of column type file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: Header and type_z.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;H&quot;</span> <span class="ow">in</span> <span class="n">header</span><span class="p">:</span>
+        <span class="n">type_z</span> <span class="o">=</span> <span class="s2">&quot;height&quot;</span>
+        <span class="n">header</span><span class="p">[</span><span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;Z&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">type_z</span> <span class="o">=</span> <span class="s2">&quot;altitude&quot;</span>
+
+    <span class="k">return</span> <span class="n">header</span><span class="p">,</span> <span class="n">type_z</span></div>
+
 </pre></div>
         </article>
       </div>

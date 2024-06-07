@@ -288,37 +288,49 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">A script for verification args to read a point file.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">borea.utils.check.check_header</span> <span class="kn">import</span> <span class="n">check_head</span>
+<span class="kn">from</span> <span class="nn">borea.utils.check.check_header</span> <span class="kn">import</span> <span class="n">check_head</span><span class="p">,</span> <span class="n">check_h_z</span><span class="p">,</span> <span class="n">get_type_z_and_header</span>
 
 
 <div class="viewcode-block" id="check_header_file">
 <a class="viewcode-back" href="../../../../borea.utils.check.html#borea.utils.check.check_args_reader_pt.check_header_file">[docs]</a>
-<span class="k">def</span> <span class="nf">check_header_file</span><span class="p">(</span><span class="n">header</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">type_pt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">check_header_file</span><span class="p">(</span><span class="n">header</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">type_pt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if the header of the file is good.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        header (list): List of column type file.</span>
 <span class="sd">        type_pt (str): Type of point is reading (co_point, gcp2d, gcp3d).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: header, type_z</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">list_letter</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">]</span>
+    <span class="n">type_z</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">list_letter</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">]</span>
 
     <span class="n">bad_head</span><span class="p">,</span> <span class="n">ms_error_letter</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">symbol</span> <span class="o">=</span> <span class="n">check_head</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">list_letter</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">type_pt</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;gcp3d&quot;</span><span class="p">,</span> <span class="s2">&quot;pt3d&quot;</span><span class="p">]:</span>
-        <span class="n">ll_type</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">]</span>
+        <span class="n">ll_type</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">]</span>
+        <span class="n">misss</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">ll_type</span><span class="p">)</span> <span class="o">-</span> <span class="n">symbol</span>
+        <span class="k">if</span> <span class="n">misss</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">()</span> <span class="ow">and</span> <span class="n">misss</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s2">&quot;T&quot;</span> <span class="ow">in</span> <span class="n">misss</span><span class="p">:</span>
+                <span class="n">misss</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+            <span class="n">bad_head</span><span class="p">,</span> <span class="n">ms_error_letter</span> <span class="o">=</span> <span class="n">check_h_z</span><span class="p">(</span><span class="n">bad_head</span><span class="p">,</span> <span class="n">misss</span><span class="p">,</span> <span class="n">ms_error_letter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bad_head</span><span class="p">:</span>
+            <span class="n">header</span><span class="p">,</span> <span class="n">type_z</span> <span class="o">=</span> <span class="n">get_type_z_and_header</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">ll_type</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">]</span>
-
-    <span class="n">misss</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">ll_type</span><span class="p">)</span> <span class="o">-</span> <span class="n">symbol</span>
-    <span class="k">if</span> <span class="n">misss</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">()</span> <span class="ow">and</span> <span class="n">misss</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">):</span>
-        <span class="n">bad_head</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">ms_error_letter</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;The letters </span><span class="si">{</span><span class="n">misss</span><span class="si">}</span><span class="s2"> are missing.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">misss</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">ll_type</span><span class="p">)</span> <span class="o">-</span> <span class="n">symbol</span>
+        <span class="k">if</span> <span class="n">misss</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">():</span>
+            <span class="n">bad_head</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">ms_error_letter</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;The letters </span><span class="si">{</span><span class="n">misss</span><span class="si">}</span><span class="s2"> are missing.</span><span class="se">\n</span><span class="s2">&quot;</span>
 
     <span class="n">ms_error</span> <span class="o">=</span> <span class="s2">&quot;Your header is not correct.</span><span class="se">\n</span><span class="s2">&quot;</span>
     <span class="n">ms_error</span> <span class="o">+=</span> <span class="n">ms_error_letter</span>
     <span class="k">if</span> <span class="n">bad_head</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">ms_error</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">ms_error</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">header</span><span class="p">,</span> <span class="n">type_z</span></div>
 
 </pre></div>
         </article>

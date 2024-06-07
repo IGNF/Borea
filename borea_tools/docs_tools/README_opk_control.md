@@ -33,18 +33,17 @@ The parameters are:
 | -k | Header of the file gcp2d. | PNXY | X |
 | -g | Files paths of ground control point |  | V |
 | -l | Header of the file gcp3d. | PTXYZ | X |
-| --fg | Format of GCP and ground image points "altitude" or "height". |  | V |
 | -d | Type of gcp to control. | [] | X |
 | -p | Type of process for the function image to world, "inter" for intersection or "square" for least-square | "inter" | X |
 | -w | Path stat e.g. "./" | "./" | X |
 
 E.G.
 ```
-python ./borea_tools/opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p inter
+python ./borea_tools/opk_control.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 -l PTXYH -p inter
 ```
 or pip
 ```
-opk-control -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 --fg height -p inter
+opk-control -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test.mes -g ./dataset/GCP_test.app -d 13 -l PTXYH -p inter
 ```
 
 ## Detail for the header of file -i
@@ -77,6 +76,7 @@ Type is:
 | X | coordinate x of the shot position |
 | Y | coordinate y of the shot position |
 | Z | coordinate z altitude of the shot position |
+| H | coordinate z height of the shot position |
 
 ## Detail for reading files
 

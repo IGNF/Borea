@@ -19,9 +19,9 @@ The parameters are:
 | -p | 3d coordinates of a point on the site at an approximate flying height to initialize the calculation. |  | V |
 | -d | Unit of the z of the 3D point. |  | V |
 | -t | File path of ground control points in images. |  | V |
-| -k | Header of the file gcp2d. |  | V |
+| -k | Header of the file gcp2d. | PNXY | X |
 | -g | File path of ground control points in ground. |  | V |
-| -l | Header of the file gcp3d. |  | V |
+| -l | Header of the file gcp3d. | PTXYZ | V |
 | -e | EPSG codifier number of the reference system used e.g. 2154 | 2154 | X |
 | -y | Path to the file pyproj GeoTIFF of geoid. | None | X |
 | -c | Files paths of cameras (.xml or .txt) | None | X |
@@ -37,11 +37,11 @@ The parameters are:
 
 E.G.
 ```
-python ./borea_tools/spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./tools/test/data/dataset2/all_liaisons2.mes -g ./tools/test/data/dataset2/all_liaisons2_world.mes -l PXYZ --fg height -n SpaceResection -o NXYZOPKC -ou degree -oa True
+python ./borea_tools/spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./tools/test/data/dataset2/all_liaisons2.mes -k PNXY -g ./tools/test/data/dataset2/all_liaisons2_world.mes -l PXYH -n SpaceResection -o NXYZOPKC -ou degree -oa True
 ```
 or pip
 ```
-spaceresection-opk -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./tools/test/data/dataset2/all_liaisons2.mes -g ./tools/test/data/dataset2/all_liaisons2_world.mes -l PXYZ --fg height -n SpaceResection -o NXYZOPKC -ou degree -oa True
+spaceresection-opk -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./tools/test/data/dataset2/all_liaisons2.mes -k PNXY -g ./tools/test/data/dataset2/all_liaisons2_world.mes -l PXYH -n SpaceResection -o NXYZOPKC -ou degree -oa True
 ```
 
 ## Detail for the header of file -o
@@ -73,6 +73,7 @@ Type is:
 | X | coordinate x of the shot position |
 | Y | coordinate y of the shot position |
 | Z | coordinate z altitude of the shot position |
+| H | coordinate z height of the shot position |
 
 ## Camera file format
 

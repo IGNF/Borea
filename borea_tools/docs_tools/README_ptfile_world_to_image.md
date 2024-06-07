@@ -33,18 +33,17 @@ The parameters are:
 | -k | Header of the file 2d point. | PNXY | X |
 | -g | Files paths of terrain point. |  | V |
 | -l | Header of the file terrain point. | PTXYZ | X |
-| --fg | Format of point and ground image points "altitude" or "height". |  | V |
 | -d | Type of point to calculate if they are. | [] | X |
 | -n | Name of the file to save. |  | V |
 | -w | Path stat e.g. "./" | "./" | X |
 
 E.G.
 ```
-python ./borea_tools/ptfile_world_to_image.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test0.mes -g ./dataset/GCP_test.app --fg height -n Coor2d_pt_terrain
+python ./borea_tools/ptfile_world_to_image.py -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test0.mes -g ./dataset/GCP_test.app -l PTXYH -n Coor2d_pt_terrain
 ```
 or pip
 ```
-ptfile-world-to-image -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test0.mes -g ./dataset/GCP_test.app --fg height -n Coor2d_pt_terrain
+ptfile-world-to-image -r ./dataset/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./dataset/terrain_test0.mes -g ./dataset/GCP_test.app -l PTXYH -n Coor2d_pt_terrain
 ```
 
 ## Detail for the header of file -i
@@ -77,6 +76,7 @@ Type is:
 | X | coordinate x of the shot position |
 | Y | coordinate y of the shot position |
 | Z | coordinate z altitude of the shot position |
+| H | coordinate z height of the shot position |
 
 ## Detail of file of ground image points
 

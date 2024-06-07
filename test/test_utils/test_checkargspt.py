@@ -9,7 +9,9 @@ from borea.utils.check.check_args_reader_pt import check_header_file
 def test_head_file_pt3d():
     head = list("SPTXYZ")
     type_pt = "gcp3d"
-    check_header_file(head, type_pt)
+    header, type_z = check_header_file(head, type_pt)
+    assert header == head
+    assert type_z == "altitude"
 
 
 def test_head_file_pt2d():
@@ -70,3 +72,11 @@ def test_head_file_pt_unknowl():
     type_pt = "gcp3d"
     with pytest.raises(ValueError):
         check_header_file(head, type_pt)
+
+
+def test_head_file_pt3dh():
+    head = list("SPTXYH")
+    type_pt = "gcp3d"
+    header, type_z = check_header_file(head, type_pt)
+    assert header == list("SPTXYZ")
+    assert type_z == "height"

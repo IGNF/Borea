@@ -1,7 +1,7 @@
 """
 A script for verification header str in manage reader.
 """
-from borea.utils.check.check_header import check_head
+from borea.utils.check.check_header import check_head, check_h_z, get_type_z_and_header
 
 
 def check_args_opk(args: dict) -> tuple:
@@ -49,23 +49,7 @@ def check_header_file(header: list) -> tuple:
     bad_head, ms_error_letter, head, symbol = check_head(header, list_letter)
 
     misss = set(list_letter[1:]) - symbol
-    if misss != {"Z"} and misss != {"H"} and misss != set():
-        bad_head = True
-        if "Z" in misss and "H" in misss:
-            miss = misss.copy()
-            miss.remove("Z")
-            miss.remove("H")
-            ms_error_letter += f"The letters 'Z' or 'H' are missing and lettres {miss}.\n"
-        elif "Z" in misss:
-            misss.remove("Z")
-            ms_error_letter += f"The letters {misss} are missing.\n"
-        else:
-            misss.remove("H")
-            ms_error_letter += f"The letters {misss} are missing.\n"
-
-    if misss == set():
-        bad_head = True
-        ms_error_letter += "The letters Z and H cannot be in the same string.\n"
+    bad_head, ms_error_letter = check_h_z(bad_head, misss, ms_error_letter)
 
     ms_error = "Your header is not correct.\n"
     ms_error += ms_error_letter
@@ -73,23 +57,3 @@ def check_header_file(header: list) -> tuple:
         raise ValueError(ms_error)
 
     return get_type_z_and_header(head)
-
-
-def get_type_z_and_header(header: list) -> tuple:
-    """
-    Return type of z, height if H and altitude if Z
-    and header with the H replaced by a Z.
-
-    Args:
-        header (list): List of column type file.
-
-    Returns:
-        tuple: Header and type_z.
-    """
-    if "H" in header:
-        type_z = "height"
-        header[header.index('H')] = "Z"
-    else:
-        type_z = "altitude"
-
-    return header, type_z

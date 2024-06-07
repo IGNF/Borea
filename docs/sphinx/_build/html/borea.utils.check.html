@@ -339,31 +339,13 @@ keys:
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="borea.utils.check.check_args_opk.get_type_z_and_header">
-<span class="sig-prename descclassname"><span class="pre">borea.utils.check.check_args_opk.</span></span><span class="sig-name descname"><span class="pre">get_type_z_and_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/borea/utils/check/check_args_opk.html#get_type_z_and_header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.utils.check.check_args_opk.get_type_z_and_header" title="Link to this definition">¶</a></dt>
-<dd><p>Return type of z, height if H and altitude if Z
-and header with the H replaced by a Z.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>header</strong> (<em>list</em>) – List of column type file.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Header and type_z.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
 </section>
 <section id="module-borea.utils.check.check_args_reader_pt">
 <span id="borea-utils-check-check-args-reader-pt-module"></span><h2>borea.utils.check.check_args_reader_pt module<a class="headerlink" href="#module-borea.utils.check.check_args_reader_pt" title="Link to this heading">¶</a></h2>
 <p>A script for verification args to read a point file.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="borea.utils.check.check_args_reader_pt.check_header_file">
-<span class="sig-prename descclassname"><span class="pre">borea.utils.check.check_args_reader_pt.</span></span><span class="sig-name descname"><span class="pre">check_header_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/borea/utils/check/check_args_reader_pt.html#check_header_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.utils.check.check_args_reader_pt.check_header_file" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">borea.utils.check.check_args_reader_pt.</span></span><span class="sig-name descname"><span class="pre">check_header_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_pt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/borea/utils/check/check_args_reader_pt.html#check_header_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.utils.check.check_args_reader_pt.check_header_file" title="Link to this definition">¶</a></dt>
 <dd><p>Check if the header of the file is good.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -371,6 +353,12 @@ and header with the H replaced by a Z.</p>
 <li><p><strong>header</strong> (<em>list</em>) – List of column type file.</p></li>
 <li><p><strong>type_pt</strong> (<em>str</em>) – Type of point is reading (co_point, gcp2d, gcp3d).</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>header, type_z</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
 </dd></dl>
@@ -407,6 +395,27 @@ possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
 <span id="borea-utils-check-check-header-module"></span><h2>borea.utils.check.check_header module<a class="headerlink" href="#module-borea.utils.check.check_header" title="Link to this heading">¶</a></h2>
 <p>A script for verification header list str.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="borea.utils.check.check_header.check_h_z">
+<span class="sig-prename descclassname"><span class="pre">borea.utils.check.check_header.</span></span><span class="sig-name descname"><span class="pre">check_h_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bad_head</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">misss</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ms_error_letter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/borea/utils/check/check_header.html#check_h_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.utils.check.check_header.check_h_z" title="Link to this definition">¶</a></dt>
+<dd><p>Check letter H and Z in header.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bad_head</strong> (<em>bool</em>) – boolean if the header is false.</p></li>
+<li><p><strong>misss</strong> (<em>set</em>) – Diff between list_letter and symbol.</p></li>
+<li><p><strong>ms_error_letter</strong> (<em>str</em>) – Error message.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>bad_head, ms_error_letter</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="borea.utils.check.check_header.check_head">
 <span class="sig-prename descclassname"><span class="pre">borea.utils.check.check_header.</span></span><span class="sig-name descname"><span class="pre">check_head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_letter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/borea/utils/check/check_header.html#check_head"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.utils.check.check_header.check_head" title="Link to this definition">¶</a></dt>
 <dd><p>Checks that the header contains all the letters in the check letter.</p>
@@ -419,6 +428,24 @@ possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>bad_head, ms_error, head, symbol</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="borea.utils.check.check_header.get_type_z_and_header">
+<span class="sig-prename descclassname"><span class="pre">borea.utils.check.check_header.</span></span><span class="sig-name descname"><span class="pre">get_type_z_and_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/borea/utils/check/check_header.html#get_type_z_and_header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.utils.check.check_header.get_type_z_and_header" title="Link to this definition">¶</a></dt>
+<dd><p>Return type of z, height if H and altitude if Z
+and header with the H replaced by a Z.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>header</strong> (<em>list</em>) – List of column type file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Header and type_z.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tuple</p>
@@ -526,7 +553,6 @@ possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
 <li><a class="reference internal" href="#module-borea.utils.check.check_args_opk">borea.utils.check.check_args_opk module</a><ul>
 <li><a class="reference internal" href="#borea.utils.check.check_args_opk.check_args_opk"><code class="docutils literal notranslate"><span class="pre">check_args_opk()</span></code></a></li>
 <li><a class="reference internal" href="#borea.utils.check.check_args_opk.check_header_file"><code class="docutils literal notranslate"><span class="pre">check_header_file()</span></code></a></li>
-<li><a class="reference internal" href="#borea.utils.check.check_args_opk.get_type_z_and_header"><code class="docutils literal notranslate"><span class="pre">get_type_z_and_header()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-borea.utils.check.check_args_reader_pt">borea.utils.check.check_args_reader_pt module</a><ul>
@@ -538,7 +564,9 @@ possible dimension if array : (1,), (n,), (n,1) or (1,n).</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-borea.utils.check.check_header">borea.utils.check.check_header module</a><ul>
+<li><a class="reference internal" href="#borea.utils.check.check_header.check_h_z"><code class="docutils literal notranslate"><span class="pre">check_h_z()</span></code></a></li>
 <li><a class="reference internal" href="#borea.utils.check.check_header.check_head"><code class="docutils literal notranslate"><span class="pre">check_head()</span></code></a></li>
+<li><a class="reference internal" href="#borea.utils.check.check_header.get_type_z_and_header"><code class="docutils literal notranslate"><span class="pre">get_type_z_and_header()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-borea.utils.check.check_order_axe">borea.utils.check.check_order_axe module</a><ul>

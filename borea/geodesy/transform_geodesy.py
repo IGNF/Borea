@@ -48,11 +48,11 @@ class TransformGeodesy():
             geoid (list): List of geoid to use.
         """
         try:
-            # Transform geographic coordinates to geoide coordinates
+            # Transform geoide coordinates to geographic coordinates
             self.geoid_to_geog = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
                                                                   f"+grids={','.join(geoid)} "
                                                                   "+multiplier=1").transform
-            # Transform geoide coordinates to geographic coordinates
+            # Transform geographic coordinates to geoide coordinates
             self.geog_to_geoid = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
                                                                   f"+grids={','.join(geoid)} "
                                                                   "+multiplier=-1").transform

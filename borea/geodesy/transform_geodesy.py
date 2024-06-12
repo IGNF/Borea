@@ -49,11 +49,11 @@ class TransformGeodesy():
         """
         try:
             # Transform geographic coordinates to geoide coordinates
-            self.geog_to_geoid = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
+            self.geoid_to_geog = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
                                                                   f"+grids={','.join(geoid)} "
                                                                   "+multiplier=1").transform
             # Transform geoide coordinates to geographic coordinates
-            self.geoid_to_geog = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
+            self.geog_to_geoid = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
                                                                   f"+grids={','.join(geoid)} "
                                                                   "+multiplier=-1").transform
         except pyproj.exceptions.ProjError as e:
@@ -73,7 +73,7 @@ class TransformGeodesy():
         """
         coor_geog = self.carto_to_geog(coor[0], coor[1], coor[2])
         try:
-            coor_geog = self.geog_to_geoid(coor_geog[0],
+            coor_geog = self.geoid_to_geog(coor_geog[0],
                                            coor_geog[1],
                                            coor_geog[2])
             new_z = self.geog_to_carto(coor_geog[0],
@@ -99,7 +99,7 @@ class TransformGeodesy():
         """
         coor_geog = self.carto_to_geog(coor[0], coor[1], coor[2])
         try:
-            coor_geog = self.geoid_to_geog(coor_geog[0],
+            coor_geog = self.geog_to_geoid(coor_geog[0],
                                            coor_geog[1],
                                            coor_geog[2])
             new_z = self.geog_to_carto(coor_geog[0],

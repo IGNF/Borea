@@ -478,7 +478,7 @@
 <span class="sd">        Args:</span>
 <span class="sd">            shot_adjust (Shot): The shot to adjust.</span>
 <span class="sd">            obs (np.array): Observation of point in image [c_obs, l_obs].</span>
-<span class="sd">            pt_eucli (np.array): Observation of world point in eucidean system [X, Y, Z].</span>
+<span class="sd">            pt_eucli (np.array): Observation of world point in euclidean system [X, Y, Z].</span>
 <span class="sd">            pt_world (np.array): Observation of world point [X, Y, Z].</span>
 
 <span class="sd">        Returns:</span>
@@ -530,7 +530,7 @@
 <span class="sd">        Args:</span>
 <span class="sd">            shot_adjust (Shot): The shot to adjust.</span>
 <span class="sd">            obs (np.array): Observation of point in image [c_obs, l_obs].</span>
-<span class="sd">            pt_eucli (np.array): Observation of world point in eucidean system [X, Y, Z].</span>
+<span class="sd">            pt_eucli (np.array): Observation of world point in euclidean system [X, Y, Z].</span>
 <span class="sd">            pt_world (np.array): Observation of world point [X, Y, Z].</span>
 
 <span class="sd">        Returns:</span>
@@ -545,7 +545,7 @@
                                              <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">type_z_shot</span><span class="p">)</span>
 
         <span class="c1"># Calculate residual vector B</span>
-        <span class="n">v_res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">obs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">f0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">obs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">f0</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">pt_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">v_res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">obs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">f0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">obs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">f0</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">pt_eucli</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
 
         <span class="c1"># Creation of A with mat_obs_axia</span>
         <span class="c1"># Calculate dx = (A.T @ A)**-1 @ A.T @ B</span>

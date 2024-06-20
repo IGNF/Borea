@@ -140,18 +140,4 @@ class Conl:
         ppa = ET.SubElement(sensor, "ppa")
         add_elem(ppa, B_CAM, [int(self.cam.ppax), int(self.cam.ppay), int(self.cam.focal)])
 
-        # pylint: disable-next=pointless-string-statement
-        """ if self.shot.f_sys:
-            transfo2d = ET.SubElement(sensor, "transfo2d")
-            tr2delem = ET.SubElement(transfo2d, "tr2delem")
-            tr2delem.set("Type", "systematismeCylindriqueTopAero")
-            tr2delem.set("isinterne", "true")
-            tr2delem.set("C0", "0")
-            tr2delem.set("L0", "0")
-            tr2delem.set("S1", "-7.6213e-06")
-            tr2delem.set("S2", "6.6267e-06") """
-
-        if self.cam.pixel_size:
-            ET.SubElement(sensor, "pixel_size").text = str(self.cam.pixel_size)
-        else:
-            raise ValueError("There is no pixel size in camera data.")
+        ET.SubElement(sensor, "pixel_size").text = str(0.000004)

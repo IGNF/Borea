@@ -66,8 +66,7 @@ To read the opk file, you can select a line interval to be read using the -f par
 
 ## Camera file format
 
-The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float), image size: **width** (int) and **height** (int) in pixels and **size_pizel** (float) size of pixel in meter.  
-**size_pixel** is optional except for conversion to a conical file.  
+The camera file is a txt file, containing 6 pieces of information about the camera : its **name** (str), **ppax** (float), **ppay** (float), **focal** (float), image size: **width** (int) and **height** (int) in pixels.  
 **Ppax** and **ppay** are the main points of image deformation in x and y directions.  
 Each line of the file corresponds to a piece of information, starting with the **type = info**.
 ```
@@ -77,7 +76,6 @@ ppay = 8502.00
 focal = 30975.00
 width = 26460
 height = 17004
-size_pixel = 4e-6
 ```
 Only these 7 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool, unless the attribute has been added to the [Camera class](../../borea/datastruct/camera.py).
 An example file can be found in [./dataset/Camera1.txt](../../dataset/Camera1.txt).

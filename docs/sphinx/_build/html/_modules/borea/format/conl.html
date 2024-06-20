@@ -437,21 +437,7 @@
         <span class="n">ppa</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span> <span class="s2">&quot;ppa&quot;</span><span class="p">)</span>
         <span class="n">add_elem</span><span class="p">(</span><span class="n">ppa</span><span class="p">,</span> <span class="n">B_CAM</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">ppax</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">ppay</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">focal</span><span class="p">)])</span>
 
-        <span class="c1"># pylint: disable-next=pointless-string-statement</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; if self.shot.f_sys:</span>
-<span class="sd">            transfo2d = ET.SubElement(sensor, &quot;transfo2d&quot;)</span>
-<span class="sd">            tr2delem = ET.SubElement(transfo2d, &quot;tr2delem&quot;)</span>
-<span class="sd">            tr2delem.set(&quot;Type&quot;, &quot;systematismeCylindriqueTopAero&quot;)</span>
-<span class="sd">            tr2delem.set(&quot;isinterne&quot;, &quot;true&quot;)</span>
-<span class="sd">            tr2delem.set(&quot;C0&quot;, &quot;0&quot;)</span>
-<span class="sd">            tr2delem.set(&quot;L0&quot;, &quot;0&quot;)</span>
-<span class="sd">            tr2delem.set(&quot;S1&quot;, &quot;-7.6213e-06&quot;)</span>
-<span class="sd">            tr2delem.set(&quot;S2&quot;, &quot;6.6267e-06&quot;) &quot;&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">pixel_size</span><span class="p">:</span>
-            <span class="n">ET</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span> <span class="s2">&quot;pixel_size&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">pixel_size</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;There is no pixel size in camera data.&quot;</span><span class="p">)</span></div>
+        <span class="n">ET</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span> <span class="s2">&quot;pixel_size&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="mf">0.000004</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

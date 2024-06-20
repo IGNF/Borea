@@ -375,7 +375,7 @@
 <div class="viewcode-block" id="Workdata.add_camera">
 <a class="viewcode-back" href="../../../borea.datastruct.html#borea.datastruct.workdata.Workdata.add_camera">[docs]</a>
     <span class="k">def</span> <span class="nf">add_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_camera</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ppax</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ppay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                   <span class="n">focal</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">pixel_size</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                   <span class="n">focal</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add data camera in the Worksite.</span>
 
@@ -386,15 +386,13 @@
 <span class="sd">            focal (float): Focal of the camera.</span>
 <span class="sd">            width (int): Width of the image camera.</span>
 <span class="sd">            height (int): Height of the image camera.</span>
-<span class="sd">            pixel_size (float): Size of pixel in meter (mandatory if you save in conical file).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">name_camera</span><span class="p">]</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="n">name_camera</span><span class="o">=</span><span class="n">name_camera</span><span class="p">,</span>
                                            <span class="n">ppax</span><span class="o">=</span><span class="n">ppax</span><span class="p">,</span>
                                            <span class="n">ppay</span><span class="o">=</span><span class="n">ppay</span><span class="p">,</span>
                                            <span class="n">focal</span><span class="o">=</span><span class="n">focal</span><span class="p">,</span>
                                            <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
-                                           <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
-                                           <span class="n">pixel_size</span><span class="o">=</span><span class="n">pixel_size</span><span class="p">)</span></div>
+                                           <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Workdata.add_co_point">

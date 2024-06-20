@@ -172,7 +172,7 @@ class SpaceResection:
         Args:
             shot_adjust (Shot): The shot to adjust.
             obs (np.array): Observation of point in image [c_obs, l_obs].
-            pt_eucli (np.array): Observation of world point in eucidean system [X, Y, Z].
+            pt_eucli (np.array): Observation of world point in euclidean system [X, Y, Z].
             pt_world (np.array): Observation of world point [X, Y, Z].
 
         Returns:
@@ -221,7 +221,7 @@ class SpaceResection:
         Args:
             shot_adjust (Shot): The shot to adjust.
             obs (np.array): Observation of point in image [c_obs, l_obs].
-            pt_eucli (np.array): Observation of world point in eucidean system [X, Y, Z].
+            pt_eucli (np.array): Observation of world point in euclidean system [X, Y, Z].
             pt_world (np.array): Observation of world point [X, Y, Z].
 
         Returns:
@@ -236,7 +236,7 @@ class SpaceResection:
                                              self.work.type_z_shot)
 
         # Calculate residual vector B
-        v_res = np.c_[obs[0] - f0[0], obs[1] - f0[1]].reshape(2 * len(pt_eucli[0]), 1)
+        v_res = np.c_[obs[0] - f0[0], obs[1] - f0[1]].reshape(2 * len(pt_eucli[0]))
 
         # Creation of A with mat_obs_axia
         # Calculate dx = (A.T @ A)**-1 @ A.T @ B

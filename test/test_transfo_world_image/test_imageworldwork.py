@@ -64,9 +64,9 @@ def test_calculate_image_world_by_least_square_onecop_multiimg():
     print(abs(work.co_pts_world['"1003"'][0] - 815601.510),
           abs(work.co_pts_world['"1003"'][1] - 6283629.280),
           abs(work.co_pts_world['"1003"'][2] - 54.960))
-    assert abs(work.co_pts_world['"1003"'][0] - 815601.510) < 2
-    assert abs(work.co_pts_world['"1003"'][1] - 6283629.280) < 1
-    assert abs(work.co_pts_world['"1003"'][2] - 54.960) < 6
+    assert abs(work.co_pts_world['"1003"'][0] - 815601.510) < 0.2
+    assert abs(work.co_pts_world['"1003"'][1] - 6283629.280) < 0.1
+    assert abs(work.co_pts_world['"1003"'][2] - 54.960) < 0.6
 
 
 def test_calculate_image_world_by_leastsquare_allgipoint():

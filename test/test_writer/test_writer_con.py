@@ -29,7 +29,7 @@ def test_write_con():
                   np.array([-0.181570631296,  0.001583051432, 0.493526899473]),
                   "UCE-M3-f120-s06", "degree", True, "opk")
     work.set_proj(2154, PATH_GEOID)
-    work.add_camera('UCE-M3-f120-s06', 13210.00, 8502.00, 30975.00, 26460, 17004, 4e-6)
+    work.add_camera('UCE-M3-f120-s06', 13210.00, 8502.00, 30975.00, 26460, 17004)
     write(None, OUTPUT, None, work)
     assert os.path.exists("./test/tmp/23FD1305x00026_01306.CON")
     assert os.path.exists("./test/tmp/23FD1305x00026_01307.CON")

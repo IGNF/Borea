@@ -296,7 +296,7 @@
 <span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">Camera</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Shot class definition.</span>
+<span class="sd">    Camera class definition.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        name_camera (str): Name of the camera.</span>
@@ -305,15 +305,13 @@
 <span class="sd">        focal (float): Focal of the camera.</span>
 <span class="sd">        width (int): Width of the image in pixel.</span>
 <span class="sd">        height (int): Height of the image in pixel.</span>
-<span class="sd">        pixel_size (float): Size of pixel in meter (mandatory if you save in conical file).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">name_camera</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">ppax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">ppay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">focal</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">pixel_size</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div>
 
 </pre></div>
         </article>

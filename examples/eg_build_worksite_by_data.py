@@ -36,9 +36,9 @@ def worksite_1shot() -> Worksite:
     work.set_proj(2154, PATH_GEOID)
 
     # Add camera information
-    # add_camera(name_cam, ppax, ppay, focal, width, height, size_pixel)
+    # add_camera(name_cam, ppax, ppay, focal, width, height)
     # ppax and ppay image center in pixel with distortion
-    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004, 4e-6)
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
 
     # Add dtm to remove/add linear alteration or get z of a planimetric point
     # set_dtm(path_dtm, unit_of_dtm) unit is "altitude" or "height"
@@ -75,9 +75,9 @@ def worksite_2shots_2copts() -> Worksite:
     work.set_proj(2154, PATH_GEOID)
 
     # Add camera information
-    # add_camera(name_cam, ppax, ppay, focal, width, height, size_pixel)
+    # add_camera(name_cam, ppax, ppay, focal, width, height)
     # ppax and ppay image center in pixel with distortion
-    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004, 4e-6)
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
 
     # Add connecting points in each shot
     # add_co_point(name_point, name_shot, np.array([column, line]))
@@ -123,9 +123,9 @@ def worksite_2shot_3gcp() -> Worksite:
     work.set_proj(2154, PATH_GEOID)
 
     # Add camera information
-    # add_camera(name_cam, ppax, ppay, focal, width, height, size_pixel)
+    # add_camera(name_cam, ppax, ppay, focal, width, height,)
     # ppax and ppay image center in pixel with distortion
-    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004, 4e-6)
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
 
     # Add connecting points
     # add_gcp2d(name_point, name_shot, column, line)

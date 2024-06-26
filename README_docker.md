@@ -30,7 +30,7 @@ docker run --rm -v <absolute_path_folder_data>:/borea_tools/data <name_image> <t
 `<tool.py and param>` is the tools you want to use e.g. `opk_to_opk.py -h`.  
 e.g.
 ```
-docker run --rm -v docker run --rm -v /home/ACornu/Documents/Borea/dataset:/borea_tools/data boreai opk_to_opk.py -r /data/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y /data/fr_ign_RAF20.tif -c /data/Camera1.txt -m /data/MNT_France_25m_h_crop.tif --fm height -n Test -w /data/ -o NXYHPOKC -ou radian -oa False
+docker run --rm -v /home/ACornu/Documents/Borea/dataset:/borea_tools/data boreai opk_to_opk.py -r /data/23FD1305_alt_test.OPK -i NXYZOPKC -f 2 -e 2154 -y /data/fr_ign_RAF20.tif -c /data/Camera1.txt -m /data/MNT_France_25m_h_crop.tif --fm height -n Test -w /data/ -o NXYHPOKC -ou radian -oa False
 ```
 
 ## Tools

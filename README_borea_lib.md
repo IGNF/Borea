@@ -6,6 +6,8 @@ Why Borea? **B** for Box and **orea** is a back slang of aero.
 
 ## Installation
 
+#### Pip
+
 Due to different dependency used installation of the library require `GDAL>=3.3.2`, which is not included in the dependency.
 ```
 pip install ign-borea
@@ -24,6 +26,10 @@ ogrinfo --version
 pip install GDAL==<GDAL VERSION FROM OGRINFO>
 ```
 You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html) if you have problems installing GDAL.
+
+#### In the QGIS environment
+
+View the doc on [borea github docs/installation/In_QGIS.md](https://github.com/IGNF/Borea/tree/main/docs/installation/In_QGIS.md).
 
 ## Tools
 
@@ -176,7 +182,8 @@ width = 26460
 height = 17004
 ```
 Only these 7 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool, unless the attribute has been added to the Camera class in *borea/datastruct/camera.py*.
-An example file can be found in repository *./dataset/Camera1.txt*.
+An example file can be found in repository *./dataset/Camera1.txt*.  
+No camera-related distortion is taken into account (distortion-free camera).
 
 ### Info projection
 

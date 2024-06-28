@@ -5,7 +5,7 @@ requires = ["setuptools>=61.0"]
 [project]
 dynamic = ["dependencies", "optional-dependencies"]
 name = "ign-borea"
-version = "0.1.4"
+version = "0.1.5"
 authors = [
   { name="Antoine Cornu", email="antoine.cornu@ign.fr" },
   { name="Nicolas Laurain", email="nicolas.laurain@ign.fr"}
@@ -39,17 +39,6 @@ optional-dependencies = {dev = { file = ["borea_dependency/requirements-dev.txt"
 borea = ["*.txt"]
 
 [project.scripts]
-opk-to-opk = "borea_tools.opk_to_opk:opk_to_opk"
-opk-control = "borea_tools.opk_control:opk_control"
-opk-to-rpc = "borea_tools.opk_to_rpc:opk_to_rpc"
-opk-to-conl = "borea_tools.opk_to_conl:opk_to_conl"
-pt-image-to-world = "borea_tools.pt_image_to_world:pt_image_to_world"
-pt-world-to-image = "borea_tools.pt_world_to_image:pt_world_to_image"
-ptfile-image-to-world = "borea_tools.ptfile_image_to_world:ptfile_image_to_world"
-ptfile-world-to-image = "borea_tools.ptfile_world_to_image:ptfile_world_to_image"
-spaceresection-opk = "borea_tools.spaceresection_opk:spaceresection_opk"
-
-[project.gui-scripts]
 opk-to-opk = "borea_tools.opk_to_opk:opk_to_opk"
 opk-control = "borea_tools.opk_control:opk_control"
 opk-to-rpc = "borea_tools.opk_to_rpc:opk_to_rpc"

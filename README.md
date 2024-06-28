@@ -57,6 +57,10 @@ pip install GDAL==<GDAL VERSION FROM OGRINFO>
 ```
 You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html) if you have problems installing GDAL.
 
+#### In the QGIS environment
+
+View the doc at [./docs/installation/In_QGIS.md](docs/installation/In_QGIS.md).
+
 ## Contributing
 
 link: [CONTRIBUTING.md](./CONTRIBUTING.md)

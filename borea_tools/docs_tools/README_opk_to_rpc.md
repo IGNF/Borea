@@ -78,7 +78,8 @@ width = 26460
 height = 17004
 ```
 Only these 7 pieces of information will be read. You can add comments with a # in the first element of the line or other type = info, but they will not be read by the tool, unless the attribute has been added to the [Camera class](../../borea/datastruct/camera.py).
-An example file can be found in [./dataset/Camera1.txt](../../dataset/Camera1.txt).
+An example file can be found in [./dataset/Camera1.txt](../../dataset/Camera1.txt).  
+No camera-related distortion is taken into account (distortion-free camera).
 
 ## Detail for projection
 

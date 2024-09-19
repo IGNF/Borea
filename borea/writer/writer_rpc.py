@@ -20,6 +20,7 @@ def write(name: str, folder_rpc: str, param_rpc: dict, work: Worksite) -> None:
         "size_grid"; size of the grip to calcule rpc.
         "order"; order of the polynome of the rpc.
         "fact_rpc"; rpc factor for world coordinate when src is not WGS84.
+        "epsg_output"; code epsg for RPC.
         work (Worksite): The site to be recorded.
     """
     _ = name

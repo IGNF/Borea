@@ -339,9 +339,9 @@
             <span class="n">file_opk</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The path </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2"> is incorrect !!! &quot;</span>
-                                <span class="sa">f</span><span class="s2">&quot;or your os is </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="si">}</span><span class="s2">.&quot;</span>
-                                <span class="s2">&quot;For Windows path is </span><span class="se">\\</span><span class="s2">,&quot;</span>
-                                <span class="s2">&quot; for Linux and MacOS (Darwin) is / .&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+                                <span class="sa">f</span><span class="s2">&quot;or your os is </span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="si">}</span><span class="s2">. &quot;</span>
+                                <span class="s2">&quot;For Windows path is </span><span class="se">\\</span><span class="s2">, &quot;</span>
+                                <span class="s2">&quot;for Linux and MacOS (Darwin) is / .&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
 
     <span class="n">work</span><span class="o">.</span><span class="n">type_z_shot</span> <span class="o">=</span> <span class="n">type_z</span>
     <span class="k">return</span> <span class="n">work</span></div>

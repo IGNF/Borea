@@ -15,5 +15,3 @@ dependencies:
   - pyproj
   - scipy
   - pandas
-  - build
-  - twine

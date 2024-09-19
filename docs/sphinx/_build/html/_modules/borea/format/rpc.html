@@ -311,6 +311,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">param_rpc</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fact_rpc</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_epsg</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="Rpc.from_shot">
 <a class="viewcode-back" href="../../../borea.format.html#borea.format.rpc.Rpc.from_shot">[docs]</a>
@@ -337,6 +338,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
         <span class="n">obj</span><span class="o">.</span><span class="n">fact_rpc</span> <span class="o">=</span> <span class="n">param_rpc</span><span class="p">[</span><span class="s2">&quot;fact_rpc&quot;</span><span class="p">]</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">output_epsg</span> <span class="o">=</span> <span class="n">param_rpc</span><span class="p">[</span><span class="s2">&quot;epsg_output&quot;</span><span class="p">]</span>
         <span class="n">obj</span><span class="o">.</span><span class="n">param_rpc</span><span class="p">[</span><span class="s2">&quot;ERR_BIAS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="n">obj</span><span class="o">.</span><span class="n">param_rpc</span><span class="p">[</span><span class="s2">&quot;ERR_RAND&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 
@@ -404,9 +406,15 @@
 <span class="sd">            tuple: grid image normalize and grid world normalize.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fact_rpc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">x_geog</span><span class="p">,</span> <span class="n">y_geog</span><span class="p">,</span> <span class="n">z_geog</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">carto_to_geog</span><span class="p">(</span><span class="n">grid_world</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                                                <span class="n">grid_world</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                                                <span class="n">grid_world</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_epsg</span><span class="p">:</span>
+                <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">set_epsg_tf_geog_output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_epsg</span><span class="p">)</span>
+                <span class="n">x_geog</span><span class="p">,</span> <span class="n">y_geog</span><span class="p">,</span> <span class="n">z_geog</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">carto_to_geog_out</span><span class="p">(</span><span class="n">grid_world</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                                                        <span class="n">grid_world</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                                                        <span class="n">grid_world</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">x_geog</span><span class="p">,</span> <span class="n">y_geog</span><span class="p">,</span> <span class="n">z_geog</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">carto_to_geog</span><span class="p">(</span><span class="n">grid_world</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                                                    <span class="n">grid_world</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                                                    <span class="n">grid_world</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">x_geog</span> <span class="o">=</span> <span class="n">grid_world</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">fact_rpc</span>
             <span class="n">y_geog</span> <span class="o">=</span> <span class="n">grid_world</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">fact_rpc</span>

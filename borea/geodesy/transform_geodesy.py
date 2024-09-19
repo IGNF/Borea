@@ -24,6 +24,7 @@ class TransformGeodesy():
     geog_to_carto = None
     geog_to_geoid = None
     geoid_to_geog = None
+    carto_to_geog_out = None
 
     def __tf_init__(self, geoid: list, crs: pyproj) -> None:
         crs_geoc = pyproj.crs.GeocentricCRS(name=crs.name, datum=crs.datum.name)
@@ -112,3 +113,16 @@ class TransformGeodesy():
         if np.all(new_z == np.inf):
             raise ValueError("out geoid")
         return new_z
+
+    def tf_output(self, crs: pyproj, epsg_out: int = None) -> None:
+        """
+        Create the pyproj Transformer from crs of worksite to crs geographic ask.
+
+        Args:
+            crs (pyproj): The crs pyproj of the worksite.
+            epsg_out (int): Code epsg of the output crs.
+        """
+        if epsg_out and epsg_out != crs.to_epsg():
+            crs_out = pyproj.CRS.from_epsg(epsg_out)
+            crs_geog_out = pyproj.crs.GeographicCRS(name=crs_out.name, datum=crs_out.datum.name)
+            self.carto_to_geog_out = pyproj.Transformer.from_crs(crs, crs_geog_out).transform

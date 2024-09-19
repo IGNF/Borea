@@ -44,7 +44,7 @@ def test_rpc_order1():
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]),
                                                        'height', 'height', False)[2]
     shot.set_z_nadir(z_nadir)
-    param_rpc = {"size_grid": 100, "order": 1, "fact_rpc": None}
+    param_rpc = {"size_grid": 100, "order": 1, "fact_rpc": None, "epsg_output": None}
     unit_data = {"unit_z_data": DATA_TYPE_Z, "unit_z_shot": SHOT_TYPE_Z}
     rpc = Rpc.from_shot(shot, cam, param_rpc, unit_data)
     assert rpc.fact_rpc is None
@@ -65,7 +65,7 @@ def test_rpc_order2():
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]),
                                                        'height', 'height', False)[2]
     shot.set_z_nadir(z_nadir)
-    param_rpc = {"size_grid": 100, "order": 2, "fact_rpc": 1e-6}
+    param_rpc = {"size_grid": 100, "order": 2, "fact_rpc": 1e-6, "epsg_output": None}
     unit_data = {"unit_z_data": DATA_TYPE_Z, "unit_z_shot": SHOT_TYPE_Z}
     rpc = Rpc.from_shot(shot, cam, param_rpc, unit_data)
     assert rpc.fact_rpc == 1e-6
@@ -88,7 +88,7 @@ def test_rpc_order3():
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]),
                                                        'height', 'height', False)[2]
     shot.set_z_nadir(z_nadir)
-    param_rpc = {"size_grid": 100, "order": 3, "fact_rpc": 1e-6}
+    param_rpc = {"size_grid": 100, "order": 3, "fact_rpc": 1e-6, "epsg_output": None}
     unit_data = {"unit_z_data": DATA_TYPE_Z, "unit_z_shot": SHOT_TYPE_Z}
     rpc = Rpc.from_shot(shot, cam, param_rpc, unit_data)
     assert rpc.fact_rpc == 1e-6
@@ -115,7 +115,7 @@ def test_rpc_errororder():
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]),
                                                        'height', 'height', False)[2]
     shot.set_z_nadir(z_nadir)
-    param_rpc = {"size_grid": 100, "order": 4, "fact_rpc": 1e-6}
+    param_rpc = {"size_grid": 100, "order": 4, "fact_rpc": 1e-6, "epsg_output": None}
     unit_data = {"unit_z_data": DATA_TYPE_Z, "unit_z_shot": SHOT_TYPE_Z}
     with pytest.raises(ValueError):
         Rpc.from_shot(shot, cam, param_rpc, unit_data)

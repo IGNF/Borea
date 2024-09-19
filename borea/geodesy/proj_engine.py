@@ -17,6 +17,7 @@ class ProjEngine(TransformGeodesy, metaclass=Singleton):
     """
     epsg: int = None
     geoid: list = None
+    epsg_output: int = None
 
     def __post_init__(self) -> None:
         if self.epsg:
@@ -30,12 +31,21 @@ class ProjEngine(TransformGeodesy, metaclass=Singleton):
         Allows to init the class with data.
 
         Args:
-            epsg (int): Code epsg of the porjection ex: "EPSG:2154".
+            epsg (int): Code epsg of the projection ex: 2154.
             geoid (list): List of geoid to use.
         """
         self.epsg = epsg
         self.geoid = geoid
         self.__post_init__()
+
+    def set_epsg_tf_geog_output(self, epsg_output: int) -> None:
+        """
+        Create the pyproj Transformer from crs of worksite to crs geographic ask.
+
+        Args:
+            epsg_out (int): Code epsg of the output crs.
+        """
+        self.tf_output(self.crs, epsg_output)
 
     def get_meridian_convergence(self, x_carto: Union[np.ndarray, List[float], float],
                                  y_carto: Union[np.ndarray, List[float], float]) -> np.ndarray:

@@ -28,6 +28,9 @@ def args_writing_rpc(parser: argparse) -> argparse:
     parser.add_argument('-l', '--fact_rpc',
                         type=float, default=None,
                         help="Factor Rpc for pyproj convertion.")
+    parser.add_argument('-g', '--epsg_output',
+                        type=int, default=None,
+                        help="Code epsg of RPC")
     return parser
 
 
@@ -43,6 +46,7 @@ def process_args_write_rpc(args: argparse, work: Worksite) -> None:
     print("Writing Rpc.")
     args_writing = {"order": args.order,
                     "size_grid": args.size_grid,
-                    "fact_rpc": args.fact_rpc}
+                    "fact_rpc": args.fact_rpc,
+                    "epsg_output": args.epsg_output}
     manager_writer("rpc", None, args.pathreturn, args_writing, work)
     print(f"File written in folder {args.pathreturn} .txt.")

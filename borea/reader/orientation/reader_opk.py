@@ -50,9 +50,9 @@ def read(file: Path, args: dict, work: Worksite) -> Worksite:
             file_opk.close()
     except FileNotFoundError as e:
         raise FileNotFoundError(f"The path {file} is incorrect !!! "
-                                f"or your os is {platform.system()}."
-                                "For Windows path is \\,"
-                                " for Linux and MacOS (Darwin) is / .") from e
+                                f"or your os is {platform.system()}. "
+                                "For Windows path is \\, "
+                                "for Linux and MacOS (Darwin) is / .") from e
 
     work.type_z_shot = type_z
     return work

@@ -22,6 +22,7 @@ class Rpc:
     def __init__(self) -> None:
         self.param_rpc = {}
         self.fact_rpc = None
+        self.output_epsg = None
 
     @classmethod
     def from_shot(cls, shot: Shot, cam: Camera, param_rpc: dict, unit_data: dict) -> None:
@@ -46,6 +47,7 @@ class Rpc:
         """
         obj = cls()
         obj.fact_rpc = param_rpc["fact_rpc"]
+        obj.output_epsg = param_rpc["epsg_output"]
         obj.param_rpc["ERR_BIAS"] = -1
         obj.param_rpc["ERR_RAND"] = -1
 
@@ -107,9 +109,15 @@ class Rpc:
             tuple: grid image normalize and grid world normalize.
         """
         if self.fact_rpc is None:
-            x_geog, y_geog, z_geog = ProjEngine().carto_to_geog(grid_world[0],
-                                                                grid_world[1],
-                                                                grid_world[2])
+            if self.output_epsg:
+                ProjEngine().set_epsg_tf_geog_output(self.output_epsg)
+                x_geog, y_geog, z_geog = ProjEngine().carto_to_geog_out(grid_world[0],
+                                                                        grid_world[1],
+                                                                        grid_world[2])
+            else:
+                x_geog, y_geog, z_geog = ProjEngine().carto_to_geog(grid_world[0],
+                                                                    grid_world[1],
+                                                                    grid_world[2])
         else:
             x_geog = grid_world[0]*self.fact_rpc
             y_geog = grid_world[1]*self.fact_rpc

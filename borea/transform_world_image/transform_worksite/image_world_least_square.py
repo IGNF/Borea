@@ -150,7 +150,7 @@ class WorldLeastSquare:
         """
         v_res = np.zeros(nbr_obs)
         coord_i, coord_j, data = [], [], []
-        for _, (id_shot, pd_data) in enumerate(pd_mes_temp.groupby('id_img')):
+        for id_shot, pd_data in pd_mes_temp.groupby('id_img'):
             shot = self.work.shots[id_shot]
             cam = self.work.cameras[shot.name_cam]
 

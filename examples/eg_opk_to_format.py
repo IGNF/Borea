@@ -59,10 +59,12 @@ if __name__ == "__main__":
     # Parameters for good writing format
     PARAM = {"size_grid": 100,
              "order": 3,
-             "fact_rpc": None}
+             "fact_rpc": None,
+             "epsg_output": None}
     # size_grid: size of grid you want to use for the calculation
     # order: Order of RPC (Rational Polygone Coefficient) choices=[1, 2, 3]
     # fact_rpc: if there is no projection use a fact_rpc to replace in float or else put None
+    # epsg_output: code epsg to tranform output RPC
 
     print(f"\nConvert worksite in RPC in path: {OUTPUT_PATH}/name_shot_RPC.TXT")
     # The name parameter doesn't need to be filled in, as it will be ignored.

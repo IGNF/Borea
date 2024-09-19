@@ -43,3 +43,30 @@ def test_get_meridian_convergence():
     meridian_convergence = proj.get_meridian_convergence(815601, 6283629)
     theorical_value = -1.039350
     assert abs(meridian_convergence - theorical_value) < 0.000001
+
+
+def test_tf_create_tf_output():
+    ProjEngine.clear()
+    ProjEngine().set_epsg(2154, PATH_GEOID, 4326)
+    proj = ProjEngine()
+    assert proj.input_to_output
+
+
+def test_tf_create_notf_output():
+    ProjEngine.clear()
+    ProjEngine().set_epsg(2154, PATH_GEOID)
+    proj = ProjEngine()
+    assert not(proj.input_to_output)
+
+
+def test_tf_conv_tf_output():
+    ProjEngine.clear()
+    ProjEngine().set_epsg(2154, PATH_GEOID, 4326)
+    proj = ProjEngine()
+    xf = 657945.43
+    yf = 6860369.44
+    xm = 48.842
+    ym = 2.427
+    xmo, ymo = proj.input_to_output(xf, yf)
+    assert round(xmo, 3) == xm
+    assert round(ymo, 3) == ym

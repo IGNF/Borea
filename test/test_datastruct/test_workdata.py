@@ -11,6 +11,8 @@ from borea.datastruct.dtm import Dtm
 
 
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
+EPSGFR = [2154]
+EPSGAR = [4339]
 PATH_GEOID = ["./dataset/fr_ign_RAF20.tif"]
 
 
@@ -41,9 +43,9 @@ def test_set_proj_lambertbase():
                   np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
     work.add_shot("t3", np.array([814975.925, 6283986.148, 1771.280]),
                   np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSGFR, PATH_GEOID)
     work.set_param_shot(approx=False)
-    assert ProjEngine().epsg == 2154
+    assert ProjEngine().epsg == EPSGFR
     assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
     assert round(work.shots["t1"].projeucli.pt_central[1], 3) == 6283986.148
 
@@ -56,9 +58,9 @@ def test_set_proj_lambertbase_pathfolder():
                   np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
     work.add_shot("t3", np.array([814975.925, 6283986.148, 1771.280]),
                   np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSGFR, PATH_GEOID)
     work.set_param_shot(approx=False)
-    assert ProjEngine().epsg == 2154
+    assert ProjEngine().epsg == EPSGFR
     assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
     assert round(work.shots["t1"].projeucli.pt_central[1], 3) == 6283986.148
 
@@ -71,9 +73,9 @@ def test_set_proj_lambertbase_pathfolderwin():
                   np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
     work.add_shot("t3", np.array([814975.925, 6283986.148, 1771.280]),
                   np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSGFR, PATH_GEOID)
     work.set_param_shot(approx=False)
-    assert ProjEngine().epsg == 2154
+    assert ProjEngine().epsg == EPSGFR
     assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
     assert round(work.shots["t1"].projeucli.pt_central[1], 3) == 6283986.148
 
@@ -86,9 +88,9 @@ def test_set_proj_lambertbase_withepsg():
                   np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
     work.add_shot("t3", np.array([814975.925, 6283986.148, 1771.280]),
                   np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSGFR, PATH_GEOID)
     work.set_param_shot(approx=False)
-    assert ProjEngine().epsg == 2154
+    assert ProjEngine().epsg == EPSGFR
     assert round(work.shots["t1"].projeucli.pt_central[0], 3) == 814975.925
     assert round(work.shots["t1"].projeucli.pt_central[1], 3) == 6283986.148
 
@@ -98,9 +100,9 @@ def test_set_proj_withjsonandepsg():
     work.add_shot("t1", np.array([1, 2, 3]), np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
     work.add_shot("t2", np.array([1, 2, 3]), np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
     work.add_shot("t3", np.array([1, 2, 3]), np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
-    work.set_proj(4339, PATH_GEOID)
+    work.set_proj(EPSGAR, PATH_GEOID)
     work.set_param_shot(approx=False)
-    assert ProjEngine().epsg == 4339
+    assert ProjEngine().epsg == EPSGAR
     assert work.shots["t1"].projeucli.pt_central[0] == 1
     assert work.shots["t1"].projeucli.pt_central[1] == 2
 
@@ -110,8 +112,8 @@ def test_set_proj_epsgnogeoid():
     work.add_shot("t1", np.array([1, 2, 3]), np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
     work.add_shot("t2", np.array([1, 2, 3]), np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
     work.add_shot("t3", np.array([1, 2, 3]), np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
-    work.set_proj(4339)
-    assert ProjEngine().epsg == 4339
+    work.set_proj(EPSGAR)
+    assert ProjEngine().epsg == EPSGAR
 
 
 def test_set_proj_badepsg():
@@ -120,7 +122,7 @@ def test_set_proj_badepsg():
     work.add_shot("t2", np.array([1, 2, 3]), np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
     work.add_shot("t3", np.array([1, 2, 3]), np.array([3, 2, 1]), "test_cam", "degree", True, 'opk')
     with pytest.raises(pyproj.exceptions.CRSError):
-        work.set_proj(1111)
+        work.set_proj([1111])
 
 
 def test_add_cam():
@@ -179,7 +181,7 @@ def test_set_z_nadir_shot():
     work.add_shot("shot_test", np.array([814975.925, 6283986.148, 1771.280]),
                   np.array([-0.245070686036, -0.069409621323, 0.836320989726]),
                   'cam_test', "degree", True, 'opk')
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSGFR, PATH_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
@@ -197,3 +199,21 @@ def test_set_dtm():
     assert hasattr(dtm, 'img')
     assert hasattr(dtm, 'rb')
     assert hasattr(dtm, 'gt')
+
+
+def test_set_multi_proj():
+    work = Worksite("Test")
+    work.set_proj([2154, 4339, 4326])
+    assert ProjEngine().epsg == [2154, 4339, 4326]
+
+
+def test_set_multi_proj_none():
+    work = Worksite("Test")
+    work.set_proj([2154, None, 4339])
+    assert ProjEngine().epsg == [2154, None, 4339]
+
+
+def test_set_multi_projfalse():
+    work = Worksite("Test")
+    with pytest.raises(pyproj.exceptions.CRSError):
+        work.set_proj([2154, None, 1111])

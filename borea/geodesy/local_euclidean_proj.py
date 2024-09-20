@@ -37,7 +37,7 @@ class LocalEuclideanProj(EuclideanProj):
         Returns:
             np.array: Transition matrix.
         """
-        lon, lat = ProjEngine().carto_to_geog(x, y)
+        lon, lat = ProjEngine().tf.carto_to_geog(x, y)
         gamma = ProjEngine().get_meridian_convergence(x, y)
 
         # Matrix for switching to local cartesian coordinates
@@ -92,10 +92,10 @@ class LocalEuclideanProj(EuclideanProj):
         """
         coor = check_array_transfo(coor[0], coor[1], coor[2])
 
-        coor_geoc = np.array(ProjEngine().carto_to_geoc(coor[0], coor[1], coor[2]))
-        central_geoc = np.array(ProjEngine().carto_to_geoc(self.pt_central[0],
-                                                           self.pt_central[1],
-                                                           self.pt_central[2]))
+        coor_geoc = np.array(ProjEngine().tf.carto_to_geoc(coor[0], coor[1], coor[2]))
+        central_geoc = np.array(ProjEngine().tf.carto_to_geoc(self.pt_central[0],
+                                                              self.pt_central[1],
+                                                              self.pt_central[2]))
         dr = np.vstack([coor_geoc[0] - central_geoc[0],
                         coor_geoc[1] - central_geoc[1],
                         coor_geoc[2] - central_geoc[2]])
@@ -115,13 +115,13 @@ class LocalEuclideanProj(EuclideanProj):
         """
         coor = np.squeeze(coor)
 
-        central_geoc = np.array(ProjEngine().carto_to_geoc(self.pt_central[0],
-                                                           self.pt_central[1],
-                                                           self.pt_central[2]))
+        central_geoc = np.array(ProjEngine().tf.carto_to_geoc(self.pt_central[0],
+                                                              self.pt_central[1],
+                                                              self.pt_central[2]))
         dr = np.vstack([coor[0] - self.pt_central[0],
                         coor[1] - self.pt_central[1],
                         coor[2] - self.pt_central[2]])
         point_geoc = np.squeeze((self.rot_to_euclidean_local.T @ dr) + np.array([central_geoc]).T)
         x_gc, y_gc, z_gc = check_array_transfo(point_geoc[0], point_geoc[1], point_geoc[2])
-        tup = ProjEngine().geoc_to_carto(x_gc, y_gc, z_gc)
+        tup = ProjEngine().tf.geoc_to_carto(x_gc, y_gc, z_gc)
         return np.array([tup[0], tup[1], tup[2]])

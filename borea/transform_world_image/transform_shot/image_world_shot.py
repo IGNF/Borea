@@ -37,7 +37,7 @@ class ImageWorldShot():
         Returns:
             np.array: Cartographique coordinate [x,y,z].
         """
-        if type_z_data != type_z_shot and not ProjEngine().geog_to_geoid:
+        if type_z_data != type_z_shot and not ProjEngine().tf.geog_to_geoid:
             raise ValueError("Missing geoid")
 
         if not Dtm().path_dtm:

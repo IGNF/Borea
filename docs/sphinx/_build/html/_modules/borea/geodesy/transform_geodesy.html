@@ -4,11 +4,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 8.0.2 and Furo 2024.08.06 -->
         <title>borea.geodesy.transform_geodesy - Borea 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=387cc868" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
     
     
 
@@ -87,19 +87,6 @@
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
   </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
-    </svg>
-  </symbol>
   <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
     <title>Auto light/dark, in light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -140,7 +127,7 @@
       <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
       <path d="M13.5 6.5l4 4" />
       <path d="M20 21l2 -2l-2 -2" />
-      <path d="M17 17l-2 2l2 2" /
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
   <symbol id="svg-eye" viewBox="0 0 24 24">
@@ -288,15 +275,13 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Module for class ProjEngine, transform geodesy</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">import</span> <span class="nn">pyproj</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<span class="c1"># pylint: disable=unsubscriptable-object</span>
+<span class="c1"># pylint: disable=too-many-instance-attributes</span>
 <div class="viewcode-block" id="TransformGeodesy">
 <a class="viewcode-back" href="../../../borea.geodesy.html#borea.geodesy.transform_geodesy.TransformGeodesy">[docs]</a>
-<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">TransformGeodesy</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class provides functions to tranform coordinate system.</span>
@@ -307,52 +292,139 @@
 <span class="sd">        geoid (list): List of geoid to use.</span>
 <span class="sd">        crs (pyproj): CRS pyproj of the worksite.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">carto_to_geoc</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">geoc_to_carto</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">carto_to_geog</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">geog_to_carto</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">geog_to_geoid</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">geoid_to_geog</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">carto_to_geog_out</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsg</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">geoid</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsg</span> <span class="o">=</span> <span class="n">epsg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="n">epsg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geoid</span> <span class="o">=</span> <span class="n">geoid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_carto_to_geoc</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_geoc_to_carto</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_carto_to_geog</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_geog_to_carto</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_geog_to_geoid</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_geoid_to_geog</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">carto_to_geog_out</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">__tf_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geoid</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">crs</span><span class="p">:</span> <span class="n">pyproj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">crs_geoc</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">GeocentricCRS</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">datum</span><span class="o">=</span><span class="n">crs</span><span class="o">.</span><span class="n">datum</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">crs_geog</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">GeographicCRS</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">datum</span><span class="o">=</span><span class="n">crs</span><span class="o">.</span><span class="n">datum</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="c1"># Transform cartographic coordinates to geographic coordinates</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">carto_to_geog</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">crs</span><span class="p">,</span> <span class="n">crs_geog</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
-        <span class="c1"># Transform geographic coordinates to cartographic coordinates</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">geog_to_carto</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">crs_geog</span><span class="p">,</span> <span class="n">crs</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
-        <span class="c1"># Transform cartographic coordinates to geocentric coordinates</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">carto_to_geoc</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">crs</span><span class="p">,</span> <span class="n">crs_geoc</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
-        <span class="c1"># Transform geocentric coordinates to cartographic coordinates</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">geoc_to_carto</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">crs_geoc</span><span class="p">,</span> <span class="n">crs</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
-
-        <span class="k">if</span> <span class="n">geoid</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tf_geoid</span><span class="p">(</span><span class="n">geoid</span><span class="p">)</span>
-
-<div class="viewcode-block" id="TransformGeodesy.tf_geoid">
-<a class="viewcode-back" href="../../../borea.geodesy.html#borea.geodesy.transform_geodesy.TransformGeodesy.tf_geoid">[docs]</a>
-    <span class="k">def</span> <span class="nf">tf_geoid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geoid</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">carto_to_geog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create attribute transform, to transform geographic coordinates to geoide coordinates.</span>
+<span class="sd">        Returns the transformation or instantiates it before returning it.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            geoid (list): List of geoid to use.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pyproj.Transformer : carto_to_geog</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># Transform geoide coordinates to geographic coordinates</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">geoid_to_geog</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_pipeline</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;+proj=vgridshift &quot;</span>
-                                                                  <span class="sa">f</span><span class="s2">&quot;+grids=</span><span class="si">{</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">geoid</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
-                                                                  <span class="s2">&quot;+multiplier=1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
-            <span class="c1"># Transform geographic coordinates to geoide coordinates</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">geog_to_geoid</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_pipeline</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;+proj=vgridshift &quot;</span>
-                                                                  <span class="sa">f</span><span class="s2">&quot;+grids=</span><span class="si">{</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">geoid</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
-                                                                  <span class="s2">&quot;+multiplier=-1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
-        <span class="k">except</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ProjError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ProjError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">geoid</span><span class="si">}</span><span class="s2"> The name or path of geotif is incorrect or &quot;</span>
-                                              <span class="s2">&quot;does not exist in &quot;</span>
-                                              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pyproj</span><span class="o">.</span><span class="n">datadir</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">()</span><span class="si">}</span><span class="s2">!!!</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span></div>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_carto_to_geog</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">crs_geog</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epsg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">CRSError</span><span class="p">):</span>
+                <span class="n">crs_geog</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">GeographicCRS</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">datum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">datum</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
+            <span class="bp">self</span><span class="o">.</span><span class="n">_carto_to_geog</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="n">crs_geog</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_carto_to_geog</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">geog_to_carto</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the transformation or instantiates it before returning it.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyproj.Transformer : geog_to_carto</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_geog_to_carto</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">crs_geog</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epsg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">CRSError</span><span class="p">):</span>
+                <span class="n">crs_geog</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">GeographicCRS</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">datum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">datum</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_geog_to_carto</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">crs_geog</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_geog_to_carto</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">carto_to_geoc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the transformation or instantiates it before returning it.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyproj.Transformer : carto_to_geoc</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_carto_to_geoc</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">crs_geoc</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epsg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">CRSError</span><span class="p">):</span>
+                <span class="n">crs_geoc</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">GeocentricCRS</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">datum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">datum</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_carto_to_geoc</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="n">crs_geoc</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_carto_to_geoc</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">geoc_to_carto</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the transformation or instantiates it before returning it.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyproj.Transformer : geoc_to_carto</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_geoc_to_carto</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">crs_geoc</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epsg</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">CRSError</span><span class="p">):</span>
+                <span class="n">crs_geoc</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">GeocentricCRS</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">datum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">datum</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_geoc_to_carto</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">crs_geoc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_geoc_to_carto</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">geoid_to_geog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the transformation or instantiates it before returning it.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyproj.Transformer : geoid_to_geog</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">geoid</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Mistake Geoid path&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_geoid_to_geog</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Transform geoide coordinates to geographic coordinates</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_geoid_to_geog</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_pipeline</span><span class="p">(</span><span class="s2">&quot;+proj=vgridshift &quot;</span>
+                                                                       <span class="s2">&quot;+grids=&quot;</span>
+                                                                       <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geoid</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
+                                                                       <span class="s2">&quot;+multiplier=1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
+            <span class="k">except</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ProjError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ProjError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">geoid</span><span class="si">}</span><span class="s2"> The name or path &quot;</span>
+                                                  <span class="s2">&quot;of geotif is incorrect or does not exist in &quot;</span>
+                                                  <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pyproj</span><span class="o">.</span><span class="n">datadir</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">()</span><span class="si">}</span><span class="s2">!!!</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_geoid_to_geog</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">geog_to_geoid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the transformation or instantiates it before returning it.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyproj.Transformer : geog_to_geoid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">geoid</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Mistake Geoid path&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_geog_to_geoid</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Transform geoide coordinates to geographic coordinates</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_geog_to_geoid</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_pipeline</span><span class="p">(</span><span class="s2">&quot;+proj=vgridshift &quot;</span>
+                                                                       <span class="s2">&quot;+grids=&quot;</span>
+                                                                       <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geoid</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
+                                                                       <span class="s2">&quot;+multiplier=-1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span>
+            <span class="k">except</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ProjError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ProjError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">geoid</span><span class="si">}</span><span class="s2"> The name or path &quot;</span>
+                                                  <span class="s2">&quot;of geotif is incorrect or does not exist in &quot;</span>
+                                                  <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pyproj</span><span class="o">.</span><span class="n">datadir</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">()</span><span class="si">}</span><span class="s2">!!!</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_geog_to_geoid</span>
 
 <div class="viewcode-block" id="TransformGeodesy.tranform_height">
 <a class="viewcode-back" href="../../../borea.geodesy.html#borea.geodesy.transform_geodesy.TransformGeodesy.tranform_height">[docs]</a>
@@ -414,18 +486,17 @@
 
 <div class="viewcode-block" id="TransformGeodesy.tf_output">
 <a class="viewcode-back" href="../../../borea.geodesy.html#borea.geodesy.transform_geodesy.TransformGeodesy.tf_output">[docs]</a>
-    <span class="k">def</span> <span class="nf">tf_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">crs</span><span class="p">:</span> <span class="n">pyproj</span><span class="p">,</span> <span class="n">epsg_out</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">tf_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsg_out</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create the pyproj Transformer from crs of worksite to crs geographic ask.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            crs (pyproj): The crs pyproj of the worksite.</span>
 <span class="sd">            epsg_out (int): Code epsg of the output crs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">epsg_out</span> <span class="ow">and</span> <span class="n">epsg_out</span> <span class="o">!=</span> <span class="n">crs</span><span class="o">.</span><span class="n">to_epsg</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">epsg_out</span> <span class="ow">and</span> <span class="n">epsg_out</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsg</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
             <span class="n">crs_out</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="n">epsg_out</span><span class="p">)</span>
             <span class="n">crs_geog_out</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">GeographicCRS</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">crs_out</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">datum</span><span class="o">=</span><span class="n">crs_out</span><span class="o">.</span><span class="n">datum</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">carto_to_geog_out</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">crs</span><span class="p">,</span> <span class="n">crs_geog_out</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">carto_to_geog_out</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="n">crs_geog_out</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span></div>
 </div>
 
 </pre></div>
@@ -463,6 +534,6 @@
 </div><script src="../../../_static/documentation_options.js?v=8d563738"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../../_static/scripts/furo.js?v=4e2eecee"></script>
+    <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>
     </body>
 </html>

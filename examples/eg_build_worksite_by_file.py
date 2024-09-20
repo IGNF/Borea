@@ -46,13 +46,13 @@ def worksite_opk() -> Worksite:
     read_camera(PATH_CAM, work_opk)
 
     # Settup projection of your worksite
-    # work.set_proj(code_epsg: int, path_geoid: list[str])
+    # work.set_proj(code_epsg: list, path_geoid: list[str])
     # path geoid is a list of path if there are many geoid of the worksite or you can make just name
     #  of the file if they're in the right place for pyproj (*usr/share/proj* or
     # *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj*)
     # The geoid is used to perform the height-altitude transformation or the inverse
     # if the data are not in the same unit (if they are in the same unit, you can use None instead).
-    work_opk.set_proj(2154, PATH_GEOID)
+    work_opk.set_proj([2154], PATH_GEOID)
 
     # Settup dtm of the worksite
     # work.set_dtm(path_dtm: str, unit_dtm: str)
@@ -77,13 +77,13 @@ def worksite_without_shot() -> Worksite:
     read_camera(PATH_CAM, work_opk)
 
     # Settup projection of your worksite
-    # work.set_proj(code_epsg: int, path_geoid: list[str])
+    # work.set_proj(code_epsg: list, path_geoid: list[str])
     # path geoid is a list of path if there are many geoid of the worksite or you can make just name
     # of the file if they're in the right place for pyproj (*usr/share/proj* or
     # *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj*)
     # The geoid is used to perform the height-altitude transformation or the inverse
     # if the data are not in the same unit (if they are in the same unit, you can use None instead).
-    work_opk.set_proj(2154, PATH_GEOID)
+    work_opk.set_proj([2154], PATH_GEOID)
 
     # Settup dtm of the worksite
     # work.set_dtm(path_dtm: str, unit_dtm: str)

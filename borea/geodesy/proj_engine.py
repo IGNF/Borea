@@ -21,17 +21,17 @@ class ProjEngine(TransformGeodesy, metaclass=Singleton):
 
     def __post_init__(self) -> None:
         if self.epsg:
-            self.crs = pyproj.CRS.from_epsg(self.epsg)
+            self.crs = pyproj.CRS.from_epsg(self.epsg[0])
             self.proj = pyproj.Proj(self.crs)
-            TransformGeodesy.__tf_init__(self, self.geoid, self.crs)
+            TransformGeodesy.__tf_init__(self, self.geoid, self.epsg)
 
-    def set_epsg(self, epsg: int, geoid: list = None) -> None:
+    def set_epsg(self, epsg: list, geoid: list = None) -> None:
         """
         Setter of the class ProjEngine.
         Allows to init the class with data.
 
         Args:
-            epsg (int): Code epsg of the projection ex: 2154.
+            epsg (list): Code epsg of the projection ex: 2154.
             geoid (list): List of geoid to use.
         """
         self.epsg = epsg

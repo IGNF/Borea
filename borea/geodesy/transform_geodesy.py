@@ -26,9 +26,19 @@ class TransformGeodesy():
     geoid_to_geog = None
     carto_to_geog_out = None
 
-    def __tf_init__(self, geoid: list, crs: pyproj) -> None:
-        crs_geoc = pyproj.crs.GeocentricCRS(name=crs.name, datum=crs.datum.name)
-        crs_geog = pyproj.crs.GeographicCRS(name=crs.name, datum=crs.datum.name)
+    def __tf_init__(self, geoid: list, epsg: list) -> None:
+        crs = pyproj.CRS.from_epsg(epsg[0])
+
+        try:
+            crs_geog = pyproj.CRS.from_epsg(epsg[1])
+        except (IndexError, pyproj.exceptions.CRSError):
+            crs_geog = pyproj.crs.GeographicCRS(name=crs.name, datum=crs.datum.name)
+        
+        try:
+            crs_geoc = pyproj.CRS.from_epsg(epsg[2])
+        except (IndexError, pyproj.exceptions.CRSError):
+            crs_geoc = pyproj.crs.GeocentricCRS(name=crs.name, datum=crs.datum.name)
+
         # Transform cartographic coordinates to geographic coordinates
         self.carto_to_geog = pyproj.Transformer.from_crs(crs, crs_geog).transform
         # Transform geographic coordinates to cartographic coordinates

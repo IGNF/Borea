@@ -59,20 +59,23 @@ class Workdata:
                                      linear_alteration=linear_alteration,
                                      order_axe=order_axe)
 
-    def set_proj(self, epsg: int, path_geoid: list = None) -> None:
+    def set_proj(self, epsg: list, path_geoid: list = None) -> None:
         """
         Setup a projection system to the worksite.
 
         Args:
-            epsg (int): Code epsg of the porjection ex: 2154.
+            epsg (list): Code epsg of the porjection ex: 2154.
             path_geoid (str): List of GeoTIFF which represents the geoid in grid form.
         """
         ProjEngine.clear()
         try:  # Check if the epsg exist
-            crs = CRS.from_epsg(epsg)
-            del crs
+            for idepsg in epsg:
+                if idepsg:
+                    print(idepsg)
+                    crs = CRS.from_epsg(idepsg)
+                    del crs
         except exceptions.CRSError as e_info:
-            raise exceptions.CRSError(f"Your EPSG:{epsg} doesn't exist") from e_info
+            raise exceptions.CRSError(f"Your EPSG:{epsg} doesn't exist in pyproj.") from e_info
 
         ProjEngine().set_epsg(epsg, path_geoid)
 

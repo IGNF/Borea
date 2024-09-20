@@ -89,4 +89,26 @@ This library can transform and process 3D data with a z in altitude or height. T
 The command for adding a geoid is -y, where you can enter the paths to the various geoids. If the file is stored in pyproj's native folder (pyproj.datadir.get_data_dir(), *usr/share/proj* or *env_name_folder/lib/python3.10/site-packages/pyproj/proj_dir/share/proj*) the file name is sufficient pyproj will find it on its own. 
 Geoids file can be found on pyproj's github (https://github.com/OSGeo/PROJ-data).
 
+This transformation is accompanied by other cartographic, geographic and geocentric transformations. And pyproj may not be able to find the other systems on its own.  
+e.g.
+```
+>>>crsm = crs.CRS.from_epsg(4326)
+>>>crs_geoc = pyproj.crs.GeocentricCRS(name=crsm.name, datum=crsm.datum.name)
+File "...", line 171, in <module>
+    crs_geoc = pyproj.crs.GeocentricCRS(name=crsm.name, datum=crsm.datum.name)
+  File "...", line 1918, in __init__
+    super().__init__(geocentric_crs_json)
+  File "...", line 348, in __init__
+    self._local.crs = _CRS(self.srs)
+  File "pyproj/_crs.pyx", line 2378, in pyproj._crs._CRS.__init__
+pyproj.exceptions.CRSError: Invalid projection: 
+```
+You can therefore specify as parameters the epsg ( -e ) you want to use for each type of projection in a precise order.  
+[data_projection, geographic, geocentric]  
+e.g. in commande line for 4326 error GeocentricCRS
+```
+-e 4326 None 4328
+```
+None allows you to ignore a system if it is found by pyproj, after you just need to find the right epsg.
+
 ![logo ign](../../docs/image/logo_ign.png) ![logo fr](../../docs/image/Republique_Francaise_Logo.png)

@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="borea.geodesy.projectionlist package" href="borea.geodesy.projectionlist.html" /><link rel="prev" title="borea.format package" href="borea.format.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 8.0.2 and Furo 2024.08.06 -->
         <title>borea.geodesy package - Borea 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=387cc868" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
     
     
 
@@ -88,19 +88,6 @@
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
   </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
-    </svg>
-  </symbol>
   <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
     <title>Auto light/dark, in light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -141,7 +128,7 @@
       <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
       <path d="M13.5 6.5l4 4" />
       <path d="M20 21l2 -2l-2 -2" />
-      <path d="M17 17l-2 2l2 2" /
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
   <symbol id="svg-eye" viewBox="0 0 24 24">
@@ -581,7 +568,7 @@ the Euclidean coordinate reference system.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="borea.geodesy.proj_engine.ProjEngine">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">borea.geodesy.proj_engine.</span></span><span class="sig-name descname"><span class="pre">ProjEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/borea/geodesy/proj_engine.html#ProjEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.geodesy.proj_engine.ProjEngine" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy" title="borea.geodesy.transform_geodesy.TransformGeodesy"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformGeodesy</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class provides functions for using a cartographic system.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="borea.geodesy.proj_engine.ProjEngine.epsg">
@@ -642,13 +629,13 @@ Values are extracted from pyproj.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="borea.geodesy.proj_engine.ProjEngine.set_epsg">
-<span class="sig-name descname"><span class="pre">set_epsg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/borea/geodesy/proj_engine.html#ProjEngine.set_epsg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.geodesy.proj_engine.ProjEngine.set_epsg" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_epsg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/borea/geodesy/proj_engine.html#ProjEngine.set_epsg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.geodesy.proj_engine.ProjEngine.set_epsg" title="Link to this definition">¶</a></dt>
 <dd><p>Setter of the class ProjEngine.
 Allows to init the class with data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>epsg</strong> (<em>int</em>) – Code epsg of the projection ex: 2154.</p></li>
+<li><p><strong>epsg</strong> (<em>list</em>) – Code epsg of the projection ex: 2154.</p></li>
 <li><p><strong>geoid</strong> (<em>list</em>) – List of geoid to use.</p></li>
 </ul>
 </dd>
@@ -674,7 +661,7 @@ Allows to init the class with data.</p>
 <p>Module for class ProjEngine, transform geodesy</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">borea.geodesy.transform_geodesy.</span></span><span class="sig-name descname"><span class="pre">TransformGeodesy</span></span><a class="reference internal" href="_modules/borea/geodesy/transform_geodesy.html#TransformGeodesy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">borea.geodesy.transform_geodesy.</span></span><span class="sig-name descname"><span class="pre">TransformGeodesy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/borea/geodesy/transform_geodesy.html#TransformGeodesy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class provides functions to tranform coordinate system.
 Class parent of ProjEngine.
@@ -687,62 +674,97 @@ Implemented by ProjEngine.</p>
 </ul>
 </dd>
 </dl>
-<dl class="py attribute">
+<dl class="py property">
 <dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.carto_to_geoc">
-<span class="sig-name descname"><span class="pre">carto_to_geoc</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.carto_to_geoc" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.carto_to_geog">
-<span class="sig-name descname"><span class="pre">carto_to_geog</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.carto_to_geog" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.carto_to_geog_out">
-<span class="sig-name descname"><span class="pre">carto_to_geog_out</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.carto_to_geog_out" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.geoc_to_carto">
-<span class="sig-name descname"><span class="pre">geoc_to_carto</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.geoc_to_carto" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.geog_to_carto">
-<span class="sig-name descname"><span class="pre">geog_to_carto</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.geog_to_carto" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.geog_to_geoid">
-<span class="sig-name descname"><span class="pre">geog_to_geoid</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.geog_to_geoid" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.geoid_to_geog">
-<span class="sig-name descname"><span class="pre">geoid_to_geog</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.geoid_to_geog" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.tf_geoid">
-<span class="sig-name descname"><span class="pre">tf_geoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/borea/geodesy/transform_geodesy.html#TransformGeodesy.tf_geoid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.tf_geoid" title="Link to this definition">¶</a></dt>
-<dd><p>Create attribute transform, to transform geographic coordinates to geoide coordinates.</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">carto_to_geoc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Transformer</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.carto_to_geoc" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the transformation or instantiates it before returning it.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>geoid</strong> (<em>list</em>) – List of geoid to use.</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>carto_to_geoc</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pyproj.Transformer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.carto_to_geog">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">carto_to_geog</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Transformer</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.carto_to_geog" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the transformation or instantiates it before returning it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>carto_to_geog</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pyproj.Transformer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.geoc_to_carto">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">geoc_to_carto</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Transformer</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.geoc_to_carto" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the transformation or instantiates it before returning it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>geoc_to_carto</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pyproj.Transformer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.geog_to_carto">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">geog_to_carto</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Transformer</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.geog_to_carto" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the transformation or instantiates it before returning it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>geog_to_carto</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pyproj.Transformer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.geog_to_geoid">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">geog_to_geoid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Transformer</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.geog_to_geoid" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the transformation or instantiates it before returning it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>geog_to_geoid</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pyproj.Transformer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.geoid_to_geog">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">geoid_to_geog</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Transformer</span></em><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.geoid_to_geog" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the transformation or instantiates it before returning it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>geoid_to_geog</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pyproj.Transformer</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="borea.geodesy.transform_geodesy.TransformGeodesy.tf_output">
-<span class="sig-name descname"><span class="pre">tf_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crs:</span> <span class="pre">&lt;module</span> <span class="pre">'pyproj'</span> <span class="pre">from</span> <span class="pre">'/home/ACornu/Documents/Outil_SIA/code_git/borea_env/lib/python3.10/site-packages/pyproj/__init__.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsg_out:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/borea/geodesy/transform_geodesy.html#TransformGeodesy.tf_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.tf_output" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tf_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsg_out</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/borea/geodesy/transform_geodesy.html#TransformGeodesy.tf_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.geodesy.transform_geodesy.TransformGeodesy.tf_output" title="Link to this definition">¶</a></dt>
 <dd><p>Create the pyproj Transformer from crs of worksite to crs geographic ask.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>crs</strong> (<em>pyproj</em>) – The crs pyproj of the worksite.</p></li>
-<li><p><strong>epsg_out</strong> (<em>int</em>) – Code epsg of the output crs.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>epsg_out</strong> (<em>int</em>) – Code epsg of the output crs.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -893,12 +915,10 @@ Implemented by ProjEngine.</p>
 <li><a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy"><code class="docutils literal notranslate"><span class="pre">TransformGeodesy</span></code></a><ul>
 <li><a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy.carto_to_geoc"><code class="docutils literal notranslate"><span class="pre">TransformGeodesy.carto_to_geoc</span></code></a></li>
 <li><a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy.carto_to_geog"><code class="docutils literal notranslate"><span class="pre">TransformGeodesy.carto_to_geog</span></code></a></li>
-<li><a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy.carto_to_geog_out"><code class="docutils literal notranslate"><span class="pre">TransformGeodesy.carto_to_geog_out</span></code></a></li>
 <li><a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy.geoc_to_carto"><code class="docutils literal notranslate"><span class="pre">TransformGeodesy.geoc_to_carto</span></code></a></li>
 <li><a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy.geog_to_carto"><code class="docutils literal notranslate"><span class="pre">TransformGeodesy.geog_to_carto</span></code></a></li>
 <li><a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy.geog_to_geoid"><code class="docutils literal notranslate"><span class="pre">TransformGeodesy.geog_to_geoid</span></code></a></li>
 <li><a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy.geoid_to_geog"><code class="docutils literal notranslate"><span class="pre">TransformGeodesy.geoid_to_geog</span></code></a></li>
-<li><a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy.tf_geoid"><code class="docutils literal notranslate"><span class="pre">TransformGeodesy.tf_geoid()</span></code></a></li>
 <li><a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy.tf_output"><code class="docutils literal notranslate"><span class="pre">TransformGeodesy.tf_output()</span></code></a></li>
 <li><a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy.tranform_altitude"><code class="docutils literal notranslate"><span class="pre">TransformGeodesy.tranform_altitude()</span></code></a></li>
 <li><a class="reference internal" href="#borea.geodesy.transform_geodesy.TransformGeodesy.tranform_height"><code class="docutils literal notranslate"><span class="pre">TransformGeodesy.tranform_height()</span></code></a></li>
@@ -921,6 +941,6 @@ Implemented by ProjEngine.</p>
 </div><script src="_static/documentation_options.js?v=8d563738"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/scripts/furo.js?v=4e2eecee"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
     </body>
 </html>

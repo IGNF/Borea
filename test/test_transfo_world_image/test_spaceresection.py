@@ -18,6 +18,7 @@ from borea.reader.reader_point import read_file_pt, read_file_pt_dataframe
 INPUT_OPK = "./dataset/23FD1305_alt_test.OPK"
 INPUT_OPK2 = "./test/data/dataset2/23FD1305_alt_2.OPK"
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
+EPSG = [2154]
 PATH_GEOID = ["./dataset/fr_ign_RAF20.tif"]
 PATH_CAM = ["./dataset/Camera1.txt"]
 PT_LIAISON = "./dataset/liaisons_test.mes"
@@ -43,7 +44,7 @@ def test_shootings_position():
     work.add_shot("23FD1305x00026_01307", np.array([814977.593, 6283733.183, 1771.519]),
                   np.array([-0.190175545509, -0.023695590794, 0.565111690487]),
                   "cam_test", "degree", True, "opk")
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
@@ -63,7 +64,7 @@ def test_space_resection():
                 np.array([-0.245070686036, -0.069409621323, 0.836320989726]),
                 "test_cam", "degree", True, "opk")
     cam = Camera("test_cam", 13210.00, 8502.00, 30975.00, 26460, 17004)
-    proj_singleton(2154, PATH_GEOID)
+    proj_singleton(EPSG, PATH_GEOID)
     dtm_singleton(PATH_DTM, "height")
     shot.set_param_eucli_shot(approx=False)
     z_nadir = ImageWorldShot(shot, cam).image_to_world(np.array([cam.ppax, cam.ppay]),
@@ -86,7 +87,7 @@ def test_take_obs():
                                "header": list("NXYZOPKC"),
                                "unit_angle": "degree",
                                "linear_alteration": True})
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     read_camera(PATH_CAM, work)
     work.set_dtm(PATH_DTM, "height")
     work.set_param_shot()
@@ -106,7 +107,7 @@ def test_space_resection_othershot():
                                "header": list("NXYZOPKC"),
                                "unit_angle": "degree",
                                "linear_alteration": True})
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     read_camera(PATH_CAM, work)
     work.set_dtm(PATH_DTM, "height")
     work.set_param_shot()
@@ -123,7 +124,7 @@ def test_space_resection_withcopoints():
                                "header": list("NXYZOPKC"),
                                "unit_angle": "degree",
                                "linear_alteration": True})
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     read_camera(PATH_CAM, work)
     work.set_dtm(PATH_DTM, "height")
     work.set_param_shot()
@@ -140,7 +141,7 @@ def test_space_resection_withcopoints():
 
 def test_space_resection_to_worksite():
     work = Worksite("Test")
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     read_camera(PATH_CAM, work)
     work.set_dtm(PATH_DTM, "height")
     pt2d = read_file_pt_dataframe(PT_LIAISON2, list("PNXY"), "pt2d")

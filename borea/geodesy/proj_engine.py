@@ -11,7 +11,7 @@ from borea.utils.singleton.singleton import Singleton
 
 # pylint: disable=unpacking-non-sequence
 @dataclass
-class ProjEngine(TransformGeodesy, metaclass=Singleton):
+class ProjEngine(metaclass=Singleton):
     """
     This class provides functions for using a cartographic system.
     """
@@ -21,17 +21,17 @@ class ProjEngine(TransformGeodesy, metaclass=Singleton):
 
     def __post_init__(self) -> None:
         if self.epsg:
-            self.crs = pyproj.CRS.from_epsg(self.epsg)
+            self.crs = pyproj.CRS.from_epsg(self.epsg[0])
             self.proj = pyproj.Proj(self.crs)
-            TransformGeodesy.__tf_init__(self, self.geoid, self.crs)
+            self.tf = TransformGeodesy(self.epsg, self.geoid)
 
-    def set_epsg(self, epsg: int, geoid: list = None) -> None:
+    def set_epsg(self, epsg: list, geoid: list = None) -> None:
         """
         Setter of the class ProjEngine.
         Allows to init the class with data.
 
         Args:
-            epsg (int): Code epsg of the projection ex: 2154.
+            epsg (list): Code epsg of the projection ex: 2154.
             geoid (list): List of geoid to use.
         """
         self.epsg = epsg
@@ -45,7 +45,7 @@ class ProjEngine(TransformGeodesy, metaclass=Singleton):
         Args:
             epsg_out (int): Code epsg of the output crs.
         """
-        self.tf_output(self.crs, epsg_output)
+        self.tf.tf_output(epsg_output)
 
     def get_meridian_convergence(self, x_carto: Union[np.ndarray, List[float], float],
                                  y_carto: Union[np.ndarray, List[float], float]) -> np.ndarray:
@@ -60,7 +60,7 @@ class ProjEngine(TransformGeodesy, metaclass=Singleton):
         Returns:
             np.array : Meridian convergence in degree.
         """
-        (x_geog, y_geog) = self.carto_to_geog(x_carto, y_carto)
+        (x_geog, y_geog) = self.tf.carto_to_geog(x_carto, y_carto)
         return -np.array(self.proj.get_factors(x_geog, y_geog).meridian_convergence)
 
     def get_scale_factor(self, x_carto: Union[np.ndarray, List[float], float],
@@ -76,5 +76,5 @@ class ProjEngine(TransformGeodesy, metaclass=Singleton):
         Returns:
             np.array: Scale factor and meridian convergence.
         """
-        x_geog, y_geog = self.carto_to_geog(x_carto, y_carto)
+        x_geog, y_geog = self.tf.carto_to_geog(x_carto, y_carto)
         return np.array(self.proj.get_factors(x_geog, y_geog).meridional_scale) - 1

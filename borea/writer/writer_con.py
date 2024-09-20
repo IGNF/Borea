@@ -20,7 +20,7 @@ def write(name: str, folder_con: str, param_con: dict, work: Worksite) -> None:
         work (Worksite): The site to be recorded.
     """
     _, _ = name, param_con
-    geoview_proj = search_info("EPSG", str(ProjEngine().epsg), "GEOVIEW")
+    geoview_proj = search_info("EPSG", str(ProjEngine().epsg[0]), "GEOVIEW")
 
     for name_shot, shot in work.shots.items():
         cam = work.cameras[shot.name_cam]

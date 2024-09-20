@@ -33,7 +33,7 @@ def worksite_1shot() -> Worksite:
     # Setup projection
     # set_epsg(epsg, path_geoid)
     # the geoid is mandatory if type_z_data and type_z_shot are different
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj([2154], PATH_GEOID)
 
     # Add camera information
     # add_camera(name_cam, ppax, ppay, focal, width, height)
@@ -72,7 +72,7 @@ def worksite_2shots_2copts() -> Worksite:
     # Setup projection
     # set_epsg(epsg, path_geoid)
     # the geoid is mandatory if type_z_data and type_z_shot are different
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj([2154], PATH_GEOID)
 
     # Add camera information
     # add_camera(name_cam, ppax, ppay, focal, width, height)
@@ -120,7 +120,7 @@ def worksite_2shot_3gcp() -> Worksite:
     # Setup projection
     # set_epsg(epsg, path_geoid)
     # the geoid is mandatory if type_z_data and type_z_shot are different
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj([2154], PATH_GEOID)
 
     # Add camera information
     # add_camera(name_cam, ppax, ppay, focal, width, height,)

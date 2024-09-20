@@ -14,6 +14,7 @@ from borea.transform_world_image.transform_worksite.world_image_work import Worl
 OUTPUT = "./test/tmp"
 FILENAME = "Test"
 PATH_DTM = "./dataset/MNT_France_25m_h_crop.tif"
+EPSG = [2154]
 PATH_GEOID = ["./dataset/fr_ign_RAF20.tif"]
 TYPE_CONTROL_POINT = [13]
 ALL_POINT = []
@@ -32,7 +33,7 @@ def test_stat_world_to_image():
     work.add_shot("shot_test", np.array([814975.925, 6283986.148, 1771.280]),
                   np.array([-0.245070686036, -0.069409621323, 0.836320989726]),
                   'cam_test', "degree", True, "opk")
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('gcp_test', 'shot_test', np.array([24042.25, 14781.17]))
     work.add_gcp3d('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
@@ -54,7 +55,7 @@ def test_stat_world_to_image_withoutdata():
     work.add_shot("shot_test", np.array([814975.925, 6283986.148, 1771.280]),
                   np.array([-0.245070686036, -0.069409621323, 0.836320989726]),
                   'cam_test', "degree", True, "opk")
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('gcp_test', 'shot_test', np.array([24042.25, 14781.17]))
     work.add_gcp3d('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
@@ -80,7 +81,7 @@ def test_stat_image_to_world_type13():
     work.add_shot("23FD1305x00054_05681", np.array([833123.958, 6282051.774, 1761.056]),
                   np.array([-0.222610811997, -0.045739865938, 0.163818133681]),
                   "cam_test", "degree", True, "opk")
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('"1003"', "23FD1305x00026_01306", np.array([24042.25, 14781.17]))
     work.add_gcp2d('"1003"', "23FD1305x00026_01307", np.array([24120.2, 10329.3]))
@@ -117,7 +118,7 @@ def test_stat_image_to_world_alltype():
     work.add_shot("23FD1305x00054_05681", np.array([833123.958, 6282051.774, 1761.056]),
                   np.array([-0.222610811997, -0.045739865938, 0.163818133681]),
                   "cam_test", "degree", True, "opk")
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('"1003"', "23FD1305x00026_01306", np.array([24042.25, 14781.17]))
     work.add_gcp2d('"1003"', "23FD1305x00026_01307", np.array([24120.2, 10329.3]))
@@ -144,7 +145,7 @@ def test_stat_image_to_world_withoutdata():
     work.add_shot("shot_test", np.array([814975.925, 6283986.148, 1771.280]),
                   np.array([-0.245070686036, -0.069409621323, 0.836320989726]),
                   'cam_test', "degree", True, "opk")
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('gcp_test', 'shot_test', np.array([24042.25, 14781.17]))
     work.add_gcp3d('gcp_test', 13, np.array([815601.510, 6283629.280, 54.960]))
@@ -224,7 +225,7 @@ def test_stat_list_world2():
     work.add_shot("23FD1305x00054_05681", np.array([833123.958, 6282051.774, 1761.056]),
                   np.array([-0.222610811997, -0.045739865938, 0.163818133681]),
                   "cam_test", "degree", True, "opk")
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('"1003"', "23FD1305x00026_01306", np.array([24042.25, 14781.17]))
     work.add_gcp2d('"1003"', "23FD1305x00026_01307", np.array([24120.2, 10329.3]))
@@ -260,7 +261,7 @@ def test_stat_list_image2():
     work.add_shot("23FD1305x00054_05681", np.array([833123.958, 6282051.774, 1761.056]),
                   np.array([-0.222610811997, -0.045739865938, 0.163818133681]),
                   "cam_test", "degree", True, "opk")
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('"1003"', "23FD1305x00026_01306", np.array([24042.25, 14781.17]))
     work.add_gcp2d('"1003"', "23FD1305x00026_01307", np.array([24120.2, 10329.3]))
@@ -316,7 +317,7 @@ def test_main():
     work.add_shot("23FD1305x00054_05681", np.array([833123.958, 6282051.774, 1761.056]),
                   np.array([-0.222610811997, -0.045739865938, 0.163818133681]),
                   "cam_test", "degree", True, "opk")
-    work.set_proj(2154, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.add_gcp2d('"1003"', "23FD1305x00026_01306", np.array([24042.25, 14781.17]))
     work.add_gcp2d('"1003"', "23FD1305x00026_01307", np.array([24120.2, 10329.3]))

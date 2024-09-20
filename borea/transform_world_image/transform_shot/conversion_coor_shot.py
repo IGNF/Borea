@@ -28,9 +28,9 @@ def conv_z_shot_to_z_data(shot: Shot, type_z_shot: str, type_z_data: str,
 
     if type_z_shot != type_z_data:
         if type_z_shot == "height":
-            new_z = ProjEngine().tranform_altitude(pos_shot)
+            new_z = ProjEngine().tf.tranform_altitude(pos_shot)
         else:
-            new_z = ProjEngine().tranform_height(pos_shot)
+            new_z = ProjEngine().tf.tranform_height(pos_shot)
         pos_shot[2] = new_z
 
     return pos_shot
@@ -51,8 +51,8 @@ def conv_output_z_type(coor: np.ndarray, type_z_input: str, type_z_output: str) 
     new_z = coor[2]
     if type_z_input != type_z_output:
         if type_z_input == "height":
-            new_z = ProjEngine().tranform_altitude(coor)
+            new_z = ProjEngine().tf.tranform_altitude(coor)
         else:
-            new_z = ProjEngine().tranform_height(coor)
+            new_z = ProjEngine().tf.tranform_height(coor)
 
     return np.array([coor[0], coor[1], new_z])

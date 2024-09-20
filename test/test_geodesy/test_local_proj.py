@@ -1,7 +1,7 @@
 """
 Script test for module euclidean_proj
 """
-# pylint: disable=import-error, missing-function-docstring, unused-argument
+# pylint: disable=import-error, missing-function-docstring, unused-argument, duplicate-code
 import numpy as np
 from borea.geodesy.proj_engine import ProjEngine
 from borea.geodesy.local_euclidean_proj import LocalEuclideanProj

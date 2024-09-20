@@ -1,7 +1,7 @@
 """
 Script test for module proj_engine
 """
-# pylint: disable=import-error, missing-function-docstring, unused-argument
+# pylint: disable=import-error, missing-function-docstring, unused-argument, duplicate-code
 import pyproj
 import pytest
 from borea.datastruct.dtm import Dtm
@@ -21,21 +21,22 @@ def test_projengine_withpathgeotiff():
     ProjEngine.clear()
     ProjEngine().set_epsg(EPSG, PATH_GEOID)
     proj = ProjEngine()
-    assert proj.geog_to_geoid
-    assert not proj.carto_to_geog_out
+    assert proj.tf.geog_to_geoid
+    assert not proj.tf.carto_to_geog_out
 
 
 def test_projengine_notgeoid():
     ProjEngine.clear()
     ProjEngine().set_epsg(EPSG)
-    proj = ProjEngine()
-    assert not proj.geog_to_geoid
+    with pytest.raises(ValueError):
+        _ = ProjEngine().tf.geog_to_geoid
 
 
 def test_projengine_notgeoidwithpathgeotiff():
     ProjEngine.clear()
+    ProjEngine().set_epsg(EPSG, ["fr_ign_RAF2.tif"])
     with pytest.raises(pyproj.exceptions.ProjError):
-        ProjEngine().set_epsg(EPSG, ["fr_ign_RAF2.tif"])
+        _ = ProjEngine().tf.geog_to_geoid
 
 
 def test_get_meridian_convergence():
@@ -52,7 +53,7 @@ def test_tf_create_tf_output():
     ProjEngine().set_epsg(EPSG, PATH_GEOID)
     ProjEngine().set_epsg_tf_geog_output(4326)
     proj = ProjEngine()
-    assert proj.carto_to_geog_out
+    assert proj.tf.carto_to_geog_out
 
 
 def test_tf_conv_tf_output():
@@ -64,6 +65,6 @@ def test_tf_conv_tf_output():
     yf = 6860369.44
     xm = 2.427
     ym = 48.842
-    xmo, ymo = proj.carto_to_geog_out(xf, yf)
+    xmo, ymo = proj.tf.carto_to_geog_out(xf, yf)
     assert round(xmo, 3) == xm
     assert round(ymo, 3) == ym

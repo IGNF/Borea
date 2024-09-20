@@ -102,8 +102,8 @@ You can therefore specify as parameters the epsg ( -e ) you want to use for each
 [data_projection, geographic, geocentric]  
 e.g. in commande line for 4326 error GeocentricCRS
 ```
--e 4326 None 4328
+-e 4326 0 4328
 ```
-None allows you to ignore a system if it is found by pyproj, after you just need to find the right epsg.
+0 allows you to ignore a system if it is found by pyproj, after you just need to find the right epsg.
 
 ![logo ign](../../docs/image/logo_ign.png) ![logo fr](../../docs/image/Republique_Francaise_Logo.png)

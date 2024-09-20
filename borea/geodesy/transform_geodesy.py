@@ -1,13 +1,11 @@
 """
 Module for class ProjEngine, transform geodesy
 """
-from dataclasses import dataclass
 import pyproj
 import numpy as np
 
 
-# pylint: disable=unsubscriptable-object
-@dataclass
+# pylint: disable=too-many-instance-attributes
 class TransformGeodesy():
     """
     This class provides functions to tranform coordinate system.
@@ -18,59 +16,139 @@ class TransformGeodesy():
         geoid (list): List of geoid to use.
         crs (pyproj): CRS pyproj of the worksite.
     """
-    carto_to_geoc = None
-    geoc_to_carto = None
-    carto_to_geog = None
-    geog_to_carto = None
-    geog_to_geoid = None
-    geoid_to_geog = None
-    carto_to_geog_out = None
+    def __init__(self, epsg: list, geoid: list) -> None:
+        self.epsg = epsg
+        self.crs = pyproj.CRS.from_epsg(epsg[0])
+        self.geoid = geoid
+        self._carto_to_geoc = None
+        self._geoc_to_carto = None
+        self._carto_to_geog = None
+        self._geog_to_carto = None
+        self._geog_to_geoid = None
+        self._geoid_to_geog = None
+        self.carto_to_geog_out = None
 
-    def __tf_init__(self, geoid: list, epsg: list) -> None:
-        crs = pyproj.CRS.from_epsg(epsg[0])
-
-        try:
-            crs_geog = pyproj.CRS.from_epsg(epsg[1])
-        except (IndexError, pyproj.exceptions.CRSError):
-            crs_geog = pyproj.crs.GeographicCRS(name=crs.name, datum=crs.datum.name)
-        
-        try:
-            crs_geoc = pyproj.CRS.from_epsg(epsg[2])
-        except (IndexError, pyproj.exceptions.CRSError):
-            crs_geoc = pyproj.crs.GeocentricCRS(name=crs.name, datum=crs.datum.name)
-
-        # Transform cartographic coordinates to geographic coordinates
-        self.carto_to_geog = pyproj.Transformer.from_crs(crs, crs_geog).transform
-        # Transform geographic coordinates to cartographic coordinates
-        self.geog_to_carto = pyproj.Transformer.from_crs(crs_geog, crs).transform
-        # Transform cartographic coordinates to geocentric coordinates
-        self.carto_to_geoc = pyproj.Transformer.from_crs(crs, crs_geoc).transform
-        # Transform geocentric coordinates to cartographic coordinates
-        self.geoc_to_carto = pyproj.Transformer.from_crs(crs_geoc, crs).transform
-
-        if geoid:
-            self.tf_geoid(geoid)
-
-    def tf_geoid(self, geoid: list) -> None:
+    @property
+    def carto_to_geog(self) -> pyproj.Transformer:
         """
-        Create attribute transform, to transform geographic coordinates to geoide coordinates.
+        Returns the transformation or instantiates it before returning it.
 
-        Args:
-            geoid (list): List of geoid to use.
+        Returns:
+            pyproj.Transformer : carto_to_geog
         """
-        try:
-            # Transform geoide coordinates to geographic coordinates
-            self.geoid_to_geog = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
-                                                                  f"+grids={','.join(geoid)} "
-                                                                  "+multiplier=1").transform
-            # Transform geographic coordinates to geoide coordinates
-            self.geog_to_geoid = pyproj.Transformer.from_pipeline(f"+proj=vgridshift "
-                                                                  f"+grids={','.join(geoid)} "
-                                                                  "+multiplier=-1").transform
-        except pyproj.exceptions.ProjError as e:
-            raise pyproj.exceptions.ProjError(f"{geoid} The name or path of geotif is incorrect or "
-                                              "does not exist in "
-                                              f"{pyproj.datadir.get_data_dir()}!!!{e}") from e
+        if not self._carto_to_geog:
+            try:
+                crs_geog = pyproj.CRS.from_epsg(self.epsg[1])
+            except (IndexError, pyproj.exceptions.CRSError):
+                crs_geog = pyproj.crs.GeographicCRS(name=self.crs.name, datum=self.crs.datum.name)
+
+            self._carto_to_geog = pyproj.Transformer.from_crs(self.crs, crs_geog).transform
+
+        return self._carto_to_geog
+
+    @property
+    def geog_to_carto(self) -> pyproj.Transformer:
+        """
+        Returns the transformation or instantiates it before returning it.
+
+        Returns:
+            pyproj.Transformer : geog_to_carto
+        """
+        if not self._geog_to_carto:
+            try:
+                crs_geog = pyproj.CRS.from_epsg(self.epsg[1])
+            except (IndexError, pyproj.exceptions.CRSError):
+                crs_geog = pyproj.crs.GeographicCRS(name=self.crs.name, datum=self.crs.datum.name)
+
+            self._geog_to_carto = pyproj.Transformer.from_crs(crs_geog, self.crs).transform
+
+        return self._geog_to_carto
+
+    @property
+    def carto_to_geoc(self) -> pyproj.Transformer:
+        """
+        Returns the transformation or instantiates it before returning it.
+
+        Returns:
+            pyproj.Transformer : carto_to_geoc
+        """
+        if not self._carto_to_geoc:
+            try:
+                crs_geoc = pyproj.CRS.from_epsg(self.epsg[2])
+            except (IndexError, pyproj.exceptions.CRSError):
+                crs_geoc = pyproj.crs.GeocentricCRS(name=self.crs.name, datum=self.crs.datum.name)
+
+            self._carto_to_geoc = pyproj.Transformer.from_crs(self.crs, crs_geoc).transform
+
+        return self._carto_to_geoc
+
+    @property
+    def geoc_to_carto(self) -> pyproj.Transformer:
+        """
+        Returns the transformation or instantiates it before returning it.
+
+        Returns:
+            pyproj.Transformer : geoc_to_carto
+        """
+        if not self._geoc_to_carto:
+            try:
+                crs_geoc = pyproj.CRS.from_epsg(self.epsg[2])
+            except (IndexError, pyproj.exceptions.CRSError):
+                crs_geoc = pyproj.crs.GeocentricCRS(name=self.crs.name, datum=self.crs.datum.name)
+
+            self._geoc_to_carto = pyproj.Transformer.from_crs(crs_geoc, self.crs).transform
+
+        return self._geoc_to_carto
+
+    @property
+    def geoid_to_geog(self) -> pyproj.Transformer:
+        """
+        Returns the transformation or instantiates it before returning it.
+
+        Returns:
+            pyproj.Transformer : geoid_to_geog
+        """
+        if not self.geoid:
+            raise ValueError("Mistake Geoid path")
+
+        if not self._geoid_to_geog:
+            try:
+                # Transform geoide coordinates to geographic coordinates
+                self._geoid_to_geog = pyproj.Transformer.from_pipeline("+proj=vgridshift "
+                                                                       "+grids="
+                                                                       f"{','.join(self.geoid)} "
+                                                                       "+multiplier=1").transform
+            except pyproj.exceptions.ProjError as e:
+                raise pyproj.exceptions.ProjError(f"{self.geoid} The name or path "
+                                                  "of geotif is incorrect or does not exist in "
+                                                  f"{pyproj.datadir.get_data_dir()}!!!{e}") from e
+
+        return self._geoid_to_geog
+
+    @property
+    def geog_to_geoid(self) -> pyproj.Transformer:
+        """
+        Returns the transformation or instantiates it before returning it.
+
+        Returns:
+            pyproj.Transformer : geog_to_geoid
+        """
+        if not self.geoid:
+            raise ValueError("Mistake Geoid path")
+
+        if not self._geog_to_geoid:
+            try:
+                # Transform geoide coordinates to geographic coordinates
+                self._geog_to_geoid = pyproj.Transformer.from_pipeline("+proj=vgridshift "
+                                                                       "+grids="
+                                                                       f"{','.join(self.geoid)} "
+                                                                       "+multiplier=-1").transform
+            except pyproj.exceptions.ProjError as e:
+                raise pyproj.exceptions.ProjError(f"{self.geoid} The name or path "
+                                                  "of geotif is incorrect or does not exist in "
+                                                  f"{pyproj.datadir.get_data_dir()}!!!{e}") from e
+
+        return self._geog_to_geoid
 
     def tranform_height(self, coor: np.ndarray) -> float:
         """
@@ -124,15 +202,14 @@ class TransformGeodesy():
             raise ValueError("out geoid")
         return new_z
 
-    def tf_output(self, crs: pyproj, epsg_out: int = None) -> None:
+    def tf_output(self, epsg_out: int = None) -> None:
         """
         Create the pyproj Transformer from crs of worksite to crs geographic ask.
 
         Args:
-            crs (pyproj): The crs pyproj of the worksite.
             epsg_out (int): Code epsg of the output crs.
         """
-        if epsg_out and epsg_out != crs.to_epsg():
+        if epsg_out and epsg_out != self.epsg[0]:
             crs_out = pyproj.CRS.from_epsg(epsg_out)
             crs_geog_out = pyproj.crs.GeographicCRS(name=crs_out.name, datum=crs_out.datum.name)
-            self.carto_to_geog_out = pyproj.Transformer.from_crs(crs, crs_geog_out).transform
+            self.carto_to_geog_out = pyproj.Transformer.from_crs(self.crs, crs_geog_out).transform

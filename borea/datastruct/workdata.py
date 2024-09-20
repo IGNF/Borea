@@ -71,9 +71,8 @@ class Workdata:
         try:  # Check if the epsg exist
             for idepsg in epsg:
                 if idepsg:
-                    print(idepsg)
-                    crs = CRS.from_epsg(idepsg)
-                    del crs
+                    _ = CRS.from_epsg(idepsg)
+                    del _
         except exceptions.CRSError as e_info:
             raise exceptions.CRSError(f"Your EPSG:{epsg} doesn't exist in pyproj.") from e_info
 

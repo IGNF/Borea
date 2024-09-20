@@ -34,7 +34,7 @@ class WorldImageShot():
         Returns:
             np.array: The image coordinate [c,l].
         """
-        if type_z_data != type_z_shot and not ProjEngine().geog_to_geoid:
+        if type_z_data != type_z_shot and not ProjEngine().tf.geog_to_geoid:
             raise ValueError("Missing geoid")
 
         if self.shot.linear_alteration and not Dtm().path_dtm and not self.shot.approxeucli:

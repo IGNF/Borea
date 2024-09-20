@@ -153,9 +153,9 @@ class Shot:
             type_z (str): z type height or altitude.
         """
         if type_z == "height":
-            self.pos_shot[2] = ProjEngine().tranform_height(self.pos_shot)
+            self.pos_shot[2] = ProjEngine().tf.tranform_height(self.pos_shot)
         else:
-            self.pos_shot[2] = ProjEngine().tranform_altitude(self.pos_shot)
+            self.pos_shot[2] = ProjEngine().tf.tranform_altitude(self.pos_shot)
 
     def set_linear_alteration(self, linear_alteration: bool) -> None:
         """

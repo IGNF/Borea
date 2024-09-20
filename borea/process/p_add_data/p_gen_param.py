@@ -18,7 +18,7 @@ def args_general_param(parser: argparse) -> argparse:
         argsparse: Parser with argument.
     """
     parser.add_argument('-e', '--epsg',
-                        type=list, default=None,
+                        type=int, nargs='*', default=None,
                         help='EPSG codifier number of the reference system used e.g. "2154".')
     parser.add_argument('-y', '--pathgeoid',
                         type=str, nargs='*', default=None,

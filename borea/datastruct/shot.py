@@ -9,7 +9,7 @@ from borea.geodesy.local_euclidean_proj import LocalEuclideanProj
 from borea.utils.check.check_order_axe import check_order_axe
 
 
-# pylint: disable=too-many-instance-attributes too-many-arguments
+# pylint: disable=too-many-instance-attributes too-many-arguments too-many-positional-arguments
 class Shot:
     """
     Shot class definition.

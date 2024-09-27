@@ -185,6 +185,12 @@ class Shot:
             self.ori_shot = -(R.from_euler("x", np.pi) *
                               R.from_matrix(self.mat_rot)).as_euler(order_xyz, degrees=unitori)
 
+    def set_proj_pos(self) -> None:
+        """
+        Change the projection of the position shot with the epsg_output.
+        """
+        self.pos_shot = np.array(ProjEngine().tf.proj_to_proj_out(*self.pos_shot))
+
     def get_z_remove_scale_factor(self) -> float:
         """
         Return Z after removing the scale factor. The Z of the object is NOT modified.

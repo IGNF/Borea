@@ -17,14 +17,6 @@ def setup_module(module):  # run before the first test
     ProjEngine.clear()
 
 
-def test_projengine_withpathgeotiff():
-    ProjEngine.clear()
-    ProjEngine().set_epsg(EPSG, PATH_GEOID)
-    proj = ProjEngine()
-    assert proj.tf.geog_to_geoid
-    assert not proj.tf.carto_to_geog_out
-
-
 def test_projengine_notgeoid():
     ProjEngine.clear()
     ProjEngine().set_epsg(EPSG)
@@ -50,21 +42,19 @@ def test_get_meridian_convergence():
 
 def test_tf_create_tf_output():
     ProjEngine.clear()
-    ProjEngine().set_epsg(EPSG, PATH_GEOID)
-    ProjEngine().set_epsg_tf_geog_output(4326)
+    ProjEngine().set_epsg(EPSG, PATH_GEOID, 4326)
     proj = ProjEngine()
-    assert proj.tf.carto_to_geog_out
+    assert proj.tf.proj_to_proj_out
 
 
 def test_tf_conv_tf_output():
     ProjEngine.clear()
-    ProjEngine().set_epsg(EPSG, PATH_GEOID)
-    ProjEngine().set_epsg_tf_geog_output(4326)
+    ProjEngine().set_epsg(EPSG, PATH_GEOID, 4326)
     proj = ProjEngine()
     xf = 657945.43
     yf = 6860369.44
-    xm = 2.427
-    ym = 48.842
-    xmo, ymo = proj.tf.carto_to_geog_out(xf, yf)
+    ym = 2.427
+    xm = 48.842
+    xmo, ymo = proj.tf.proj_to_proj_out(xf, yf)
     assert round(xmo, 3) == xm
     assert round(ymo, 3) == ym

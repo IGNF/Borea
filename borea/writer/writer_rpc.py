@@ -29,7 +29,9 @@ def write(name: str, folder_rpc: str, param_rpc: dict, work: Worksite) -> None:
             "SAMP_SCALE", "LAT_SCALE", "LONG_SCALE",
             "HEIGHT_SCALE"]
 
-    work.set_unit_shot(type_z=Dtm().type_dtm)
+    param_rpc["epsg_output"] = work.epsg_output
+
+    work.set_unit_output(type_z=Dtm().type_dtm, proj_output=False)
 
     for name_shot, shot in work.shots.items():
         cam = work.cameras[shot.name_cam]

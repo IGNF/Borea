@@ -33,18 +33,14 @@ class Conl:
     cam: Camera
     proj: str
 
-    def save_conl(self, path_conical: Path, linalt: bool = True) -> None:
+    def save_conl(self, path_conical: Path) -> None:
         """
         Save the shot as light conical file.
 
         Args:
             path_conical (Path): path to the light conical file.
-            linalt (bool): If you want z shot corrected by linear alteration.
         """
         date_now = datetime.now()
-
-        # Scale factor correction
-        self.shot.set_linear_alteration(linalt)
 
         # creation XML
         ori = ET.Element("orientation", {})

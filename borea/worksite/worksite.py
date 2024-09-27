@@ -205,7 +205,7 @@ class Worksite(Workdata):
                 shot.set_unit_angle(unit_angle)
             if type_z:
                 shot.set_type_z(type_z)
-            if linear_alteration:
+            if linear_alteration is not None:
                 shot.set_linear_alteration(linear_alteration)
             if order_axe:
                 shot.set_order_axe(order_axe)

@@ -37,6 +37,7 @@ The parameters are:
 | -ob | Order of rotation matrix axes you want in output. | None | X |
 | -ou | Unit of the angle of shooting, 'degree' or 'radian' | "degree" | X |
 | -oa | True if z shot corrected by linear alteration. | True | X |
+| -oe | Code epsg for output data. If none keeps the input data projection. | None | X |
 
 E.G.
 ```

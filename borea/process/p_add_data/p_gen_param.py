@@ -43,7 +43,7 @@ def args_general_param(parser: argparse) -> argparse:
     parser.add_argument('--geoc', '--epsg_geocentric',
                         type=int, default=None,
                         help='EPSG codifier number of the reference geocentric system.')
-    parser.add_argument('-g', '--epsg_output',
+    parser.add_argument('-oe', '--epsg_output',
                         type=int, default=None,
                         help="Code epsg of output Data")
     return parser

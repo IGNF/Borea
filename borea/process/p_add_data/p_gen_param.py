@@ -43,7 +43,7 @@ def args_general_param(parser: argparse) -> argparse:
     parser.add_argument('--geoc', '--epsg_geocentric',
                         type=int, default=None,
                         help='EPSG codifier number of the reference geocentric system.')
-    parser.add_argument('-oe', '--epsg_output',
+    parser.add_argument('--oe', '--epsg_output',
                         type=int, default=None,
                         help="Code epsg of output Data")
     return parser
@@ -62,7 +62,7 @@ def process_args_gen_param(args: argparse, work: Worksite) -> Worksite:
     """
     # Add a projection to the worksite
     if args.epsg is not None:
-        work.set_proj([args.epsg, args.geog, args.geoc], args.pathgeoid)
+        work.set_proj([args.epsg, args.geog, args.geoc], args.pathgeoid, args.oe)
         print(f"Projection set-up with EPSG:{args.epsg}.")
     else:
         print("There is no given projection.")

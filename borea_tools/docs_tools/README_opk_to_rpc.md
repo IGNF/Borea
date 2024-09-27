@@ -36,7 +36,7 @@ The parameters are:
 | -o | Degree of the polynomial of the rpc (1, 2, 3) | 3 | X |
 | -d | Size of the grid to calculate Rpc. | 100 | X |
 | -l | Factor Rpc to replace pyproj convertion. | None | X |
-| -oe | Code epsg for output data. If none keeps the input data projection. | None | X |
+| --oe | Code epsg for output data. If none keeps the input data projection. | None | X |
 
 E.G.
 ```

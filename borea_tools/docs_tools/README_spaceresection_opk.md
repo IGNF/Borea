@@ -33,9 +33,10 @@ The parameters are:
 | -n | Name of worksite output file |  | V |
 | -w | Conversion path e.g. "./" | "./" | X |
 | -o | Type of each column in the site file. e.g. NXYZOPKC with Z origin | NXY(Z/H)OPKC | X |
-| -ob | Order of rotation matrix axes you want in output. | None | X |
-| -ou | Unit of the angle of shooting, 'degree' or 'radian' | "degree" | X |
-| -oa | True if z shot corrected by linear alteration. | True | X |
+| --ob | Order of rotation matrix axes you want in output. | None | X |
+| --ou | Unit of the angle of shooting, 'degree' or 'radian' | "degree" | X |
+| --oa | True if z shot corrected by linear alteration. | True | X |
+| --oe | Code epsg for output data. If none keeps the input data projection. | None | X |
 
 E.G.
 ```

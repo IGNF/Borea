@@ -23,8 +23,10 @@ The parameters are:
 | -a | True if z shot corrected by linear alteration | True | X |
 | -f | Line number to start file playback. Does not take file header into account. | None | X |
 | -z | Line number to end file playback. If not set, all lines below -l will be read. | None | X |
-| -e | EPSG codifier number of the reference system used e.g. 2154 | 2154 | X |
+| -e | EPSG codifier number of the reference system used e.g. 2154 | None | X |
 | -y | Path to the file pyproj GeoTIFF of geoid. | None | X |
+| --geog | EPSG codifier number of the reference geographic system, filled in if pyproj error | None | X |
+| --geoc | EPSG codifier number of the reference geocentric system, filled in if pyproj error | None | X |
 | -c | Files paths of cameras (.xml or .txt) | None | X |
 | -m | DTM of the worksite. | None | X |
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
@@ -126,13 +128,7 @@ File "...", line 171, in <module>
   File "pyproj/_crs.pyx", line 2378, in pyproj._crs._CRS.__init__
 pyproj.exceptions.CRSError: Invalid projection: 
 ```
-You can therefore specify as parameters the epsg ( -e ) you want to use for each type of projection in a precise order.  
-[data_projection, geographic, geocentric]  
-e.g. in commande line for 4326 error GeocentricCRS
-```
--e 4326 0 4328
-```
-0 allows you to ignore a system if it is found by pyproj, after you just need to find the right epsg.
+You can therefore specify as parameters the epsg ( --geog / --geoc ) you want to use for each type of projection.
 
 ## Detail for approx system
 

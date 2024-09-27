@@ -18,7 +18,7 @@ def args_general_param(parser: argparse) -> argparse:
         argsparse: Parser with argument.
     """
     parser.add_argument('-e', '--epsg',
-                        type=int, nargs='*', default=None,
+                        type=int, default=None,
                         help='EPSG codifier number of the reference system used e.g. "2154".')
     parser.add_argument('-y', '--pathgeoid',
                         type=str, nargs='*', default=None,
@@ -37,6 +37,12 @@ def args_general_param(parser: argparse) -> argparse:
     parser.add_argument('-x', '--approx_system',
                         type=bool, default=False,
                         help="To use an approximate system.")
+    parser.add_argument('--geog', '--epsg_geographic',
+                        type=int, default=None,
+                        help='EPSG codifier number of the reference geographic system.')
+    parser.add_argument('--geoc', '--epsg_geocentric',
+                        type=int, default=None,
+                        help='EPSG codifier number of the reference geocentric system.')
     return parser
 
 
@@ -53,7 +59,7 @@ def process_args_gen_param(args: argparse, work: Worksite) -> Worksite:
     """
     # Add a projection to the worksite
     if args.epsg is not None:
-        work.set_proj(args.epsg, args.pathgeoid)
+        work.set_proj([args.epsg, args.geog, args.geoc], args.pathgeoid)
         print(f"Projection set-up with EPSG:{args.epsg}.")
     else:
         print("There is no given projection.")

@@ -574,6 +574,12 @@ and control points (11, 12, 13)
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="borea.datastruct.shot.Shot.set_proj_pos">
+<span class="sig-name descname"><span class="pre">set_proj_pos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/borea/datastruct/shot.html#Shot.set_proj_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.datastruct.shot.Shot.set_proj_pos" title="Link to this definition">¶</a></dt>
+<dd><p>Change the projection of the position shot with the epsg_output.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="borea.datastruct.shot.Shot.set_rot_shot">
 <span class="sig-name descname"><span class="pre">set_rot_shot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/borea/datastruct/shot.html#Shot.set_rot_shot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.datastruct.shot.Shot.set_rot_shot" title="Link to this definition">¶</a></dt>
 <dd><p>Build the rotation matrix with omega phi kappa.</p>
@@ -743,13 +749,14 @@ and control points (11, 12, 13).
 
 <dl class="py method">
 <dt class="sig sig-object py" id="borea.datastruct.workdata.Workdata.set_proj">
-<span class="sig-name descname"><span class="pre">set_proj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/borea/datastruct/workdata.html#Workdata.set_proj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.datastruct.workdata.Workdata.set_proj" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_proj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_geoid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsg_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/borea/datastruct/workdata.html#Workdata.set_proj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.datastruct.workdata.Workdata.set_proj" title="Link to this definition">¶</a></dt>
 <dd><p>Setup a projection system to the worksite.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>epsg</strong> (<em>list</em>) – Code epsg of the porjection ex: 2154.</p></li>
+<li><p><strong>epsg</strong> (<em>list</em>) – Code epsg of the projection ex: [2154].</p></li>
 <li><p><strong>path_geoid</strong> (<em>str</em>) – List of GeoTIFF which represents the geoid in grid form.</p></li>
+<li><p><strong>epsg_output</strong> (<em>int</em>) – Code epsg of the output projection. If you want to change.</p></li>
 </ul>
 </dd>
 </dl>
@@ -882,6 +889,7 @@ and control points (11, 12, 13).
 <li><a class="reference internal" href="#borea.datastruct.shot.Shot.set_linear_alteration"><code class="docutils literal notranslate"><span class="pre">Shot.set_linear_alteration()</span></code></a></li>
 <li><a class="reference internal" href="#borea.datastruct.shot.Shot.set_order_axe"><code class="docutils literal notranslate"><span class="pre">Shot.set_order_axe()</span></code></a></li>
 <li><a class="reference internal" href="#borea.datastruct.shot.Shot.set_param_eucli_shot"><code class="docutils literal notranslate"><span class="pre">Shot.set_param_eucli_shot()</span></code></a></li>
+<li><a class="reference internal" href="#borea.datastruct.shot.Shot.set_proj_pos"><code class="docutils literal notranslate"><span class="pre">Shot.set_proj_pos()</span></code></a></li>
 <li><a class="reference internal" href="#borea.datastruct.shot.Shot.set_rot_shot"><code class="docutils literal notranslate"><span class="pre">Shot.set_rot_shot()</span></code></a></li>
 <li><a class="reference internal" href="#borea.datastruct.shot.Shot.set_type_z"><code class="docutils literal notranslate"><span class="pre">Shot.set_type_z()</span></code></a></li>
 <li><a class="reference internal" href="#borea.datastruct.shot.Shot.set_unit_angle"><code class="docutils literal notranslate"><span class="pre">Shot.set_unit_angle()</span></code></a></li>

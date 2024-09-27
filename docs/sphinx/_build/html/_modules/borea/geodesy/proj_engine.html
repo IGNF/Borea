@@ -299,34 +299,24 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsg</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epsg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proj</span> <span class="o">=</span> <span class="n">pyproj</span><span class="o">.</span><span class="n">Proj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tf</span> <span class="o">=</span> <span class="n">TransformGeodesy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epsg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">geoid</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tf</span> <span class="o">=</span> <span class="n">TransformGeodesy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epsg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">geoid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsg_output</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ProjEngine.set_epsg">
 <a class="viewcode-back" href="../../../borea.geodesy.html#borea.geodesy.proj_engine.ProjEngine.set_epsg">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_epsg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsg</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">geoid</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_epsg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsg</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">geoid</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">epsg_output</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Setter of the class ProjEngine.</span>
 <span class="sd">        Allows to init the class with data.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            epsg (list): Code epsg of the projection ex: 2154.</span>
+<span class="sd">            epsg (list): Code epsg of the projection ex: [2154].</span>
 <span class="sd">            geoid (list): List of geoid to use.</span>
+<span class="sd">            epsg_output (int): Code epsg of the output projection. If you want to change.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">epsg</span> <span class="o">=</span> <span class="n">epsg</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">geoid</span> <span class="o">=</span> <span class="n">geoid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsg_output</span> <span class="o">=</span> <span class="n">epsg_output</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="ProjEngine.set_epsg_tf_geog_output">
-<a class="viewcode-back" href="../../../borea.geodesy.html#borea.geodesy.proj_engine.ProjEngine.set_epsg_tf_geog_output">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_epsg_tf_geog_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsg_output</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create the pyproj Transformer from crs of worksite to crs geographic ask.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            epsg_out (int): Code epsg of the output crs.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">tf_output</span><span class="p">(</span><span class="n">epsg_output</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ProjEngine.get_meridian_convergence">

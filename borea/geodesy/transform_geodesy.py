@@ -222,7 +222,7 @@ class TransformGeodesy():
     def transform_pt_proj(self, df_pt: pd.DataFrame, type_z_input: str = None,
                           type_z_output: str = None) -> pd.DataFrame:
         """
-        Tranform the input projection to the output projection of points coordinates 
+        Tranform the input projection to the output projection of points coordinates
         """
         if type_z_input and type_z_output:
             if type_z_input != type_z_output:

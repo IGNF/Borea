@@ -50,7 +50,7 @@ def space_resection_on_points_to_shot() -> Worksite:
     pt3d, type_z = read_file_pt_dataframe(PATH_CO_PT_WORLD, list("PXYH"), "pt3d")
 
     # Setup unit z data, shot in worksite and euclidean system to use for shot
-    work_noshot.set_type_z_data("height")
+    work_noshot.set_type_z_data(type_z)
     work_noshot.set_type_z_shot("altitude")
     work_noshot.set_approx_eucli_proj(False)
 

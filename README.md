@@ -16,6 +16,7 @@ Why Borea? B for Box and orea is a back slang of aero.
 * Transforms coordinates file terrain from image: [borea_tools/docs_tools/README_ptfile_image_to_world.md](./borea_tools/docs_tools/README_ptfile_image_to_world.md)
 * Transforms coordinates file image from terrain: [borea_tools/docs_tools/README_ptfile_world_to_image.md](./borea_tools/docs_tools/README_ptfile_world_to_image.md)
 * Calculates opk by space resection: [borea_tools/docs_tools/README_spaceresection_opk.md](./borea_tools/docs_tools/README_spaceresection_opk.md)
+* Transform projection of points file: [borea_tools/docs_tools/README_transform_proj_points.md](./borea_tools/docs_tools/README_transform_proj_points.md)
 * Python lib: [README_borea_lib.md](./README_borea_lib.md)
 
 ## Dependency

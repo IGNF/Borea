@@ -3,6 +3,7 @@ Module for class ProjEngine, transform geodesy
 """
 import pyproj
 import numpy as np
+import pandas as pd
 
 
 # pylint: disable=too-many-instance-attributes
@@ -188,7 +189,7 @@ class TransformGeodesy():
             raise ValueError("The geoid has not been entered, "
                              "cannot transform z altitude to height.") from info
 
-        if new_z == np.inf:
+        if np.all(new_z == np.inf):
             raise ValueError("out geoid")
         return new_z
 
@@ -217,3 +218,23 @@ class TransformGeodesy():
         if np.all(new_z == np.inf):
             raise ValueError("out geoid")
         return new_z
+
+    def transform_pt_proj(self, df_pt: pd.DataFrame, type_z_input: str = None,
+                          type_z_output: str = None) -> pd.DataFrame:
+        """
+        Tranform the input projection to the output projection of points coordinates 
+        """
+        if type_z_input and type_z_output:
+            if type_z_input != type_z_output:
+                if type_z_output == "altitude":
+                    df_pt["z"] = self.tranform_altitude(np.array([df_pt['x'],
+                                                                  df_pt['y'],
+                                                                  df_pt['z']]))
+                if type_z_output == "height":
+                    df_pt["z"] = self.tranform_height(np.array([df_pt['x'],
+                                                                df_pt['y'],
+                                                                df_pt['z']]))
+
+        df_pt["x"], df_pt["y"] = self.proj_to_proj_out(df_pt['x'], df_pt['y'])
+
+        return df_pt

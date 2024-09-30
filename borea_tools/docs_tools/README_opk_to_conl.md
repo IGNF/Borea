@@ -32,6 +32,7 @@ The parameters are:
 | --fm | Format of Dtm "altitude" or "height". | None | X, unless dtm is given |
 | -x | To use an approximate system. | False | X |
 | -w | Conversion path e.g. "./" | "./" | X |
+| --oe | Code epsg for output data. If none keeps the input data projection. | None | X |
 
 E.G.
 ```

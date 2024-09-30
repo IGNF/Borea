@@ -53,14 +53,14 @@ def test_write_rpc_4326():
     work.add_shot("23FD1305x00026_01308", np.array([814978.586, 6283482.827, 1771.799]),
                   np.array([-0.181570631296,  0.001583051432, 0.493526899473]),
                   "cam_test", "degree", True, "opk")
-    work.set_proj(EPSG, PATH_GEOID)
+    work.set_proj(EPSG, PATH_GEOID, 4326)
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.type_z_data = "height"
     work.set_param_shot()
     write(None, OUTPUT,
-          {"size_grid": 100, "order": 3, "fact_rpc": None, "epsg_output": 4326}, work)
+          {"size_grid": 100, "order": 3, "fact_rpc": None}, work)
     assert os.path.exists("./test/tmp/23FD1305x00026_01306_RPC.TXT")
     assert os.path.exists("./test/tmp/23FD1305x00026_01307_RPC.TXT")
     assert os.path.exists("./test/tmp/23FD1305x00026_01308_RPC.TXT")

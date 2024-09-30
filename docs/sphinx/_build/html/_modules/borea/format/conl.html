@@ -311,18 +311,14 @@
 
 <div class="viewcode-block" id="Conl.save_conl">
 <a class="viewcode-back" href="../../../borea.format.html#borea.format.conl.Conl.save_conl">[docs]</a>
-    <span class="k">def</span> <span class="nf">save_conl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_conical</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">linalt</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">save_conl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_conical</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save the shot as light conical file.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            path_conical (Path): path to the light conical file.</span>
-<span class="sd">            linalt (bool): If you want z shot corrected by linear alteration.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">date_now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-
-        <span class="c1"># Scale factor correction</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">shot</span><span class="o">.</span><span class="n">set_linear_alteration</span><span class="p">(</span><span class="n">linalt</span><span class="p">)</span>
 
         <span class="c1"># creation XML</span>
         <span class="n">ori</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s2">&quot;orientation&quot;</span><span class="p">,</span> <span class="p">{})</span>

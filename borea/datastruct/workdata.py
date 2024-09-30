@@ -33,6 +33,7 @@ class Workdata:
         self.type_z_data = None
         self.type_z_shot = None
         self.approxeucli = False
+        self.epsg_output = False
 
     # pylint: disable-next=too-many-arguments too-many-positional-arguments
     def add_shot(self, name_shot: str, pos_shot: np.ndarray,
@@ -59,24 +60,28 @@ class Workdata:
                                      linear_alteration=linear_alteration,
                                      order_axe=order_axe)
 
-    def set_proj(self, epsg: list, path_geoid: list = None) -> None:
+    def set_proj(self, epsg: list, path_geoid: list = None, epsg_output: int = None) -> None:
         """
         Setup a projection system to the worksite.
 
         Args:
-            epsg (list): Code epsg of the porjection ex: 2154.
+            epsg (list): Code epsg of the projection ex: [2154].
             path_geoid (str): List of GeoTIFF which represents the geoid in grid form.
+            epsg_output (int): Code epsg of the output projection. If you want to change.
         """
         ProjEngine.clear()
-        try:  # Check if the epsg exist
-            for idepsg in epsg:
-                if idepsg:
+        for idepsg in [*epsg, epsg_output]:
+            if idepsg:
+                try:  # Check if the epsg exist
                     _ = CRS.from_epsg(idepsg)
                     del _
-        except exceptions.CRSError as e_info:
-            raise exceptions.CRSError(f"Your EPSG:{epsg} doesn't exist in pyproj.") from e_info
+                except exceptions.CRSError as e_info:
+                    raise exceptions.CRSError(f"Your EPSG:{epsg}"
+                                              " doesn't exist in pyproj.") from e_info
+        if epsg_output:
+            self.epsg_output = True
 
-        ProjEngine().set_epsg(epsg, path_geoid)
+        ProjEngine().set_epsg(epsg, path_geoid, epsg_output)
 
     # pylint: disable-next=too-many-arguments too-many-positional-arguments
     def add_camera(self, name_camera: str, ppax: float, ppay: float,

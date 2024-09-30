@@ -276,8 +276,8 @@
 <span class="sd">Args of parser for reading generals parameters</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
-<span class="kn">import</span> <span class="nn">pyproj</span>
 <span class="kn">from</span> <span class="nn">borea.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
+<span class="kn">from</span> <span class="nn">borea.process.p_add_data.p_proj</span> <span class="kn">import</span> <span class="n">args_proj_param</span><span class="p">,</span> <span class="n">process_args_proj_param</span>
 <span class="kn">from</span> <span class="nn">borea.reader.reader_camera</span> <span class="kn">import</span> <span class="n">read_camera</span>
 
 
@@ -293,14 +293,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        argsparse: Parser with argument.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;--epsg&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;EPSG codifier number of the reference system used e.g. &quot;2154&quot;.&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-y&#39;</span><span class="p">,</span> <span class="s1">&#39;--pathgeoid&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the pyproj GeoTIFF of the geoid e.g../test/data/geoid.tif&#39;</span>
-                             <span class="sa">f</span><span class="s1">&#39; or they must be in </span><span class="si">{</span><span class="n">pyproj</span><span class="o">.</span><span class="n">datadir</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">()</span><span class="si">}</span><span class="s1"> and just&#39;</span>
-                             <span class="s1">&#39; need name of file e.g. geoid.tif.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">args_proj_param</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--camera&#39;</span><span class="p">,</span>
                         <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Files paths of cameras (xml or txt).&#39;</span><span class="p">)</span>
@@ -313,12 +306,6 @@
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-x&#39;</span><span class="p">,</span> <span class="s1">&#39;--approx_system&#39;</span><span class="p">,</span>
                         <span class="nb">type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;To use an approximate system.&quot;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--geog&#39;</span><span class="p">,</span> <span class="s1">&#39;--epsg_geographic&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;EPSG codifier number of the reference geographic system.&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--geoc&#39;</span><span class="p">,</span> <span class="s1">&#39;--epsg_geocentric&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;EPSG codifier number of the reference geocentric system.&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">parser</span></div>
 
 
@@ -337,11 +324,7 @@
 <span class="sd">        Worksite: data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Add a projection to the worksite</span>
-    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">epsg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">work</span><span class="o">.</span><span class="n">set_proj</span><span class="p">([</span><span class="n">args</span><span class="o">.</span><span class="n">epsg</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">geog</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">geoc</span><span class="p">],</span> <span class="n">args</span><span class="o">.</span><span class="n">pathgeoid</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Projection set-up with EPSG:</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">epsg</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There is no given projection.&quot;</span><span class="p">)</span>
+    <span class="n">work</span> <span class="o">=</span> <span class="n">process_args_proj_param</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
 
     <span class="c1"># Reading camera file</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">camera</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

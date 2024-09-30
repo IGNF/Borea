@@ -30,12 +30,6 @@ def args_general_param(parser: argparse) -> argparse:
     parser.add_argument('-x', '--approx_system',
                         type=bool, default=False,
                         help="To use an approximate system.")
-    parser.add_argument('--geog', '--epsg_geographic',
-                        type=int, default=None,
-                        help='EPSG codifier number of the reference geographic system.')
-    parser.add_argument('--geoc', '--epsg_geocentric',
-                        type=int, default=None,
-                        help='EPSG codifier number of the reference geocentric system.')
     return parser
 
 

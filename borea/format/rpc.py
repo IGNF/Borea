@@ -22,7 +22,7 @@ class Rpc:
     def __init__(self) -> None:
         self.param_rpc = {}
         self.fact_rpc = None
-        self.output_epsg = None
+        self.output_epsg = False
 
     @classmethod
     def from_shot(cls, shot: Shot, cam: Camera, param_rpc: dict, unit_data: dict) -> None:
@@ -110,10 +110,9 @@ class Rpc:
         """
         if self.fact_rpc is None:
             if self.output_epsg:
-                ProjEngine().set_epsg_tf_geog_output(self.output_epsg)
-                x_geog, y_geog, z_geog = ProjEngine().tf.carto_to_geog_out(grid_world[0],
-                                                                           grid_world[1],
-                                                                           grid_world[2])
+                x_geog, y_geog, z_geog = ProjEngine().tf.proj_to_proj_out(grid_world[0],
+                                                                          grid_world[1],
+                                                                          grid_world[2])
             else:
                 x_geog, y_geog, z_geog = ProjEngine().tf.carto_to_geog(grid_world[0],
                                                                        grid_world[1],

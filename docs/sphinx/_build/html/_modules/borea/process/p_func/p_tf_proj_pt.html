@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
     <!-- Generated with Sphinx 8.0.2 and Furo 2024.08.06 -->
-        <title>borea.process.p_format.p_write_rpc - Borea 1.0.0 documentation</title>
+        <title>borea.process.p_func.p_tf_proj_pt - Borea 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -271,20 +271,25 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for borea.process.p_format.p_write_rpc</h1><div class="highlight"><pre>
+          <h1>Source code for borea.process.p_func.p_tf_proj_pt</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Args of parser for writing Rpc file</span>
+<span class="sd">Args of parser to transform projection of 3D points.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
-<span class="kn">from</span> <span class="nn">borea.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
-<span class="kn">from</span> <span class="nn">borea.writer.manage_writer</span> <span class="kn">import</span> <span class="n">manager_writer</span>
+
+<span class="kn">from</span> <span class="nn">borea.process.p_add_data.p_file_gcp3d</span> <span class="kn">import</span> <span class="n">args_gcp3d</span>
+<span class="kn">from</span> <span class="nn">borea.process.p_add_data.p_proj</span> <span class="kn">import</span> <span class="n">args_proj_param</span>
+<span class="kn">from</span> <span class="nn">borea.process.p_add_data.p_write</span> <span class="kn">import</span> <span class="n">args_writer</span>
+<span class="kn">from</span> <span class="nn">borea.reader.reader_point</span> <span class="kn">import</span> <span class="n">read_file_pt_dataframe</span>
+<span class="kn">from</span> <span class="nn">borea.geodesy.proj_engine</span> <span class="kn">import</span> <span class="n">ProjEngine</span>
+<span class="kn">from</span> <span class="nn">borea.writer.writer_df_to_txt</span> <span class="kn">import</span> <span class="n">write_df_to_txt</span>
 
 
-<div class="viewcode-block" id="args_writing_rpc">
-<a class="viewcode-back" href="../../../../borea.process.p_format.html#borea.process.p_format.p_write_rpc.args_writing_rpc">[docs]</a>
-<span class="k">def</span> <span class="nf">args_writing_rpc</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="p">:</span>
+<div class="viewcode-block" id="args_tf_proj_param">
+<a class="viewcode-back" href="../../../../borea.process.p_func.html#borea.process.p_func.p_tf_proj_pt.args_tf_proj_param">[docs]</a>
+<span class="k">def</span> <span class="nf">args_tf_proj_param</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Args for writing rpc file.</span>
+<span class="sd">    Args for adding transform proj of points parameter.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        parser (argparse): Parser to add argument.</span>
@@ -292,39 +297,36 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        argsparse: Parser with argument.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-w&#39;</span><span class="p">,</span> <span class="s1">&#39;--pathreturn&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;./&#39;</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Conversion path e.g. test/tmp/.&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--order&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Degree of the polynomial of the rpc (1, 2, 3)&quot;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--size_grid&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Size of the grid to calculate Rpc.&quot;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--fact_rpc&#39;</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Factor Rpc for pyproj convertion.&quot;</span><span class="p">)</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">args_gcp3d</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">args_proj_param</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--oz&#39;</span><span class="p">,</span> <span class="s1">&#39;--z_output&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;altitude&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output type of z. altitude or height&quot;</span><span class="p">)</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">args_writer</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">parser</span></div>
 
 
 
-<div class="viewcode-block" id="process_args_write_rpc">
-<a class="viewcode-back" href="../../../../borea.process.p_format.html#borea.process.p_format.p_write_rpc.process_args_write_rpc">[docs]</a>
-<span class="k">def</span> <span class="nf">process_args_write_rpc</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="p">,</span> <span class="n">work</span><span class="p">:</span> <span class="n">Worksite</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="process_tf_proj_param">
+<a class="viewcode-back" href="../../../../borea.process.p_func.html#borea.process.p_func.p_tf_proj_pt.process_tf_proj_param">[docs]</a>
+<span class="k">def</span> <span class="nf">process_tf_proj_param</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Processing args with data.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse): Arg to apply on worksite (data).</span>
-<span class="sd">        work (Worksite): Data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Writing data</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Writing Rpc.&quot;</span><span class="p">)</span>
-    <span class="n">args_writing</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">order</span><span class="p">,</span>
-                    <span class="s2">&quot;size_grid&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">size_grid</span><span class="p">,</span>
-                    <span class="s2">&quot;fact_rpc&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">fact_rpc</span><span class="p">}</span>
-    <span class="n">manager_writer</span><span class="p">(</span><span class="s2">&quot;rpc&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">pathreturn</span><span class="p">,</span> <span class="n">args_writing</span><span class="p">,</span> <span class="n">work</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File written in folder </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">pathreturn</span><span class="si">}</span><span class="s2"> .txt.&quot;</span><span class="p">)</span></div>
+    <span class="c1"># Read file to Dataframe</span>
+    <span class="n">df</span><span class="p">,</span> <span class="n">type_z</span> <span class="o">=</span> <span class="n">read_file_pt_dataframe</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gcp3d</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">head_gcp3d</span><span class="p">,</span> <span class="s2">&quot;pt3d&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Setup Projection</span>
+    <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">set_epsg</span><span class="p">([</span><span class="n">args</span><span class="o">.</span><span class="n">epsg</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">geog</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">geoc</span><span class="p">],</span> <span class="n">args</span><span class="o">.</span><span class="n">pathgeoid</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">oe</span><span class="p">)</span>
+
+    <span class="c1"># Change projection</span>
+    <span class="n">new_df</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">transform_pt_proj</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">type_z</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">oz</span><span class="p">)</span>
+
+    <span class="c1"># Write the new file</span>
+    <span class="n">write_df_to_txt</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">namereturn</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">pathreturn</span><span class="p">,</span> <span class="n">new_df</span><span class="p">)</span></div>
 
 </pre></div>
         </article>

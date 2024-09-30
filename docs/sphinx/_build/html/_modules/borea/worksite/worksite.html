@@ -467,10 +467,12 @@
                 <span class="n">shot</span><span class="o">.</span><span class="n">set_z_nadir</span><span class="p">(</span><span class="n">z_nadir</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Worksite.set_unit_shot">
-<a class="viewcode-back" href="../../../borea.worksite.html#borea.worksite.worksite.Worksite.set_unit_shot">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_unit_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_z</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                      <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">order_axe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># pylint: disable-next=too-many-arguments too-many-positional-arguments</span>
+<div class="viewcode-block" id="Worksite.set_unit_output">
+<a class="viewcode-back" href="../../../borea.worksite.html#borea.worksite.worksite.Worksite.set_unit_output">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_unit_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_z</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">unit_angle</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                        <span class="n">linear_alteration</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">order_axe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                        <span class="n">proj_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Allows you to change unit or parameter of shots.</span>
 
@@ -479,6 +481,7 @@
 <span class="sd">            unit_angle (str): Unit angle you want.</span>
 <span class="sd">            linear_alteration (bool): True if you want data corrected.</span>
 <span class="sd">            order_axe (str): Order of rotation matrice you want in your angle.</span>
+<span class="sd">            proj_output (bool): True to change the projection of shot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">unit_angle</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">,</span> <span class="s2">&quot;radian&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unit_angle: </span><span class="si">{</span><span class="n">unit_angle</span><span class="si">}</span><span class="s2"> is not recognized,&quot;</span>
@@ -494,14 +497,16 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">type_z_shot</span> <span class="o">=</span> <span class="n">type_z</span>
 
         <span class="k">for</span> <span class="n">shot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shots</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">unit_angle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">unit_angle</span><span class="p">:</span>
                 <span class="n">shot</span><span class="o">.</span><span class="n">set_unit_angle</span><span class="p">(</span><span class="n">unit_angle</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">type_z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">type_z</span><span class="p">:</span>
                 <span class="n">shot</span><span class="o">.</span><span class="n">set_type_z</span><span class="p">(</span><span class="n">type_z</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">linear_alteration</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">shot</span><span class="o">.</span><span class="n">set_linear_alteration</span><span class="p">(</span><span class="n">linear_alteration</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">order_axe</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">shot</span><span class="o">.</span><span class="n">set_order_axe</span><span class="p">(</span><span class="n">order_axe</span><span class="p">)</span></div>
+            <span class="k">if</span> <span class="n">order_axe</span><span class="p">:</span>
+                <span class="n">shot</span><span class="o">.</span><span class="n">set_order_axe</span><span class="p">(</span><span class="n">order_axe</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsg_output</span> <span class="ow">and</span> <span class="n">proj_output</span><span class="p">:</span>
+                <span class="n">shot</span><span class="o">.</span><span class="n">set_proj_pos</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Worksite.calculate_barycentre">

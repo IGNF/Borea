@@ -332,7 +332,7 @@
 
 <div class="viewcode-block" id="read_file_pt_dataframe">
 <a class="viewcode-back" href="../../../borea.reader.html#borea.reader.reader_point.read_file_pt_dataframe">[docs]</a>
-<span class="k">def</span> <span class="nf">read_file_pt_dataframe</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">header</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">read_file_pt_dataframe</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">header</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">type_point</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Read file of points to save in Dataframe.</span>
 
@@ -342,12 +342,12 @@
 <span class="sd">        type_point (str): Type of point is reading (pt2d, pt3d).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        pd.Dataframe: Dataframe of data.</span>
+<span class="sd">        tuple: Dataframe of data and type of z in str.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">type_point</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;pt2d&quot;</span><span class="p">,</span> <span class="s2">&quot;pt3d&quot;</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type </span><span class="si">{</span><span class="n">type_point</span><span class="si">}</span><span class="s2"> in incorrect. [&#39;pt2d&#39;, &#39;pt3d&#39;]&quot;</span><span class="p">)</span>
 
-    <span class="n">header</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">check_header_file</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">type_point</span><span class="p">)</span>
+    <span class="n">header</span><span class="p">,</span> <span class="n">type_z</span> <span class="o">=</span> <span class="n">check_header_file</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">type_point</span><span class="p">)</span>
 
     <span class="n">id_pt</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">ttype</span> <span class="o">=</span> <span class="p">[]</span>
@@ -389,7 +389,7 @@
                            <span class="s2">&quot;id_shot&quot;</span><span class="p">:</span> <span class="n">ttype</span><span class="p">,</span>
                            <span class="s2">&quot;column&quot;</span><span class="p">:</span> <span class="n">coor</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
                            <span class="s2">&quot;line&quot;</span><span class="p">:</span> <span class="n">coor</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]})</span>
-    <span class="k">return</span> <span class="n">df</span></div>
+    <span class="k">return</span> <span class="n">df</span><span class="p">,</span> <span class="n">type_z</span></div>
 
 </pre></div>
         </article>

@@ -173,8 +173,10 @@ class Worksite(Workdata):
                                                                    self.type_z_shot, False)[2]
                 shot.set_z_nadir(z_nadir)
 
-    def set_unit_shot(self, type_z: str = None, unit_angle: str = None,
-                      linear_alteration: bool = None, order_axe: str = None) -> None:
+    # pylint: disable-next=too-many-arguments too-many-positional-arguments
+    def set_unit_output(self, type_z: str = None, unit_angle: str = None,
+                        linear_alteration: bool = None, order_axe: str = None,
+                        proj_output: bool = True) -> None:
         """
         Allows you to change unit or parameter of shots.
 
@@ -183,6 +185,7 @@ class Worksite(Workdata):
             unit_angle (str): Unit angle you want.
             linear_alteration (bool): True if you want data corrected.
             order_axe (str): Order of rotation matrice you want in your angle.
+            proj_output (bool): True to change the projection of shot.
         """
         if unit_angle not in ["degree", "radian", None]:
             raise ValueError(f"unit_angle: {unit_angle} is not recognized,"
@@ -198,14 +201,16 @@ class Worksite(Workdata):
             self.type_z_shot = type_z
 
         for shot in self.shots.values():
-            if unit_angle is not None:
+            if unit_angle:
                 shot.set_unit_angle(unit_angle)
-            if type_z is not None:
+            if type_z:
                 shot.set_type_z(type_z)
             if linear_alteration is not None:
                 shot.set_linear_alteration(linear_alteration)
-            if order_axe is not None:
+            if order_axe:
                 shot.set_order_axe(order_axe)
+            if self.epsg_output and proj_output:
+                shot.set_proj_pos()
 
     def calculate_barycentre(self) -> np.ndarray:
         """

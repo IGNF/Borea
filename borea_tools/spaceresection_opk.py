@@ -13,8 +13,8 @@ from borea.process.p_format.p_write_opk import args_writing_opk, process_args_wr
 
 def spaceresection_opk():
     """
-    Permet d'obtenir un fichier OPK à partir de point de liaison sur les images et de leur
-    coordonnées terrain (calcule les 6 paramètres externes pour chaque image qui dispose d'un point)
+    Produces an OPK file from image link points and their field coordinates
+    coordinates (calculates the 6 external parameters for each image with a point)
     """
     parser = argparse.ArgumentParser(description='Space resection of point file image and world'
                                                  ' to calculate 6 externals parameters of shots')

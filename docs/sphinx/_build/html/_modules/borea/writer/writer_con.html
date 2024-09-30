@@ -296,7 +296,14 @@
 <span class="sd">        work (Worksite): The site to be recorded.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span> <span class="n">param_con</span>
-    <span class="n">geoview_proj</span> <span class="o">=</span> <span class="n">search_info</span><span class="p">(</span><span class="s2">&quot;EPSG&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">epsg</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s2">&quot;GEOVIEW&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">work</span><span class="o">.</span><span class="n">epsg_output</span><span class="p">:</span>
+        <span class="n">epsg_output</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">epsg_output</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">epsg_output</span> <span class="o">=</span> <span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">epsg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">work</span><span class="o">.</span><span class="n">set_unit_output</span><span class="p">(</span><span class="n">type_z</span><span class="o">=</span><span class="s2">&quot;altitude&quot;</span><span class="p">,</span> <span class="n">linear_alteration</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">geoview_proj</span> <span class="o">=</span> <span class="n">search_info</span><span class="p">(</span><span class="s2">&quot;EPSG&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">epsg_output</span><span class="p">),</span> <span class="s2">&quot;GEOVIEW&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">name_shot</span><span class="p">,</span> <span class="n">shot</span> <span class="ow">in</span> <span class="n">work</span><span class="o">.</span><span class="n">shots</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">cam</span> <span class="o">=</span> <span class="n">work</span><span class="o">.</span><span class="n">cameras</span><span class="p">[</span><span class="n">shot</span><span class="o">.</span><span class="n">name_cam</span><span class="p">]</span>

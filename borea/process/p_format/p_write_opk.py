@@ -45,8 +45,8 @@ def process_args_write_opk(args: argparse, work: Worksite) -> None:
         args (argparse): Arg to apply on worksite (data).
         work (Worksite): Data.
     """
-    if args.order_axe_output:
-        args.order_axe_output = args.order_axe_output.lower()
+    if args.ob:
+        args.ob = args.ob.lower()
 
     if args.output_header:
         args.output_header = list(args.output_header.upper())
@@ -54,10 +54,10 @@ def process_args_write_opk(args: argparse, work: Worksite) -> None:
     # Writing data
     print("Writing OPK.")
     if args.namereturn is not None:
-        args_writing = {"order_axe": args.order_axe_output,
+        args_writing = {"order_axe": args.ob,
                         "header": args.output_header,
-                        "unit_angle": args.output_unit_angle,
-                        "linear_alteration": args.output_linear_alteration}
+                        "unit_angle": args.ou,
+                        "linear_alteration": args.oa}
         manager_writer("opk", args.namereturn, args.pathreturn, args_writing, work)
         print(f"File written in {args.pathreturn + args.namereturn}.opk.")
     else:

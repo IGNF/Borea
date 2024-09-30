@@ -485,6 +485,15 @@
                               <span class="n">R</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mat_rot</span><span class="p">))</span><span class="o">.</span><span class="n">as_euler</span><span class="p">(</span><span class="n">order_xyz</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="n">unitori</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="Shot.set_proj_pos">
+<a class="viewcode-back" href="../../../borea.datastruct.html#borea.datastruct.shot.Shot.set_proj_pos">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_proj_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change the projection of the position shot with the epsg_output.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ProjEngine</span><span class="p">()</span><span class="o">.</span><span class="n">tf</span><span class="o">.</span><span class="n">proj_to_proj_out</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_shot</span><span class="p">))</span></div>
+
+
 <div class="viewcode-block" id="Shot.get_z_remove_scale_factor">
 <a class="viewcode-back" href="../../../borea.datastruct.html#borea.datastruct.shot.Shot.get_z_remove_scale_factor">[docs]</a>
     <span class="k">def</span> <span class="nf">get_z_remove_scale_factor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>

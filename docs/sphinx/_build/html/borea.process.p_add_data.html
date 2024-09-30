@@ -444,6 +444,47 @@
 </dd></dl>
 
 </section>
+<section id="module-borea.process.p_add_data.p_proj">
+<span id="borea-process-p-add-data-p-proj-module"></span><h2>borea.process.p_add_data.p_proj module<a class="headerlink" href="#module-borea.process.p_add_data.p_proj" title="Link to this heading">¶</a></h2>
+<p>Args of parser for reading projection parameters</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="borea.process.p_add_data.p_proj.args_proj_param">
+<span class="sig-prename descclassname"><span class="pre">borea.process.p_add_data.p_proj.</span></span><span class="sig-name descname"><span class="pre">args_proj_param</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser:</span> <span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></span><a class="reference internal" href="_modules/borea/process/p_add_data/p_proj.html#args_proj_param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.process.p_add_data.p_proj.args_proj_param" title="Link to this definition">¶</a></dt>
+<dd><p>Args for adding projection parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parser</strong> (<em>argparse</em>) – Parser to add argument.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parser with argument.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>argsparse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="borea.process.p_add_data.p_proj.process_args_proj_param">
+<span class="sig-prename descclassname"><span class="pre">borea.process.p_add_data.p_proj.</span></span><span class="sig-name descname"><span class="pre">process_args_proj_param</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args:</span> <span class="pre">&lt;module</span> <span class="pre">'argparse'</span> <span class="pre">from</span> <span class="pre">'/usr/lib/python3.10/argparse.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work:</span> <span class="pre">~borea.worksite.worksite.Worksite</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="borea.worksite.html#borea.worksite.worksite.Worksite" title="borea.worksite.worksite.Worksite"><span class="pre">Worksite</span></a></span></span><a class="reference internal" href="_modules/borea/process/p_add_data/p_proj.html#process_args_proj_param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#borea.process.p_add_data.p_proj.process_args_proj_param" title="Link to this definition">¶</a></dt>
+<dd><p>Processing args with data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>argparse</em>) – Arg to apply on worksite (data).</p></li>
+<li><p><strong>work</strong> (<a class="reference internal" href="borea.worksite.html#borea.worksite.worksite.Worksite" title="borea.worksite.worksite.Worksite"><em>Worksite</em></a>) – Worksite to work on.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="borea.worksite.html#borea.worksite.worksite.Worksite" title="borea.worksite.worksite.Worksite">Worksite</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-borea.process.p_add_data.p_pt2d">
 <span id="borea-process-p-add-data-p-pt2d-module"></span><h2>borea.process.p_add_data.p_pt2d module<a class="headerlink" href="#module-borea.process.p_add_data.p_pt2d" title="Link to this heading">¶</a></h2>
 <p>Args of parser for world coordinate of image point</p>
@@ -653,6 +694,11 @@
 <li><a class="reference internal" href="#module-borea.process.p_add_data.p_gen_param">borea.process.p_add_data.p_gen_param module</a><ul>
 <li><a class="reference internal" href="#borea.process.p_add_data.p_gen_param.args_general_param"><code class="docutils literal notranslate"><span class="pre">args_general_param()</span></code></a></li>
 <li><a class="reference internal" href="#borea.process.p_add_data.p_gen_param.process_args_gen_param"><code class="docutils literal notranslate"><span class="pre">process_args_gen_param()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-borea.process.p_add_data.p_proj">borea.process.p_add_data.p_proj module</a><ul>
+<li><a class="reference internal" href="#borea.process.p_add_data.p_proj.args_proj_param"><code class="docutils literal notranslate"><span class="pre">args_proj_param()</span></code></a></li>
+<li><a class="reference internal" href="#borea.process.p_add_data.p_proj.process_args_proj_param"><code class="docutils literal notranslate"><span class="pre">process_args_proj_param()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-borea.process.p_add_data.p_pt2d">borea.process.p_add_data.p_pt2d module</a><ul>

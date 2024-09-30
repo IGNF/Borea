@@ -166,3 +166,13 @@ def test_set_order_axe():
     shot = copy.copy(SHOT)
     shot.set_order_axe("pok")
     assert (shot.ori_shot != [-0.245070686036, -0.069409621323, 0.836320989726]).all()
+
+
+def test_set_proj():
+    setup_test()
+    shot = Shot("test_shot", np.array([657945.43, 6860369.44, 1771.280]),
+                np.array([-0.245070686036, -0.069409621323, 0.836320989726]),
+                "test_cam", 'degree', True, "opk")
+    ProjEngine().set_epsg(EPSG, LIST_GEOID, 4326)
+    shot.set_proj_pos()
+    assert (np.round(shot.pos_shot, 3) == [48.842, 2.427, 1771.280]).all()

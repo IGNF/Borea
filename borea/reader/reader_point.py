@@ -53,7 +53,7 @@ def read_file_pt(path: str, header: list, type_point: str, work: Worksite) -> No
         raise FileNotFoundError(f"The path {path} is incorrect !!!") from e
 
 
-def read_file_pt_dataframe(path: str, header: list, type_point: str) -> pd.DataFrame:
+def read_file_pt_dataframe(path: str, header: list, type_point: str) -> tuple:
     """
     Read file of points to save in Dataframe.
 
@@ -63,12 +63,12 @@ def read_file_pt_dataframe(path: str, header: list, type_point: str) -> pd.DataF
         type_point (str): Type of point is reading (pt2d, pt3d).
 
     Returns:
-        pd.Dataframe: Dataframe of data.
+        tuple: Dataframe of data and type of z in str.
     """
     if type_point not in ["pt2d", "pt3d"]:
         raise ValueError(f"type {type_point} in incorrect. ['pt2d', 'pt3d']")
 
-    header, _ = check_header_file(header, type_point)
+    header, type_z = check_header_file(header, type_point)
 
     id_pt = []
     ttype = []
@@ -110,4 +110,4 @@ def read_file_pt_dataframe(path: str, header: list, type_point: str) -> pd.DataF
                            "id_shot": ttype,
                            "column": coor[:, 0],
                            "line": coor[:, 1]})
-    return df
+    return df, type_z

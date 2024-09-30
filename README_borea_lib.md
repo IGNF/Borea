@@ -43,6 +43,7 @@ Some tools are already implemented in the library:
 * Transforms coordinates file terrain from image: `ptfile-image-to-world -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_ptfile_image_to_world.md)
 * Transforms coordinates file image from terrain: `ptfile-world-to-image -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_ptfile_world_to_image.md)
 * Calculates opk by space resection: `spaceresection-opk -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_spaceresection_opk.md)
+* Transform projection of points file: `transform-proj-points -h` [doc](./borea_tools/docs_tools/README_transform_proj_points.md)
 
 ## Read data and instantiate worksite
 

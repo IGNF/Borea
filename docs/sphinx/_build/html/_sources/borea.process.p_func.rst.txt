@@ -28,6 +28,14 @@ borea.process.p\_func.p\_spaceresection module
    :undoc-members:
    :show-inheritance:
 
+borea.process.p\_func.p\_tf\_proj\_pt module
+--------------------------------------------
+
+.. automodule:: borea.process.p_func.p_tf_proj_pt
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 borea.process.p\_func.p\_world\_image module
 --------------------------------------------
 

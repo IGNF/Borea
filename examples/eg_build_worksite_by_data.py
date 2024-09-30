@@ -152,6 +152,48 @@ def worksite_2shot_3gcp() -> Worksite:
     return work
 
 
+def worksite_pyproj_error():
+    # Create worksite with just a name
+    work = Worksite("Test")
+
+    # Add two shots
+    # Shot(name_shot, [X, Y, Z], [O, P, K], name_cam, unit_angle, linear_alteration, order_axe)
+    # unit_angle = "degree" or "radian".
+    # linear_alteration True if z shot is corrected by linear alteration.
+    # order of rotation axe "opk" or "pok" ...
+    work.add_shot("shot1", np.array([814975.925, 6283986.148, 1771.280]),
+                  np.array([-0.245070686036, -0.069409621323, 0.836320989726]),
+                  "cam_test", "degree", True, "opk")
+
+    # Settup the unit of z shot
+    work.set_type_z_shot("altitude")
+
+    # Setup projection
+    # set_epsg(epsg, path_geoid)
+    # the geoid is mandatory if type_z_data and type_z_shot are different
+    # In Borea, various coordinate transformations can be performed to change cartographic,
+    # geographic or geocentric reference points. Pyproj manages the different projections
+    # according to the epsg of the data.
+    # However, it may happen that pyproj cannot find the other reference points.
+    # You can therefore give it the epsg of the other reference points in a specific order.
+    # [epsg of data, epsg géographic, epsg géocentric]
+    work.set_proj([4326, 4326, 4328], PATH_GEOID)
+
+    # Add camera information
+    # add_camera(name_cam, ppax, ppay, focal, width, height)
+    # ppax and ppay image center in pixel with distortion
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
+
+    # Add dtm to remove/add linear alteration or get z of a planimetric point
+    # set_dtm(path_dtm, unit_of_dtm) unit is "altitude" or "height"
+    work.set_dtm(PATH_DTM, "height")
+
+    # Setup projection system of shot and z_nadir of shot
+    work.set_param_shot()
+
+    return work
+
+
 if __name__ == "__main__":
     # Build worksite with just one shot
     work1 = worksite_1shot()
@@ -161,3 +203,6 @@ if __name__ == "__main__":
 
     # Build worksite with 2 shots and 3 gcp3d and 3 gcp2d0
     work3 = worksite_2shot_3gcp()
+
+    # Build worksite with multiple epsg to bypass a pyproj error
+    work4 = worksite_pyproj_error()

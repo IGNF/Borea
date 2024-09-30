@@ -35,7 +35,7 @@ def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:
     if "S" in header:
         raise ValueError("Letter S doesn't existe in writing header opk.")
 
-    work.set_unit_shot(type_z, args["unit_angle"], args["linear_alteration"], args["order_axe"])
+    work.set_unit_output(type_z, args["unit_angle"], args["linear_alteration"], args["order_axe"])
 
     header_file = ""
     for i in header:

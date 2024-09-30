@@ -2,8 +2,8 @@
 Args of parser for reading generals parameters
 """
 import argparse
-import pyproj
 from borea.worksite.worksite import Worksite
+from borea.process.p_add_data.p_proj import args_proj_param, process_args_proj_param
 from borea.reader.reader_camera import read_camera
 
 
@@ -17,14 +17,7 @@ def args_general_param(parser: argparse) -> argparse:
     Returns:
         argsparse: Parser with argument.
     """
-    parser.add_argument('-e', '--epsg',
-                        type=int, nargs='*', default=None,
-                        help='EPSG codifier number of the reference system used e.g. "2154".')
-    parser.add_argument('-y', '--pathgeoid',
-                        type=str, nargs='*', default=None,
-                        help='Path to the pyproj GeoTIFF of the geoid e.g../test/data/geoid.tif'
-                             f' or they must be in {pyproj.datadir.get_data_dir()} and just'
-                             ' need name of file e.g. geoid.tif.')
+    parser = args_proj_param(parser)
     parser.add_argument('-c', '--camera',
                         type=str, nargs='*',
                         help='Files paths of cameras (xml or txt).')
@@ -52,11 +45,7 @@ def process_args_gen_param(args: argparse, work: Worksite) -> Worksite:
         Worksite: data
     """
     # Add a projection to the worksite
-    if args.epsg is not None:
-        work.set_proj(args.epsg, args.pathgeoid)
-        print(f"Projection set-up with EPSG:{args.epsg}.")
-    else:
-        print("There is no given projection.")
+    work = process_args_proj_param(args, work)
 
     # Reading camera file
     if args.camera is not None:

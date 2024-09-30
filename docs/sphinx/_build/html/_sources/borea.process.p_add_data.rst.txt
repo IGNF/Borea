@@ -36,6 +36,14 @@ borea.process.p\_add\_data.p\_gen\_param module
    :undoc-members:
    :show-inheritance:
 
+borea.process.p\_add\_data.p\_proj module
+-----------------------------------------
+
+.. automodule:: borea.process.p_add_data.p_proj
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 borea.process.p\_add\_data.p\_pt2d module
 -----------------------------------------
 

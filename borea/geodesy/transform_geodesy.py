@@ -3,6 +3,7 @@ Module for class ProjEngine, transform geodesy
 """
 import pyproj
 import numpy as np
+import pandas as pd
 
 
 # pylint: disable=too-many-instance-attributes
@@ -14,10 +15,12 @@ class TransformGeodesy():
 
     Args:
         geoid (list): List of geoid to use.
-        crs (pyproj): CRS pyproj of the worksite.
+        epsg (list): Code epsg of the projection ex: [2154].
+        epsg_output (int): Code epsg of the output projection. If you want to change.
     """
-    def __init__(self, epsg: list, geoid: list) -> None:
+    def __init__(self, epsg: list, geoid: list, epsg_output: int) -> None:
         self.epsg = epsg
+        self.epsg_output = epsg_output
         self.crs = pyproj.CRS.from_epsg(epsg[0])
         self.geoid = geoid
         self._carto_to_geoc = None
@@ -26,7 +29,7 @@ class TransformGeodesy():
         self._geog_to_carto = None
         self._geog_to_geoid = None
         self._geoid_to_geog = None
-        self.carto_to_geog_out = None
+        self._proj_to_proj_out = None
 
     @property
     def carto_to_geog(self) -> pyproj.Transformer:
@@ -150,6 +153,20 @@ class TransformGeodesy():
 
         return self._geog_to_geoid
 
+    @property
+    def proj_to_proj_out(self) -> pyproj.Transformer:
+        """
+        Create the pyproj Transformer from crs of worksite to crs geographic ask.
+
+        Returns:
+            pyproj.Transformer : carto_to_geog_out
+        """
+        if not self._proj_to_proj_out:
+            crs_out = pyproj.CRS.from_epsg(self.epsg_output)
+            self._proj_to_proj_out = pyproj.Transformer.from_crs(self.crs, crs_out).transform
+
+        return self._proj_to_proj_out
+
     def tranform_height(self, coor: np.ndarray) -> float:
         """
         Converting z in altitude to z in height of point.
@@ -172,7 +189,7 @@ class TransformGeodesy():
             raise ValueError("The geoid has not been entered, "
                              "cannot transform z altitude to height.") from info
 
-        if new_z == np.inf:
+        if np.all(new_z == np.inf):
             raise ValueError("out geoid")
         return new_z
 
@@ -202,14 +219,22 @@ class TransformGeodesy():
             raise ValueError("out geoid")
         return new_z
 
-    def tf_output(self, epsg_out: int = None) -> None:
+    def transform_pt_proj(self, df_pt: pd.DataFrame, type_z_input: str = None,
+                          type_z_output: str = None) -> pd.DataFrame:
         """
-        Create the pyproj Transformer from crs of worksite to crs geographic ask.
+        Tranform the input projection to the output projection of points coordinates
+        """
+        if type_z_input and type_z_output:
+            if type_z_input != type_z_output:
+                if type_z_output == "altitude":
+                    df_pt["z"] = self.tranform_altitude(np.array([df_pt['x'],
+                                                                  df_pt['y'],
+                                                                  df_pt['z']]))
+                if type_z_output == "height":
+                    df_pt["z"] = self.tranform_height(np.array([df_pt['x'],
+                                                                df_pt['y'],
+                                                                df_pt['z']]))
 
-        Args:
-            epsg_out (int): Code epsg of the output crs.
-        """
-        if epsg_out and epsg_out != self.epsg[0]:
-            crs_out = pyproj.CRS.from_epsg(epsg_out)
-            crs_geog_out = pyproj.crs.GeographicCRS(name=crs_out.name, datum=crs_out.datum.name)
-            self.carto_to_geog_out = pyproj.Transformer.from_crs(self.crs, crs_geog_out).transform
+        df_pt["x"], df_pt["y"] = self.proj_to_proj_out(df_pt['x'], df_pt['y'])
+
+        return df_pt

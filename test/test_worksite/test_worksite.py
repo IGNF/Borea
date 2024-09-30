@@ -191,7 +191,7 @@ def test_set_param_shot_nodtm():
     assert work.shots["shot1"].z_nadir is None
 
 
-def test_set_unit_shot():
+def test_set_unit_output():
     work = Worksite("Test")
     work.add_shot("shot1", np.array([814975.925, 6283986.148, 1771.280]),
                   np.array([180, 0, 360]), "cam_test", "degree", True, 'opk')
@@ -200,31 +200,42 @@ def test_set_unit_shot():
     work.set_dtm(PATH_DTM, "height")
     work.type_z_shot = "altitude"
     work.set_param_shot(approx=False)
-    work.set_unit_shot("height", "radian", linear_alteration=False)
+    work.set_unit_output("height", "radian", linear_alteration=False)
     assert work.shots["shot1"].unit_angle == "radian"
     assert work.shots["shot1"].linear_alteration is False
     assert (work.shots["shot1"].ori_shot == np.array([np.pi, 0, 2*np.pi])).all()
     assert work.type_z_shot == "height"
 
 
-def test_set_unit_shot_sameunit():
+def test_set_unit_output_sameunit():
     work = Worksite("Test")
     work.add_shot("shot1", np.array([814975.925, 6283986.148, 1771.280]),
                   np.array([180, 0, 360]), "cam_test", "degree", True, 'opk')
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.type_z_shot = "altitude"
-    work.set_unit_shot("altitude", "degree", linear_alteration=True)
+    work.set_unit_output("altitude", "degree", linear_alteration=True)
     assert work.shots["shot1"].unit_angle == "degree"
     assert work.shots["shot1"].linear_alteration
     assert (work.shots["shot1"].ori_shot == np.array([180, 0, 360])).all()
     assert work.type_z_shot == "altitude"
 
 
-def test_set_unit_shot_changeorder():
+def test_set_unit_output_changeorder():
     work = Worksite("Test")
     work.add_shot("shot1", np.array([814975.925, 6283986.148, 1771.280]),
                   np.array([180, 0, 360]), "cam_test", "degree", True, 'opk')
     work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
     work.type_z_shot = "altitude"
-    work.set_unit_shot(order_axe="pok")
+    work.set_unit_output(order_axe="pok")
     assert (work.shots["shot1"].ori_shot != np.array([180, 0, 360])).all()
+
+
+def test_set_unit_output_changeproj():
+    work = Worksite("Test")
+    work.add_shot("shot1", np.array([657945.43, 6860369.44, 1771.280]),
+                  np.array([180, 0, 360]), "cam_test", "degree", True, 'opk')
+    work.add_camera('cam_test', 13210.00, 8502.00, 30975.00, 26460, 17004)
+    work.type_z_shot = "altitude"
+    work.set_proj(EPSGFR, LIST_GEOID, 4326)
+    work.set_unit_output()
+    assert (np.round(work.shots["shot1"].pos_shot, 3) == [48.842, 2.427, 1771.280]).all()

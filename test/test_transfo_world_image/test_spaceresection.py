@@ -144,8 +144,8 @@ def test_space_resection_to_worksite():
     work.set_proj(EPSG, PATH_GEOID)
     read_camera(PATH_CAM, work)
     work.set_dtm(PATH_DTM, "height")
-    pt2d = read_file_pt_dataframe(PT_LIAISON2, list("PNXY"), "pt2d")
-    pt3d = read_file_pt_dataframe(PT_LIAISON0, list("PXYZ"), "pt3d")
+    pt2d, _ = read_file_pt_dataframe(PT_LIAISON2, list("PNXY"), "pt2d")
+    pt3d, _ = read_file_pt_dataframe(PT_LIAISON0, list("PXYZ"), "pt3d")
     work.type_z_data = "height"
     work.type_z_shot = "altitude"
     work.approxeucli = False
@@ -167,8 +167,8 @@ def test_space_resection_to_worksite():
 
 def test_init_kappa():
     work = Worksite("Test")
-    pt2d = read_file_pt_dataframe(PT_LIAISON2, list("PNXY"), "pt2d")
-    pt3d = read_file_pt_dataframe(PT_LIAISON0, list("PXYZ"), "pt3d")
+    pt2d, _ = read_file_pt_dataframe(PT_LIAISON2, list("PNXY"), "pt2d")
+    pt3d, _ = read_file_pt_dataframe(PT_LIAISON0, list("PXYZ"), "pt3d")
     kappa = []
     for name_shot, group in pt2d.groupby("id_shot"):
         if name_shot not in ["23FD1305x00027_01495", "23FD1305x00054_05677",

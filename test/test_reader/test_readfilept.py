@@ -86,7 +86,7 @@ class TestReaderFilePt:
                                                                                     5550.03]).all()
 
     def test_read_file_pt_dataframe_co_point(self):
-        df = read_file_pt_dataframe(self.INPUT_LIAISONS, list("PNXY"), "pt2d")
+        df, _ = read_file_pt_dataframe(self.INPUT_LIAISONS, list("PNXY"), "pt2d")
         assert (df == pd.DataFrame({"id_pt": ["MES_674214", "MES_674214", "MES_674214",
                                               "MES_674216", "MES_674216", "MES_674216",
                                               "MES_674219", "MES_674219", "MES_674219",
@@ -111,17 +111,19 @@ class TestReaderFilePt:
                                              1147.48]})).all
 
     def test_read_file_pt_dataframe_gcp3d(self):
-        df = read_file_pt_dataframe(self.INPUT_GCP, list("PTXYZ"), "pt3d")
+        df, type_z = read_file_pt_dataframe(self.INPUT_GCP, list("PTXYZ"), "pt3d")
         assert (df == pd.DataFrame({"id_pt": ["1003", "1005", "1006"],
                                     "type": [13, 3, 13],
                                     "x": [815601.510, 833670.940, 838561.350],
                                     "y": [6283629.280, 6281965.400, 6284600.330],
                                     "z": [54.960, 52.630, 62.470]})).all
+        assert type_z == "altitude"
 
     def test_read_file_pt_dataframe_gcp3dt(self):
-        df = read_file_pt_dataframe(self.INPUT_GCP, list("PXYZ"), "pt3d")
+        df, type_z = read_file_pt_dataframe(self.INPUT_GCP, list("PXYZ"), "pt3d")
         assert (df == pd.DataFrame({"id_pt": ["1003", "1005", "1006"],
                                     "type": None,
                                     "x": [815601.510, 833670.940, 838561.350],
                                     "y": [6283629.280, 6281965.400, 6284600.330],
                                     "z": [54.960, 52.630, 62.470]})).all
+        assert type_z == "altitude"

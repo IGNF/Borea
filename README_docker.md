@@ -45,6 +45,7 @@ Some tools are already implemented in the docker:
 * Transforms coordinates file terrain from image: `ptfile_image_to_world.py -h` [doc](./borea_tools/docs_tools/README_ptfile_image_to_world.md)
 * Transforms coordinates file image from terrain: `ptfile_world_to_image.py -h` [doc](./borea_tools/docs_tools/README_ptfile_world_to_image.md)
 * Calculates opk by space resection: `spaceresection_opk.py -h` [doc](./borea_tools/docs_tools/README_spaceresection_opk.md)
+* Transform projection of points file: `transform_proj_points.py -h` [doc](./borea_tools/docs_tools/README_transform_proj_points.md)
 
 
 ![logo ign](docs/image/logo_ign.png) ![logo fr](docs/image/Republique_Francaise_Logo.png)

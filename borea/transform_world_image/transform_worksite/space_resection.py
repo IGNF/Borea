@@ -13,6 +13,7 @@ from borea.transform_world_image.transform_shot.image_world_shot import ImageWor
 # pylint: disable-next=line-too-long
 from borea.transform_world_image.transform_worksite.image_world_intersection import WorldIntersection  # noqa: E501
 from borea.utils.miscellaneous.param_bundle import set_param_bundle_diff
+from borea.utils.solver.solver import npsolve
 
 
 class SpaceResection:
@@ -240,8 +241,7 @@ class SpaceResection:
 
         # Creation of A with mat_obs_axia
         # Calculate dx = (A.T @ A)**-1 @ A.T @ B
-        return np.squeeze(np.linalg.lstsq(self.mat_obs_axia(pt_eucli, shot_adjust),
-                                          v_res, rcond=None)[0])
+        return np.squeeze(npsolve(self.mat_obs_axia(pt_eucli, shot_adjust), v_res))
 
     def mat_obs_axia(self, pt_eucli: np.ndarray, imc_adjust: Shot) -> np.ndarray:
         """

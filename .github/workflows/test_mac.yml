@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  test-on-mac:
     runs-on: macos-latest
     permissions:
       contents: read

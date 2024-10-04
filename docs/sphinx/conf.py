@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 project = 'Borea'
 copyright = '2023, Antoine Cornu et Nicolas Laurain'
 author = 'Antoine Cornu et Nicolas Laurain'
-release = '1.0.0'
+release = '0.2.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

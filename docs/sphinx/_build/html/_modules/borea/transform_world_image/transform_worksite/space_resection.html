@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
     <!-- Generated with Sphinx 8.0.2 and Furo 2024.08.06 -->
-        <title>borea.transform_world_image.transform_worksite.space_resection - Borea 1.0.0 documentation</title>
+        <title>borea.transform_world_image.transform_worksite.space_resection - Borea 0.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">Borea 1.0.0 documentation</div></a>
+      <a href="../../../../index.html"><div class="brand">Borea 0.2.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +189,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
   
   
-  <span class="sidebar-brand-text">Borea 1.0.0 documentation</span>
+  <span class="sidebar-brand-text">Borea 0.2.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -287,6 +287,7 @@
 <span class="c1"># pylint: disable-next=line-too-long</span>
 <span class="kn">from</span> <span class="nn">borea.transform_world_image.transform_worksite.image_world_intersection</span> <span class="kn">import</span> <span class="n">WorldIntersection</span>  <span class="c1"># noqa: E501</span>
 <span class="kn">from</span> <span class="nn">borea.utils.miscellaneous.param_bundle</span> <span class="kn">import</span> <span class="n">set_param_bundle_diff</span>
+<span class="kn">from</span> <span class="nn">borea.utils.solver.solver</span> <span class="kn">import</span> <span class="n">npsolve</span>
 
 
 <div class="viewcode-block" id="SpaceResection">
@@ -536,8 +537,7 @@
 
         <span class="c1"># Creation of A with mat_obs_axia</span>
         <span class="c1"># Calculate dx = (A.T @ A)**-1 @ A.T @ B</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mat_obs_axia</span><span class="p">(</span><span class="n">pt_eucli</span><span class="p">,</span> <span class="n">shot_adjust</span><span class="p">),</span>
-                                          <span class="n">v_res</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">npsolve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mat_obs_axia</span><span class="p">(</span><span class="n">pt_eucli</span><span class="p">,</span> <span class="n">shot_adjust</span><span class="p">),</span> <span class="n">v_res</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="SpaceResection.mat_obs_axia">
@@ -680,7 +680,7 @@
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=8d563738"></script>
+</div><script src="../../../../_static/documentation_options.js?v=37f418d5"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>

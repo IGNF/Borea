@@ -10,6 +10,7 @@ Subpackages
    borea.utils.check
    borea.utils.miscellaneous
    borea.utils.singleton
+   borea.utils.solver
    borea.utils.xml
 
 Module contents

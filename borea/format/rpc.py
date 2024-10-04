@@ -9,6 +9,7 @@ from borea.datastruct.dtm import Dtm
 from borea.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 from borea.transform_world_image.transform_shot.world_image_shot import WorldImageShot
 from borea.utils.miscellaneous.miscellaneous import normalize
+from borea.utils.solver.solver import npsolve
 
 
 class Rpc:
@@ -161,7 +162,7 @@ class Rpc:
             np.array: Rpc coefficients.
         """
         mat_obs = self.setup_matrix_obs_rpc(img_norm, world_norm, polynomial_degree)
-        x = np.linalg.lstsq(mat_obs, img_norm, rcond=None)[0]
+        x = npsolve(mat_obs, img_norm)
 
         coef_rpc = np.zeros(40)
         if polynomial_degree == 1:

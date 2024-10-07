@@ -228,6 +228,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../borea.utils.check.html">borea.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../borea.utils.miscellaneous.html">borea.utils.miscellaneous package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../borea.utils.singleton.html">borea.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../borea.utils.solver.html">borea.utils.solver package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../borea.utils.xml.html">borea.utils.xml package</a></li>
 </ul>
 </li>
@@ -280,18 +281,18 @@
 
 <div class="viewcode-block" id="npsolve">
 <a class="viewcode-back" href="../../../../borea.utils.solver.html#borea.utils.solver.solver.npsolve">[docs]</a>
-<span class="k">def</span> <span class="nf">npsolve</span><span class="p">(</span><span class="n">matA</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">matB</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">npsolve</span><span class="p">(</span><span class="n">mat_a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mat_b</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Solver used by Borea to resolve Ax = B</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        matA (np.ndarray): Matrix A</span>
-<span class="sd">        matB (np.ndarray): Matrix B</span>
+<span class="sd">        mat_a (np.ndarray): Matrix A</span>
+<span class="sd">        mat_b (np.ndarray): Matrix B</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        np.ndarray: the result x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">matA</span><span class="p">,</span> <span class="n">matB</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">mat_a</span><span class="p">,</span> <span class="n">mat_b</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 </pre></div>
         </article>

@@ -228,6 +228,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.check.html">borea.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.miscellaneous.html">borea.utils.miscellaneous package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.singleton.html">borea.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.solver.html">borea.utils.solver package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.xml.html">borea.utils.xml package</a></li>
 </ul>
 </li>
@@ -276,8 +277,8 @@
 <span class="sd">Photogrammetry worksite to writing in opk.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">PureWindowsPath</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">borea.utils.check.check_path</span> <span class="kn">import</span> <span class="n">check_path</span>
 <span class="kn">from</span> <span class="nn">borea.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
 <span class="kn">from</span> <span class="nn">borea.utils.check.check_args_opk</span> <span class="kn">import</span> <span class="n">check_header_file</span>
 
@@ -300,7 +301,7 @@
 <span class="sd">                     linear alteration.</span>
 <span class="sd">        work (Worksite): The site to be recorded.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">path_opk</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="n">path_opk</span><span class="p">)),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name_opk</span><span class="si">}</span><span class="s2">.opk&quot;</span><span class="p">)</span>
+    <span class="n">path_opk</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">check_path</span><span class="p">(</span><span class="n">path_opk</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name_opk</span><span class="si">}</span><span class="s2">.opk&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;header&quot;</span><span class="p">]:</span>
         <span class="n">header</span><span class="p">,</span> <span class="n">type_z</span> <span class="o">=</span> <span class="n">check_header_file</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;header&quot;</span><span class="p">])</span>

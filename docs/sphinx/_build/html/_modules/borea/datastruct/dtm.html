@@ -228,6 +228,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.check.html">borea.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.miscellaneous.html">borea.utils.miscellaneous package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.singleton.html">borea.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.solver.html">borea.utils.solver package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.xml.html">borea.utils.xml package</a></li>
 </ul>
 </li>
@@ -275,11 +276,11 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">A module for manipulating a digital elevation model.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">PureWindowsPath</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">osgeo</span> <span class="kn">import</span> <span class="n">gdal</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span>
 <span class="kn">from</span> <span class="nn">borea.transform_world_image.transform_dtm.world_image_dtm</span> <span class="kn">import</span> <span class="n">WorldImageDtm</span>
+<span class="kn">from</span> <span class="nn">borea.utils.check.check_path</span> <span class="kn">import</span> <span class="n">check_path</span>
 <span class="kn">from</span> <span class="nn">borea.utils.singleton.singleton</span> <span class="kn">import</span> <span class="n">Singleton</span>
 <span class="n">gdal</span><span class="o">.</span><span class="n">UseExceptions</span><span class="p">()</span>
 
@@ -327,7 +328,7 @@
         <span class="k">if</span> <span class="n">path_dtm</span><span class="p">:</span>
             <span class="n">gdal</span><span class="o">.</span><span class="n">AllRegister</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">type_dtm</span> <span class="o">=</span> <span class="n">type_dtm</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">path_dtm</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="n">path_dtm</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_dtm</span> <span class="o">=</span> <span class="n">check_path</span><span class="p">(</span><span class="n">path_dtm</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="o">=</span> <span class="n">gdal</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_dtm</span><span class="o">.</span><span class="n">as_posix</span><span class="p">())</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="o">.</span><span class="n">GetRasterBand</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">nodata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rb</span><span class="o">.</span><span class="n">GetNoDataValue</span><span class="p">()</span>

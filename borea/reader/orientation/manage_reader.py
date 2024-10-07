@@ -2,7 +2,7 @@
 Photogrammetry site file reader module.
 """
 import importlib
-from pathlib import Path, PureWindowsPath
+from borea.utils.check.check_path import check_path
 from borea.worksite.worksite import Worksite
 
 
@@ -19,7 +19,7 @@ def reader_orientation(file: str, args: dict) -> Worksite:
     """
     # Attention multiple file management orientation
     # Attention management of files with the same extension but different formats
-    file = Path(PureWindowsPath(file))
+    file = check_path(file)
     name_work = file.stem
     ext = file.suffix[1:]
 

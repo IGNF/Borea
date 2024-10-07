@@ -228,6 +228,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.check.html">borea.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.miscellaneous.html">borea.utils.miscellaneous package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.singleton.html">borea.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.solver.html">borea.utils.solver package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.xml.html">borea.utils.xml package</a></li>
 </ul>
 </li>
@@ -275,8 +276,9 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Script to read camera file txt or xml.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">PureWindowsPath</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">borea.datastruct.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
+<span class="kn">from</span> <span class="nn">borea.utils.check.check_path</span> <span class="kn">import</span> <span class="n">check_path</span>
 <span class="kn">from</span> <span class="nn">borea.worksite.worksite</span> <span class="kn">import</span> <span class="n">Worksite</span>
 
 
@@ -291,7 +293,7 @@
 <span class="sd">        work (Worksite): Worksite which needs camera data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-        <span class="n">camera_txt</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="n">file</span><span class="p">)),</span> <span class="n">work</span><span class="p">)</span></div>
+        <span class="n">camera_txt</span><span class="p">(</span><span class="n">check_path</span><span class="p">(</span><span class="n">file</span><span class="p">),</span> <span class="n">work</span><span class="p">)</span></div>
 
 
 

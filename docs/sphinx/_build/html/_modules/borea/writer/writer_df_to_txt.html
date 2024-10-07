@@ -228,6 +228,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.check.html">borea.utils.check package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.miscellaneous.html">borea.utils.miscellaneous package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.singleton.html">borea.utils.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.solver.html">borea.utils.solver package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../borea.utils.xml.html">borea.utils.xml package</a></li>
 </ul>
 </li>
@@ -276,8 +277,8 @@
 <span class="sd">Photogrammetry worksite to writing dataframe to txt.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">PureWindowsPath</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">borea.utils.check.check_path</span> <span class="kn">import</span> <span class="n">check_path</span>
 
 
 <div class="viewcode-block" id="write_df_to_txt">
@@ -291,7 +292,7 @@
 <span class="sd">        pathreturn (str): Path to save the file.</span>
 <span class="sd">        df (pd.DataFrame): DataFrame to save.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">path_txt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="n">pathreturn</span><span class="p">)),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="p">)</span>
+    <span class="n">path_txt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">check_path</span><span class="p">(</span><span class="n">pathreturn</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="p">)</span>
 
     <span class="n">name_column</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 

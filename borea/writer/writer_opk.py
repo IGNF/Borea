@@ -2,8 +2,8 @@
 Photogrammetry worksite to writing in opk.
 """
 import os
-from pathlib import Path, PureWindowsPath
 import numpy as np
+from borea.utils.check.check_path import check_path
 from borea.worksite.worksite import Worksite
 from borea.utils.check.check_args_opk import check_header_file
 
@@ -24,7 +24,7 @@ def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:
                      linear alteration.
         work (Worksite): The site to be recorded.
     """
-    path_opk = os.path.join(Path(PureWindowsPath(path_opk)), f"{name_opk}.opk")
+    path_opk = os.path.join(check_path(path_opk), f"{name_opk}.opk")
 
     if args["header"]:
         header, type_z = check_header_file(args["header"])

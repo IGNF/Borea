@@ -44,6 +44,14 @@ borea.utils.check.check\_order\_axe module
    :undoc-members:
    :show-inheritance:
 
+borea.utils.check.check\_path module
+------------------------------------
+
+.. automodule:: borea.utils.check.check_path
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

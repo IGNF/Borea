@@ -1,11 +1,11 @@
 """
 A module for manipulating a digital elevation model.
 """
-from pathlib import Path, PureWindowsPath
 import numpy as np
 from osgeo import gdal
 from scipy import ndimage
 from borea.transform_world_image.transform_dtm.world_image_dtm import WorldImageDtm
+from borea.utils.check.check_path import check_path
 from borea.utils.singleton.singleton import Singleton
 gdal.UseExceptions()
 
@@ -49,7 +49,7 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
         if path_dtm:
             gdal.AllRegister()
             self.type_dtm = type_dtm
-            self.path_dtm = Path(PureWindowsPath(path_dtm))
+            self.path_dtm = check_path(path_dtm)
             self.img = gdal.Open(self.path_dtm.as_posix())
             self.rb = self.img.GetRasterBand(1)
             self.nodata = self.rb.GetNoDataValue()

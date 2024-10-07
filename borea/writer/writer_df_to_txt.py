@@ -2,8 +2,8 @@
 Photogrammetry worksite to writing dataframe to txt.
 """
 import os
-from pathlib import Path, PureWindowsPath
 import pandas as pd
+from borea.utils.check.check_path import check_path
 
 
 def write_df_to_txt(name: str, pathreturn: str, df: pd.DataFrame) -> None:
@@ -15,7 +15,7 @@ def write_df_to_txt(name: str, pathreturn: str, df: pd.DataFrame) -> None:
         pathreturn (str): Path to save the file.
         df (pd.DataFrame): DataFrame to save.
     """
-    path_txt = os.path.join(Path(PureWindowsPath(pathreturn)), f"{name}.txt")
+    path_txt = os.path.join(check_path(pathreturn), f"{name}.txt")
 
     name_column = list(df.columns)
 

@@ -1,8 +1,9 @@
 """
 Script to read camera file txt or xml.
 """
-from pathlib import Path, PureWindowsPath
+from pathlib import Path
 from borea.datastruct.camera import Camera
+from borea.utils.check.check_path import check_path
 from borea.worksite.worksite import Worksite
 
 
@@ -15,7 +16,7 @@ def read_camera(files: list, work: Worksite) -> None:
         work (Worksite): Worksite which needs camera data.
     """
     for file in files:
-        camera_txt(Path(PureWindowsPath(file)), work)
+        camera_txt(check_path(file), work)
 
 
 def camera_txt(file: Path, work: Worksite) -> None:

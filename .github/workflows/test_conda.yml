@@ -1,4 +1,4 @@
-name: test_macos
+name: test_conda
 
 on:
   push:
@@ -6,8 +6,13 @@ on:
   pull_request:
 
 jobs:
-  test:
-    runs-on: macos-latest
+  test-on-conda:
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
     permissions:
       contents: read
       packages: write
@@ -16,9 +21,10 @@ jobs:
     - name: Checkout branch
       uses: actions/checkout@v4
     
-    - name: Install environment
+    - name: Install environment on ${{ matrix.os }} with python:${{ matrix.python-version }}
       uses: mamba-org/setup-micromamba@v1
       with:
+        python-version: ${{ matrix.python-version }}
         environment-file: borea_dependency/environment-dev.yml
         environment-name: borea
         cache-environment: true

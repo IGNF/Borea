@@ -40,11 +40,11 @@ The parameters are:
 
 E.G.
 ```
-python ./borea_tools/spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./tools/test/data/dataset2/all_liaisons2.mes -k PNXY -g ./tools/test/data/dataset2/all_liaisons2_world.mes -l PXYH -n SpaceResection -o NXYZOPKC -ou degree -oa True
+python ./borea_tools/spaceresection_opk.py -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./tools/test/data/dataset2/all_liaisons2.mes -k PNXY -g ./tools/test/data/dataset2/all_liaisons2_world.mes -l PXYH -n SpaceResection -o NXYZOPKC --ou degree --oa True
 ```
 or pip
 ```
-spaceresection-opk -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./tools/test/data/dataset2/all_liaisons2.mes -k PNXY -g ./tools/test/data/dataset2/all_liaisons2_world.mes -l PXYH -n SpaceResection -o NXYZOPKC -ou degree -oa True
+spaceresection-opk -p 825439 6289034 1500 -d height -c ./dataset/Camera1.txt -e 2154 -y ./dataset/fr_ign_RAF20.tif -m ./dataset/MNT_France_25m_h_crop.tif --fm height -t ./tools/test/data/dataset2/all_liaisons2.mes -k PNXY -g ./tools/test/data/dataset2/all_liaisons2_world.mes -l PXYH -n SpaceResection -o NXYZOPKC --ou degree --oa True
 ```
 
 ## Detail for the header of file -o

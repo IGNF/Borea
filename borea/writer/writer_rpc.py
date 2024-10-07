@@ -2,8 +2,8 @@
 Photogrammetry worksite to writing in rpc.
 """
 import os
-from pathlib import Path, PureWindowsPath
 from borea.format.rpc import Rpc
+from borea.utils.check.check_path import check_path
 from borea.worksite.worksite import Worksite
 from borea.datastruct.dtm import Dtm
 
@@ -53,6 +53,6 @@ def write(name: str, folder_rpc: str, param_rpc: dict, work: Worksite) -> None:
         for idx, val in enumerate(rpc.param_rpc["SAMP_DEN_COEFF"]):
             list_txt_rpc += [f"SAMP_DEN_COEFF_{idx + 1}: {val}"]
 
-        path_rpc = os.path.join(Path(PureWindowsPath(folder_rpc)),
+        path_rpc = os.path.join(check_path(folder_rpc),
                                 f"{name_shot}_RPC.TXT")
-        Path(path_rpc).write_text("\n".join(list_txt_rpc), encoding="UTF-8")
+        check_path(path_rpc).write_text("\n".join(list_txt_rpc), encoding="UTF-8")

@@ -3,8 +3,8 @@ Module for statistics
 """
 import os
 import io
-from pathlib import Path, PureWindowsPath
 import numpy as np
+from borea.utils.check.check_path import check_path
 from borea.worksite.worksite import Worksite
 
 
@@ -22,7 +22,7 @@ class Stat:
             type_point (list): List of type point on which we make the stats.
         """
         self.work = work
-        self.pathoutput = Path(PureWindowsPath(pathoutput))
+        self.pathoutput = check_path(pathoutput)
 
         if type_point is None:
             self.type_point = []

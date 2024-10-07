@@ -2,9 +2,9 @@
 Script to read point (connecting point, gcp2d gcp3d) format
 .txt/.mes/.app with data arranged in columns.
 """
-from pathlib import Path, PureWindowsPath
 import pandas as pd
 import numpy as np
+from borea.utils.check.check_path import check_path
 from borea.worksite.worksite import Worksite
 from borea.utils.check.check_args_reader_pt import check_header_file
 
@@ -26,7 +26,7 @@ def read_file_pt(path: str, header: list, type_point: str, work: Worksite) -> No
     work.type_z_data = type_z
 
     try:
-        with open(Path(PureWindowsPath(path)), 'r', encoding="utf-8") as file_pts:
+        with open(check_path(path), 'r', encoding="utf-8") as file_pts:
             for pt in file_pts.readlines():
                 if pt != '\n' and pt[0] != '#':
                     info = pt.split()
@@ -74,7 +74,7 @@ def read_file_pt_dataframe(path: str, header: list, type_point: str) -> tuple:
     ttype = []
     coor = []
     try:
-        with open(Path(PureWindowsPath(path)), 'r', encoding="utf-8") as file_pts:
+        with open(check_path(path), 'r', encoding="utf-8") as file_pts:
             for pt in file_pts.readlines():
                 if pt != '\n' and pt[0] != '#':
                     info = pt.split()

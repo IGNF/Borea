@@ -2,7 +2,7 @@
 Photogrammetry worksite to writing in rpc.
 """
 import os
-from pathlib import Path, PureWindowsPath
+from borea.utils.check.check_path import check_path
 from borea.worksite.worksite import Worksite
 from borea.geodesy.proj_engine import ProjEngine
 from borea.format.conl import Conl
@@ -31,6 +31,6 @@ def write(name: str, folder_con: str, param_con: dict, work: Worksite) -> None:
 
     for name_shot, shot in work.shots.items():
         cam = work.cameras[shot.name_cam]
-        path_conical = os.path.join(Path(PureWindowsPath(folder_con)), f"{name_shot}.CON")
+        path_conical = os.path.join(check_path(folder_con), f"{name_shot}.CON")
 
         Conl(shot, cam, geoview_proj).save_conl(path_conical)

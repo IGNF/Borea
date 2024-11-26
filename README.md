@@ -47,14 +47,13 @@ The package exists on pip with `pip install ign-borea` without GDAL
 pip install -r ./borea_dependency/requirements.txt
 sudo apt-get install libgdal-dev
 ```
-Please note that the `GDAL` version depends on the `libgdal-dev` version.
+You need the version of `GDAL` and you can get it back with:
 ```
-apt-cache show libgdal-dev
-# or if you are ogr
-ogrinfo --version
+gdalinfo --version
 ```
+after
 ```
-pip install GDAL==<GDAL VERSION FROM OGRINFO>
+pip install GDAL==<GDAL VERSION>
 ```
 You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html) if you have problems installing GDAL.
 

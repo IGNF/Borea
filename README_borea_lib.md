@@ -27,6 +27,11 @@ pip install GDAL==<GDAL VERSION FROM OGRINFO>
 ```
 You can find more information on [mothergeo-py](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html) if you have problems installing GDAL.
 
+#### Conda/Mamba
+
+You create your conda/mamba environment with pip in it, then in the environment you install borea with `pip install ign-borea` and GDAL with `conda install GDAL` or `mamba install GDAL`.  
+Note: GDAL version must be >= 3.3.2
+
 #### In the QGIS environment
 
 View the doc on [borea github docs/installation/In_QGIS.md](https://github.com/IGNF/Borea/tree/main/docs/installation/In_QGIS.md).
@@ -101,7 +106,7 @@ The DataFrame **pt3d** is a table with 5 column and n line. The id of column mus
 
     it can be created with the function `read_file_pt_dataframe(path_file_pt,header_file,"pt3d")`  
 The dictionary **pinit** which give the initialization point X, Y, Z. A point on the worksite with a z at an approximate flying height. The name of the key in the dictionary is `coor_init`.  
-Example at the end of explanation of function [file](https://github.com/IGNF/Borea/tree/main/docs/functions/Space_resection.md).
+Example at the end of explanation of function [file](https://github.com/IGNF/Borea/tree/main/examples/eg_space_resection.py) l.38.
 
 * You can calculate some control point statistics to see how accurate your site is `stat = Stat(work, pathreturn, control_type)` to init the object and run for all stat with `stat.main_stat_and_save()`. Make stat on function image to world and world to image, if there are data. And save result on *pathreturn/Stat_{Name_worksite}.txt*.
 

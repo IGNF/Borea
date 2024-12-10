@@ -21,18 +21,32 @@ Why Borea? B for Box and orea is a back slang of aero.
 
 ## Dependency
 
+Borea needs:
+- python >= 3.9
+- gdal >= 3.3.2
+- numpy <= 1.26.4
+- pyproj
+- scipy
+- pandas
+- dataclasses
+
 ### Conda/Mamba
-For conda/mamba environment the depencency is [borea_dependency/environment.yml](./borea_dependency/environment.yml).  
+For conda/mamba environment is [borea_dependency/environment.yml](./borea_dependency/environment.yml).  
 
 ### Pip venv
-For pip environment (venv) the depencency is [borea_dependency/requirements.txt](./borea_dependency/requirements.txt)  
+For pip environment (venv) is [borea_dependency/requirements.txt](./borea_dependency/requirements.txt)  
 and you need to install `libgdal-dev` and `GDAL>=3.3.2`.
 
 ## Installation
 
-You need to retrieve the repository with ```git clone``` and install the environment. By ```conda``` or ```mamba``` with ```environment.yml``` or ```pip``` with ```requirements.txt```.
+There are two ways to install Borea with the repository `git clone` or with pip `pip install ign-borea` [doc](./README_borea_lib.md).
 
+With **the repository**, you also need to install the environment.  
+With **pip** the environment comes with it but does not contain GDAL, which you have to install yourself.
+
+### Installation of the environment
 #### Conda/Mamba
+GDAL is contained and installed in the conda/mamba environment.
 ```
 conda env create -f ./borea_dependency/environment.yaml
 ```
@@ -41,8 +55,7 @@ mamba env create -f ./borea_dependency/environment.yaml
 ```
 
 #### Pip
-The package exists on pip with `pip install ign-borea` without GDAL
-
+GDAL is not included in the pip environment, so you have to install it yourself.
 ```
 pip install -r ./borea_dependency/requirements.txt
 sudo apt-get install libgdal-dev

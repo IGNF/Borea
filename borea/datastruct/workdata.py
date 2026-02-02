@@ -150,7 +150,7 @@ class Workdata:
         try:
             self.shots[name_shot]
         except KeyError as e_info:
-            raise ValueError(f"The shot {name_shot} doesn't exist in list of shots.") from e_info
+            raise KeyError(f"The shot {name_shot} doesn't exist in list of shots.") from e_info
 
         if name_point not in self.gcp2d:
             self.gcp2d[name_point] = []

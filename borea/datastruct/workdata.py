@@ -35,7 +35,7 @@ class Workdata:
         self.approxeucli = False
         self.epsg_output = False
 
-    # pylint: disable-next=too-many-arguments too-many-positional-arguments
+    # pylint: disable-next=too-many-arguments, too-many-positional-arguments
     def add_shot(self, name_shot: str, pos_shot: np.ndarray,
                  ori_shot: np.ndarray, name_cam: str,
                  unit_angle: str, linear_alteration: bool,
@@ -83,7 +83,7 @@ class Workdata:
 
         ProjEngine().set_epsg(epsg, path_geoid, epsg_output)
 
-    # pylint: disable-next=too-many-arguments too-many-positional-arguments
+    # pylint: disable-next=too-many-arguments, too-many-positional-arguments
     def add_camera(self, name_camera: str, ppax: float, ppay: float,
                    focal: float, width: int, height: int) -> None:
         """

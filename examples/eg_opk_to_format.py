@@ -33,10 +33,10 @@ if __name__ == "__main__":
     ############################
     # Convertion of format OPK #
     ############################
-    FORMAT = "opk"
+    FORMAT = "opk"  # pylint: disable=invalid-name
 
     # Parameters for good writing format
-    PARAM = {"header": list("NOPKCXYZ"),
+    PARAM = {"header": list("NOPKCXYZ"),  # pylint: disable=invalid-name
              "unit_angle": "radian",
              "linear_alteration": True,
              "order_axe": 'opk'}
@@ -54,10 +54,10 @@ if __name__ == "__main__":
     # It's a general format for QGIS (The file .RPC)
     # the file just needs to be in the same folder as the image
     # to be recognized by QGIS when the image is read, allowing it to be positioned in the system.
-    FORMAT = "rpc"
+    FORMAT = "rpc"  # pylint: disable=invalid-name
 
     # Parameters for good writing format
-    PARAM = {"size_grid": 100,
+    PARAM = {"size_grid": 100,  # pylint: disable=invalid-name
              "order": 3,
              "fact_rpc": None,
              "epsg_output": None}
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     # Convertion of format CON #
     ############################
     # It's a general format for GEOVIEW IGN and other software.
-    FORMAT = "con"
+    FORMAT = "con"  # pylint: disable=invalid-name
 
     print(f"\nConvert worksite in CON in path: {OUTPUT_PATH}/name_shot.CON")
     # The name parameter doesn't need to be filled in, as it will be ignored.

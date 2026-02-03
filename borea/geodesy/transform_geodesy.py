@@ -1,6 +1,7 @@
 """
 Module for class ProjEngine, transform geodesy
 """
+# pylint: disable=unsubscriptable-object
 import pyproj
 import numpy as np
 import pandas as pd
@@ -235,6 +236,7 @@ class TransformGeodesy():
                                                                 df_pt['y'],
                                                                 df_pt['z']]))
 
+        # pylint: disable-next=unpacking-non-sequence
         df_pt["x"], df_pt["y"] = self.proj_to_proj_out(df_pt['x'], df_pt['y'])
 
         return df_pt

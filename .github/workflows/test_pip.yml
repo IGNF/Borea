@@ -18,10 +18,10 @@ jobs:
 
     steps:
     - name: Checkout branch
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -34,9 +34,9 @@ jobs:
         python -m venv boreaenv
         source boreaenv/bin/activate
         python -m pip install --upgrade pip
-        python -m pip install setuptools wheel
+        python -m pip install setuptools>=67 wheel
         python -m pip install -r ./borea_dependency/requirements-dev.txt
-        python -m pip install GDAL==3.4.1
+        python -m pip install --no-cache gdal[numpy]=="$(gdal-config --version).*" --no-build-isolation
 
     - name: test version python
       run: |

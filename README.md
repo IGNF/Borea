@@ -24,7 +24,7 @@ Why Borea? B for Box and orea is a back slang of aero.
 Borea needs:
 - python >= 3.9
 - gdal >= 3.3.2
-- numpy <= 1.26.4
+- numpy
 - pyproj
 - scipy
 - pandas

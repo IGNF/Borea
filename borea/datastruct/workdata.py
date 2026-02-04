@@ -35,7 +35,7 @@ class Workdata:
         self.approxeucli = False
         self.epsg_output = False
 
-    # pylint: disable-next=too-many-arguments too-many-positional-arguments
+    # pylint: disable-next=too-many-arguments, too-many-positional-arguments
     def add_shot(self, name_shot: str, pos_shot: np.ndarray,
                  ori_shot: np.ndarray, name_cam: str,
                  unit_angle: str, linear_alteration: bool,
@@ -83,7 +83,7 @@ class Workdata:
 
         ProjEngine().set_epsg(epsg, path_geoid, epsg_output)
 
-    # pylint: disable-next=too-many-arguments too-many-positional-arguments
+    # pylint: disable-next=too-many-arguments, too-many-positional-arguments
     def add_camera(self, name_camera: str, ppax: float, ppay: float,
                    focal: float, width: int, height: int) -> None:
         """
@@ -150,7 +150,7 @@ class Workdata:
         try:
             self.shots[name_shot]
         except KeyError as e_info:
-            raise ValueError(f"The shot {name_shot} doesn't exist in list of shots.") from e_info
+            raise KeyError(f"The shot {name_shot} doesn't exist in list of shots.") from e_info
 
         if name_point not in self.gcp2d:
             self.gcp2d[name_point] = []

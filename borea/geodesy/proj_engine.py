@@ -9,7 +9,7 @@ from borea.geodesy.transform_geodesy import TransformGeodesy
 from borea.utils.singleton.singleton import Singleton
 
 
-# pylint: disable=unpacking-non-sequence
+# pylint: disable=unpacking-non-sequence, unsubscriptable-object
 @dataclass
 class ProjEngine(metaclass=Singleton):
     """

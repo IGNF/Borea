@@ -173,7 +173,7 @@ class Worksite(Workdata):
                                                                    self.type_z_shot, False)[2]
                 shot.set_z_nadir(z_nadir)
 
-    # pylint: disable-next=too-many-arguments too-many-positional-arguments
+    # pylint: disable-next=too-many-arguments, too-many-positional-arguments
     def set_unit_output(self, type_z: str = None, unit_angle: str = None,
                         linear_alteration: bool = None, order_axe: str = None,
                         proj_output: bool = True) -> None:

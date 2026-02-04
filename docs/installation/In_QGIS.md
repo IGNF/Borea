@@ -7,7 +7,7 @@ Borea is installed in the QGIS environment using pip.
 You need to be aware of the compatibility of python versions and python libraries.
 - python >= 3.9
 - gdal >= 3.3.2
-- numpy <= 1.26.4
+- numpy
 
 Check that your QGIS uses a version of python higher than 3.9 .  
 To see this: 

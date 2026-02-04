@@ -2,9 +2,8 @@ name: borea
 channels:
  - conda-forge
 dependencies:
-  - python>=3.9.*
   - gdal>=3.3.2
-  - numpy<= 1.26.4
+  - numpy
   - pylint
   - pytest
   - conda-forge:pytest-shutil

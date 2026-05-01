@@ -5,7 +5,7 @@ import platform
 from pathlib import Path
 import numpy as np
 from borea.worksite.worksite import Worksite
-from borea.utils.check.check_args_opk import check_args_opk
+from borea.utils.check.check_args import check_args_opk
 
 
 def read(file: Path, args: dict, work: Worksite) -> Worksite:

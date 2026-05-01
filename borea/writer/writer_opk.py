@@ -5,7 +5,7 @@ import os
 import numpy as np
 from borea.utils.check.check_path import check_path
 from borea.worksite.worksite import Worksite
-from borea.utils.check.check_args_opk import check_header_file
+from borea.utils.check.check_args import check_header_file
 
 
 def write(name_opk: str, path_opk: str, args: dict, work: Worksite) -> None:

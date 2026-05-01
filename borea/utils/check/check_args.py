@@ -57,3 +57,16 @@ def check_header_file(header: list) -> tuple:
         raise ValueError(ms_error)
 
     return get_type_z_and_header(head)
+
+
+def check_args_xml(args: dict) -> None:
+    """
+    Check args for xml files
+    """
+    # Check args "order_axe"
+    if "order_axe" not in args.keys() or args["order_axe"] == None:
+        raise ValueError("Missing args 'order_axe' in args")
+    
+    # Check args "linear_alteration"
+    if "linear_alteration" not in args.keys() or args["linear_alteration"] == None:
+        raise ValueError("Missing args 'linear_alteration' in args")

@@ -9,7 +9,7 @@ from borea.process.p_add_data.p_gen_param import args_general_param, process_arg
 from borea.process.p_add_data.p_pt3d import args_add_pt3d
 from borea.reader.reader_point import read_file_pt_dataframe
 from borea.transform_world_image.transform_worksite.space_resection import SpaceResection
-from borea.utils.check.check_args_opk import check_header_file
+from borea.utils.check.check_args import check_header_file
 from borea.worksite.worksite import Worksite
 from borea.process.p_add_data.p_file_gcp3d import args_gcp3d
 

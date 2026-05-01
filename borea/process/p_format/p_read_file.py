@@ -8,7 +8,7 @@ from borea.worksite.worksite import Worksite
 from borea.reader.orientation.manage_reader import reader_orientation
 
 
-def args_reading_opk(parser: argparse) -> argparse:
+def args_reading(parser: argparse) -> argparse:
     """
     Args for reading opk file.
 
@@ -21,6 +21,7 @@ def args_reading_opk(parser: argparse) -> argparse:
     # pylint: disable=duplicate-code
     parser.add_argument('-r', '--filepath',
                         type=str, help='File path of the workfile.')
+    # Args to read OPK
     parser.add_argument('-i', '--header',
                         type=str, default="NXYZOPKC",
                         help='Type of each column in the site file.'
@@ -48,7 +49,7 @@ def args_reading_opk(parser: argparse) -> argparse:
     return parser
 
 
-def process_args_read_opk(args: argparse) -> Worksite:
+def process_args_read(args: argparse) -> Worksite:
     """
     Processing args with data.
 

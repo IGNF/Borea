@@ -14,13 +14,10 @@ def check_path(file: str) -> Path:
     Returns:
         Path: The good path.
     """
-    file = Path(file)
-    name = file.stem
-
-    if "/" in name:
+    if "/" in file:
         return Path(PurePosixPath(file))
 
-    if "\\" in name:
+    if "\\" in file:
         return Path(PureWindowsPath(file))
 
     return file

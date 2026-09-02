@@ -59,7 +59,7 @@ def process_args_read(args: argparse) -> Worksite:
     Returns:
         Worksite: data
     """
-    # Readind data
+    # Reading data
     if args.filepath is not None:
         if args.header is not None:
             work = reader_orientation(args.filepath, {"order_axe": args.order_axe_input.lower(),

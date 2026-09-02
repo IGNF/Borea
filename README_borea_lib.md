@@ -40,6 +40,7 @@ View the doc on [borea github docs/installation/In_QGIS.md](https://github.com/I
 
 Some tools are already implemented in the library:
 * Conversion OPK to OPK: `opk-to-opk -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_opk_to_opk.md) (OPK = Omega Phi Kappa)
+* Conversion Micmac xml to OPK: `mm-xml-to-opk -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_mm_xml_to_opk.md) (Micmac = open-source photogrammetric software)
 * Control OPK file: `opk-control -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_opk_control.md)
 * Conversion OPK to RPC: `opk-to-rpc -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_opk_to_rpc.md)
 * Conversion OPK to Conl: `opk-to-conl -h` [doc](https://github.com/IGNF/Borea/tree/main/borea_tools/docs_tools/README_opk_to_conl.md) (Conl = light conical file, IGN France format)

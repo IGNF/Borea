@@ -16,7 +16,7 @@ def check_order_axe(order_axe: str) -> str:
     """
     list_val = ['o', 'p', 'k']
 
-    bad_head, ms_error_letter, _, symbol = check_head(list(order_axe), list_val)
+    bad_head, ms_error_letter, symbol = check_head(list(order_axe), list_val)
 
     misss = set(list_val) - symbol
     if misss != set():

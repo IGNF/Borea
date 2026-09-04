@@ -20,7 +20,7 @@ def mm_xml_to_opk():
     parser = argparse.ArgumentParser(description='Photogrammetric site conversion'
                                                  ' and manipulation software opk to opk.')
     # Args for implement opk to opk
-    parser.add_argument('-r', '--filepath',
+    parser.add_argument('-r', '--file_path',
                         type=str, help='File path of the workfile.')
     parser = args_writer(parser)
     parser.add_argument('-o', '--output_header',
@@ -39,10 +39,10 @@ def mm_xml_to_opk():
     args = parser.parse_args()
 
     # Process to read data
-    if args.filepath is not None:
+    if args.file_path is not None:
         fake_param = {"order_axe": "opk",
                       "linear_alteration": True}
-        work = reader_orientation(args.filepath, fake_param)
+        work = reader_orientation(args.file_path, fake_param)
         print("Orientation file reading done.")
         print(f"Number of image: {len(work.shots)}")
     # Check output header
@@ -50,13 +50,13 @@ def mm_xml_to_opk():
         args.output_header[args.output_header.index('H')] = "Z"
     # Process to write opk
     print("Writing OPK.")
-    if args.namereturn is not None:
+    if args.name_return is not None:
         args_writing = {"order_axe": 'opk',
                         "header": args.output_header,
                         "unit_angle": 'degree',
                         "linear_alteration": True}
-        manager_writer("opk", args.namereturn, args.pathreturn, args_writing, work)
-        print(f"File written in {args.pathreturn + args.namereturn}.opk.")
+        manager_writer("opk", args.name_return, args.path_return, args_writing, work)
+        print(f"File written in {args.path_return + args.name_return}.opk.")
     else:
         raise ValueError("The name of the saving file is missing -n.")
 

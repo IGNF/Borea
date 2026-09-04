@@ -81,3 +81,17 @@ def angle_degree_2vect(u: np.ndarray, v: np.ndarray) -> float:
     nv = np.linalg.norm(v)
     costheta = (u @ v)/(nu * nv)
     return np.arccos(costheta)*180/np.pi
+
+
+def convert_3val_to_float(values: list) -> tuple:
+    """
+    Converte a list of 3 str in 3 float
+
+    Args:
+        values (list): List of 3 str to convert in float
+
+    Returns:
+        tuple: 3 float of value
+    """
+    v1, v2, v3 = values
+    return float(v1), float(v2), float(v3)

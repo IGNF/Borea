@@ -1,15 +1,25 @@
 """
 Class to write shot in conical IGN format
 """
+import argparse
 from datetime import datetime
+import os
 from pathlib import Path
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 
 import numpy as np
+from borea.args_process.p_add_data.p_gen_param import check_args_gen
+from borea.args_process.p_add_data.p_unit_shot import check_args_shot
+from borea.args_process.p_format.p_write import args_path_return
 from borea.datastruct.camera import Camera
 from borea.datastruct.shot import Shot
+from borea.format.strategy.interface import FileWriter
+from borea.geodesy.proj_engine import ProjEngine
+from borea.geodesy.projectionlist.search_proj import search_info
+from borea.utils.check.check_path import check_path
 from borea.utils.xml.xml import format_xml, indent, add_elem
+from borea.worksite.worksite import Worksite
 
 B_TIME = ["year", "month", "day", "hour", "minute", "second", "time_system"]
 B_PT3D = ["x", "y", "z"]
@@ -137,3 +147,59 @@ class Conl:
         add_elem(ppa, B_CAM, [int(self.cam.ppax), int(self.cam.ppay), int(self.cam.focal)])
 
         ET.SubElement(sensor, "pixel_size").text = str(0.000004)
+
+
+class ConlWriter(FileWriter):
+    """
+    Manage to write conical IGN format
+    """
+    def args(self, parser: argparse) -> argparse:
+        """
+        Args for writing conical file.
+
+        Args:
+            parser (argparse): Parser to add argument.
+
+        Returns:
+            argsparse: Parser with argument.
+        """
+        parser = args_path_return(parser)
+        return parser
+
+    def check_args(self, args: argparse.Namespace) -> None:
+        """
+        Checking the arguments to ensure that the request for
+        conical file is achievable.
+
+        Args:
+            arg (Namespace): Args of parser.
+        """
+        check_args_shot(args)
+        check_args_gen(args)
+
+        if args.epsg is None or args.pathgeoid is None:
+            ms = "You must enter the EPSG code and path of geoîde to make the changes."
+            raise ValueError(ms)
+
+    def write(self, args: argparse.Namespace, work: Worksite) -> None:
+        """
+        Converte Worksite in Conical class and save it in CON.
+
+        Args:
+            args (argparse.Namespace): Parameter.
+            work (Worksite): The site to be recorded.
+        """
+
+        if work.epsg_output:
+            epsg_output = ProjEngine().epsg_output
+        else:
+            epsg_output = ProjEngine().epsg[0]
+
+        work.set_unit_output(type_z="altitude", linear_alteration=True)
+        geoview_proj = search_info("EPSG", str(epsg_output), "GEOVIEW")
+
+        for name_shot, shot in work.shots.items():
+            cam = work.cameras[shot.name_cam]
+            path_conical = os.path.join(check_path(args.path_return), f"{name_shot}.CON")
+
+            Conl(shot, cam, geoview_proj).save_conl(path_conical)

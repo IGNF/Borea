@@ -1,15 +1,24 @@
 """
 Class module for Rpc
 """
+import argparse
+import os
+
 import numpy as np
+from borea.args_process.p_add_data.p_gen_param import check_args_gen
+from borea.args_process.p_add_data.p_unit_shot import check_args_shot
+from borea.args_process.p_format.p_write import args_path_return
 from borea.datastruct.shot import Shot
 from borea.datastruct.camera import Camera
+from borea.format.strategy.interface import FileWriter
 from borea.geodesy.proj_engine import ProjEngine
 from borea.datastruct.dtm import Dtm
 from borea.transform_world_image.transform_shot.image_world_shot import ImageWorldShot
 from borea.transform_world_image.transform_shot.world_image_shot import WorldImageShot
+from borea.utils.check.check_path import check_path
 from borea.utils.miscellaneous.miscellaneous import normalize
 from borea.utils.solver.solver import npsolve
+from borea.worksite.worksite import Worksite
 
 
 class Rpc:
@@ -250,3 +259,91 @@ class Rpc:
             mat_a2.append(ligne_a * -img_norm * world_norm[2] * world_norm[2] * world_norm[2])
 
         return np.concatenate((np.array(mat_a1), np.array(mat_a2)), axis=0).T
+
+
+class RpcWriter(FileWriter):
+    """
+    Manage to write RPC file
+    """
+    def args(self, parser: argparse) -> argparse:
+        """
+        Args for writing rpc file.
+
+        Args:
+            parser (argparse): Parser to add argument.
+
+        Returns:
+            argsparse: Parser with argument.
+        """
+        parser = args_path_return(parser)
+        parser.add_argument('-o', '--order',
+                            type=int, default=3, choices=[1, 2, 3],
+                            help="Degree of the polynomial of the rpc (1, 2, 3)")
+        parser.add_argument('-d', '--size_grid',
+                            type=int, default=100,
+                            help="Size of the grid to calculate Rpc.")
+        parser.add_argument('-l', '--fact_rpc',
+                            type=float, default=None,
+                            help="Factor Rpc for pyproj convertion.")
+        return parser
+
+    def check_args(self, args: argparse.Namespace) -> None:
+        """
+        Checking the arguments to ensure that the request for RPC is achievable.
+
+        Args:
+            arg (Namespace): Args of parser.
+        """
+        check_args_gen(args)
+        check_args_shot(args)
+
+        if args.epsg is None or args.pathgeoid is None:
+            ms = "You must enter the EPSG code and path of geoîde to make the changes."
+            raise ValueError(ms)
+
+        if args.size_grid <= 0:
+            raise ValueError("Size of grid must be greater than zero.")
+
+    def write(self, args: argparse.Namespace, work: Worksite) -> None:
+        """
+        Converte Worksite in RPC class and save it in txt.
+
+        Args:
+             args (argparse.Namespace): Parameter.
+            work (Worksite): The site to be recorded.
+        """
+        keys = ["ERR_BIAS", "ERR_RAND", "LINE_OFF", "SAMP_OFF",
+                "LAT_OFF", "LONG_OFF", "HEIGHT_OFF", "LINE_SCALE",
+                "SAMP_SCALE", "LAT_SCALE", "LONG_SCALE",
+                "HEIGHT_SCALE"]
+
+        param_rpc = {"epsg_output": work.epsg_output,
+                     "size_grid": args.size_grid,
+                     "order": args.order,
+                     "fact_rpc": args.fact_rpc}
+
+        work.set_unit_output(type_z=Dtm().type_dtm, proj_output=False)
+
+        for name_shot, shot in work.shots.items():
+            cam = work.cameras[shot.name_cam]
+
+            rpc = Rpc.from_shot(shot, cam, param_rpc,
+                                {"unit_z_data": work.type_z_data, "unit_z_shot": work.type_z_shot})
+
+            list_txt_rpc = [f"{key}: {rpc.param_rpc[key]}" for key in keys]
+
+            for idx, val in enumerate(rpc.param_rpc["LINE_NUM_COEFF"]):
+                list_txt_rpc += [f"LINE_NUM_COEFF_{idx + 1}: {val}"]
+
+            for idx, val in enumerate(rpc.param_rpc["LINE_DEN_COEFF"]):
+                list_txt_rpc += [f"LINE_DEN_COEFF_{idx + 1}: {val}"]
+
+            for idx, val in enumerate(rpc.param_rpc["SAMP_NUM_COEFF"]):
+                list_txt_rpc += [f"SAMP_NUM_COEFF_{idx + 1}: {val}"]
+
+            for idx, val in enumerate(rpc.param_rpc["SAMP_DEN_COEFF"]):
+                list_txt_rpc += [f"SAMP_DEN_COEFF_{idx + 1}: {val}"]
+
+            path_rpc = os.path.join(check_path(args.path_return),
+                                    f"{name_shot}_RPC.TXT")
+            check_path(path_rpc).write_text("\n".join(list_txt_rpc), encoding="UTF-8")

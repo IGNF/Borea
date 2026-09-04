@@ -6,16 +6,16 @@ import pandas as pd
 from borea.utils.check.check_path import check_path
 
 
-def write_df_to_txt(name: str, pathreturn: str, df: pd.DataFrame) -> None:
+def write_df_to_txt(name: str, path_return: str, df: pd.DataFrame) -> None:
     """
     Writing DataFrame to txt in column.
 
     Args:
         name (str): Name of the file.
-        pathreturn (str): Path to save the file.
+        path_return (str): Path to save the file.
         df (pd.DataFrame): DataFrame to save.
     """
-    path_txt = os.path.join(check_path(pathreturn), f"{name}.txt")
+    path_txt = os.path.join(check_path(path_return), f"{name}.txt")
 
     name_column = list(df.columns)
 

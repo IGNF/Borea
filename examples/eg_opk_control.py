@@ -18,7 +18,7 @@ from borea.transform_world_image.transform_worksite.world_image_work import Worl
 OUTPUT_PATH = "./test/tmp"
 
 
-def opk_control(pathreturn: str, type_control: list) -> None:
+def opk_control(path_return: str, type_control: list) -> None:
     """
     The Stat().main_stat_and_save() function produces statistics on the results
     of world-to-image and image-to-world transformations on gcp.
@@ -39,7 +39,7 @@ def opk_control(pathreturn: str, type_control: list) -> None:
     ImageWorldWork(work).manage_image_world(type_point="gcp2d")
 
     # Calculate stat on world_to_image and image_to_world
-    Stat(work, pathreturn, type_control).main_stat_and_save()
+    Stat(work, path_return, type_control).main_stat_and_save()
 
 
 if __name__ == "__main__":

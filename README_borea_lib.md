@@ -66,9 +66,9 @@ Once the object has been created, you can add other data to it:
     * `epsg` the code epsg e.g. 2154
     * `path_geoid` path to the file pyproj GeoTIFF of geoid
 
-* The camera with `read_camera([filepath], worksite)` in `from borea.reader.reader_camera import read_camera`, this function only reads txt and xml files referencing camera data, and can take several camera files if there are several.
+* The camera with `read_camera([file_path], worksite)` in `from borea.reader.reader_camera import read_camera`, this function only reads txt and xml files referencing camera data, and can take several camera files if there are several.
 
-* Link points with `read_file_pt(filepath, header, type_point, worksite)` in `from borea.reader.reader_point import read_file_pt`. this function reads all .txt, .mes, .app and other file types, as long as the data structure in the file is column-based and delimited by spaces. The first args is the file path of one file. The second is the column type in the file detail of letter at section [header of point file](#header-of-point-file) below. The third is the type of point **'co_points'** for connecting points, **'gcp2d'** for coordinnate of gcp in images and **'gcp3d'** for gcp coordinate in the ground. And the last args is the worksite where data will be save.
+* Link points with `read_file_pt(file_path, header, type_point, worksite)` in `from borea.reader.reader_point import read_file_pt`. this function reads all .txt, .mes, .app and other file types, as long as the data structure in the file is column-based and delimited by spaces. The first args is the file path of one file. The second is the column type in the file detail of letter at section [header of point file](#header-of-point-file) below. The third is the type of point **'co_points'** for connecting points, **'gcp2d'** for coordinnate of gcp in images and **'gcp3d'** for gcp coordinate in the ground. And the last args is the worksite where data will be save.
 
 * Add Dtm to your worksite `work.set_dtm(path_dtm, type_dtm)`, It converts z data between gcp and acquisition position if these are not in the same unit (one in altitude and one in height). `type_dtm` is the unit of the dtm 'altitude' or 'height'.
 
@@ -108,16 +108,16 @@ The DataFrame **pt3d** is a table with 5 column and n line. The id of column mus
 The dictionary **pinit** which give the initialization point X, Y, Z. A point on the worksite with a z at an approximate flying height. The name of the key in the dictionary is `coor_init`.  
 Example at the end of explanation of function [file](https://github.com/IGNF/Borea/tree/main/examples/eg_space_resection.py) l.38.
 
-* You can calculate some control point statistics to see how accurate your site is `stat = Stat(work, pathreturn, control_type)` to init the object and run for all stat with `stat.main_stat_and_save()`. Make stat on function image to world and world to image, if there are data. And save result on *pathreturn/Stat_{Name_worksite}.txt*.
+* You can calculate some control point statistics to see how accurate your site is `stat = Stat(work, path_return, control_type)` to init the object and run for all stat with `stat.main_stat_and_save()`. Make stat on function image to world and world to image, if there are data. And save result on *path_return/Stat_{Name_worksite}.txt*.
 
 Examples in section [examples](#examples) below.
 
 ## Write data
 
-* Can write worksite object as different format OPK, RPC, Conical for GEOVIEW. The function is `manager_reader(writer, name, pathreturn, args, work)` in `from borea.writer.manage_writer import manager_writer`:
+* Can write worksite object as different format OPK, RPC, Conical for GEOVIEW. The function is `manager_reader(writer, name, path_return, args, work)` in `from borea.writer.manage_writer import manager_writer`:
     * `writer` (str), is the type of output `"opk"`, `"rpc"`, `"con"`.
     * `name` (str), name of file to save, just to save in opk, for other format this args isn't read.
-    * `pathreturn` (str), path of folder where you want to save data.
+    * `path_return` (str), path of folder where you want to save data.
     * `args` (dict), Dictionary with different args for the format to save, detail at setion [args for writing file](#args-for-writing-file) below.
     * `work` (Worksite), the worksite to save.
 

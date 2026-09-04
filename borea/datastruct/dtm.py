@@ -74,7 +74,7 @@ class Dtm(WorldImageDtm, metaclass=Singleton):
         Value to fill past edges of dtm or nodata.
         If None raise an error for any point outside the dtm or Nodata.
 
-        Args
+        Args:
             cval (int): Value to fill past edges of dtm or nodata.
         """
         self.cval = cval if cval else np.nan

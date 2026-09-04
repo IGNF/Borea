@@ -5,7 +5,7 @@ import argparse
 
 from borea.process.p_add_data.p_file_gcp3d import args_gcp3d
 from borea.process.p_add_data.p_proj import args_proj_param
-from borea.process.p_add_data.p_write import args_writer
+from borea.process.p_format.p_write import args_writer
 from borea.reader.reader_point import read_file_pt_dataframe
 from borea.geodesy.proj_engine import ProjEngine
 from borea.writer.writer_df_to_txt import write_df_to_txt

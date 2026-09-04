@@ -3,7 +3,7 @@ Args of parser for writing opk file
 """
 import argparse
 from borea.process.p_add_data.p_unit_shot import args_output_shot
-from borea.process.p_add_data.p_write import args_writer
+from borea.process.p_format.p_write import args_writer
 from borea.worksite.worksite import Worksite
 from borea.writer.manage_writer import manager_writer
 

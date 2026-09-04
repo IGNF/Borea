@@ -7,7 +7,7 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from borea.process.p_add_data.p_write import args_writer  # noqa: E402
+from borea.process.p_format.p_write import args_writer  # noqa: E402
 from borea.reader.orientation.manage_reader import reader_orientation  # noqa: E402
 from borea.writer.manage_writer import manager_writer  # noqa: E402
 

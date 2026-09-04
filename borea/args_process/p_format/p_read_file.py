@@ -19,66 +19,8 @@ def args_reading(parser: argparse) -> argparse:
         argsparse: Parser with argument.
     """
     # pylint: disable=duplicate-code
-    parser.add_argument('-r', '--filepath',
+    parser.add_argument('-r', '--filepath', required=True,
                         type=str, help='File path of the workfile.')
-    return parser
-
-
-# ---- Arg and process for OPK ----
-def args_reading_opk(parser: argparse) -> argparse:
-    """
-    Args for reading opk file.
-
-    Args:
-        parser (argparse): Parser to add argument.
-
-    Returns:
-        argsparse: Parser with argument.
-    """
-    parser = args_reading(parser)
-    parser.add_argument('-i', '--header',
-                        type=str, default="NXYZOPKC",
-                        help='Type of each column in the site file.'
-                        'e.g. NXYZOPKC'
-                        'S: to ignore the column'
-                        'N: name of shot'
-                        'X: coordinate x of the shot position'
-                        'Y: coordinate y of the shot position'
-                        'Z: coordinate z of the shot position in altitude'
-                        'H: coordinate z of the shot position in height'
-                        'O: omega rotation angle'
-                        'P: phi rotation angle'
-                        'K: kappa rotation angle'
-                        'C: name of the camera')
-    parser.add_argument('-f', '--first_line',
-                        type=int, default=1,
-                        help='Line number to start file playback. First line in the file is 1.'
-                             ' Does not take file header into account.')
-    parser.add_argument('-z', '--last_line',
-                        type=int, default=None,
-                        help='Line number to end file playback.'
-                             ' If not set, all lines below -f will be read.')
-    parser = args_input_shot(parser)
-    parser = args_general_param(parser)
-    return parser
-
-
-# ---- Args for Micmac xml ----
-def args_reading_mm(parser: argparse) -> argparse:
-    """
-    Args for reading opk file.
-
-    Args:
-        parser (argparse): Parser to add argument.
-
-    Returns:
-        argsparse: Parser with argument.
-    """
-    parser = args_reading(parser)
-    parser.add_argument('-i', '--type_z',
-                        type=str, default="Z",
-                        help='Type of z in data '
-                        'Z for altitud and H for height.')
     return parser
 
 

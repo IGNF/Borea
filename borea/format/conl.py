@@ -1,15 +1,23 @@
 """
 Class to write shot in conical IGN format
 """
+import argparse
 from datetime import datetime
+import os
 from pathlib import Path
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 
 import numpy as np
+from borea.args_process.p_format.p_write import args_pathreturn
 from borea.datastruct.camera import Camera
 from borea.datastruct.shot import Shot
+from borea.format.strategy.interface import FileWriter
+from borea.geodesy.proj_engine import ProjEngine
+from borea.geodesy.projectionlist.search_proj import search_info
+from borea.utils.check.check_path import check_path
 from borea.utils.xml.xml import format_xml, indent, add_elem
+from borea.worksite.worksite import Worksite
 
 B_TIME = ["year", "month", "day", "hour", "minute", "second", "time_system"]
 B_PT3D = ["x", "y", "z"]
@@ -137,3 +145,47 @@ class Conl:
         add_elem(ppa, B_CAM, [int(self.cam.ppax), int(self.cam.ppay), int(self.cam.focal)])
 
         ET.SubElement(sensor, "pixel_size").text = str(0.000004)
+
+
+class ConlWriter(FileWriter):
+    """
+    Manage to write conical IGN format
+    """
+    def args(self, parser: argparse) -> argparse:
+        """
+        Args for writing conical file.
+    
+        Args:
+            parser (argparse): Parser to add argument.
+    
+        Returns:
+            argsparse: Parser with argument.
+        """
+        parser = args_pathreturn(parser)
+        return parser
+
+    def write(self, name: str, folder_con: str, param_con: dict, work: Worksite) -> None:
+        """
+        Converte Worksite in Conical class and save it in CON.
+
+        Args:
+            name (str): Name of file begin.
+            folder_con (str): Path of folder to registration file .CON.
+            param_con (dict): None.
+            work (Worksite): The site to be recorded.
+        """
+        _, _ = name, param_con
+
+        if work.epsg_output:
+            epsg_output = ProjEngine().epsg_output
+        else:
+            epsg_output = ProjEngine().epsg[0]
+
+        work.set_unit_output(type_z="altitude", linear_alteration=True)
+        geoview_proj = search_info("EPSG", str(epsg_output), "GEOVIEW")
+
+        for name_shot, shot in work.shots.items():
+            cam = work.cameras[shot.name_cam]
+            path_conical = os.path.join(check_path(folder_con), f"{name_shot}.CON")
+
+            Conl(shot, cam, geoview_proj).save_conl(path_conical)

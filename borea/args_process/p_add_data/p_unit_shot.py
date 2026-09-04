@@ -15,13 +15,13 @@ def args_input_shot(parser: argparse) -> argparse:
         argsparse: Parser with argument.
     """
     parser.add_argument('-b', '--order_axe_input',
-                        type=str, default="opk",
+                        type=str, default=None,
                         help="Order of rotation matrix axes.")
     parser.add_argument('-u', '--unit_angle',
-                        type=str, default="degree", choices=['degree', 'radian'],
+                        type=str, default=None, choices=['degree', 'radian', None],
                         help="Unit of the angle of shooting, 'degree' or 'radian'.")
     parser.add_argument('-a', '--linear_alteration',
-                        type=bool, default=True,
+                        type=bool, default=None,
                         help="True if z shot corrected by linear alteration.")
     return parser
 

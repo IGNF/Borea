@@ -21,7 +21,21 @@ def args_reading(parser: argparse) -> argparse:
     # pylint: disable=duplicate-code
     parser.add_argument('-r', '--filepath',
                         type=str, help='File path of the workfile.')
-    # Args to read OPK
+    return parser
+
+
+# ---- Arg and process for OPK ----
+def args_reading_opk(parser: argparse) -> argparse:
+    """
+    Args for reading opk file.
+
+    Args:
+        parser (argparse): Parser to add argument.
+
+    Returns:
+        argsparse: Parser with argument.
+    """
+    parser = args_reading(parser)
     parser.add_argument('-i', '--header',
                         type=str, default="NXYZOPKC",
                         help='Type of each column in the site file.'
@@ -49,6 +63,26 @@ def args_reading(parser: argparse) -> argparse:
     return parser
 
 
+# ---- Args for Micmac xml ----
+def args_reading_mm(parser: argparse) -> argparse:
+    """
+    Args for reading opk file.
+
+    Args:
+        parser (argparse): Parser to add argument.
+
+    Returns:
+        argsparse: Parser with argument.
+    """
+    parser = args_reading(parser)
+    parser.add_argument('-i', '--type_z',
+                        type=str, default="Z",
+                        help='Type of z in data '
+                        'Z for altitud and H for height.')
+    return parser
+
+
+# ---- Process args ----
 def process_args_read(args: argparse) -> Worksite:
     """
     Processing args with data.

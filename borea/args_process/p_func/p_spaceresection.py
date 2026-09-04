@@ -4,14 +4,14 @@ Args of parser to calcule 6 externals parameters of shots.
 import argparse
 
 import numpy as np
-from borea.process.p_add_data.p_file_gcp2d import args_gcp2d
-from borea.process.p_add_data.p_gen_param import args_general_param, process_args_gen_param
-from borea.process.p_add_data.p_pt3d import args_add_pt3d
+from borea.args_process.p_add_data.p_file_gcp2d import args_gcp2d
+from borea.args_process.p_add_data.p_gen_param import args_general_param, process_args_gen_param
+from borea.args_process.p_add_data.p_pt3d import args_add_pt3d
 from borea.reader.reader_point import read_file_pt_dataframe
 from borea.transform_world_image.transform_worksite.space_resection import SpaceResection
 from borea.utils.check.check_args import check_header_file
 from borea.worksite.worksite import Worksite
-from borea.process.p_add_data.p_file_gcp3d import args_gcp3d
+from borea.args_process.p_add_data.p_file_gcp3d import args_gcp3d
 
 
 def args_space_resection(parser: argparse) -> argparse:

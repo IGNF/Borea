@@ -2,8 +2,8 @@
 Args of parser for reading opk file
 """
 import argparse
-from borea.process.p_add_data.p_gen_param import args_general_param, process_args_gen_param
-from borea.process.p_add_data.p_unit_shot import args_input_shot
+from borea.args_process.p_add_data.p_gen_param import args_general_param, process_args_gen_param
+from borea.args_process.p_add_data.p_unit_shot import args_input_shot
 from borea.worksite.worksite import Worksite
 from borea.reader.orientation.manage_reader import reader_orientation
 

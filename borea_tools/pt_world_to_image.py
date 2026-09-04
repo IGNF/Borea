@@ -7,8 +7,8 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from borea.process.p_add_data.p_add_shot import args_add_shot, process_add_shot  # noqa: E402
-from borea.process.p_add_data.p_pt3d import args_add_pt3d, process_world_image  # noqa: E402
+from borea.args_process.p_add_data.p_add_shot import args_add_shot, process_add_shot  # noqa: E402
+from borea.args_process.p_add_data.p_pt3d import args_add_pt3d, process_world_image  # noqa: E402
 
 
 def pt_world_to_image():

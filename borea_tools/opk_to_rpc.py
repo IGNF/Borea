@@ -7,8 +7,8 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from borea.process.p_format.p_read_file import args_reading, process_args_read  # noqa: E402
-from borea.process.p_format.p_write_rpc import args_writing_rpc, process_args_write_rpc  # noqa: E402, E501
+from borea.args_process.p_format.p_read_file import args_reading, process_args_read  # noqa: E402
+from borea.args_process.p_format.p_write_rpc import args_writing_rpc, process_args_write_rpc  # noqa: E402, E501
 
 
 def opk_to_rpc():

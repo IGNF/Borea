@@ -3,8 +3,8 @@ Args of parser to control file
 """
 import argparse
 from borea.worksite.worksite import Worksite
-from borea.process.p_add_data.p_file_gcp2d import args_gcp2d, process_gcp2d
-from borea.process.p_add_data.p_file_gcp3d import args_gcp3d, process_gcp3d
+from borea.args_process.p_add_data.p_file_gcp2d import args_gcp2d, process_gcp2d
+from borea.args_process.p_add_data.p_file_gcp3d import args_gcp3d, process_gcp3d
 from borea.stat.statistics import Stat
 from borea.transform_world_image.transform_worksite.world_image_work import WorldImageWork
 from borea.transform_world_image.transform_worksite.image_world_work import ImageWorldWork

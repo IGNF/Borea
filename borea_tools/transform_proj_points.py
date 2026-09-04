@@ -7,7 +7,7 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from borea.process.p_func.p_tf_proj_pt import args_tf_proj_param, process_tf_proj_param  # noqa: E402, E501
+from borea.args_process.p_func.p_tf_proj_pt import args_tf_proj_param, process_tf_proj_param  # noqa: E402, E501
 
 
 def transform_proj_pt():

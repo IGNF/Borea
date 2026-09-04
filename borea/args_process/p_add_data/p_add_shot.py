@@ -3,8 +3,8 @@ Args of parser for adding one shot
 """
 import argparse
 import numpy as np
-from borea.process.p_add_data.p_gen_param import args_general_param, process_args_gen_param
-from borea.process.p_add_data.p_unit_shot import args_input_shot
+from borea.args_process.p_add_data.p_gen_param import args_general_param, process_args_gen_param
+from borea.args_process.p_add_data.p_unit_shot import args_input_shot
 from borea.worksite.worksite import Worksite
 
 

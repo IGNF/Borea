@@ -3,7 +3,7 @@ Args of parser for reading generals parameters
 """
 import argparse
 from borea.worksite.worksite import Worksite
-from borea.process.p_add_data.p_proj import args_proj_param, process_args_proj_param
+from borea.args_process.p_add_data.p_proj import args_proj_param, process_args_proj_param
 from borea.reader.reader_camera import read_camera
 
 

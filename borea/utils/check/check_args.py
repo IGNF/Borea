@@ -1,6 +1,8 @@
 """
 A script for verification header str in manage reader.
 """
+import argparse
+
 from borea.utils.check.check_header import check_head, check_h_z, get_type_z_and_header
 
 
@@ -34,19 +36,20 @@ def check_args_opk(args: dict) -> tuple:
     return args, header, type_z
 
 
-def check_header_file(header: list) -> tuple:
+def check_header_file(header: str) -> tuple:
     """
     Check if the header of the file is good.
 
     Args:
-        header (list): List of column type file.
+        header (str): str of column type file.
 
     Returns:
         tuple: Header without type, type of z, type of angle.
     """
     list_letter = ['S', 'N', 'X', 'Y', 'Z', 'H', 'O', 'P', 'K', 'C']
 
-    bad_head, ms_error_letter, head, symbol = check_head(header, list_letter)
+    header = list(header.upper())
+    bad_head, ms_error_letter, symbol = check_head(header, list_letter)
 
     misss = set(list_letter[1:]) - symbol
     bad_head, ms_error_letter = check_h_z(bad_head, misss, ms_error_letter)
@@ -56,4 +59,24 @@ def check_header_file(header: list) -> tuple:
     if bad_head:
         raise ValueError(ms_error)
 
-    return get_type_z_and_header(head)
+    return get_type_z_and_header(header)
+
+
+def check_output_input_args(args: argparse.Namespace, iname: str, oname: str):
+    """
+    Check the arguments provided to ensure that,
+    if the output parameter is valid, the input parameter has also been provided
+
+    Args:
+        args (argparse.Namespace): Args of parser.
+        iname (str): Name of input parameter.
+        oname (str): Name of output parameter.
+    """
+    ival = getattr(args, iname)
+    oval = getattr(args, oname)
+
+    if oval is None:
+        return
+
+    if ival is None:
+        raise ValueError(f"Parameter {iname} must be entered")

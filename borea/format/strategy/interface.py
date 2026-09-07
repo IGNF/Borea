@@ -12,6 +12,10 @@ class FileReader(ABC):
         ...
 
     @abstractmethod
+    def check_args(self, args: argparse.Namespace) -> None:
+        ...
+
+    @abstractmethod
     def read(self, path: str) -> Worksite:
         ...
 
@@ -19,6 +23,10 @@ class FileReader(ABC):
 class FileWriter(ABC):
     @abstractmethod
     def args(self, parser: argparse) -> argparse:
+        ...
+
+    @abstractmethod
+    def check_args(self, args: argparse.Namespace) -> None:
         ...
 
     @abstractmethod

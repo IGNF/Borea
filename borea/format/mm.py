@@ -7,10 +7,11 @@ import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 import numpy as np
-from borea.args_process.p_add_data.p_gen_param import args_general_param
+from borea.args_process.p_add_data.p_gen_param import args_general_param, process_args_gen_param
 from borea.args_process.p_add_data.p_unit_shot import args_input_shot
 from borea.args_process.p_format.p_read_file import args_reading
 from borea.format.strategy.interface import FileReader
+from borea.utils.check.check_header import get_type_z_and_header
 from borea.utils.miscellaneous.miscellaneous import convert_3val_to_float
 from borea.worksite.worksite import Worksite
 
@@ -31,14 +32,30 @@ class MmReader(FileReader):
         """
         parser = args_reading(parser)
         parser.add_argument('-i', '--type_z',
-                            type=str, default="Z",
+                            type=str, default=None,
+                            choices=[None, "Z", "H"],
                             help='Type of z in data '
                             'Z for altitud and H for height.')
         parser = args_input_shot(parser)
         parser = args_general_param(parser)
         return parser
 
-    def read(self, path: Path, work: Worksite) -> Worksite:
+    def check_args(self, args: argparse.Namespace) -> None:
+        """
+        Check arguments to read opk file
+
+        Args:
+            args (argparse.Namespace): All the function’s parameters.
+        """
+        try:
+            re.compile(Path(args.file_path).name)
+        except re.error as error:
+            raise ValueError(f"Le regex {args.file_path} n'est pas valide") from error
+
+        if args.type_z in ["H", "Z"]:
+            _, args.type_z = get_type_z_and_header(args.type_z)
+
+    def read(self, args: argparse.Namespace) -> Worksite:
         """
         Reads an xml images to transform it into a Workside object.
 
@@ -49,9 +66,11 @@ class MmReader(FileReader):
         Returns:
             Worksite: The worksite.
         """
-        pattern = path.name
-        regex = re.compile(pattern)
+        path = Path(args.file_path)
+        regex = re.compile(path.name)
         path_dir = path.parent
+
+        work = Worksite(path_dir.name)
         # browse all images
         for name_file in os.listdir(path_dir):
             if regex.match(name_file):
@@ -70,6 +89,8 @@ class MmReader(FileReader):
                 opk = np.array(convert_3val_to_float(opk))
                 # add shot
                 work.add_shot(name_image, xyz, opk, camera, "degree",
-                            True, "opk")
+                              True, "opk")
 
+        work.type_z_shot = args.type_z
+        work = process_args_gen_param(args, work)
         return work

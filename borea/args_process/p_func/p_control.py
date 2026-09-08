@@ -29,7 +29,7 @@ def args_control(parser: argparse) -> argparse:
                         type=str, default="inter", choices=["inter", "square"],
                         help="Type of process for the function image to world,"
                              "intersection or least_square")
-    parser.add_argument('-w', '--pathreturn',
+    parser.add_argument('-w', '--path_return',
                         type=str, default='./',
                         help='Conversion path e.g. test/tmp/.')
     return parser
@@ -61,7 +61,7 @@ def process_args_control(args, work: Worksite) -> None:
 
     # Statistics
     print("Make statistics.")
-    stat = Stat(work, args.pathreturn, args.control_type)
+    stat = Stat(work, args.path_return, args.control_type)
     stat.main_stat_and_save()
     print("Statistics on control point, if there are,")
-    print(f" in {args.pathreturn}Stat_module_{work.name}.txt .")
+    print(f" in {args.path_return}Stat_module_{work.name}.txt .")

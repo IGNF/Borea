@@ -5,7 +5,9 @@ import argparse
 import os
 
 import numpy as np
-from borea.args_process.p_format.p_write import args_pathreturn
+from borea.args_process.p_add_data.p_gen_param import check_args_gen
+from borea.args_process.p_add_data.p_unit_shot import check_args_shot
+from borea.args_process.p_format.p_write import args_path_return
 from borea.datastruct.shot import Shot
 from borea.datastruct.camera import Camera
 from borea.format.strategy.interface import FileWriter
@@ -273,7 +275,7 @@ class RpcWriter(FileWriter):
         Returns:
             argsparse: Parser with argument.
         """
-        parser = args_pathreturn(parser)
+        parser = args_path_return(parser)
         parser.add_argument('-o', '--order',
                             type=int, default=3, choices=[1, 2, 3],
                             help="Degree of the polynomial of the rpc (1, 2, 3)")
@@ -285,28 +287,37 @@ class RpcWriter(FileWriter):
                             help="Factor Rpc for pyproj convertion.")
         return parser
 
-    def write(self, name: str, folder_rpc: str, param_rpc: dict, work: Worksite) -> None:
+    def check_args(self, args: argparse.Namespace) -> None:
+        """
+        Checking the arguments to ensure that the request is achievable.
+
+        Args:
+            arg (Namespace): Args of parser.
+        """
+        check_args_gen(args)
+        check_args_shot(args)
+
+        if args.epsg is None or args.pathgeoid is None:
+            ms = "You must enter the EPSG code and path of geoîde to make the changes."
+            raise ValueError(ms)
+
+    def write(self, args: argparse.Namespace, work: Worksite) -> None:
         """
         Converte Worksite in RPC class and save it in txt.
 
         Args:
-            name (str): Name of file begin.
-            folder_rpc (str): Path of folder to registration file .txt.
-            param_rpc (dict): Dictionary of parameters for rpc calculation.
-            key;
-            "size_grid"; size of the grip to calcule rpc.
-            "order"; order of the polynome of the rpc.
-            "fact_rpc"; rpc factor for world coordinate when src is not WGS84.
-            "epsg_output"; code epsg for RPC.
+             args (argparse.Namespace): Parameter.
             work (Worksite): The site to be recorded.
         """
-        _ = name
         keys = ["ERR_BIAS", "ERR_RAND", "LINE_OFF", "SAMP_OFF",
                 "LAT_OFF", "LONG_OFF", "HEIGHT_OFF", "LINE_SCALE",
                 "SAMP_SCALE", "LAT_SCALE", "LONG_SCALE",
                 "HEIGHT_SCALE"]
 
-        param_rpc["epsg_output"] = work.epsg_output
+        param_rpc = {"epsg_output": work.epsg_output,
+                     "size_grid": args.size_grid,
+                     "order": args.order,
+                     "fact_rpc": args.fact_rpc}
 
         work.set_unit_output(type_z=Dtm().type_dtm, proj_output=False)
 
@@ -330,6 +341,6 @@ class RpcWriter(FileWriter):
             for idx, val in enumerate(rpc.param_rpc["SAMP_DEN_COEFF"]):
                 list_txt_rpc += [f"SAMP_DEN_COEFF_{idx + 1}: {val}"]
 
-            path_rpc = os.path.join(check_path(folder_rpc),
+            path_rpc = os.path.join(check_path(args.path_return),
                                     f"{name_shot}_RPC.TXT")
             check_path(path_rpc).write_text("\n".join(list_txt_rpc), encoding="UTF-8")

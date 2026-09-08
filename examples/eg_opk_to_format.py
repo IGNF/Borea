@@ -13,12 +13,12 @@ from borea.writer.manage_writer import manager_writer  # noqa: E402
 OUTPUT_PATH = "./test/tmp"
 
 
-def convert_opk_to_format(format_output: str, name: str, pathreturn: str, args: dict) -> None:
+def convert_opk_to_format(format_output: str, name: str, path_return: str, args: dict) -> None:
     # Build opk
     work = worksite_opk()
 
     # Convert in new format
-    manager_writer(format_output, name, pathreturn, args, work)
+    manager_writer(format_output, name, path_return, args, work)
 
 
 if __name__ == "__main__":

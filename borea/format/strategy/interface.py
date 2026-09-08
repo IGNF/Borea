@@ -16,7 +16,7 @@ class FileReader(ABC):
         ...
 
     @abstractmethod
-    def read(self, path: str) -> Worksite:
+    def read(self, args: argparse.Namespace) -> Worksite:
         ...
 
 
@@ -30,5 +30,5 @@ class FileWriter(ABC):
         ...
 
     @abstractmethod
-    def write(self, work: Worksite, path: str) -> None:
+    def write(self, args: argparse.Namespace, work: Worksite) -> None:
         ...

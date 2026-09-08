@@ -45,4 +45,4 @@ def process_image_world(args, work: Worksite) -> None:
                                             type_process=args.process,
                                             control_type=None)
     df3d = work.get_point_world_dataframe("gcp2d", [])
-    write_df_to_txt(args.namereturn, args.pathreturn, df3d)
+    write_df_to_txt(args.name_return, args.path_return, df3d)

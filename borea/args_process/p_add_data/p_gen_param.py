@@ -33,6 +33,21 @@ def args_general_param(parser: argparse) -> argparse:
     return parser
 
 
+def check_args_gen(args: argparse.Namespace) -> None:
+    """
+    Checking the arguments of general param.
+    
+    Args:
+        arg (Namespace): Args of parser.
+    """
+    if args.camera is None:
+        raise ValueError("Parameter -c --camera must be completed.")
+    if args.dtm is None:
+        raise ValueError("Parameter -m --dtm must be completed.")
+    if args.fm is None:
+        raise ValueError("Parameter --fm must be completed.")
+
+
 def process_args_gen_param(args: argparse, work: Worksite) -> Worksite:
     """
     Processing args with data.
@@ -61,5 +76,6 @@ def process_args_gen_param(args: argparse, work: Worksite) -> Worksite:
     else:
         print("Not Dtm in the worksite.")
 
-    work.set_param_shot(args.approx_system)
+    if args.pathgeoid is not None:
+        work.set_param_shot(args.approx_system)
     return work

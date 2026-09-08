@@ -3,9 +3,10 @@ Class to process Opk files
 """
 import argparse
 import os
+from pathlib import Path
 import platform
 import numpy as np
-from borea.args_process.p_add_data.p_gen_param import args_general_param, process_args_gen_param
+from borea.args_process.p_add_data.p_gen_param import args_general_param, check_args_gen, process_args_gen_param
 from borea.args_process.p_add_data.p_unit_shot import args_input_shot, args_output_shot
 from borea.args_process.p_format.p_read_file import args_reading
 from borea.args_process.p_format.p_write import args_writer
@@ -64,22 +65,22 @@ class OpkReader(FileReader):
         Args:
             args (argparse.Namespace): All the function’s parameters.
         """
-        if not os.path.exists(args.filepath):
-            raise ValueError(f"The path to the OPK file is invalid: {args.filepath}")
+        if not os.path.exists(args.file_path):
+            raise ValueError(f"The path to the OPK file is invalid: {args.file_path}")
 
         if args.first_line is None or args.first_line < 0:
             raise ValueError(f"The value first_line {args.first_line} is invalid; it must be > 0")
 
         args.header, args.type_z = check_header_file(args.header)
 
-    def read(self, args: argparse.Namespace, work: Worksite) -> Worksite:
+    def read(self, args: argparse.Namespace) -> Worksite:
         """
         Reads an opk file to transform it into a Workside object.
 
         Args:
             args (argparse.Namespace): Information for reading an opk file.
                         keys:
-                        filepath (str): Path of the file.
+                        file_path (str): Path of the file.
                         order_axe (str): Order of rotation matrix axes.
                         first_line (int): First line to start to read the file.
                         last_line
@@ -90,12 +91,12 @@ class OpkReader(FileReader):
         Returns:
             Worksite: The worksite.
         """
-        # TODO: init Worksite
+        work = Worksite(Path(args.path_file).name)
 
         header = args.header
 
         try:
-            with open(args.filepath, 'r', encoding="utf-8") as file_opk:
+            with open(args.file_path, 'r', encoding="utf-8") as file_opk:
                 for item_opk in file_opk.readlines()[args.first_line:args.last_line]:
                     if item_opk != '\n' and item_opk[0] != '#':
                         item_shot = item_opk.split()
@@ -114,7 +115,7 @@ class OpkReader(FileReader):
                                       args.unit_angle, args.linear_alteration, args.order_axe)
                 file_opk.close()
         except FileNotFoundError as e:
-            raise FileNotFoundError(f"The path {args.filepath} is incorrect !!! "
+            raise FileNotFoundError(f"The path {args.file_path} is incorrect !!! "
                                     f"or your os is {platform.system()}. "
                                     "For Windows path is \\, "
                                     "for Linux and MacOS (Darwin) is / .") from e
@@ -156,7 +157,7 @@ class OpkWriter(FileWriter):
         parser = args_output_shot(parser)
         return parser
 
-    def check_args(self, args: argparse.Namespace) -> bool:
+    def check_args(self, args: argparse.Namespace) -> None:
         """
         Checking the arguments to ensure that the request is achievable.
 
@@ -166,6 +167,10 @@ class OpkWriter(FileWriter):
         if args.output_header is not None:
             args.output_header, args.output_type_z = check_header_file(args.output_header)
         else:
+            try:
+                args.header
+            except AttributeError:
+                args.header = list("NXYZOPKC")
             args.output_header = args.header
             args.output_type_z = args.type_z
 
@@ -183,12 +188,7 @@ class OpkWriter(FileWriter):
                 raise ValueError(ms)
 
         if cond_linear_alt:
-            if args.camera is not None:
-                raise ValueError("Parameter -c --camera must be completed.")
-            if args.dtm is not None:
-                raise ValueError("Parameter -m --dtm must be completed.")
-            if args.fm is not None:
-                raise ValueError("Parameter --fm must be completed.")
+            check_args_gen(args)
 
     def write(self, args: argparse.Namespace, work: Worksite) -> None:
         """
@@ -203,7 +203,7 @@ class OpkWriter(FileWriter):
                 "linear_alteration" (bool): True if data corrected by linear alteration.
             work (Worksite): The site to be recorded.
         """
-        path_opk = os.path.join(check_path(path_opk), f"{args.namereturn}.opk")
+        path_opk = os.path.join(check_path(args.path_return), f"{args.name_return}.opk")
     
         if "S" in args.output_header:
             raise ValueError("Letter S doesn't existe in writing header opk.")

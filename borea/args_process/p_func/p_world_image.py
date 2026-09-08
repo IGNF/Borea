@@ -46,4 +46,4 @@ def process_world_image(args, work: Worksite) -> None:
     WorldImageWork(work).calculate_world_to_image(args.control_type)
 
     df2d = work.get_point_image_dataframe("gcp3d", [])
-    write_df_to_txt(args.namereturn, args.pathreturn, df2d)
+    write_df_to_txt(args.name_return, args.path_return, df2d)

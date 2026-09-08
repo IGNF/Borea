@@ -65,8 +65,14 @@ def ofc():
             parser_read = output_parsers.add_parser(type_write, help=f"{type_write} type file to write")
             format_manager.add_args(parser_read, type_read, type_write)
 
+    # Get parameter
     args = parser.parse_args()
-    print(args)
+
+    # Check parameter
+    format_manager.check_args(args, args.type_input_file, args.type_output_file)
+
+    # convert format
+    format_manager.convert(args, args.type_input_file, args.type_output_file)
 
 
 if __name__ == "__main__":

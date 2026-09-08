@@ -19,7 +19,7 @@ def args_reading(parser: argparse) -> argparse:
         argsparse: Parser with argument.
     """
     # pylint: disable=duplicate-code
-    parser.add_argument('-r', '--filepath', required=True,
+    parser.add_argument('-r', '--file_path', required=True,
                         type=str, help='File path of the workfile.')
     return parser
 
@@ -36,9 +36,9 @@ def process_args_read(args: argparse) -> Worksite:
         Worksite: data
     """
     # Reading data
-    if args.filepath is not None:
+    if args.file_path is not None:
         if args.header is not None:
-            work = reader_orientation(args.filepath, {"order_axe": args.order_axe_input.lower(),
+            work = reader_orientation(args.file_path, {"order_axe": args.order_axe_input.lower(),
                                                       "interval": [args.first_line, args.last_line],
                                                       "header": list(args.header.upper()),
                                                       "unit_angle": args.unit_angle,

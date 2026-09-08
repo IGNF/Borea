@@ -9,7 +9,9 @@ import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 
 import numpy as np
-from borea.args_process.p_format.p_write import args_pathreturn
+from borea.args_process.p_add_data.p_gen_param import check_args_gen
+from borea.args_process.p_add_data.p_unit_shot import check_args_shot
+from borea.args_process.p_format.p_write import args_path_return
 from borea.datastruct.camera import Camera
 from borea.datastruct.shot import Shot
 from borea.format.strategy.interface import FileWriter
@@ -161,20 +163,32 @@ class ConlWriter(FileWriter):
         Returns:
             argsparse: Parser with argument.
         """
-        parser = args_pathreturn(parser)
+        parser = args_path_return(parser)
         return parser
 
-    def write(self, name: str, folder_con: str, param_con: dict, work: Worksite) -> None:
+    def check_args(self, args: argparse.Namespace) -> None:
+        """
+        Checking the arguments to ensure that the request is achievable.
+
+        Args:
+            arg (Namespace): Args of parser.
+        """
+        check_args_gen(args)
+        check_args_shot(args)
+
+        if args.epsg is None or args.pathgeoid is None:
+            ms = "You must enter the EPSG code and path of geoîde to make the changes."
+            raise ValueError(ms)
+        
+
+    def write(self, args: argparse.Namespace, work: Worksite) -> None:
         """
         Converte Worksite in Conical class and save it in CON.
 
         Args:
-            name (str): Name of file begin.
-            folder_con (str): Path of folder to registration file .CON.
-            param_con (dict): None.
+            args (argparse.Namespace): Parameter.
             work (Worksite): The site to be recorded.
         """
-        _, _ = name, param_con
 
         if work.epsg_output:
             epsg_output = ProjEngine().epsg_output
@@ -186,6 +200,6 @@ class ConlWriter(FileWriter):
 
         for name_shot, shot in work.shots.items():
             cam = work.cameras[shot.name_cam]
-            path_conical = os.path.join(check_path(folder_con), f"{name_shot}.CON")
+            path_conical = os.path.join(check_path(args.path_return), f"{name_shot}.CON")
 
             Conl(shot, cam, geoview_proj).save_conl(path_conical)

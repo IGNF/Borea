@@ -16,7 +16,15 @@ class FormatManager:
     def add_args(self, parser: argparse,
                  input_format: str, output_format: str) -> argparse:
         """
-        Add to parser arguments to read input_format and to write output format 
+        Add to parser arguments to read input_format and to write output format
+
+        Args:
+            parser (argparse): Parser for parameter.
+            input_format (str): Input type of format.
+            output_format (str): Output type of format.
+
+        Return:
+            Parser with argument for parameter
         """
         reader = self._registry.get_reader(input_format)
         writer = self._registry.get_writer(output_format)
@@ -25,13 +33,34 @@ class FormatManager:
         parser = writer.args(parser)
         return parser
 
-    def convert(self, path: str, input_format: str,
-                path_output: str, output_format: str) -> None:
+    def check_args(self, args: argparse.Namespace,
+                   input_format: str, output_format: str) -> None:
         """
-        Convert input_format to output_format
+        Check args for request
+
+        Args:
+            args (argparse.Namespace): Parameter.
+            input_format (str): Input type of format.
+            output_format (str): Output type of format.
         """
         reader = self._registry.get_reader(input_format)
         writer = self._registry.get_writer(output_format)
 
-        document = reader.read(path)
-        writer.write(document, path_output)
+        reader.check_args(args)
+        writer.check_args(args)
+
+    def convert(self, args: argparse.Namespace,
+                input_format: str, output_format: str) -> None:
+        """
+        Convert input_format to output_format
+
+        Args:
+            args (argparse.Namespace): Parameter.
+            input_format (str): Input type of format.
+            output_format (str): Output type of format.
+        """
+        reader = self._registry.get_reader(input_format)
+        writer = self._registry.get_writer(output_format)
+
+        work = reader.read(args)
+        writer.write(args, work)

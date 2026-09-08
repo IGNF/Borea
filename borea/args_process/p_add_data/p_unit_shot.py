@@ -26,6 +26,21 @@ def args_input_shot(parser: argparse) -> argparse:
     return parser
 
 
+def check_args_shot(args: argparse.Namesapce) -> None:
+    """ 
+    Checking the arguments of input args shot.
+
+    Args:
+        arg (Namespace): Args of parser.
+    """
+    if args.order_axe_input is None:
+        raise ValueError("Parameter -b --order_axe_input must be completed.")
+    if args.unit_angle is None:
+        raise ValueError("Parameter -u --unit_angle must be completed.")
+    if args.linear_alteration is None:
+        raise ValueError("Parameter -a --linear_alteration must be completed.")
+
+
 def args_output_shot(parser: argparse) -> argparse:
     """
     Args for reading opk file.

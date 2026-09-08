@@ -47,4 +47,4 @@ def process_tf_proj_param(args: argparse) -> None:
     new_df = ProjEngine().tf.transform_pt_proj(df, type_z, args.oz)
 
     # Write the new file
-    write_df_to_txt(args.namereturn, args.pathreturn, new_df)
+    write_df_to_txt(args.name_return, args.path_return, new_df)

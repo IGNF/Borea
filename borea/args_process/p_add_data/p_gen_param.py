@@ -36,7 +36,7 @@ def args_general_param(parser: argparse) -> argparse:
 def check_args_gen(args: argparse.Namespace) -> None:
     """
     Checking the arguments of general param.
-    
+
     Args:
         arg (Namespace): Args of parser.
     """

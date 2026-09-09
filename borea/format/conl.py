@@ -156,10 +156,10 @@ class ConlWriter(FileWriter):
     def args(self, parser: argparse) -> argparse:
         """
         Args for writing conical file.
-    
+
         Args:
             parser (argparse): Parser to add argument.
-    
+
         Returns:
             argsparse: Parser with argument.
         """
@@ -168,18 +168,18 @@ class ConlWriter(FileWriter):
 
     def check_args(self, args: argparse.Namespace) -> None:
         """
-        Checking the arguments to ensure that the request is achievable.
+        Checking the arguments to ensure that the request for
+        conical file is achievable.
 
         Args:
             arg (Namespace): Args of parser.
         """
-        check_args_gen(args)
         check_args_shot(args)
+        check_args_gen(args)
 
         if args.epsg is None or args.pathgeoid is None:
             ms = "You must enter the EPSG code and path of geoîde to make the changes."
             raise ValueError(ms)
-        
 
     def write(self, args: argparse.Namespace, work: Worksite) -> None:
         """

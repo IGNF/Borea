@@ -23,7 +23,7 @@ class FormatManager:
             input_format (str): Input type of format.
             output_format (str): Output type of format.
 
-        Return:
+        Returns:
             Parser with argument for parameter
         """
         reader = self._registry.get_reader(input_format)

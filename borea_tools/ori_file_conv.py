@@ -67,6 +67,7 @@ def ofc():
 
     # Get parameter
     args = parser.parse_args()
+    print(args)
 
     # Check parameter
     format_manager.check_args(args, args.type_input_file, args.type_output_file)

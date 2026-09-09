@@ -2,8 +2,7 @@
 Args of parser for reading opk file
 """
 import argparse
-from borea.args_process.p_add_data.p_gen_param import args_general_param, process_args_gen_param
-from borea.args_process.p_add_data.p_unit_shot import args_input_shot
+from borea.args_process.p_add_data.p_gen_param import process_args_gen_param
 from borea.worksite.worksite import Worksite
 from borea.reader.orientation.manage_reader import reader_orientation
 
@@ -38,11 +37,12 @@ def process_args_read(args: argparse) -> Worksite:
     # Reading data
     if args.file_path is not None:
         if args.header is not None:
-            work = reader_orientation(args.file_path, {"order_axe": args.order_axe_input.lower(),
-                                                      "interval": [args.first_line, args.last_line],
-                                                      "header": list(args.header.upper()),
-                                                      "unit_angle": args.unit_angle,
-                                                      "linear_alteration": args.linear_alteration})
+            work = reader_orientation(args.file_path,
+                                      {"order_axe": args.order_axe_input.lower(),
+                                       "interval": [args.first_line, args.last_line],
+                                       "header": list(args.header.upper()),
+                                       "unit_angle": args.unit_angle,
+                                       "linear_alteration": args.linear_alteration})
             print("Orientation file reading done.")
             print(f"Number of image: {len(work.shots)}")
         else:

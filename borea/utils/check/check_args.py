@@ -19,7 +19,7 @@ def check_args_opk(args: dict) -> tuple:
                      "unit_angle" (str): Unit of angle 'degrees' or 'radian'.
                      "linear_alteration" (bool): True if data corrected by linear alteration.
 
-    Return:
+    Returns:
         tuple: args, header and type of z shot.
     """
     if args["unit_angle"] not in ["degree", "radian"]:

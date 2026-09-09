@@ -99,10 +99,11 @@ class Shot:
         Returns:
             np.array: The rotation matrix.
         """
-        order_xyz = check_order_axe(self.order_axe)
-        rot = R.from_euler(order_xyz, -np.array(self.ori_shot), degrees=self.unit_angle == "degree")
-        rot = R.from_euler("x", np.pi) * rot
-        return rot.as_matrix()
+        if self.order_axe is not None:
+            order_xyz = check_order_axe(self.order_axe)
+            rot = R.from_euler(order_xyz, -np.array(self.ori_shot), degrees=self.unit_angle == "degree")
+            rot = R.from_euler("x", np.pi) * rot
+            return rot.as_matrix()
 
     def set_param_eucli_shot(self, approx: bool) -> None:
         """

@@ -289,7 +289,7 @@ class RpcWriter(FileWriter):
 
     def check_args(self, args: argparse.Namespace) -> None:
         """
-        Checking the arguments to ensure that the request is achievable.
+        Checking the arguments to ensure that the request for RPC is achievable.
 
         Args:
             arg (Namespace): Args of parser.
@@ -300,6 +300,9 @@ class RpcWriter(FileWriter):
         if args.epsg is None or args.pathgeoid is None:
             ms = "You must enter the EPSG code and path of geoîde to make the changes."
             raise ValueError(ms)
+
+        if args.size_grid <= 0:
+            raise ValueError("Size of grid must be greater than zero.")
 
     def write(self, args: argparse.Namespace, work: Worksite) -> None:
         """

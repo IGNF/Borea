@@ -18,7 +18,7 @@ def check_header_file(header: list, type_pt: str) -> tuple:
     type_z = None
     list_letter = ['S', 'N', 'X', 'Y', 'Z', 'H', 'P', 'T']
 
-    bad_head, ms_error_letter, _, symbol = check_head(header, list_letter)
+    bad_head, ms_error_letter, symbol = check_head(header, list_letter)
 
     if type_pt in ["gcp3d", "pt3d"]:
         ll_type = ['P', 'T', 'X', 'Y', 'Z', 'H']

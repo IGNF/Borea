@@ -6,14 +6,15 @@ import os
 from pathlib import Path
 import platform
 import numpy as np
-from borea.args_process.p_add_data.p_gen_param import args_general_param, check_args_gen, process_args_gen_param
+from borea.args_process.p_add_data.p_gen_param import (args_general_param,
+                                                       check_args_gen,
+                                                       process_args_gen_param)
 from borea.args_process.p_add_data.p_unit_shot import args_input_shot, args_output_shot
 from borea.args_process.p_format.p_read_file import args_reading
 from borea.args_process.p_format.p_write import args_writer
-from borea.utils.check.check_header import get_type_z_and_header
 from borea.utils.check.check_path import check_path
 from borea.worksite.worksite import Worksite
-from borea.utils.check.check_args import check_args_opk, check_header_file, check_output_input_args
+from borea.utils.check.check_args import check_header_file, check_output_input_args
 from borea.format.strategy.interface import FileReader, FileWriter
 
 
@@ -24,10 +25,10 @@ class OpkReader(FileReader):
     def args(self, parser: argparse) -> argparse:
         """
         Args for reading opk file.
-    
+
         Args:
             parser (argparse): Parser to add argument.
-    
+
         Returns:
             argsparse: Parser with argument.
         """
@@ -49,11 +50,11 @@ class OpkReader(FileReader):
         parser.add_argument('-f', '--first_line',
                             type=int, default=1,
                             help='Line number to start file playback. First line in the file is 1.'
-                                    ' Does not take file header into account.')
+                                 ' Does not take file header into account.')
         parser.add_argument('-z', '--last_line',
                             type=int, default=None,
                             help='Line number to end file playback.'
-                                    ' If not set, all lines below -f will be read.')
+                                 ' If not set, all lines below -f will be read.')
         parser = args_input_shot(parser)
         parser = args_general_param(parser)
         return parser
@@ -91,7 +92,7 @@ class OpkReader(FileReader):
         Returns:
             Worksite: The worksite.
         """
-        work = Worksite(Path(args.path_file).name)
+        work = Worksite(Path(args.file_path).name)
 
         header = args.header
 
@@ -101,8 +102,8 @@ class OpkReader(FileReader):
                     if item_opk != '\n' and item_opk[0] != '#':
                         item_shot = item_opk.split()
                         if len(item_shot) != len(header):
-                            raise ValueError(f"The number of columns in your file {len(item_shot)}"
-                                             " is different from the number of columns in your input"
+                            raise ValueError(f"The number of columns in your file {len(item_shot)} "
+                                             "is different from the number of columns in your input"
                                              f" format {len(header)}.")
                         work.add_shot(item_shot[header.index("N")],
                                       np.array([float(item_shot[header.index("X")]),
@@ -112,7 +113,7 @@ class OpkReader(FileReader):
                                                 float(item_shot[header.index("P")]),
                                                 float(item_shot[header.index("K")])], dtype=float),
                                       item_shot[header.index("C")],
-                                      args.unit_angle, args.linear_alteration, args.order_axe)
+                                      args.unit_angle, args.linear_alteration, args.order_axe_input)
                 file_opk.close()
         except FileNotFoundError as e:
             raise FileNotFoundError(f"The path {args.file_path} is incorrect !!! "
@@ -132,10 +133,10 @@ class OpkWriter(FileWriter):
     def args(self, parser: argparse) -> argparse:
         """
         Args for writing opk file.
-    
+
         Args:
             parser (argparse): Parser to add argument.
-    
+
         Returns:
             argsparse: Parser with argument.
         """
@@ -174,13 +175,12 @@ class OpkWriter(FileWriter):
             args.output_header = args.header
             args.output_type_z = args.type_z
 
-        check_output_input_args(args, "unit_angle", "output_unit_angle")
-        check_output_input_args(args, "order_axe", "order_axe_output")
-        check_output_input_args(args, "linear_alteration", "output_linear_alteration")
-        check_output_input_args(args, "unit_angle", "output_unit_angle")
+        check_output_input_args(args, "unit_angle", "ou")
+        check_output_input_args(args, "order_axe_input", "ob")
+        check_output_input_args(args, "linear_alteration", "oa")
 
-        cond_linear_alt = (args.output_linear_alteration is not None and
-                           args.output_linear_alteration != args.linear_alteration)
+        cond_linear_alt = (args.oa is not None and
+                           args.oa != args.linear_alteration)
 
         if args.type_z != args.output_type_z or cond_linear_alt:
             if args.epsg is None or args.pathgeoid is None:
@@ -189,11 +189,13 @@ class OpkWriter(FileWriter):
 
         if cond_linear_alt:
             check_args_gen(args)
+            if args.order_axe_input is None:
+                raise ValueError("Parameter order_axe_input must be entered")
 
     def write(self, args: argparse.Namespace, work: Worksite) -> None:
         """
         Write function, to save a photogrammetric site in .opk format.
-    
+
         Args:
             args (argparse.Namespace): Information for writing an opk file.
                 keys:
@@ -204,19 +206,19 @@ class OpkWriter(FileWriter):
             work (Worksite): The site to be recorded.
         """
         path_opk = os.path.join(check_path(args.path_return), f"{args.name_return}.opk")
-    
+
         if "S" in args.output_header:
             raise ValueError("Letter S doesn't existe in writing header opk.")
-    
+
         work.set_unit_output(args.output_type_z,
-                             args.unit_angle,
-                             args.linear_alteration,
-                             args.order_axe)
-    
+                             args.ou,
+                             args.oa,
+                             args.ob)
+
         header_file = ""
         for i in args.output_header:
             header_file += i + "   "
-    
+
         try:
             with open(path_opk, "w", encoding="utf-8") as file:
                 file.write(header_file)
@@ -239,7 +241,7 @@ class OpkWriter(FileWriter):
                             line_writing += "   "
                         else:
                             line_writing += "\n"
-    
+
                 file.write(line_writing)
             file.close()
         except FileNotFoundError as e:

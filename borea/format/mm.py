@@ -23,10 +23,10 @@ class MmReader(FileReader):
     def args(self, parser: argparse) -> argparse:
         """
         Args for reading opk file.
-    
+
         Args:
             parser (argparse): Parser to add argument.
-    
+
         Returns:
             argsparse: Parser with argument.
         """
@@ -66,6 +66,7 @@ class MmReader(FileReader):
         Returns:
             Worksite: The worksite.
         """
+        print("Mauvaise convention des données non prise en compte à retraivailler")
         path = Path(args.file_path)
         regex = re.compile(path.name)
         path_dir = path.parent
@@ -88,8 +89,8 @@ class MmReader(FileReader):
                 opk = info_image.find("WPK").text.strip().split(" ")
                 opk = np.array(convert_3val_to_float(opk))
                 # add shot
-                work.add_shot(name_image, xyz, opk, camera, "degree",
-                              True, "opk")
+                work.add_shot(name_image, xyz, opk, camera, args.unit_angle,
+                              args.linear_alteration, args.order_axe_input)
 
         work.type_z_shot = args.type_z
         work = process_args_gen_param(args, work)

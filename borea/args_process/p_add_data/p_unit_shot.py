@@ -26,8 +26,8 @@ def args_input_shot(parser: argparse) -> argparse:
     return parser
 
 
-def check_args_shot(args: argparse.Namesapce) -> None:
-    """ 
+def check_args_shot(args: argparse.Namespace) -> None:
+    """
     Checking the arguments of input args shot.
 
     Args:

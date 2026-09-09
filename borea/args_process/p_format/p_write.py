@@ -3,7 +3,6 @@ Args of parser to write file.
 """
 import argparse
 
-from borea.args_process.p_add_data.p_unit_shot import args_output_shot
 from borea.worksite.worksite import Worksite
 from borea.writer.manage_writer import manager_writer
 
@@ -66,9 +65,6 @@ def process_args_write(args: argparse, work: Worksite) -> None:
         print(f"File written in {args.path_return + args.name_return}.opk.")
     else:
         raise ValueError("The name of the saving file is missing -n.")
-
-
-
 
 
 def process_args_write_con(args: argparse, work: Worksite) -> None:

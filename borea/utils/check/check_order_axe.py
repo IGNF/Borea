@@ -41,7 +41,8 @@ def convert_opk_to_xyz(order_axe: str) -> str:
     Retuns:
         str: Order of ratation matrix axe for scipy.
     """
-    letter_conv = {"o": "x", "p": "y", "k": "z"}
+    letter_conv = {"o": "x", "p": "y", "k": "z",
+                   "O": "X", "P": "Y", "K": "Z"}
 
     form_xyz = ""
     for i in order_axe:
